@@ -1,0 +1,112 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysChannelDragManage </tpl> &gt;&gt; <tpl> $langSysChannelDragPicManage </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='channel_drag.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysChannelDragPicAdd </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-500">
+						<form action="channel_drag.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysChannelDragStyle </tpl>:</th>
+								<td class="it-1">
+									<select class="sele-2" name="search_style">
+										<option value=""><tpl> $langSysAll </tpl></option>
+                                        <tpl> foreach from=$style_array item=one key=key </tpl>
+                                        <option <tpl> if $condition.search_style eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+								<th class="wd"><tpl> $langSysChannelDragColor </tpl>:</th>
+								<td class="it-2">
+									<select class="sele-2" name="search_color">
+										<option value=""><tpl> $langSysAll </tpl></option>
+                                        <tpl> foreach from=$color_array item=one key=key </tpl>
+                                        <option <tpl> if $condition.search_color eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+							</tr>
+                            <tr>
+								<th class="wd"><tpl> $langSysChannelDragType </tpl>:</th>
+								<td class="it-1"> 
+									<select class="sele-2" name="search_type">
+                                        <option value=""><tpl> $langSysAll </tpl></option>
+                                        <tpl> foreach from=$type_array item=one key=key </tpl>
+                                        <option <tpl> if $condition.search_type eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+								<td></td>
+                                <td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="channel_drag.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+            <input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysSel </tpl></td>
+						<td class="es-4"><tpl> $langSysChannelDragPic </tpl></td>
+						<td class="es-2"><tpl> $langSysChannelDragStyle </tpl></td>
+						<td class="es-2"><tpl> $langSysChannelDragColor </tpl></td>
+						<td class="es-2"><tpl> $langSysChannelDragType </tpl></td>
+						<td class="es-2"><tpl> $langCSort </tpl></td>
+                        <td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $cd_array[0].cd_id neq'' </tpl>
+						<tpl> section name=loop loop=$cd_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="cd_id[]" type="checkbox" value="<tpl> $cd_array[loop].cd_id </tpl>"/></td>
+						<td><img src="<tpl> $site_url </tpl>/<tpl> $cd_array[loop].cd_pic </tpl>" width='100px;' height='50px;'/></td>
+						<td><tpl> $cd_array[loop].cd_style </tpl></td>
+						<td><tpl> $cd_array[loop].cd_color </tpl></td>
+                        <td><tpl> $cd_array[loop].cd_type </tpl></td>
+						<td><tpl> $cd_array[loop].cd_sort </tpl></td>
+						<td><a href="channel_drag.manage.php?action=modi&cd_id=<tpl> $cd_array[loop].cd_id </tpl>"><tpl> $langSysCEdit </tpl></a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $cd_array[0].cd_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $cd_array[0].cd_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

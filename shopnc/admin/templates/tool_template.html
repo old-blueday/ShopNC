@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_templates_manage</tpl></title><!-- 工具管理 - 模板管理 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script language="javascript">
+$(document).ready(function(){
+	$("#templates").change(function(){
+		var templates_val 	=  $("select[@name='templates'] option[@selected]").val();
+		window.location.href="?action=templates&file_name="+templates_val;
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+  <form action="?action=templates_save" method="post" name="form1" id="form1">
+    <h4 id="rightcon_h"><b>
+	<tpl>$admin_header_shop_manage</tpl><!-- 网店管理 --> >> <tpl>$admin_tool_templates_manage</tpl><!-- 模板管理 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_tool_templates_manage</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_templates_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_tool_templates_file</tpl><!-- 模板文件 -->:</td>
+				<td><tpl>$templates_select</tpl></td>
+			</tr>
+			<tpl>if $smarty.get.file_name != ''</tpl>
+			<tr>
+				<td width="100"><tpl>$admin_tool_templates_path</tpl><!-- 模板路径 -->:</td>
+				<td><input class="TextBox" type="text" name="" value="templates/<tpl>$templatesname</tpl>/<tpl>$smarty.get.file_name</tpl>.html"  size="50" /></td>
+			</tr>
+			<tpl>/if</tpl>
+			<tr>
+				<td><tpl>$admin_tool_templates_body</tpl><!-- 模板文件内容 -->:</td>
+				<td><textarea name="templates_body" cols="80" rows="15"><tpl>$templates_str|escape:html</tpl></textarea></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="hidden" name="mail_template_id" value="<tpl>$temp_array.mail_template_id</tpl>"  />
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_templates_save</tpl>" class="btnInput" /><!-- 点此保存 --></td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+	  
+    </div>
+	</div>
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

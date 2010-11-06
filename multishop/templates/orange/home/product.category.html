@@ -1,0 +1,18 @@
+
+<DIV class=Title style="display:block"><B><tpl> $langPBabySort </tpl></B></DIV>
+<div style="height:auto">
+<div style="width:180px; display: block;float:left; padding-left:5px; margin-top:10px; margin-bottom:10px">
+	<ul>
+	<tpl> section name=loop loop=$category_array </tpl>
+		<li><a href="product.php?action=list&channel_p_type=<tpl> $product_condition.channel_p_type </tpl>&pcid=<tpl> $category_array[loop].id </tpl>" target="_blank"><tpl> $category_array[loop].name </tpl></a></li>
+	<tpl> if $smarty.section.loop.rownum%6 eq 0 </tpl>
+		</ul>
+	</div>
+	<div style="width:180px; display: block;float:left ; padding-left:5px;margin-top:10px; margin-bottom:10px">
+		<ul>
+	<tpl> /if </tpl>
+	<tpl> /section </tpl>
+	</ul>
+</div>
+<div style="clear:both"></div>
+</div>

@@ -1,0 +1,44 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysSQLManage </tpl> &gt;&gt; <tpl> $langSysSQLOptimizeDatabase </tpl></div>
+				</div>
+			</div>
+			<form action="sqlback.manage.php" id="form_del" name="form_del" method="post">
+			<input type="hidden" name="action" value="optimize" />
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysSQLOptimizeDatabase </tpl>" type="submit" />
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysSQLTableName </tpl></td>
+						<td class="es-4"><tpl> $langSysSQLTableType </tpl></td>
+						<td class="es-2"><tpl> $langSysSQLNoteNum </tpl></td>
+						<td class="es-2"></td>
+					</tr>
+					<tpl> if $sql_array[0].Name neq '' </tpl>
+						<tpl> section name=loop loop=$sql_array </tpl>
+					<tr class="es-td">
+						<td><tpl> $sql_array[loop].Name </tpl></td>
+						<td><tpl> $sql_array[loop].Engine </tpl></td>
+						<td><tpl> $sql_array[loop].Rows </tpl></td>
+						<td><a href="sqlback.manage.php?action=info&name=<tpl> $sql_array[loop].Name </tpl>"><tpl> $langCview </tpl>SQL</a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysSQLOptimizeDatabase </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

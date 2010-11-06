@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tools_email</tpl></title><!-- 工具管理 - 邮件发送 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			mail_user	: {required:true},
+			mail_title	: {required:true},
+			mail_centent: {required:true}
+		},
+		messages: {
+			mail_user	: {required: "<tpl>$admin_tool_mail_user_null</tpl>"},
+			mail_title	: {required: "<tpl>$admin_tool_mail_title_null</tpl>"},
+			mail_centent: {required: "<tpl>$admin_tool_mail_centent_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+  <form action="admin_tool_mail.php?action=send_to" method="post" name="form1" id="form1">
+    <h4 id="rightcon_h"><b><tpl>$admin_header_tools_manage</tpl><!-- 工具管理 --> >> <tpl>$admin_tools_email</tpl><!-- 邮件发送 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_tools_email</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_mail_send</tpl>" class="btnInput" /><!-- 邮件发送 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_tool_mail_user</tpl><!-- 用户 -->:</td>
+				<td><select name="mail_user" id="mail_user">
+					<option value=""><tpl>$admin_tool_mail_select</tpl><!-- 请选择 --></option>
+					<option value="reg"><tpl>$admin_tool_mail_reg_user</tpl><!-- 全部注册用户 --></option>
+					<!-- option value="book"><tpl>$admin_tool_mail_book_user</tpl><!-- 电子订阅全部用户 --><!-- /option -->
+					<option value="month"><tpl>$admin_tool_mail_month_user</tpl><!-- 最近一个月的注册用户 --></option>
+					<option value="noshopping"><tpl>$admin_tool_mail_no_shopping</tpl><!-- 从未购物的注册用户 --></option>
+					<option value="provider"><tpl>$admin_tool_mail_all_provider</tpl><!-- 所有供应商 --></option>
+				  </select>&nbsp;<span class="red">*</span>
+				  <div class="check-error"><label style="display:none" for="mail_user" class="wrong" metaDone="true" generated="true"></label></div>
+				  </td>
+			</tr>
+			
+			<tr>
+				<td><tpl>$admin_tool_mail_title</tpl><!-- 标题 -->:</td>
+				<td><input class="TextBox" type="text" name="mail_title" id="mail_title" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="mail_title" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_tool_mail_centent</tpl><!-- 内容 -->:</td>
+				<td><textarea name="mail_centent" id="mail_centent" cols="50" rows="10"></textarea>&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="mail_centent" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td> <input type="submit" name="button" id="button" value="<tpl>$admin_tool_mail_send</tpl>" class="btnInput" /><!-- 发送邮件 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_tool_mail_reset</tpl>" class="btnInput" /><!-- 重置 -->
+				</td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+     
+    </div>
+	</div>
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

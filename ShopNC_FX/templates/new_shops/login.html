@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<meta http-equiv="keywords" content="<tpl> $shops_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $shops_description </tpl>" /> 
+<title><tpl> $log_title </tpl> - <tpl> $shops_name </tpl></title>
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+</head>
+<body>
+<div id="container">
+<tpl> include_php file='../shop_header.php' </tpl><!-- end of header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft longer">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><tpl> $log_title </tpl>
+				</div>
+			</div>
+			<div class="con">
+				<div class="div_h10px"></div>
+					<!-- 搜索店铺 -->
+					<form action="?action=login" method="post" id="log_form" name="log_form">
+					<table class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="120" align="right"><tpl> $log_name </tpl></td>
+							<td colspan="2"><input type="text" name="username" id="username" class="inputbg" />
+							<div class="check-error"><label style="display:none" for="username" class="wrong" metaDone="true" generated="true"></label></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $log_password </tpl></td>
+							<td colspan="2"><input type="password" class="inputbg" name="passwd" id="passwd"/>
+							<div class="check-error"><label style="display:none" for="passwd" class="wrong" metaDone="true" generated="true"></label></div>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $log_validate_card </tpl></td>
+							<td width="97"><input type="text" name="txt_login_code" id="txt_login_code" class="inputbg shortinput" />
+							<td width="203"><img src="../classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;cursor: pointer" width="60" height="20" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='<tpl> $Site_Url </tpl>/classes/libraries/code.php?' + Math.random()" />
+						</td>
+						</tr>															
+						<tr>
+							<td>&nbsp;</td>
+							<td colspan="2"><div class="login_but" onclick="$('#log_form').submit()"></div></td>
+						</tr>
+					</table>
+					</form>
+					<!-- end 搜索店铺 -->
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+<tpl> include_php file='../shop_footer.php' </tpl><!-- end of footer -->
+</div>
+</body>
+</html>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#log_form').validate({
+		errorClass: "wrong",
+		rules: {
+			username		: {required:true},
+			passwd			: {required:true},
+			txt_login_code	: {required:true}
+		},
+		messages: {
+			username		: {required:"<tpl>$check_user_null</tpl>"},
+			passwd			: {required:"<tpl>$check_pass_null</tpl>"},
+			txt_login_code	: {required:"<tpl>$check_code_null</tpl>"}	
+		}
+	});
+});
+//-->
+</script>

@@ -1,0 +1,99 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCHelp </tpl> &gt;&gt; <tpl> $langSysHList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='help.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysHAdd </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="help.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysHHelpName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.search_title </tpl>" name="search_title" id="search_title" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysHClassName </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="search_cid" id="search_cid" class='sl-2'>
+									<option value="0">请选择</option>
+									<tpl> section name=loop loop=$class_array </tpl>
+									<option value="<tpl>$class_array[loop].h_id</tpl>"><tpl>$class_array[loop].h_title</tpl></option>
+									<tpl> /section </tpl>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysHHelpSort </tpl>:</th>
+								<td class="it-2" colspan="3"> 
+									<input type="radio" name="search_order" value="h_id" class='input_radio' id="search_order_help_sort_asc" checked="checked"/>
+									<label for="search_order_help_sort_asc">帮助文档序号正序</label>
+									<input type="radio" name="search_order" value="h_id desc" class='input_radio' id="search_order_help_sort_desc"/>
+									<label for="search_order_help_sort_desc">帮助文档序号倒序</label>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="help.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysHSel </tpl></td>
+						<td class="es-4"><tpl> $langSysHHelpName </tpl></td>
+						<td class="es-2"><tpl> $langSysHHelpSort </tpl></td>
+						<td class="es-2"><tpl> $langSysHManage </tpl></td>
+					</tr>
+					<tpl> if $help_array[0].h_id neq '' </tpl>
+						<tpl> section name=loop loop=$help_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="h_id[]" type="checkbox" value="<tpl> $help_array[loop].h_id </tpl>"/></td>
+						<td><tpl> $help_array[loop].h_title </tpl></td>
+						<td><tpl> $help_array[loop].h_seq_num </tpl></td>
+						<td><a href="help.manage.php?action=modi&h_id=<tpl> $help_array[loop].h_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langSysHEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $help_array[0].h_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $help_array[0].h_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />				
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<script>
+$(function(){
+	$("#tag_form").validate({
+		errorClass: "wrong",
+		rules: {
+			txtTagname: {required:true,maxlength:6},
+			txtTagsort: {required:true,number:true,min:0},
+			txtTagurl:{required:function(){
+				if ($("#tag_type1").attr("checked")) {
+					return false;
+				}else{
+					return true;
+				}
+			},url:function(){
+				if ($("#tag_type1").attr("checked")) {
+					return false;
+				}else{
+					return true;
+				}
+			}
+			}
+		},
+		messages: {
+			txtTagname: {required: "<?php echo $lang['langShopTagNameCheck']; ?>",maxlength: "<?php echo $lang['langShopTagNameMaxLength']; ?>"},
+			txtTagsort: {required:"<?php echo $lang['langShopTagSortCheck']; ?>",number:"<?php echo $lang['langShopTagSortNumber']; ?>",min:"<?php echo $lang['langShopTagSortSize']; ?>"},
+			txtTagurl: {required:"<?php echo $lang['langShopTagLinkCheck']; ?>",url:"<?php echo $lang['langShopTagLinkCheck']; ?>"}
+		}
+	});
+})
+</script>

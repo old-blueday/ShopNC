@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$search_page_title</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="search_pic"></div>
+  <div class="top"></div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$search_adva</tpl><!-- 高级搜索 --></h2>
+    </div>
+    <div class="register_box">
+      <form id="reg_form" name="reg_form" method="get" action="<tpl>$Site_Url</tpl>/search.php" >
+        <table width="90%" border="0" align="center" cellpadding="2" cellspacing="2">
+          <tr>
+            <th width="190" class="search"><tpl>$search_input_keywords</tpl><!-- 输入关键字 -->:</th>
+            <td width="437" colspan="2"><input id="keywords" name="keywords" type="text" class="textinput" style="width:290px;"/></td>
+          </tr>
+          <tr>
+            <th class="search"><tpl>$search_goods_price</tpl><!-- 商品价格 -->:</th>
+            <td colspan="2"><span><tpl>$search_price_from</tpl><!-- 起始价格 --></span>
+              <input id="start_price" name="start_price" type="text" class="textinput" style="width:60px;"/> 
+            <span> <tpl>$search_price_to</tpl><!-- 结束价格 --> </span>
+            <input id="end_price" name="end_price" type="text" class="textinput" style="width:60px;"/></td>
+          </tr>
+          <tr>
+            <th class="search"><tpl>$search_goods_category</tpl><!-- 商品分类 -->:</th>
+            <td colspan="2"><tpl>$txt_class_top_id</tpl>
+               <input type="hidden" name="all_sun" id="all_sun" value="all_sun"/>
+            <!--<span><tpl>$search_all_subcategory</tpl> 搜索全部子分类</span> --></td>
+          </tr>
+          <tr>
+            <th class="search"><tpl>$search_goods_brand</tpl><!-- 商品品牌 -->:</th>
+            <td colspan="2"><tpl>$goods_brand</tpl></td>
+          </tr>
+          <tr>
+            <th colspan="3"><div class="line"></div></th>
+          </tr>
+          <tr>
+            <td colspan="3" style="text-align:center;"><input type="submit" name="button" id="button" class="btn_search" value="<tpl>$search_result</tpl>" /></td>
+          </tr>
+          <tr>
+            <td colspan="3">&nbsp;</td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

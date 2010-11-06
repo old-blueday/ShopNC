@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_pay_add</tpl></title><!-- 模块管理 - 添加支付方式 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_pay_name	: {required:true}
+		},
+		messages: {
+			txt_pay_name	: {required: "<tpl>$admin_module_pay_name_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+  <form action="admin_module_pay.php?action=pay_type_save" method="post" name="form1" id="form1">
+  <input type="hidden" name="txt_pay_code" value="<tpl>$module_pay.code</tpl>" />
+  <input type="hidden" name="txt_pay_id" value="<tpl>$module_pay.pay_id</tpl>" />
+  <input type="hidden" name="pay_area_directory" value="<tpl>if $smarty.get.pay_area_directory == ''</tpl><tpl>$module_pay.pay_area_directory</tpl><tpl>else</tpl><tpl>$smarty.get.pay_area_directory</tpl><tpl>/if</tpl>" />
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_module_pay.php?action=pay_type_list&pay_area_directory=<tpl>if $smarty.get.pay_area_directory == ''</tpl><tpl>$module_pay.pay_area_directory</tpl><tpl>else</tpl><tpl>$smarty.get.pay_area_directory</tpl><tpl>/if</tpl>" class="btnInput"><tpl>$admin_module_pay_list</tpl></a></span><!-- 支付列表 -->
+	<tpl>$admin_header_module_manage</tpl> >> <tpl>$admin_module_pay_add</tpl><!-- 模块管理 >> 添加支付方式 -->
+	</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5>
+			<tpl>$admin_module_pay_add</tpl>
+			</h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_module_pay_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_module_pay_name</tpl>:</td><!-- 支付名称 -->
+				<td><input class="TextBox" type="text" name="txt_pay_name" id="txt_pay_name" value="<tpl>$module_pay.name</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_pay_name" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_module_pay_desc</tpl>:</td><!-- 支付描述 -->
+				<td><textarea name="txt_pay_info" cols="40" rows="8"><tpl>$module_pay.info</tpl></textarea></td>
+			</tr>
+			<tpl>section name=list loop=$pay_config</tpl>
+			<tr>
+				<td><tpl>$pay_config[list].name</tpl>:</td>
+				<td><tpl>$pay_config[list].input</tpl><tpl>$pay_config[list].hidden_input</tpl><tpl>$pay_config[list].input_type</tpl></td>
+			</tr>
+			<tpl>/section</tpl>
+			<tr>
+				<td><tpl>$admin_module_pay_price</tpl>:</td><!-- 支付手续费 -->
+				<td><input class="TextBox" name="txt_pay_fee" type="text" size="5" value="<tpl>$module_pay.pay_fee</tpl>" /></td>
+			</tr>
+			<tr>
+			  <td><tpl>$admin_module_pay_online</tpl><!-- 在线支付 -->:</td>
+			  <td><tpl>if $module_pay.online == 1</tpl><tpl>$admin_module_pay_online_yes</tpl><tpl>else</tpl><tpl>$admin_module_pay_online_no</tpl><tpl>/if</tpl><input type="hidden" name="txt_pay_online" value="<tpl>$module_pay.online</tpl>"  /></td>
+		  </tr>
+			<tr>
+			  <td><tpl>$admin_module_pay_type</tpl><!-- 支付类型 -->:</td>
+			  <td><tpl> if $module_pay.pay_type == 1 </tpl><tpl>$admin_module_pay_goods_yes</tpl><tpl>else</tpl><tpl>$admin_module_pay_goods_no</tpl><tpl>/if</tpl><input type="hidden" name="txt_pay_type" value="<tpl>$module_pay.pay_type</tpl>"  /></td>
+		  </tr>
+			<tr>
+			  <td><tpl>$admin_module_pay_selected</tpl><!-- 默认选取 -->:</td>
+			  <td><tpl>$pay_selected</tpl></td>
+		  </tr>
+			<tr>
+			  <td><tpl>$admin_module_pay_sort</tpl><!-- 支付排序 -->:</td>
+			  <td><input class="TextBoxAt" type="text" name="txt_pay_sort" id="txt_pay_sort" value="<tpl>if $module_pay.pay_sort != ''</tpl><tpl>$module_pay.pay_sort</tpl><tpl>else</tpl>0<tpl>/if</tpl>" size="5" /></td>
+		  </tr>
+			<tr>
+			  <td><tpl>$admin_module_pay_state</tpl><!-- 支付状态 -->:</td>
+			  <td><tpl>$pay_state</tpl></td>
+		  </tr> 
+		  <tr>
+			  <td>&nbsp;</td>
+			  <td><input type="submit" name="button" id="button" value="<tpl>$admin_module_pay_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_module_pay_reset</tpl>" class="btnInput" /><!-- 重置 --></td>
+		  </tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+	</div>
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

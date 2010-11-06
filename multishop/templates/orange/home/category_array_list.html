@@ -1,0 +1,21 @@
+<tpl> assign var=index_value value=1 </tpl>
+<ul>
+	<tpl> foreach item = parent name = parentment from = $ProductCateArray key=key </tpl>
+	<li <tpl> if $smarty.foreach.parentment.iteration%2 eq 0 </tpl> class="modal2" <tpl> /if </tpl> >
+		<dl>
+		  <dt><a href="<tpl> $site_url </tpl>/home/product.php?action=textlist&amp;pcid=<tpl> $parent[0] </tpl>" ><tpl> $parent[2] </tpl></a></dt>
+		<dd>
+		  <tpl> foreach name = parentbaby item = baby from = $parent[6] </tpl>
+		  
+			<a <tpl> if $baby[5] eq '1' </tpl>style="color:#FF0000"<tpl> /if </tpl> href="<tpl> $site_url </tpl>/home/product.php?action=textlist&amp;pcid=<tpl> $baby[0] </tpl>"><tpl> $baby[2] </tpl></a>
+				
+		  <tpl> /foreach </tpl>
+		  </dd>
+		</dl>
+	</li>
+		<tpl> if ($key+1)%4 eq 0 </tpl>
+			</ul><tpl> assign var=index_value value=$index_value+1 </tpl>
+			<ul>
+		<tpl> /if </tpl>
+	<tpl> /foreach </tpl>
+</ul>

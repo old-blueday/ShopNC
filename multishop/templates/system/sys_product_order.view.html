@@ -1,0 +1,250 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysOrderManage </tpl> &gt;&gt; <tpl> $langSysOContent </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th colspan="4"><tpl> $langSysOContent </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOrderMerchandiseName </tpl>:</th>
+									<td colspan="3">
+										<tpl> $order_array.p_name </tpl>
+										[
+										<tpl> if $order_array.sp_html neq '' </tpl>
+											<a href="<tpl> $site_url </tpl>/home/order.php?action=sp_html&sp_code=<tpl> $order_array.sp_code </tpl>" target="_blank"><tpl> $langSysOViewProductInfo </tpl></a>
+										<tpl> else </tpl>
+											<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $order_array.p_code </tpl>" title='<tpl> $langSysOViewProductInfo </tpl>'><tpl> $langSysOViewProductInfo </tpl></a>
+										<tpl> /if </tpl>
+										]
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOrderCode </tpl>:</th>
+									<td colspan="3"><tpl> $order_array.sp_code </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOrderPrice </tpl>:</th>
+									<td><tpl> $order_array.unit_price </tpl></td>
+									<th><tpl> $langSysOrderBuyNum </tpl>:</th>
+									<td><tpl> $order_array.buy_num </tpl><tpl> $langSysOJian </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOrderTotalPrice </tpl>:</th>
+									<td><tpl> $order_array.total_price </tpl></td>
+									<th><tpl> $langSysOProductType </tpl>:</th>
+									<td>
+										<tpl> if $order_array.sell_type eq 0 </tpl>
+											<tpl> $langPauction </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sell_type eq 1 </tpl>
+											<tpl> $langPfixprice </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sell_type eq 2 </tpl>
+											<tpl> $langPcamel </tpl>
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOCarryFunction </tpl>:</th>
+									<td>
+										<tpl> if $order_array.tf_type eq 1</tpl>
+											<tpl> $langSysOPingYou </tpl>:<tpl> $order_array.tf_fee </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.tf_type eq 2 </tpl>
+											<tpl> $langSysOKuaiDi </tpl>:<tpl> $order_array.tf_fee </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.tf_type eq 3 </tpl>
+											EMS:<tpl> $order_array.tf_fee </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.tf_type eq '' </tpl>
+											<tpl> $langSysOSaleChengDanYunFei </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langSysOrderCurrency </tpl>:</th>
+									<td><tpl> $order_array.sp_currency_category </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOrderEstate </tpl>:</th>
+									<td>
+										<tpl> if $order_array.sp_state eq 1 </tpl>
+											<tpl> $langOrderPayed </tpl>
+											<!--<tpl> if $order_array.pay_time neq '' </tpl>
+												<tpl> $langSysOrderPaymentTime </tpl>£º<tpl> $order_array.pay_time </tpl>
+											<tpl> /if </tpl>-->
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_state eq 2 </tpl>
+											<tpl> $langOrderSended </tpl>
+											<!--<tpl> if $order_array.deliver_time neq '' </tpl>
+												<tpl> $langSysOrderConsignmentTime </tpl>£º<tpl> $order_array.deliver_time </tpl>
+											<tpl> /if </tpl>-->
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_state eq 3 </tpl>
+											<tpl> $langOrderReceived </tpl>
+											<!--<tpl> if $order_array.receive_time neq '' </tpl>
+												<tpl> $langSysOAlreadyReceiveTime </tpl>£º<tpl> $order_array.receive_time </tpl>
+											<tpl> /if </tpl>-->
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_state eq 4 </tpl>
+											<tpl> $langSysOGrouping </tpl><br />
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_state eq 5 </tpl>
+											<tpl> $langSysOGroupLost </tpl><br />
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_state eq 6 </tpl>
+											<tpl> $langSysOPayLost </tpl><br />
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_state eq 0 </tpl>
+											<tpl> $langOrderBuyed </tpl>
+											<!--<tpl> if $order_array.sold_time neq '' </tpl>
+												<tpl> $langSysOrderSaleOutTime </tpl>£º<tpl> $order_array.sold_time </tpl>
+											<tpl> /if </tpl>-->
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langSysOrderPayment </tpl>:</th>
+									<td>
+										<tpl> if $order_array.sp_pay_mechod eq 'offline' </tpl>
+											<tpl> $langSysOOffline </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_pay_mechod eq 'alipay' </tpl>
+											<tpl> $langSysOrderPaymentAlipay </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_pay_mechod eq 'tenpay' </tpl>
+											<tpl> $langSysOrderPaymentTenpay </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_pay_mechod eq 'predeposit' </tpl>
+											<tpl> $langSysOrderPaymentPredeposit </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sp_pay_mechod eq 'paypal' </tpl>
+											<tpl> $langSysOrderPaymentPaypal </tpl>
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOLeaveword </tpl>:</th>
+									<td colspan="3"><tpl> $order_array.leaveword|default:$langSysCNot </tpl></td>
+								</tr>
+								<tr>
+									<th colspan="4"><tpl> $langSysOReceive </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOReceiveAddress </tpl>:</th>
+									<td colspan="3">
+									<tpl> foreach from=$receive_info.area item=one </tpl>
+									<tpl> $one.area_name </tpl>
+									<tpl> /foreach </tpl>
+									<tpl> $receive_info.address </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOReceiveName </tpl>:</th>
+									<td><tpl> $receive_info.receive_name </tpl></td>
+									<th><tpl> $langSysOYouZhengBianMa </tpl>:</th>
+									<td><tpl> $receive_info.zip </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOLianXiDianHua </tpl>:</th>
+									<td colspan="3">
+										<tpl> $langSysOPhone </tpl>:<tpl> $receive_info.phone|default:$langSysCNot </tpl>
+										<tpl> $langSysOMobilePhone </tpl>:<tpl> $receive_info.mobilephone|default:$langSysCNot </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th colspan="4"><tpl> $langSysOMemberInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOSaleName </tpl>:</th>
+									<td><tpl> $seller_info.login_name|default:$langSysOMemberIsNotExit </tpl></td>
+									<th><tpl> $langSysOLianXiFunction </tpl>:</th>
+									<td>
+									<tpl> if $seller_info.member_id neq '' </tpl>
+										<a href="<tpl>$site_url</tpl>/member/own_message.php?action=add&username=<tpl> $seller_info.sms_name </tpl>" target="_blank"><img src="<tpl>$site_url</tpl>/templates/store/images/zhannei.gif" /></a>
+										<tpl> if $seller_info.TAOBAO neq '' </tpl>	
+											<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=1&uid=<tpl> $seller_info.TAOBAO </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=1&uid=<tpl> $seller_info.TAOBAO </tpl>&site=cntaobao&s=2" alt="<tpl> $langSysPOnClickMyMessage </tpl>" /></a>
+										<tpl> /if </tpl> 
+										<tpl> if $seller_info.QQ neq '' </tpl>	  
+											<a href=tencent://message/?uin=<tpl> $seller_info.QQ </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $seller_info.QQ </tpl>:4 alt="<tpl> $langSysPOnClickMyMessage </tpl>"></a>
+										<tpl> /if </tpl> 
+										<tpl> if $seller_info.MSN neq '' </tpl>
+											<a href="msnim:chat?contact=<tpl> $seller_info.MSN </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0"></a>
+										<tpl> /if </tpl>
+										<tpl> if $seller_info.SKYPE neq '' </tpl>
+											<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script><a href="skype:<tpl> $seller_info.SKYPE </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="20" height="20" alt="Skype Me?!" /></a>
+										<tpl> /if </tpl>
+									<tpl> else </tpl>	
+										<tpl> $langSysOMemberIsNotExit </tpl>
+									<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOShiFouPingJia </tpl>:</th>
+									<td>
+										<tpl> if $order_array.sole_have_comment eq '0' </tpl>
+											<tpl> $langSysOSaleWeiPingJia </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.sole_have_comment eq 1 </tpl>
+											<tpl> $langSysOSaleYiPingJia </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th>&nbsp;</th>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOBoughtName </tpl>:</th>
+									<td><tpl> $buyer_info.login_name|default:$langSysOMemberIsNotExit </tpl></td>
+									<th><tpl> $langSysOLianXiFunction </tpl>:</th>
+									<td>
+									<tpl> if $buyer_info.member_id neq '' </tpl>
+										<a href="<tpl>$site_url</tpl>/member/own_message.php?action=add&username=<tpl> $buyer_info.sms_name </tpl>" target="_blank"><img src="<tpl>$site_url</tpl>/templates/store/images/zhannei.gif" /></a>
+										<tpl> if $buyer_info.TAOBAO neq '' </tpl>	
+											<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=1&uid=<tpl> $buyer_info.TAOBAO </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=1&uid=<tpl> $buyer_info.TAOBAO </tpl>&site=cntaobao&s=2" alt="<tpl> $langSysPOnClickMyMessage </tpl>" /></a>
+										<tpl> /if </tpl> 
+										<tpl> if $buyer_info.QQ neq '' </tpl>	  
+											<a href=tencent://message/?uin=<tpl> $buyer_info.QQ </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $buyer_info.QQ </tpl>:4 alt="<tpl> $langSysPOnClickMyMessage </tpl>"></a>
+										<tpl> /if </tpl> 
+										<tpl> if $buyer_info.MSN neq '' </tpl>
+											<a href="msnim:chat?contact=<tpl> $buyer_info.MSN </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0"></a>
+										<tpl> /if </tpl>
+										<tpl> if $buyer_info.SKYPE neq '' </tpl>
+											<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script><a href="skype:<tpl> $buyer_info.SKYPE </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="20" height="20" alt="Skype Me?!" /></a>
+										<tpl> /if </tpl>	
+									<tpl> else </tpl>	
+										<tpl> $langSysOMemberIsNotExit </tpl>
+									<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysOShiFouPingJia </tpl>:</th>
+									<td>
+										<tpl> if $order_array.buy_have_comment eq '0' </tpl> 
+											<tpl> $langSysOBuyWeiPingJia </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $order_array.buy_have_comment eq 1 </tpl>
+											<tpl> $langSysOBuyYiPingJia </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th>&nbsp;</th>
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

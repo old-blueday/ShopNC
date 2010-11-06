@@ -1,0 +1,120 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSMerchandiseSata </tpl></div>
+					<div class="gtlbar-right" onclick="if(confirm('<tpl> $langSysSConfirmResetStat </tpl>')){location.href='statics.manage.php?action=reset';}else{return false;}">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysSResetStat </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_product.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<input type="hidden" name="searchtype" value="1" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSClass </tpl>:</th>
+								<td colspan="3">
+									<select name="c1" id="c1">
+										<option value=""></option>
+										<tpl>foreach item = parent from = $ProductCateArray</tpl>
+											<option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>"><tpl>$parent.name</tpl></option>
+										<tpl>/foreach</tpl>
+									</select>
+									<select name="c2" id="c2">
+									</select>
+									<select name="c3" id="c3">
+									</select>
+									<select name="c4" id="c4">
+									</select> 
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysSPriceBound </tpl>:</th>
+								<td colspan="5">
+									<input class="fct-input" value="<tpl> $condition.price_min </tpl>" name="price_min" type="text" />
+									<tpl> $langSysSTo </tpl>
+									<input class="fct-input" value="<tpl> $condition.price_max </tpl>" name="price_max" type="text" />
+								</td>
+							</tr>
+                            <tr>
+								<th class="wd"><tpl> $langSysSBuyType </tpl>:</th>
+								<td class="it-1">
+									<select name="sell_type">
+										<option <tpl> if $condition.sell_type eq 'all' </tpl> selected="selected" <tpl> /if </tpl> value="all"><tpl> $langSysSAll </tpl></option>
+										<option <tpl> if $condition.sell_type eq '0' </tpl> selected="selected" <tpl> /if </tpl> value="0"><tpl> $langSysSAuction </tpl></option>
+										<option <tpl> if $condition.sell_type eq '1' </tpl> selected="selected" <tpl> /if </tpl> value="1"><tpl> $langSysSOnePrice </tpl></option>
+										<option <tpl> if $condition.sell_type eq '2' </tpl> selected="selected" <tpl> /if </tpl> value="2"><tpl> $langSysSGroupBuy </tpl></option>
+									</select>
+								</td>
+								<th class="wd"><tpl> $langSysSBuyType </tpl>:</th>
+								<td class="it-2">
+									<tpl> foreach from=$p_type key=key item=one </tpl>
+									<input name="p_type[]" id="search_type_<tpl> $key </tpl>" type="checkbox" value="<tpl> $key </tpl>"/><label for="search_type_<tpl> $key </tpl>"><tpl> $one </tpl></label>
+									<tpl> /foreach </tpl>
+								</td>
+                                <td class="mk-2" colspan="2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td><tpl> $statics_flash </tpl></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	tonext('#c1');
+});
+function tonext(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#searchcate').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../member/own_productcate.php',
+					data: 'action=list&id='+valarray[0],
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+}
+</script>
+</body>
+</html>

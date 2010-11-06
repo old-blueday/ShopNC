@@ -1,0 +1,106 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langRAddressManage </tpl> &gt;&gt; <tpl> $langRAmendAddress </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="receive.manage.php" method="POST" id="form_modi">
+						<input type="hidden" name="action" value="modisave" />
+						<input type="hidden" name="receive_id" value="<tpl> $receive_array.receive_id </tpl>" />
+						<input type="hidden" name="member_id" value="<tpl> $receive_array.member_id </tpl>" />
+						<input type="hidden" name="curpage" value="<tpl> $curpage </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langRConsigneeName </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtReceiveName" id="txtReceiveName" type="text" value="<tpl> $receive_array.receive_name </tpl>" maxlength="10" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langRLocalityZone </tpl>:</th>
+									<td>
+									<input type="hidden" name="area_id" id="area_id" value="<tpl> $receive_array.receive_area_id </tpl>" />
+									<div id="adddiv"></div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langRParticularAddress </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtAddress" id="txtAddress" type="text" maxlength="80" value="<tpl> $receive_array.address </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langReceivePostalcode </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtZip" id="txtZip" type="text" maxlength="8" value="<tpl> $receive_array.zip </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langRPhone </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtPhone" id="txtPhone" type="text" maxlength="25" value="<tpl> $receive_array.phone </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langRMobileTelephone </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtMobilephone" id="txtMobilephone" type="text" maxlength="12" value="<tpl> $receive_array.mobilephone </tpl>" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='receive.manage.php?action=ajax_list&curpage=<tpl> $curpage </tpl>'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					type:'modi',
+					modi_id:'<tpl> $receive_array.receive_area_id </tpl>',
+					hiddenId:'area_id'
+				});
+	
+	$("#form_modi").validate({
+		errorClass: "wrong",
+		rules: {
+			txtMemberName: {required:true},
+			txtReceiveName: {required:true},
+			area_id: {required:true},
+			txtAddress: {required:true},
+			txtZip: {required:true},
+			txtPhone: {required:true,number:true},
+			txtMobilephone: {number:true}
+		},
+		messages: {
+			txtMemberName: {required:"<tpl> $langRAccountsCannotNull </tpl>"},
+			txtReceiveName: {required:"<tpl> $langRConsigneeNameNotNull </tpl>"},
+			area_id: {required:"<tpl> $langRLocalityProvinceCanNotNull </tpl>"},
+			txtAddress: {required:"<tpl> $langRParticularAddressNotNull </tpl>"},
+			txtZip: {required:"<tpl> $langRPostalcodeNotNull </tpl>"},
+			txtPhone: {required:"<tpl> $langRPhoneCannotNull </tpl>",number:"<tpl> $langRPhoneIsNumber </tpl>"},
+			txtMobilephone: {number:"<tpl> $langRMobileTelephoneIsNumber </tpl>"}			
+		}
+	});
+});
+</script>
+</body>
+</html>

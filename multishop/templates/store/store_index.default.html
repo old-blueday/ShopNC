@@ -1,0 +1,151 @@
+<script>
+//收藏
+function product_collection(shop_id){
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/member/own_collection.php",
+		data: "action=new&genre=store&collection="+shop_id,
+		success: function (data) {
+			if (data == '-1') {
+				alert("<tpl> $langSListLoginOperator </tpl>");
+			}
+			if (data == '0') {
+				alert("<tpl> $langSListSelfNotCollectionSelf </tpl>");
+			}
+			if (data == '1') {
+				alert("<tpl> $langSListCollectionSucceed </tpl>");
+			}
+			if (data == '2') {
+				alert("<tpl> $langSListCollection </tpl>");
+			}
+		}
+	});
+}
+</script>
+<div id="itemcol2">
+	<div id="SubNavBar">
+		<ul class="NavBar" id="navbar1">
+			<li <tpl> if $list eq '' </tpl>class="select"<tpl> /if </tpl>><a href="index.php?userid=<tpl> $shop_info.member_id </tpl>&price=<tpl> $condition.price </tpl>&classid=<tpl> $condition.classid </tpl>&view_type=<tpl> $condition.view_type </tpl>"><tpl> $langStoreAllBaby </tpl></a></li>
+		</ul>
+	</div>
+	<div id="ViewInfoTop">
+		<div id="viewmode">
+			<dl>
+				<dt><tpl> $langStoreOut </tpl>:</dt>
+				<dd id="pic" <tpl> if $condition.view_type neq 'list' </tpl>class="current"<tpl> /if  </tpl>><a href="index.php?userid=<tpl> $shop_info.member_id </tpl>&price=<tpl> $condition.price </tpl>&classid=<tpl> $condition.classid </tpl>&list=<tpl> $condition.list </tpl>" title="<tpl> $langStoreOpenImageBrowse </tpl>"></a></dd>
+				<dd id="list" <tpl> if $condition.view_type eq 'list' </tpl>class="current"<tpl> /if  </tpl>><a href="index.php?userid=<tpl> $shop_info.member_id </tpl>&price=<tpl> $condition.price </tpl>&classid=<tpl> $condition.classid </tpl>&view_type=list&list=<tpl> $condition.list </tpl>" title="<tpl> $langStoreCloseImageBrowse </tpl>"></a></dd>
+				<dt><tpl> $langStoreSort </tpl>:</dt>
+				<dd>
+					<tpl> if $condition.price eq 'up' </tpl>
+						<input title="<tpl> $langStorePriceHighToLow </tpl>" name="" type="button" onclick="location.href='index.php?userid=<tpl> $shop_info.member_id </tpl>&price=down&classid=<tpl> $condition.classid </tpl>&view_type=<tpl> $condition.view_type </tpl>&list=<tpl> $condition.list </tpl>'" id="price_d" />
+					<tpl> else </tpl>
+						<input title="<tpl> $langStorePriceLowToHigh </tpl>" name="" type="button" onclick="location.href='index.php?userid=<tpl> $shop_info.member_id </tpl>&price=down&classid=<tpl> $condition.classid </tpl>&view_type=<tpl> $condition.view_type </tpl>&list=<tpl> $condition.list </tpl>&price=up'" id="price" />
+					<tpl> /if </tpl>
+				</dd>
+			</dl>
+			<div class="pages"><tpl> $page_list </tpl></div>
+		</div>
+		<div class="ViewInfoLeft"></div>
+		<div class="ViewInfoRight"></div>
+	</div>
+	<tpl> if $condition.view_type eq 'list' </tpl>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-bottom:1px dashed #f8c2d7">
+			<tr>
+				<td width="200" height="35" align="left"><strong>&nbsp;<tpl> $langStoreBabyName </tpl></strong></td>
+				<td width="100" height="35" align="left"><strong><tpl> $langStorePrice </tpl></strong></td>
+				<td width="100" height="35" align="left"><strong><tpl> $langStoreBusiness </tpl></strong></td>
+				<td width="100" height="35" align="left"><strong><tpl> $langStoreSpareTime </tpl></strong></td>
+			</tr> 
+		</table>
+	<tpl> /if  </tpl>
+	<tpl> section name=i loop=$product_array </tpl>
+	<tpl> if $condition.view_type eq 'list' </tpl>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+			<td width="200" align="left">&nbsp;
+					<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[i].p_code </tpl>" target="_blank" title="<tpl> $product_array[i].p_name </tpl>"> <tpl> $product_array[i].p_short_name </tpl> </a>
+			</td>			
+			<td width="100" align="left">
+				<span class="ItemSellType"> 
+					<tpl> if $product_array[i].p_sell_type eq '0' </tpl>
+						<tpl> $langStoreProductSellAuction </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '1' </tpl>
+						<tpl> $langCfixprice </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '2' </tpl>
+						<tpl> $langStoreProductSellGroup </tpl>
+					<tpl> /if </tpl>
+				</span>
+			</td>
+			<td width="100" align="left">
+				<span class="ItemPrice">
+				<tpl> if $product_array[i].p_sell_type eq '2' </tpl>
+					<tpl> $product_array[i].p_group_price </tpl> 
+				<tpl> else </tpl>
+					<tpl> $product_array[i].p_price </tpl> 
+				<tpl> /if </tpl>
+				<tpl> $langCYuan </tpl> 
+				</span>
+			</td>
+			<td width="100" align="left"><tpl> $langStoreSpare </tpl><tpl> $product_array[i].left_days </tpl><tpl> $langStoreDay </tpl><tpl> $product_array[i].left_hours </tpl><tpl> $langStoreHour </tpl><tpl> $product_array[i].left_minutes </tpl><tpl> $langStoreMinutes </tpl></td>
+			</tr>
+		</table>
+	<tpl> else  </tpl>
+		<ul class="Item">
+				<li class="ItemPic">
+					<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[i].p_code </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $product_array[i].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" width="100" height="100" /></a> 
+				</li>
+				<li class="ItemName"> 
+					<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[i].p_code </tpl>" target="_blank" title="<tpl> $product_array[i].p_name </tpl>"> <tpl> $product_array[i].p_short_name </tpl> </a>
+					</li>
+			<li> 
+				<span class="ItemSellType"> 
+					<tpl> if $product_array[i].p_sell_type eq '0' </tpl>
+						<tpl> $langStoreProductSellAuction </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '1' </tpl>
+						<tpl> $langCfixprice </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '2' </tpl>
+						<tpl> $langStoreProductSellGroup </tpl>
+					<tpl> /if </tpl>
+				</span> 
+				<span class="ItemPrice">
+					<tpl> if $product_array[i].p_sell_type eq '2' </tpl><!-- 团购 -->
+						<tpl> $product_array[i].p_group_price </tpl> 
+					<tpl> else </tpl>
+						<tpl> $product_array[i].p_price </tpl> 
+					<tpl> /if </tpl>
+					<tpl> $langCYuan </tpl> 
+				</span> 
+			</li>
+			<li class="ItemTimeLeft"><tpl> $langStoreSpare </tpl><tpl> $product_array[i].left_days </tpl><tpl> $langStoreDay </tpl><tpl> $product_array[i].left_hours </tpl><tpl> $langStoreHour </tpl><tpl> $product_array[i].left_minutes </tpl><tpl> $langStoreMinutes </tpl></li>			
+		</ul>
+	<tpl> /if  </tpl>
+	<tpl> /section </tpl>
+	<div style="clear:both"></div>
+	<div id="ViewInfoBottom">
+		<div class="ViewInfoLeft"></div>
+		<div class="ViewInfoRight"> <tpl> $page_list </tpl> </div>
+	</div>
+</div>
+<div id="GuestBook">
+	<div id="GuestBookTitle">
+		<div id="GBNewMessage"><tpl> $langStoreNewLeaveWord </tpl></div>
+		<div class="GBallMessage"><a href="message.php?action=new&userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreMyLeaveWord </tpl></a></div>
+		<div class="GBallMessage"><a href="message.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreAllLeaveWord </tpl></a></div>
+		<div style="clear:both"></div>
+	</div>
+	<div id="GuestBookContent"> 
+		<tpl> section name=i loop=$shop_message </tpl>
+			<div class="GBMessage">
+			<div class="IdAndTime"><tpl> $langStoreBuyer </tpl>:<b> <tpl> $shop_message[i].member_name </tpl></b>&nbsp;<tpl> $langStoreMsgSetTime </tpl>&nbsp;<tpl> $shop_message[i].message_time </tpl> </div>
+			<div class="MessageContent"> <tpl> $shop_message[i].message_content </tpl></div>
+			<div class="MessageContent_re"> 
+			<span class="MessageFromSellerHint"><tpl> $langStoreShopkeeperRestore </tpl>:</span> <span class="MessageFromSeller"><tpl> $shop_message[i].message_recontent </tpl></span> </div></div>
+			<div class="ReplyTheMessage"> </div>
+		<tpl> /section </tpl>
+		<div style="clear:both"></div>
+	</div>
+	<div style="clear:both"></div>
+</div>

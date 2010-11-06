@@ -1,0 +1,160 @@
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#formbuy').validate({
+		errorClass: "wrong",
+		rules:{
+			area_id:{required: receiveChecked},
+			txtAddress:{required: receiveChecked},
+			txtZip:{required: receiveChecked},
+			txtPhone:{required: receiveChecked},
+			txtReceiveName:{required: receiveChecked},
+			txtPhone:{required: receiveCheckedTwoSelOne},
+			txtMobilephone:{required: receiveCheckedTwoSelOne},			
+			checkcode:{required: true},
+			cb_price:{required: true,number: true,min: <tpl> $product_countdown_array.bid_price </tpl>}			
+		},
+		messages:{
+			area_id:{required: "<tpl> $langPReceiveProvinceIsEmpty </tpl>"},
+			txtAddress:{required: "<tpl> $langPReceiveAddressIsEmpty </tpl>"},
+			txtZip:{required: "<tpl> $langPReceiveZipIsEmpty </tpl>"},
+			txtPhone:{required: "<tpl> $langPPhoneNameIsEmpty</tpl>"},
+			txtReceiveName:{required: "<tpl> $langPReceiveNameIsEmpty </tpl>"},
+			txtPhone:{required: "<tpl> $langPContactInputOne </tpl>"},
+			txtMobilephone:{required: "<tpl> $langPContactInputOne </tpl>"},			
+			checkcode:{required: "<tpl> $langPCountdownOrderCheckc </tpl>"},
+			cb_price:{required: "<tpl> $langPCountdownOrderCheckd </tpl>",number: "<tpl> $langPCountdownOrderChecke </tpl>",min: "<tpl> $langPCountdownOrderCheckf </tpl><tpl> $product_countdown_array.bid_price </tpl><tpl> $langPCny </tpl>"}
+		},
+		submitHandler: function() {
+			//保证金检查
+			if (ajax_get_predeposit()) {
+				var bol = false;
+				$("input[name=payment]").each(function(){
+					if ($(this).attr('checked')) {
+						bol = true;	
+						$('#select_payment').val($(this).val());
+					}
+				});
+				if (bol) {
+					//验证码校验
+					$.ajax({
+						url: "product.php",
+						data: "action=check_code&checkcode="+$('#checkcode').val()+"&random_number="+Math.random(),
+						success: function (data) {
+							if(data=='1'){
+								document.getElementById('formbuy').submit();
+								$('#sub_button').attr('disabled',true);
+								return true;
+							}else{
+								alert('<tpl>$alertCodeErr</tpl>');
+								return false;
+							}
+						}
+					});						
+				} else {
+					alert("<tpl> $langPCountdownOrderCheckh </tpl>");
+					return false;						
+				}
+			}
+		}
+	});	
+	function receiveChecked(){
+		if($("input[type=radio][id=receive_other]").attr('checked') || $("#is_check_receive").val() == '1' ){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+	function receiveCheckedTwoSelOne(){
+		var sign = receiveChecked();
+		if(sign == true){
+			if($.trim($('#txtPhone').val()) == '' && $.trim($('#txtMobilephone').val()) == ''){
+				return true;
+			}else{
+				return false;	
+			}
+		}else{
+			return false;	
+		}
+	}	
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'area_id'
+				});
+	//其他收货地址
+	$("input[type=radio][name=receive]").click(function(){
+		if ($(this).val() != 0) {
+			$("#receive_tb").hide();
+		} else {
+			$("#receive_tb").show();
+		}
+	});				
+	//遮罩效果
+	$("#blockUi,#input_predeposit").click(function(){
+		window.open('../member/own_predeposit.php?action=pay');
+		$.blockUI({ message: $('#recharge_loading'), css: {width:'500px'} });
+	});
+	$('#yes').click(function() {
+		ajax_get_predeposit();
+		$.unblockUI();
+		return false;
+	});
+	$('#colse').click(function() {
+		$.unblockUI();
+	});	
+});
+//根据价格获取保证金
+function get_margin() {
+	var price = $("#cb_price").val();
+	var buyer_margin = <tpl> $product_countdown_array.buyer_margin </tpl>;	
+	var margin;
+	if (price > 0) {
+		if (buyer_margin >= 0) {
+			margin = Math.round(buyer_margin*price/100);
+			if (margin > 5) {
+				$("#buyer_margin").html(margin+"<tpl> $langPCny </tpl>");
+				$("#need_margin").val(margin);
+			} else {
+				$("#buyer_margin").html("5<tpl> $langPCny </tpl>");
+				$("#need_margin").val('5');
+			}
+		} else {
+			return false;
+		}
+	} else {
+		$("#buyer_margin").html("5<tpl> $langPCny </tpl>");
+		$("#need_margin").val('5');
+	}
+}
+
+//取会员可用资金
+function ajax_get_predeposit(){
+	var bol = false;
+	$.ajax({
+		url: "../member/own_predeposit.php",
+		data: 'action=ajax_get_predeposit',
+		type:'post',
+		async:false, 
+		dataType:"JSON",
+		success: function(msg){
+			data = eval("(" + msg + ")");
+			if(data.type == '1'){//成功
+				var need_margin = $("#need_margin").val();
+				if (need_margin > parseInt(data.message) ) {
+					$('#available_predeposit').html(data.message);
+					$('#show_predeposit').html(data.message);
+					$('#error_predeposit').show();
+					bol = false;
+				} else {
+					$('#error_predeposit').hide();
+					bol = true;
+				}
+			}
+		}
+	});
+	return bol;
+}
+
+</script>

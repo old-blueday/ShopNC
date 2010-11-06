@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$address_list_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!--用户中心菜单:START-->
+<tpl>include file ='user_center_menu.html'</tpl>
+  <!--用户中心菜单:END-->
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content">
+      <div class="title">
+        <h3 id="#address"><tpl>$address_list</tpl><!-- 收货地址簿 --></h3>
+      </div>
+      <div class="inside">
+        <div class="inside-tit"><span class="add"><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=shopping_add"><tpl>$address_list_add_address</tpl><!-- 添加地址 --></a></span><tpl>$address_list_default_address</tpl><!-- 默认收货地址 --></div>
+        <div id="address">
+          <div class="default">
+            <div class="serial">
+              <h3></h3>
+            </div>
+            <dl>
+              <dt><tpl>$address_list_shopping_user</tpl><!-- 收货人 -->:</dt>
+              <dd>&nbsp;<tpl>$default_address_info.other_true_name</tpl></dd>
+              <dt><tpl>$address_list_user_address</tpl><!-- 收货人地址 -->:</dt>
+              <dd>&nbsp;<tpl>$default_address_info.txt_other_country</tpl><tpl>$default_address_info.txt_other_province</tpl><tpl>$default_address_info.txt_other_city</tpl><tpl>$default_address_info.txt_other_county</tpl><tpl>$default_address_info.other_address</tpl></dd>
+              <dt><tpl>$address_list_user_zip</tpl><!-- 收货人邮编 -->:</dt>
+              <dd>&nbsp;<tpl>$default_address_info.other_zip</tpl></dd>
+              <dt><tpl>$address_list_user_mobilephone</tpl><!-- 收货人手机 -->:</dt>
+              <dd>&nbsp;<tpl>$default_address_info.other_mobilephone</tpl></dd>
+              <dt><tpl>$address_list_user_phone</tpl><!-- 收货人电话 -->:</dt>
+              <dd>&nbsp;<tpl>$default_address_info.other_phone</tpl></dd>
+              <dt><tpl>$address_list_user_other_call</tpl><!-- 其他电话 -->:</dt>
+              <dd>&nbsp;<tpl>$default_address_info.other_otherphone</tpl></dd>
+            </dl>
+            <div class="setup"><span><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=delAddress&other_id=<tpl>$default_address_info.other_id</tpl>" onclick="return confirm('<tpl>$address_list_del_conf</tpl>');"><tpl>$address_list_del</tpl><!-- 删除 --></a></span><span><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=shopping_add&parmer=modify&other_id=<tpl>$default_address_info.other_id</tpl>"><tpl>$address_list_modify</tpl><!-- 修改 --></a></span></div>
+          </div>
+		  <tpl>section name=i loop=$address_info_array</tpl>
+		  <div class="other">
+            <div class="serial">
+              <h3><tpl>$smarty.section.i.iteration</tpl>.</h3>
+            </div>
+            <dl>
+              <dt><tpl>$address_list_shopping_user</tpl><!-- 收货人姓名 -->:</dt>
+              <dd>&nbsp;<tpl>$address_info_array[i].other_true_name</tpl></dd>
+              <dt><tpl>$address_list_user_address</tpl><!-- 收货人地址 -->:</dt>
+              <dd>&nbsp;<tpl>$address_info_array[i].other_country</tpl><tpl>$address_info_array[i].other_province</tpl><tpl>$address_info_array[i].other_city</tpl><tpl>$address_info_array[i].other_county</tpl><tpl>$address_info_array[i].other_address</tpl></dd>
+              <dt><tpl>$address_list_user_zip</tpl><!-- 收货人邮编 -->:</dt>
+              <dd>&nbsp;<tpl>$address_info_array[i].other_zip</tpl></dd>
+              <dt><tpl>$address_list_user_mobilephone</tpl><!-- 收货人手机 -->:</dt>
+              <dd>&nbsp;<tpl>$address_info_array[i].other_mobilephone</tpl></dd>
+              <dt><tpl>$address_list_user_phone</tpl><!-- 收货人电话 -->:</dt>
+              <dd>&nbsp;<tpl>$address_info_array[i].other_phone</tpl></dd>
+              <dt><tpl>$address_list_user_other_call</tpl><!-- 其他电话 -->:</dt>
+              <dd>&nbsp;<tpl>$address_info_array[i].other_otherphone</tpl></dd>
+            </dl>
+            <div class="setup"><span><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=setDefaultAddress&other_id=<tpl>$address_info_array[i].other_id</tpl>"><tpl>$address_list_set_default_address</tpl><!-- 设为默认地址 --></a></span><span><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=shopping_add&parmer=modify&other_id=<tpl>$address_info_array[i].other_id</tpl>"><tpl>$address_list_modify</tpl><!-- 修改 --></a></span><span><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=delAddress&other_id=<tpl>$address_info_array[i].other_id</tpl>" onclick="return confirm('<tpl>$address_list_del_conf</tpl>');"><tpl>$address_list_del</tpl><!-- 删除 --></a></span>
+			</div>
+		</div>
+		  <tpl>/section</tpl>	
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+  <!--用户中心内容:END-->
+
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

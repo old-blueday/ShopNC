@@ -1,0 +1,118 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysScoreReputablyManage </tpl> &gt;&gt; <tpl> $langSysScoreList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="score.manage.php" method="get" id="form1">
+						<input type="hidden" name="action" value="del" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysScoreValue </tpl>:</th>
+								<td class="it-1">
+									<tpl> $slcScore </tpl>
+								</td>
+								<th class="wd"><tpl> $langSysSAppraiser </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<input class="fct-input" value="<tpl> $smarty.get.membername </tpl>" name="membername" id="membername" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysScoreAppraiseType </tpl>:</th>
+								<td class="it-1">
+									<tpl> $slcGenre </tpl>
+								</td>
+								<th class="wd"><tpl> $langSysScoreByAppraiser </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<input class="fct-input" value="<tpl> $smarty.get.grademember </tpl>" name="grademember" id="grademember" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysScoreMerchandiseName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $smarty.get.productname </tpl>" name="productname" id="productname" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysScoreOrderNum </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<input class="fct-input" value="<tpl> $smarty.get.ordercode </tpl>" name="ordercode" id="ordercode" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysScorePaymentType </tpl>:</th>
+								<td class="it-2" colspan="3"> 
+									<tpl> $slcPayment </tpl>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysScoreQuery </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="score.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-2"><tpl> $langSysScoreAppraiser </tpl></td>
+						<td class="es-4"><tpl> $langSysScoreAppraiseTime </tpl></td>
+						<td class="es-2"><tpl> $langSysSAppraiser </tpl></td>
+						<td class="es-2"><tpl> $langSysScoreByAppraiser </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $score_array[0].score_id neq '' </tpl>
+						<tpl> section name=loop loop=$score_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="score_id[]" value="<tpl> $score_array[loop].score_id </tpl>" /></td>
+						<td>
+							<tpl> if $score_array[loop].score eq "1" </tpl><tpl> $langPScoreGood </tpl><tpl> /if </tpl>
+							<tpl> if $score_array[loop].score eq "0" </tpl><tpl> $langPScoreMid </tpl><tpl> /if </tpl>
+							<tpl> if $score_array[loop].score eq "-1" </tpl><tpl> $langPScoreBad </tpl><tpl> /if </tpl>
+						</td>
+						<td><tpl> $score_array[loop].pubtime </tpl></td>
+						<td>
+							<a href="member.manage.php?action=modify&member_id=<tpl> $score_array[loop].member_id </tpl>"><tpl> $score_array[loop].member_name </tpl></a>
+						</td>
+						<td>
+							<a href="member.manage.php?action=modify&member_id=<tpl> $score_array[loop].grade_member_id </tpl>"><tpl> $score_array[loop].grade_member </tpl></a>
+						</td>
+						<td><a href="score.manage.php?action=modi&scoreid=<tpl> $score_array[loop].score_id </tpl>&curpage=<tpl> $curpage </tpl>"><tpl> $langCmodi </tpl></a>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $score_array[0].score_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $score_array[0].score_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" /> 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

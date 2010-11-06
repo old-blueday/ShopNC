@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$user_center_index_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title><!-- 会员中心-中心首页 -->
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content">
+      <div class="title">
+        <h3 id="home"><tpl>$user_center_index_welcome</tpl><!-- 欢迎您回到ShopNC用户中心 --></h3>
+      </div>
+      <div class="inside">
+        <div class="inside-tit"><tpl>$user_center_index_userinfo</tpl><!-- 我的个人信息 --><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=modify_userinfo">(<tpl>$user_center_index_edit</tpl><!-- 编辑 -->)</a></div>
+        <div class="inside-content">
+          <dl id="userinfo">
+            <dt><tpl>$user_center_index_true_name</tpl><!-- 真实姓名 -->:</dt>
+            <dd><tpl>$userinfo_array.true_name</tpl><br />
+            </dd>
+            <dt><tpl>$user_center_index_sex</tpl><!-- 性别 -->:</dt>
+            <dd><tpl>$userinfo_array.sex</tpl></dd>
+            <dt><tpl>$user_center_index_email</tpl><!-- 邮箱 -->:</dt>
+            <dd><tpl>$userinfo_array.email</tpl><br />
+            </dd>
+            <dt><tpl>$user_center_index_phone</tpl><!-- 固定电话 -->:</dt>
+            <dd><tpl>$userinfo_array.phone</tpl></dd>
+            <dt><tpl>$user_center_index_mobilphone</tpl><!-- 移动电话 -->:</dt>
+            <dd><tpl>$userinfo_array.mobilephone</tpl><br />
+            </dd>
+            <dt><tpl>$user_center_index_otherphone</tpl>:</dt>
+            <dd><tpl>$userinfo_array.otherphone</tpl></dd>
+            <dt>QQ:</dt>
+            <dd><tpl>$userinfo_array.qq</tpl><br />
+            </dd>
+            <dt>MSN:</dt>
+            <dd><tpl>$userinfo_array.msn</tpl></dd>
+            <dt><tpl>$user_center_index_regdate</tpl>:</dt>
+            <dd><tpl>$userinfo_array.register_time</tpl></dd>
+            <dt><tpl>$user_center_index_logindate</tpl>:</dt>
+            <dd><tpl>$userinfo_array.login_time</tpl></dd>
+          </dl>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear" style="height:32px;">&nbsp;</div>
+      <div class="inside">
+        <div class="inside-tit"><span class="control_btn" style="float:right; margin-right:5px;"><a href="user_center.php?action=my_order">
+          <h5 id="order"><tpl>$user_center_index_view_all</tpl><!-- 全部订单 --></h5>
+          </a></span><span><tpl>$user_center_index_my_order</tpl><!-- 我的订单信息 --></span></div>
+        <div>
+          <table id="tablesorter-demo" class="tablesorter" border="0" cellspacing="1" 
+cellpadding="0">
+            <thead>
+              <tr>
+                <th width="20%"><tpl>$user_center_index_order_num</tpl><!-- 订单编号 --></th>
+                <th width="25%"><tpl>$user_center_index_order_date</tpl><!-- 下单时间 --></th>
+                <th width="15%"><tpl>$user_center_index_order_state</tpl><!-- 订单状态 --></th>
+                <th width="15%"><tpl>$user_center_index_order_price</tpl><!-- 订单总金额 --></th>
+                <th width="25%"><tpl>$user_center_index_order_oper</tpl><!-- 操作 --></th>
+              </tr>
+            </thead>
+            <tbody>
+			<tpl>section name=list loop=$my_order</tpl>
+              <tr>
+                <td><tpl>$my_order[list].order_serial</tpl></td>
+                <td><tpl>$my_order[list].create_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+                <td><tpl>if $my_order[list].order_state == 0</tpl><tpl>$user_center_index_order_unconfirm</tpl><tpl>elseif $my_order[list].order_state == 1</tpl><tpl>$user_center_index_order_confirmed</tpl><!-- 已确认 --><tpl>elseif $my_order[list].order_state == 2</tpl><tpl>$user_center_index_order_pay</tpl><tpl>elseif $my_order[list].order_state == 3</tpl><tpl>$user_center_index_order_send</tpl><tpl>elseif $my_order[list].order_state == 4</tpl><tpl>$user_center_index_order_end</tpl><tpl>/if</tpl></td>
+                <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>$my_order[list].order_price</tpl></td>
+                <td><span class="control_btn"><a href="user_center.php?action=my_order_view&order_id=<tpl>$my_order[list].order_id</tpl>" target="_blank"><h5 id="see"><tpl>$user_center_index_order_view</tpl></h5><!-- 查看 --></a></span><span class="control_btn">
+				<tpl>if $my_order[list].order_state1 == 0 and $my_order[list].order_state2 == 0 and $my_order[list].order_state3 == 0 and $my_order[list].order_state == 0</tpl><a href="user_center.php?action=del_my_order&order_id=<tpl>$my_order[list].order_id</tpl>&order_sn=<tpl>$my_order[list].order_serial</tpl>" onclick="confirm('<tpl>$user_center_index_order_cancel_conf</tpl>')">
+                  <h5 id="cancel"><tpl>$user_center_list_order_cancel</tpl><!-- 取消 --></h5>
+                  </a><tpl>/if</tpl></span></td>
+              </tr>
+			<tpl>/section</tpl>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="5" align="right">&nbsp;</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear" style="height:12px;">&nbsp;</div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <!-- 用户中心内容:END -->
+  <!-- 用户中心菜单:START -->
+  	<tpl>include file ='user_center_menu.html'</tpl>
+  <!-- 用户中心菜单:END -->
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

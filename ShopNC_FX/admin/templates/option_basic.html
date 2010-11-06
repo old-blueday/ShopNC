@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_shop_manage</tpl> - <tpl>$admin_system_site</tpl></title><!-- 网店管理 - 基本设置 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	<tpl>if $config_array.currencies==1</tpl>
+	$('#shop_currency').attr('disabled', 'disabled');
+	$('#shop_currency').css('background', '#F1F2F3');
+	<tpl>/if</tpl>
+	$("#currencies").click(function(){
+		if(this.checked){
+			$('#shop_currency').attr('disabled', 'disabled');
+			$('#shop_currency').css('background', '#F1F2F3');
+		} else {
+			$('#shop_currency').removeAttr('disabled');
+			$('#shop_currency').css('background', '#FFFFFF');
+		}
+	});
+
+	/* 输入信息的校验 */
+	$("#system_form").validate({
+		errorClass: "wrong",
+		rules: {
+			versionarea			: {required		:true},
+			admin_language		: {required		:true},
+			shop_currency		: {required		:true}
+		},
+		messages: {
+			versionarea			: {required		:"<tpl>$admin_system_basic_front_lang_null</tpl>"},
+			admin_language		: {required		:"<tpl>$admin_system_basic_back_lang_null</tpl>"},
+			shop_currency		: {required		:"<tpl>$admin_system_basic_money_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+  <form action="?action=system_save" enctype="multipart/form-data" method="post" name="system_form" id="system_form">
+    <h2><tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_site</tpl><!-- 网店管理 >> 基本设置 --></h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table border="0" width="100%">
+            <tr>
+              <td width="90"><tpl>$admin_system_basic_shop_name</tpl><!-- 商店名称 -->:</td>
+              <td width="280"><input type="text" name="site_name" id="site_name" value="<tpl>$config_array.site_name|escape:html</tpl>" /></td>
+              <td width="90"><tpl>$admin_system_basic_host_name</tpl><!-- 店主名称 -->:</td>
+              <td><input type="text" name="shop_user" id="shop_user" value="<tpl>$config_array.shop_user|escape:html</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_front_lang</tpl><!-- 前台语言 -->:</td>
+              <td><select name="versionarea" id="versionareas">
+			  <tpl>section name=list loop=$language_array</tpl>
+                <option value="<tpl>$language_array[list].language_directory</tpl>" <tpl>if $language_array[list].language_directory ==$config_array.versionarea</tpl> selected="selected"<tpl>/if</tpl> ><tpl>$language_array[list].language_name</tpl></option>
+				<tpl>/section</tpl>
+              </select><div class="check-error"><label style="display:none" for="versionareas" class="wrong" metaDone="true" generated="true"></label></div><!-- <input type="checkbox" value="1" name="currencies" id="currencies" <tpl>if $config_array.currencies==1</tpl>checked="checked"<tpl>/if</tpl> /><tpl>$admin_system_basic_currencies</tpl> --><!-- 对应货币 --></td>
+              <td><tpl>$admin_system_basic_sex</tpl><!-- 性别 -->:</td>
+              <td><input type="radio" name="user_sex" id="user_sex" value="1" <tpl>if $config_array.user_sex=='1'</tpl>checked="checked"<tpl>/if</tpl> />
+<tpl>$admin_system_basic_male</tpl><!-- 男 -->
+  <input type="radio" name="user_sex" id="user_sex" value="0" <tpl>if $config_array.user_sex=='0'</tpl>checked="checked"<tpl>/if</tpl> />
+<tpl>$admin_system_basic_female</tpl><!-- 女 --></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_back_lang</tpl><!-- 后台语言 -->:</td>
+              <td><select name="admin_language" id="admin_language">
+			  <tpl>section name=list loop=$language_array</tpl>
+                <option value="<tpl>$language_array[list].language_directory</tpl>" <tpl>if $language_array[list].language_directory ==$config_array.admin_language</tpl> selected="selected"<tpl>/if</tpl> ><tpl>$language_array[list].language_name</tpl></option>
+				<tpl>/section</tpl>
+              </select>&nbsp;&nbsp;<a href="admin_module_language.php?action=language_area" class="other_url_shopnc"><tpl>$admin_system_basic_lang_add</tpl></a>
+			  <div class="check-error"><label style="display:none" for="admin_language" class="wrong" metaDone="true" generated="true"></label></div>
+			  </td>
+              <td><tpl>$admin_system_basic_email</tpl><!-- email -->:</td>
+              <td><input type="text" name="shop_email" id="shop_email"  value="<tpl>$config_array.shop_email</tpl>"  /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_money</tpl><!-- 货币选择 -->:</td>
+              <td><select name="shop_currency" id="shop_currency">
+			  	<tpl>section name=list loop=$currency_array</tpl>
+                <option value="<tpl>$currency_array[list].currencies_id</tpl>" <tpl>if $currency_array[list].currencies_id==$config_array.shop_currency</tpl>selected="selected"<tpl>/if</tpl>><tpl>$currency_array[list].currencies_name</tpl></option>
+				<tpl>/section</tpl>
+              </select>&nbsp;&nbsp;<a href="admin_module_currencies.php?action=currencies_list" class="other_url_shopnc"><tpl>$admin_system_money_add</tpl></a>
+			  <div class="check-error"><label style="display:none" for="shop_currency" class="wrong" metaDone="true" generated="true"></label></div>
+			  </td>
+              <td><tpl>$admin_system_basic_fax</tpl><!-- 传真 -->:</td>
+              <td><input type="text" name="shop_fax" id="shop_fax" value="<tpl>$config_array.shop_fax|escape:html</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_shop_state</tpl><!-- 网店状态 -->:</td>
+              <td><tpl>$shop_state</tpl></td>
+              <td><tpl>$admin_system_basic_tel</tpl><!-- 电话 -->:</td>
+              <td><input type="text" name="shop_call" id="shop_call"  value="<tpl>$config_array.shop_call|escape:html</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_icp</tpl><!-- icp备案 -->:</td>
+              <td><input type="text" name="shop_ipc" id="shop_ipc" value="<tpl>$config_array.shop_ipc</tpl>"  /></td>
+              <td><tpl>$admin_system_basic_address</tpl><!-- 详细地址 -->:</td>
+              <td class="needheight" style="line-height:24px">
+                <input type="text" name="shop_address" id="shop_address" value="<tpl>$config_array.shop_address|escape:html</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_keywords</tpl><!-- 关键字 -->:</td>
+              <td><input type="text" name="shop_keywords" id="shop_keywords" value="<tpl>$config_array.shop_keywords|escape:html</tpl>"  /></td>
+              <td><tpl>$admin_system_basic_zip_code</tpl><!-- 邮编 -->:</td>
+              <td><input type="text" name="shop_post" id="shop_post" value="<tpl>$config_array.shop_post|escape:html</tpl>"  /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_basic_describe</tpl><!-- 描述 -->:</td>
+              <td colspan="3"><textarea name="shop_description" cols="45" rows="5" id="shop_description"><tpl>$config_array.shop_description</tpl> </textarea></td>
+            </tr>
+			<tpl>if $config_array.shop_logo_file!= ''</tpl>
+            <tr>
+              <td>&nbsp;</td>
+              <td colspan="3"><img src="../<tpl>$config_array.shop_logo_file</tpl>" width="100" height="50" border="0" /><input type="hidden" name="shop_old_logo_file" value="<tpl>$config_array.shop_logo_file</tpl>" /></td>
+            </tr>
+			<tpl>/if</tpl>
+            <tr>
+              <td><tpl>$admin_system_basic_logo</tpl><!-- 网店logo -->:</td>
+              <td colspan="3"><!-- <tpl>$admin_system_basic_width</tpl>:
+                <input name="shop_logo_width" type="text" readonly="readonly" size="2" value="160" />
+                px&nbsp;<tpl>$admin_system_basic_height</tpl>:
+                <input name="shop_logo_height" type="text" readonly="readonly" size="2" value="60" />
+                px&nbsp; -->
+				<input name="shop_logo_width" type="hidden" value="160" />
+				<input name="shop_logo_height" type="hidden" value="60" />
+              <input name="shop_logo_file" type="file" id="shop_logo_file" size="15" />(<tpl>$admin_system_basic_width</tpl>:160px&nbsp;<tpl>$admin_system_basic_height</tpl>:60px)
+			  </td>
+            </tr>
+            <tr>
+			  <td><tpl>$admin_system_basic_copyright</tpl><!-- 版权信息 -->:</td>
+              <td colspan="3"><textarea name="shop_copyright" cols="45" rows="5" id="shop_copyright"><tpl>$config_array.shop_copyright</tpl></textarea></td>
+            </tr>
+          </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+	<input type="hidden" name="site_url" value="<tpl>$config_array.site_url</tpl>" />
+	<input type="hidden" name="nc_charset" value="<tpl>$config_array.nc_charset</tpl>" />
+	<input type="hidden" name="templatesname" value="<tpl>$config_array.templatesname</tpl>" />
+	<input type="hidden" name="config_type" value="base" />
+	<input type="hidden" name="config_str" value="<tpl>$config_str</tpl>" />
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_system_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/home/css/ploy-list.css" rel="stylesheet" type="text/css" />
+<tpl> include file ='../head.config.html' </tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/ploy-list.css" rel="stylesheet" type="text/css" />
+<script>
+$(function(){
+	$("#total").html(1*<tpl> $act_goods_row.cag_credits </tpl>);
+	$("#convert_form").validate({
+		errorClass: "wrong",
+		rules: {
+			caa_num: {required:true,number:true}
+		},
+		messages: {
+			caa_num: {required: "<tpl> $langSysCAApplyNumberEmpty </tpl>",number: "<tpl> $errCACaaNumIsNotNumber </tpl>"}
+		}
+	});
+});
+function get_count (num,one) {
+	if ( parseInt ( num ) > 0 ) {
+		$("#total").html(num*one);	
+	}
+}
+</script>
+</head>
+<body>
+<div class="list-1">
+<div class="bg-bg">
+	<div class="list-1-left"></div>
+	<div class="list-1-center">
+		<div class="center-top"><img src="<tpl> $template_dir </tpl>/home/images/center-1.jpg"  /></div>
+		<div class="center-login">
+			<tpl> if $ses_member_id neq '' </tpl>
+				<ul>
+					<li class="line-ziti"><tpl> $langCAHello </tpl>,</li>
+					<li class="line-ziti"><tpl> $ses_login_name </tpl></li>
+					<li><a href="<tpl> $site_url </tpl>/member/own_main.php"><img src="<tpl> $template_dir </tpl>/home/images/center-3-1.jpg"  /></a></li>
+					<li><a href="<tpl>$site_url</tpl>/home/member.php?action=logout"><img src="<tpl> $template_dir </tpl>/home/images/center-5-1.jpg"  /></a></li>
+				</ul>		
+			<tpl> else </tpl>
+				<ul>
+					<li><a href="<tpl> $site_url </tpl>/home/member.php?action=login"><img src="<tpl> $template_dir </tpl>/home/images/center-3.jpg"  /></a></li>
+					<li><a href="<tpl> $site_url </tpl>/home/member.php?action=regist"><img src="<tpl> $template_dir </tpl>/home/images/center-5.jpg"  /></a></li>
+				</ul>
+			<tpl> /if </tpl>
+		</div>
+		<div class="center-nr">
+			<div class="left-particular">
+				<div class="box-1">
+					<tpl> if $act_goods_row.cag_pic neq '' </tpl>
+						<img src="<tpl> $site_url </tpl>/<tpl> $act_goods_row.cag_pic </tpl>" alt="<tpl> $act_goods_row.cag_name </tpl>" />
+					<tpl> else </tpl>
+						<img src="<tpl> $template_dir </tpl>/images/noimgm.gif" alt="<tpl> $act_goods_row.cag_name </tpl>" />
+					<tpl> /if </tpl>				
+				</div>	
+			</div>
+			<div class="right-particular">
+			<form action="index.php?action=convert_goods_save" name="convert_form" id="convert_form" method="POST">
+			<input type="hidden" name="ca_id" value="<tpl> $act_goods_row.ca_id </tpl>" />
+			<input type="hidden" name="cag_id" value="<tpl> $act_goods_row.cag_id </tpl>" />
+			<h3><tpl> $act_goods_row.cag_name </tpl></h3>
+				<ul>
+					<li><span class="xl-1"><tpl> $langCACagLastNum </tpl>：</span><span  class="xl-2"><tpl> $act_goods_row.cag_num </tpl></span></li>
+					<li><span  class="xl-1"><tpl> $langSysCAApplyNeed </tpl>：</span><span  class="xl-2"><tpl> $act_goods_row.cag_credits </tpl></span></li>
+					<li><span  class="xl-1"><tpl> $langSysCAApplyMyCredits </tpl>：</span><span  class="xl-2"><tpl> $member_info.extcredits_points </tpl></span></li>
+					<li><span  class="xl-1"><tpl> $langSysCAApplyAllCredits </tpl>：</span><span  class="xl-2" id="total"></span></li>
+					<li><span  class="xl-1"><tpl> $langSysCAApplyNum </tpl>：</span><span  class="xl-2"><input class="bt-1" name="caa_num" id="caa_num" type="text" value="1" onblur="get_count(this.value,<tpl> $act_goods_row.cag_credits </tpl>)" /><br/><label style="display:none" for="caa_num" class="wrong" metadone="true" generated="true"></label></span></li>
+				</ul>
+				<ul class="anniu">
+					<input type="image" src="<tpl> $template_dir </tpl>/home/images/xiangxi-3.jpg" />
+				</ul>
+				</form>
+			</div>
+		</div>
+		<div class="clear-10"></div>
+		<tpl> include file ='../../../../html/footer.html' </tpl>
+	</div>
+	<div class="list-1-right">
+	</div>
+</div>
+</div>
+</body>
+</html>

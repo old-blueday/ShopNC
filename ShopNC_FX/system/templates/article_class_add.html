@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_article_class_add </tpl></title><!-- 添加文章分类 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_article_calss").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_cname	: {required	:true}
+		},
+		messages: {
+			txt_cname	: {required	: "<tpl>$shop_admin_article_add_classname_not_null</tpl>"}
+		}
+	});
+});
+	function showouturl(value){
+		if(value == "1"){
+			document.getElementById("outurl").style.display="";
+		}
+		if(value == "0"){
+			document.getElementById("outurl").style.display="none";
+		}
+	}	
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<form action="admin_article.php?action=article_class_save" method="post" name="add_article_calss" id="add_article_calss">
+	<input type="hidden" name="txt_cid" id="txt_cid" value="<tpl>$smarty.get.cid</tpl>" />
+	<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_article.php?action=article_class_list" target="_self" class="btnInput"><tpl> $shop_admin_article_class_list </tpl><!-- 文章分类列表 --></a></span>
+	<tpl> $shop_admin_header_article_manage </tpl><!-- 文章管理 --> &gt;&gt; <tpl>if $smarty.get.cid!=''</tpl><tpl>$shop_admin_article_class_edit</tpl><tpl>else</tpl><tpl> $shop_admin_article_class_add </tpl><tpl>/if</tpl><!-- 添加文章分类 -->
+    </b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+				<h5><tpl>if $smarty.get.cid!=''</tpl><tpl>$shop_admin_article_class_edit</tpl><tpl>else</tpl><tpl> $shop_admin_article_class_add </tpl><tpl>/if</tpl><!-- 添加文章分类 --></h5>
+    <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl> $shop_admin_article_class_add_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="90%" border="0">
+        <tr>
+          <td><tpl> $shop_admin_article_class_add_name </tpl><!-- 分类名称 -->:</td>
+          <td><input class="TextBoxAt" type="text" name="txt_cname" id="txt_cname" value="<tpl> $article_class_array.cname|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_cname" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_class_add_if_pub </tpl><!-- 是否发布 -->: </td>
+          <td><tpl> $txt_cstate </tpl></td>
+        </tr>
+<!--        <tr>
+          <td><tpl> $shop_admin_article_class_add_index_show_if </tpl> 首页是否显示: </td>
+          <td><tpl> $txt_cshow </tpl></td>
+        </tr> -->
+        <tr>
+          <td><tpl> $shop_admin_article_class_add_nav_show </tpl><!-- 导航显示 -->:</td>
+          <td><tpl>$txt_menu</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_class_add_urlstate_if </tpl><!-- 是否为外部链接 -->:</td>
+          <td><tpl>$txt_urlstate</tpl></td>
+        </tr>
+        <tr id="outurl">
+          <td><tpl> $shop_admin_article_class_add_url </tpl><!-- 外部链接地址 -->:</td>
+          <td><input class="TextBoxAt" name="txt_url" type="text" id="txt_url" value="<tpl> $article_class_array.url </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_class_add_order </tpl><!-- 排序 -->:</td>
+          <td><input class="TextBoxAt" name="txt_csort" type="text" id="txt_csort" size="5" value="<tpl> $article_class_array.csort </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $shop_admin_article_class_add_keyword </tpl><!-- 关键字 -->:</td>
+        	<td><input class="TextBoxAt" type="text" name="txt_ckeywords" id="txt_ckeywords" value="<tpl> $article_class_array.ckeywords|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $shop_admin_article_class_add_description </tpl><!-- 描述 -->:</td>
+        	<td><textarea name="txt_cinfo" id="txt_cinfo" cols="45" rows="5"><tpl> $article_class_array.cinfo </tpl></textarea></td>
+        </tr>
+		<tr>
+        	<td>&nbsp;</td>
+        	<td><input type="submit" name="button" id="button" value="<tpl> $shop_admin_article_class_add_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $shop_admin_article_class_add_reset </tpl>"  class="btnInput" /><!-- 重置 --></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft">
+      
+    </div>
+	</div>
+</form>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>
+<script>
+	<tpl> if $article_class_array.urlstate eq 1 </tpl>
+		$('#outurl').css('display','');
+	<tpl> else </tpl>
+		$('#outurl').css('display','none');
+	<tpl> /if </tpl>
+
+	<tpl> if $article_class_array.cshow eq 1 </tpl>
+		$('#indexarea').css('display','');
+	<tpl> else </tpl>
+		$('#indexarea').css('display','none');
+	<tpl> /if </tpl>
+	
+
+</script>

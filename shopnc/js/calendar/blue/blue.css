@@ -1,0 +1,35 @@
+/* 公共部分 */
+.calendar{font-size:12px; width:150px; height:216px; text-align:center; padding:4px; background:url(cal_bg.png) no-repeat; padding-top:15px;}
+
+.calendar ul{ list-style:none; width:147px; margin:0px; padding:0px}
+.calendar ul li{ float:left;width:21px;height:21px;}
+.calendar ul li a{background:url(normal.gif); display:block;width:21px;height:18px;color:#000;text-decoration:none; padding-top:3px}
+.calendar ul li a:hover{background:url(hover.gif);}
+
+
+/* 选中日期的样式 */
+.calendar a.calendar_selected{height:19px; background:url(selected.gif); cursor:pointer;color:#ffffff}
+
+/* 空白日期的样式 */
+.calendar li.calendar_invalid{background:url(invalid.gif);}
+.calendar li.calendar_outrange{background:url(normal.gif); color:#cccccc; height:18px; padding-top:3px}
+
+/* 周的表头样式 */
+.calendar li.calendar_week{color:#000;height:auto; padding:2px 0 1px 0}
+
+/*今天选择按钮样式*/
+.calendar li.calendar_today{height:21px; width:63px;display:block;}
+.calendar li.calendar_today a{width:63px;display:block; background:url(selectbtn.gif);height:18px;padding-top:3px;color:#000;}
+.calendar li.calendar_today a:hover{background:url(selectbtn_hover.gif); color:#fff}
+
+/* 月选择按钮样式 */
+.calendar li.calendar_month{height:21px; width:63px;display:block;}
+.calendar li.calendar_month a{width:63px;display:block; background:url(selectbtn.gif);height:18px;padding-top:3px;color:#000;}
+.calendar li.calendar_month a:hover{background:url(selectbtn_hover.gif); color:#fff}
+
+/* 年选择按钮样式 */
+.calendar li.calendar_year{height:21px; width:63px;display:block;}
+.calendar li.calendar_year a{width:63px;display:block; background:url(selectbtn.gif);height:18px;padding-top:3px;color:#000;}
+.calendar li.calendar_year a:hover{background:url(selectbtn_hover.gif); color:#fff}
+
+.calendar li.calendar_logo{background:url(logo.gif);color:#000;}

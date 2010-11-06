@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$login_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#form3').validate({
+		errorClass: "wrong",
+		rules: {
+			txt_username	: {required:true},
+			txt_pwd			: {required:true}
+			<tpl>if $view_config.view_login_validate=='1'</tpl>
+			,txt_login_code	: {required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			txt_username	: {required:"<tpl>$login_name_null</tpl>"},
+			txt_pwd			: {required:"<tpl>$login_passwd_null</tpl>"}
+			<tpl>if $view_config.view_login_validate=='1'</tpl>
+			,txt_login_code	: {required:"<tpl>$login_code_null</tpl>"}
+			<tpl>/if</tpl>		
+		}
+	});
+});
+//-->
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="loginpic"></div>
+  <div class="top"></div>
+  <div class="content" style="height:330px;">
+    <div class="login_bar">
+      <div class="title">
+        <h2><tpl>$login_user_login</tpl><!-- 会员登录 --></h2>
+      </div>
+      <p class="inside_width"><b><tpl>$login_welcome</tpl><!-- 欢迎来到ShopNC！ --></b></p>
+      <form id="form3" name="form3" method="post" action="<tpl> $Site_Url </tpl>/member/user.php?action=login" class="inside_width">
+	  <tpl>$seride_form</tpl>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <th width="23%"><label for="txt_username"><tpl>$login_username</tpl><!-- 用户名 -->:</label></th>
+            <td width="77%"><label>
+              <input type="text" name="txt_username" class="textinput" id="txt_username" style="width:190px;"/>
+              </label>
+			  <div class="check-error"><label style="display:none" for="txt_username" class="wrong" metaDone="true" generated="true"></label></div>
+			  </td>
+          </tr>
+          <tr>
+            <th><tpl>$login_pwd</tpl></tpl>:</th>
+            <td><label>
+              <input type="password" name="txt_pwd" class="textinput" id="txt_pwd" style="width:190px;"/>
+              </label>
+            <div class="check-error"><label style="display:none" for="txt_pwd" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tpl>if $view_config.view_login_validate=='1'</tpl>
+          <tr>
+            <th><tpl>$login_code</tpl></tpl>:</th>
+            <td>
+              <input type="text" name="txt_login_code" class="textinput" style="text-transform:uppercase;width:50px;" id="txt_login_code" style=""/>
+			  <img src="../classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;cursor: pointer;" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='<tpl> $Site_Url </tpl>/classes/libraries/code.php?' + Math.random()" />
+            <div class="check-error"><label style="display:none" for="txt_login_code" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tpl>/if</tpl>
+          <tr>
+            <td colspan="2"><span style="width:120px; margin-right:22px;"><a href="user.php?action=forgetpass"><tpl>$login_forget_pwd</tpl><!-- 忘记密码了？ --></a></span><span>
+              <input type="submit" name="button" id="button" class="button_login" value="<tpl>$login_click_login</tpl>" /><!-- 点我登录 -->
+				 
+				  <input type="hidden" name="nc_refresh" value="<tpl>$smarty.server.HTTP_REFERER</tpl>" />
+              </span></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="register_bar">
+      <div class="title">
+        <h2><tpl>$login_register1</tpl><!-- 准备好买东西就来这里注册吧！ --></h2>
+      </div>
+      <p class="inside_width"><b><tpl>$login_register2</tpl><!-- 注册到ShopNC您将享受到以下服务 -->:</b></p>
+      <ul class="inside_width">
+        <li><tpl>$login_register3</tpl><!-- 超优惠的价格，物超所值！ --></li>
+        <li><tpl>$login_register4</tpl><!-- 支持多种支付方式，方便快捷！ --></li>
+        <li><tpl>$login_register5</tpl><!-- “最以客户为中心”的服务和客户体验！ --></li>
+      </ul>
+      <div class="inside_width" style="margin-top:14px;">
+      <span class="button_register"><a href="#" onclick="location.href='user.php?action=register'"><tpl>$login_click_register</tpl></a></span><tpl>if $smarty.session.cart_goods != '' and $smarty.get.buy_member == 'guest'</tpl>
+				  <input type="button" name="button" value="<tpl>$no_login_buy</tpl>" onclick="location.href='../shopping.php?action=step_1&buy_member=guest'" class="btnInput" /><!-- 直接购买 -->
+				   <tpl>/if</tpl></div>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

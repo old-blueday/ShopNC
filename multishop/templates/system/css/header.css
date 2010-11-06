@@ -1,0 +1,101 @@
+.gtop {
+	padding-right: 0px; 
+	padding-left: 0px; 
+	padding-bottom: 0px; 
+	margin: 0px; 
+	padding-top: 0px; 
+	position: relative; 
+	height: 91px; 
+	background-color: #000;
+	background:url(../images/nc1.gif);
+}
+/*
+logo
+*/
+.glogo {
+	float:left; 
+	padding-left:12px; 
+	padding-top:10px;
+}
+/*
+The right side of Navigation
+*/
+.tlink {
+	right: 14px; 
+	color: #999; 
+	position: absolute; 
+	top: 14px;
+}
+/*
+Main navigation
+*/
+.gnav {
+	padding-right: 0px; 
+	padding-left: 0px; 
+	left: 7px; 
+	padding-bottom: 0px; 
+	margin: 0px; 
+	padding-top: 0px; 
+	position: absolute; 
+	top: 52px; 
+	height: 39px;
+}
+.gnav li {
+	float: left; 
+	width: 89px; 
+	height: 39px;
+	
+	}
+.gnav li a {
+	display: block; 
+	font-weight: bold; 
+	width: 91px; 
+	line-height: 39px; 
+	position: relative; 
+	height: 39px; 
+	text-align: center; 
+	text-decoration: none;
+	float:left;
+	background:url(../images/menu_bg.jpg) no-repeat right 50%;
+	margin-right:0px;
+	margin-right:-3px\9;
+	*margin-right:0;
+	_margin-right:-3px;
+	font-size:14px;
+	color:#4b6888
+	}
+
+.gnav li a:hover{
+	text-decoration: none;
+	color:#364B63;
+	
+}
+.gnav li a.on {
+	background-position: left -35px;
+	background-image:url(../images/nc2.gif);
+}
+.gnav li a.om {
+	background-image:none;
+}
+.gnav li a.on:hover {
+	text-decoration: none;
+}
+.gnav li a.on:hover,.gnav li a.on{
+	color:#fff
+	}
+a{
+	text-decoration:none;
+	color:#0068b7; 
+	font-size:12px;
+	}
+
+b {
+	padding-right: 0px; 
+	padding-left: 0px; 
+	padding-bottom: 0px; 
+	margin: 0px; 
+	padding-top: 0px; 
+	font-family: verdana,arial, helvetica, sans-serif; 
+	list-style-type: none; 
+	color:#333333;
+}

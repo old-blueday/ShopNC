@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>
+include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/oneauction.css" rel="stylesheet" type="text/css" />
+<tpl>if $NCharset == "GBK"</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.countdowngbk.min.js" ></script>
+<tpl>else</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.countdown.min.js" ></script>
+<tpl>/if</tpl>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/home/js/jquery.dimensions.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.accordion.js"></script>
+<Script type="text/javascript" >
+$(function () {
+	$('#counter').countdown({until: <tpl> $ex_top_product.cp_end_time </tpl>,layout: '{dn} {dl}, {hn} {hl}, {mnn} {ml}, {snn} {sl}'});	
+});
+
+<!--
+$(function () {
+	$('ul.drawers').accordion({
+		header: 'H2.drawer-handle',
+		selectedClass: 'open',
+		event: 'mouseover'
+	});
+});
+//-->
+
+$(function(){
+     var len = $("#idNum > li").length;
+var index = 0;
+$("#idNum li").mouseover(function(){
+   index =   $("#idNum li").index(this);
+   showImg(index);
+}); 
+$('#swiftbanner').hover(function(){
+     if(MyTime){
+     clearInterval(MyTime);
+     }
+},function(){
+     MyTime = setInterval(function(){
+       showImg(index)
+     index++;
+     if(index==len){index=0;}
+     } , 4000);
+});
+var MyTime = setInterval(function(){
+   showImg(index)
+   index++;
+   if(index==len){index=0;}
+} , 4000);
+})
+function showImg(i){
+   $("#idSlider").stop(true,false).animate({top : -180*i},800);
+   $("#idNum li")
+    .eq(i).addClass("on")
+    .siblings().removeClass("on");
+}
+</Script>
+<script language="javascript" >
+
+</script>
+<body>
+<div id="wrapper" class="m"> 
+  <!--Header-->
+ <tpl> include file="header_new.html" </tpl>
+  <!--End Header-->
+  <div class="clear">&nbsp;</div>
+  <div id="main">
+    <div class="mainbox">
+      <div class="leftLayout">
+	   <div class="left sideStyle">
+          <div class="title">
+            <h3><tpl> $langMallActivityInformation </tpl></h3>
+          </div>
+          <ul>
+          	<tpl> section name=n loop=$news_array </tpl>
+          		<li><a href="<tpl> $news_array[n].news_href </tpl>" title="<tpl> $news_array[n].news_title </tpl>" target="_blank"><tpl> $news_array[n].news_title_cut </tpl></a></li>
+          	<tpl> /section </tpl>
+          </ul>
+        </div>        
+        <div class="content" id="swiftbanner">
+            <ul class="slider" id="idSlider">
+				<tpl> foreach from=$topics_countdown_slide item=one </tpl>
+				 <li><a href="<tpl> $one.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $one.pic </tpl>" width="480" height="180"/></a></li>
+				<tpl> /foreach </tpl>
+            </ul>
+            <ul class="num" id="idNum">
+				<tpl> foreach from=$topics_countdown_slide item=one key=key </tpl>
+				  <li><tpl> $key+1 </tpl></li>
+				<tpl> /foreach </tpl>
+          </ul>			
+		</div>
+        <div class="clear">&nbsp;</div>
+        <div class="goodsListStyle">
+          <div class="title">
+            <h3><tpl> $langCIndexNew </tpl></h3>
+          </div>
+          <ul class="content">
+          	<tpl> section name=n loop=$product_new </tpl>
+            <li>
+	              <div class="goodsPic">
+	              <a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_new[n].p_code </tpl>" target="_blank">
+		              <tpl> if $product_new[n].p_pic eq 'NULL' ||  $product_new[n].p_pic eq ''</tpl>
+		              	<img style="width: 130px; height: 130px;" src="<tpl> $template_dir </tpl>/images/noimgm.gif"  alt="<tpl> $product_hot[n].p_name </tpl>" />
+		              <tpl> else </tpl>
+		              	<img style="width: 130px; height: 130px;" src="../<tpl> $product_new[n].p_pic </tpl>" alt="<tpl> $product_new[n].p_name </tpl>" />
+		              <tpl> /if </tpl>
+	              </a>
+              	</div>
+            <dl>
+                <dt class="goodsName"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_new[n].p_code </tpl>" title="<tpl> $product_new[n].p_name </tpl>" target="_blank"><tpl> $product_new[n].p_cur_name </tpl></a></dt>
+                <dd class="basicPrice"><tpl> $langCIndexStrprice </tpl>：<tpl> $product_new[n].cp_price|cat:'.00' </tpl><tpl> $langCIndexCny </tpl></dd>
+                <dd class="maxPrice"><tpl> $langCIndexCurprice </tpl>：<tpl> $product_new[n].cp_cur_price|cat:'.00' </tpl><tpl> $langCIndexCny </tpl></dd>
+              <dd class="auctionBtn"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_new[n].p_code </tpl>" target="_blank"><tpl> $langCIndexBidGo </tpl></a></dd>
+              </dl>
+            </li>
+            <tpl> /section </tpl>
+          </ul>
+        </div>
+      </div>
+      <div class="rightLayout">
+        <dl id="superAuction">
+          <dt class="goodsPic" >
+			<tpl> if $top_product.p_code neq '' </tpl>
+				<a target="_blank" href="product_countdown.php?action=view&pid=<tpl> $top_product.p_code </tpl>">
+					<tpl> if $top_product.topics_pic neq '' </tpl>
+						<img src="<tpl> $site_url </tpl>/<tpl> $top_product.topics_pic </tpl>" width="235" height="329" />
+					<tpl> else </tpl>
+						<img src="<tpl> $template_dir </tpl>/home/images_new/pics/yyp.png" width="235" height="329" />
+					<tpl> /if </tpl>
+				</a>
+			<tpl> else </tpl>
+				<img src="<tpl> $template_dir </tpl>/home/images_new/pics/yyp.png" width="235" height="329" />
+			<tpl> /if </tpl>          
+          </dt>
+          <tpl> if $top_product.p_code neq '' </tpl>
+          	<dd class="maxPrice"><tpl> $langCIndexHightPrice </tpl>:<span><tpl> $ex_top_product.cp_cur_price|cat:'.00' </tpl></span><tpl> $langCIndexCny </tpl></dd>
+          <tpl> else </tpl>
+          	<dd class="maxPrice"><tpl> $langCIndexHightPrice </tpl>:<span><tpl> $ex_top_product.cp_cur_price|default:'0' </tpl></span><tpl> $langCIndexCny </tpl></dd>
+          <tpl> /if </tpl> 
+          <dd class="maxPeople"><tpl> $langCIndexBidNumber </tpl>:<span><tpl> $ex_top_product.cp_bid_num|default:'0' </tpl></span><tpl> $langCIndexNumber </tpl></dd>
+          <dd class="countdown">
+            <h4><tpl> $langCIndexEndtime </tpl></h4>
+            <div id="counter"></div>
+          </dd>
+          <dd class="btn">
+				<tpl> if $top_product.p_code neq '' </tpl>
+					<a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $ex_top_product.p_code </tpl>" target="_blank"><tpl> $langCIndexBidGo </tpl></a>
+				<tpl> else </tpl>
+					<a href=""><tpl> $langCIndexBidGo </tpl></a>
+				<tpl> /if </tpl>             	
+          </dd>
+        </dl>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="allBannerBox">
+		<tpl> if $topics_countdown_banner1.pic neq '' </tpl>
+			<a href="<tpl> $topics_countdown_banner1.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_countdown_banner1.pic </tpl>" width="945" height="90" /></a>
+		<tpl> /if </tpl>    
+    </div>
+    <div class="mainbox">
+      <div class="leftLayout">
+        <div class="goodsListStyle">
+          <div class="title">
+            <h3><tpl> $langCIndexCover </tpl></h3>
+          </div>
+          <ul class="content">
+          	<tpl> section name=e loop=$product_end </tpl>
+            <li>
+              <div class="goodsPic">
+	              <a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_end[e].p_code </tpl>" target="_blank">
+		              <tpl> if $product_end[e].p_pic eq 'NULL' ||  $product_end[e].p_pic eq ''</tpl>
+		              	<img style="width: 130px; height: 130px;" src="<tpl> $template_dir </tpl>/images/noimgm.gif"  alt="<tpl> $product_end[e].p_name </tpl>" />
+		              <tpl> else </tpl>
+		              	<img style="width: 130px; height: 130px;" src="../<tpl> $product_end[e].p_pic </tpl>" alt="<tpl> $product_end[e].p_name </tpl>" />
+		              <tpl> /if </tpl>
+	              </a>              
+              </div>
+              <dl>
+                <dt class="goodsName"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_end[e].p_code </tpl>" title="<tpl> $product_end[e].p_name </tpl>" target="_blank"><tpl> $product_end[e].p_cur_name </tpl></a></dt>
+                <script>
+                $(document).ready(function(){
+                	 $('#<tpl> $product_end[e].p_code </tpl>').countdown({until: <tpl> $product_end[e].cp_end_time </tpl>,layout: '{dn} {dl}, {hn} {hl}, {mnn} {ml}, {snn} {sl}'});	
+                });
+                </script>
+                <dd class="overTime" id="<tpl> $product_end[e].p_code </tpl>"></dd>
+                <dd class="maxPrice"><tpl> $langCIndexCurprice </tpl>：<tpl> $product_end[e].cp_cur_price|cat:'.00' </tpl><tpl> $langCIndexCny </tpl></dd>
+              </dl>
+              <div class="auctionBtn"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_end[e].p_code </tpl>" target="_blank"><tpl> $langCIndexBidGo </tpl></a></div>
+            </li>
+            <tpl> /section </tpl>
+          </ul>
+        </div>
+      </div>
+      <div class="rightLayout">
+        <div class="right sideStyle">
+          <div class="title"><h3><tpl> $langCIndexChot </tpl></h3></div>
+        <ul class="drawers">
+        	  <tpl> section name=h loop=$product_hot </tpl>
+              <li class="drawer">
+                <h2 class="drawer-handle"><tpl> $product_hot[h].p_cur_name </tpl></h2>
+                <div class="goodsIntro">
+                  <div class="pic">
+		              <a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_hot[h].p_code </tpl>" target="_blank">
+			              <tpl> if $product_hot[h].p_pic eq 'NULL' ||  $product_hot[h].p_pic eq ''</tpl>
+			              	<img src="<tpl> $template_dir </tpl>/images/noimgs.gif"  alt="<tpl> $product_hot[h].p_name </tpl>" width="64" height="64" />
+			              <tpl> else </tpl>
+			              	<img src="../<tpl> $product_hot[h].p_pic </tpl>" alt="<tpl> $product_hot[h].p_name </tpl>" width="64" height="64" />
+			              <tpl> /if </tpl>
+		              </a>                      
+                  </div>
+                  <dl>
+                    <dt><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_hot[h].p_code </tpl>" title="<tpl> $product_hot[h].p_name </tpl>" target="_blank"><tpl> $product_hot[h].p_cur_name </tpl></a></dt>
+                    <dd class="quantity"><tpl> $langCIndexBidNumber2 </tpl>：<tpl> $product_hot[h].cp_bid_num </tpl><tpl> $langCIndexNumber </tpl></dd>
+                    <dd class="maxPrice"><tpl> $langCIndexCurprice </tpl>：<tpl> $product_hot[h].cp_cur_price|cat:'.00' </tpl><tpl> $langCIndexCny </tpl></dd>
+                  </dl>
+                </div>
+              </li>
+              <tpl> /section </tpl>
+            </ul>
+        </div><div class="right" style="border-top:none;">
+        	<ul class="sideAd">
+				<tpl> if $topics_countdown_right1.pic neq '' </tpl>
+					<li>
+						<a href="<tpl> $topics_countdown_right1.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_countdown_right1.pic </tpl>" width="190" height="70" /></a>
+					</li>
+				<tpl> /if </tpl>
+				<tpl> if $topics_countdown_right2.pic neq '' </tpl>
+					<li>
+						<a href="<tpl> $topics_countdown_right2.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_countdown_right2.pic </tpl>" width="190" height="70" /></a>
+					</li>
+				<tpl> /if </tpl>
+          	</ul>
+      </div></div>
+    </div>
+    <div class="clear"></div>
+    <div class="allBannerBox">
+		<tpl> if $topics_countdown_banner2.pic neq '' </tpl>
+			<a href="<tpl> $topics_countdown_banner2.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_countdown_banner2.pic </tpl>" width="945" height="90" /></a>
+		<tpl> /if </tpl>    	
+    </div>
+  </div>
+	<tpl> include file='../use_help.html' </tpl>  
+  <div>
+  </div>
+</div>
+  <tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

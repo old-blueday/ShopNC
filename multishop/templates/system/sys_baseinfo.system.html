@@ -1,0 +1,318 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCBasicSet </tpl> &gt;&gt; <tpl> $langBShopSystemSetup </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="baseinfo.manage.php?action=save" method="post" enctype="multipart/form-data"  name="form_baseinfo" id="form_baseinfo">
+						<input type="hidden" name="genre" value="system" />
+						<input type="hidden" class="input_radio" name="index_html" id="index_html_no" value="0" />
+						<input type="hidden" class="input_radio" name="channel_html" id="channel_html_no" value="0" />
+						<input type="hidden" class="input_radio" name="product_html" id="product_html_no" value="0" />
+						<input type="hidden" name="output_condition[shop]" value="1" />
+						<input type="hidden" name="shop_pay_mode" value="0" />						
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<!--<tr>
+									<th><tpl> $langBIndexHtml </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="index_html" id="index_html_yes" value="1" <tpl> if $setting_array_out.index_html eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="index_html_yes"><tpl> $langBWmOpen </tpl></label>
+										<input type="radio" class="input_radio" name="index_html" id="index_html_no" value="0" <tpl> if $setting_array_out.index_html eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="index_html_no"><tpl> $langBWmClose </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBChannelHtml </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="channel_html" id="channel_html_yes" value="1" <tpl> if $setting_array_out.channel_html eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="channel_html_yes"><tpl> $langBWmOpen </tpl></label>
+										<input type="radio" class="input_radio" name="channel_html" id="channel_html_no" value="0" <tpl> if $setting_array_out.channel_html eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="channel_html_no"><tpl> $langBWmClose </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBProductHtml </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="product_html" id="product_html_yes" value="1" <tpl> if $setting_array_out.ifhtml eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="product_html_yes"><tpl> $langBWmOpen </tpl></label>
+										<input type="radio" class="input_radio" name="product_html" id="product_html_no" value="0" <tpl> if $setting_array_out.ifhtml eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="product_html_no"><tpl> $langBWmClose </tpl></label>
+									</td>
+								</tr>-->
+								<tr>
+									<th><tpl> $langBTemplateSelect </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langBTemplateRemark </tpl><a href=http://www.shopnc.net/download/index.php#bbc target="_blank"><tpl> $langBTemplateRemarkOne </tpl></a></span>
+										<select name="selTemplateName" id="selTemplateName">
+											<tpl> if $templates_sign.orange neq '' </tpl><option value="orange"<tpl> if $setting_array_out.templatesname eq 'orange' </tpl> selected<tpl> /if </tpl> ><tpl> $langBTemplateSelectOrange </tpl></option><tpl> /if </tpl>
+<!--											<tpl> if $templates_sign.default neq '' </tpl><option value="default"<tpl> if $setting_array_out.templatesname eq 'default' </tpl> selected<tpl> /if </tpl> ><tpl> $langBTemplateSelectBlue </tpl></option><tpl> /if </tpl>-->
+<!--											<tpl> if $templates_sign.green neq '' </tpl><option value="green"<tpl> if $setting_array_out.templatesname eq 'green' </tpl> selected<tpl> /if </tpl> ><tpl> $langBTemplateSelectGreen </tpl></option><tpl> /if </tpl>-->
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBTemplateView </tpl>:</th>
+									<td>
+										<div id="templates_sample"><a href="<tpl> $template_dir </tpl>/<tpl> $setting_array_out.templatesname </tpl>/images/<tpl> $setting_array_out.templatesname </tpl>_b.gif" target="_blank"><img border='0' src='<tpl> $template_dir </tpl>/<tpl> $setting_array_out.templatesname </tpl>/images/<tpl> $setting_array_out.templatesname </tpl>.gif'></a></div>
+									</td>
+								</tr>
+								<tr>
+									<th>GZIP:</th>
+									<td>
+										<input type="radio" class="input_radio" name="gzip" id="gzip_yes" value="1" <tpl> if $setting_array_out.gzip eq 1 </tpl> checked <tpl> /if </tpl> /><label  for="gzip_yes"><tpl> $langBWmOpen </tpl></label>
+										<input type="radio" class="input_radio" name="gzip" id="gzip_no" value="0" <tpl> if $setting_array_out.gzip eq 0 </tpl> checked <tpl> /if </tpl> /><label  for="gzip_no"><tpl> $langBWmClose </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBAccessoriesSaveDir </tpl>:</th>
+									<td><input class="fct-input" maxlength="255" value="<tpl> $setting_array_out.attachmentspath </tpl>" name="txtattachmentspath" id="txtattachmentspath" type="text" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBMaxUpdataSize </tpl>:</th>
+									<td><input class="fct-input" maxlength="6" name="txtmaxsize" id="txtmaxsize" value="<tpl> $setting_array_out.allowuploadmaxsize </tpl>" type="text" />KB</td>
+								</tr>
+								<!--<tr>
+									<th><tpl> $langBAllowUpdataImageReamName </tpl>:</th>
+									<td><input class="fct-input" name="txtimagetype" id="txtimagetype" value="<tpl> $baseinfo_file_array.allowuploadimagetype </tpl>" type="text" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBAllowUpdataAccessoriesReamName </tpl>:</th>
+									<td><input class="fct-input" value="<tpl> $baseinfo_file_array.allowuploadfiletype </tpl>" name="txtfiletype" id="txtfiletype" type="text" /></td>
+								</tr>-->
+								<tr>
+									<th><tpl> $langBAccessoriesSaveType </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="rdosavetype" id="rdosavetype_1" value="1" <tpl> if $setting_array_out.uploadsavetype eq 1 </tpl> checked <tpl> /if </tpl> /><label  for="rdosavetype_1"><tpl> $langBFileTypeSave </tpl></label><br />
+										<input type="radio" class="input_radio" name="rdosavetype" id="rdosavetype_2" value="2" <tpl> if $setting_array_out.uploadsavetype eq 2 </tpl> checked <tpl> /if </tpl> /><label  for="rdosavetype_2"><tpl> $langBYearSave </tpl></label><br />
+										<input type="radio" class="input_radio" name="rdosavetype" id="rdosavetype_3" value="3" <tpl> if $setting_array_out.uploadsavetype eq 3 </tpl> checked <tpl> /if </tpl> /><label  for="rdosavetype_3"><tpl> $langBMonthSave </tpl></label><br />
+										<input type="radio" class="input_radio" name="rdosavetype" id="rdosavetype_4" value="4" <tpl> if $setting_array_out.uploadsavetype eq 4 </tpl> checked <tpl> /if </tpl> /><label  for="rdosavetype_4"><tpl> $langBDaySave </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBOutPutProduct </tpl>:</th>
+									<td>
+<!--										<input type="checkbox" name="output_condition[shop]" id="output_condition_shop" <tpl> if $productinfo_output_condition.shop neq '' || $productinfo_output_condition.shop eq '0' </tpl>checked="checked"<tpl> /if </tpl> value="1" class="input_radio" /><label for="output_condition_shop" ><tpl> $langBOutPutProductHaveShop </tpl></label><br />-->
+										<input type="checkbox" name="output_condition[certify]" id="output_condition_certify" <tpl> if $productinfo_output_condition.certify neq '' || $productinfo_output_condition.certify eq '0' </tpl>checked="checked"<tpl> /if </tpl> value="1" class="input_radio" /><label for="output_condition_certify" ><tpl> $langBOutPutProductHaveCertify </tpl></label><br />
+										<input type="checkbox" name="output_condition[entity]" id="output_condition_entity" <tpl> if $productinfo_output_condition.entity neq '' || $productinfo_output_condition.entity eq '0' </tpl>checked="checked"<tpl> /if </tpl> value="1" class="input_radio" /><label for="output_condition_entity" ><tpl> $langBOutPutProductHaveEntity </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBProductImageWidth </tpl>:</th>
+									<td><input class="fct-input" value="<tpl> $setting_array_out.imageresize_width </tpl>" name="txtresize_width" id="txtresize_width" type="text" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBProductImageHeight </tpl>:</th>
+									<td><input class="fct-input" value="<tpl> $setting_array_out.imageresize_width </tpl>" name="txtresize_height" id="txtresize_height" type="text" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBProductImageFashion </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="rdoifcut" id="rdoifcut_0" value="0" <tpl> if $setting_array_out.imageresize_ifcut eq 0 </tpl> checked <tpl> /if </tpl> /><label  for="rdoifcut_0"><tpl> $langBProportionReduce </tpl></label>
+										<input type="radio" class="input_radio" name="rdoifcut" id="rdoifcut_1" value="1" <tpl> if $setting_array_out.imageresize_ifcut eq 1 </tpl> checked <tpl> /if </tpl> /><label  for="rdoifcut_1"><tpl> $langBWidthHeightSizeCut </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBWmIfOpen </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtimage_sign" id="txtimage_sign_1" value="1" <tpl> if $setting_array_out.wm_image_sign eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_sign_1"><tpl> $langBWmOpen </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_sign" id="txtimage_sign_0" value="0" <tpl> if $setting_array_out.wm_image_sign eq '0' || $setting_array_out.wm_image_sign eq '' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_sign_0"><tpl> $langBWmClose </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBWmImageName </tpl>:</th>
+									<td>
+										<tpl> if $setting_array_out.wm_image_name eq '' </tpl>
+										<input type="file" name="txtimage_file" id="txtimage_file" />
+										<tpl> else </tpl>
+										<span id="span_wm_image">
+										<input type="hidden" name="txtimage_name" id="txtimage_name" value="<tpl> $setting_array_out.wm_image_name </tpl>" />
+										<img width="60px;" height="60px;" src="<tpl> $site_url </tpl>/<tpl> $setting_array_out.wm_image_name </tpl>" />
+										<a href="javascript:;" onclick="ajax_del_pic('wm_image');"><tpl> $langBInfoDel </tpl></a>		</span>
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBWmImagePos </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_1" value="1" <tpl> if $setting_array_out.wm_image_pos eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_1"><tpl> $langBWmImagePosTopLeft </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_5" value="5" <tpl> if $setting_array_out.wm_image_pos eq '5' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_5"><tpl> $langBWmImagePosTopMiddle </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_2" value="2" <tpl> if $setting_array_out.wm_image_pos eq '2' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_2"><tpl> $langBWmImagePosTopRight </tpl></label>
+										<br />
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_8" value="8" <tpl> if $setting_array_out.wm_image_pos eq '8' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_8"><tpl> $langBWmImagePosMiddleLeft </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_0" value="0" <tpl> if $setting_array_out.wm_image_pos eq '' || $setting_array_out.wm_image_pos eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_0"><tpl> $langBWmImagePosMiddle </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_6" value="6" <tpl> if $setting_array_out.wm_image_pos eq '6' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_6"><tpl> $langBWmImagePosMiddleRight </tpl></label>
+										<br />
+										
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_3" value="3" <tpl> if $setting_array_out.wm_image_pos eq '3' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_3"><tpl> $langBWmImagePosBottomRight </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_4" value="4" <tpl> if $setting_array_out.wm_image_pos eq '4' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_4"><tpl> $langBWmImagePosBottomLeft </tpl></label>
+										<input type="radio" class="input_radio" name="txtimage_pos" id="txtimage_pos_7" value="7" <tpl> if $setting_array_out.wm_image_pos eq '7' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="txtimage_pos_7"><tpl> $langBWmImagePosBottomMiddle </tpl></label>
+										
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBWmImageTransition </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langBWmImageTransitionRemark </tpl></span>
+										<input class="fct-input" value="<tpl> $setting_array_out.wm_image_transition </tpl>" name="txtimage_transition" id="txtimage_transition" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBCookieActionBound </tpl>:</th>
+									<td>
+										<input class="fct-input" value="<tpl> $setting_array_out.cookiedomain </tpl>" name="txtdomain" id="txtdomain" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBCookieSaveAddress </tpl>:</th>
+									<td>
+										<input class="fct-input" value="<tpl> $setting_array_out.cookiepath </tpl>" name="txtcookiepath" id="txtcookiepath" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBCookieExpire </tpl>:</th>
+									<td><span class="dptn"><tpl> $langBCookieExpireRemark </tpl></span>
+										<input class="fct-input" value="<tpl> $setting_array_out.cookie_expire </tpl>" name="txtcookieexpire" id="txtcookieexpire" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBDomainLock </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="ifsubdomain" id="ifsubdomain_1" value="1" <tpl> if $setting_array_out.ifsubdomain eq "1" </tpl> checked <tpl> /if </tpl> onclick="$('#tr_domainprefix').css('display','');$('#tr_domainroot').css('display','');" /><label  for="ifsubdomain_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="ifsubdomain" id="ifsubdomain_0" value="0" <tpl> if $setting_array_out.ifsubdomain eq "0" </tpl> checked <tpl> /if </tpl> onclick="$('#tr_domainprefix').css('display','none');$('#tr_domainroot').css('display','none');" /><label  for="ifsubdomain_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr id="tr_domainprefix" style="display:none">
+									<th><tpl> $langBDomainName </tpl>:</th>
+									<td>
+										<input class="fct-input" value="<tpl> $setting_array_out.domainprefix </tpl>" name="txt_domainprefix" id="txt_domainprefix" type="text" />
+									</td>
+								</tr>
+								<tr id="tr_domainroot" style="display:none">
+									<th><tpl> $langBDomainRoot </tpl>:</th>
+									<td><span class="dptn"><tpl> $langBDomainRootRemark </tpl></span>
+										<input class="fct-input" value="<tpl> $setting_array_out.domainroot </tpl>" name="txt_domainroot" id="txt_domainroot" type="text" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBShopNeedAuditing </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="rdoifcheck" id="rdoifcheck_1" value="1" <tpl> if $setting_array_out.ifcheck eq "1" </tpl> checked <tpl> /if </tpl> /><label  for="rdoifcheck_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="rdoifcheck" id="rdoifcheck_0" value="0" <tpl> if $setting_array_out.ifcheck eq "0" || $setting_array_out.ifcheck eq "" </tpl> checked <tpl> /if </tpl> /><label  for="rdoifcheck_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+<!--								<tr>
+									<th><tpl> $langBShopPayMode </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="shop_pay_mode" id="shop_pay_mode_1" value="1" onclick="show_shoppay('show');" <tpl> if $setting_array_out.shop_pay_mode eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="shop_pay_mode_1"><tpl> $langBWmOpen </tpl></label>
+										<input type="radio" class="input_radio" name="shop_pay_mode" id="shop_pay_mode_0" value="0" onclick="show_shoppay('display');" <tpl> if $setting_array_out.shop_pay_mode eq '0' || $setting_array_out.shop_pay_mode eq '' </tpl>checked="checked"<tpl> /if </tpl> /><label  for="shop_pay_mode_0"><tpl> $langBWmClose </tpl></label>
+									</td>
+								</tr>-->
+<!--								<tr id="shoppay_product_num" <tpl> if $setting_array_out.shop_pay_mode eq '0' </tpl>style="display:none;"<tpl> /if </tpl>>
+									<th><tpl> $langBShoppayTrialProductNum </tpl>:</th>
+									<td>
+										<input class="fct-input" value="<tpl> $shoppay_product_num </tpl>" name="txt_shoppay_product" id="txt_shoppay_product" type="text" />
+									</td>
+								</tr>
+								<tr id="shoppay_shop_time" <tpl> if $setting_array_out.shop_pay_mode eq '0' </tpl>style="display:none;"<tpl> /if </tpl>>
+									<th><tpl> $langBShoppayTrialShopTime </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langBShoppayTrialShopTimeUnit </tpl></span>
+										<input class="fct-input" value="<tpl> $shoppay_shop_time </tpl>" name="shoppay_shop" id="shoppay_shop" type="text" />
+									</td>
+								</tr>-->
+								<tr>
+									<th><tpl> $langSellerMargin </tpl>:</th>
+									<td>
+										<span class="dptn">1-100 <tpl> $langSellerMarginExplain </tpl></span>
+										<input class="fct-input" value="<tpl> $setting_array_out.seller_margin </tpl>" name="txt_seller_margin" id="txt_seller_margin" type="text" />%
+									</td>
+								</tr>	
+								<tr>
+									<th><tpl> $langBuyerMargin </tpl>:</th>
+									<td>
+										<span class="dptn">1-100 <tpl> $langBuyerMarginExplain </tpl></span>
+										<input class="fct-input" value="<tpl> $setting_array_out.buyer_margin </tpl>" name="txt_buyer_margin" id="txt_buyer_margin" type="text" />%
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<input class="bthl" value="<tpl> $langBSubmit </tpl>"  type="submit" />
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_baseinfo").validate({
+		errorClass: "wrong",
+		rules: {
+			txtmaxsize: {required:true,number:true,min:1},
+			txtimagetype: {required:true},
+			txtfiletype: {required:true},
+			txtresize_width: {required:true,number:true,min:1},
+			txtresize_height: {required:true,number:true,min:1},
+			txtimage_transition: {required:true,number:true,min:0,max:100},
+			txt_domainprefix: {required:function(){if($('#ifsubdomain_1').attr('checked')==true){return true;}else{return false;}}},
+			txt_domainroot: {required:function(){if($('#ifsubdomain_1').attr('checked')==true){return true;}else{return false;}}},
+			txtcookieexpire:{required:true,number:true,min:1},
+			txtattachmentspath: {required:true},
+			txt_seller_margin: {required:true,number:true,min:1,max:100},
+			txt_buyer_margin: {required:true,number:true,min:1,max:100}
+		},
+		messages: {
+			txtmaxsize: {required:"<tpl> $langBMaxUpdataSizeIsEmpty </tpl>",number:"<tpl> $langBMaxUpdataSizeIsNotNumber </tpl>",min:"<tpl> $langBMaxUpdataSizeAboveOne </tpl>"},
+			txtimagetype: {required:"<tpl> $langBAllowUpdataImageReamNameIsEmpty </tpl>"},
+			txtfiletype: {required:"<tpl> $langBAllowUpdataAccessoriesReamNameIsEmpty </tpl>"},
+			txtresize_width: {required:"<tpl> $langBProductImageWidthIsEmpty </tpl>",number:"<tpl> $langBProductImageWidthIsNotNumber </tpl>",min:"<tpl> $langBProductImageWidthAboveOne </tpl>"},
+			txtresize_height: {required:"<tpl> $langBProductImageHeightIsEmpty </tpl>",number:"<tpl> $langBProductImageHeightIsNotNumber </tpl>",min:"<tpl> $langBProductImageHeightAboveOne </tpl>"},
+			txtimage_transition: {required:"<tpl> $errBWmImageTransitionIsEmpty </tpl>",number:"<tpl> $errBWmImageTransitionIsNotNumber </tpl>",min:"<tpl> $errBWmImageTransitionAboveZero </tpl>",max:"<tpl> $errBWmImageTransitionOut100 </tpl>"},
+			txt_domainprefix: {required:"<tpl> $errBDomainNameIsEmpty </tpl>"},
+			txt_domainroot: {required:"<tpl> $errBDomainRootIsEmpty </tpl>"},
+			txtcookieexpire:{required:"<tpl> $errBCookieExpireIsEmpty </tpl>",number:"<tpl> $errBCookieExpireIsEmpty </tpl>",min:"<tpl> $errBCookieExpireIsEmpty </tpl>"},
+			txtattachmentspath: {required:"<tpl> $errBAccessoriesSaveDirIsEmpty </tpl>"},
+			txt_seller_margin: {required:"<tpl> $langMarginCheckNumber </tpl>",number:"<tpl> $langMarginCheckNumber </tpl>",min:"<tpl> $langMarginCheckMin </tpl>",max:"<tpl> $langMarginCheckMax </tpl>"},
+			txt_buyer_margin: {required:"<tpl> $langMarginCheckNumber </tpl>",number:"<tpl> $langMarginCheckNumber </tpl>",min:"<tpl> $langMarginCheckMin </tpl>",max:"<tpl> $langMarginCheckMax </tpl>"}
+		}
+	});
+	$("#selTemplateName").change(function() { 
+		var sampleimg = $("#selTemplateName").val();
+		$("#templates_sample").html("<a href='<tpl> $template_dir </tpl>/"+sampleimg+"/images/"+sampleimg+"_b.gif' target='_blank'><img border='0' src=<tpl> $template_dir </tpl>/"+sampleimg+"/images/"+sampleimg+".gif></a>");
+		$("#templates_sample_remark").html("<a href='<tpl> $template_dir </tpl>/"+sampleimg+"/images/"+sampleimg+"_b.gif' target='_blank'><tpl> $langBTemplateClickOut </tpl></a>");
+	});
+	//2 domains show judge
+	<tpl> if $setting_array_out.ifsubdomain eq "1" </tpl>
+		$('#tr_domainprefix').css('display','');
+		$('#tr_domainroot').css('display','');
+	<tpl> /if </tpl>
+});
+//Remove the watermark image
+function ajax_del_pic(type){
+	$.ajax({
+		url: "baseinfo.manage.php",
+		data: 'action=del_pic&type='+type,
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			$('#span_wm_image').html("<input type='file' name='txtimage_file' id='txtimage_file' />");
+		}
+	});
+	return false;
+}
+
+function show_shoppay(state){
+	if(state == 'show'){
+		$('#shoppay_product_num').css('display','');
+		$('#shoppay_shop_time').css('display','');
+	}else{
+		$('#shoppay_product_num').css('display','none');
+		$('#shoppay_shop_time').css('display','none');
+	}
+}
+</script>
+</body>
+</html>

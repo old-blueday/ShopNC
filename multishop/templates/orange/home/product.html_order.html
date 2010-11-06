@@ -1,0 +1,17 @@
+<li class="title"><span class="buyer"><tpl> $langPBuy </tpl></span><span class="bid"><tpl> $langProductDid </tpl></span><span class="amount"><tpl> $langPBuyNum </tpl></span><span class="time"><tpl> $langBuyTime </tpl></span><span class="status"><tpl> $langProductEstate </tpl></span></li>
+<tpl> section name=i loop=$product_order_array </tpl>
+  <li><span class="buyer">
+  <tpl> if $product_order_array[i].bid_anonymous eq '0' </tpl>
+  <a href="../../../store/userinfo.php?userid=<tpl> $product_order_array[i].member_id </tpl>" target="_blank"><tpl> $product_order_array[i].buyer_nick </tpl></a>
+  <tpl> else </tpl>
+  <tpl> $langPAnonymity </tpl>
+  <tpl> /if </tpl>
+  </span>
+  <span class="bid"><tpl> $product_order_array[i].unit_price </tpl><tpl> $langCYuan </tpl></span><span class="amount"><tpl> $product_order_array[i].buy_num </tpl><tpl> $langPHPiece </tpl></span>
+  <span class="time"><tpl> $product_order_array[i].sold_time|date_format:"%Y-%m-%d %H:%M:%S" </tpl></span>
+  <span class="status">
+  <tpl> if $product_order_array[i].state == "2" </tpl> <tpl> $langPBargainOn </tpl> <tpl> /if </tpl>
+  <tpl> if $product_order_array[i].state == "0" </tpl> <tpl> $langProductOut </tpl> <tpl> /if </tpl>
+  <tpl> if $product_order_array[i].state == "1" </tpl> <tpl> $langPLead </tpl> <tpl> /if </tpl>
+  </span></li>
+<tpl> /section </tpl>

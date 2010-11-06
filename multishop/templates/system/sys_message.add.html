@@ -1,0 +1,178 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langMessageLetterGroupSend </tpl> &gt;&gt; <tpl> $langMessageAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form_add" name="form_add" method="post" action="message.manage.php">
+						<input type="hidden" name="action" value="save_message" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langMessageTitle </tpl>:</th>
+									<td><input name="title" id="title" class="fct-input" type="text" maxlength="40" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langMessageSendObjectType </tpl>:</th>
+									<td>
+										<tpl> $system_message_object </tpl><br />
+										<span <tpl> if $message_array.send_object neq '2' </tpl> style="display:none;" <tpl> /if </tpl> id="span_receive_name"><tpl> $langMessageMemberName </tpl>£º<input name="system_receive_name" class="fct-input" type="text" /><tpl> $langMessageManyMember </tpl></span>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langMessageContent </tpl>:</th>
+									<td>
+										<tpl>php</tpl>
+											include_once('../classes/resource/editor/editor.class.php');
+											$editor=new editor('content');
+											$editor->Value='';
+											$editor->BasePath='../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=621;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langMessageWhetherAllowDel </tpl>:</th>
+									<td><tpl> $system_message_delete </tpl></td>
+								</tr>
+								<tr id="send_delete" style="display:none;">
+									<th><tpl> $langMessageEndDate </tpl>:</th>
+									<td><input name="end_date" id="end_date" class="fct-input" type="text" readonly="true" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langMessageOnceSend </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='message.manage.php?action=list'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<div id="question" class="loding-1" style="display:none;">
+	
+</div>
+<input type="hidden" name="loop_num" id="loop_num" value="0" /> <!-- loop number -->
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+</body>
+</html>
+<script>
+//show blockUI
+var question = $('#question')[0];
+function show_block(){
+	$.blockUI(question, { width: '273px',height: '100px' });
+}
+
+//close block
+function close_block(){
+	$.unblockUI();
+}
+
+$(document).ready(function(){
+
+	$('#end_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			title: {required:true}
+		},
+		messages: {
+			title: {required:"<tpl> $errMessageTitle </tpl>"}
+		},
+		submitHandler: function(){
+			submit_send();
+		}
+	});
+});
+
+function submit_send(){
+	show_block();
+	$('#question').html('<h3><tpl> $langMessageSendDoNow </tpl></h3><br />');
+	send();
+}
+function send(){
+	var loop_num = $('#loop_num').val();
+	<tpl> if $NCharset eq 'UTF-8' </tpl>
+		var title = $('#title').val();
+		var content = window.frames['editor_iframe'].getHTML();
+	<tpl> else </tpl>
+		var title = escape($('#title').val());
+		var content = escape(window.frames['editor_iframe'].getHTML());
+	<tpl> /if </tpl>
+	var system_message_object = $("input[type=radio][name='system_message_object']:checked").val();
+	var system_receive_name = $("input[name='system_receive_name']").val();
+	var system_message_delete = $("input[type=radio][name='system_message_delete']:checked").val();
+	var end_date = $('#end_date').val();
+	$.ajax({
+		url: "message.manage.php",
+		data: 'action=save_message&loop_num='+loop_num+'&title='+title+'&content='+content+'&system_message_object='+system_message_object+'&system_receive_name='+system_receive_name+'&system_message_delete='+system_message_delete+'&end_date='+end_date,
+		type: 'post',
+		dataType: "json",
+		success: function(msg){
+			$('#question').html("<h3><tpl> $langMessageSendDoNow </tpl></h3><br />"+msg.message);
+			// succ
+			if(msg.type == 1){
+				//loop num ++
+				$('#loop_num').val(parseInt($('#loop_num').val())+1);
+				send();
+			}
+			if(msg.type == 0){
+				$('#loop_num').val(0);
+				alert(msg.message);
+				// close block
+				//close_block();
+				window.location='message.manage.php?action=list';
+			}
+			if(msg.type == 2){
+				alert(msg.message);
+				// close block
+				close_block();
+			}
+		},
+		error :function(){
+			alert('<tpl> $langMessageSendLost </tpl>');
+			// close block
+			close_block();
+		}
+	});
+	return false;
+}
+
+function send_message(str){
+	if(str == '2'){
+		$('#span_receive_name').css('display','');
+	}else{
+		$('#span_receive_name').css('display','none');
+	}
+}
+
+function send_delete(str){
+	if(str == '0'){
+		$('#send_delete').css('display','');
+	}else{
+		$('#send_delete').css('display','none');
+	}
+}
+</script>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_admin_header_system_manage</tpl> - <tpl>$shop_admin_system_site</tpl></title><!-- 系统管理 - 基本设置 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+	<form action="?action=system_save" enctype="multipart/form-data" method="post" name="system_form" id="system_form">
+	<h4 id="rightcon_h"><b><tpl>$shop_admin_header_system_manage</tpl> &gt;&gt; <tpl>$shop_admin_system_site</tpl><!-- 网店管理 >> 基本设置 --></b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+				<h5><tpl>$shop_admin_system_site</tpl></h5>
+				<div class="textRight">
+     				 <input type="submit" name="button" id="button" value="<tpl> $shop_admin_system_base_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    			</div>
+				<div class="entry-body" id="entry1">
+				  <table border="0">
+						<tr>
+						  <td width="80"><tpl> $shop_admin_system_base_domain </tpl><!--域 名-->:</td>
+						  <td width="280"><input class="TextBox" type="text" readonly="readonly" name="domainname" id="domainname" value="<tpl>$config_array.domainname</tpl>" /></td>
+						  <td width="80"><tpl> $shop_admin_system_base_website </tpl><!--网址-->:</td>
+						  <td width="280"><input class="TextBox" type="text" name="site_url" id="site_url" readonly="readonly" value="<tpl>$config_array.site_url</tpl>" /></td>
+						</tr>
+						<tr>
+						  <td><tpl> $shop_admin_system_base_shopname </tpl><!-- 商城名称-->:</td>
+						  <td>
+						  <input class="TextBox" type="text" name="shops_name" id="shops_name" value="<tpl>$config_array.shops_name</tpl>" />			</td>
+						  <td><tpl> $shop_admin_system_shop_user </tpl><!--店主名称-->:</td>
+						  <td>
+						  <input class="TextBox" type="text" name="shop_user" id="shop_user" value="<tpl>$config_array.shop_user</tpl>" />						  </td>
+						</tr>
+						<tr>
+						  <td>email:</td>
+						  <td><input class="TextBox" type="text" name="shop_email" id="shop_email"  value="<tpl>$config_array.shop_email</tpl>"  /></td>
+						  <td><tpl> $shop_admin_system_base_fax </tpl>:</td>
+						  <td><input class="TextBox" type="text" name="shop_fax" id="shop_fax" value="<tpl>$config_array.shop_fax|escape:html</tpl>" /></td>
+						</tr>
+						<tr>
+						  <td><tpl> $shop_admin_system_base_shop_state </tpl>:</td>
+						  <td><tpl>$shop_state</tpl></td>
+						  <td><tpl> $shop_admin_system_base_phone </tpl>:</td>
+						  <td><input class="TextBox" type="text" name="shop_call" id="shop_call"  value="<tpl>$config_array.shop_call|escape:html</tpl>" /></td>
+						</tr>
+						<tr>
+						  <td><tpl> $shop_admin_system_base_icp </tpl>:</td>
+						  <td><input class="TextBox" type="text" name="shop_ipc" id="shop_ipc" value="<tpl>$config_array.shop_ipc</tpl>"  /></td>
+						  <td><tpl> $shop_admin_system_base_address </tpl>:</td>
+						  <td class="needheight" style="line-height:24px">
+							<input class="TextBox" type="text" name="shop_address" id="shop_address" value="<tpl>$config_array.shop_address|escape:html</tpl>" /></td>
+						</tr>
+						<tr>
+						  <td><tpl> $shop_admin_system_base_keyword </tpl>:</td>
+						  <td><input class="TextBox" type="text" name="shop_keywords" id="shop_keywords" value="<tpl>$config_array.shop_keywords|escape:html</tpl>"  /></td>
+						  <td><tpl> $shop_admin_system_base_post </tpl>:</td>
+						  <td><input class="TextBox" type="text" name="shop_post" id="shop_post" value="<tpl>$config_array.shop_post|escape:html</tpl>"  /></td>
+						</tr>
+						<tr>
+						  <td valign="top"><tpl> $shop_admin_system_base_description </tpl>:</td>
+						  <td colspan="3"><textarea name="shop_description" cols="65" rows="5" id="shop_description"><tpl>$config_array.shop_description</tpl> </textarea></td>
+						</tr>
+						<tpl>if $config_array.shop_logo_file!= ''</tpl>
+						<tr>
+						  <td>&nbsp;</td>
+						  <td colspan="3"><img src="../<tpl>$config_array.shop_logo_file</tpl>" height="33" border="0" /><input type="hidden" name="shop_old_logo_file" value="<tpl>$config_array.shop_logo_file</tpl>" /></td>
+						</tr>
+						<tpl>/if</tpl>
+						<tr>
+						  <td><tpl> $shop_admin_system_base_shop_logo </tpl>:</td>
+						  <td colspan="3"><!-- <tpl>$shop_admin_system_basic_width</tpl>:
+							<input name="shop_logo_width" type="text" readonly="readonly" size="2" value="160" />
+							px&nbsp;<tpl>$shop_admin_system_basic_height</tpl>:
+							<input name="shop_logo_height" type="text" readonly="readonly" size="2" value="60" />
+							px&nbsp; -->
+							<input name="shop_logo_width" type="hidden" value="160" />
+							<input name="shop_logo_height" type="hidden" value="60" />
+							<input name="pay_receive_type" type="hidden" value="<tpl>$config_array.pay_receive_type</tpl>" />
+						  <input name="shop_logo_file" type="file" id="shop_logo_file" size="15" />(<!--<tpl>$shop_admin_system_basic_width</tpl>:160px&nbsp;--><tpl>$shop_admin_system_basic_height</tpl>:33px)						  </td>
+						</tr>
+						<tr>
+						  <td valign="top"><tpl> $shop_admin_system_base_copyright </tpl>:</td>
+						  <td colspan="3"><textarea name="shop_copyright" cols="65" rows="5" id="shop_copyright"><tpl>$config_array.shop_copyright</tpl></textarea></td>
+						</tr>
+						<tr>
+						  <td valign="top">开启路由功能：</td>
+						  <td colspan="3"><input name="open_url" type="radio" value="1" <tpl>if $config_array.open_url == '1'</tpl>checked="checked"<tpl>/if</tpl> />
+						    是
+					          <input type="radio" name="open_url" value="2" <tpl>if $config_array.open_url == '2'</tpl>checked="checked"<tpl>/if</tpl> />
+				          否</td>
+				    </tr>	
+						<tr>
+						  <td valign="top">&nbsp;</td>
+						  <td colspan="3">
+				<input type="hidden" name="pay_receive_type" value="<tpl>$config_array.pay_receive_type</tpl>" />
+				<input type="hidden" name="nc_charset" value="<tpl>$config_array.nc_charset</tpl>" />
+				<input type="hidden" name="url" value="<tpl>$config_array.url</tpl>" />
+				<input type="hidden" name="versionarea" value="<tpl>$config_array.versionarea</tpl>" />
+				<input type="hidden" name="system_language" value="<tpl>$config_array.system_language</tpl>" />
+				<input type="hidden" name="config_type" value="base" />
+				<input type="hidden" name="config_str" value="<tpl>$config_str</tpl>" />
+				  <input type="submit" name="button" id="button" value="<tpl> $shop_admin_system_base_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+				  <input type="reset" name="button2" id="button2" value="<tpl> $shop_admin_system_base_reset </tpl>" class="btnInput" /><!-- 重置 --></td>
+						</tr>
+					  </table>
+				</div><!--  end of entry1  -->
+				<div class="textLeft">
+				
+				</div>
+			</div><!-- end rc_con -->
+</form>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+<div class="clear"></div>
+</div><!--  end of rightcon  -->
+</body>
+</html>

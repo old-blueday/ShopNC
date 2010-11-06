@@ -1,0 +1,9 @@
+@charset "utf-8";
+/*  CSS Document  *//*  InfoSelectorTarget Document  */#InfoSelectorTarget ul, #InfoSelectorTarget li.select{
+	background-position:left -290px;
+}
+#InfoSelectorTarget li.select a {
+	background-position:right -290px;
+}#title1,.title2 {
+	border-top: 3px solid #86D500;
+}

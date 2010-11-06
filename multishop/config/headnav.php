@@ -1,0 +1,14 @@
+<?php
+$menu[1]['id']="";
+$menu[1]['url']="/home/category.php";
+$menu[1]['name']="{langHeadBuy}";
+$menu[2]['id']="";
+$menu[2]['url']="/member/own_product.php?action=sell";
+$menu[2]['name']="{langHeadSale}";
+$menu[3]['id']="MyTaoBao";
+$menu[3]['url']="/member/own_main.php";
+$menu[3]['name']="{langHeadMyShop}";
+$menu[4]['id']="";
+$menu[4]['url']="http://www.shopnc.net/document/multishop_userservice_help/";
+$menu[4]['name']="{langHeadServerCenter}";
+?>

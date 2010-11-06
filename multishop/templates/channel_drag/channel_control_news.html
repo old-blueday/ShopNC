@@ -1,0 +1,19 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		
+		<div class="blockcontent">
+			<div class="wenzi-product">
+				<ul>
+					<tpl> foreach from=$output.list item=news_array </tpl>
+					<li><a href="<tpl> $site_url </tpl>/home/news.php?id=<tpl> $news_array.news_id </tpl>" target="_blank"><tpl> $news_array.news_title </tpl></a></li>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

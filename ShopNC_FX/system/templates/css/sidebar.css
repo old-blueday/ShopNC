@@ -1,0 +1,67 @@
+/*
+Style Name: Simple Blue
+Author: CY
+Email: cyishere@gmail.com
+Despriton: The default template for ShopNC Admin Panel.
+*/
+body {
+	font-size:12px;
+	color:#333;
+}
+ul li {
+	list-style:none;
+}
+a {
+	text-decoration:none;
+}
+#sidebar {
+	background:#fff;
+	width:150px;
+	margin-left:7px;
+	margin-top:5px;
+	margin-bottom:20px;
+	overflow:hidden;
+}
+div.subment div {
+	overflow:hidden;
+}
+div.submenu div.collapsed {
+	height:25px;
+	overflow:hidden;
+}
+div.submenu div {
+	margin-bottom:10px;
+	padding:1px 1px -2px 1px;
+	border:1px solid #d9d9d9;
+}
+div.submenu div span {
+	background:#4c99c5 url(../images/expanded_bg.gif) 0 0 no-repeat; /* 原来的为左126px */
+	padding: 6px 0 6px 10px;
+	color:#fff;
+	font-size:14px;
+	display:block;
+	cursor:pointer;
+}
+*html div.submenu div span {
+	width:138px;
+}
+div.submenu div.collapsed span {
+	background-image: url(../images/collapsed_bg.gif);
+	cursor:pointer;
+}
+div.submenu div a {
+	display:block;
+	border-bottom:1px solid #aaccee;
+	padding:8px 0 8px 10px;;
+	color:#07519a;
+}
+div.submenu div a:hover {
+	background:#ebf3fb;
+}
+div.submenu div a.current {
+	background:#f0eeef url(../images/current_bg.gif) right center no-repeat;
+}
+ul#adminmenu li ul.submenu li a {
+	background:url(../images/arrow.gif) 15px no-repeat;
+	padding-left:28px;
+}

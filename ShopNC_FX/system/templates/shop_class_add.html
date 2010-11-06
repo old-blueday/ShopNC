@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_shop_manage</tpl> - <tpl>$admin_goods_class_add</tpl></title><!-- 商品管理 - 添加商品分类 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+
+	/* 对需要填写验证的信息，进行验证 */
+	$("#goods_class").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_class_name	: {required	:true}
+		},
+		messages: {
+			txt_class_name	: {required	: "<tpl>$shop_admin_shop_class_name_is_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<form action="admin_shop_class.php?action=class_save" method="post" name="goods_class" id="goods_class">
+    	<input type="hidden" name="class_id" value="<tpl>$class.class_id</tpl>"/>
+    <h4 id="rightcon_h"><b>
+	<span class="alignRight"><a href="admin_shop_class.php?action=class_list" target="_self" class="btnInput"><tpl>$shop_admin_shop_class_list</tpl><!-- 网店分类列表 --></a></span>
+	<tpl>$shop_admin_header_shop_manage</tpl><!-- 网店管理 --> &gt;&gt; <tpl>if $class.class_id!=''</tpl><tpl>$shop_admin_shop_class_edit</tpl><tpl>else</tpl><tpl>$shop_admin_shop_class_add</tpl><tpl>/if</tpl><!-- 添加网店分类 -->
+	</b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+				<h5><tpl>if $class.class_id!=''</tpl><tpl>$shop_admin_shop_class_edit</tpl><tpl>else</tpl><tpl>$shop_admin_shop_class_add</tpl><tpl>/if</tpl><!-- 添加网店分类 --></h5>
+    <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl>$shop_admin_shop_class_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl> $shop_admin_shop_class_name </tpl>:</td>
+            <td><input class="TextBoxAt2" type="text" name="txt_class_name" id="txt_class_name" value="<tpl>$class_info.classname|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_class_name" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl> $shop_admin_shop_class_parent_dir </tpl>:</td>
+            <td>
+			<select name="shoptype" id="shoptype">
+				<option value="">请选择</option>
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option <tpl>if $node_array[i].id==$top_id</tpl>selected="selected"<tpl>/if</tpl> value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+					<tpl> /section </tpl>	
+                    </select>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl> $shop_admin_shop_class_pub </tpl>:</td>
+            <td><tpl>$txt_class_state</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl> $shop_admin_shop_class_menu_isnav </tpl>:</td>
+            <td><tpl>$txt_class_menu</tpl></td>
+          </tr>		  
+          <tr>
+            <td><tpl> $shop_admin_shop_class_order </tpl>:</td>
+            <td><input class="TextBoxAt2" type="text" name="txt_class_sort" id="txt_class_sort" value="<tpl>$class_info.classsort</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl> $shop_admin_shop_class_keyword </tpl>:</td>
+            <td><input class="TextBoxAt2" type="text" name="txt_class_keywords" id="txt_class_keywords" value="<tpl>$class_info.classkeywords|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl> $shop_admin_shop_class_description </tpl>:</td>
+            <td><textarea name="txt_class_description" id="txt_class_description" cols="45" rows="5"><tpl>$class_info.classinfo</tpl></textarea></td>
+          </tr>
+		  <tr>
+            <td>&nbsp;</td>
+            <td><tpl>if $class_info.tid!=''</tpl><input type="hidden" name="tid" value="<tpl>$class_info.tid</tpl>" ><tpl>/if</tpl>
+      <input type="submit" name="button" id="button" value="<tpl> $shop_admin_shop_class_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+      &nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="button2" id="button2" value="<tpl> $shop_admin_shop_class_reset </tpl>" class="btnInput" /><!-- 重置 --></td>
+          </tr>
+        </table>
+    </div><!--  end of entry2  -->
+    <div class="btnDiv" style="padding-left:150px;">
+    </div>
+    </form>
+	</div>
+	<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_watermark</tpl></title><!-- 商品管理 - 水印设置 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.colorPicker.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<style type="text/css">
+td {
+	border-bottom:1px solid #E8E8E8;
+}
+</style>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#form1').validate({
+		errorClass: "wrong",
+		rules: {
+			allowuploadmaxsize	: {required	:true,number:true,minValue:10},
+			image_width			: {required	:true,number:true,minValue:10},
+			image_height		: {required	:true,number:true,minValue:10},
+			watermark_width		: {required	:true,number:true,minValue:10},
+			watermark_height	: {required	:true,number:true,minValue:10},
+			watermark_text_size	: {required	:true,number:true,minValue:1},
+			watermark_trans		: {required	:true,number:true,minValue:0,maxValue:100}
+		},
+		messages: {
+			allowuploadmaxsize	: {required	:"<tpl>$admin_system_upload_size_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_num_min</tpl>"},
+			image_width			: {required	:"<tpl>$admin_system_upload_image_width_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_num_min</tpl>"},
+			image_height		: {required	:"<tpl>$admin_system_upload_type_height_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_num_min</tpl>"},
+			watermark_width		: {required	:"<tpl>$admin_goods_wm_width_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_num_min</tpl>"},
+			watermark_height	: {required	:"<tpl>$admin_goods_wm_height_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_num_min</tpl>"},
+			watermark_text_size	: {required	:"<tpl>$admin_goods_wm_font_size_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_font_size_min</tpl>"},
+			watermark_trans		: {required	:"<tpl>$admin_goods_wm_trans_null</tpl>",number:"<tpl>$admin_goods_wm_num</tpl>",minValue:"<tpl>$admin_goods_wm_trans_min</tpl>",maxValue:"<tpl>$admin_goods_wm_trans_max</tpl>"}
+		}
+	});
+});
+//-->
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+  <form action="?action=image_save" method="post" enctype="multipart/form-data" name="form1" id="form1">
+<h4 id="rightcon_h"><b><tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_image</tpl><!-- 商品管理 >> 水印设置 --></b>
+    </h4>
+	<div id="rightcon" style="position:relative;">
+			<div class="rc_con">
+				<h5><tpl>$admin_system_image</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_wm_bottom_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table class="rc_table1" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><strong><tpl>$admin_system_upload</tpl><!-- 图片上传设置 --></strong></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_system_upload_size</tpl><!-- 最大上传尺寸 -->:</td>
+          <td><input class="TextBoxAt" name="allowuploadmaxsize" type="text" size="10" value="<tpl>$allowuploadmaxsize</tpl>" />
+            kb<div class="check-error"><label style="display:none" for="allowuploadmaxsize" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_system_upload_ext</tpl><!-- 允许上传的图片扩展名 -->:</td>
+          <td><input class="TextBoxAt" type="text" name="allowuploadimagetype" value="<tpl>$allowuploadimagetype</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_system_upload_type</tpl><!-- 图片存放类型 -->:</td>
+          <td><INPUT type=radio value=1 name=uploadsavetype <tpl>if $uploadsavetype=='1'</tpl>checked="checked"<tpl>/if</tpl> ><tpl>$admin_system_upload_type_1</tpl><!-- 按文件类型存放（如，htm/a.jpg） -->
+		  <BR><INPUT type=radio value=2 name=uploadsavetype <tpl>if $uploadsavetype=='2'</tpl>checked="checked"<tpl>/if</tpl> ><tpl>$admin_system_upload_type_2</tpl><!-- 按年份存放（如，htm/2007/a.jpg） -->
+		<BR><INPUT type=radio value=3 name=uploadsavetype <tpl>if $uploadsavetype=='3'</tpl>checked="checked"<tpl>/if</tpl> ><tpl>$admin_system_upload_type_3</tpl><!-- 按月份存放（如，htm/2007/07/a.jpg） -->
+		<BR><INPUT type=radio value=4 name=uploadsavetype <tpl>if $uploadsavetype=='4'</tpl>checked="checked"<tpl>/if</tpl> ><tpl>$admin_system_upload_type_4</tpl><!-- 按日期存放（如，htm/2007/07/12/a.jpg） --></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_system_upload_image_width</tpl><!-- 图片缩微图宽度 -->:</td>
+          <td><input class="TextBoxAt"  name="image_width" id="image_width" type="text" size="10" value="<tpl>$image_width</tpl>" /><div class="check-error"><label style="display:none" for="image_width" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_system_upload_type_height</tpl><!-- 图片缩微图高度 -->:</td>
+          <td><input class="TextBoxAt" name="image_height" id="image_height" type="text" size="10" value="<tpl>$image_height</tpl>" /><div class="check-error"><label style="display:none" for="image_height" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_system_upload_path</tpl>:</td>
+          <td><input class="TextBoxAt" type="text" name="attachmentspath" value="<tpl>$attachmentspath</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><strong><tpl>$admin_goods_wm</tpl><!-- 图片水印设置 --></strong></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_wm_uploads</tpl><!-- 上传的图片是否使用图片水印功能 --></td>
+          <td><label>
+            <input type="radio" name="watermark_state" value="1" class="checkBtn" <tpl>if $watermark_state=='1'</tpl>checked="checked"<tpl>/if</tpl>/><tpl>$admin_goods_wm_yes</tpl><!-- 是 -->
+          </label>
+            <label>
+            <input type="radio" name="watermark_state" value="0" <tpl>if $watermark_state=='0'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_no</tpl><!-- 否 -->
+            </label></td>
+        </tr>
+        <tr>
+          <td width="300"><tpl>$admin_goods_wm_type</tpl><!-- 使用水印类型 -->:</td>
+          <td><label>
+            <input type="radio" name="watermark_type" value="1" class="checkBtn" <tpl>if $watermark_type=='1'</tpl>checked="checked"<tpl>/if</tpl> onclick="show_image_watermark('1');" /><tpl>$admin_goods_wm_image</tpl><!-- 水印图片 -->
+          </label>
+            <label>
+            <input type="radio" name="watermark_type" value="0" <tpl>if $watermark_type=='0'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" onclick="show_image_watermark('0');" /><tpl>$admin_goods_wm_text</tpl><!-- 水印文字 -->
+            </label></td>
+        </tr>
+        <tr class="image_class">
+          <td><tpl>$admin_goods_wm_pic_control</tpl><!-- 添加水印的图片大小控制（设置为0为不限） -->:</td>
+          <td>
+            <label><tpl>$admin_goods_wm_width</tpl><!-- 宽 -->:
+            <input class="TextBoxAt" name="watermark_width" id="watermark_width" type="text" size="5" value="<tpl>$watermark_width</tpl>" />
+          </label>
+            <label><tpl>$admin_goods_wm_height</tpl><!-- 高 -->:
+            <input class="TextBoxAt" name="watermark_height" id="watermark_height" type="text" size="5" value="<tpl>$watermark_height</tpl>" />
+            </label><div class="check-error"><label style="display:none" for="watermark_width" class="wrong" metaDone="true" generated="true"></label></div>
+			<div class="check-error"><label style="display:none" for="watermark_height" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr  class="image_class">
+          <td><tpl>$admin_goods_wm_pic_name</tpl><!-- 水印图片文件名（如果不存在，则使用文字水印） -->:</td>
+          <td><tpl>if $watermark_file != ''</tpl><img src="../<tpl>$watermark_file</tpl>" width="121" height="41" /><tpl>else</tpl>no watermark<tpl>/if</tpl><input type="hidden" name="old_watermark_file" value="<tpl>$watermark_file</tpl>" /></td>
+        </tr>
+        <tr  class="image_class">
+          <td><tpl>$admin_goods_wm_upload_new_pic</tpl><!-- 上传新图片 -->:</td>
+          <td><label>
+            <input type="file" name="watermark_file" />
+          </label>
+		  <p><tpl>$admin_goods_wm_pic_support</tpl><!-- 你的系统支持的图片格式:GIF JPEG PNG WBMP --> </p>		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_wm_pic_text</tpl><!-- 水印图片文字（不支持中文） -->:</td>
+          <td><label>
+            <input class="TextBoxAt" type="text" name="watermark_text" id="watermark_text" value="<tpl>$watermark_text</tpl>" />
+          </label></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_wm_font_size</tpl><!-- 水印图片文字字体大小 -->:</td>
+          <td><label>
+            <input class="TextBoxAt" type="text" name="watermark_text_size" id="watermark_text_size" size="6" value="<tpl>$watermark_text_size</tpl>" />
+          </label><div class="check-error"><label style="display:none" for="watermark_text_size" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_wm_font_color</tpl><!-- 水印图片文字颜色（默认#FF0000为红色） -->:</td>
+          <td>
+            <input class="TextBoxAt" type="text" name="watermark_text_color" id="watermark_text_color" readonly="readonly" size="6" value="<tpl>$watermark_text_color</tpl>" />
+          <IMG 
+style="BACKGROUND-COLOR: <tpl>$watermark_text_color</tpl>" 
+onclick="$(this).colorPicker({setValue:$(this).prev('input')})" height=18 alt="" 
+src="templates/images/color.gif" width=21 align=absMiddle></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_wm_trans</tpl><!-- 水印透明度（0-100，值越小越透明） -->:</td>
+          <td><label>
+            <input class="TextBoxAt" type="text" name="watermark_trans" id="watermark_trans" size="6" value="<tpl>$watermark_trans</tpl>" />
+          </label><div class="check-error"><label style="display:none" for="watermark_trans" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_wm_position</tpl><!-- 水印位置 -->:</td>
+          
+          <td style="padding:0;">
+			<table class="rc_table2" width="100%" border="0" cellpadding="0" cellspacing="0">
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="1" <tpl>if $watermark_site=='1'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_top_left</tpl><!-- 顶部居左 -->
+				  </label>			    </td>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="5" <tpl>if $watermark_site=='5'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_top_center</tpl><!-- 顶部居中 -->
+				  </label>			    </td>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="2" <tpl>if $watermark_site=='7'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_top_right</tpl><!-- 顶部居右 -->
+				  </label>			    </td>
+			 </tr>
+			 <tr>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="8" <tpl>if $watermark_site=='8'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_center_left</tpl><!-- 左边距中 -->
+				  </label>			    </td>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="0" <tpl>if $watermark_site=='0'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_center_center</tpl><!-- 图片中心 -->
+				  </label>			    </td>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="6" <tpl>if $watermark_site=='6'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_center_right</tpl><!-- 右边居中 -->
+				  </label>			    </td>
+			 </tr>
+			 <tr>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="4" <tpl>if $watermark_site=='4'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_bottom_left</tpl><!-- 底部居左 -->
+				  </label>			    </td>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="7" <tpl>if $watermark_site=='7'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_bottom_center</tpl><!-- 底部居中 -->
+				  </label>			    </td>
+				<td>
+				  <label>
+				  <input type="radio" name="watermark_site" value="3" <tpl>if $watermark_site=='3'</tpl>checked="checked"<tpl>/if</tpl> class="checkBtn" /><tpl>$admin_goods_wm_bottom_right</tpl><!-- 底部居右 -->
+				  </label>			    </td>
+			 </tr>
+			</table>		  </td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+	  <input type="hidden" name="watermark_str" id="watermark_str" value="watermark_state,watermark_type,watermark_width,watermark_height,watermark_text,watermark_text_size,watermark_text_color,watermark_trans,watermark_site,allowuploadmaxsize,allowuploadimagetype,uploadsavetype,image_width,image_height,attachmentspath" />
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_wm_bottom_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+function show_image_watermark(state) {
+		if(state == '1') {
+		$(".image_class").css("display","");
+		} else {
+		$(".image_class").css("display","none");
+		}
+}
+<tpl>if $watermark_type == '1'</tpl>
+$(".image_class").css("display","");
+<tpl>else</tpl>
+$(".image_class").css("display","none");
+<tpl>/if</tpl>
+</script>
+</body>
+</html>

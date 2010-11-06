@@ -1,0 +1,38 @@
+#search .details form div.formstyle span.searchBtn a:hover{ line-height: 1000px; background: url(../images_new/head_bg_red.gif) no-repeat -640px -30px; width: 102px; height: 24px; float: left; overflow: hidden;}
+#nav { background: url(../images_new/head_bg_red.gif) no-repeat 0px -300px; display: block; width: 950px; height: 35px;  clear: both; padding-top: 7px; margin-right: auto; margin-left: auto;}
+#nav ul.leftSide li a  { float: left; cursor: pointer;}
+#nav ul.leftSide li a:hover{text-decoration: none;background: url(../images_new/head_bg_red.gif) no-repeat 0% -211px; padding-left:6px; }
+#nav ul.leftSide li a:hover span{text-decoration:none;background: url(../images_new/head_bg_red.gif) no-repeat 100% -211px; height:24px; float: left; margin: 0px; padding: 5px 14px 3px 8px;color:#FFF;}
+#nav ul.leftSide li.current a , #nav ul li.current a:hover { background: url(../images_new/head_bg_red.gif) no-repeat 0% -250px; padding-left: 6px; cursor: pointer;}
+#nav ul.leftSide li.current a span , #nav ul li.current a:hover span  { font-size: 15px; line-height: 24px; color: #000; background: url(../images_new/head_bg_red.gif) no-repeat 100% -250px; height: 24px; float: left; margin: 0px; padding: 5px 14px 6px 8px;}
+
+#main { width: 948px; margin-top: 8px; border: 1px solid #E7E7E7;}
+#trademark { width: 940px; margin: 6px auto;}
+#trademark ul.tab { background: url(../images_new/trademark_bg.gif) no-repeat 0px 0px; display: block; width: 936px; height: 36px; padding: 5px 0 5px 4px;}
+#trademark ul.tab li { display: inline; width:115px; height: 36px; float: left; margin-right: 1px; margin-left: 1px; cursor: pointer;}
+#trademark ul.tab li.current { background: url(../images_new/trademark_bg.gif) 0px -334px;}
+#trademark ul.tab li span { line-height: 999px; background: url(../images_new/trademark_bg.gif) no-repeat; display: block; width: 109px; height: 36px; overflow: hidden;}
+#trademark ul.tab li span.t1 { background-position: 0px -46px; }
+#trademark ul.tab li span.t2 { background-position: 0px -82px; }
+#trademark ul.tab li span.t3 { background-position: 0px -118px; }
+#trademark ul.tab li span.t4 { background-position: 0px -154px; }
+#trademark ul.tab li span.t5 { background-position: 0px -190px; }
+#trademark ul.tab li span.t6 { background-position: 0px -226px; }
+#trademark ul.tab li span.t7 { background-position: 0px -262px; }
+#trademark ul.tab li span.t8 { background-position: 0px -298px; }
+#trademark dl { width: 920px; margin: 16px auto;}
+#trademark dl dt{ background: url(../images_new/trademark_bg.gif) no-repeat 0px bottom; display: block; width: 100%; height: 35px;}
+#trademark dl dt span{ line-height: 999px; background: url(../images_new/trademark_bg.gif) no-repeat; display: block; width: 250px; height: 30px; float: left; overflow: hidden;}
+#trademark #t1 dt span { background-position: -500px -50px; }
+#trademark #t2 dt span { background-position: -500px -90px; }
+#trademark #t3 dt span { background-position: -500px -130px; }
+#trademark #t4 dt span { background-position: -500px -170px; }
+#trademark #t5 dt span { background-position: -500px -210px; }
+#trademark #t6 dt span { background-position: -500px -250px; }
+#trademark #t7 dt span { background-position: -500px -290px; }
+#trademark #t8 dt span { background-position: -500px -330px; }
+#trademark dl dd { }
+#trademark dl dd ul { width: 890px; margin: 12px auto;}
+#trademark dl dd ul li { text-align: center; display: block; width: 73px; height: 65px; float: left; padding: 8px; overflow: hidden;}
+#trademark dl dd ul li img { width: 73px;height: 41px; display: block;}
+#trademark dl dd ul li a { font-size: 12px; line-height: 24px; color: #039; white-space: nowrap;display: block;}

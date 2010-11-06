@@ -1,0 +1,193 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopPayManage </tpl> &gt;&gt; <tpl> $langSysNUpdate </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="shop_pay.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="detail_update" />
+						<input type="hidden" name="id" id="id" value="<tpl> $detail_array.pay_detail_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th colspan="4"><tpl> $langSysShopPayDetailMemberInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayMemberName </tpl>:</th>
+									<td><tpl> $detail_array.login_name </tpl></td>
+									<th><tpl> $langSysShopPayDetailShopUsedTime </tpl>:</th>
+									<td><tpl> $detail_array.shop_availability_time|default:$langSysShopPayDetailNothing </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayDetailProductNumber </tpl>:</th>
+									<td><tpl> $detail_array.product_number|default:'0' </tpl><tpl> $langSysShopPayDetailProductNumberUnit </tpl></td>
+									<th></th>
+									<td></td>
+								</tr>
+								<tr>
+									<th colspan="4"><tpl> $langSysShopPayInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayType </tpl>:</th>
+									<td>
+										<tpl> if $detail_array.pay_type eq '1' </tpl>
+											<tpl> $langSysShopPayOnline </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_type eq '2' </tpl>
+											<tpl> $langSysShopPayOffline </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langSysShopPayName </tpl>:</th>
+									<td>
+									<tpl> if $detail_array.pay_type eq '1' </tpl>
+										<tpl> if $detail_array.pay_name eq 'alipay' </tpl>
+											<tpl> $langSysShopPayAlipay </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_name eq 'tenpay' </tpl>
+											<tpl> $langSysShopPayTenpay </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_name eq '99bill' </tpl>
+											<tpl> $langSysShopPayKqpay </tpl>
+										<tpl> /if </tpl>
+									<tpl> /if </tpl>
+									<tpl> if $detail_array.pay_type eq '2' </tpl>
+										<tpl> $detail_array.pay_name </tpl>
+									<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayState </tpl>:</th>
+									<td>
+										<tpl> if $detail_array.pay_sign eq '0' </tpl>
+											<tpl> $langSysShopPayDetailPayStateZero </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_sign eq '1' </tpl>
+											<tpl> $langSysShopPayDetailPayStateOne </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_sign eq '2' </tpl>
+											<tpl> $langSysShopPayDetailPayStateTwo </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_sign eq '3' </tpl>
+											<tpl> $langSysShopPayDetailPayStateThree </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langSysShopPayDate </tpl>:</th>
+									<td><tpl> $detail_array.date_line </tpl></td>
+								</tr>
+								<tpl> if $detail_array.pay_type eq '2' </tpl>
+								<tr>
+									<th><tpl> $langSysShopPaySenderNumber </tpl>:</th>
+									<td colspan="3"><tpl> $detail_array.sender_number </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayDetailPayAccount </tpl>:</th>
+									<td><tpl> $detail_array.pay_account </tpl></td>
+									<th><tpl> $langSysShopPayDetailPayConsignee </tpl>:</th>
+									<td><tpl> $detail_array.pay_consignee </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr>
+									<th colspan="4"><tpl> $langSysShopPayDetailInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayModeName </tpl>:</th>
+									<td><tpl> $detail_array.pay_mode_name </tpl></td>
+									<th><tpl> $langSysShopPayDetailType </tpl>:</th>
+									<td>
+										<tpl> if $detail_array.pay_mode_type eq '0' </tpl>
+											<tpl> $langSysShopPayModeTypeTime </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_mode_type eq '1' </tpl>
+											<tpl> $langSysShopPayModeTypeNumber </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $detail_array.pay_mode_type eq '2' </tpl>
+											<tpl> $langSysShopPayModeTypeAll </tpl>
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayModeMoney </tpl>:</th>
+									<td><tpl> $detail_array.pay_mode_money </tpl></td>
+									<th><tpl> $langSysShopPayModeShopTime </tpl><tpl> $langSysShopPayAdd </tpl>:</th>
+									<td><tpl> $detail_array.pay_mode_shop_show_time|default:'0' </tpl>(<tpl> $langSysShopPayModeUnitDay </tpl>)</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayModeProductNumber </tpl><tpl> $langSysShopPayAdd </tpl>:</th>
+									<td colspan="3"><tpl> $detail_array.pay_mode_product_number|default:'0' </tpl>(<tpl> $langSysShopPayModeUnitGe </tpl>)</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayModeRemark </tpl>:</th>
+									<td colspan="3"><tpl> $detail_array.pay_mode_remark|default:$langSysShopPayDetailNothing </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayModeSystemRemark </tpl>:</th>
+									<td colspan="3"><tpl> $detail_array.system_remark|default:$langSysShopPayDetailNothing </tpl></td>
+								</tr>
+								<tpl> if $detail_array.pay_sign eq '1' </tpl>
+								<tr>
+									<th><tpl> $langSysShopPaySelState </tpl>:</th>
+									<td colspan="3">
+										<select name="state" id="state" onchange="change();">
+											<option value="0"><tpl> $langSysShopPayDetailAllow </tpl></option>
+											<option value="1"><tpl> $langSysShopPayDetailDeny </tpl></option>
+										</select>
+									</td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr id="tr_deny" style="display:none">
+									<th><tpl> $langSysShopPayDetailDenyReason </tpl>:</th>
+									<td colspan="3"><textarea name="txt_system_remark" cols="36" rows="6" id="txt_system_remark"></textarea></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<tpl> if $detail_array.pay_sign eq '1' </tpl>
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<tpl> /if </tpl>
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_system_remark: {
+				required:function(){
+					if($('#state').val() == '1'){
+						return true
+					}else{
+						return false;
+					}
+				}
+			}
+		},
+		messages: {
+			txt_system_remark: {required:"<tpl> $errSysShopPayDetailDenyReasonIsEmpty </tpl>"}
+		}
+	});
+});
+function change(){
+	if($('#state').val() == '0'){
+		$('#tr_deny').css('display','none');
+	}
+	if($('#state').val() == '1'){
+		$('#tr_deny').css('display','');
+	}
+}
+</script>
+</body>
+</html>

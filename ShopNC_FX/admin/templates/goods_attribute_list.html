@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_attr_list</tpl></title><!-- 商品管理 - 商品属性列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body>
+<div id="content">
+	<h2><span class="alignRight">
+        	<a href="admin_goods_attribute.php" target="_self">{<tpl>$admin_goods_type</tpl><!-- 商品类型 -->}</a>
+        	<a href="admin_goods_attribute.php?action=add&type_id=<tpl>$smarty.get.type_id</tpl>" target="_self">{<tpl>$admin_goods_attr_add</tpl><!-- 添加属性 -->}</a>
+        </span><tpl>$admin_header_goods_manage</tpl> >> <tpl>$admin_goods_attr_list</tpl><!-- 商品管理 >> 商品属性列表 -->
+    	    
+    </h2>
+    <div class="entry-body" id="p-list-div">
+      <form id="form1" name="form1" method="post" action="admin_goods_attribute.php?action=del">
+	  <input type="hidden" name="type_id" value="<tpl>$smarty.get.type_id</tpl>"  />
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="7" class="searchbar">
+            	<div class="alignRight"><tpl>$show_page</tpl></div>
+              <input type="submit" value="<tpl>$admin_goods_type_del</tpl>" class="delBtnInput" /><!-- 删除 --></td>
+          </tr>
+          <tr>
+            <th class="textLeft"><label>
+            <input type="checkbox" name="all" id="all" /><tpl>$admin_goods_type_select</tpl>
+            </label></th>
+            <th><tpl>$admin_goods_attr_name</tpl><!-- 属性名称 --></th>
+            <th><tpl>$admin_goods_attr_type</tpl><!-- 商品类型 --></th>
+            <th><tpl>$admin_goods_attr_input_type</tpl><!-- 属性值录入方式 --></th>
+            <th><tpl>$admin_goods_attr_value_list</tpl><!-- 可选值列表 --></th>
+            <th><tpl>$admin_goods_attr_sort_by</tpl><!-- 排序 --></th>
+            <th><tpl>$admin_goods_type_operi</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$attr_array</tpl>
+          <tr>
+            <td class="textLeft"><label>
+              <input type="checkbox" name="attribute_id[]" id="attribute_id" value="<tpl>$attr_array[list].attribute_id</tpl>" class="cb" />
+            </label></td>
+            <td><tpl>$attr_array[list].attribute_name</tpl></td>
+            <td><tpl>$attr_array[list].goods_type_name</tpl></td>
+            <td><tpl>if $attr_array[list].attribute_type==1</tpl><tpl>$admin_goods_attr_input_manual</tpl><tpl>elseif $attr_array[list].attribute_type==2</tpl><tpl>$admin_goods_attr_from_list</tpl><tpl>elseif $attr_array[list].attribute_type==3</tpl><tpl>$admin_goods_attr_input_text</tpl><tpl>else</tpl><tpl>$admin_goods_type_null</tpl><tpl>/if</tpl></td>
+            <td><tpl>$attr_array[list].attribute_select_body</tpl></td>
+            <td><tpl>$attr_array[list].attribute_sort</tpl></td>
+            <td>
+            	<a href="admin_goods_attribute.php?action=add&attribute_id=<tpl>$attr_array[list].attribute_id</tpl>&type_id=<tpl>$smarty.get.type_id</tpl>" target="_self"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_goods_type_edit</tpl>" /><!-- 编辑 --></a> 
+            <a href="admin_goods_attribute.php?action=del&attribute_id=<tpl>$attr_array[list].attribute_id</tpl>&type_id=<tpl>$smarty.get.type_id</tpl>" onclick="return confirm('<tpl>$admin_goods_attr_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_goods_type_del</tpl>" /><!-- 删除 --></a></td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="7" class="searchbar">
+              <input type="submit" value="<tpl>$admin_goods_type_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              <div class="pagebar"><tpl>$show_page</tpl></div></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

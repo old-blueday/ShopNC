@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$brand_nav_brand</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.LoadImage.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".thumb img").LoadImage(true,120,120,"<tpl> $template_dir </tpl>/images/loading.gif");
+	$(".thumb2 img").LoadImage(true,72,72,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+</head>
+<body>
+<!--头部:START-->
+<tpl>include_php file ='header.php'</tpl>
+<!--头部:END-->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!--页面:START-->
+<div class="width-all">
+  <div class="sitenav_all"><span>
+    <h4><tpl>$brand_nav_txt</tpl><!-- 当前位置 -->:<a href="<tpl> $Site_Url </tpl>"><tpl>$brand_nav_home</tpl><!-- 首页 --></a> >> <tpl>$brand_nav_brand</tpl><!-- 品牌列表 --></h4>
+    </span></div>
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<div id="container" class="width-all" >
+  <div class="outbox">
+    <div class="brand_index">
+      <ul>
+	  <tpl>section name=list loop=$brand_array</tpl>
+        <li>
+          <div class="brandpic"><a href="<tpl>if $brand_array[list].brand_url == ''</tpl>product_brand.php?brandid=<tpl>$brand_array[list].brand_id</tpl><tpl>else</tpl><tpl>$brand_array[list].brand_url</tpl><tpl>/if</tpl>"><tpl>if $brand_array[list].brand_image!=''</tpl><img src="<tpl> $Site_Url </tpl>/<tpl> $brand_array[list].brand_image</tpl>" width="<tpl>$brand_array[list].brand_image_width</tpl>" height="<tpl>$brand_array[list].brand_image_height</tpl>" /><tpl>else</tpl><img src="<tpl> $template_dir </tpl>/images/nobrand.gif" /><tpl>/if</tpl></a></div>
+          <dl>
+            <dt><a href="<tpl>if $brand_array[list].brand_url == ''</tpl>product_brand.php?brandid=<tpl>$brand_array[list].brand_id</tpl><tpl>else</tpl><tpl>$brand_array[list].brand_url</tpl><tpl>/if</tpl>"><tpl>$brand_array[list].brand_name</tpl></a></dt>
+            <dd><tpl>$brand_array[list].brand_description</tpl></dd>
+          </dl>
+        </li>
+		<tpl>/section</tpl>
+      </ul>
+      <div class="clear" style="margin-top:8px;">&nbsp;</div>
+    </div>
+  </div>
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='footer.php'</tpl>
+<!--底部内容:END-->
+</body>
+</html>

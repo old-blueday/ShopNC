@@ -1,0 +1,26 @@
+<div id="GuestBook">
+	<div id="GuestBookTitle">
+		<div id="GBNewMessage"><tpl> $langStoreNewLeaveWord </tpl></div>
+		<div class="GBallMessage"><a href="message.php?action=new&userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreMyLeaveWord </tpl></a></div>
+		<div class="GBallMessage"><a href="message.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreAllLeaveWord </tpl></a></div>
+		<div style="clear:both"></div>
+	</div>
+	<div id="GuestBookContent">
+	<tpl> section name=i loop=$shop_message_array </tpl>
+		<div class="GBMessage">
+			<div class="IdAndTime"><tpl> $langStoreBuyer </tpl>:<tpl> $shop_message_array[i].member_name </tpl>
+			<tpl> $langStoreMsgSetTime </tpl>&nbsp; <tpl>$shop_message_array[i].message_time </tpl></div>
+			<div class="MessageContent"><tpl>$shop_message_array[i].message_content</tpl></div>
+			<div class="MessageContent_re"> 
+				<span class="MessageFromSellerHint"><tpl> $langSMessageShopkeeperRestore </tpl>:</span> <span class="MessageFromSeller"><tpl>$shop_message_array[i].message_recontent</tpl></span>
+			</div>
+		</div>
+	<tpl> /section </tpl>
+	</div>
+	<div class="store_messagelist">
+		<input name="" type="button" value="<tpl> $langStoreMyLeaveWord </tpl>" onclick="location.href='message.php?action=new&userid=<tpl> $shop_info.member_id </tpl>'" class="input_submit"/>
+		<div style="float:right; padding-right:10px">
+			<tpl> $shop_message_pagelist </tpl>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,120 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopDragManage </tpl> &gt;&gt; <tpl> $langSysShopDragPicManage </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='shop_drag.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysShopDragPicAdd </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-500">
+						<form action="shop_drag.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysShopDragStyle </tpl>:</th>
+								<td class="it-1">
+									<select class="sele-2" name="search_style">
+										<option value=""><tpl> $langSysAll </tpl></option>
+                                        <tpl> foreach from=$style_array item=one key=key </tpl>
+                                        <option <tpl> if $condition.search_style eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+								<th class="wd"><tpl> $langSysShopDragColor </tpl>:</th>
+								<td class="it-2">
+									<select class="sele-2" name="search_color">
+										<option value=""><tpl> $langSysAll </tpl></option>
+                                        <tpl> foreach from=$color_array item=one key=key </tpl>
+                                        <option <tpl> if $condition.search_color eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+							</tr>
+                            <tr>
+								<th class="wd"><tpl> $langSysShopDragType </tpl>:</th>
+								<td class="it-1"> 
+									<select class="sele-2" name="search_type">
+                                        <option value=""><tpl> $langSysAll </tpl></option>
+                                        <tpl> foreach from=$type_array item=one key=key </tpl>
+                                        <option <tpl> if $condition.search_type eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+								<td></td>
+                                <td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="shop_drag.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+            <input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysSel </tpl></td>
+						<td class="es-4"><tpl> $langSysShopDragPic </tpl></td>
+						<td class="es-2"><tpl> $langSysShopDragStyle </tpl></td>
+						<td class="es-2"><tpl> $langSysShopDragColor </tpl></td>
+						<td class="es-2"><tpl> $langSysShopDragType </tpl></td>
+						<td class="es-2"><tpl> $langCSort </tpl></td>
+                        <td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $sd_array[0].sd_id neq'' </tpl>
+						<tpl> section name=loop loop=$sd_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="sd_id[]" type="checkbox" value="<tpl> $sd_array[loop].sd_id </tpl>"/></td>
+						<td><img src="<tpl> $site_url </tpl>/<tpl> $sd_array[loop].sd_pic </tpl>" width='100px;' height='50px;'/></td>
+						<td><tpl> $sd_array[loop].sd_style </tpl></td>
+						<td><tpl> $sd_array[loop].sd_color </tpl></td>
+                        <td><tpl> $sd_array[loop].sd_type </tpl></td>
+						<td><tpl> $sd_array[loop].sd_sort </tpl></td>
+						<td><a href="shop_drag.manage.php?action=modi&sd_id=<tpl> $sd_array[loop].sd_id </tpl>"><tpl> $langSysCEdit </tpl></a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $sd_array[0].sd_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $sd_array[0].sd_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<title></title>
+<link href="<tpl> $site_url </tpl><tpl> $templates_subpath </tpl>/css/left.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $site_url </tpl><tpl> $templates_subpath </tpl>/css/reset-fonts-grids.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="doc3">
+		<div id="yui-main">   
+        	<div class="yui-b">
+				<div class="yui-g">
+					<div id="leftcon">
+						<div id="my_menu" class="my_menu">
+							<tpl> if $menu_type eq 'index' </tpl>
+								<tpl> section name=loop loop=$sys_menu </tpl>
+									<div class="gfd">
+										<h3 class="gftit" onclick="openwindow('<tpl> $sys_menu[loop].power </tpl>');">
+											<a class="clsfd bgf1" href="javascript:;" ></a>
+											<span class="gfname"><tpl> $sys_menu[loop].name </tpl></span>
+										</h3>
+									</div>
+								<tpl> /section </tpl>
+							<tpl> else </tpl>
+								<tpl> section name=loop loop=$sys_menu </tpl>
+								<div class="gfd">
+									<h3 class="gftit" onclick="openMenu('<tpl> $smarty.section.loop.rownum </tpl>');">
+										<a id="a_<tpl> $smarty.section.loop.rownum </tpl>" <tpl> if $sys_menu[loop].menu_sel eq '1' </tpl>class="clsfd bgf2"<tpl> else </tpl>class="clsfd bgf1"<tpl> /if </tpl> href="javascript:;"></a>
+										<span class="gfname"><tpl> $sys_menu[loop].name </tpl></span>
+									</h3>
+									<ul class="gfdbdy" <tpl> if $sys_menu[loop].menu_sel eq '0' </tpl>style="display:none"<tpl> /if </tpl> id="ul_<tpl> $smarty.section.loop.rownum </tpl>">
+										<tpl> foreach from=$sys_menu[loop].body item=third_menu key=key </tpl>
+										<li onmouseover="$(this).addClass('on2');" onmouseout="$(this).removeClass('on2');" onclick="setClick('<tpl> $smarty.section.loop.rownum </tpl>_<tpl> $key </tpl>');" id="li_<tpl> $smarty.section.loop.rownum </tpl>_<tpl> $key </tpl>" <tpl> if $third_menu.menu_sel eq '1' && $sys_menu[loop].menu_sel eq '1' </tpl>class="on"<tpl> /if </tpl>>
+											<b class="icos <tpl> $third_menu.class_name </tpl>"></b>
+											<a href="javascript:;" onclick="openwindow_main('<tpl> $third_menu.url </tpl>');" class="gfnm fbd"><tpl> $third_menu.name </tpl></a>
+										</li>
+										<tpl> /foreach </tpl>
+									</ul>
+								</div>
+								<tpl> /section </tpl>
+							<tpl> /if </tpl>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+	var wh=windowHeight();
+	var ww=windowWidth();
+	document.getElementById("my_menu").style.height = (wh-1)+"px";
+}
+
+//Jump
+function openwindow(type){
+	window.open("<tpl> $site_url </tpl>/system/index.php?action=entrance&type="+type,"leftFrame");
+	window.open("<tpl> $site_url </tpl>/system/index.php?action=header&type="+type,"topFrame");
+}
+//The main interface elements
+function openwindow_main(url){
+	window.open("<tpl> $site_url </tpl>/system/"+url,"mainFrame");
+}
+
+//Menu telescopic
+function openMenu(num){
+	$('ul').each(function(){
+		if(this.id != 'ul_'+num){
+			$(this).slideUp('fast');
+		}
+	})
+	$('#ul_'+num).slideDown('fast');
+	//Arrow
+	$('.clsfd.bgf2').removeClass().addClass('clsfd bgf1');
+	$('#a_'+num).addClass('clsfd bgf2');
+	
+}
+//Select Style
+function setClick(li_id){
+	$('li').each(function(){
+		$(this).removeClass();
+	})
+	$('#li_'+li_id).addClass('on');
+}
+
+$(document).ready(function(){
+	<tpl> if $menu_type eq 'index' </tpl>
+		window.open("<tpl> $site_url </tpl>/system/index.php?action=index_info","mainFrame");
+	<tpl> else </tpl>
+		<tpl> section name=loop loop=$sys_menu </tpl>
+			<tpl> if $sys_menu[loop].menu_sel eq '1' </tpl>
+				<tpl> foreach from=$sys_menu[loop].body item=third_menu key=key </tpl>
+					<tpl> if $third_menu.menu_sel eq '1' </tpl>
+						window.open("<tpl> $site_url </tpl>/system/<tpl> $third_menu.url </tpl>","mainFrame");
+					<tpl> /if </tpl>
+				<tpl> /foreach </tpl>
+			<tpl> /if </tpl>
+		<tpl> /section </tpl>
+	<tpl> /if </tpl>
+});
+</script>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/buy.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.blockUI.js"></script>
+</head>
+<body>
+<tpl> include file="header_new.html" </tpl>
+<div id="wrapper" class="m"> 
+  <!--End Header-->
+  <div class="clear">&nbsp;</div>
+  <!--位置导航-->
+  <div id="sitenav"><span><a href="<tpl> $site_url </tpl>/home/product.php?action=list"><tpl> $langPNavia </tpl></a> > 
+  	<tpl> section name=c loop=$navi_class_array </tpl>
+  	<a href="<tpl> $site_url </tpl>/home/product.php?action=list&searchcate=<tpl> $navi_class_array[c].pc_id </tpl>" target="_blank"><tpl> $navi_class_array[c].pc_name </tpl></a> >
+  	<tpl> /section </tpl>
+  	 <tpl> $langPNavic </tpl></span></div>
+  <!--End位置导航-->
+  <div class="clear"></div>
+  <div id="buyProcess">
+    <ul>
+      <li class="firstCurrent"><span class="01"><tpl> $langPBuyProcess1 </tpl></span></li>
+      <li><span><tpl> $langPBuyProcess2 </tpl></span></li>
+      <li><span><tpl> $langPBuyProcess3 </tpl></span></li>
+      <li><span><tpl> $langPBuyProcess4 </tpl></span></li>
+      <li class="last"><span><tpl> $langPBuyProcess5 </tpl></span></li>
+    </ul>
+  </div>
+  <div id="main">
+    <div class="left">
+      <div class="leftsideBox">
+        <div class="title"><span id="goodsInfo"></span>
+          <h3><tpl> $langPAuctionBuyProductInfo </tpl></h3>
+        </div>
+        <div class="content">
+          <div id="goodsPic">
+          	<tpl> if $product_array.mid_pic != '' && $product_array.mid_pic != 'null' </tpl>
+          		<img src="../<tpl> $product_array.mid_pic </tpl>" width="192" height="192" />
+          	<tpl> else </tpl>
+          		<a href="" target="_blank"><img src="<tpl> $template_dir </tpl>/images/noimgm.gif" id="product_img" alt="<tpl> $product_array.p_name </tpl>" /></a>
+          	<tpl> /if </tpl>
+          </div>
+          <dl>
+            <dt><tpl> $langPProductName </tpl>：</dt>
+            <dd><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $product_array.p_code </tpl>" title="<tpl> $product_array.p_name </tpl>"><tpl> $product_array.p_name </tpl></a></dd>
+          </dl>
+          <dl>
+            <dt><tpl> $langPProductPrice </tpl>：</dt>
+            <dd><tpl> $product_countdown_array.bid_price </tpl> <tpl> $langPCny </tpl></dd>
+          </dl>
+          <dl>
+            <dt><tpl> $langPAreaShow </tpl>：</dt>
+            <dd>
+            	<tpl> section name=area loop=$seller_area_array </tpl>
+            		<tpl> $seller_area_array[area].area_name </tpl>&nbsp;&nbsp;
+            	<tpl> /section </tpl>
+            </dd>
+          </dl>
+          <dl>
+            <dt><tpl> $langPBuyer </tpl>：</dt>
+            <dd><a href="<tpl> $site_url </tpl>/store/?userid=<tpl> $product_array.member_id </tpl>" target="_blank" title="<tpl> $langPViewShop </tpl>"><tpl> $seller_info.login_name </tpl></a></dd>
+          </dl>
+        </div>
+      </div>        
+      <div class="leftsideBox">
+        <div class="title"><span id="payment"></span>
+          <h3><tpl> $langProductPayment </tpl></h3>
+        </div>
+        <div class="content">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+            	<tpl> section name=p loop=$payment_array </tpl>
+	              <tr>
+	                <th width="24"><input name="payment" type="radio" id="payment_<tpl> $payment_array[p].field </tpl>" value="<tpl> $payment_array[p].field </tpl>" /></th>
+	                <td colspan="2"><tpl> $payment_array[p].name </tpl></td>
+	              </tr>            	
+            	<tpl> /section </tpl>
+              <tr id="predeposit_tr">
+                <th>&nbsp;</th>
+                <td><tpl> $langPAvailablePredeposit </tpl>￥<span id="show_predeposit"><tpl> $member_array.available_predeposit|default:0 </tpl></span></td>
+                <td width="64" rowspan="2"><input type="button" id="input_predeposit" value="<tpl> $langPRecharge </tpl>" class="btn"/></td>
+              </tr>
+          </table>
+          <div class="clear">&nbsp;</div>
+        </div>
+      </div>      
+      <div class="leftsideBox">
+        <div class="title"><span id="currencyType"></span>
+          <h3><tpl> $langPPaymentCurrency </tpl></h3>
+        </div>
+        <div class="content">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+          	<tpl> section name=exchange loop=$exchange_array </tpl>
+          		<tpl> foreach key=key item=item from=$exprice_array </tpl>
+          			<tpl> if $key eq  $exchange_array[exchange].exchange_name </tpl>
+		              <tr>
+		                <th width="24"><input name="currency_category" type="radio" id="currency_category_<tpl> $exchange_array[exchange].exchange_name </tpl>" value="<tpl> $exchange_array[exchange].exchange_name </tpl>" <tpl> if $exchange_array[exchange].is_checked eq '1' </tpl> checked="checked" <tpl> /if </tpl> /></th>
+		                <td><tpl> $exchange_array[exchange].exchange_remark </tpl>(<tpl> $exchange_array[exchange].exchange_name </tpl>)： <tpl> $item </tpl></td>
+		              </tr>
+	              <tpl> /if </tpl>
+              	<tpl> /foreach </tpl>
+             <tpl> /section </tpl>
+          </table>
+        </div>
+      </div>
+    </div>
+	<form id="formbuy" name="formbuy" method="post" action="product_buy_countdown.php?action=order">
+	<input type="hidden" name="p_code" value="<tpl> $product_array.p_code </tpl>" />
+	<input type="hidden" name="p_name" value="<tpl> $product_array.p_name </tpl>" />
+	<input type="hidden" name="cp_end_time" value="<tpl> $product_countdown_array.cp_end_time </tpl>" />
+	<input type="hidden" name="need_margin" id="need_margin" value="" />      
+	<input type="hidden" name="select_payment" id="select_payment" value="" />      
+    <div class="right">
+      <div class="rightSideBox">
+        <div class="title"><span><a href="../member/own_receive.php" target="_blank"><tpl> $langPReceiveManage </tpl></a></span>
+          <h3><tpl> $langPConfirmAddress </tpl></h3>
+        </div>
+        <div class="content">
+          <ul id="addlist">
+         	 <tpl> section name=re loop=$receive_array </tpl>     	      	 
+            	<li><input name="receive" id="receive<tpl> $receive_array[re].receive_code </tpl>" type="radio" value="<tpl> $receive_array[re].receive_code </tpl>" <tpl> if $smarty.section.re.index eq 0 </tpl> checked="checked" <tpl> /if </tpl> /><tpl> $langPTown </tpl>：<tpl> $receive_array[re].sel_area[0].area_name </tpl> <tpl> $langPSection </tpl>：<tpl> $receive_array[re].sel_area[1].area_name </tpl> <tpl> $receive_array[re].address </tpl> (<tpl> $langPConsignee </tpl>：<tpl> $receive_array[re].receive_name </tpl>) </li>
+             <tpl> /section </tpl>
+            <li>
+              <tpl> if $receive_array[0].receive_code neq '' </tpl>
+              	<input name="receive" id="receive_other" type="radio" value="0" /> <tpl> $langPOtherAddress </tpl>
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="receive_tb" style="display:none;">
+              <tpl> else </tpl>
+				<input type="hidden" id="is_check_receive" value="1" />
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="receive_tb">
+              <tpl> /if </tpl>
+              <tr>
+                <th><tpl> $langPTown </tpl>：</th>
+                <td>
+                	<div id="adddiv"></div>
+					<input type="hidden" name="area_id" id="area_id" />    
+                 </td>
+              </tr>
+              <tr>
+                <th><tpl> $langPRowAddress </tpl>：</th>
+                <td>
+                  <input name="txtAddress" type="text" class="textInput" id="txtAddress" size="80" />
+                  <label ></label>
+                 </td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td style="color:#F60;"><tpl> $errProductNotMake </tpl></td>
+              </tr>
+              <tr>
+                <th><tpl> $langPPostalcode </tpl>：</th>
+                <td>
+                	<input name="txtZip" type="text" class="textInput" id="txtZip" size="12" />
+                </td>
+              </tr>
+              <tr>
+                <th><tpl> $langPConsigneeName </tpl>：</th>
+                <td>
+                	<input name="txtReceiveName" type="text" class="textInput" id="txtReceiveName" size="12" />
+                </td>
+              </tr>
+              <tr>
+                <th><tpl> $langPPhone </tpl>：</th>
+                <td>
+                	<input name="txtPhone" type="text" class="textInput" id="txtPhone" size="24"  />
+                </td>
+              </tr>
+              <tr>
+                <th><tpl> $langPMobileTelephone </tpl>：</th>
+                <td>
+                	<input name="txtMobilephone" type="text" class="textInput" id="txtMobilephone" size="24"  />
+                </td>
+              </tr>
+              <tr>
+                <th>&nbsp;</th>
+                <td  style="color:#F60;"><tpl> $langPExpressAffiliation </tpl></td>
+              </tr>
+          </table>
+          </li>
+          </ul>
+          
+        </div>
+      </div>
+      <div class="rightSideBox">
+        <div class="title">
+          <h3><tpl> $langPConfirmBuyNum </tpl></h3>
+        </div>
+        <div class="content">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th><tpl> $langPBuyNum </tpl>：</th>
+                <td><label for="select">
+                    <input name="txtBuyNum" type="text" class="textInput" id="txtBuyNum" value="1" size="3" disabled  />
+                <span>（<tpl> $langPBuyNumOne </tpl>）</span></label></td>
+              </tr>
+              <tr>
+                <th><tpl> $langPCarryFashion </tpl>：</th>
+                <td><label for="textfield"><tpl> $langSelaTranFee </tpl></label></td>
+              </tr>
+              <tr>
+                <th><tpl> $langPDidMoney </tpl>：</th>
+                <td>
+                    <input name="cb_price" type="text" class="textInput" id="cb_price" size="8" onkeyup="get_margin()"/>
+                    <tpl> $langPCny </tpl> <span>（<tpl> $langPInputBidPriceEx </tpl> <tpl> $product_countdown_array.bid_price </tpl> <tpl> $langPCny </tpl>）</span>      
+                </td>
+              </tr>
+              <tr>
+                <th><tpl> $langPBidMargin </tpl>：</th>
+                <td><p id="buyer_margin">5<tpl> $langPCny </tpl></p>
+                  <p class="notes" style="color:red;"><tpl> $langPBidMargina </tpl></p>
+                  <div id="error_predeposit" style="display:none;color:red; width:520px; background:#FFFFE6; padding:8px; line-height:22px; border:1px solid #F90; margin:8px 0;"><tpl> $langPBidMarginb </tpl>：<span id="available_predeposit"></span><br/><tpl> $langPBidMarginc </tpl><a href="javascript:void(0);" name="blockUi" id="blockUi"><tpl> $langPBidMargind </tpl></a><tpl> $langPBidMargine </tpl></div>
+                  </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+      <div class="rightSideBox">
+        <div class="title">
+          <h3><tpl> $langPConfirmSubmitOrder </tpl></h3>
+        </div>
+        <div class="content">
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <th><input type="checkbox" name="cb_anonymous" style="height:28px" value="1"/>
+                  <label for="checkbox"></label></th>
+                <td><label for="select"><strong><tpl> $langPHideMyUserName </tpl></strong><span>（<tpl> $langPHideMyUserNameEx </tpl>）</span></label></td>
+              </tr>
+              <tr>
+                <th><tpl> $langProductCode </tpl>：</th>
+                <td>
+                	<input type=text name="checkcode" id="checkcode" value="" size="5"/>
+					<img id="checkCodeImg" src="../classes/libraries/code.php" onclick="this.src='../classes/libraries/code.php?' + Math.random()"  align="absmiddle" alt="<tpl> $langPOnclickInstead </tpl>"><a href="javascript:void(0);" onclick="document.getElementById('checkCodeImg').src='../classes/libraries/code.php?' + Math.random()"> <tpl> $langPNotClarityInstead </tpl></a>
+				</td>
+              </tr>
+              <tr>
+                <th rowspan="2">&nbsp;</th>
+                <td><input type="submit" id="sub_button" value="<tpl> $langPConfirmToBuy </tpl>" class="btn"/></td>
+              </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    </form>
+    <div class="clear"></div>
+  </div> 
+  <div class="clear" style="height:8px;"></div>
+  <tpl> include file ='../../../html/footer.html' </tpl> 
+</div>
+<div id="recharge_loading" style=" display:none; background:#FFF; padding:24px; width:450px;">
+	<table>
+		<tr>
+			<td colspan="2"><tpl> $langPRechargea </tpl><a href="http://www.shopnc.net/forum/" target="_blank" onclick="$.unblockUI();"><tpl> $langPRechargeb </tpl></a></td>
+		</tr>
+		<tr>
+			<td><input type="button" value="<tpl> $langPRechargec </tpl>" id="yes" /></td>
+			<td><input type="button" value="<tpl> $langPRecharged </tpl>" id="colse" /></td>
+		</tr>
+	</table>
+</div>
+<tpl>include file ='../../../js/validate/product_buy_countdown.html'</tpl>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_user_list</tpl></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+<body>
+<div id="content">
+	<h2><span class="alignRight"><a href="admin_administrator.php?action=add_administrator" target="_self">{<tpl>$admin_user_add</tpl><!-- 添加管理员 -->}</a></span>  <tpl>$admin_system_user</tpl> >> <tpl>$admin_user_list</tpl><!-- 管理员列表 -->
+    	  
+    </h2>
+   <form id="form1" name="form1" method="post" action="admin_administrator.php?action=admin_del">
+   <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="6" class="searchbar">
+              <input type="submit" value="<tpl>$admin_user_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+            </td>
+          </tr>
+          <tr>
+            <th><label>
+            <input type="checkbox" name="singlecheck_all" id="all" />
+            </label></th>
+            <th><tpl>$admin_user_name</tpl><!-- 用户名 --></th>
+            <th>e-mail</th>
+            <th><tpl>$admin_user_add_time</tpl><!-- 加入时间 --></th>
+            <th><tpl>$admin_user_state</tpl><!-- 管理员状态 --></th>
+            <th><tpl>$admin_user_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$admin_user</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="admin_id[]" id="" value="<tpl>$admin_user[list].admin_id</tpl>" class="cb" />
+            </label></td>
+            <td><a href="admin_administrator.php?action=add_administrator&admin_id=<tpl>$admin_user[list].admin_id</tpl>"><tpl>$admin_user[list].admin_name</tpl></a></td>
+            <td><tpl>$admin_user[list].admin_email</tpl></td>
+            <td><tpl>$admin_user[list].admin_add_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+            <td><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>if $admin_user[list].admin_state == 1 </tpl>1<tpl>else</tpl>0<tpl>/if</tpl>.gif" alt="" /></td>
+            <td><tpl>if $admin_user[list].admin_type != '1'</tpl>
+            	<a href="admin_administrator.php?action=add_cmpetence&admin_id=<tpl>$admin_user[list].admin_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_role.gif" title="<tpl>$admin_user_cmpetence</tpl>" /><!-- 分配权限 --></a> 
+				<tpl>/if</tpl>
+            	<a href="admin_tool_log.php?action=log_list&search=search&search_type=log_user&search_key=<tpl>$admin_user[list].admin_name</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" title="<tpl>$admin_user_log</tpl>" /><!-- 查看日志 --></a> 
+            	<a href="admin_administrator.php?action=add_administrator&admin_id=<tpl>$admin_user[list].admin_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_user_edit</tpl>" /><!-- 编辑 --></a> 
+                <tpl>if $admin_user[list].admin_cmpetence != 'system_all'</tpl>
+				<a href="admin_administrator.php?action=admin_del&admin_id=<tpl>$admin_user[list].admin_id</tpl>" onclick="return confirm('<tpl>$admin_user_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_user_del</tpl>" /><!-- 删除 --></a>
+				<tpl>/if</tpl></td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="6" class="searchbar">
+              <input type="submit" value="<tpl>$admin_user_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              <div class="pagebar"><tpl> $show_page </tpl></div></td>
+          </tr>
+        </table>
+    </div><!--  end of entry-body  -->
+  </form>
+  <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,58 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreStyleBlockShopInfo </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_2">
+		<ul>
+			<li style="text-align:center;">
+				<img src="<tpl> if $shop_info.shop_pic neq '' </tpl><tpl> $site_url </tpl>/<tpl> $shop_info.shop_pic </tpl><tpl> else </tpl><tpl> $template_dir </tpl>/images/nobody_imgs.gif<tpl> /if </tpl>" border="0" />
+			</li>
+			<li><tpl> $langStoreShopkeeper </tpl>:<font style="color:#4666B9;"> <tpl> $shop_info.login_name </tpl></font> 
+				<tpl> if $shop_info.audit_state == '2' </tpl> 
+					<img src="<tpl> $template_dir </tpl>/images/renzheng_g.gif" border="0" title="<tpl> $langStoreAlreadyEntityShop </tpl>"/>
+				<tpl> /if </tpl>
+				<tpl> if $shop_info.personal_certify == '2' </tpl> 
+					<img src="<tpl> $template_dir </tpl>/images/renzhen-g.gif" border="0" title="<tpl> $langStorePersonalCertify </tpl>"/>
+				<tpl> /if </tpl>
+			</li>
+			<li><tpl> $langStoreSaleCredit </tpl>: <font style="color:#6B6B6B;"><tpl> $shop_info.sale_score.score|default:'0' </tpl></font>
+            	<tpl> if $shop_info.sale_score neq '0' </tpl>
+				<tpl> foreach from=$shop_info.sale_score.median item=one </tpl>
+					<tpl> if $shop_info.sale_score.level eq '0' </tpl>
+						<img title="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+					<tpl> /if </tpl>
+					<tpl> if $shop_info.sale_score.level eq '1' </tpl>
+						<img title="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+					<tpl> /if </tpl>
+					<tpl> if $shop_info.sale_score.level eq '2' </tpl>
+						<img title="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+					<tpl> /if </tpl>
+				<tpl> /foreach </tpl>
+                <tpl> /if </tpl>
+			</li>
+			<li><tpl> $langStoreBuyCredit </tpl>: <font style="color:#6B6B6B;"><tpl> $shop_info.buy_score.score|default:'0' </tpl></font>
+            	<tpl> if $shop_info.buy_score neq '0' </tpl>
+				<tpl> foreach from=$shop_info.buy_score.median item=one </tpl>
+					<tpl> if $shop_info.buy_score.level eq '0' </tpl>
+						<img title="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+					<tpl> /if </tpl>
+					<tpl> if $shop_info.buy_score.level eq '1' </tpl>
+						<img title="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+					<tpl> /if </tpl>
+					<tpl> if $shop_info.buy_score.level eq '2' </tpl>
+						<img title="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+					<tpl> /if </tpl>
+				<tpl> /foreach </tpl>
+                <tpl> /if </tpl>
+			</li>
+			<li><tpl> $langStoreBabyNum </tpl>: <font style="color:#6B6B6B;"><tpl> $shop_info.product_count|default:'0' </tpl></font> </li>
+			<li><tpl> $langSIntroRegTime </tpl>:<font style="color:#6B6B6B;"><tpl> $shop_info.regist_time </tpl></font> </li>
+			<li><tpl> $langStoreAddress </tpl>:
+				<tpl> section name=loop loop=$shop_info.shop_area </tpl>
+					<font style="color:#6B6B6B;"><tpl> $shop_info.shop_area[loop].area_name </tpl></font>
+				<tpl> /section </tpl>
+			</li>
+		</ul>
+	</div>
+</div>

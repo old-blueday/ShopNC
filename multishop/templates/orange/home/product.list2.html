@@ -1,0 +1,519 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.scroll2.js"></script>
+<script type="text/javascript">
+function orderbyprice() {$('#order').val('2');$('#form_p_list').submit()};
+function orderbylefttime() {$('#order').val('1');$('#form_p_list').submit()};
+function limitpage(page) {$('#pagelimit').val(page);$('#form_p_list').submit()};
+function showpage(listway) {var str = 1-<tpl> $product_condition.sorttype|default:0 </tpl>;$('#showpage').val(listway);$('#sorttype').val(str);$('#form_p_list').submit()};
+function orderbypriceselect(sort_val) {$('#order').val('2');$('#sorttype').val(sort_val);$('#form_p_list').submit()};
+function orderbylefttimeselect(sort_val) {$('#order').val('1');$('#sorttype').val(sort_val);$('#form_p_list').submit()};
+function changeorder(type){
+	selected = type.value;
+	switch(selected){
+		case "1":
+		orderbypriceselect('1');
+		break;
+		case "2":
+		orderbypriceselect('0');
+		break;
+		case "3":
+		orderbylefttimeselect('1');
+		break;
+		case "4":
+		orderbylefttimeselect('0');
+		break;
+		case "5":
+		showpage('1');
+		break;
+		case "6":
+		showpage('2');
+		break;
+		case "7":
+		showpage('3');
+		break;
+		case "8":
+		limitpage('20');
+		break;
+		case "9":
+		limitpage('40');
+		break;
+		case "10":
+		limitpage('80');
+		break;
+		default:
+	}
+}
+</script>
+<script>
+//收藏
+function product_collection(member_id,pid){
+	$.ajax({
+		url: "../member/own_collection.php",
+		data: "action=new&genre=product&seller_id="+member_id+"&collection="+pid,
+		success: function (data) {
+			if (data == '-1') {
+				alert("<tpl> $langPListLoginOperator </tpl>");
+			}
+			if (data == '0') {
+				alert("<tpl> $langPListSelfNotCollectionSelf </tpl>");
+			}
+			if (data == '1') {
+				alert("<tpl> $langPListCollectionSucceed </tpl>");
+			}
+			if (data == '2') {
+				alert("<tpl> $langPListCollection </tpl>");
+			}
+		}
+	});
+}
+//兼容IE6，IE7,FF的表单提交方法
+function form_submit_compatible(){
+	setTimeout(form_submit,0);
+}
+function form_submit(){
+	$('#form_p_list').submit();
+}
+</script>
+</head>
+<body>
+<div id="wrapper" class="m">
+  <!-- Header -->
+<tpl>include file ='header_new.html'</tpl>
+  <!-- End Header -->
+  <!-- Main -->
+   <div class="clear">&nbsp;</div>
+  <div id="main">
+    <div id="sortlist">
+      <div class="title"><tpl> if $product_condition.searchcate eq 0 </tpl><span class="block-1" id="category_sign" onclick="controlDisplay('category')"><img src="<tpl> $template_dir </tpl>/home/images/jian.gif" /></span><span class="ff-1">&nbsp;</span><tpl> $langbtnPListNonce </tpl><span class="sortname"><tpl> $langbtnPListAll </tpl></span><tpl> $langbtnPListClassHave </tpl><span><tpl> $search_cate|@count </tpl></span><tpl> $langbtnPListEntriesSelect </tpl> </div>
+    	<div class="content" id="category_list">
+	      <ul>
+	        <li>
+	          <dl id="product_class_dt">
+	            <dt><tpl> $langbtnPListOn </tpl><span><tpl> $langbtnPListProductClass </tpl></span><tpl> $langbtnPListSelect </tpl>：</dt>
+	            <tpl> section name=i loop=$search_cate </tpl>
+					<tpl> if $smarty.section.i.rownum <= 20 </tpl>	
+						<dd>
+					<tpl> else </tpl>
+						<dd style="display:none">
+					<tpl> /if </tpl>
+					<a style="cursor: pointer;<tpl> if $search_cate[i].is_highlight eq '1' </tpl>color:#FF5500;<tpl> /if </tpl>" href="javascript:;" title='<tpl> $search_cate[i].name </tpl>' onclick="$('#pcid').val('<tpl> $search_cate[i].id </tpl>');form_submit_compatible();"><tpl> $search_cate[i].name </tpl></a></dd>
+					<tpl> if $smarty.section.i.rownum%5 eq 0 </tpl>
+						<br />
+					<tpl> /if </tpl>
+	            <tpl> /section </tpl>
+	          </dl>
+	        </li>
+			<li><tpl> if $smarty.section.i.rownum > 20 </tpl>
+		   
+		<input class="button22" type="button" name="pl_click" id="pl_click" value="<tpl> $langProductShowAll </tpl>" onclick="show_all();" />
+		
+		<tpl> /if </tpl></li>
+	      </ul>
+	    </div>
+    <tpl> else </tpl><span id="category_sign" onclick="controlDisplay('category')" class="block-1"><img src="<tpl> $template_dir </tpl>/home/images/jian.gif" /></span><span class="ff-1">&nbsp;</span><tpl> $langbtnPListNonce </tpl><span class="sortname"><tpl> $select_class.pc_name </tpl></span><tpl> $langbtnPListClassHave </tpl><span><tpl> $select_class_child|@count </tpl></span><tpl> $langbtnPListEntriesSelect </tpl> </div>
+    	<div class="content" id="category_list">
+	      <ul>
+	        <li>
+	          <dl id="product_class_dt">
+	            <dt><tpl> $langbtnPListOn </tpl><a href="javascript:;" onclick="$('#pcid').val('0');form_submit();"><span><tpl> $langbtnPListProductClass </tpl></span></a><tpl> $langbtnPListSelect </tpl>：</dt>
+	            <tpl> section name=i loop=$select_class_child </tpl>
+					<tpl> if $smarty.section.i.rownum <= 20 </tpl>	
+						<dd>
+					<tpl> else </tpl>
+						<dd style="display:none">
+					<tpl> /if </tpl>
+					<a style="cursor: pointer;<tpl> if $select_class_child[i].is_highlight eq '1' </tpl>color:#FF5500;<tpl> /if </tpl>" href="javascript:;" title='<tpl> $select_class_child[i].pc_name </tpl>' onclick="$('#pcid').val('<tpl> $select_class_child[i].pc_id </tpl>');form_submit_compatible();"><tpl> $select_class_child[i].pc_name </tpl></a></dd>
+					<tpl> if $smarty.section.i.rownum%5 eq 0 </tpl>
+						<br />
+					<tpl> /if </tpl>
+	            <tpl> /section </tpl>
+	          </dl>
+	        </li>
+			<li><tpl> if $smarty.section.i.rownum > 20 </tpl>
+		   
+		<input class="button22" type="button" name="pl_click" id="pl_click" value="<tpl> $langProductShowAll </tpl>" onclick="show_all();" />
+		
+		<tpl> /if </tpl></li>
+	      </ul>
+	    </div>
+    <tpl> /if </tpl>
+				
+      </div>
+    </div>
+	<script>
+		var pl_click_num=0;
+		//show product class
+		function show_all(){
+			i=0;
+			$("#product_class_dt dd").each(function(){
+				if(i>=20){
+					$(this).toggle();
+				}else{
+					$(this).css('display','');
+				}
+				i++;
+			});
+			
+			if(pl_click_num%2=='0'){//Simple show
+				$('#pl_click').val('<tpl> $langProductShowSimple </tpl>');
+			}else{//all show
+				$('#pl_click').val('<tpl> $langProductShowAll </tpl>');
+			}
+			pl_click_num++;
+		}
+		//show category or brand
+		function controlDisplay (type) {
+			$("#"+type+"_list").toggle();
+		}		
+	</script>
+	<!--品牌-->
+    <div id="sortlist">
+		<div class="title"><span id="brand_sign" onclick="controlDisplay('brand')" class="block-2"><img src="<tpl> $template_dir </tpl>/home/images/jian.gif" /></span><span class="ff-1">&nbsp;</span><tpl> $langbtnPListNonce </tpl><span class="sortname"><tpl> if $select_brand.pb_name eq '' </tpl><tpl> $langbtnPListAll </tpl><tpl> else </tpl> <tpl> $select_brand.pb_name </tpl> <tpl> /if </tpl></span><tpl> $langbtnPListClassHaveBrand </tpl><span><tpl> $brand_num </tpl></span><tpl> $langbtnPListEntriesSelectBrand </tpl></div>    
+	    <div class="content" id="brand_list">
+	      <ul>
+	        <li>
+	          <dl id="brand_class_dt">
+	          	<dt><tpl> $langbtnPListOn </tpl><a href="javascript:;" onclick="$('#pbid').val('0');form_submit();"><span><tpl> $langbtnPListProductBrand </tpl></span></a><tpl> $langbtnPListSelect </tpl>：</dt>
+	            
+	          </dl>
+	        </li>
+	      </ul>	
+		  <tpl> if $brand_img_array|@count > 0 </tpl>
+			<div class="img-list">
+			  <dl>
+				<tpl> foreach name=img item=img_arr from=$brand_img_array </tpl>
+					<dd>
+						<a style="cursor: pointer;" href="JavaScript:void(0);" title='<tpl> $img_arr.pb_name </tpl>' onclick="$('#pbid').val('<tpl> $img_arr.pb_id </tpl>');form_submit_compatible();">
+							<img border="0" src="<tpl> $site_url </tpl>/<tpl> $img_arr.pb_image </tpl>" title="<tpl> $img_arr.pb_name </tpl>" />
+						</a>
+					</dd>
+					
+				<tpl> /foreach </tpl>
+			  </dl>
+			</div>
+			<tpl> /if </tpl>
+			<tpl> if $brand_word_array|@count > 0 </tpl>
+			<div class="wenzi-list">
+				<dl>
+				<tpl> foreach name=word item=word_arr from=$brand_word_array </tpl>
+					<dd>
+						<a style="cursor: pointer;" href="JavaScript:void(0);" title='<tpl> $word_arr.pb_name </tpl>' onclick="$('#pbid').val('<tpl> $word_arr.pb_id </tpl>');form_submit_compatible();">
+							<tpl> $word_arr.pb_name </tpl>
+						</a>
+					</dd>
+				
+				<tpl> /foreach </tpl>
+				</dl>
+			</div>
+			<tpl> /if </tpl>
+	    </div> 
+      </div>     
+	<script language="javascript">
+	//show category or brand
+	function controlDisplay (type) {
+		var obj_t = document.getElementById(type+"_list");
+		var obj_s = document.getElementById(type+"_sign");
+		if (obj_t.style.display == '' || obj_t.style.display == 'block') {
+			obj_t.style.display = 'none';
+			obj_s.innerHTML="<img src='<tpl> $template_dir </tpl>/home/images/jia.gif' />";
+		} else {
+			obj_t.style.display = 'block';
+			obj_s.innerHTML="<img src='<tpl> $template_dir </tpl>/home/images/jian.gif' />";				
+		}
+	}		
+	</script>		
+    <div class="clear">&nbsp;</div>
+    <!-- 页面左侧BEGIN -->
+    <form action="product.php" method="get" name="form_p_list" id="form_p_list">
+    <div class="page_left2">
+      <div class="goodsitem">
+        <!-- 商品项目TOP -->
+        <div class="goodsitem_top">
+          <div class="side_left"></div>
+          <div class="side_right"></div>
+          <!-- 商品属性栏目导航 -->
+          <ul class="goodsitem_nav">
+            <li <tpl> if $product_condition.recommended neq "1" </tpl>class="current"<tpl> /if </tpl>><a href="javascript:;" onclick="$('#form_p_list input[id=recommended]').val('0');form_submit_compatible();"><span><tpl> $langPListAllBaby </tpl></span></a></li>
+			<li <tpl> if $product_condition.recommended eq "1" </tpl>class="current"<tpl> /if </tpl>><a href="javascript:;" onclick="$('#form_p_list input[id=recommended]').val('1');form_submit_compatible();"><span><tpl> $langRecommended </tpl></span></a></li>
+            <input type="hidden" name="recommended" id="recommended" value="<tpl> $product_condition.recommended </tpl>" />
+          </ul>
+          <!-- END商品属性栏目导航 -->
+          <!-- 显示方式控制 -->
+          <div id="showmode">
+            <ul>
+              <li <tpl> if $product_condition.showpage neq "2" </tpl> class="current" <tpl> /if </tpl> >
+              	<a href="javascript:showpage('1')" title="<tpl> $langbtnPListModeLook </tpl>">
+            		<span><img src="<tpl> $template_dir </tpl>/home/images/showmode_list.gif" /><tpl> $langPListMode </tpl></span>
+				</a>
+			  </li>
+              <li <tpl> if $product_condition.showpage eq "2" </tpl> class="current" <tpl> /if </tpl> >
+              	<a href="javascript:showpage('2')">
+              		<span><img src="<tpl> $template_dir </tpl>/home/images/showmode_window.gif" /><tpl> $langPListShopwindow </tpl></span>
+              	</a>
+              </li>
+            </ul>
+            <ul class="style">
+              <li><tpl> $langPListDisplayNumber </tpl>：</li>
+              <tpl> if $product_condition.pagelimit eq '20' </tpl>
+	            <li class="current">
+		            <a href="javascript:limitpage('20')" title="<tpl> $langPListDisplay20 </tpl>"><span>20</span></a>
+	            </li>
+            <tpl> else </tpl>
+            	<li>
+		            <a href="javascript:limitpage('20')" title="<tpl> $langPListDisplay20 </tpl>"><span>20</span></a>
+	            </li>
+	        <tpl> /if </tpl>
+	        <tpl> if $product_condition.pagelimit eq '40' </tpl>
+            	<li class="current">
+            		<a href="javascript:limitpage('40')" title="<tpl> $langPListDisplay40 </tpl>"><span>40</span></a>
+            	</li>
+            <tpl> else </tpl>
+            	<li>
+            		<a href="javascript:limitpage('40')" title="<tpl> $langPListDisplay40 </tpl>"><span>40</span></a>
+            	</li>
+            <tpl> /if </tpl>
+            <tpl> if $product_condition.pagelimit eq '80' </tpl>
+            	<li class="current">
+            		<a href="javascript:limitpage('80')" title="<tpl> $langPListDisplay80 </tpl>"><span>80</span></a>
+            	</li>
+            <tpl> else </tpl>
+            	<li>
+            		<a href="javascript:limitpage('80')" title="<tpl> $langPListDisplay80 </tpl>"><span>80</span></a>
+            	</li>
+            <tpl> /if </tpl>
+            </ul>
+            <ul>
+              <tpl> if $product_condition.order eq '1' </tpl>
+	            <li class="current">
+	            	<a href="javascript:orderbylefttime()" title="<tpl> $langbtnPListOnEndTime </tpl>" ><span><img src="<tpl> $template_dir </tpl>/home/images/showmode_time.gif" /><tpl> $langPListTimeArr </tpl></span></a>
+	            </li>
+              <tpl> else </tpl>
+            	<li>
+	            	<a href="javascript:orderbylefttime()" title="<tpl> $langbtnPListOnEndTime </tpl>" ><span><img src="<tpl> $template_dir </tpl>/home/images/showmode_time.gif" /><tpl> $langPListTimeArr </tpl></span></a>
+	            </li>
+	          <tpl> /if </tpl>
+              <tpl> if $product_condition.order eq '2' </tpl>
+            	<li class="current">
+            		<a href="javascript:orderbyprice()" title="<tpl> $langbtnPListOnPrice </tpl>" ><span><img src="<tpl> $template_dir </tpl>/home/images/showmode_price.gif" /><tpl> $langPListPriceArr </tpl></span></a>
+            	</li>
+              <tpl> else </tpl>
+            	<li>
+            		<a href="javascript:orderbyprice()" title="<tpl> $langbtnPListOnPrice </tpl>" ><span><img src="<tpl> $template_dir </tpl>/home/images/showmode_price.gif" /><tpl> $langPListPriceArr </tpl></span></a>
+            	</li>
+              <tpl> /if </tpl>
+            </ul>
+          </div>
+          <!-- END显示方式控制 -->
+          <!-- 翻页控制 -->
+          <div class="pagehead">
+            <tpl> $page_list2 </tpl>
+          </div>
+          <!-- END翻页控制 -->
+        </div>
+        <!-- END商品项目TOP -->
+        <!-- 商品项目显示内容 -->
+        <div id="goodsitem_content">
+          <div class="content">
+            <div class="top">
+              <ul>
+                <li class="compare"><a href="#"onclick="var compare_sign=false;$('#form_p_list input[type=checkbox]').each(function(){if(this.checked){compare_sign=true;}});if(compare_sign==true){window.open('product.php?action=compare&amp;pcode='+$('input:checked').map(function(){return $(this).val();}).get().join('_'));}else{alert('<tpl> $langPListSelectContrastMerchandise </tpl>');}"><span><img src="<tpl> $template_dir </tpl>/home/images/sign_compare.gif" /><tpl> $langPListCompareProduct </tpl></span></a></li>
+                <li style="float:right" class="locus">
+                 <select style=" width:70px" onchange="$('#p_area_id').val(this.value);$('#form_p_list').submit();">
+				 	<tpl> if $sel_area.area_id neq '' </tpl>
+						<option value="<tpl> $sel_area.area_id </tpl>"><tpl> $sel_area.area_name </tpl></option>
+					<tpl> /if </tpl>
+					<option value=""><tpl> $langCAll </tpl></option>
+					<tpl> section name=loop loop=$area_array </tpl>
+						<option <tpl> if $product_condition.p_area_id eq $area_array[loop].area_id </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $area_array[loop].area_id </tpl>"><tpl> $area_array[loop].area_name </tpl></option>
+					<tpl> /section </tpl>
+				  </select>
+              </li>
+             </ul>
+          </div>
+          <div class="goodshow_picture">
+            <ul>
+			<tpl> if $product_array[0].p_code neq '' </tpl>
+            <tpl> section name=i loop=$product_array </tpl>
+              <li>
+                <div class="comparecheck">
+                  <input name="contrast" type="checkbox" value="<tpl> $product_array[i].p_code </tpl>" />
+                </div>
+                <div class="pic"><p>
+                  <tpl> if $ifhtml eq '1' && $product_array[i].html_url neq '' </tpl>
+				  		<a target="_blank" href="<tpl> $product_array[i].html_url </tpl>">
+                    		<img src="<tpl> $site_url </tpl>/<tpl> $product_array[i].mid_pic|default:'templates/orange/images/noimgm.gif' </tpl>" />
+                    	</a>
+                  <tpl> else </tpl>
+						<a target="_blank" href="product.php?action=view&amp;pid=<tpl> $product_array[i].p_code </tpl>" >
+	                    	<img src="<tpl> $site_url </tpl>/<tpl> $product_array[i].mid_pic|default:'templates/orange/images/noimgm.gif' </tpl>" />
+                    	</a>
+                  <tpl> /if </tpl></p>
+                </div>
+                <div class="name">
+                	<tpl> if $ifhtml eq '1' && $product_array[i].html_url neq '' </tpl>
+				  		<a target="_blank" href="<tpl> $product_array[i].html_url </tpl>" title="<tpl> $product_array[i].p_name </tpl>">
+                    		<tpl> $product_array[i].p_short_name </tpl>
+                    	</a>
+                  <tpl> else </tpl>
+						<a target="_blank" href="product.php?action=view&amp;pid=<tpl> $product_array[i].p_code </tpl>" title="<tpl> $product_array[i].p_name </tpl>">
+	                    	<tpl> $product_array[i].p_short_name </tpl>
+                    	</a>
+                  <tpl> /if </tpl>
+                </div>
+				<div style="height:16px;display:block;">
+					<tpl> if $product_array[i].p_genuine eq '1' </tpl>
+						<img src="<tpl> $template_dir </tpl>/images/pic_zp.gif" align="absmiddle" alt="<tpl> $langPgenuineExplain </tpl>" /> 
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_7day_return eq '1' </tpl>
+						<img src="<tpl> $template_dir </tpl>/images/pic_7day.gif" align="absmiddle" alt="<tpl> $langP7dayreturnExplain </tpl>" />
+					<tpl> /if </tpl>
+				</div>                  
+                <div class="price_div">
+	                <tpl> if $product_array[i].p_sell_type eq '0' </tpl>
+						<tpl> $langProductAAuction </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '1' </tpl>
+						<tpl> $langPfixprice </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '2' </tpl>
+						<tpl> $langPcamel </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $product_array[i].p_sell_type eq '3' </tpl>
+						<tpl> $langPcountdown </tpl>
+					<tpl> /if </tpl>						
+					<span class="price"><font class="font1">￥</font><font class="font2"><tpl> $product_array[i].p_price_int </tpl></font><font class="font3">.<tpl> $product_array[i].p_price_floot </tpl></font></span> </div>
+                	<div class="control"><span class="toshop"><a href="../store/index.php?userid=<tpl> $product_array[i].member_id </tpl>" target="_blank"><tpl> $langPListToShop </tpl></a></span><span class="collection"><a href="javascript:;" onclick="product_collection('<tpl> $product_array[i].member_id </tpl>','<tpl> $product_array[i].p_id </tpl>');"><tpl> $langbtnPListCollection </tpl></a></span></div>
+              </li>
+            <tpl> /section </tpl>
+		    <tpl> else </tpl>
+				<p class="bg_no"><tpl> $errPSearchEmpty </tpl></p>
+			<tpl> /if </tpl>
+            </ul>
+          </div>
+          <div class="bottom">
+           <div style="margin-top:9px; width:200px;" class="compare"><a onclick="var compare_sign=false;$('#form_p_list input[type=checkbox]').each(function(){if(this.checked){compare_sign=true;}});if(compare_sign==true){window.open('product.php?action=compare&amp;pcode='+$('input:checked').map(function(){return $(this).val();}).get().join('_'));}else{alert('<tpl> $langPListSelectContrastMerchandise </tpl>');}"><span><img src="<tpl> $template_dir </tpl>/home/images/sign_compare.gif" /><tpl> $langPListCompareProduct </tpl></span></a></div>
+                <div class="pagehead">
+                  <tpl> $page_list </tpl>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="barbtm"></div>
+  </div>
+    <!-- 页面左侧END -->
+    <!-- 页面右侧BEGIN -->
+    <div class="page_right2">
+    <div id="goodsfilter">
+      <h3><tpl> $langPListSelectSearch </tpl></h3>
+      <div class="content">
+      		<input type="hidden" name="action" id="action" value="<tpl> $product_condition.action </tpl>" />
+			<input type="hidden" name="curpage" id="curpage" value="1" />
+			<input type="hidden" name="channel_p_type" id="channel_p_type" value="<tpl> $channel_p_type </tpl>" />
+			<input type="hidden" name="pcid" id="pcid" value="<tpl> $product_condition.pcid </tpl>" />
+			<input type="hidden" name="pbid" id="pbid" value="<tpl> $product_condition.pbid </tpl>" />			
+			<input type="hidden" name="searchtype" id="searchtype" value="1" />
+			<input type="hidden" name="shopname" id="shopname" value="<tpl> $product_condition.shopname </tpl>" />
+			<input type="hidden" name="tf_charge" id="tf_charge" value="<tpl> $product_condition.tf_charge </tpl>" />
+			<input type="hidden" name="autopub" id="autopub" value="<tpl> $product_condition.autopub </tpl>" />
+			<input type="hidden" name="searchcate" id="searchcate" value="<tpl> $product_condition.searchcate </tpl>" />
+			<input type="hidden" name="order" value="<tpl> $product_condition.order </tpl>" id="order" />
+			<input type="hidden" name="sorttype" value="<tpl> $product_condition.sorttype </tpl>" id="sorttype" />
+			<input type="hidden" name="pagelimit" value="<tpl> $product_condition.pagelimit </tpl>" id="pagelimit" />
+			<input type="hidden" name="showpage" value="<tpl> $product_condition.showpage </tpl>" id="showpage" />
+			<input type="hidden" name="p_area_id" value="<tpl> $product_condition.p_area_id </tpl>" id="p_area_id" />
+        <div id="searchfilter">
+            <p><tpl> $langPListKeyword </tpl>：
+              <input id="keyword" style="width: 80px" size="16" name="keyword" value="<tpl> $product_condition.keyword </tpl>">
+            </p>
+            <p><tpl> $langbtnPListSeachPrice </tpl>：
+              <input style="width: 28px" maxlength="10" size="5" name="price_min" value="<tpl> $product_condition.price_min </tpl>">
+              <tpl> $langbtnPListTo </tpl>
+              <input style="width: 28px" maxlength="10" size="5" name="price_max" value="<tpl> $product_condition.price_max </tpl>">
+            </p>
+            <p class="listsidediv"><tpl> $langbtnPListProductArea </tpl>：
+              <select style=" width:80px" onchange="$('#p_area_id').val(this.value);">
+			  	<tpl> if $sel_area.area_id neq '' </tpl>
+						<option value="<tpl> $sel_area.area_id </tpl>"><tpl> $sel_area.area_name </tpl></option>
+					<tpl> /if </tpl>
+				<option value=""><tpl> $langCAll </tpl></option>
+				<tpl> section name=loop loop=$area_array </tpl>
+					<option <tpl> if $product_condition.p_area_id eq $area_array[loop].area_id </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $area_array[loop].area_id </tpl>"><tpl> $area_array[loop].area_name </tpl></option>
+				<tpl> /section </tpl>
+			  </select>
+            </p>
+              <p>
+				<input type='radio' value='1' name="sell_type" id="sell_type_1" /><label for="sell_type_1"><tpl> $langPListOnePrice </tpl></label>
+                <input type='radio' value='0' name="sell_type" id="sell_type_0" /><label for="sell_type_0"><tpl> $langPListRoup </tpl></label>
+			  </p>
+			  <p>
+				<input type='radio' value='3' name="sell_type" id="sell_type_2" /><label for="sell_type_2"><tpl> $langPListCountdown </tpl></label>
+				<input type='radio' value='2' name="sell_type" id="sell_type_3" /><label for="sell_type_3"><tpl> $langPListGroup </tpl></label>  
+			  </p>
+              <p>
+                <input type='radio' value='0' name="p_type" id="p_type_0" /><label for="p_type_0"><tpl> $langPListNew </tpl></label>
+	            <input type='radio' value='1' name="p_type" id="p_type_1" /><label for="p_type_1"><tpl> $langPListOld </tpl></label>
+			  </p>
+              <p>
+                <input type="checkbox" name='tf_charge' id="tf_charge_1" value="0" ><label for="tf_charge_0"><tpl> $langPListExemptTranFee </tpl></label>
+			  </p>
+            <p>
+              <label class="button_l">
+              <input class="button" type="submit" name="button" id="button" value="<tpl> $langbtnPListSubmitSearch </tpl>" style="cursor: pointer;"/>
+              </label>
+            </p>
+        </div>
+      </div>
+    </div>
+      <div class="rightbar">
+        <div class="title2">
+          <h3><tpl> $langPBrowseBaby </tpl></h3>
+        </div>
+        <div class="content2">
+        <tpl> if $reviewed_product[0].p_code neq '' </tpl>
+          <ul id="goodsbrowsed">
+          <tpl> section name=loop loop=$reviewed_product </tpl>
+            <li>
+            <tpl> if $ifhtml eq '1' && $reviewed_product[loop].html_url neq '' </tpl>
+              <div class="thumb"><p>
+            	<a title="<tpl> $reviewed_product[loop].p_name </tpl>" target="_blank" href="<tpl> $reviewed_product[loop].html_url </tpl>">
+            	<img src="<tpl> $site_url </tpl>/<tpl> $reviewed_product[loop].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" /></p>
+	            </div>
+	            <div class="name"><tpl> $reviewed_product[loop].p_name </tpl></div></a>
+	        <tpl> else </tpl>
+          	<div class="thumb"><p>
+				<a title="<tpl> $reviewed_product[loop].p_name </tpl>" href="product.php?action=view&pid=<tpl> $reviewed_product[loop].p_code </tpl>" target=_blank >
+				<img src="<tpl> $site_url </tpl>/<tpl> $reviewed_product[loop].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" /></p>
+			</div>
+			<div class="name"><tpl> $reviewed_product[loop].p_name </tpl></div></a>
+		  	<tpl> /if </tpl>  
+              <div class="cost"><span class="price"><font class="font1">￥</font><font class="font2"><tpl> $reviewed_product[loop].p_price </tpl></font></span></div>
+              <div class="favorite"><a href="javascript:;" onclick="product_collection('<tpl> $reviewed_product[loop].member_id </tpl>','<tpl> $reviewed_product[loop].p_id </tpl>');"><tpl> $langbtnPListSC </tpl></a></div>
+            </li>
+          <tpl> /section </tpl>
+          </ul>
+          <tpl> /if </tpl>
+          <div id="goodsbrowsed_but">
+            <div><a href="product.php?action=compare&pcode=<tpl> $reviewed_code </tpl>" target="_blank"><span><img src="<tpl> $template_dir </tpl>/home/images/sign_check.gif"/><tpl> $langbtnPListCompare </tpl></span></a></div>
+        <div><a href="product.php?action=clean_reviewed"><span><img src="<tpl> $template_dir </tpl>/home/images/sign_furcate .gif"/><tpl> $langReviewedClean </tpl></span></a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+    <!-- 页面右侧END -->
+  </div>
+  <!-- 页面布局END -->
+  <div class="clear" style="height:24px;"></div>
+</div>
+ <tpl> include file ='../../../html/footer.html' </tpl>
+<!-- 全局END -->
+</body>
+</html>

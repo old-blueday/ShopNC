@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<tpl> include file="header_new.html" </tpl>
+<div id="wrapper" class="m"><div id="sitenav"><span><tpl>$langIndexPage</tpl> > <tpl>$langLeaveWord</tpl></span></div>
+<form action="productmessage.php?action=resave" method="POST" id="messageform">
+	    <tpl> $langPQuiz </tpl>：
+	    		<tpl> if $message_array.anonymous eq 1 </tpl>
+					<tpl> $langPAnonymity </tpl>
+				<tpl> else </tpl>
+					<tpl> $message_array.member_name </tpl>
+				<tpl> /if </tpl>	
+
+	    <tpl> $langPDate </tpl>：<tpl> $message_array.message_time </tpl>
+		<br />
+	    <div class="h-hang"><tpl> $langPQuestion </tpl>：<tpl> $message_array.message_content </tpl></div>
+		<br />
+		<textarea name="txtReMessage" cols="60" rows="10" style="height:90px;"><tpl> $message_array.message_recontent </tpl></textarea><br>
+    	<input type="hidden" name="hideproductID" value="<tpl> $message_array.product_id </tpl>">
+    	<input type="hidden" name="hideMessageID" value="<tpl> $message_array.message_id </tpl>">
+    	<input type="hidden" name="pid" value="<tpl> $smarty.get.pid </tpl>">
+		<div style=" width:100px; margin:0 auto; padding-top:5px">
+    	<input name="submit" type="submit" value="<tpl> $langCsubmit </tpl>" class="button">
+		</div>
+	</form>
+  <div class="clear"></div>
+  </div>
+  <tpl> include file ='../../../html/footer.html' </tpl> </div>
+</body>
+</html>

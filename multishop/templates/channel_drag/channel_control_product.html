@@ -1,0 +1,45 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<tpl> if $output.type eq '0' </tpl>
+		<div class="blockcontent">
+			<div class="wenzi-product">
+				<ul>
+					<tpl> foreach from=$output.list item=product_array </tpl>
+					<li><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array.p_code </tpl>" target="_blank"><tpl> $product_array.p_short_name </tpl></a></li>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+		<tpl> if $output.type eq '1' </tpl>
+		<div class="blockcontent">
+			<div class="product-img">
+				<ul>
+					<tpl> foreach from=$output.list item=product_array </tpl>
+					 <tpl> if  $product_array.p_code eq 'NULL' || $product_array.p_code eq ''</tpl>
+						<tpl> else </tpl>
+					<li><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array.p_code </tpl>" target="_blank">
+						<div class="shop_middle">
+						<p>
+						
+							 <tpl> if $product_array.p_pic eq 'NULL' ||  $product_array.p_pic eq ''</tpl>
+							<img src="<tpl> $site_url </tpl>/templates/channel_drag/images/noimgs.gif" alt="<tpl> $product_array.p_name </tpl>" border="0" />
+							<tpl> else </tpl>
+							<img src="<tpl> $site_url </tpl>/<tpl> $product_array.p_pic </tpl>" alt="<tpl> $product_array.p_name </tpl>" border="0" />
+							<tpl> /if </tpl>
+							</p></div>
+							<p style=" line-height:16px; display:block; height:32px; overflow:hidden; padding-top:5px;"><tpl> $product_array.p_short_name </tpl></p>
+							<p style=" line-height:22px; color:#F00;"><tpl> $langCIndexCurprice </tpl>:<tpl> $product_array.p_price </tpl></p>
+						</a></li>
+						<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

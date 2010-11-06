@@ -1,0 +1,16 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreStyleBlockProductSearch </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_1">
+		<ul style=" padding-bottom:10px; float:left; clear:both;">
+			<form name="form1" action="product.php" method="get">
+				<input name="userid" size="20" value="<tpl> $shop_info.member_id </tpl>" type="hidden">
+				<input name="searchtype" size="20" value="1" type="hidden">
+				<input name="keyword" size="20" value="" style="height: 14px;" class="searchinput" type="text">
+				<input style=" *vertical-align:-2px;" value="<tpl> $langCSearchBaby </tpl>" type="submit">
+			</form>
+		</ul>
+	</div>
+</div>

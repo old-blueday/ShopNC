@@ -1,0 +1,15 @@
+<script language="javascript">
+/* 验证表单 */
+$(function(){
+	$("#formaddlink").validate({
+		event: "keyup",
+		errorClass: "wrong",
+		rules: {
+			txtMemberName: {required:true}
+		},
+		messages: {
+			txtMemberName: {required: "新分类名称不能为空!"}
+		}
+	});
+});
+</script>

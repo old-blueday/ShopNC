@@ -1,0 +1,80 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopDragManage </tpl> &gt;&gt; <tpl> $langSysShopStyleList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='shop_module_style.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysShopStyleAdd </tpl></b>
+					</div>
+				</div>
+
+			<form action="shop_module_style.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+            <input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysSel </tpl></td>
+						
+						<td class="es-2"><tpl> $langSysShopStyleName </tpl></td>
+						
+						<td class="es-2"><tpl> $langSysShopStyleType </tpl></td>
+						<td class="es-2"><tpl> $langCSort </tpl></td>
+                        <td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $sd_array[0].style_id neq'' </tpl>
+						<tpl> section name=loop loop=$sd_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="style_id[]" type="checkbox" value="<tpl> $sd_array[loop].style_id </tpl>"/></td>
+						
+						<td><tpl> $sd_array[loop].style_name </tpl></td>
+						<td><tpl>if $sd_array[loop].style_type eq "0"</tpl>
+							<tpl> $langSysShopStyleOpen </tpl>
+						<tpl> /if </tpl>
+						<tpl>if $sd_array[loop].style_type eq "1"</tpl>
+							<tpl> $langSysShopStyleClose </tpl>
+						<tpl> /if </tpl></td>
+                        <td><tpl> $sd_array[loop].style_order </tpl></td>
+						
+						<td><a href="shop_module_style.manage.php?action=modi&style_id=<tpl> $sd_array[loop].style_id </tpl>"><tpl> $langSysCEdit </tpl></a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $sd_array[0].style_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $sd_array[0].style_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

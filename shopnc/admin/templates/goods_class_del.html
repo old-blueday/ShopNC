@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_goods_class_del</tpl></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+
+</head>
+
+<body id="noulmenu">
+    <form action="admin_goods_class.php?action=del" method="post" name="class_del" id="class_del">
+	<input type="hidden" name="id" id="id" value="<tpl>$goods_class_array.class_id</tpl>" />
+<h4 id="rightcon_h"><b>
+	<span class="alignRight"><a href="admin_goods_class.php?action=list" target="_self" class="btnInput"><tpl> $admin_goods_class_list </tpl><!-- 商品分类列表 --></a></span><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >> <tpl>$admin_goods_class_del</tpl><!--分类删除-->
+</b>
+    </h4>
+	<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_goods_class_del</tpl></h5>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_del_tyep</tpl><!--删除类型-->:</td>
+            <td>
+			                  <p><input type="radio" name="delclass" id="delclass" value="1" onclick="select_class_display(0);" checked /> 
+				  <tpl>$admin_goods_class_list_del</tpl><!--  删除  --><font color="red"><tpl>$goods_class_array.class_name</tpl></font><tpl>$admin_goods_class_list_inc</tpl><!--  包括  --><font color="red"><tpl>$goods_class_array.class_name</tpl></font><tpl>$admin_goods_class_list_text1</tpl><!--  的子分类和商品  --></p>
+                	<p>
+                	<input type="radio" name="delclass" id="delclass" value="2" onclick="select_class_display(1);" />  
+               	   <tpl>$admin_goods_class_list_del</tpl><!--  删除  --><font color="red"><tpl>$goods_class_array.class_name</tpl></font><tpl>$admin_goods_class_list_text2</tpl><!--  ，移动子分类和商品  --></p>
+                	<p>
+                	 <input type="radio" name="delclass" id="delclass" value="3" onclick="select_class_display(1);" /> 
+               	     <tpl>$admin_goods_class_list_del</tpl><!--  删除  --><font color="red"><tpl>$goods_class_array.class_name</tpl></font><tpl>$admin_goods_class_list_text3</tpl><!--  和子分类，只移动商品  --><br /><br />&nbsp;&nbsp;<tpl>$class_top_id_2</tpl>
+			</td>
+          </tr>
+		  <tr>
+			  <td>&nbsp;</td>
+			  <td><input type="submit" name="button" id="button" value="<tpl>$admin_goods_class_click_del</tpl>" class="btnInput" /><!-- 点此删除 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>  $admin_goods_brand_reset </tpl>"  class="btnInput" /><!-- 重置 --></td>
+		  </tr>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+	</div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+/* 对删除打开有，里面的下拉分类进行反灰显示与正常显示间的切换 */
+function select_class_display(select_state) {
+	if(select_state == 0) {
+		$("#txt_class_top_id").attr('disabled','disabled');
+	} else{
+		$("#txt_class_top_id").attr('disabled','');
+	}
+}
+select_class_display(0);
+
+</script>
+</body>
+</html>

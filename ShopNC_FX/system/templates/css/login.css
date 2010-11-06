@@ -1,0 +1,181 @@
+/* CSS Document */
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-family: "Î¢ÈíÑÅºÚ", Verdana, Arial;
+	font-size:12px;
+	color: #333333;
+	background-color: #edefe4;
+	min-width:700px;
+	width:expression( documentElement.clientWidth < 700 ? (documentElement.clientWidth == 0 ? (body.clientWidth < 700 ? "700" : "auto") : "700px") : "auto" );
+}
+a,a:link,a:visited,a:active {
+	hide-focus: expression(this.hideFocus=true);
+	outline: none;
+	text-decoration: none;
+	color: #9badb8;
+}
+a:hover  {
+	text-decoration: none;
+	color: #364B63;
+}
+img { border: 0px; }
+li {
+    hide-focus: expression(this.hideFocus=true);
+	outline: none;
+	text-align: left;
+}
+form {
+	margin: 0px;
+}
+
+.clear {
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+	height: 0px;
+	width: 0px;
+	font-size: 0px;
+	line-height: 0px;
+}
+h1, h2, h3, h4, h5, p, ul, li {
+	margin: 0px;
+	padding: 0px;
+}
+h1 {
+	font-size: 24px;
+}
+h2 {
+	font-size: 18px;
+}
+h3 {
+	font-size: 16px;
+}
+h4 {
+	font-size: 14px;
+}
+h5 {
+	font-size: 12px;
+}
+
+
+
+#container {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	overflow: visible;
+}
+.topdiv {
+	width: 100%;
+	background-color: #FFFFFF;
+}
+.logo {
+	width: 240px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	padding-bottom:3px;
+}
+.logintext {
+	padding-top: 10px;
+}
+
+.logintext h2 {
+	font-size: 16px;
+	margin: 0px;
+}
+.logintext p {
+	color: #555555;
+	margin: 0px;
+}
+.logintext p.red{ color:#F00;}
+
+#login {
+	background: url(../images/loginbg.gif) repeat-x left top;
+	height: 77px;
+	position:relative;
+	
+}
+.right_but{
+	bottom:15px;
+	position:absolute;
+	right:0;
+	color:#777777;
+}
+.right_but a { 
+	margin: 0 3px 0 8px;;
+}
+#login table {
+	color: #555555;
+	margin-right: auto;
+	margin-left: auto;
+}
+#login  td input {
+	border:0;
+	margin-left: 5px;
+	height: 12px;
+	font-size: 12px;
+	line-height: 12px;
+	background:none;
+}
+.inputbg {
+
+	background-image: url(../images/input1.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+.inputbg2 {
+	background-image: url(../images/input2.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+	width: 97px;
+	height: 31px;
+}
+.inputbg3 {
+	background: url(../images/input3.gif) no-repeat 0px 1px;
+	height: 31px;
+	width: 68px;
+	 
+}
+#login td.loginbt input.btnInput{
+	background: url(../images/loginbt.gif) no-repeat 0px -1px;
+	width: 66px;
+	height: 31px;
+	border: none;
+	padding:0;
+	margin:1px 0 0 0;
+	cursor:pointer;
+}
+.code {
+	background-image:url(../images/code.gif);
+	background-position:5px 1px;
+	background-repeat:no-repeat;
+	height:24px;
+	padding-left:9px;
+	padding-top:7px;
+	width:62px;
+}
+
+#loginbutton {
+	height: 16px;
+	width: 50px;
+	margin-right: auto;
+	margin-left: auto;
+	color: #333333;
+	cursor: pointer;
+	line-height: 14px;
+	*line-height: 18px !important;
+	*line-height: 18px;
+}
+
+.copyright {
+	font-size: 9px;
+	padding-top: 5px;
+	text-align: center;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.copyright a {
+	text-decoration: underline;
+}

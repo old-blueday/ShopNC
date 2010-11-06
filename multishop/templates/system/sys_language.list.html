@@ -1,0 +1,74 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langLanguageManage </tpl> &gt;&gt; <tpl> $langLanguageList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='language.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langLanguageAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="language.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-4"><tpl> $langLanguageName </tpl></td>
+						<td class="es-2"><tpl> $langLanguageSign </tpl></td>
+						<td class="es-2"><tpl> $langLanguagePath </tpl></td>
+						<td class="es-2"><tpl> $langLanguageDefault </tpl></td>
+						<td class="es-2"><tpl> $langLanguageSort </tpl></td>
+						<td class="es-2"><tpl> $langLanguageOperation </tpl></td>
+					</tr>
+					<tpl> if $language_array[0].language_id neq '' </tpl>
+						<tpl> section name=loop loop=$language_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="language_id[]" type="checkbox" value="<tpl> $language_array[loop].language_id </tpl>"/></td>
+						<td><tpl> $language_array[loop].language_name </tpl></td>
+						<td><tpl> $language_array[loop].language_sign </tpl></td>
+						<td><tpl> $language_array[loop].language_path </tpl></td>
+						<td>
+							<tpl> if $language_array[loop].language_state eq '0' </tpl>
+								<tpl> $langLanguageNo </tpl>
+							<tpl> else </tpl>
+								<font color="#FF0000"><tpl> $langLanguageYes </tpl></font>
+							<tpl> /if </tpl>
+						</td>
+						<td><tpl> $language_array[loop].language_sort </tpl></td>
+						<td>
+							<a href="language.manage.php?action=modify&id=<tpl> $language_array[loop].language_id </tpl>"><tpl> $langLanguageEdit </tpl></a>
+							<tpl> if $language_array[loop].language_state eq '0' </tpl>
+							|
+							<a href="language.manage.php?action=set_default&id=<tpl> $language_array[loop].language_id </tpl>"><tpl> $langLanguageSetDefault </tpl></a>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $language_array[0].language_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

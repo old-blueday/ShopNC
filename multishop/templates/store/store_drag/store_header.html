@@ -1,0 +1,38 @@
+
+	<div class="left-sh"><li style="*margin-top:-1px;"><tpl> $langCHello </tpl> <tpl> $langCWelcom </tpl>
+	<tpl> if $login_sign eq '1' </tpl>
+		<tpl> $login_name </tpl></li>
+		<li class="img le-t"><a href="<tpl> $site_url </tpl>/home/category.php"><tpl> $langWillBuy </tpl></a></li>
+		<li class="img"><a href="<tpl> $site_url </tpl>/member/own_product.php?action=sell"><tpl> $langWillSell </tpl></a></li>
+		<li class="img-1"><a href="<tpl> $site_url </tpl>/member/own_main.php"><tpl> $langMyStore </tpl></a></li>
+		<li class="top-t"><a href="<tpl> $site_url </tpl>/home/member.php?action=logout"><tpl> $langCMenuLogout </tpl></a></li>
+	<tpl> else </tpl>
+		<a href="<tpl> $site_url </tpl>/home/member.php?action=login&forward=<tpl> $forward_url </tpl>"><tpl> $langCMenuPleaseLogin </tpl></a></li>
+		<a href="<tpl> $site_url </tpl>/home/member.php?action=regist"><tpl> $langCMenuFreeRegist </tpl></a></li>
+	<tpl> /if </tpl>
+	</div>
+	<div class="right-sh">
+	<ul>
+		<li class="bizhi-1"><a href="<tpl> $site_url </tpl>"><tpl> $site_name </tpl></a> </li>
+		<tpl>php</tpl>if (DISCUZ_X === true) {<tpl>/php</tpl> 
+		<li class="bizhi-1">| <a href="<tpl>$site_url</tpl>/../home.php"><tpl>$langStoreUChomeLink</tpl></a></li>
+		<li class="bizhi-1">| <a href="<tpl>$site_url</tpl>/../forum.php"><tpl>$langStoreBbsPage</tpl></a></li> 
+	 	<li class="bizhi-1">| <a href="<tpl>$site_url</tpl>/../group.php"><tpl>$langStoreGroupPage</tpl></a></li>
+		<tpl>php</tpl>}<tpl>/php</tpl>
+	</ul>
+	</div>
+	 <script type="text/javascript">
+        $(document).ready(function(){  
+            $(".tabmenu").mouseover(function(){    
+                $(this).addClass("over");}).mouseout(function(){ 
+                $(this).removeClass("over");})
+                $(".tabmenu").hover(function()
+            {$(this).next().css("display","block");},
+        function()
+            {$(this).next().css("display","none");});
+                $(".downmenu").hover(function()
+            {$(this).css("display","block");},
+        function()
+            {$(this).css("display","none");})
+            });
+    </script>

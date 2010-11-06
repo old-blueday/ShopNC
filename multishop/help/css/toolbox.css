@@ -1,0 +1,52 @@
+@charset "utf-8";
+/*
+Style Name: Toolbox
+Author: CY
+Email: cyishere@gmail.com
+Description: useful layout tool
+*/
+* {
+	margin:0;
+	padding:0;
+}
+.alignLeft {
+	float:left;
+}
+.alignCenter {
+	margin:0 auto;
+}
+.alignRight {
+	float:right;
+}
+.textLeft {
+	text-align:left;
+}
+.textCenter {
+	text-align:center;
+}
+.textRight {
+	text-align:right;
+}
+.clear {
+	clear:both;
+}
+a img {
+	border:none;
+}
+a {
+color:#333;
+text-decoration:none;
+}
+a:link {
+text-decoration:none;
+}
+a:hover, a:active, a.org:hover, a.org:active {
+color:#FF6600;
+text-decoration:underline;
+}
+h2, h3, h4, h5, h6 {
+	font-size:14px;
+}
+ul li {
+	list-style:none;
+}

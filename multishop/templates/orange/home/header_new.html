@@ -1,0 +1,225 @@
+<!--Header-->
+<div id="header" class="m"> 
+	<!--TopBar-->
+	<div id="topbar">
+		<tpl> if $login_sign eq '1' </tpl>
+			<div class="leftSide">
+				<tpl> $langCHelloWelcometoShopNCMall </tpl>	
+				<span><a href="<tpl> $site_url </tpl>/member/"><tpl> $login_name </tpl></a></span>
+				<span><a href="<tpl> $site_url </tpl>/home/member.php?action=logout&forward=<tpl> $forward_url </tpl>">[<tpl> $langCMenuLogout </tpl>]</a></span>
+			</div>
+		<tpl>else</tpl>
+			<div class="leftSide">
+				<tpl> $langCHelloWelcometoShopNCMall </tpl>
+				<span><a href="<tpl> $site_url </tpl>/home/member.php?action=login&forward=<tpl> $forward_url </tpl>"><tpl> $langCMenuPleaseLogin </tpl></a></span>
+				<span><a href="<tpl> $site_url </tpl>/home/member.php?action=regist&forward=<tpl> $cur_url </tpl>"><tpl>$langCMenuFreeRegist</tpl></a></span>
+			</div>
+		<tpl> /if </tpl>
+		<div class="rightSide">
+			<ul id="downmenu" class="tabs" >
+				<li style="padding-left:0px;" class="noline"><a href="<tpl> $site_url </tpl>/home/category.php" target="_top"><tpl>$langWillBuy</tpl></a></li>
+				<li><a href="<tpl> $site_url </tpl>/member/own_product.php?action=sell" target="_blank"><tpl>$langWillSell</tpl></a></li>
+				<li style="width:75px;">
+					<p class="tabmenu"><span class="myshop"><a href="<tpl> $site_url </tpl>/member/own_main.php" target="_blank"><tpl>$langMyStore</tpl></a></span><span class="arrow_down">&nbsp;</span></p>
+					<ul class="downmenu">
+                        <tpl> if $login_sign eq '1' </tpl>
+                            <li><a href="<tpl> $site_url </tpl>/member/own_product.php?action=sell"><tpl>$langIssueWare</tpl></a></li>
+                            <tpl> if $shop_sign eq '1' </tpl>
+                                <tpl> if $shop_del neq '1' </tpl>
+                                <li><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=view"><tpl>$langSeeStore</tpl></a></li>
+                                <li><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=modi"><tpl>$langManageStore</tpl></a></li>
+                                <tpl> /if </tpl>
+                            <tpl> else </tpl>
+                            <li><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=new"><tpl> $langFreeStore </tpl></a></li>
+                            <tpl> /if </tpl>
+                            <li><a href="<tpl> $site_url </tpl>/member/own_collection.php?genre=store"><tpl>$langMyStow</tpl></a></li>
+                        <tpl> /if </tpl>
+                      </ul>
+				<li><a href="<tpl>$QuickLinks.3.url</tpl>"><tpl>$QuickLinks.3.name</tpl></a></li>
+				<li><a href="<tpl> $site_url </tpl>/member/own_collection.php?genre=store"><tpl>$langCFavorites</tpl></a></li>
+				
+			</ul>
+			<script type="text/javascript">
+				$(document).ready(function(){  
+				$(".tabmenu").mouseover(function(){    
+				$(this).addClass("over");}).mouseout(function(){ 
+				$(this).removeClass("over");})
+				$(".tabmenu").hover(function()
+				{$(this).next().css("display","block");},
+				function()
+				{$(this).next().css("display","none");});
+				$(".downmenu").hover(function()
+				{$(this).css("display","block");},
+				function()
+				{$(this).css("display","none");})
+				
+				$('#header_tab').children('li').click(function(){
+											$('#header_tab').children('li').attr('class','');
+										 	$(this).attr('class','current');
+											$('.details').children('dl').hide();
+											$('.details').children('#'+$(this).attr('rel')).show();
+										 });
+				
+				
+				
+				});
+			</script> 
+		</div>
+	</div>
+	<!--End TopBar--> 
+	<!--LOGO-->
+	<div id="logo"><a href="<tpl> $site_url </tpl>"><img src='<tpl> $Site_LOGO|default:"$template_dir/home/images_new/logo.png" </tpl>' alt="<tpl> $langCCommendShopNC </tpl>" /></a></div>
+	<div id="search" class="search">
+		<div class="details">
+			<ul class="tab" id="header_tab">
+				<li class="current" rel="a1"><span><tpl> $langCProduct </tpl></span></li>
+				<li rel="a2"><span><tpl> $langCShop </tpl></span></li>
+				<li rel="a3"><span><tpl> $langCHelp </tpl></span></li>
+			</ul>
+			<dl id="a1">
+            <form action="<tpl> $site_url </tpl>/home/product.php" id="search_product" method="get" onsubmit='searchProductSubmit();'>
+                <div class="formstyle">
+                 <input name="keyword" type="text" class="textinput" value="<tpl> $langIndexSearchProductText </tpl>" id="search_product_text" style="color:#CCCCCC"/>
+                    <span class="searchBtn"><a href="#" onclick="$('#search_product').submit();">search</a></span>
+                </div><input name="search_name" type="hidden" value="product"  />
+                    <input name="recommended" type="hidden" value="0"  />
+                    <input name="searchcate" type="hidden" value="0"  />
+                </form>
+            </dl>
+			<dl id="a2" style="display:none;">
+                <form action="<tpl> $site_url </tpl>/home/shop.php" id='search_shop' method="get" onsubmit='searchShopSubmit();'>
+                <div class="formstyle">
+              <input name="keyword" type="text" class="textinput" value="<tpl> $langIndexSearchShopText </tpl>" id="search_shop_text" style="color:#CCCCCC"/>
+                    <span class="searchBtn"><a href="#" onclick="$('#search_shop').submit();">search</a></span>
+                </div><input name="search_name" type="hidden" value="shop"  />
+                    <input name="recommended" type="hidden" value="0"  />
+                    <input name="searchcate" type="hidden" value="0"  />
+                </form>
+            </dl>
+			<dl id="a3" style="display:none;">
+                <form action="<tpl> $site_url </tpl>/help/index.php" id='search_help' method="get" onsubmit='searchHelpSubmit();'>
+                <div class="formstyle">
+                    <input name="q" type="text" class="textinput" value="<tpl> $langIndexSearchHelpText </tpl>" id="search_help_text"  style="color:#CCCCCC"/>
+                    <span class="searchBtn"><a href="#" onclick="$('#search_help').submit();">search</a></span>
+                </div>
+                </form>
+            </dl>
+			
+			<div class="tag">
+				<h4><tpl> $langCPopSearch </tpl>:</h4>
+				<ul><tpl>if $sel_page eq 'index' </tpl>
+					<tpl>include file = '../../../../html/keyword.html'</tpl>
+					<tpl>else</tpl>
+					<tpl>include file = '../../../html/keyword.html'</tpl>
+					<tpl>/if</tpl>
+				</ul>
+			</div>
+		</div>
+		<div class="links">
+			<p><a href="<tpl> $site_url </tpl>/home/product.php?action=search"><tpl> $langCAllSearch </tpl></a></p>
+			<p><a href="<tpl> $site_url </tpl>/help/index.php?q=<tpl> $langCSearch </tpl>"><tpl> $langCSearchhelp </tpl></a></p>
+		</div>
+	</div>
+</div>
+<div id="nav" >
+	<ul class="leftSide">
+		<li<tpl> if $sel_page eq 'index' </tpl> class="current"<tpl> /if </tpl>><a href="<tpl> $site_url </tpl>"><span><tpl> $langMenIndex </tpl></span></a></li>
+		<li<tpl> if $sel_page eq 'trademark' </tpl> class="current"<tpl> /if </tpl>><a href="<tpl> $site_url </tpl>/home/trademark.php"><span><tpl> $langCBrandSpace </tpl></span></a></li>
+		<li<tpl> if $sel_page eq 'camel' </tpl> class="current"<tpl> /if </tpl>><a href="<tpl> $site_url </tpl>/home/shop_group.php"><span><tpl> $langCCamel </tpl></span></a></li>
+		<li<tpl> if $sel_page eq 'countdown' </tpl> class="current"<tpl> /if </tpl>><a href="<tpl> $site_url </tpl>/home/countdown.php"><span><tpl> $langCYiyuanPai </tpl></span></a></li>
+		<li<tpl> if $sel_page eq 'auction' </tpl> class="current"<tpl> /if </tpl>><a href="<tpl> $site_url </tpl>/home/auction.php"><span><tpl> $langCAuctionJingPai </tpl></span></a></li>
+	</ul>
+	<ul class="rightSide">
+	<tpl>if $sel_page eq 'index' </tpl>
+				<tpl> section name=i loop=$channel_all </tpl> 
+			<li>
+				<tpl> if $channel_all[i].channel_type eq '0' </tpl>
+					<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_all[i].channel_id </tpl>"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+				<tpl> elseif $channel_all[i].channel_type eq '3' </tpl>
+					<!-- 频道页静态开关 -->
+					<tpl> if $config_channel_html eq '1' </tpl>				
+						<a href="<tpl> $site_url </tpl>/html/<tpl> $channel_all[i].channel_sign </tpl>/"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+					<tpl> else </tpl>
+						<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_all[i].channel_id </tpl>"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+					<tpl> /if </tpl>
+				<tpl> else </tpl>
+					<a href="<tpl> $channel_all[i].channel_url </tpl>" target="_blank"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+				<tpl> /if </tpl>
+			</li>
+		<tpl> /section </tpl>
+	<tpl>else</tpl>
+	<tpl>include file = '../../../html/channel.html'</tpl>
+	<tpl>/if</tpl>
+	</ul>
+</div>
+<!--END Header-->
+<script language="javascript">
+//取语言包cookie
+var lang_type = $.cookie("<tpl> $cookie_pre </tpl>commonlangType");
+$("#sel_language").attr("value",lang_type);
+
+//多语言选择
+function changeLang(langTypeValue){
+	$.cookie("<tpl> $cookie_pre </tpl>commonlangType", langTypeValue);
+	window.location.reload();
+}
+
+$(document).ready(function(){
+	$('#search_product_text').bind('focus',function(){
+		$('#search_product_text').css('color','');
+		if($('#search_product_text').val()=='<tpl> $langIndexSearchProductText </tpl>'){
+			$('#search_product_text').val('');
+		}
+	});
+	$('#search_product_text').bind('blur',function(){
+		
+		if($('#search_product_text').val()==''){
+			$('#search_product_text').css('color','#CCCCCC');
+			$('#search_product_text').val('<tpl> $langIndexSearchProductText </tpl>');
+		}
+	});
+	$('#search_shop_text').bind('focus',function(){
+		$('#search_shop_text').css('color','');
+		if($('#search_shop_text').val()=='<tpl> $langIndexSearchShopText </tpl>'){
+			$('#search_shop_text').val('');
+		}
+	});
+	$('#search_shop_text').bind('blur',function(){
+		
+		if($('#search_shop_text').val()==''){
+			$('#search_shop_text').css('color','#CCCCCC');
+			$('#search_shop_text').val('<tpl> $langIndexSearchShopText </tpl>');
+		}
+	});
+	$('#search_help_text').bind('focus',function(){
+		$('#search_help_text').css('color','');
+		if($('#search_help_text').val()=='<tpl> $langIndexSearchHelpText </tpl>'){
+			$('#search_help_text').val('');
+		}
+	});
+	$('#search_help_text').bind('blur',function(){
+		
+		if($('#search_help_text').val()==''){
+			$('#search_help_text').css('color','#CCCCCC');
+			$('#search_help_text').val('<tpl> $langIndexSearchHelpText </tpl>');
+		}
+	});
+});
+
+function searchProductSubmit(){
+	if($("#search_product_text").val()=='<tpl> $langIndexSearchProductText </tpl>'){
+		$("#search_product_text").val('');
+	}
+}
+function searchShopSubmit(){
+	if($('#search_shop_text').val()=='<tpl> $langIndexSearchShopText </tpl>'){
+		$('#search_shop_text').val('');
+	}
+}
+function searchHelpSubmit(){
+	if($('#search_help_text').val()=='<tpl> $langIndexSearchHelpText </tpl>'){
+		$('#search_help_text').val('');
+	}
+}
+
+</script>

@@ -1,0 +1,63 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSSynthesisReport </tpl></div>
+					<div class="gtlbar-right" onclick="if(confirm('<tpl> $langSysSConfirmResetStat </tpl>')){location.href='statics.manage.php?action=reset';}else{return false;}">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysSResetStat </tpl></b>
+					</div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysSBeginStatData </tpl>:</th>
+									<td colspan="3"><tpl> $start_date </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSTotalStatDayNum </tpl>:</th>
+									<td colspan="3"><tpl> $total_days </tpl></td>
+								</tr>
+								<tr>
+									<th colspan="2">PV</th>
+									<th colspan="2">IP</th>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSToday </tpl>:</th>
+									<td><tpl> $today_pvnum|default:'0' </tpl></td>
+									<th><tpl> $langSysSToday </tpl>:</th>
+									<td><tpl> $today_ipnum|default:'0' </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSGross </tpl>:</th>
+									<td><tpl> $total_pvnum|default:'0' </tpl></td>
+									<th><tpl> $langSysSGross </tpl>:</th>
+									<td><tpl> $total_ipnum|default:'0' </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSTiptopNote </tpl>:</th>
+									<td><tpl> $highest_pvnum[0]|default:'0' </tpl></td>
+									<th><tpl> $langSysSTiptopNote </tpl>:</th>
+									<td><tpl> $highest_ipnum[0]|default:'0' </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSHappenIn </tpl>:</th>
+									<td><tpl> $highest_pvnum[1]|default:$langCNot </tpl></td>
+									<th><tpl> $langSysSHappenIn </tpl>:</th>
+									<td><tpl> $highest_ipnum[1]|default:$langCNot </tpl></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

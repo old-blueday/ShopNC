@@ -1,0 +1,40 @@
+#main { display: block; width: 948px; clear: both; margin-top: 8px; border: 1px solid #E7E7E7;}
+#main a { color: #03C; }
+.rightSideBox .content .btn { font-size: 14px; font-weight: 600; background: url(../images/buynow_btn_02.gif) no-repeat 0px 0px; width: 138px; height: 34px; margin-top: 6px; margin-bottom: 6px; border-width: 0px;; cursor:pointer;}
+#main .left { width: 235px; float: left;}
+#main .right { width: 712px; float: right; border-left: 1px solid #E7E7E7;}
+.leftsideBox { width: 225px; margin: 0px auto;}
+.leftsideBox .title { background: url(../images/buynow_left_title_bg.gif) no-repeat center bottom; height: 40px; padding: 0px 8px 10px 8px;}
+.leftsideBox .title span { background: url(../images/buynow_left_sign.gif) no-repeat; display: block; width: 16px; height: 16px; float: left; margin-top: 12px;}
+.leftsideBox .title #goodsInfo { background-position: 0px 0px; }
+.leftsideBox .title #payment { background-position: 0px -32px; }
+.leftsideBox .title #currencyType { background-position: 0px -64px; }
+.leftsideBox .title h3 { font-size: 15px; line-height: 24px; background: url(../images/buynow_left_sign.gif) no-repeat right -85px; display: block; height: 24px; float: left; padding: 0px 22px 0px 6px; margin-top: 8px;}
+.leftsideBox .content { }
+.leftsideBox .content #goodsPic { width: 192px; height: 192px; margin-right: auto; margin-left: auto;}
+.leftsideBox .content dl { width: 192px; padding: 4px 0px; margin: 0px auto;}
+.leftsideBox .content dl dt { color: #000; line-height: 18px; text-align: right; width: 60px; float: left; overflow: hidden;}
+.leftsideBox .content dl dd { color: #000; }
+.leftsideBox .content table { width: 210px; margin: 8px auto;}
+.leftsideBox .content table td { line-height: 24px; }
+.leftsideBox .content table .btn { font-size: 14px; font-weight: 600; color: #555; background-image: url(../images/buynow_btn_01.gif); width: 66px; height: 34px; border: 0px; cursor:pointer;}
+#buyProcess { width: 100%; height: 32px; margin-top: 8px;}
+#buyProcess ul { width: 948px; height: 32px; padding: 0px; margin: 0px auto;}
+#buyProcess ul li { background: url(../images/buy_process.gif) no-repeat 0px -96px; width: 186px; height: 32px; float: left;}
+#buyProcess ul li.firstCurrent { background-position: 0px 0px; width: 204px;}
+#buyProcess ul li.last { background-position: 0px -224px; }
+#buyProcess ul li span { font-size: 14px; font-weight: 600; color: #555; line-height: 24px; text-align: center; display: block; width: 164px; height: 24px; padding: 4px 0;}
+#buyProcess ul li.firstCurrent span { color: #FFF; width: 184px;}
+#buyProcess ul li.last span { width: 180px; }
+.rightSideBox { width: 690px; margin-right: auto; margin-left: auto;}
+#addlist { width: 660px; margin: 0px auto;}
+.rightSideBox .content #addlist li { line-height: 28px; }
+.rightSideBox .title { height: 40px; border-bottom: 1px solid #e7e7e7;}
+.rightSideBox .title h3 { font-size: 15px; line-height: 24px; padding: 8px;}
+.rightSideBox .title span { font-size: 12px; line-height: 24px; display: inline; float: right; margin-top: 8px; margin-right: 8px;}
+.rightSideBox .content table { width: 650px; margin: 8px auto;}
+.rightSideBox .content table th { line-height: 28px; color: #000 ;vertical-align: top; text-align: right; width: 100px; height: 28px; padding: 2px 0px;}
+.textInput { font-family: Tahoma, "宋体"; font-size: 12px; line-height: 18px; height: 18px;}
+.rightSideBox .content table td span { font-size: 12px; font-weight: normal; color: #666; float: none; padding: 0px; margin: 0px; border: none;}
+.rightSideBox .content table td .notes { font-size: 12px; line-height: 20px; color: #000; background-color: #FFFAD1; padding: 5px; margin: 5px 0px;}
+.rightSideBox .content table td { line-height: 28px; padding: 2px 8px;}

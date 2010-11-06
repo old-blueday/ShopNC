@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_list</tpl></title><!-- 商品管理 - 商品列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 显示缩略图 */
+	<tpl> section name=i loop=$goods_array </tpl>
+		$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_icon").mouseover(function(){
+			$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_thumb").show();
+		});
+		$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_icon").mouseout(function(){
+			$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_thumb").hide();
+		});
+	<tpl> /section </tpl>
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+<script type="text/javascript">
+	function changeFun(value){
+		document.getElementById("action_type").value = value;
+	}
+/* 修改产品状态 */
+function nc_state_update(goods_id,ajax_type,old_state,id) {
+	$.get('admin_goods.php',{'action':'goods_ajax','ajax_type':ajax_type,'old_state':old_state,'goods_id':goods_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+</head>
+
+<body id="goodsList">
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_goods.php?action=goods_page" target="_self" class="btnInput"><tpl>$admin_goods_add</tpl><!-- 添加商品 --></a></span>
+	<tpl>$admin_header_goods_manage</tpl><!-- 商品管理 --> >> <tpl>$admin_goods_list</tpl><!-- 商品列表 -->
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5>
+			<div class="floatRight2">
+              <form action="admin_provider.php" method="get">
+			  <input type="hidden" name="action" value="goods_list" />
+				  <tpl> $sel_goods_class </tpl><!-- 商品分类 -->
+				  <tpl> $goods_subject </tpl>	<!-- 主题分类 -->
+                  <tpl> $goods_brand </tpl>		<!-- 品牌分类 -->
+				  <tpl> $goods_provider </tpl>	<!-- 供应商分类 -->
+                  <input class="TextBoxAt2" type="text" name="search" id="search" value="<tpl> if $smarty.post.search != '' </tpl> <tpl>$smarty.post.search</tpl> <tpl> /if </tpl>" />
+                  <input type="submit" name="button" id="button" value="<tpl>$admin_goods_list_submit</tpl>" class="btnInput" /><!-- 提交 -->
+               </form>
+              </div>
+            <form action="admin_goods.php"  method="post" >
+            	<input type="hidden" name="action" id="action_type" />
+              <select name="fun" id="fun" class="delBtnInput" onchange="changeFun(this.value)">
+                <option value="list"><tpl>$admin_goods_list_select_oper</tpl><!-- 选择操作 --></option>
+                <option value="del"><tpl>$admin_goods_list_del</tpl><!-- 删除 --></option>
+                <option value="put"><tpl>$admin_goods_list_put</tpl><!-- 发布 --></option>
+                <option value="cancel_put"><tpl>$admin_goods_list_cancel_put</tpl><!-- 取消发布 --></option>
+                <option value="commend"><tpl>$admin_goods_list_commend</tpl><!-- 推荐 --></option>
+                <option value="cancel_commend"><tpl>$admin_goods_list_cancel_commend</tpl><!-- 取消推荐 --></option>
+                <option value="special"><tpl>$admin_goods_list_special</tpl><!-- 特价 --></option>
+                <option value="cancel_special"><tpl>$admin_goods_list_cancel_special</tpl><!-- 取消特价 --></option>
+                <option value="hot"><tpl>$admin_goods_list_hot</tpl><!-- 热卖 --></option>
+                <option value="cancel_hot"><tpl>$admin_goods_list_cancel_hot</tpl><!-- 取消热卖 --></option>
+              </select>
+              <input type="submit" value="<tpl>$admin_goods_list_enter</tpl>" class="delBtnInput" /><!-- 确定 -->
+			</h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><span <tpl> if $order_state.ordertype == 'goods_bn' </tpl> class="<tpl> $order_state.order </tpl>"<tpl> /if </tpl>><a href="admin_provider.php?action=goods_list&ordertype=goods_bn&order=<tpl> if $order_state.ordertype != '' && $order_state.order=='down' </tpl>up<tpl> else </tpl>down<tpl> /if </tpl>" title="<tpl>$admin_goods_list_goods_bn</tpl><tpl>$admin_goods_list_order</tpl>"><tpl>$admin_goods_list_goods_bn</tpl><!-- 商品编号 --></a></span></th>
+            <th><span>
+              <tpl>$admin_goods_list_goods_class</tpl>
+            <!-- 商品类别 -->
+            </span></th>
+            <th><span>
+              <tpl>$admin_goods_list_goodname</tpl>
+            <!-- 商品名称 -->
+            </span></th>
+            <th><span>
+              <tpl>$admin_goods_list_img</tpl>
+            <!-- 缩略图 -->
+            </span></th>
+            <th><span <tpl> if $order_state.ordertype == 'goods_pricedesc' </tpl> class="<tpl> $order_state.order </tpl>"<tpl> /if </tpl>><a href="admin_provider.php?action=goods_list&ordertype=goods_pricedesc&order=<tpl> if $order_state.ordertype != '' && $order_state.order=='down' </tpl>up<tpl> else </tpl>down<tpl> /if </tpl>"  title="<tpl>$admin_goods_list_storage</tpl><tpl>$admin_goods_list_order</tpl>"><tpl>$admin_goods_list_pricedesc</tpl><!-- 本店售价 --></a></span></th>
+            <th><tpl>$admin_goods_list_put</tpl><!-- 发布 --></th>
+            <th><tpl>$admin_goods_list_commend</tpl><!-- 推荐 --></th>
+            <th><tpl>$admin_goods_list_special</tpl><!-- 特价 --></th>
+            <th><tpl>$admin_goods_list_hot</tpl><!-- 热卖 --></th>
+            <th><span <tpl> if $order_state.ordertype == 'goods_storage' </tpl> class="<tpl> $order_state.order </tpl>"<tpl> /if </tpl>><a href="admin_provider.php?action=goods_list&ordertype=goods_storage&order=<tpl> if $order_state.ordertype != '' && $order_state.order=='down' </tpl>up<tpl> else </tpl>down<tpl> /if </tpl>"  title="<tpl>$admin_goods_list_storage</tpl><tpl>$admin_goods_list_order</tpl>"><tpl>$admin_goods_list_storage</tpl><!-- 库存 --></a></span></th>
+            <th><tpl>$admin_goods_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+         <tpl> section name=i loop=$goods_array </tpl>
+          <tr>
+            <td><label>
+            <input type="checkbox" name="gid[]" id="gid[]" value="<tpl> $goods_array[i].goods_id </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $goods_array[i].goods_bn </tpl></td>
+            <td><tpl> $goods_array[i].class_name </tpl></td>
+            <td><a href="<tpl>$Site_Url</tpl>/admin/admin_goods.php?action=goods_page&modify_id=<tpl>$goods_array[i].goods_id</tpl>"><tpl> $goods_array[i].goods_name </tpl></a></td>
+            <td id="imgTd<tpl>$smarty.section.i.rownum</tpl>"><tpl> if $goods_array[i].goods_image eq "default.jpg"</tpl><tpl>$admin_goods_list_null</tpl><!-- 无 --><tpl>else</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_pic.gif" alt="" class="img_icon" />
+            <div class="thumbDiv"><img src="<tpl>$Site_Url</tpl>/<tpl> $goods_array[i].goods_small_image </tpl>" class="img_thumb" /></div>
+            <tpl>/if</tpl></td>
+            <td><tpl> $goods_array[i].goods_pricedesc </tpl></td>
+            <td><span id="state_<tpl>$goods_array[i].goods_id</tpl>"><a onclick="nc_state_update('<tpl>$goods_array[i].goods_id</tpl>','goods_state','<tpl> $goods_array[i].goods_state </tpl>','state_<tpl>$goods_array[i].goods_id</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>if $goods_array[i].goods_state == 1 </tpl>1<tpl>else</tpl>0<tpl>/if</tpl>.gif" alt="<tpl>$admin_goods_list_click_update</tpl>" /></a></span></td>
+            <td><span id="commend_<tpl>$goods_array[i].goods_id</tpl>"><a onclick="nc_state_update('<tpl>$goods_array[i].goods_id</tpl>','goods_commend','<tpl> $goods_array[i].goods_commend </tpl>','commend_<tpl>$goods_array[i].goods_id</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $goods_array[i].goods_commend </tpl>.gif" alt="<tpl>$admin_goods_list_click_update</tpl>" /></a></span></td>
+            <td><span id="special_<tpl>$goods_array[i].goods_id</tpl>"><a onclick="nc_state_update('<tpl>$goods_array[i].goods_id</tpl>','goods_special','<tpl> $goods_array[i].goods_special </tpl>','special_<tpl>$goods_array[i].goods_id</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $goods_array[i].goods_special </tpl>.gif" alt="<tpl>$admin_goods_list_click_update</tpl>" /></a></span></td>
+            <td><span id="hot_<tpl>$goods_array[i].goods_id</tpl>"><a onclick="nc_state_update('<tpl>$goods_array[i].goods_id</tpl>','goods_hot','<tpl> $goods_array[i].goods_hot </tpl>','hot_<tpl>$goods_array[i].goods_id</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $goods_array[i].goods_hot </tpl>.gif" alt="<tpl>$admin_goods_list_click_update</tpl>" /></a></span></td>
+            <td><tpl> $goods_array[i].goods_storage </tpl></td>
+            <td>
+            	<a href="../product.php?id=<tpl>$goods_array[i].goods_id</tpl>" target="_blank"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" title="<tpl>$admin_goods_list_view</tpl>" /><!-- 查看商品 --></a> 
+                <a href="<tpl>$Site_Url</tpl>/admin/admin_goods.php?action=goods_page&modify_id=<tpl>$goods_array[i].goods_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_goods_list_edit</tpl>" /><!-- 编辑 --></a> 
+                <a href="<tpl>$Site_Url</tpl>/admin/admin_goods.php?action=copy&gid=<tpl>$goods_array[i].goods_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_copy.gif" title="<tpl>$admin_goods_list_copy</tpl>" /><!-- 复制商品 --></a> 
+                <a href="<tpl>$Site_Url</tpl>/admin/admin_goods.php?action=del&gid=<tpl>$goods_array[i].goods_id</tpl>"  onclick="return confirm('<tpl>$admin_goods_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_goods_list_del</tpl>" /><!-- 删除 --></a></td>
+          </tr>
+          <tpl> /section </tpl>
+        </table>
+		<h5 class="h5_down">
+				<div class="pagebar">
+                  <tpl>$show_page</tpl>
+              </div>
+		<select name="fun" id="fun" class="delBtnInput" onchange="changeFun(this.value)">
+                <option value="list"><tpl>$admin_goods_list_select_oper</tpl><!-- 选择操作 --></option>
+                <option value="del"><tpl>$admin_goods_list_del</tpl><!-- 删除 --></option>
+                <option value="put"><tpl>$admin_goods_list_put</tpl><!-- 发布 --></option>
+                <option value="cancel_put"><tpl>$admin_goods_list_cancel_put</tpl><!-- 取消发布 --></option>
+                <option value="commend"><tpl>$admin_goods_list_commend</tpl><!-- 推荐 --></option>
+                <option value="cancel_commend"><tpl>$admin_goods_list_cancel_commend</tpl><!-- 取消推荐 --></option>
+                <option value="special"><tpl>$admin_goods_list_special</tpl><!-- 特价 --></option>
+                <option value="cancel_special"><tpl>$admin_goods_list_cancel_special</tpl><!-- 取消特价 --></option>
+                <option value="hot"><tpl>$admin_goods_list_hot</tpl><!-- 热卖 --></option>
+                <option value="cancel_hot"><tpl>$admin_goods_list_cancel_hot</tpl><!-- 取消热卖 --></option>
+              </select>
+              <input type="submit" value="<tpl>$admin_goods_list_enter</tpl>" class="delBtnInput" /><!-- 确定 -->
+              
+		</h5>
+    </form>
+	</div>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

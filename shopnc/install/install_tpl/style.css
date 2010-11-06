@@ -1,0 +1,213 @@
+@charset "utf-8";
+@import "tablebox.css";
+
+/*------------------------全局------------------------*/
+*{
+	padding:0px;
+	margin:0px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+html{
+	background-color: #3198C3;
+}
+
+body{
+	font-size:12px;
+	background-color: #3198C3;
+	margin: 0px;
+}
+
+a{
+	color:#06C;
+}
+a:hover{
+	color:#F30;
+}
+#head {
+	width: 100%;
+	background-color: #333333;
+	height: 52px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #57CCEE;
+}
+#logo {
+	background-image: url(images/logo.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	height: 52px;
+	width: 220px;
+	display: block;
+	float: left;
+}
+.boxcenter{
+	margin:0px auto;
+}
+
+/*------------------------------------------------*/
+.top{
+	width:770px;
+	height:52px;
+}
+.stepbox{float: right;
+	height: 32px;
+	margin-top: 20px;
+}
+.stepbox  li {
+	background-image: url(images/stepnav_pic.gif);
+	background-repeat: no-repeat;
+	background-position: left center;
+	float: left;
+	height: 28px;
+	width: 82px;
+	font-size: 14px;
+	line-height: 28px;
+	color: #EEE;
+	padding-left: 18px;
+	margin-top: 4px;
+	margin-right: 4px;
+	margin-left: 8px;
+}
+.stepbox  .current {
+	background-color: #3198C3;
+	background-image: none;
+	width: 118px;
+	padding: 0px;
+	font-size: 16px;
+	font-weight: 800;
+	text-align: center;
+	color: #FFFFFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #57CCEE;
+	border-right-color: #57CCEE;
+	border-left-color: #57CCEE;
+	height: 32px;
+	line-height: 32px;
+	margin-top: 0px;
+	margin-right: 12px;
+	margin-left: 8px;
+}
+
+.main{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #267597;
+	background-color: #FFFFFF;
+	width: 760px;
+	padding-bottom: 10px;
+}
+
+.boxtitle{
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 16px;
+	background-image: url(images/title_pic.gif);
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 22px;
+	width: 658px;
+	height: 16px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	color: 525252;
+}
+.butbox{
+	width:760px;
+	text-align:center;
+	margin-top:20px;
+}
+
+.nextbut{
+	width:90px;
+	height:30px;
+	border:none;
+	background:url(images/but_next.gif) no-repeat;
+	cursor:pointer;
+}
+
+.backbut{
+	width:90px;
+	height:30px;
+	border:none;
+	background:url(images/but_back.gif) no-repeat;
+	cursor:pointer;
+}
+
+
+.setupbut{
+	width:90px;
+	height:30px;
+	border:none;
+	background:url(images/but_setup.gif) no-repeat;
+	cursor:pointer;
+}
+
+
+
+
+/*----------------------- STEP 1 -------------------------*/
+.inside{border: 1px solid #96D5EB;
+	width: 676px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #FFFFFF;
+	padding: 1px;
+	margin-top: 0px;
+	margin-bottom: 10px;}
+.pact{background-color: #E9F7FD;
+	width: 92%;
+	line-height: 20px;
+	padding: 4%;
+}
+.pact h4{
+	color:#666;
+	font-size:12px;
+}
+.pact p{
+	text-indent:30px;
+}
+.readpact{
+	width:760px;
+	padding-top:20px;
+	text-align:center;
+	font-size:14px;
+	letter-spacing:2px;
+}
+* html .readpact input{
+	margin:-1px 10px 2px 0px;
+}
+.readpact input[type="checkbox"]{
+	margin: -1px 10px 0 0px;
+}
+
+
+/*----------------------- STEP 4 -------------------------*/
+.setupinfo{
+	width:676px;
+	font-size:16px;
+	color:#999;
+	line-height:23px;
+	margin-top: 20px;
+	margin-right: auto;
+	margin-bottom: 20px;
+	margin-left: auto;
+}
+.copyright {
+	text-align: center;
+	width: 770px;
+	margin-right: auto;
+	margin-left: auto;
+	font-size: 12px;
+	line-height: 18px;
+	color: #FFFFFF;
+}
+.copyright span {
+	font-size: 11px;
+}

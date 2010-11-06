@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/search.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="<tpl> $site_url </tpl>/js/jquery/jquery.easing.js"></script>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+</head>
+<body><tpl> include file ='header_new.html' </tpl>
+<div id="wrapper" class="m">
+  <div class="clear">&nbsp;</div>
+  <div id="sitenav"><span><a href="<tpl> $site_url </tpl>"><tpl> $langCIndex </tpl></a> > <tpl> $langCSearchBaby </tpl></span></div>
+  <div id="searchbox">
+    <!--<div id="searchpicitem"></div>-->
+    <ul id="searchtab">
+      <li class="current"><a href="JavaScript: void(null);"><span><tpl> $langCSearchBaby </tpl></span></a></li>
+      <li><a href="shop.php?action=search"><span><tpl> $langCSearchShop </tpl></span></a></li>
+    </ul>
+    <div class="searchcontent">
+      <form id="mainform" action="product.php" method="get">
+        <input id="searchtype" type="hidden" value=1 name="searchtype" >
+        <input id="searchcate" type="hidden" value=0 name="searchcate">
+        <ul class="form_advance">
+          <li>
+            <div class="searchformleft"><tpl> $langProductKeyword </tpl>：</div>
+            <div class="searchformright">
+              <input class="searchforminput" id="keyword" accesskey="s" size="48" name="keyword">
+            </div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langProductSort </tpl>：</div>
+            <div class="searchformright">
+              <select id="c1" class="searchformselect" name="c1" style="width: 120px">
+                <option valus="" selected></option>
+                <tpl> foreach item = parent from = $ProductCateArray </tpl>
+                <option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>"><tpl> $parent.name </tpl></option>
+                <tpl> /foreach </tpl>
+              </select>
+              <select class="searchformselect" id="c2" style="width: 120px; height:18px;" name="c2">
+              </select>
+              <select class="searchformselect" id="c3" style="width: 120px; height:18px;" name="c3">
+              </select>
+              <select class="searchformselect" id="c4" style="width: 120px; height:18px;" name="c4">
+              </select>
+            </div>
+          </li>
+		  <tpl> if $brand_list[0].pb_id neq '' </tpl>
+		  <li>
+            <div class="searchformleft"><tpl> $langPBrand </tpl>：</div>
+            <div class="searchformright">
+				<input type="hidden" name="brand_id" id="brand_id"/>
+				<select id="brand_c1" class="searchformselect" name="brand_c1" style="width: 120px">
+				<option valus="" selected></option>
+				<tpl> foreach item = parent from = $brand_list </tpl>
+				<option value="<tpl>$parent.pb_id</tpl>||<tpl>$parent.is_parent</tpl>"><tpl> $parent.pb_name </tpl></option>
+				<tpl> /foreach </tpl>
+				</select>
+				<select class="searchformselect" id="brand_c2" style="width: 120px; height:18px;" name="brand_c2">
+				</select>
+				<select class="searchformselect" id="brand_c3" style="width: 120px; height:18px;" name="brand_c3">
+				</select>
+            </div>
+          </li>
+		  <tpl> /if </tpl>
+          <li>
+            <div class="searchformleft"><tpl> $langPSaleMemberName </tpl>：</div>
+            <div class="searchformright">
+              <input class="searchforminput" name="shopname">
+            </div>
+          </li>
+          <li class="submitbox">
+            <input name="" type="image" src="<tpl> $template_dir </tpl>/home/images/searchbtn_item.gif" />
+            <span class="moreurl" style="top:-10px; position:relative;">
+            	<img src="<tpl> $template_dir </tpl>/home/images/sign_favorite.gif" /><a id="moreoptions_show" onclick="" href="#"><tpl> $langProductAssistant </tpl></a>
+            </span>
+          </li>
+        </ul>
+        <ul class="form_advance" id="moreoptions">
+          <li>
+            <div class="searchformleft"><tpl> $langPMode </tpl>：</div>
+            <div class="searchformright">
+              <label for="selltype2">
+              <input id="selltype2" type="radio" value=1 name="sell_type">
+              <tpl> $langCfixprice </tpl></label>
+              <label for="selltype4">
+              <input id="selltype4" type="radio" value=2 name="sell_type">
+              <tpl> $langPcamel </tpl></label>
+              <label for="selltype3">
+              <input id="selltype3" type="radio" checked value="" name="sell_type">
+              <tpl> $langPNotRestrite </tpl>
+              <input id="options" type="hidden" name="options">
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langPrice </tpl>：</div>
+            <div class="searchformright">
+              <input class="searchforminput" size="10" name="price_min" style="width: 48px" >
+              <span><tpl> $langCYuan </tpl> <tpl> $langTo </tpl></span>
+              <input class="searchforminput" size="10" name="price_max" style="width: 48px" >
+              <span><tpl> $langCYuan </tpl></span></div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langTranFee </tpl>：</div>
+            <div class="searchformright">
+              <label for="shipping">
+              <input id="shipping" type="checkbox"  value=0 name="tf_charge">
+              <tpl> $langSelaTranFee </tpl>
+              </label>
+            </div>
+          </li>
+          <li><span class="searchformleft"><tpl> $langConsignment </tpl>：</span>
+            <div class="searchformright">
+              <label for="autopost">
+              <input id="autopost" type="checkbox" value="1" name="autopub">
+              <tpl> $langAutoConsignment </tpl>
+              </label>
+            </div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langSeat </tpl>：</div>
+			<input type="hidden" name="p_area_id" id="p_area_id" />
+			<div id="adddiv" class="searchformright"></div>
+          </li>
+          <li>
+            <div class="searchformleft"><span class="hint"><tpl> $langEndTime </tpl>：</span></div>
+            <div class="searchformright">
+              <input class="searchforminput" size="2" name="end_time">
+              <span class="newlineinfo"><tpl> $langPdayInner </tpl></span></div>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <div class="clear" style="height:24px;"></div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>
+<Script>
+//商品类别
+function tonext(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#category').val(valarray[0]);	
+			$('#searchcate').val(valarray[0]);	
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langPDataToLoad </tpl></option>');
+				$.ajax({
+					url: '../home/product.php',
+					data: 'action=list_category&id='+valarray[0],
+					success: function (data) {
+						DataArray = data.split("|||");var a='';for (var i = 0; i<DataArray.length-1; i++) {att=DataArray[i].split("||");id=att[0];cla=att[2];a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';};
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+	})
+};
+
+//品牌选择
+function tonext_brand(whos) {
+	$(whos).change(
+		function () {
+			var valarray=$(this).val().split('||');	
+			$('#brand_id').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../home/tohtml.php',
+					data: 'action=get_brand&id='+valarray[0],
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext_brand($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+};
+
+$().ready(function() {
+	//商品类别
+	tonext('#c1');
+	//品牌调用
+	tonext_brand('#brand_c1');
+	$('#moreoptions_show').toggle(
+		function(){$('#moreoptions').show(1000, 'bounceout');$(this).html('<tpl> $langCHide </tpl>')},
+		function(){$('#moreoptions').hide(1000, 'bounceout');$(this).html('<tpl> $langDisHelp </tpl>')}
+	)
+	$('#adddiv').addSelect({
+		ajaxUrl:'../home/tohtml.php',
+		ajaxAction:'get_area',
+		hiddenId:'p_area_id'
+	});
+});
+</SCRIPT>

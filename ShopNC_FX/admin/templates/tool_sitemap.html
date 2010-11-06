@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_map</tpl></title><!-- 工具管理 - 地图管理 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#change_sitemap').click(function(){
+		$('#sitemap').css('display', '');
+	});
+	$('#change_map').click(function(){
+		$('#sitemap').css('display', 'none');
+	});
+});
+</script>
+</head>
+
+<body id="sql">
+<div id="content">
+  <form id="tool_sitemap" name="tool_sitemap" method="post" action="?action=sitemap">
+    <h2><tpl>$admin_header_tools_manage</tpl> >> <tpl>$admin_tool_map</tpl><!-- 工具管理 >> 地图管理 -->	</h2>
+    <div class="entry-body">
+		<div class="red-notice">
+			<p><tpl>$admin_tool_map_info</tpl><!-- Sitemaps 服务旨在使用 Feed 文件 sitemap.xml 通知 Google、Yahoo! 以及 Microsoft 等  Crawler(爬虫)网站上哪些文件需要索引、这些文件的最后修订时间、更改频度、文件位置、相对优先索引权，这些信息将帮助他们建立索引范围和索引的  行为习惯。详细信息请查看 <a href="http://www.sitemaps.org/" target="_blank">sitemaps.org</a> 网站上的说明。 --></p>
+	  </div><!--  end of red-notice  -->
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_tool_map_type</tpl><!-- 地图类型 -->:</td>
+			  <td><input type="radio" name="maptype" value="map" id="change_map" checked="checked" />
+<tpl>$admin_tool_map_type_bisic</tpl><!-- 普通地图 -->
+  <input type="radio" name="maptype" value="sitemap" id="change_sitemap" />
+<tpl>$admin_tool_map_type_sitemap</tpl><!-- sitemap地图 --></td>
+			</tr>
+		</table>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" id="sitemap" style="display:none;">
+			<tr>
+				<td width="100"><tpl>$admin_tool_map_home</tpl><!-- 首页更新频率 -->:</td>
+				<td><tpl>$admin_tool_map_frequency</tpl>&nbsp;&nbsp;&nbsp;<select name="index_select">
+                          <option value="always"><tpl>$admin_tool_map_frequency_select</tpl></option>
+                          <option value="hourly"><tpl>$admin_tool_map_frequency_hour</tpl></option>
+                          <option value="daily"><tpl>$admin_tool_map_frequency_day</tpl></option>
+                          <option value="weekly"><tpl>$admin_tool_map_frequency_week</tpl></option>
+                          <option value="monthly"><tpl>$admin_tool_map_frequency_month</tpl></option>
+                          <option value="yearly"><tpl>$admin_tool_map_frequency_year</tpl></option>
+                          <option value="never"><tpl>$admin_tool_map_frequency_no</tpl></option>
+                        </select>
+				  &nbsp;&nbsp;&nbsp;<tpl>$admin_tool_map_priority</tpl>&nbsp;&nbsp;&nbsp;<select name="index_priority">
+  							<option value="1.0" selected>1.0</option>
+  							<option value="0.9">0.9</option>
+							<option value="0.8">0.8</option>
+							<option value="0.7">0.7</option>
+							<option value="0.6">0.6</option>
+							<option value="0.5">0.5</option>
+							<option value="0.4">0.4</option>
+							<option value="0.3">0.3</option>
+							<option value="0.2">0.2</option>
+							<option value="0.1">0.1</option>
+						</select>
+			    </td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_tool_map_cate</tpl><!-- 分类页更新频率 -->:</td>
+				<td><tpl>$admin_tool_map_frequency</tpl>&nbsp;&nbsp;&nbsp;<select name="class_select">
+                          <option value="always"><tpl>$admin_tool_map_frequency_select</tpl></option>
+                          <option value="hourly"><tpl>$admin_tool_map_frequency_hour</tpl></option>
+                          <option value="daily"><tpl>$admin_tool_map_frequency_day</tpl></option>
+                          <option value="weekly"><tpl>$admin_tool_map_frequency_week</tpl></option>
+                          <option value="monthly"><tpl>$admin_tool_map_frequency_month</tpl></option>
+                          <option value="yearly"><tpl>$admin_tool_map_frequency_year</tpl></option>
+                          <option value="never"><tpl>$admin_tool_map_frequency_no</tpl></option>
+                        </select>
+				  &nbsp;&nbsp;&nbsp;<tpl>$admin_tool_map_priority</tpl>&nbsp;&nbsp;&nbsp;<select name="class_priority">
+  							<option value="1.0">1.0</option>
+  							<option value="0.9">0.9</option>
+							<option value="0.8" selected>0.8</option>
+							<option value="0.7">0.7</option>
+							<option value="0.6">0.6</option>
+							<option value="0.5">0.5</option>
+							<option value="0.4">0.4</option>
+							<option value="0.3">0.3</option>
+							<option value="0.2">0.2</option>
+							<option value="0.1">0.1</option>
+						</select>
+			    </td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_tool_map_content</tpl><!-- 内容页更新频率 -->:</td>
+				<td><tpl>$admin_tool_map_frequency</tpl>&nbsp;&nbsp;&nbsp;<select name="content_select">
+                          <option value="always"><tpl>$admin_tool_map_frequency_select</tpl></option>
+                          <option value="hourly"><tpl>$admin_tool_map_frequency_hour</tpl></option>
+                          <option value="daily"><tpl>$admin_tool_map_frequency_day</tpl></option>
+                          <option value="weekly"><tpl>$admin_tool_map_frequency_week</tpl></option>
+                          <option value="monthly"><tpl>$admin_tool_map_frequency_month</tpl></option>
+                          <option value="yearly"><tpl>$admin_tool_map_frequency_year</tpl></option>
+                          <option value="never"><tpl>$admin_tool_map_frequency_no</tpl></option>
+                        </select>
+				  &nbsp;&nbsp;&nbsp;<tpl>$admin_tool_map_priority</tpl>&nbsp;&nbsp;&nbsp;<select name="content_priority">
+  							<option value="1.0">1.0</option>
+  							<option value="0.9">0.9</option>
+							<option value="0.8">0.8</option>
+							<option value="0.7" selected>0.7</option>
+							<option value="0.6">0.6</option>
+							<option value="0.5">0.5</option>
+							<option value="0.4">0.4</option>
+							<option value="0.3">0.3</option>
+							<option value="0.2">0.2</option>
+							<option value="0.1">0.1</option>
+						</select> 
+			    </td>
+			</tr>
+		</table>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="70">&nbsp;</td>
+				<td>
+					<input type="submit" name="Submit4" value="<tpl>$admin_tool_map_ok</tpl>" class="btnInput" /><!-- 确定 -->
+					<input type="reset" name="Submit" value="<tpl>$admin_tool_map_reset</tpl>" class="btnInput" /><!-- 重置 -->
+				</td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

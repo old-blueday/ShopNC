@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBliC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+<SCRIPT>
+//切换商品和商铺类别列表显示
+function change_category(str){
+	$("#categorymenu").css("display","none");
+	$("#categorylist").css("display","none");
+	$("#shop_categorymenu").css("display","none");
+	$("#shop_categorylist").css("display","none");
+	if(str == "shop"){
+		$("#shop_categorymenu").css("display","");
+		$("#shop_categorylist").css("display","");
+	}else{
+		$("#categorymenu").css("display","");
+		$("#categorylist").css("display","");
+	}
+}
+
+</SCRIPT>
+</head>
+<body> <tpl>include file = 'header_new.html'</tpl>
+<div id="wrapper" class="m">
+  <!-- Header -->
+ 
+  <!-- End Header -->
+  <!-- Main -->
+  <div class="clear">&nbsp;</div>
+  <div id="main" style="padding-top:6px;">
+    <div class="categorybox">
+      <div id="categorymenu" class="category_top">
+        <div class="side_left"></div>
+        <div class="side_right"></div>
+        <ul class="category_nav">
+          <li class="current"><a href="JavaScript: void(null);"><span><tpl> $langCCommendProductDir </tpl></span></a></li>
+          <li onClick="change_category('shop');"><a href="JavaScript: void(null);" ><span><tpl> $langCShopClass </tpl></span></a></li>
+        </ul>
+      </div>
+      <div id="categorylist" class="categorlist">
+        <ul>
+      		<tpl> include file ='category_array_list.html' </tpl>
+        </ul>
+      </div>
+      <div id="shop_categorymenu" class="category_top" style="display: none">
+        <div class="side_left"></div>
+        <div class="side_right"></div>
+        <ul class="category_nav">
+          <li onclick="change_category('product');"><a href="JavaScript: void(null);"><span><tpl> $langCCommendProductDir </tpl></span></a></li>
+          <li class="current"><a href="JavaScript: void(null);"><span><tpl> $langCShopClass </tpl></span></a></li>
+        </ul>
+      </div>
+      <div id="shop_categorylist" class="categorlist" style="display: none">
+        <!-- 店铺类目分类列表 -->
+        <ul>
+          <tpl>include file ='shop_category_array_list.html'</tpl> 
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clear" style="padding-top:6px;"></div>
+</div>
+<script>
+<tpl> if $ShowShopCate eq '1' </tpl>
+change_category('shop');
+<tpl> /if </tpl>
+</script>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

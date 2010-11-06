@@ -1,0 +1,67 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMenuPaymentDownAccount </tpl> &gt;&gt; <tpl> $langBAddDownAccountsList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='payment_offline.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langBAddLineDownAccounts </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="payment_offline.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<input type="hidden" id="state" name="state" value="" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langBSelect </tpl></td>
+						<td class="es-5"><tpl> $langBIco </tpl></td>
+						<td class="es-4"><tpl> $langBBank </tpl></td>
+						<td class="es-4"><tpl> $langBAccounts </tpl></td>
+						<td class="es-5"><tpl> $langBConsignee </tpl></td>
+						<td class="es-1"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $offline_list[0].pay_id neq '' </tpl>
+		 		 	<tpl> section name=i loop=$offline_list </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="pay_id[]" type="checkbox" value="<tpl> $offline_list[i].pay_id </tpl>"/></td>
+						</td>
+						<td><tpl> if $pay_info[i].pay_ico neq '' </tpl><img src="<tpl> $offline_list[i].pay_ico </tpl>" border="0" /><tpl> /if </tpl></td>
+						<td><tpl> $offline_list[i].pay_name </tpl></td>
+						<td><tpl> $offline_list[i].pay_account </tpl></td>
+						<td><tpl> $offline_list[i].pay_consignee </tpl></td>
+						<td><a href="payment_offline.manage.php?action=modi&id=<tpl> $offline_list[i].pay_id </tpl>"><tpl> $langCedit </tpl></a></td>
+					</tr>
+					<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $offline_list[0].pay_id  eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langCNull </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $offline_list[0].pay_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input type="submit" value="<tpl> $langSysCDel </tpl>" class="bthl" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

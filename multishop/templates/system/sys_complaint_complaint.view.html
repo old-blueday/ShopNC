@@ -1,0 +1,117 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langComplaintManage </tpl> &gt;&gt; <tpl> $langComplaintView </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langComplaintMutualityBaby </tpl>:</th>
+									<td colspan="3"><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $complaint_array.p_code </tpl>" target="_blank"><tpl> $complaint_array.p_name </tpl></a></td>
+								</tr>
+								<tr>
+									<th><tpl> $langComplaintHuman </tpl>:</th>
+									<td><a href="<tpl> $site_url </tpl>/store/userinfo.php?userid=<tpl> $complaint_array.member_id </tpl>" target="_blank"><tpl> $complaint_array.login_name </tpl></a></td>
+									<th><tpl> $langComplaintBy </tpl>:</th>
+									<td><a href="<tpl> $site_url </tpl>/store/userinfo.php?userid=<tpl> $complaint_array.c_r_member_id </tpl>" target="_blank"><tpl> $complaint_array.c_r_login_name </tpl></a></td>
+								</tr>
+								<tr>
+									<th><tpl> $langComplaintType </tpl>:</th>
+									<td colspan="3">
+										<tpl> assign var = 'c_r_type' value = $complaint_array.c_r_type </tpl>
+										<tpl> assign var = 'hand_type' value = $complaint_report_type[$c_r_type] </tpl>
+										<tpl> $hand_type </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langComplaintNum </tpl>:</th>
+									<td colspan="3"><tpl> $complaint_array.complaint_report_id </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langComplaintTime </tpl>:</th>
+									<td><tpl> $complaint_array.c_r_add_time|default:"$langCNot" </tpl></td>
+									<th><tpl> $langComplaintEndTime </tpl>:</th>
+									<td><tpl> $complaint_array.c_r_end_time|default:"$langCNot" </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langComplaintOperatorEstate </tpl>:</th>
+									<td>
+										<tpl> assign var = 'c_r_handling' value = $complaint_array.c_r_handling_state </tpl>
+										<tpl> assign var = 'hand_type' value = $baseconfig_handling[$c_r_handling] </tpl>
+										<tpl> $hand_type </tpl>
+									</td>
+									<th><tpl> $langComplaintOperatorResult </tpl>:</th>
+									<td><tpl> $complaint_array.c_r_result|default:"$langCNot" </tpl></td>
+								</tr>
+								<tpl> if $complaint_array.c_r_evidence neq '' </tpl>
+								<tr>
+									<th><tpl> $langCompProof </tpl>:</th>
+									<td colspan="3"><tpl> $complaint_array.c_r_evidence </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tpl> if $complaint_array.c_r_pic neq ''</tpl>
+								<tr>
+									<th><tpl> $langComplaintMutualityImage </tpl>:</th>
+									<td colspan="3"><a href="<tpl> $site_url </tpl>/<tpl> $complaint_array.c_r_pic </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $complaint_array.c_r_pic </tpl>" width="50" height="50" border="0" /></a></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tpl> if $complaint_array.c_r_pic_two neq '' </tpl>
+								<tr>
+									<th><tpl> $langComplaintMutualityImage </tpl>:</th>
+									<td colspan="3"><a href="<tpl> $site_url </tpl>/<tpl> $complaint_array.c_r_pic_two </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $complaint_array.c_r_pic_two </tpl>" width="50" height="50" border="0" /></a></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr>
+									<th><tpl> $langComplaintByExplainContent </tpl>:</th>
+									<td colspan="3"><tpl> $complaint_array.c_r_answer|default:"$langCNot" </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langComplaintServerMessage </tpl>:</th>
+									<td colspan="3">
+									<tpl> if $msg_array|@count > 0 </tpl>
+									<table width="100%">
+										<tpl> section name=loop loop=$msg_array </tpl>
+										<tr>
+											<td>
+												<tpl> $msg_array[loop].r_c_content </tpl>
+												<div align="right" style="padding-right:20px; padding-bottom:10px"><tpl> $msg_array[loop].r_c_msg_add </tpl></div>
+									      	</td>
+									     </tr>
+										<tpl> /section </tpl>
+										<tr><td><div align="right"><tpl> $page_list </tpl></div></td></tr>
+									</table>
+									<tpl> else </tpl>
+										<tpl> $langCNot </tpl>
+									<tpl> /if </tpl>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<tpl> if $complaint_array.c_r_handling_state neq 3 && $complaint_array.c_r_handling_state neq 4 </tpl>
+						            <tpl> if $complaint_array.c_r_handling_state eq 0 </tpl>
+						            	<input type="button" class="bthl" value="<tpl> $langComplaintPrincipiumAuditing </tpl>" onclick="location.href='complaint.manage.php?action=handling&complaint_report=<tpl> $complaint_report </tpl>&complaint_report_id=<tpl> $complaint_array.complaint_report_id </tpl>'" />
+						            <tpl> else </tpl>
+						            	<input type="button" class="bthl" value="<tpl> $langComplaintGoOperator </tpl>" onclick="location.href='complaint.manage.php?action=handling&complaint_report=<tpl> $complaint_report </tpl>&complaint_report_id=<tpl> $complaint_array.complaint_report_id </tpl>'" />
+						            <tpl> /if </tpl>
+						            <input type="button" class="bthl" value="<tpl> $langComplaintRevocationCom </tpl>" onclick="if(confirm_alert('<tpl> $langComplaintConfirmCom </tpl>')){location.href='complaint.manage.php?action=handling&complaint_report=<tpl> $complaint_report </tpl>&complaint_report_id=<tpl> $complaint_array.complaint_report_id </tpl>&revocation=1';}"" />
+									<input type="button" class="bthl" value="<tpl> $langCRevert </tpl>" onclick="location.href='complaint.manage.php?action=add_msg&complaint_report=<tpl> $complaint_report </tpl>&complaint_report_id=<tpl> $complaint_array.complaint_report_id </tpl>'" />
+								<tpl> /if </tpl>
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='complaint.manage.php?action=ajax_list&class=<tpl> $complaint_report </tpl>'" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

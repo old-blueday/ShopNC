@@ -1,0 +1,70 @@
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.validate.js"></script>
+<script>
+$(document).ready(function(){
+	// Text Field Style
+	$('input[type=text]:not(.rt-input pbc),textarea,,input[type=password]').click(function(){
+		$('.fct-input-1').removeClass('fct-input-1').addClass('fct-input');
+		$(this).addClass('fct-input-1');
+	});
+	// Button Style //over out
+	$('input[type=button]:not(.apd),input[type=submit]').hover(
+		function(){$(this).addClass('bthl-1')},
+		function(){$(this).removeClass('bthl-1').addClass('bthl')}
+	);
+	// Navigation buttons on the style
+	$('.gtlbar-right').hover(
+		function(){$(this).children('input').addClass('apd-1')},
+		function(){$(this).children('input').removeClass('apd-1').addClass('apd')}
+	);
+	// List discoloration
+	$('#bianse tr').mouseover(
+		function(){
+			$('tr').each(function(){
+				//mouseout
+				$(this).removeClass('col-1');
+			});
+			//mouseover
+			$(this).addClass('col-1');
+		}
+	).mouseout(function(){
+		//mouseout
+		$(this).removeClass('col-1');
+	});
+	//Search Content Showing and hiding operations
+	$('#search_toggle span').click(function(){
+		if($('.ibxbar2').css('display') == 'none'){
+			$(this).parent().removeClass('sh-hi-1').addClass('sh-hi');
+		}else{
+			$(this).parent().removeClass('sh-hi').addClass('sh-hi-1');
+		}
+		$('.ibxbar2').toggle();
+	});
+});
+//All Select
+function sel_all_checkbox(form_name){
+	$('#'+form_name+' input[type=checkbox]').each(function(){
+		$(this).attr('checked',true)
+	})
+}
+//Anti Select
+function sel_negative_checkbox(form_name){
+	$('#'+form_name+' input[type=checkbox]').each(function(){
+		$(this).attr('checked',!$(this).attr('checked'))
+	})
+}
+//Not Select
+function sel_none_checkbox(form_name){
+	$('#'+form_name+' input[type=checkbox]').each(function(){
+		$(this).attr('checked',false)
+	})
+}
+//Confirmation window
+function confirm_alert(confirm_msg){
+	if(confirm(confirm_msg)){
+		return true;
+	}else{
+		return false;
+	}
+}
+</script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$info_array.info_title</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$article_info.article_keywords</tpl>" name="keywords">
+<meta content="<tpl>$article_info.article_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--头部:START-->
+<tpl>include_php file ='header.php'</tpl><!-- 头部信息header -->
+<!--头部:END-->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!--页面:START-->
+<div id="container" class="width-all" >
+  <!--左侧边拦:START-->
+  <div class="sidebar">
+    <div class="box" id="article">
+      <div class="top">
+        <h3 class="title"><tpl>$info_list</tpl><!-- 信息列表 --></h3>
+      </div>
+      <div class="clear">&nbsp;</div>
+      <div class="content" >
+        <ul>
+          <li>
+            <dl>
+			<tpl>section name=list loop=$foot_array</tpl>
+              <dd><a href="<tpl>if $foot_array[list].info_url==''</tpl><tpl> $Site_Url </tpl>/shopnc_info.php?info_id=<tpl>$foot_array[list].info_id</tpl><tpl>else</tpl><tpl>$foot_array[list].info_url</tpl><tpl>/if</tpl>"><tpl>$foot_array[list].info_title</tpl></a></dd>
+			<tpl>/section</tpl>
+            </dl>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- 左侧边拦:END -->
+  <!-- 右侧主体:START -->
+  <div class="main">
+    <div class="sitenav"><span>
+      <h4><tpl>$info_sidebar_position</tpl>:<a href="<tpl> $Site_Url </tpl>"><tpl>$index</tpl></a> -> <tpl>$info_array.info_title</tpl></h4>
+      </span></div>
+    <div class="clear"></div>
+    <!-- 最新商品:START -->
+    <div id="newgoods" class="fullbox">
+      <div class="top">&nbsp;</div>
+      <div class="content">
+      <div class="article">
+      <h2 class="title"><tpl>$info_array.info_title</tpl></h2>
+        <p align="left"><tpl>$info_array.info_text</tpl></p>
+      </div>
+        <div class="clear"></div>
+      </div>
+      <div class="bottom">&nbsp;</div>
+    </div>
+    <!-- 最新商品:END -->
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  </div>
+  <!-- 右侧主体:END -->
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

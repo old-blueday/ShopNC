@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>HTML在线编辑器</title>
+<link type="text/css" href="editor/base.css" rel="StyleSheet">
+<script type="text/javascript" src="editor/editor.js"></script>
+<script type="text/javascript">
+//变量初始化
+var guid = "1324481743";
+var sState = "iframe";
+var oContent="<div>&nbsp;</div>";
+if(window.parent.document.getElementById(Request('id'))!=null){
+var oInput=window.parent.document.getElementById(Request('id'));
+var oForm=oInput.form;
+oContent=oInput.value;
+}else{
+alert("编辑器id参数错误！");
+}
+
+//文章预览
+function article_preview(){
+var editor_win = window.open('', "_blank", '');
+editor_win.document.open('text/html', 'replace');
+editor_win.opener = null ;
+editor_win.document.writeln($('editor_body_textarea').value);
+editor_win.document.close();
+}
+
+//获得编辑器中的内容
+function getHTML(){
+if(editor_body_textarea.style.display=="none"){
+   HTML=EDiaryEditor.iframe.contentWindow.document.body.innerHTML;
+}else{
+   HTML=$('editor_body_textarea').value;
+}
+return HTML;
+}
+
+//表单提交函数
+function AttachSubmit(){
+oInput.value=getHTML();
+EDiaryEditor.delEditorRsave();
+}
+
+//表单重置函数
+function AttachReset(){
+$('editor_body_textarea').value=oInput.value;
+EDiaryEditor.iframe.contentWindow.document.body.innerHTML=oInput.value;
+}
+
+//附件提交和重置信息
+if(document.attachEvent) oForm.attachEvent("onsubmit",AttachSubmit) ;
+else oForm.addEventListener('submit',AttachSubmit,false);
+    if (! oForm.submitEditor) oForm.submitEditor = new Array() ;
+	oForm.submitEditor[oForm.submitEditor.length] = AttachSubmit ;
+	if (! oForm.originalSubmit) {
+		oForm.originalSubmit = oForm.submit ;
+		oForm.submit = function() {
+			if (this.submitEditor) {
+				for (var i = 0 ; i < this.submitEditor.length ; i++) {
+					this.submitEditor[i]() ;
+				}
+			}
+			this.originalSubmit() ;
+		}
+	}
+if(document.attachEvent) oForm.attachEvent("onreset",AttachReset);
+else oForm.addEventListener('reset',AttachReset,false);
+    if (! oForm.resetEditor) oForm.resetEditor = new Array() ;
+	oForm.resetEditor[oForm.resetEditor.length] = AttachReset ;
+	if (! oForm.originalReset) {
+		oForm.originalReset = oForm.reset ;
+		oForm.reset = function() {
+			if (this.resetEditor) {
+				for (var i = 0 ; i < this.resetEditor.length ; i++) {
+					this.resetEditor[i]() ;
+				}
+			}
+			this.originalReset() ;
+		}
+	}
+
+//读取cookie
+function readCookie(name)
+{
+var cookieValue = "";
+var search = name + "=";
+if(document.cookie.length > 0)
+{ 
+offset = document.cookie.indexOf(search);
+if (offset != -1)
+{ 
+ offset += search.length;
+ end = document.cookie.indexOf(";", offset);
+ if (end == -1) end = document.cookie.length;
+ cookieValue = unescape(document.cookie.substring(offset, end))
+}
+}
+return cookieValue;
+}
+
+//写入cookie
+function writeCookie(name, value, hours)
+{
+var expire = "";
+if(hours != null)
+{
+expire = new Date((new Date()).getTime() + hours * 3600000);
+expire = "; expires=" + expire.toGMTString();
+}
+document.cookie = name + "=" + escape(value) + expire + ";path=/";
+}
+
+//调整框架尺寸
+function AutoFit(){
+	var a = parent.document.getElementsByTagName("IFRAME");
+	for(var i=0; i<a.length; i++){
+		if(a[i].src.indexOf("editor.htm")!=-1){
+			a[i].style.height=$("editor_body").offsetHeight;
+			a[i].style.width=$("editor_body").offsetWidth;
+		}
+	}
+}
+
+//载入编辑器
+function init() {
+	writeCookie("EDiaryEditor_RSave", "true", 1);
+	EDiaryEditor.initialize("EDiaryEditor", "editor_body", true, oContent);
+	AutoFit();
+}
+</script>
+</head>
+<body>
+<div id="editor_body" style="width:621px;height:457px"></div>
+<script type="text/javascript">init()</script>
+</body>
+</html>
+ 

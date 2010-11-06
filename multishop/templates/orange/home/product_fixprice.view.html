@@ -1,0 +1,822 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/shop.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/pikachoose.css" rel="stylesheet" type="text/css" />
+<tpl>if $NCharset == "GBK"</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.countdowngbk.min.js" ></script>
+<tpl>else</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.countdown.min.js" ></script>
+<tpl>/if</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/pikachoose.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jqzoom.pack.1.0.1.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jcarousellite_1.0.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	<tpl> if $shop_info.shop_id eq '' </tpl>
+	$('#buyerinfo').hide();
+	$('#goshop').hide();
+	<tpl> /if </tpl>
+	$("#thumbbox div").hide().filter(":first").show();
+	$("div#thumbbox .opts a").click(function () {
+		$("#thumbbox div").hide();
+		$("#thumbbox div").filter($(this).attr("href")).show();
+		$("#thumbbox .opts a").removeClass("selected");
+		$(this).addClass("selected");
+		return false;
+	}).filter(":first").click();
+	$("#tabdetailinfo").click(function(){
+		$("#tabmemoinfo,#tabbidrecord,#tabguestbook").removeClass("current");
+		$("#tabdetailinfo").addClass("current");
+	});
+	$("#tabmemoinfo").click(function(){
+		$("#tabdetailinfo,#tabbidrecord,#tabguestbook").removeClass("current");
+		$("#tabmemoinfo").addClass("current");
+	});
+	$("#tabbidrecord").click(function(){
+		$("#tabdetailinfo,#tabmemoinfo,#tabguestbook").removeClass("current");
+		$("#tabbidrecord").addClass("current");
+	});
+	$("#tabguestbook").click(function(){
+		$("#tabdetailinfo,#tabmemoinfo,#tabbidrecord").removeClass("current");
+		$("#tabguestbook").addClass("current");
+	});
+	
+	$('#tabdetailinfo').click(function(){
+		$('#detailinfo').css('display','');
+		$('#memoinfo').css('display','');
+		$('#bidrecord').css('display','');
+		$('#guestbook').css('display','');	
+		$('.itemtitlebox').css('display','');	
+	});
+	
+	$('#tabmemoinfo').click(function(){
+		$('#detailinfo').css('display','none');
+		$('#memoinfo').css('display','');
+		$('#bidrecord').css('display','none');
+		$('#guestbook').css('display','none')
+		$('.itemtitlebox').css('display','none');
+	});
+
+	$('#tabbidrecord').click(function(){
+		$('#detailinfo').css('display','none');
+		$('#memoinfo').css('display','none');
+		$('#bidrecord').css('display','');
+		$('#guestbook').css('display','none');
+		$('.itemtitlebox').css('display','none');
+	});
+
+	$('#tabguestbook').click(function(){
+		$('#detailinfo').css('display','none');
+		$('#memoinfo').css('display','none');
+		$('#bidrecord').css('display','none');
+		$('#guestbook').css('display','');
+		$('.itemtitlebox').css('display','none');
+	});
+});
+//show_postage div
+function show_postage(obj){
+	var top = $(obj).offset().top+20;
+	var left = $(obj).offset().left;
+	$('#area_location').css({
+		'display':'block',
+		'left':left+'px',
+		'top':top+'px',
+		'position':'absolute',
+		'background':'none repeat scroll 0 0 #FFFBE7',
+		'border':'2px solid #9EBEEC',
+		'padding':'5px',
+		'width':'350px',
+		'height':'auto'
+	});
+}
+function hide_postage(){
+	$('#area_location').css({
+		'display':'none'
+	});
+}
+//calculate postage
+function postage_calculate(area_id,area_name){
+	$('#show_postage_area').html(area_name);
+	hide_postage();
+	var str = '';
+	var default_sign = false;
+	var default_value = '';
+	//change postage money, tmp is key
+	for(var tmp_key in ordinaryArray){
+		var tmp_value = ordinaryArray[tmp_key];
+		if(tmp_value == 'default'){
+			default_value = tmp_key;
+		}
+		var tmp_array = tmp_value.split(',');
+		var result = $.inArray(area_id,tmp_array);
+		if(result >= 0){//exsits
+			default_sign = true;
+			str += '<tpl> $langPCommonlyPost </tpl>:'+tmp_key+'	';
+		}
+	}
+	if(default_sign == false && default_value != ''){
+		str += '<tpl> $langPCommonlyPost </tpl>:'+default_value+'	';
+		default_value = '';
+	}
+	for(var tmp_key in fastArray){
+		var tmp_value = fastArray[tmp_key];
+		if(tmp_value == 'default'){
+			default_value = tmp_key;
+		}
+		var tmp_array = tmp_value.split(',');
+		var result = $.inArray(area_id,tmp_array);
+		if(result >= 0){//exsits
+			default_sign = true;
+			str += '<tpl> $langPCelerityPost </tpl>:'+tmp_key+'	';
+		}
+	}
+	if(default_sign == false && default_value != ''){
+		str += '<tpl> $langPCelerityPost </tpl>:'+default_value+'	';
+		default_value = '';
+	}
+	for(var tmp_key in emsArray){
+		var tmp_value = emsArray[tmp_key];
+		if(tmp_value == 'default'){
+			default_value = tmp_key;
+		}
+		var tmp_array = tmp_value.split(',');
+		var result = $.inArray(area_id,tmp_array);
+		if(result >= 0){//exsits
+			default_sign = true;
+			str += 'EMS:'+tmp_key+'	';
+		}
+	}
+	if(default_sign == false && default_value != ''){
+		str += 'EMS:'+default_value+'	';
+		default_value = '';
+	}
+	//show html
+	$('#show_postage_money').html(str);
+}
+// area array
+var changeArea = new Array();
+<tpl> foreach item=one from=$postage_area </tpl>
+	changeArea[<tpl> $one[0] </tpl>] = "<tpl> $one[2] </tpl>";
+<tpl> /foreach </tpl>
+//ordinaryArray[运费] = 地区
+var ordinaryArray = new Array();
+<tpl> foreach item=one from=$product_row.use_postage_content.postage_ordinary </tpl>
+	<tpl> if $one[0] neq '' </tpl>
+		ordinaryArray[<tpl> $one[1] </tpl>] = "<tpl> $one[0] </tpl>";
+	<tpl> else </tpl>
+		<tpl> if $one.default neq '' </tpl>
+			ordinaryArray[<tpl> $one.default </tpl>] = 'default';
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+//fastArray[运费] = 地区
+var fastArray = new Array();
+<tpl> foreach item=one from=$product_row.use_postage_content.postage_fast </tpl>
+	<tpl> if $one[0] neq '' </tpl>
+		fastArray[<tpl> $one[1] </tpl>] = "<tpl> $one[0] </tpl>";
+	<tpl> else </tpl>
+		<tpl> if $one.default neq '' </tpl>
+			fastArray[<tpl> $one.default </tpl>] = 'default';
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+//emsArray[运费] = 地区
+var emsArray = new Array();
+<tpl> foreach item=one from=$product_row.use_postage_content.postage_ems </tpl>
+	<tpl> if $one[0] neq '' </tpl>
+		emsArray[<tpl> $one[1] </tpl>] = "<tpl> $one[0] </tpl>";
+	<tpl> else </tpl>
+		<tpl> if $one.default neq '' </tpl>
+			emsArray[<tpl> $one.default </tpl>] = 'default';
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+//商品收藏
+function product_collection(member_id,pid){
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/member/own_collection.php",
+		data: "action=new&genre=product&seller_id="+member_id+"&collection="+pid,
+		success: function(data){
+			if(data == '-1'){
+				alert("<tpl> $langPHLoginOperator </tpl>");
+			}
+			if(data == '0'){
+				alert("<tpl> $langPHSelfNotCollectionSelf </tpl>");
+			}
+			if(data == '1'){
+				alert("<tpl> $langPHCollectionSucceed </tpl>");
+			}
+			if(data == '2'){
+				alert("<tpl> $langPHCollection </tpl>");
+			}
+		}
+	});		
+}
+//复制到剪贴板
+function copyToClipBoard(txt)
+{
+    if(window.clipboardData)
+    {
+        // the IE-manier
+        window.clipboardData.clearData();
+        window.clipboardData.setData("Text", txt);
+        alert("<tpl> $langPCopySucc </tpl>");
+    }
+    else if(navigator.userAgent.indexOf("Opera") != -1)
+    {
+        window.location = txt;
+        alert("<tpl> $langPCopySucc </tpl>");
+    }
+    else if (window.netscape)
+    {
+        // dit is belangrijk maar staat nergens duidelijk vermeld:
+        // you have to sign the code to enable this, or see notes below
+        try {
+            netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+        } catch (e) {
+            alert("<tpl> $errPCopyFail </tpl>");
+        }
+        // maak een interface naar het clipboard
+        var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+        if (!clip){return;}
+        // alert(clip);
+        // maak een transferable
+        var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+        if (!trans){return;}
+        // specificeer wat voor soort data we op willen halen; text in dit geval
+        trans.addDataFlavor('text/unicode');
+        // om de data uit de transferable te halen hebben we 2 nieuwe objecten
+        // nodig om het in op te slaan
+        var str = new Object();
+        var len = new Object();
+        str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+        var copytext = txt;
+        str.data = copytext;
+        trans.setTransferData("text/unicode",str,copytext.length*2);
+        var clipid = Components.interfaces.nsIClipboard;
+        if (!clip){return false;}
+        clip.setData(trans,null,clipid.kGlobalClipboard);
+        alert("<tpl> $langPCopySucc </tpl>!");
+    }
+}
+function countWord()
+{
+	var bol = false;
+		
+	if($("#txtMessage").val().length>120||$("#txtMessage").val().length<2)
+	{
+		alert("<tpl> $langReferOrReviewMsg </tpl>");
+		return false;
+	}
+
+	//验证码校验
+	$.ajax({
+		url: "product.php",
+		data: "action=check_code&checkcode="+$('#code').val()+"&random_number="+Math.random(),
+		async:false,
+		success: function (data) {
+			if(data=='1'){
+				bol = true;
+			}else{
+				bol = false;
+			}
+		}
+	});
+	if (bol == false) {
+		alert('<tpl> $alertCodeErr </tpl>!');
+		return false;
+	}
+	return true;	
+}
+function showVerifyCode()
+{
+	$("#leaveMsg_verify").css("display","inline");
+}
+function keyNumber()
+{
+	if($("#txtMessage").val().length<=120)
+	{
+		$("#keynum").html("<tpl> $langPResidual </tpl>"+(120-$("#txtMessage").val().length)+"<tpl> $langPWord </tpl>");
+		$("#keynum").css('color','#009900');
+	}else{
+		$("#keynum").html("<tpl> $langPBeyond </tpl>"+($("#txtMessage").val().length-120)+"<tpl> $langPWord </tpl>");
+		$("#keynum").css('color','#FF0000');
+	}
+}
+</script>
+</head>
+<body>
+<div id="wrapper" class="m">
+  <!--Header-->
+	<tpl> include file="header_new.html" </tpl>
+  <!--End Header-->
+  <div class="clear">&nbsp;</div>
+  <!--位置导航-->
+  <div id="sitenav">
+		<div id="jubao" onclick="location.href='<tpl> $site_url </tpl>/member/own_complaint.php?action=report_product&step=one&code=<tpl> $product_row.p_code </tpl>'">
+			<a href="javascript:;"><tpl> $langPHBulletinMerchandise </tpl></a>
+		</div>
+		<span>
+			<a href="<tpl> $site_url </tpl>/home/product.php?action=list" target="_blank"><tpl> $langCAllSort </tpl></a> > <tpl> $product_class_string </tpl> > <tpl> $langPInfo </tpl>
+		</span>
+  </span>
+  </div>
+  <!--End位置导航-->
+  <!--主体内容-->
+  <div id="maincontent">
+    <div class="clear"  style="padding-top:4px;">&nbsp;</div><a name="top"></a>
+    <!--新作的开始-->
+    <div id="toplayout" >
+      <div id="buyerinfo">
+        <div class="logo"><img src="<tpl> if $shop_info.shop_pic neq '' </tpl><tpl> $site_url </tpl>/<tpl> $shop_info.shop_pic </tpl><tpl> else </tpl><tpl> $site_url </tpl>/templates/orange/home/images/images_new/storepic_default.gif<tpl> /if </tpl>" width="48" height="48" /></div>
+        <dl class="infos">
+          <dt><!--店铺信息-->
+			<span class="goxspaces"><a href="<tpl> $site_url</tpl>/store/?userid=<tpl> $shop_info.member_id</tpl>" target="_blank"><tpl> $langPGoSaleShop </tpl></a></span>
+            <span class="shopname"><tpl> $shop_info.shop_name </tpl></span>
+            <span class="certification">
+			<tpl> if $shop_info.audit_state neq '2' </tpl>
+					<font color="red">(
+					<tpl> $langProductAddNoEntityFalse </tpl>
+					)</font>
+					<tpl> else </tpl>
+					(
+					<tpl> $langProductAddNoEntity </tpl>
+					)
+					<tpl> /if </tpl>
+			</span>
+            </dt>
+          <dd><span class="name" style="width:130px;"><tpl> $seller_info.login_name </tpl></span><span class="city" style="width:320px;"><tpl> $langProductArea </tpl>:&nbsp;<tpl> $shop_info.shop_area_name </tpl></span><span class="pm" style="float:right; padding-right:24px;"><a href="<tpl> $site_url </tpl>/member/own_message.php?action=add&username=<tpl> $seller_info.login_name </tpl>"><tpl> $langPSendMessageToSeller </tpl></a></span></dd>
+        </dl>
+      </div>
+      <div id="goshop"><span><a href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $seller_info.member_id </tpl>"><tpl> $langPViewMoreThisSeller </tpl>...</a></span></div>
+      <div class="clear">&nbsp;</div>
+      <div class="top" style=" width:948px;">
+        <div class="right" style="height:520px;">
+          <ul id="credit"><!--买卖家信用-->
+			<li>
+				<span class="l"><tpl> $langProductSaleCredit </tpl>:</span>
+				<span class="r"><tpl>$sale_score.score|default:"0" </tpl>
+				<a style="white-space:nowrap;" href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>">
+					<tpl> foreach from=$sale_score.median item=one </tpl>
+						<tpl> if $sale_score.level eq '0' </tpl>
+							<img title="<tpl> $sale_score.interval.one </tpl>-<tpl> $sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $sale_score.interval.one </tpl>-<tpl> $sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+						<tpl> /if </tpl>
+						<tpl> if $sale_score.level eq '1' </tpl>
+							<img title="<tpl> $sale_score.interval.one </tpl>-<tpl> $sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $sale_score.interval.one </tpl>-<tpl> $sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+						<tpl> /if </tpl>
+						<tpl> if $sale_score.level eq '2' </tpl>
+							<img title="<tpl> $sale_score.interval.one </tpl>-<tpl> $sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $sale_score.interval.one </tpl>-<tpl> $sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+						<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</a></span>
+			</li>
+            <li><span class="l"><tpl> $langProductSaleReputably </tpl>:</span><span class="r"><tpl> $seller_info.s_rate|default:'0' </tpl></span></li>
+			<li><span class="l"><tpl> $langProductBuyCredit </tpl>:</span><span class="r"><tpl> $buy_score.score|default:"0" </tpl><a style="white-space:nowrap;" href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>"><tpl> foreach from=$buy_score.median item=one </tpl>
+						<tpl> if $buy_score.level eq '0' </tpl>
+							<img title="<tpl> $buy_score.interval.one </tpl>-<tpl> $buy_score.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $buy_score.interval.one </tpl>-<tpl> $buy_score.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+						<tpl> /if </tpl>
+						<tpl> if $buy_score.level eq '1' </tpl>
+							<img title="<tpl> $buy_score.interval.one </tpl>-<tpl> $buy_score.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $buy_score.interval.one </tpl>-<tpl> $buy_score.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+						<tpl> /if </tpl>
+						<tpl> if $buy_score.level eq '2' </tpl>
+							<img title="<tpl> $buy_score.interval.one </tpl>-<tpl> $buy_score.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $buy_score.interval.one </tpl>-<tpl> $buy_score.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+						<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</a></span></li>
+            <li><span class="l"><tpl> $langProductBuyReputably </tpl>:</span><span class="r"><tpl> $seller_info.b_rate|default:'0' </tpl></span></li>
+			<li> 
+				<span class="l">
+					<tpl> $langProductRegTime </tpl>:</span><span class="r"><tpl> $seller_info.regist_time </tpl>
+				</span>
+			</li>
+          </ul>
+          <ul id="contact"><!--淘宝-->
+            <li>
+			  <span class="l"><tpl> $langShopContactTaobao </tpl>:</span>
+	          <tpl> if $seller_info.TAOBAO neq '' </tpl>
+			  <tpl> foreach from=$seller_info.TAOBAO item=v </tpl>
+			  <span class="r"><a target="_blank" href="http://amos1.taobao.com/msg.ww?v=1&uid=<tpl> $v </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=1&uid=<tpl> $v </tpl>&site=cntaobao&s=2" alt="<tpl> $langPOnClickMyMessage </tpl>" /></a></span>
+			  <tpl> /foreach </tpl>
+			  <tpl> else </tpl>
+			  <tpl> $langCNot </tpl>
+			  <tpl> /if </tpl>
+		    </li>
+            <li>
+			  <span class="l"><tpl> $langShopContactQQ </tpl>:</span>
+              <tpl> if $seller_info.QQ neq '' </tpl><!--QQ-->
+			  <tpl> foreach from=$seller_info.QQ item=v </tpl>
+			  <span class="r"><a href=tencent://message/?uin=<tpl> $v </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $v </tpl>:1 alt="<tpl> $langPOnClickMyMessage </tpl>"></a></span>
+			  <tpl> /foreach </tpl>
+			  <tpl> else </tpl>
+			  <tpl> $langCNot </tpl>
+			  <tpl> /if </tpl>
+			</li>
+            <li>
+			  <span class="l"><tpl> $langShopContactMsn </tpl>:</span>
+			  <tpl> if $seller_info.MSN neq '' </tpl><!--MSN-->
+			  <tpl> foreach from=$seller_info.MSN item=v </tpl>
+			  <span class="r"><a target="_blank" href="msnim:chat?contact=<tpl> $v </tpl>"><img style="border-style: none; padding-top:7px;" src="http://img8.cn.msn.com/images/msfp_008.gif" width="16" height="16" /></a></span>
+			  <tpl> /foreach </tpl>
+			  <tpl> else </tpl>
+			  <tpl> $langCNot </tpl>
+			  <tpl> /if </tpl>
+			</li>
+            <li><!--站内信/其他联系方式-->
+			  <span class="l"><tpl> $langPMsg </tpl>:</span><span class="r"><a href="<tpl> $site_url </tpl>/member/own_message.php?action=add&username=<tpl> $seller_info.login_name </tpl>"><img style="padding-top:2px;" src="<tpl> $template_dir </tpl>/home/images/goodsitem_pm.gif" alt="<tpl> $langPSetMsg </tpl>" width="94" height="22" /></a></span
+			></li>
+            <li>
+			  <span class="l"><tpl> $langPOtherContact </tpl>:</span><span class="r"><tpl> $langCNot </tpl></span>
+			</li>
+          </ul>
+          <div id="viewmember"><!--对该商品有兴趣的会员列表-->
+            <h4><tpl> $langPCollectionMember </tpl></h4>
+            <ul>
+			  <tpl> foreach from=$buy_product_member_array item=v </tpl>
+              <li><a href="<tpl> $site_url </tpl>/home/userinfo.php?userid=<tpl> $v.member_id </tpl>" target="_blank"><img alt="<tpl> $v.login_name </tpl>" title="<tpl> $v.login_name </tpl>" src="<tpl> if $v.picture neq '' </tpl><tpl> $site_url </tpl>/<tpl> $v.picture </tpl><tpl> else </tpl><tpl> $site_url </tpl>/templates/member/images/avatar.gif<tpl> /if </tpl>" /></a></li>
+			  <tpl> /foreach </tpl>
+            </ul>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <div class="left">
+          <div id="goodsname"><!--商品名称-->
+            <h2><tpl> $product_row.p_name </tpl></h2>
+          </div>
+          <div id="goodspic"><!--商品图片-->
+		  	<tpl> if $pic_array[0] neq '' </tpl>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					  $("#pikame").PikaChoose({show_captions:false,thumb_width:40,thumb_height:40});
+					$(".pika_play").remove();
+					$(".pika_prev_hover").remove();
+					$(".pika_next_hover").remove();
+					$(".pika_navigation").remove();
+					$("#pika_subdiv").children('a:first').jqzoom({title: false,zoomWidth:300,zoomHeight:300});
+					$(".opts").jCarouselLite({
+						visible: 5,
+						btnNext: ".next",
+						btnPrev: ".prev",
+						circular:false
+					});
+
+				});
+				function changeImageView(big_pic,p_pic){
+					$("#pic_view").html("<img src='<tpl> $site_url </tpl>/"+big_pic+"' jqimg='<tpl> $site_url </tpl>/"+p_pic+"' />");
+					return true;
+				}
+			</script>
+			
+			 <div class="prev"><a href="javascript:;"></a></div>
+			 <div class="next"><a href="javascript:;"></a></div>
+			<div class="opts">
+			  <ul id="pikame">
+			  <tpl> section name=loop loop=$pic_array </tpl>
+				<li><a href="<tpl> $site_url </tpl>/<tpl> $pic_array[loop].p_pic </tpl>"><img src="<tpl> $site_url </tpl>/<tpl> $pic_array[loop].big_pic </tpl>" jqimg="<tpl> $site_url </tpl>/<tpl> $pic_array[0].p_pic </tpl>" /></a>
+				</li>
+			  <tpl> /section </tpl>
+			  </ul>
+			</div>
+			
+			
+			<tpl> else </tpl>
+				<img src="<tpl> $template_dir </tpl>/images/noimgb.gif" />
+			<tpl> /if </tpl>			  
+		  </div>
+          <div id="goodsabout">
+            <div class="pricebox" style="margin-bottom:0px;">
+				<div id="startPrice">
+					<tpl> $langOldPrice </tpl>: <strong><tpl> $product_row.p_original_price </tpl></strong> <tpl> $langCYuan </tpl>
+				</div>
+				<div id="auctionPrice">
+					<tpl> $langPfixprice </tpl>: <strong><tpl> $product_row.p_price </tpl></strong> <tpl> $langCYuan </tpl>
+				</div>
+            </div>
+			<div class="lineDotted"></div>
+            <ul><!--运费部分-->
+			  <li>
+            	<tpl> if $product_row.p_transfee_charge == '0' </tpl>
+					<span style="margin-right:20px;"><tpl> $langSelaTranFee </tpl></span>
+				<tpl> /if </tpl>
+				<tpl> if $product_row.p_transfee_charge == '1' </tpl>
+					<span style="margin-right:20px;"><tpl> $langTo </tpl>:<tpl> if $product_row.use_postage eq '1' </tpl><a class="huaxian" href="javascript:;" onclick="show_postage(this);"><tpl> /if </tpl><var id="show_postage_area"><tpl> $langPAllArea </tpl></var><tpl> if $product_row.use_postage eq '1' </tpl></a><tpl> /if </tpl></span>
+					<span id="show_postage_money">
+					<tpl> if $product_row.use_postage eq '1' </tpl>
+						<tpl> if $default_postage.ordinary neq '' </tpl>
+							<span style="margin-right:20px;"><tpl> $langPCommonlyPost </tpl>:<var><tpl> $default_postage.ordinary </tpl></var></span>
+						<tpl> /if </tpl>
+						<tpl> if $default_postage.fast neq '' </tpl>
+							<span style="margin-right:20px;"><tpl> $langPCelerityPost </tpl>:<var><tpl> $default_postage.fast </tpl></var></span>
+						<tpl> /if </tpl>
+						<tpl> if $default_postage.ems neq '' </tpl>
+							<span style="margin-right:20px;">EMS:<var><tpl> $default_postage.ems </tpl></var></span>
+						<tpl> /if </tpl>
+					<tpl> else </tpl>
+						<span style="margin-right:20px;"><tpl> $langPCommonlyPost </tpl>:<var><tpl> $product_row.p_tf_py </tpl></var></span>
+						<span style="margin-right:20px;"><tpl> $langPCelerityPost </tpl>:<var><tpl> $product_row.p_tf_kd </tpl></var></span>
+						<span style="margin-right:20px;">EMS:<var><tpl> $product_row.p_tf_ems </tpl></var></span>
+					<tpl> /if </tpl>
+					</span>
+				<tpl> /if </tpl>
+			  </li>
+              <li><!--新旧程度/剩余时间-->
+            	<span style="width:50%;"><tpl> $langPDegree </tpl>:<var><tpl> $product_row.p_type_name </tpl></var></span>
+            	<span id="sp_html_lefttime" style="width:50%;"><tpl> $langResidualTime </tpl>:<var><label id="leftTime1">
+				<tpl> if $product_row.p_state eq '0' </tpl>
+					<tpl> $langProductClose </tpl>
+				<tpl> else </tpl>
+					<tpl> $lefttime </tpl>
+				<tpl> /if </tpl>
+				</label></var></span>
+			  </li><!--本期数量/所在地/消费者保障-->
+              <li><span style="width:50%;"><tpl> $langPThisNumber </tpl>:<var><tpl> $product_row.p_storage  </tpl></var>，<tpl> $langPAlreadySale </tpl><var><tpl> $product_row.p_sold_num  </tpl></var><tpl> $langProductAPiece </tpl></span><span style="width:50%;"><tpl> $langPHStorage </tpl>:<var><tpl> $product_row.p_view_num  </tpl></var><tpl> $langProductNum </tpl></span></li>
+              <li>
+			    <tpl> $langPLocus </tpl>:
+				<tpl> if $sel_area[0].area_name neq '' </tpl>
+					<tpl> section name=loop loop=$sel_area </tpl>
+						<var><tpl> $sel_area[loop].area_name </tpl></var>
+					<tpl> /section </tpl>
+				  <tpl> /if </tpl>
+			  </li>
+			  <tpl> if $product_row.p_genuine eq '1' || $product_row.p_7day_return eq '1'</tpl>
+	            <li>
+					<tpl> $langPConsumerEnsure </tpl>: 
+	            	<tpl> if $product_row.p_genuine eq '1' </tpl>
+	            		<var><img src="<tpl> $template_dir </tpl>/images/pic_zp.gif" align="absmiddle" alt="<tpl> $langPgenuineExplain </tpl>" /> <tpl> $langPgenuine </tpl></var>
+	            	<tpl> /if </tpl>
+	            	<tpl> if $product_row.p_7day_return eq '1' </tpl>
+	            		<var><img src="<tpl> $template_dir </tpl>/images/pic_7day.gif" align="absmiddle" alt="<tpl> $langP7dayreturnExplain </tpl>" /> <tpl> $langP7dayreturn </tpl></var>
+	            	<tpl> /if </tpl>	
+				</li>	
+			  <tpl> /if </tpl>
+            </ul><!--购买/收藏-->
+            <div class="clear">&nbsp;</div>
+            <div class="buybtn">
+				<tpl>if $product_row.p_end_time gte 0</tpl>
+					<a href="<tpl> $site_url </tpl>/home/product_fixprice.php?action=buy&p_code=<tpl> $product_row.p_code </tpl>"><span class="buy" style="cursor:hand"></span></a><a href="javascript:void(0);" onclick="product_collection('<tpl> $product_row.member_id </tpl>','<tpl> $product_row.p_id </tpl>');" style="cursor:hand"><span class="collection"><tpl> $langPAddSC </tpl></span></a>
+				<tpl>else</tpl>
+					<div class="auctionOverBtn">拍卖结束</div>
+				<tpl>/if</tpl>
+			</div>
+            <div class="paybox">
+			<!--支持的货币-->
+			<dl class="money">
+			  <dt><tpl>$langProductCurrency</tpl>：</dt>
+			<tpl> foreach item=one from=$currency_array key=key </tpl>
+				<dd> 
+					<tpl> $exchange_remark[$key] </tpl>(<tpl> $key </tpl>) <tpl> $one </tpl>
+				</dd>
+			<tpl> /foreach </tpl>
+			</dl>
+			<!--支付方式-->
+			<dl class="paymode">
+			  <dt><tpl>$langProductPayment</tpl>：</<dt>
+			<tpl> foreach item=one from=$payment_array key=key </tpl>
+				<dd> 
+					<tpl> $one.name </tpl>
+				</dd>
+			<tpl> /foreach </tpl>
+			</dl>
+            </div>
+          </div>
+          <div class="clear">&nbsp;</div>
+          <div id="push">
+            <!--<div class="pushbtn"><a href="#"><span><tpl> $langPProductRecommend </tpl></span></a></div>--><!--推荐给好友-->
+            <dl class="pushurl">
+              <dt><tpl> $langPSendUrl </tpl></dt>
+              <dd><tpl> $langPCopyUrl </tpl>
+                  <input name="textfield" type="text" id="textfield" value="<tpl> $site_url </tpl>/home/product_fixprice.php?action=view&p_code=<tpl> $product_row.p_code </tpl>" size="32" />
+                  <input type="submit" name="button" id="button" onclick="javascript:copyToClipBoard($('#textfield').val());" value="<tpl> $langPCopy </tpl>" />
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <!--新作的结束-->
+  <div class="itemwrapper" style="margin-top:12px;">
+    <div class="itemtabbar">
+      <ul class="itemtabbtn" id="categorymenu">
+        <li class="current" id="tabdetailinfo"><a id="detailinfo_url" href="JavaScript: void(0);" ><tpl> $langPInfo </tpl></a></li>
+        <li id="tabmemoinfo"><a id="memoinfo_url" href="JavaScript: void(0);"><tpl> $langPBuyNotice </tpl></a></li>
+        <li id="tabbidrecord"><a id="bidrecord_url" href="JavaScript: void(0);"><tpl> $langPBuyNote </tpl></a></li>
+        <li id="tabguestbook"><a id="guestbook_url" href="JavaScript: void(0);"><tpl> $langPAuctionBuyerMessage </tpl></a></li>
+      </ul>
+    </div>
+    <div class="itemcontent" id="detailinfo"><!--商品信息-->
+    	<div id="aboutbaby">
+        	<div class="attributes_list">
+            	<ul>
+            		<tpl> if $have_attribute == 1 </tpl>
+                		<tpl> section name=j loop=$product_attribute </tpl>
+                			<li>
+                				<span class="attributes_title"><tpl> $product_attribute[j].a_name </tpl>：</span>
+                				<span class="attributes_title">
+                    			<tpl> if $product_attribute[j].a_type == 0 </tpl>
+									<tpl> section name=k loop=$product_attribute_content[j] </tpl>
+										<tpl> if $product_attribute_content[j][k].ischecked == 1 </tpl>
+											<tpl> $product_attribute_content[j][k].ac_content </tpl>
+										<tpl> /if </tpl>
+									<tpl> /section </tpl>                    			
+                    			<tpl> /if </tpl>
+								<tpl> if $product_attribute[j].a_type == 1 </tpl>
+									<tpl> section name=k loop=$product_attribute_content[j] </tpl>
+										<tpl> if $product_attribute_content[j][k].ischecked == 1 </tpl>
+											<tpl> $product_attribute_content[j][k].ac_content </tpl>
+										<tpl> /if </tpl>
+									<tpl> /section </tpl>
+								<tpl> /if </tpl>
+								</span>	                    			
+                			</li>
+                		<tpl> /section </tpl>
+            		<tpl> /if </tpl>
+            		<!-- 品牌 -->
+            		<tpl> if $sel_brand[0].pb_id neq '' </tpl>
+            			<li>
+                			<span class="attributes_title"><tpl> $langPBrand </tpl>：</span>
+							<tpl> section name=loop loop=$sel_brand </tpl>
+								<span class="attributes_info"><tpl> $sel_brand[loop].pb_name </tpl></span>
+							<tpl> /section </tpl>  
+						</li>                  			
+            		<tpl> /if </tpl>
+            		<!-- 发票 -->
+        			<li>
+            			<span class="attributes_title"><tpl> $langProductWhetherInvoices </tpl>：</span>
+						<span class="attributes_info">
+							<tpl> if $product_row.p_have_invoices eq '0' </tpl>
+								<tpl> $langCNo </tpl>
+							<tpl> else </tpl>
+								<tpl> $langCYes </tpl>
+							<tpl> /if </tpl>
+						</span>									
+					</li>         
+            		<!-- 保修 -->
+        			<li>
+            			<span class="attributes_title"><tpl> $langProductWhetherWarranty </tpl>：</span>
+						<span class="attributes_info">
+							<tpl> if $product_row.p_have_warranty eq '0' </tpl>
+								<tpl> $langCNo </tpl>
+							<tpl> else </tpl>
+								<tpl> $langCYes </tpl>
+							<tpl> /if </tpl>
+						</span>									
+					</li>  							         			                  		
+				</ul>
+			</div>
+		</div>
+		<div id="product_intro">
+			<p>
+				<tpl> $product_row.p_intro </tpl>
+			</p>
+		</div>
+    </div>
+    <div class="itemtitlebox"><!--购买信息-->
+      <h3><tpl> $langPBuyInfo </tpl></h3>
+      <span class="gotop"><a href="#top"><img src="<tpl> $template_dir </tpl>/home/images/gototop.gif" alt="<tpl> $langPReturnTop </tpl>" /></a></span> </div>
+    <div class="itemcontent" id="memoinfo">
+      <p><tpl> $product_row.p_remark </tpl></p>
+    </div>
+    <div class="itemtitlebox"><!--出价记录-->
+      <h3><tpl> $langPBuyNote </tpl></h3>
+      <span class="gotop"><a href="#top"><img src="<tpl> $template_dir </tpl>/home/images/gototop.gif" alt="<tpl> $langPReturnTop </tpl>" /></a></span> </div>
+    <div class="itemcontent" id="bidrecord">
+      <div class="priceinfo"><span style="margin-right:40px;"><tpl> $langPorPrice </tpl>:<var class="price"><tpl> $product_row.p_price </tpl></var><tpl> $langYuan </tpl></span>
+		<!--<tpl> if $product_row.p_transfee_charge == '0' </tpl>--><!--页脚运费部分-->
+			<!--<span style="margin-right:20px;"><tpl> $langSelaTranFee </tpl></span>
+		<tpl> /if </tpl>
+		<tpl> if $product_row.p_transfee_charge == '1' </tpl>
+			<span style="margin-right:20px;"><tpl> $langTo </tpl>:<a class="huaxian" href="javascript:;" onclick="show_postage(this);"><var id="show_postage_area"><tpl> $langPAllArea </tpl></var></a></span>
+			<span id="show_postage_money">
+			<tpl> if $product_row.use_postage eq '1' </tpl>
+				<tpl> if $default_postage.ordinary neq '' </tpl>
+					<span style="margin-right:20px;"><tpl> $langPCommonlyPost </tpl>:<var><tpl> $default_postage.ordinary </tpl></var></span>
+				<tpl> /if </tpl>
+				<tpl> if $default_postage.fast neq '' </tpl>
+					<span style="margin-right:20px;"><tpl> $langPCelerityPost </tpl>:<var><tpl> $default_postage.fast </tpl></var></span>
+				<tpl> /if </tpl>
+				<tpl> if $default_postage.ems neq '' </tpl>
+					<span style="margin-right:20px;">EMS:<var><tpl> $default_postage.ems </tpl></var></span>
+				<tpl> /if </tpl>
+			<tpl> else </tpl>
+				<span style="margin-right:20px;"><tpl> $langPCommonlyPost </tpl>:<var><tpl> $product_row.p_tf_py </tpl></var></span>
+				<span style="margin-right:20px;"><tpl> $langPCelerityPost </tpl>:<var><tpl> $product_row.p_tf_kd </tpl></var></span>
+				<span style="margin-right:20px;">EMS:<var><tpl> $product_row.p_tf_ems </tpl></var></span>
+			<tpl> /if </tpl>
+			</span>
+		<tpl> /if </tpl>-->
+	  </div>
+      <div class="pricenotes"><tpl> $langBargainOnNote </tpl></div>
+      <ul class="recordlist" ><!--成交记录-->
+        <li class="title"><span class="buyer"><tpl> $langPBuy </tpl></span><span class="bid"><tpl> $langProductDid </tpl></span><span class="amount"><tpl> $langPBuyNum </tpl></span><span class="time"><tpl> $langBuyTime </tpl></span><span class="status"><tpl> $langProductEstate </tpl></span></li>
+		<tpl> section name=i loop=$product_order_array </tpl>
+		  <li><span class="buyer"><a href="../store/userinfo.php?userid=<tpl> $product_order_array[i].member_id </tpl>" target="_blank"><tpl> $product_order_array[i].buyer_nick </tpl></a></span><span class="bid"><tpl> $product_order_array[i].unit_price </tpl><tpl> $langCYuan </tpl></span><span class="amount"><tpl> $product_order_array[i].buy_num </tpl><tpl> $langPHPiece </tpl></span><span class="time"><tpl> $product_order_array[i].sold_time|date_format:"%Y-%m-%d %H:%M:%S" </tpl></span><span class="status">
+		  <tpl> if $product_order_array[i].state == "2" </tpl> <tpl> $langPBargainOn </tpl> <tpl> /if </tpl>
+		  <tpl> if $product_order_array[i].state == "0" </tpl> <tpl> $langProductOut </tpl> <tpl> /if </tpl>
+		  <tpl> if $product_order_array[i].state == "1" </tpl> <tpl> $langPLead </tpl> <tpl> /if </tpl>
+		  </span></li>
+		<tpl> /section </tpl>
+      </ul><!--成交信息/查看方式-->
+      <div class="pricenotes"><!--<span><tpl> $langPAggregately </tpl> <b><tpl> $product_order_array|@count </tpl></b> <tpl> $langPTiao </tpl><tpl> $langBargainOnNote </tpl></span><span><a href="JavaScript:void(0);"><tpl> $langPLook5Tiao </tpl></a></span><span><a href="JavaScript:void(0);"><tpl> $langPLookAll </tpl></a></span>--></div>
+    </div>
+    <div class="itemtitlebox">
+      <h3><tpl> $langPBuy </tpl><tpl> $langProductLeaveWord </tpl></h3>
+      <span class="gotop"><a href="#top"><img src="<tpl> $template_dir </tpl>/home/images/gototop.gif" alt="<tpl> $langPReturnTop </tpl>" /></a></span> </div>
+    <div class="itemcontent" id="guestbook">
+	<tpl> if $s_login_id neq ''  </tpl>
+      <div style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px">
+		<tpl> section name=loop loop=$message_array </tpl>
+		<div class="borderDiv">
+			<tpl>if $smarty.section.loop.index_next is div by 2</tpl>
+				<table class="meglist" cellspacing="0" cellpadding="3" width="100%" align="center" bgcolor="#f8f8f8" border="0">
+			<tpl>else</tpl>
+				<table class="meglist" cellspacing="0" cellpadding="3" width="100%" align="center" bgcolor="#ffffff" border="0">
+			<tpl>/if</tpl>
+				<tbody>
+					
+						<tr align="left" colspan="2">
+							<td><b><tpl> $langPBuy </tpl>:</b><tpl>$message_array[loop].member_name</tpl></td>
+						</tr>
+						<tr>
+							<td><b><tpl> $langProductLeaveWord </tpl>:</b><tpl>$message_array[loop].message_content</tpl></td>
+							<td width="150"><font color="#959595"><tpl>$message_array[loop].message_time</tpl></font></td>
+						</tr>	
+						<tpl> if $message_array[loop].message_recontent neq '' </tpl>						
+							<tr>
+								<td class="fontGray"><b><tpl> $langLeaveWord </tpl>:</b><tpl>$message_array[loop].message_recontent</tpl></td>
+								<td><font color="#959595"><tpl>$message_array[loop].re_time</tpl></font></td>
+							</tr>									
+						<tpl> /if </tpl>
+						<tpl> if $product_row.member_id eq  $s_login_id </tpl>
+						<tr>
+							<td colspan="2" style="line-height:36px; text-align:right; padding-right:50px;">
+								<tpl> if $message_array[loop].message_recontent eq '' </tpl>
+									<a style="text-decoration:underline;" href="<tpl> $site_url </tpl>/member/own_productmessage.php?action=re&id=<tpl> $message_array[loop].message_id </tpl>"><tpl> $langProductRestoreMessage </tpl></a> |
+								<tpl> /if </tpl>
+								<a style="text-decoration:underline;" href="javascript:void(0);" onclick="if (confirm('<tpl> $langPConfirmDelMessage </tpl>')) { window.location.href='<tpl> $site_url </tpl>/home/productmessage.php?action=del&messageid=<tpl> $message_array[loop].message_id </tpl>&pid=<tpl>$product_row.p_code</tpl>'}"><tpl> $langProductDelMessage </tpl></a></td>
+						</tr>	
+						<tpl> /if </tpl>							
+				</tbody>
+			</table>
+			</div>
+			<tpl> /section </tpl>
+      </div>
+      <div id="leaveMsgPage" style="PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 65px; PADDING-BOTTOM: 10px; MARGIN: 0px 30px; PADDING-TOP: 0px; BORDER-BOTTOM: #d7d7d7 1px solid" align="right"><!--<span id="html_tem_msgPage"><a href="JavaScript:void(0);" target="_blank"><tpl> $langPAuctionMoreMsg </tpl>&gt;&gt;</a></span>--></div>
+      <br />
+      <div id="html_tem_leaveMsg_post">
+		<form id="mainform" onsubmit="return countWord();" method="POST" action="<tpl> $site_url </tpl>/home/productmessage.php?action=save">
+					<input type="hidden" value="<tpl>$product_row.p_id</tpl>" name="hideproductID">
+					<input type="hidden" value="<tpl>$product_row.member_id</tpl>" name="hidememberID">
+					<input type="hidden" value="<tpl>$product_row.p_code</tpl>" name="pid">
+				<table cellspacing="0" cellpadding="0" width="680" align="center" border="0">
+					<tbody>
+						<tr>
+							<td colspan="2"> <tpl> $langReferOrReview </tpl>:(<tpl> $langReferOrReviewMsg </tpl>)&nbsp;<span id="keynum"></span></td>
+						</tr>
+						<tr>
+							<td align="middle" colspan="2">
+								<div id="hide_msg" style="DISPLAY: none"></div>
+								<textarea id="txtMessage"   onkeyup="keyNumber()"  style="BORDER-RIGHT: #718da6 1px solid; BORDER-TOP: #718da6 1px solid; BORDER-LEFT: #718da6 1px solid; WIDTH: 680px; BORDER-BOTTOM: #718da6 1px solid" name="txtMessage" rows="7" cols="80" require="true"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td width="700">
+								<div id="leaveMsg_verify"><tpl> $langPAuctionCode </tpl>:
+								<input type="text" maxlength="4" size="4" id="code" name="code">
+							<img src="<tpl> $site_url </tpl>/classes/libraries/code.php" onclick="this.src='<tpl> $site_url </tpl>/classes/libraries/code.php?' + Math.random()" title="<tpl> $langPOnclickInstead </tpl>" id="codeimage" name="codeimage" style=" vertical-align:middle" /><a href="javascript:void(0);" onclick="document.getElementById('codeimage').src='<tpl> $site_url </tpl>/classes/libraries/code.php?' + Math.random()"><tpl> $langPNotClarityInstead </tpl></a></div>
+							</td>
+						</tr>
+						<tr>
+							<td height="70" align="right">  
+								<input id="postMsg_button" type="submit" value=" <tpl> $langCsubmit </tpl> " name="postMsg_button" />
+								<input type="reset" value=" <tpl>$langReset</tpl> " name="Submit" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		<tpl> else </tpl>	
+			<tpl> $errProductNeed </tpl><a href='<tpl> $site_url </tpl>/home/member.php?action=login' style="color:orange;text-decoration:underline;"><tpl> $langPLogin </tpl></a><tpl> $errProductMayQuiz </tpl><br>
+			<a href='<tpl> $site_url </tpl>/home/member.php?action=regist' style="color:orange;text-decoration:underline;"><tpl> $langPRegist </tpl></a>
+		<tpl> /if </tpl>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+<!-- postage area-->
+<div id="area_location" style="display:none">
+	<div style="float:right;"><a class="cha" href="javascript:;" onclick="hide_postage();"></a></div>
+		<div class="henpai"><a href="javascript:;" onclick="postage_calculate('0','<tpl> $langPAllArea </tpl>');"><tpl> $langPAllArea </tpl></a>
+		<tpl> foreach item=one from=$postage_area </tpl>
+			<a href="javascript:;" onclick="postage_calculate('<tpl> $one[0] </tpl>','<tpl> $one[2] </tpl>');"><tpl> $one[2] </tpl></a>
+		<tpl> /foreach </tpl></div>
+	<div>
+</div>
+</body>
+</html>

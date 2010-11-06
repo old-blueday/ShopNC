@@ -1,0 +1,99 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $lanagMailTemplateList </tpl> &gt;&gt; <tpl> $lanagMailTemplateList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='mailcontent.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $lanagMailTemplateAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="mailcontent.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<input type="hidden" name="curpage" id="curpage" value="<tpl> $curpage </tpl>" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysNSel </tpl></td>
+						<td class="es-4"><tpl> $lanagMailCaption </tpl></td>
+						<td class="es-2"><tpl> $lanagMailSendEstate </tpl></td>
+						<td class="es-2"><tpl> $lanagMailSendSet </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $mail_array[0].mail_id neq '' </tpl>
+						<tpl> section name=loop loop=$mail_array </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+							<input name="mail_id[]" type="checkbox" value="<tpl> $mail_array[loop].mail_id </tpl>"/>
+							<tpl> if $mail_array[loop].ifsystem eq '1' </tpl>
+								<input type="hidden" name="can_del_arr[]" value="<tpl> $mail_array[loop].mail_id </tpl>" />
+							<tpl> /if </tpl>
+						</td>
+						<td><tpl> $mail_array[loop].title </tpl></td>
+						<td>
+							<tpl> if $mail_array[loop].ifopen eq '0' </tpl>
+								<tpl> $langCClose </tpl>
+							<tpl> else if $mail_array[loop].ifopen eq '1' </tpl>
+								<tpl> $langCOpen </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<tpl> if $mail_array[loop].ifopen eq '0' </tpl>
+								<a href="mailcontent.manage.php?action=set_state&state=1&id=<tpl> $mail_array[loop].mail_id </tpl>"><tpl> $langCOpen </tpl></a>
+							<tpl> else if $mail_array[loop].ifopen eq '1' </tpl>
+								<a href="mailcontent.manage.php?action=set_state&state=0&id=<tpl> $mail_array[loop].mail_id </tpl>"><tpl> $langCClose </tpl></a>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="mailcontent.manage.php?action=modi&genre=<tpl> $mail_array[loop].genre </tpl>&curpage=<tpl> $curpage </tpl>"><tpl> $langCmodi </tpl></a>
+							<tpl> if $mail_array[loop].ifsystem eq '1' </tpl>
+								<a href="javascript:;" onclick="if(confirm('<tpl> $lanagMailDelConfirm </tpl>')){location.href='mailcontent.manage.php?action=del&id=<tpl> $mail_array[loop].mail_id </tpl>&curpage=<tpl> $curpage </tpl>'}else{return false;};"><tpl> $langCdele </tpl></a>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $mail_array[0].mail_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $mail_array[0].mail_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="" id="mail_open" value="<tpl> $langCOpen </tpl>" type="button" />
+				<input class="bthl" name="" id="mail_close" value="<tpl> $langCClose </tpl>" type="button" />
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$('#mail_open').click(function(){
+		$('input[id=action]').val('open');
+		document.getElementById('form_del').submit();
+	});
+	$('#mail_close').click(function(){
+		$('input[id=action]').val('close');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>

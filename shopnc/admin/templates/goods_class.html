@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_class_list</tpl></title><!--  后台管理 - 商品分类列表  -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body>
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_goods_class.php?action=page_goods_class" target="_self" class="btnInput"><tpl>$admin_goods_class_add</tpl><!--  添加分类  --></a></span>
+	<tpl>$admin_header_goods_manage</tpl><!--  商品管理  --> >> <tpl>$admin_goods_class_list</tpl><!--  商品分类列表  -->
+ </b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+    <div class="entry-body" id="p-list-div">
+    <form id="form" name="form" action="admin_goods_class.php" method="post">
+    	<input type="hidden" name="action" id="action"/>
+        <input type="hidden" name="id" id="id"/>
+        <input type="hidden" name="select" id="select" />
+		<h5><div class="floatRight2">
+		<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_folder_add.gif" /><span>:<tpl>$admin_goods_class_list_add_sub</tpl><!--  添加子分类  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_switch.gif" /><span>:<tpl>$admin_goods_class_list_move_goods</tpl><!--  转移商品  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/><span>:<tpl>$admin_goods_class_list_deit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" /><span>:<tpl>$admin_goods_class_list_del</tpl><!--  删除  --></span>
+		</div><tpl>$admin_goods_class_list</tpl></h5>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th class="textLeft"><tpl>$admin_goods_class_list_name</tpl><!--  分类名称  --></th>
+            <th><tpl>$admin_goods_class_list_ifput</tpl><!--  是否发布  --></th>
+            <th><tpl>$admin_goods_class_list_sort</tpl><!--  分类排序  --></th>
+            <th width="126"><tpl>$admin_goods_class_list_ifmenu</tpl><!--  是否在导航处显示  --></th>
+            <th><tpl>$admin_goods_class_list_goods_num</tpl><!--  包含商品数量  --></th>
+            <th><tpl>$admin_goods_class_list_oper</tpl><!--  操作  --></th>
+          </tr>
+          <tpl>section name=i loop=$class_array</tpl>
+          <tr id="<tpl>$class_array[i].0</tpl>"  <tpl>if $class_array[i].4!=0</tpl>style="display:none"<tpl>/if</tpl>>
+            <td class="classname font14">
+            	<span id="open<tpl>$class_array[i].0</tpl>">
+                	<tpl>$class_array[i].header</tpl>
+                    <tpl>if $class_array[i].5 !=0</tpl>
+                        <a href="#nogo" onclick="showOpen('<tpl>$class_array[i].sub_one_class</tpl>',<tpl>$class_array[i].0</tpl>)" ><img src="<tpl>$Site_Url</tpl>/admin/templates/images/collapsed2.gif"/>
+                    <tpl>/if</tpl>
+					<tpl>if $class_array[i].5 !=0</tpl>
+                    	</a>
+                     <tpl>/if</tpl>
+                        <a href="admin_goods.php?action=list&sel_goods_class=<tpl>$class_array[i].0</tpl>"><tpl>$class_array[i].name</tpl></a>
+                </span>
+                <span style="display:none" id="close<tpl>$class_array[i].0</tpl>">
+                <tpl>$class_array[i].header</tpl>
+                <a href="#nogo" onclick="showClose('<tpl>$class_array[i].sub_class</tpl>',<tpl>$class_array[i].0</tpl>)" >
+                <img src="<tpl>$Site_Url</tpl>/admin/templates/images/expanded2.gif"/>
+            	<tpl>$class_array[i].name</tpl>
+                </a>
+                </span>
+            </td>
+            <td><span id="state_<tpl>$class_array[i].0</tpl>"><a onclick="nc_state_update('<tpl>$class_array[i].0</tpl>','class_state','<tpl>$class_array[i].class_state</tpl>','state_<tpl>$class_array[i].0</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>$class_array[i].class_state</tpl>.gif" alt='<tpl>$admin_goods_class_click_update</tpl>' title='<tpl>$admin_goods_class_click_update</tpl>' /></a></span></td>
+            <td><tpl>$class_array[i].class_sort</tpl></td>
+            <td><span id="menu_<tpl>$class_array[i].0</tpl>"><a onclick="nc_state_update('<tpl>$class_array[i].0</tpl>','class_menu','<tpl>$class_array[i].class_menu</tpl>','menu_<tpl>$class_array[i].0</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>$class_array[i].class_menu</tpl>.gif"alt='<tpl>$admin_goods_class_click_update</tpl>' title='<tpl>$admin_goods_class_click_update</tpl>' /></a></span></td>
+            <td><tpl>$class_array[i].goods_count</tpl></td>
+            <td><a href="<tpl>$Site_Url</tpl>/admin/admin_goods_class.php?action=page_goods_class&type=sub&cid=<tpl>$class_array[i].0</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_folder_add.gif" alt="<tpl>$admin_goods_class_list_add_sub</tpl>" title="<tpl>$admin_goods_class_list_add_sub</tpl>" /></a><!--  添加子分类  -->&nbsp;
+            	<a href="<tpl>$Site_Url</tpl>/admin/admin_goods_class.php?action=class_move&cid=<tpl>$class_array[i].0</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_switch.gif" alt="<tpl>$admin_goods_class_list_move_goods</tpl>" title="<tpl>$admin_goods_class_list_move_goods</tpl>" /></a><!--  转移商品  -->&nbsp;
+            	<a href="<tpl>$Site_Url</tpl>/admin/admin_goods_class.php?action=page_goods_class&type=modify&cid=<tpl>$class_array[i].0</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" alt="<tpl>$admin_goods_class_list_deit</tpl>" title="<tpl>$admin_goods_class_list_deit</tpl>" /></a><!--  编辑  -->
+            	<a href="<tpl>$Site_Url</tpl>/admin/admin_goods_class.php?action=class_del&cid=<tpl>$class_array[i].0</tpl>" ><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl>$admin_goods_class_list_del</tpl>" title="<tpl>$admin_goods_class_list_del</tpl>" /></a><!--  删除  --></td>
+          </tr>
+          <tpl>/section</tpl>
+        </table>
+		<h5 class="h5_down"><div class="floatRight2">
+		      <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_folder_add.gif" /><span>:<tpl>$admin_goods_class_list_add_sub</tpl><!--  添加子分类  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_switch.gif" /><span>:<tpl>$admin_goods_class_list_move_goods</tpl><!--  转移商品  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/><span>:<tpl>$admin_goods_class_list_deit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" /><span>:<tpl>$admin_goods_class_list_del</tpl><!--  删除  --></span>
+		</div></h5>
+    </form>
+    	<div class="clear"></div>
+		</div>
+    </div><!--   end of p-list-div   -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--   end of content   -->
+<script language="javascript">
+/* 展开分类 */
+function showOpen(id,top_id){
+	id_array = id.split(",");
+	for(i=0;i<id_array.length;i++){
+		$("#"+id_array[i]).css("display","");
+	}
+	$("#open"+top_id).css("display","none");
+	$("#close"+top_id).css("display","");
+}
+/* 关闭分类 */
+function showClose(id,top_id){
+	id_array = id.split(",");
+	for(i=0;i<id_array.length;i++){
+		$("#open"+id_array[i]).css("display","");
+		$("#"+id_array[i]+",#close"+id_array[i]+",#move"+id_array[i]+",#del"+id_array[i]).css("display","none");
+	}
+	$("#open"+top_id).css("display","");
+	$("#close"+top_id).css("display","none");
+}
+
+/* ajax修改分类状态操作 */
+function nc_state_update(class_id,ajax_type,old_state,id) {
+	$.get('admin_goods_class.php',{'action':'class_ajax','ajax_type':ajax_type,'old_state':old_state,'class_id':class_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=<tpl> $NCharset </tpl>">
+<title><tpl> $title_message </tpl></title>
+<meta name="KEYWords" content="<tpl> $Meta_keyword </tpl> <tpl>$HtmlTitle</tpl>" />
+<meta name="DEscription" content="<tpl> $Meta_desc </tpl> <tpl>$HtmlTitle</tpl>" />
+<meta name="author" content="Shopnc UI Team" />
+<meta name="Robots" content= "all" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/comm.css">
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/template.css">
+<script language="javascript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script>
+function callbackshowmodule(data)
+{
+
+	var objhtml=$("#dcontent").html();
+	
+	var shopinfo_html=$("#shopinfo").html();
+	
+	var notice_html=$("#notice").html();
+	var link_html=$("#link").html();
+	var category_html=$("#category").html();
+	var message_html=$("#message").html();
+	var product_html=$("#product").html();
+	var recommend_product_html=$("#recommend_product").html();
+	var product_search_html=$("#product_search").html();
+    var mp3_html=$("#mp3").html();
+	var video_html=$("#video").html();
+	
+	$("#dleft").empty();
+	$("#dcontent").empty();
+	$("#dright").empty();
+	$.each(data,function(i){
+	if(data[i].module_show!="1"){
+	var module_show="none";
+	}else{
+	var module_show="";
+	}
+	if(data[i].module_type=="1")
+	{
+		if($("#"+data[i].module_parent).attr("nodeName")!="DIV")
+		{
+		$("#dcontent").append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" /><div class="blocktitle"><em></em><h2>'+data[i].module_name+'</h2></div><div class="blockcontent"><div class="shop_3">'+data[i].module_body+'</div></div></div>');
+		}else{
+		$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" /><div class="blocktitle"><em></em><h2>'+data[i].module_name+'</h2></div><div class="blockcontent"><div class="shop_3">'+data[i].module_body+'</div></div></div>');
+		}
+	}else if(data[i].module_type=="2"){
+		if($("#"+data[i].module_parent).attr("nodeName")!="DIV")
+		{
+			$("#dcontent").append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" /><div class="blocktitle"><em></em><h2>'+data[i].module_name+'</h2></div><div class="blockcontent"><div class="shop_3"></div></div></div>');
+			$.post("control.php?action=showproductmod",'mudole_id='+data[i].module_id,function(pdata){
+			
+				$("#newmodule"+data[i].module_id).children("div").children(".shop_3").html(pdata);
+				
+			});
+		
+		}else{
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" /><div class="blocktitle"><em></em><h2>'+data[i].module_name+'</h2></div><div class="blockcontent"><div class="shop_3"></div></div></div>');
+			$.post("ajax_show.php?action=showproductmod",'mudole_id='+data[i].module_id,function(pdata){
+				$("#newmodule"+data[i].module_id).children("div").children(".shop_3").html(pdata);
+				
+			});
+		}
+	}else if(data[i].module_type=="3")
+	{
+		if(data[i].module_body=="shopinfo"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+shopinfo_html+'</div>');
+		}else if(data[i].module_body=="notice"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+notice_html+'</div>');
+		}else if(data[i].module_body=="link"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+link_html+'</div>');
+		}else if(data[i].module_body=="category"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+category_html+'</div>');
+		}else if(data[i].module_body=="message"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+message_html+'</div>');
+		}else if(data[i].module_body=="product"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+product_html+'</div>');
+		}else if(data[i].module_body=="recommend_product"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+recommend_product_html+'</div>');
+		}else if(data[i].module_body=="product_search"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'" style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+product_search_html+'</div>');
+		}else if(data[i].module_body=="mp3"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'"  style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+mp3_html+'</div>');
+		}else if(data[i].module_body=="video"){
+			$("#"+data[i].module_parent).append('<div class="block" id="newmodule'+data[i].module_id+'"  style="display:'+data[i].module_bodystyle+'"><input type="hidden" value="'+data[i].module_id+'" />'+video_html+'</div>');
+		}
+		if($("#video_div").parent().parent().parent().attr("id")=="dcontent"){
+			$("#video_div").children().height(400);
+			
+			}else{
+			
+			$("#video_div").children().height(200);
+			}
+		
+	}
+	
+	$("#dcontent").html(objhtml);
+	});
+	
+	
+}
+
+function a_category_sign(id){
+	$('#span_category_'+id).toggle();
+	$('#a_category_'+id).removeClass();
+	if($('#span_category_'+id).css('display') == 'none'){
+		$('#a_category_'+id).addClass('splay');
+	}else{
+		$('#a_category_'+id).addClass('close');
+	}
+}
+function setCopy(_sTxt){
+	if($.browser.msie) {
+		clipboardData.setData('Text',_sTxt);
+		alert ("<tpl> $langStoreStyleWebSite </tpl>'"+_sTxt+"'\n<tpl> $langStoreStyleCopyToParse </tpl>");
+	} else {
+		prompt("<tpl> $langStoreStylePleaseCopyTo </tpl>:",_sTxt); 
+	}
+}
+
+
+//statics
+var url = window.location;
+//screen width
+var screen_width = window.screen.width;
+//screen height
+var screen_height = window.screen.height;
+//set request to server
+$(document).ready(function(){
+	$.ajax({
+		url: "statics.php",
+		data: "user_ad="+escape(document.referrer)+"&filename2="+url+"&screen_width="+screen_width+"&screen_height="+screen_height,
+		type:'post',
+		dataType:"json",
+		success:function(){
+		var url=location.search;
+		var dcontentdiv=$("#dcontent").children("div");
+		var dleftdiv=$("#dleft").children("div");
+		var drightdiv=$("#dright").children("div");
+		$.each(dcontentdiv,function(i){
+		
+			if($(this).children("div").html()==null)
+			{
+			
+				$(this).remove();
+			}
+		});
+		$.each(dleftdiv,function(i){
+			if($(this).children("div").html()==null)
+			{
+				$(this).remove();
+			}
+		});
+		$.each(drightdiv,function(i){
+			
+			if($(this).children("div").html()==null)
+			{
+				$(this).remove();
+			}
+		});
+		$.post("ajax_show.php?action=showlistmod","userid="+url.substring(8,url.length),callbackshowmodule,"json");
+		}
+	});
+});
+
+
+</script>
+</head>
+<body>
+<style type="text/css">
+<tpl> $block_css </tpl>
+#wrap{margin:-25px auto 0 !important;}
+#wraptwo{margin:-25px auto 0 !important;}
+</style>
+<div class="top-bg"></div>
+<div id="showData"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div id="<tpl> $control.wrap </tpl>">
+<div class="top-ap"><tpl> include file='store_header.html' </tpl></div>
+<div style="clear:both; height:5px;*height:3px; font-size:0px; width:100%;"></div>
+	<div id="banner" class="banner">
+		<div class="title" id="title">
+			<h1 id="myblogname"> <tpl> $shop_info.shop_name </tpl><em></em></h1>
+			<p id="divMySign"><a href="javascript:;" onclick="javascript:setCopy('<tpl> $shop_info.url </tpl>');return false;"><tpl> $shop_info.url </tpl></a></p>
+		</div>
+	</div>
+	<div class="menubody">
+		<div id="menu" class="menu">
+			<ul>
+				<li><a href="index.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreHomePage </tpl></a></li>
+				<li><a href="intro.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreShopIntro </tpl></a></li>
+				<li><a href="user_rate.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreCredit </tpl></a></li>
+				
+					<li><a href="shop_map.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreShopMap </tpl></a></li>
+				
+				<tpl> section name=loop loop=$shop_tag </tpl>
+					<tpl> if $shop_tag[loop].tag_url neq '' </tpl>
+						<li><a href="<tpl> $shop_tag[loop].tag_url </tpl>" target="_blank"><tpl> $shop_tag[loop].tag_name </tpl></a></li>
+					<tpl> else </tpl>
+						<li><a href="shop_tag.php?userid=<tpl> $shop_info.member_id </tpl>&tag=<tpl> $shop_tag[loop].tag_id </tpl>"><tpl> $shop_tag[loop].tag_name </tpl></a></li>
+					<tpl> /if </tpl>		
+				<tpl> /section </tpl> 
+			</ul>
+		</div>
+	</div>
+	<tpl> foreach from=$control.allFrame item=control_content key=key </tpl>
+<tpl> if $key eq 'dcontent' </tpl>
+	<div id="<tpl> $key </tpl>" class="<tpl> if $frame_length eq '3' </tpl>frame_2<tpl> else </tpl>frame_3<tpl> /if </tpl> wowoFrameTd">
+		<div id="<tpl> $block_content </tpl>" class="block">
+			<tpl> include file=$layout_page </tpl>
+		</div>
+	</div>
+<tpl> else </tpl>
+	<div id="<tpl> $key </tpl>" class="<tpl> if $key eq 'dcontent' </tpl><tpl> if $frame_length eq '3' </tpl>frame_2<tpl> else </tpl>frame_3<tpl> /if </tpl><tpl> else </tpl>frame_1<tpl> /if </tpl> wowoFrameTd">
+		<tpl> foreach from=$control_content item=block_content key=key_content </tpl>
+		<div  style="display:none" id="<tpl> $block_content </tpl>" class="block">
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $key_block eq $block_content </tpl>
+					<tpl> include file=$block.html </tpl>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		</div>
+		<tpl> /foreach </tpl>
+		<tpl> if $key eq 'dleft' </tpl>
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $block.show neq '1' </tpl>
+					<div style="display:none" id="<tpl> $key_block </tpl>" class="block">
+						<tpl> include file=$block.html </tpl>
+					</div>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		<tpl> /if </tpl>
+	</div>
+<tpl> /if </tpl>
+	<tpl> /foreach </tpl>
+	<tpl> include file='store_footer.html' </tpl>
+</div>
+</body>
+</html>

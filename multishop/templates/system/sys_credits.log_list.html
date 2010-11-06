@@ -1,0 +1,70 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCreditsManage </tpl> &gt;&gt; <tpl> $langSysCreditsLog </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="credits.manage.php" id="form1" name="form1" method="get">
+						<input type="hidden" name="action" id="action" value="log_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysCreditsMemberName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.member_name </tpl>" name="member_name" id="member_name" type="text" />
+								</td>
+								<td class="it-2">
+									<input class="bthl" name="" value="<tpl> $langSysCreditsLogSearch </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-2"><tpl> $langSysCreditsMemberName </tpl></td>
+						<td class="es-2"><tpl> $langSysCreditsLogTime </tpl></td>
+						<td class="es-4"><tpl> $langSysCreditsLogInfo </tpl></td>
+						<td class="es-2"><tpl> $langSysCreditsLogExp </tpl></td>
+						<td class="es-2"><tpl> $langSysCreditsLogPoints </tpl></td>
+					</tr>
+					<tpl> if $log_list[0].cl_id neq '' </tpl>
+						<tpl> section name=loop loop=$log_list </tpl>
+					<tr class="es-td">
+						<td id="check-1"><tpl> $log_list[loop].login_name </tpl></td>
+						<td><tpl> $log_list[loop].cl_time </tpl></td>
+						<td><tpl> $log_list[loop].cl_content </tpl></td>
+						<td><tpl> $log_list[loop].cl_exp </tpl></td>
+						<td><tpl> $log_list[loop].cl_points </tpl></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $log_list[0].cl_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $log_list[0].cl_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

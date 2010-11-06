@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$register_user</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title><!-- 注册会员 -->
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.metadata.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.form.js"></script>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$("#reg_form").validate({
+		errorClass: "wrong",
+		rules: {
+			reg_user:	{required:true,minLength:2,maxLength:20},
+			reg_pass:	{required:true,minLength:6,maxLength:20},
+			reg_rpass:	{required:true,minLength:6,maxLength:20,equalTo:'#reg_pass'},
+			reg_mail:	{required:true,email:true}
+			<tpl>if $view_config.view_reg_validate=='1'</tpl>
+			,reg_code:	{required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			reg_user:	{required: "<tpl>$username_is_null</tpl>",minLength: "<tpl>$username_min</tpl>",maxLength: "<tpl>$username_max</tpl>"},
+			reg_pass:	{required: "<tpl>$pwd_is_null</tpl>",minLength: "<tpl>$pwd_min</tpl>",maxLength: "<tpl>$pwd_max</tpl>"},
+			reg_rpass:	{required: "<tpl>$affirm_is_null</tpl>",minLength: "<tpl>$affirm_min</tpl>",maxLength: "<tpl>$affirm_max</tpl>",equalTo:"<tpl>$affirm_no_equal</tpl>"},
+			reg_mail:	{required:"<tpl>$email_is_null</tpl>",email:"<tpl>$email_error</tpl>"}
+			<tpl>if $view_config.view_reg_validate=='1'</tpl>
+			,reg_code:	{required:"<tpl>$code_is_null</tpl>"}
+			<tpl>/if</tpl>
+		}
+	});
+});
+
+/* 检测用户名是否可用 */
+function sub_name(){
+	if($('#reg_user').val().length > 1 && $('#reg_user').val().length < 21){
+		$.get("user.php",{action: "check",username:$('#reg_user').val()},function(data){
+			if ('0'==data) {			/* 没有被注册 */
+				$("#check_name").removeClass('check-error');
+				$("#check_name").addClass('check-ok');
+				$("#loginname_sign").html('<tpl>$username_use</tpl>');
+			}else if ('1'==data) {		/* 已经被注册 */
+				$("#check_name").toggleClass('check-error');
+				$("#loginname_sign").html('<tpl>$exist_username</tpl>');
+			}else {						/* 条件不对 */
+				$("#loginname_sign").html(data);
+			}
+		});
+		$("#check_name").css('display',"");
+	}
+}
+
+<tpl>if $view_config.view_reg_validate=='1'</tpl>
+/* 验证COOKIE */
+function ajax_code(){
+	var  myForm=document.forms['reg_form'];
+	var  num = Math.round(Math.random()*10000);
+	$.get("user.php",{action:"check_code",checkcode:$('#reg_code').val(),randow_num:num},function(data){
+	if(data=='1'){
+		$("#code_sign").html('<tpl>$code_error</tpl>');
+		$("#read_service").attr('disabled','disabled')
+	}
+	else{
+		$("#check_code").css('display',"none");
+		$("#read_service").attr('disabled','')
+	}
+	});
+	$("#check_code").css('display',"");
+	return false;
+}
+<tpl>/if</tpl>
+//-->
+</script>
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="register_pic"></div>
+  <div class="top"></div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$happy_buy</tpl><!-- 准备好就来注册吧，祝您购物愉快！ --></h2>
+    </div>
+    <div class="register_box">
+      <form id="reg_form" name="reg_form" method="post" action="user.php?action=register_save" >
+	  <tpl>$seride_form</tpl>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <th width="146"><label for="txt_username"><span>*</span><tpl>$username</tpl><!-- 用户名 -->:</label></th>
+            <td colspan="2"><label for="reg_user">
+              <input id="reg_user" name="reg_user" type="text" class="textinput" onblur="sub_name();" onkeyup="$('#check_name').css('display','none');" style="width:290px;"/>
+              </label>
+              <p><tpl>$username_note</tpl><!-- 可以由英文、数字组成，长度为6-20位 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_user" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+              <div id="check_name" name="check_name" style="display:none">
+                <label id="loginname_sign" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+              <label id="loginname_sign" class="wrong" metaDone="true" generated="true"></label>            </td>
+          </tr>
+          <tr>
+            <th><label for="txt_pwd"><span>*</span><tpl>$pwd</tpl><!-- 密 码 -->:</label></th>
+            <td colspan="2"><label for="reg_pass">
+              <input id="reg_pass" name="reg_pass" type="password" class="textinput" style="width:290px;" />
+              </label>
+              <p><tpl>$pwd_note</tpl><!-- 可以由英文、数字组成，长度为6-20位字符，区分大小写 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_pass" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+          <tr>
+            <th><label for="reg_rpass"><span>*</span><tpl>$pwd_affirm</tpl><!-- 确认密码 -->:</label></th>
+            <td colspan="2"><label for="reg_rpass">
+              <input id="reg_rpass" name="reg_rpass" type="password" class="textinput" style="width:290px;"/>
+              </label>
+              <p><tpl>$pwd_affirm_note</tpl><!-- 请重新输入一遍密码确认 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_rpass" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+          <tr>
+            <th><label for="reg_mail"><span>*</span><tpl>$email</tpl><!-- 电子邮箱 -->:</label></th>
+            <td colspan="2"><label for="reg_mail">
+              <input id="reg_mail" name="reg_mail" type="text" class="textinput" style="width:290px;"/>
+              </label>
+              <p><tpl>$email_info</tpl></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_mail" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+<tpl>if $view_config.view_reg_validate=='1'</tpl> <!-- 验证码注册是否开启 -->
+          <tr>
+            <th><label for="reg_code"><span>*</span><tpl>$identifying_code</tpl><!-- 验证码 -->:</label></th>
+            <td colspan="2"><label for="reg_code">
+              <input id="reg_code" name="reg_code" type="text" size="8" style="text-transform:uppercase" class="textinput" onblur="ajax_code();" style="width:80px;"/>
+              </label>
+              <p><img src="../classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='../classes/libraries/code.php?' + Math.random()" style="cursor: pointer" /></p>
+              <div class="check-error" id="check-code">
+                <label style="display:none;" for="reg_code" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+              <div id="check_code" style="display:none" class="check-error">
+                <label id="code_sign" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+<tpl>/if</tpl>
+          <tr>
+            <th colspan="3"><br /><div class="line"></div></th>
+          </tr>
+          <tr>
+            <th>&nbsp;</th>
+            <td width="148"><label>
+              <input type="submit" name="Submit" id="Submit" class="btn_register" value="<tpl>$cilck_register</tpl>" /><!-- 点我注册 -->
+              </label></td>
+            <td width="326">&nbsp;</td>
+          </tr>
+          <tr>
+            <th colspan="3">&nbsp;</th>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

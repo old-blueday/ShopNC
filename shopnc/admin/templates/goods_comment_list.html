@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_goods_comment_list</tpl></title><!-- 商品评论列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#pListTab td").css("border-bottom", "1px solid #e1e5f1");
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<div id="content">
+    <h4 id="rightcon_h"><b><tpl>$admin_header_goods_manage</tpl><!-- 商品管理 --> >> <tpl>$admin_goods_comment_list</tpl><!-- 商品评论列表 --></h2>
+	</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><div class="pagebar"><tpl>$show_page</tpl></div><input type="submit" value="<tpl> $admin_goods_comment_del </tpl>" class="delBtnInput" /><!-- 删除 --></h5>
+  <div class="entry-body" id="p-list-div">
+    <form id="form" name="form" action="admin_goods_comment.php?action=del" method="post">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th class="textLeft"><tpl>$admin_goods_comment_title</tpl><!-- 评论 --></th>
+            <th><tpl>$admin_goods_comment_time</tpl><!-- 发表时间 --></th>
+            <th><tpl>$admin_goods_comment_ifreply</tpl><!-- 是否回复 --></th>
+            <th><tpl>$admin_goods_comment_ifview</tpl><!-- 是否查看 --></th>
+            <th><tpl> $admin_goods_comment_oper </tpl><!-- 操作 --></th>
+          </tr>
+          <tpl>section name=list loop=$comment_array</tpl>
+          <tr>
+            <td><label>
+            <input type="checkbox" class="cb" name="cid[]" value="<tpl>$comment_array[list].comment_id</tpl>" />
+            </label></td>
+            <td class="textLeft">
+				<div class="comment-who"><strong><tpl>$comment_array[list].user_name</tpl></strong> <tpl>$admin_goods_comment_said</tpl><!-- 说 -->:</div>
+				<div class="comment-con">
+					<tpl>$comment_array[list].comment_body</tpl>
+				</div>
+				<div class="comment-at">
+					<tpl>$admin_goods_comment_at</tpl><!-- 发表于 -->: <a href="<tpl> $Site_Url </tpl>/product.php?id=<tpl>$comment_array[list].goods_id</tpl>" target="_blank"><tpl>$comment_array[list].goods_name</tpl></a>
+				</div>
+			</td>
+            <td><tpl>$comment_array[list].comment_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+            <td><tpl>if $comment_array[list].comment_repost_state == 0</tpl><tpl>$admin_goods_comment_no</tpl><!-- 否 --><tpl>else</tpl><tpl>$admin_goods_comment_yes</tpl><!-- 是 --><tpl>/if</tpl></td>
+			<td><tpl>if $comment_array[list].comment_view_state == 0</tpl><tpl>$admin_goods_comment_no</tpl><!-- 否 --><tpl>else</tpl><tpl>$admin_goods_comment_yes</tpl><!-- 是 --><tpl>/if</tpl></td>
+            <td><a href="<tpl> $Site_Url </tpl>/product.php?id=<tpl>$comment_array[list].goods_id</tpl>" target="_blank"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" alt="<tpl>$admin_goods_comment_view</tpl>" title="<tpl>$admin_goods_comment_view</tpl>" /></a><!-- 查看 -->
+            	<a href="<tpl> $Site_Url </tpl>/admin/admin_goods_comment.php?action=reply&cid=<tpl>$comment_array[list].comment_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_revert.gif" alt="<tpl>$admin_goods_comment_reply</tpl>" title="<tpl>$admin_goods_comment_reply</tpl>" /></a><!-- 回复 -->
+            	<a href="<tpl> $Site_Url </tpl>/admin/admin_goods_comment.php?action=del&cid=<tpl>$comment_array[list].comment_id</tpl>" onclick="return confirm('<tpl>$admin_goods_comment_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl> $admin_goods_comment_del </tpl>" title="<tpl> $admin_goods_comment_del </tpl>" /></a><!-- 删除 --></td>
+          </tr>
+          <tpl>/section</tpl>
+        </table>
+		<h5 class="h5_down"><div class="pagebar"><tpl>$show_page</tpl></div><input type="submit" value="<tpl> $admin_goods_comment_del </tpl>" class="delBtnInput" /><!-- 删除 --></h5>
+    </form>
+    	<div class="clear"></div>
+		</div>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

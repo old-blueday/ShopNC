@@ -1,0 +1,106 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMenuShopPay </tpl> &gt;&gt; <tpl> $langSysShopPayShopList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-450">
+						<form action="shop_pay.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="shop_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayShopAvailabilityTime </tpl>:</th>
+								<td class="it-1">
+									<input type="text" name="expire_date" id="expire_date" style="border:solid 1px #B0DF82;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly"  value="<tpl> $condition.expire_date </tpl>"/>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayProductLastNumber </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<input type="text" name="last_p_num" class="fct-input" id="last_p_num" size="20" value="<tpl> $condition.last_p_num </tpl>"/>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayShopName </tpl>:</th>
+								<td class="it-2"> 
+									<input type="text" name="shop_name" class="fct-input" id="shop_name" size="20" value="<tpl> $condition.shop_name </tpl>"/>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayShopMember </tpl>:</th>
+								<td class="it-2"> 
+									<input type="text" name="shop_member_name" class="fct-input" id="shop_member_name" size="20" value="<tpl> $condition.shop_member_name </tpl>"/>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"></th>
+								<td class="it-2">
+									<tpl> $langSysShopPayTimeIsNotExpire </tpl><input type="checkbox" class="input_radio" <tpl> if $condition.if_expire eq '1' </tpl> checked="checked" <tpl> /if </tpl> name="if_expire" id="if_expire" value="1" />
+									<tpl> $langSysShopPayProductNumberNotZero </tpl><input type="checkbox" class="input_radio" <tpl> if $condition.if_p_num_zero eq '1' </tpl> checked="checked" <tpl> /if </tpl> name="if_p_num_zero" id="if_p_num_zero" value="1" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"></th>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="predeposit.manage.php" id="form1" name="form1" method="get">
+			<input type="hidden" name="action" id="action" value="shop_list" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-3"><tpl> $langSysShopPayShopName </tpl></td>
+						<td class="es-3"><tpl> $langSysShopPayShopMember </tpl></td>
+						<td class="es-5"><tpl> $langSysShopPayShopAvailabilityTime </tpl></td>
+						<td class="es-8"><tpl> $langSysShopPayProductLastNumber </tpl></td>
+					</tr>
+					<tpl> if $shop_array[0].shop_id neq '' </tpl>
+						<tpl> section name=loop loop=$shop_array </tpl>
+					<tr class="es-td">
+						<td><tpl> $shop_array[loop].shop_name </tpl></td>
+						<td><tpl> $shop_array[loop].login_name </tpl></td>
+						<td><tpl> $shop_array[loop].shop_availability_time </tpl></td>
+						<td><tpl> $shop_array[loop].last_p_num </tpl></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $shop_array[0].shop_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $shop_array[0].shop_id  neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<link id="calCss" type="text/css" href="../js/calendar/blue/blue.css" rel="Stylesheet" />
+<script language="JavaScript" type="text/javascript" src="../js/calendar/Calendar.js"></script>
+<script>
+$(document).ready(function(){
+	$(function(){
+	   $("#expire_date").datepicker();
+	})
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSystemPAdminManage </tpl> &gt;&gt; <tpl> $langSystemPAddAdmin </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form1" action="system_power.manage.php" method="post">
+						<input type="hidden" name="action" value="update_member" />
+						<input type="hidden" name="sys_member_id" value="<tpl> $member_array.sys_member_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSystemPAdminUserName </tpl>:</th>
+									<td>
+									<tpl> $member_array.sys_login_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSystemPPassword </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $langSystemPPass5To16 </tpl><tpl> $langSystemPPassOneTimeNull </tpl></span>
+									<input class="fct-input" name="sys_password" id="sys_password" type="text" maxlength="16" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSystemPAgainInputPass </tpl>:</th>
+									<td>
+										<input class="fct-input" name="sys_password_two" id="sys_password_two" type="text" maxlength="16" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSystemPEmail </tpl>:</th>
+									<td>
+									<input class="fct-input" name="sys_email" id="sys_email" type="text" maxlength="100" value="<tpl> $member_array.sys_email </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSystemPowerGroup </tpl>:</th>
+									<td>
+										<select name="sys_group_id">
+										<tpl> section name=loop loop=$sys_group_list </tpl>
+											<option 
+											<tpl> if $sys_group_list[loop].sys_group_id eq $member_array.sys_group_id </tpl>
+											 selected="selected"
+											<tpl> /if </tpl>
+											value="<tpl> $sys_group_list[loop].sys_group_id </tpl>"><tpl> $sys_group_list[loop].sys_group_name </tpl></option>
+										<tpl> /section </tpl>
+										</select>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSystemPSave </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSystemPReturnList </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$("#form_add").validate({
+	errorClass: "wrong",
+	rules: {
+		sys_login_name: {required:true,minlength:5},
+		sys_password: {required:true,minlength:5,maxlength:16},
+		sys_password_two: {required:true,minlength:5,maxlength:16,equalTo:'#sys_password'},
+		sys_email: {required:true,email:true}
+	},
+	messages: {
+		sys_login_name: {required: "<tpl> $langSystemPFillInAdmin </tpl>",minlength:"<tpl> $langSystemPAdminLengthNo5 </tpl>"},
+		sys_password: {required: "<tpl> $langSystemPFillInPass </tpl>",minlength:"<tpl> $langSystemPPassLengthNo5 </tpl>",maxlength:"<tpl> $langSystemPPassLengthNo16 </tpl>"},
+		sys_password_two: {required: "<tpl> $langSystemPFillInAffirmPass </tpl>",minlength:"<tpl> $langSystemPPassLengthNo5 </tpl>",maxlength:"<tpl> $langSystemPPassLengthNo16 </tpl>",equalTo:"<tpl> $langSystemPTwicePassNoAccord </tpl>"},
+		sys_email: {required:"<tpl> $langSystemPEmailNotNull </tpl>",email:"<tpl> $langSystemPEmailFormatErr </tpl>"}
+	}
+});
+</script>
+</body>
+</html>

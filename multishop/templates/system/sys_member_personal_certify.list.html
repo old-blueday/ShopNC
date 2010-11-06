@@ -1,0 +1,113 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPersonalCertifyManage </tpl> &gt;&gt; <tpl> $langSysPersonalCertifyList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form id="form_search" name="form_search" action="member_personal_certify.manage.php" method="get">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysPersonalCertifyMemberName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.shop_name </tpl>" name="member_name" id="member_name" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysPersonalCertifyState </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="certify_state" id="certify_state">
+										<option value="1" <tpl> if $condition.certify_state eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysPersonalCertifyStateOne </tpl></option>
+										<option value="2" <tpl> if $condition.certify_state eq '2' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysPersonalCertifyStateTwo </tpl></option>
+										<option value="3" <tpl> if $condition.certify_state eq '3' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysPersonalCertifyStateThree </tpl></option>
+									</select>
+								</td>
+								<td class="mk-2">&nbsp;&nbsp;<input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="member_personal_certify.manage.php" id="form1" name="form1" method="post">
+			<input type="hidden" name="action" id="action" value="batch_update" />
+			<input type="hidden" name="state" id="state" value="2" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-4"><tpl> $langSysPersonalCertifyMemberName </tpl></td>
+						<td class="es-2"><tpl> $langSysPersonalCertifyState </tpl></td>
+						<td class="es-2"><tpl> $langSysPersonalCertifyOperate </tpl></td>
+					</tr>
+					<tpl> if $member_array[0].member_id neq'' </tpl>
+						<tpl> section name=loop loop=$member_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="member_id[]" type="checkbox" value="<tpl> $member_array[loop].member_id </tpl>" /></td>
+						<td><tpl> $member_array[loop].login_name </tpl></td>
+						<td>
+							<tpl> if $member_array[loop].personal_certify eq '0' </tpl>
+								<tpl> $langSysPersonalCertifyStateZero </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $member_array[loop].personal_certify eq '1' </tpl>
+								<tpl> $langSysPersonalCertifyStateOne </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $member_array[loop].personal_certify eq '2' </tpl>
+								<tpl> $langSysPersonalCertifyStateTwo </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $member_array[loop].personal_certify eq '3' </tpl>
+								<tpl> $langSysPersonalCertifyStateThree </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="member_personal_certify.manage.php?action=modi&id=<tpl> $member_array[loop].member_id </tpl>"><tpl> $langSysCEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $member_array[0].member_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $member_array[0].member_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" id="passed" value="<tpl> $langSysPersonalCertifyPassed </tpl>" type="button" />
+				<input class="bthl" name="" id="deny" value="<tpl> $langSysPersonalCertifyDeny </tpl>" type="button" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#passed').click(function(){
+		$('#state').val('2');
+		document.getElementById('form1').submit();
+	});
+	$('#deny').click(function(){
+		$('#state').val('3');
+		document.getElementById('form1').submit();
+	});
+});
+</script>
+</body>
+</html>

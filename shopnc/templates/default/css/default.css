@@ -1,0 +1,104 @@
+a:link, a:visited { blr:expression(this.onFocus=this.blur()); text-decoration: none; color: #3E3E28; outline:none;}
+
+a.blue:link, a.blue:visited { color: #014cc9; text-decoration: none; }
+
+a.blue:hover, a.blue:active { color: #014cc9; text-decoration: underline; }
+
+a.org:link, a.org:visited { color: #ff4e00; text-decoration: none; }
+
+a:hover, a:active, a.org:hover, a.org:active {
+	color: #ff4e00;
+	text-decoration: none;
+}
+
+address, caption, th, em { font-weight: 400; }
+
+body {
+	background-color: #EEEADB;
+	text-align: center;
+	font-family: tahoma, verdana, arial;
+	font-size: 12px;
+	line-height: 1.5em;
+	color: 555;
+}
+
+button { cursor: pointer; font-size: 12px; margin: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; }
+
+caption, tbody, tfoot, thead, tr, th, td, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table {
+	margin: 0px;
+	padding: 0px;
+}
+var {
+	font-style: normal;
+}
+
+
+em, cite { font-style: normal; }
+
+fieldset, img { border:none; }
+
+h3, h4, h5, h1, h2 { font-size: 1em; }
+
+select { font-size: 12px; }
+
+ul, ol, li {
+	list-style-type: none;
+}
+
+.barbtm { clear: both; float: left; font-size: 1px; height: 8px; width: 100%; }
+
+.center { text-align: center; }
+
+.clear { clear: both; display: block; font: 0px/0 sans-serif; height: 0px; overflow: hidden; }
+
+.display { display: block; }
+
+.h, .none { display: none; }
+
+.left { float: left; }
+
+.m { margin: auto; width: 950px; }
+
+.right { float: right; }
+
+#wrapper { text-align: left; }
+.sidebar_all { width: 100%; clear: both; float: left; margin-top: 6px; }
+
+/* 所在位置导航 */
+#sitenav { float: left; font-size: 12px; line-height: 24px; width: 950px; height: 24px; padding-bottom: 4px; background: url(../images/itemtitlesbg.jpg) repeat-x left top;}
+	#sitenav a{}
+	#sitenav span { background: url(../images/title_sign.gif) no-repeat left center; float: left; padding-left: 16px; margin-left: 8px; display: inline;}.width-all {
+	width: 880px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	text-align: left;
+}
+
+* html { height: 100% }
+#infoclue {
+	background-image: url(../images/clue_bg.jpg);
+	height: 206px;
+	width: 320px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 36px;
+	padding-right: 166px;
+}
+#infoclue h2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: 600;
+	margin-top: 32px;
+}
+#infoclue  h3 {
+	margin-top: 32px;
+	font-size: 14px;
+	color: #FF9900;
+	line-height: 22px;
+}
+#infoclue h4 {
+	font-size: 12px;
+	margin-top: 12px;
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_title</tpl></title><!--  后台管理  -->
+<link href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".open_all").click(function(){
+		$(".menu_head").removeClass("active");
+		//$(this).css({'font-weight':'normal','color':'#5F7A77'});
+		//$(this).removeAttr('style');
+		$(".menu_con").hide(500);
+		return false;
+	});
+});
+/* 顶部导航切换方法 */
+function change_menu(num) {
+	var nav = document.getElementById("list_menu");
+	var links = nav.getElementsByTagName("li");
+	var other_menu_id = num-1;
+	for (var id = 1; id <= links.length; id++)
+	{
+		var menu="menu"+id;
+		if(id == num){
+			document.getElementById(menu).className="tm"+id+" active";
+			if(other_menu_id != 0) {
+				document.getElementById("menu"+other_menu_id).className="tm"+id+" menu_actleft";
+			}
+		}
+		else{
+			if(id == 10) {
+				document.getElementById(menu).className="menu_last";
+			} else {
+				document.getElementById(menu).className="tm"+id;
+			}
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="header">
+<div id="header_fuctions" class="header_top">
+<div class="top_menu">
+				<ul>
+		<li id="view_site"><a href="index.php?action=main" target="main-frame"><tpl>$admin_index_main_index</tpl><!--  后台首页  --></a></li>
+		<li id="view_shopnc"><a href="<tpl>$Site_Url</tpl>" target="_blank"><tpl>$admin_header_view_shop</tpl><!--  查看网店  --></a></li>
+		<li id="clear_cache"><a href="index.php?action=clear_cache" target="_parent"><tpl>$admin_index_clear_cache</tpl><!-- 更新缓存 --></a></li>
+		<li id="line_help"><a href="http://www.shopnc.net/document/shopnc6_help/" target="_blank"><tpl>$admin_nc_line_help</tpl><!--  在线帮助  --></a></li>
+		<li id="logout"><a href="login.php?action=login_out" target="_parent"><tpl>$admin_header_exit</tpl><!--  退出  --></a></li>
+		</ul>
+		</div>
+		<div class="tmenu_left" id="changes_lang">
+<span ><tpl>$admin_header_helo</tpl><tpl>$smarty.session.admin_name</tpl>&nbsp;&nbsp;&nbsp;<tpl>$admin_header_select_language</tpl><!--  语言选择  -->:</span>
+            <span id="lang_select">
+				  <select name="select_language" id="select_language">
+				  <tpl>section name=list loop=$language_array</tpl>
+                <option value="<tpl>$language_array[list].language_directory</tpl>" <tpl>if $language_array[list].language_directory ==$language_ver</tpl> selected="selected"<tpl>/if</tpl> ><tpl>$language_array[list].language_name</tpl></option>
+				<tpl>/section</tpl>
+			      </select>
+            </span>
+			</div>
+	<div id="banner"  class="logo">
+        <img src="<tpl>$Site_Url</tpl>/admin/templates/images/logo.gif" width="152" height="30"/>       
+    </div><!--   end of banner   -->
+	</div>
+	<div class="menu" id="list_menu">
+    <ul>
+        <li id="menu1" class="tm1"><a onclick="javascript:change_menu(1)" href="?action=left&left_show=system" target="menu-frame" id="clickurl1"><span><tpl>$admin_header_shop_manage</tpl><!--  网店管理  --></span></a></li>
+        <li id="menu2" class="tm2"><a onclick="javascript:change_menu(2)" href="?action=left&left_show=product" target="menu-frame" id="clickurl2"><span><tpl>$admin_header_goods_manage</tpl><!--  商品管理  --></span></a></li>
+        <li id="menu3" class="tm3"><a onclick="javascript:change_menu(3)" href="?action=left&left_show=order" target="menu-frame" id="clickurl3"><span><tpl>$admin_header_order_manage</tpl><!--  订单管理  --></span></a></li>
+        <li id="menu4" class="tm4"><a onclick="javascript:change_menu(4)" href="?action=left&left_show=member" target="menu-frame" id="clickurl4"><span><tpl>$admin_header_user_manage</tpl><!--  会员管理  --></span></a></li>
+        <li id="menu5" class="tm5"><a onclick="javascript:change_menu(5)" href="?action=left&left_show=provider" target="menu-frame" id="clickurl5"><span><tpl>$admin_header_provider_manage</tpl><!--  供应商管理  --></span></a></li>
+        <li id="menu6" class="tm6"><a onclick="javascript:change_menu(6)" href="?action=left&left_show=article" target="menu-frame" id="clickurl6"><span><tpl>$admin_header_article_manage</tpl><!--  文章管理  --></span></a></li>
+        <li id="menu7" class="tm7"><a onclick="javascript:change_menu(7)" href="?action=left&left_show=tools" target="menu-frame" id="clickurl7"><span><tpl>$admin_header_tools_manage</tpl><!--  工具管理  --></span></a></li>
+        <li id="menu8" class="tm8"><a onclick="javascript:change_menu(8)" href="?action=left&left_show=module" target="menu-frame" id="clickurl8"><span><tpl>$admin_header_module_manage</tpl><!--  模块管理  --></span></a></li>
+        <li id="menu9" class="tm9"><a onclick="javascript:change_menu(9)" href="?action=left&left_show=analysis" target="menu-frame" id="clickurl9"><span><tpl>$admin_header_system_manage</tpl><!--  系统分析  --></span></a></li>
+		<li id="menu10"  class="tm10"><a onclick="javascript:change_menu(10)" href="?action=left" target="menu-frame" id="clickurl10"><span><tpl>$admin_header_all</tpl><!--  {全部}  --></span></a></li>
+		<div class="clear"></div>
+    </ul>
+	</div>
+    <div class="clear"></div>
+</div><!--   end of header   -->
+<form action="index.php" method="post" name="langauge_post" target="_parent" id="language_post" >
+<input type="hidden" name="language_select" id="langauge_select" value="" />
+</form>
+</body>
+</html>

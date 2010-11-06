@@ -1,0 +1,24 @@
+<tpl> if $have_attribute == 1 </tpl>
+	<th width="20%" height="30" align="right" bgcolor="#FCFCFC"><strong>
+          <tpl> $langProductAttribute </tpl>
+        :</strong></th>
+	<td width="80%" height="30" align="left" bgcolor="#F3F3F3">
+		<tpl> foreach from=$product_attribute item=one </tpl>
+			<tpl> $one.a_name </tpl>: 
+			<tpl> if $one.a_type == 0 </tpl>
+				<select name="attribute_content[]">
+					<option value=""></option>
+					<tpl> foreach from=$one.content item=two </tpl>
+					<option value="<tpl> $two.ac_id </tpl>|<tpl> $two.a_id </tpl>"><tpl> $two.ac_content </tpl></option>
+					<tpl> /foreach </tpl>
+				</select>
+			<tpl> /if </tpl>
+			<tpl> if $product_attribute[j].a_type == 1 </tpl>
+				<tpl> foreach from=$one.content item=two </tpl>
+				<input name="attribute_content[]" type="checkbox" value="<tpl> $two.ac_id </tpl>|<tpl> $two.a_id </tpl>" ><tpl> $two.ac_content </tpl> 
+				<tpl> /foreach </tpl>
+			<tpl> /if </tpl>
+			<br />
+		<tpl> /foreach </tpl>
+	</td>
+<tpl> /if </tpl>

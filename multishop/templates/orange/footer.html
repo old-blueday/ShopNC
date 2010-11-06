@@ -1,0 +1,23 @@
+<div id="layout_foot"  style="clear:both;"><div id="footerlist">
+	<ul class="footlink">
+		<tpl> section name=loop loop=$footer_array </tpl>
+		<li>
+			<a href="<tpl> if $footer_array[loop].section_url neq '' </tpl><tpl> $footer_array[loop].section_url </tpl><tpl> else </tpl><tpl>$url</tpl>/html/section/<tpl> $footer_array[loop].section_id </tpl>.html<tpl> /if </tpl>" target="_blank"> <tpl> $footer_array[loop].section_name </tpl></a> 
+		</li>
+	<tpl> /section </tpl>
+	</ul>
+	</div>
+	<div class="copyright">
+	<!-- 以下版权信息不能去除，否则程序无法运行 -->
+	Powered by <a href="http://www.shopnc.net" target="_blank" style="color:#FF6600">ShopNC</a>  &copy; <tpl> $SystemVersion </tpl> 2007-2010 <a href="http://www.shopnc.net" target="_blank" style="color:#0033CC"><tpl> $langSysSecWebShopCreateWant </tpl></a> Inc.<br />
+	<!-- 以上版权信息不能去除，否则程序无法运行 -->
+	  
+	   <tpl> $config_poweredby </tpl>
+	  <a href="http://www.miibeian.gov.cn/" target="_blank"><tpl> $config_icprecord </tpl></a>
+	  <br />
+	  <tpl> $langSysSecWebShopCopyrightNo </tpl>: 2008SR07843
+    </div>
+<div id="hack"></div>
+</div>
+<!-- 插件内容 -->
+<tpl> $app_output </tpl>

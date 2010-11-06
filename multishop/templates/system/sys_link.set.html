@@ -1,0 +1,57 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langLinkFirendManage </tpl> &gt;&gt; <tpl> $langLinkParameterSet </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="link.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="set_save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langLinkImageWidth </tpl>:</th>
+									<td>
+									<input class="fct-input" name="pic_width" id="pic_width" type="text" maxlength="9" value="<tpl> $link_array.pic_width </tpl>" />px</td>
+								</tr>
+								<tr>
+									<th><tpl> $langLinkImageHigh </tpl>:</th>
+									<td>
+									<input class="fct-input" name="pic_height" id="pic_height" type="text" maxlength="9" value="<tpl> $link_array.pic_height </tpl>" />px</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			pic_width: {required:true,number:true},
+			pic_height: {required:true,number:true}
+		},
+		messages: {
+			pic_width: {required:"<tpl> $langLinkImageWidthIsNumber </tpl>",number:"<tpl> $langLinkImageWidthIsNumber </tpl>"},
+			pic_height: {required:"<tpl> $langLinkImageHighIsNumber </tpl>",number:"<tpl> $langLinkImageHighIsNumber </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

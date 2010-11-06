@@ -1,0 +1,64 @@
+div.sdmenu {
+	width: 167px;
+	font-family: Arial, sans-serif;
+	color: #0E67A9;
+	font-size: 12px;
+	text-align: left;
+	float:left;
+	border-bottom:#CEE1F9 1px solid;
+	border-left:#CEE1F9 1px solid;
+	border-right:#CEE1F9 1px solid;
+}
+div.sdmenu ul {
+	width: 100%;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	clear:both;
+}
+div.sdmenu ul li{
+	clear:both;
+	}
+div.sdmenu ul.collapsed {
+	height: 34px;
+}
+div.sdmenu ul span {
+	display: block;
+	color: #404040;
+	font-weight:600;
+	background:url(../images/menu-s-bg.gif) repeat-x;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 31px; 
+	cursor: pointer;
+	height:31px;
+}
+div.sdmenu ul a {
+	color: #414141;
+	display: block;
+	font-size: 12px;
+	line-height: 26px;
+	padding-left: 32px;
+	height:26px;
+}
+
+div.sdmenu ul a:hover {
+	color: #103F86;
+	text-decoration:none;
+	font-weight:bold;
+	background:url(../images/book-t.gif) no-repeat 22px -1403px;
+}
+div.sdmenu ul a.current {
+	color: #103F86;
+	text-decoration:none;
+	font-weight:bold;
+	background:url(../images/book-t.gif) no-repeat 22px -1442px;
+	*background:url(../images/book-t.gif) no-repeat 22px -1444px;
+}
+
+div.sdmenu ul a.current:hover {
+	color: #103F86;
+	text-decoration:none;
+	font-weight:bold;
+	background:url(../images/book-t.gif) no-repeat 22px -1442px;
+	*background:url(../images/book-t.gif) no-repeat 22px -1444px;
+}

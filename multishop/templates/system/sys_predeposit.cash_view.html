@@ -1,0 +1,158 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langPreManage </tpl> &gt;&gt; <tpl> $langPreCashInfo </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="predeposit.manage.php" method="post" id="form1" name="form1">
+						<input type="hidden" name="action" id="action" />
+						<input type="hidden" name="predeposit_c_id" value="<tpl> $cash_array.predeposit_c_id </tpl>" />
+						<input type="hidden" name="member_id" id="member_id" value="<tpl> $member_array.member_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langPreSearchMemberName </tpl>:</th>
+									<td colspan="3"><tpl> $member_array.login_name </tpl></td>
+								</tr>
+								<tr>
+									<th colspan="4"><tpl> $langPreCashInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langPrePayment </tpl>:</th>
+									<td>
+										<tpl> if $cash_array.payment eq 'offline' </tpl>
+											<tpl> $langPreCashTypeOffline </tpl>
+										<tpl> else </tpl>
+											<tpl> if $cash_array.payment eq '99bill' </tpl>
+												<tpl> $langPreCashTypeKqpay </tpl>
+											<tpl> else </tpl>
+												<tpl> $cash_array.payment </tpl>
+											<tpl> /if </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langPreCashCreateTime </tpl>:</th>
+									<td><tpl> $cash_array.create_time </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreState </tpl>:</th>
+									<td>
+										<tpl> assign var=one value=$cash_array.record_state </tpl>
+										<tpl> $predeposit_record_state[$one] </tpl>
+									</td>
+									<th><tpl> $langPreCashPaymentTrade </tpl>:</th>
+									<td><tpl> $cash_array.payment_trade|default:$langPreNothing </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreCashAmount </tpl>:</th>
+									<td><tpl> $cash_array.amount </tpl></td>
+									<th><tpl> $langPreCashPayAccount </tpl>:</th>
+									<td><tpl> $cash_array.pay_account </tpl></td>
+								</tr>
+								<tpl> if $cash_array.payment_type eq '1' </tpl>
+								<tr>
+									<th><tpl> $langPreCashPayBank </tpl>:</th>
+									<td><tpl> $cash_array.pay_bank </tpl></td>
+									<th><tpl> $langPreCashPayConsignee </tpl>:</th>
+									<td><tpl> $cash_array.pay_consignee </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr>
+									<th><tpl> $langPreCashRemark </tpl>:</th>
+									<td colspan="3"><tpl> $cash_array.pay_remark|default:$langPreNothing </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreCashSystemRemark </tpl>:</th>
+									<td colspan="3"><tpl> $cash_array.system_remark|default:$langPreNothing </tpl></td>
+								</tr>
+							</table>
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0" id="table_set_member" style="display:none">
+								<tr>
+									<th><tpl> $langPreTrade </tpl>:</th>
+									<td colspan="3">
+										<input class="fct-input" name="txt_payment_trade" id="txt_payment_trade" type="text" maxlength="64" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreMemberChangeReason </tpl>:</th>
+									<td colspan="3">
+										<textarea name="txt_system_remark" id="txt_system_remark" cols="36" rows="6"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreMemberAvailable </tpl>:</th>
+									<td colspan="3">
+										<select name="available_type" id="available_type">
+											<!--<option value="0" selected="selected"><tpl> $langPreUp </tpl></option>-->
+											<option value="1" selected="selected"><tpl> $langPreDown </tpl></option>
+										</select>
+										<input class="fct-input" type="text" name="txt_available_amount" id="txt_available_amount" value="<tpl> $cash_array.amount </tpl>" /><tpl> $langPrePredepositNow </tpl><tpl> $member_array.available_predeposit </tpl>
+										<input type="hidden" name="available_amount" id="available_amount" value="<tpl> $member_array.available_predeposit </tpl>" />
+									</td>
+								</tr>
+							</table>
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0" id="table_close_record" style="display:none">
+								<tr>
+									<th><tpl> $langPreCloseReason </tpl>:</th>
+									<td colspan="3">
+										<textarea name="txt_close_remark" id="txt_close_remark" cols="36" rows="6"></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<tpl> if $cash_array.record_state eq '0' </tpl>
+								<input type="button" id="set_member" class="bthl" value="<tpl> $langPreOperateMember </tpl>" />
+								<input type="button" id="close_record" class="bthl" value="<tpl> $langPreCloseCash </tpl>" />
+							<tpl> /if </tpl>
+							<input type="submit" class="bthl" id="form_submit" style="display:none" value="<tpl> $langSysCSubmit </tpl>"/>
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_payment_trade: {required:function(){if($('#action').val()=='set_member_cash'){return true;}else{return false;}}},
+			txt_system_remark: {required:function(){if($('#action').val()=='set_member_cash'){return true;}else{return false;}}},
+			txt_available_amount: {required:function(){if($('#action').val()=='set_member_cash'){return true;}else{return false;}},number:true},
+			txt_freeze_amount: {required:function(){if($('#action').val()=='set_member_cash'){return true;}else{return false;}},number:true},
+			txt_close_remark: {required:function(){if($('#action').val()=='close_record'){return true;}else{return false;}}}
+		},
+		messages: {
+			txt_payment_trade: {required:"<tpl> $langPreTradeIsEmpty </tpl>"},
+			txt_system_remark: {required:"<tpl> $langPreMemberChangeReasonIsEmpty </tpl>"},
+			txt_available_amount: {required:"<tpl> $langPreAvailableIsNumber </tpl>",number:"<tpl> $langPreAvailableIsNumber </tpl>"},
+			txt_freeze_amount: {required:"<tpl> $langPreFreezeIsNumber </tpl>",number:"<tpl> $langPreFreezeIsNumber </tpl>"},
+			txt_close_remark: {required:"<tpl> $langPreCloseIsEmpty </tpl>"}
+		}
+	});
+						   
+	$('#set_member').click(function(){
+		$('#table_set_member').css('display','');
+		$('#table_close_record').css('display','none');
+		$('#action').val('set_member_cash');
+		$('#form_submit').css('display','');
+	});
+	$('#close_record').click(function(){
+		$('#table_set_member').css('display','none');
+		$('#table_close_record').css('display','');
+		$('#action').val('close_cash');
+		$('#form_submit').css('display','');
+	});
+});
+</script>
+</body>
+</html>

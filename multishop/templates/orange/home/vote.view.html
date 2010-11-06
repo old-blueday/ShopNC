@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body><!-- 投票显示页面 -->
+<tpl>include file ='../header.html'</tpl>
+ 
+<div id="container_login"> 
+<b></b>
+<div class="biaoti"><img src="<tpl> $template_dir </tpl>/home/images/images_new/ico2.gif" /> <tpl>$langVoteIndex</tpl> ><tpl>$langUserFeedback</tpl></div>
+  <div id="forgetForm">
+   <span id="png_zi"><img src="<tpl> $template_dir </tpl>/home/images/images_new/zi5.jpg" /></span>
+   <div id="forgetForm1">
+   <b></b>
+<table bordercolor="#FFFFFF" id="table_vote">
+	<tr>
+		<td height="40" colspan="2" align="left" style="font-weight:700">
+		  <tpl> $vote_array.vote_title </tpl></td>
+	</tr>
+	<tpl> foreach from=$vote_array.content key=key item=two </tpl>
+	<tr>
+		<td width="40%" height="20" align="left">　
+		  <tpl> $two.option </tpl>
+		  <tpl> $two.num </tpl>
+		  (
+		  <tpl> $two.num/$num*100|string_format:'%.0f' </tpl>
+		  %)</td>
+		<td height="20" align="left"><img src="<tpl> $template_dir </tpl>/home/images/images_new/tiao.gif" height="15" width="<tpl> $two.num/$num*100 </tpl>" /></td>
+	</tr>
+	<tpl> /foreach </tpl>
+	<tr>
+		<td height="30" colspan="2" align="center" valign="middle">		  <input type="button" class="bg_input" value="<tpl>$langCClose</tpl>" onclick="window.close();" /></td>
+	  </tr>
+</table>
+</div>
+</div>
+
+<i></i>
+  <div id="dun" style="top:220px">
+	<img src="<tpl> $template_dir </tpl>/home/images/images_new/duihua.jpg" />
+		</div>
+		  <div id="line2">
+	<img src="<tpl> $template_dir </tpl>/home/images/images_new/line.jpg" />
+		</div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl> 
+</body>
+</html>

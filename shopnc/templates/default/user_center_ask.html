@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$ask_top_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+	/* 对输入内容进行校验 */
+	$("#ask_form").validate({
+		errorClass: "wrong",
+		rules: {
+			ask_cate	: {required:true},
+			ask_subject	: {required:true,minLength:2,maxLength:30},
+			ask_body	: {required:true,minLength:6,maxLength:500}
+		},
+		messages: {
+			ask_cate	: {required: "<tpl>$ask_class_null</tpl>"},
+			ask_subject	: {required: "<tpl>$ask_title_null</tpl>",minLength:"<tpl>$ask_title_string_min</tpl>",maxLength:"<tpl>$ask_title_string_max</tpl>"},
+			ask_body	: {required: "<tpl>$ask_body_null</tpl>",minLength:"<tpl>$ask_content_string_min</tpl>",maxLength:"<tpl>$ask_content_string_max</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content">
+      <div class="title">
+        <h3 id="online"><tpl>$ask_title</tpl><!-- 在线客服 --></h3>
+      </div>
+      <div class="inside">
+        <div class="inside-tit"><tpl>$ask_me</tpl><!-- 我提出的问题 --></div>
+		<tpl>section name=list loop=$ask_array</tpl>
+        <div class="online_ask">
+          <dl class="ask">
+            <dt><span class="control_btn" style="float:right;">
+              <a href="user_center.php?action=del_ask&ask_id=<tpl>$ask_array[list].ask_id</tpl>" onclick="return confirm('<tpl>$ask_del_conf</tpl>');"><h5 id="del"><tpl>$ask_del</tpl><!-- 删除 --></h5></a>
+              </span><tpl>$ask_array[list].cate_name</tpl>:<tpl>$ask_array[list].ask_subject</tpl></dt>
+            <dd><tpl>$ask_array[list].ask_body</tpl></dd>
+          </dl>
+		  <tpl>if $ask_array[list].if_reply == 1 </tpl>
+          <dl class="reply">
+            <dt><tpl>$ask_reply</tpl><!-- 店主回复 -->:</dt>
+            <dd><tpl>$ask_array[list].ask_reply </tpl></dd>
+          </dl>
+		  <tpl>/if</tpl>
+        </div>
+		<tpl>/section</tpl>
+      </div>
+      <div class="pages"><tpl>$show_page</tpl></div>
+				<form enctype="multipart/form-data" action="user_center.php?action=add_ask" method="POST" name="ask_form" id="ask_form">
+      <div class="inside">
+        <div class="inside-tit"><tpl>$ask_user_ask</tpl><!-- 我有问题要问 --></div>
+        <div class="inside-content">
+          <dl id="userinfo_form">
+            <dt><tpl>$ask_type</tpl><!-- 留言类型 -->:</dt>
+            <dd><label><tpl>$ask_cate_array</tpl>&nbsp;<span style="color:red">*</span></label>
+			<div class="check-error">
+                <label style="display:none" for="ask_cate" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+            </dd>
+            <dt><tpl>$ask_subject</tpl><!-- 留言主题 -->:</dt>
+            <dd>
+              <input type="text" name="ask_subject" id="ask_subject" class="textinput" style="width:300px;"/>&nbsp;<span style="color:red">*</span>
+              <div class="check-error">
+                <label style="display:none" for="ask_subject" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+			</dd>
+            <dt><tpl>$ask_content</tpl><!-- 留言内容 -->:</dt>
+            <dd>
+              <textarea name="ask_body" id="ask_body" rows="4" wrap="physical" class="textinput" style="width:300px; height:90px;"></textarea>&nbsp;<span style="color:red">*</span>
+              <div class="check-error">
+                <label style="display:none" for="ask_body" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+            </dd>
+          </dl>
+          <div class="formbtns" >
+            <input name="submit_button" type="submit" class="inputbutton"value="<tpl>$ask_submit</tpl>" />
+          </div>
+        </div>
+		<div class="clear"></div>
+      </div>
+	  </form>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <!-- 用户中心内容:END -->
+  <!-- 用户中心菜单:START -->
+  	<tpl>include file ='user_center_menu.html'</tpl>
+  <!-- 用户中心菜单:END -->
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

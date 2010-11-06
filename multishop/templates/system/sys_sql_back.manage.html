@@ -1,0 +1,64 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysSQLManage </tpl> &gt;&gt; <tpl> $langSysSQLBackDatabase </tpl></div>
+				</div>
+			</div>
+			<form action="sqlback.manage.php" id="form_del" name="form_del" method="post">
+			<input type="hidden" name="action" value="backup" />
+			<div class="ibxbar">
+				<tpl> $langSysSQLBackSize </tpl>(KB)&nbsp;&nbsp;&nbsp;<input class="fct-input" value="2048" name="vol_size" id="vol_size" type="text" />&nbsp;&nbsp;&nbsp;
+				<input class="bthl" name="" value="<tpl> $langSysSQLBeginBack </tpl>" type="submit" />
+			</div>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-4"><tpl> $langSysSQLTableName </tpl></td>
+						<td class="es-4"><tpl> $langSysSQLTableType </tpl></td>
+						<td class="es-2"><tpl> $langSysSQLNoteNum </tpl></td>
+						<td class="es-2"></td>
+					</tr>
+					<tpl> if $sql_array[0].Name neq '' </tpl>
+						<tpl> section name=loop loop=$sql_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="sql_name[]" value="<tpl> $sql_array[loop].Name </tpl>" checked/></td>
+						<td><tpl> $sql_array[loop].Name </tpl></td>
+						<td><tpl> $sql_array[loop].Engine </tpl></td>
+						<td><tpl> $sql_array[loop].Rows </tpl></td>
+						<td><a href="sqlback.manage.php?action=info&name=<tpl> $sql_array[loop].Name </tpl>"><tpl> $langCview </tpl>SQL</a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $sql_array[0].Name eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysSQLBeginBack </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

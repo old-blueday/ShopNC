@@ -1,0 +1,42 @@
+<tpl> foreach item=one from=$shop_array </tpl>
+<dl>
+	<dt class="shoplogo">
+	<tpl> if $ifsubdomain eq '1' && $one.shop_domain neq '' </tpl><!-- 开启2级域名 -->
+		<a style="cursor: pointer;" target="_blank" href="http://<tpl> $config_domain_prefix </tpl><tpl> $one.shop_domain </tpl><tpl> $config_domain_name </tpl>">
+	<tpl> else </tpl>
+		<a style="cursor: pointer;" target="_blank" href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $one.member_id </tpl>" title="<tpl>$one.shop_name</tpl>">
+	<tpl> /if </tpl>
+	<img src="<tpl> $site_url </tpl>/<tpl> $one.shop_pic|default:'templates/orange/home/images/images_new/storepic_default.gif' </tpl>" width="60" height="60" /></a>
+	</dt>
+    <dd class="shopname">
+		<tpl> if $ifsubdomain eq '1' && $one.shop_domain neq '' </tpl><!-- 开启2级域名 -->
+			<a style="cursor: pointer;" target="_blank" href="http://<tpl> $config_domain_prefix </tpl><tpl> $one.shop_domain </tpl><tpl> $config_domain_name </tpl>">
+		<tpl> else </tpl>
+			<a style="cursor: pointer;" target="_blank" href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $one.member_id </tpl>" title="<tpl>$one.shop_name</tpl>">
+		<tpl> /if </tpl>
+	    <tpl> $one.shop_short_name </tpl>
+	    </a>
+	    </dd>
+	    <dd class="shopkeeper">
+		<tpl> $langChannelShopHost </tpl>：
+		<tpl> if $ifsubdomain eq '1' && $one.shop_domain neq '' </tpl><!-- 开启2级域名 -->
+			<a style="cursor: pointer;" target="_blank" href="http://<tpl> $config_domain_prefix </tpl><tpl> $one.shop_domain </tpl><tpl> $config_domain_name </tpl>">
+		<tpl> else </tpl>
+			<a style="cursor: pointer;" target="_blank" href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $one.member_id </tpl>" title="<tpl>$one.shop_name</tpl>">
+		<tpl> /if </tpl>
+	    <tpl> $one.login_name </tpl>
+	    </a>
+		</dd>
+	     <dd class="shopinfo"><tpl> $langChannelRange </tpl>：<tpl> $one.sale_range </tpl></dd>
+    <div class="clear">&nbsp;</div>
+ </dl>
+<tpl> /foreach </tpl>  
+
+
+
+
+
+
+
+
+

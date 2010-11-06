@@ -1,0 +1,86 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAppManage </tpl> &gt;&gt; <tpl> $langCACreditsAction </tpl> &gt;&gt; <tpl> $langSysAppManageSet </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="../<tpl> $app_module.app_module_sign </tpl>/system.php" method="post" id="form_add" name="form_add">
+						<input type="hidden" name="action" value="manage_update" />
+						<input type="hidden" name="app_module_id" id="app_module_id" value="<tpl> $app_array.app_module_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysAppManageName </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysAppManageNameRemark </tpl></span>
+										<input name="app_module_name" type="text" id="app_module_name" class="fct-input" value="<tpl> $app_array.app_module_name </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysAppManageState </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysAppManageStateRemark </tpl></span>
+										<input type="radio" class="input_radio" name="app_module_state" id="app_module_state_0" value="0" <tpl> if $app_array.app_module_state eq '0' </tpl> checked="checked" <tpl> /if </tpl> /><label for="app_module_state_0"><tpl> $langSysAppManageShow </tpl></label>
+										<input type="radio" class="input_radio" name="app_module_state" id="app_module_state_1" value="1" <tpl> if $app_array.app_module_state eq '1' </tpl> checked="checked" <tpl> /if </tpl> /><label for="app_module_state_1"><tpl> $langSysAppManageHide </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysAppManageSort </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysAppManageSortRemark </tpl></span>
+										<input name='app_module_sort' type='text' id="app_module_sort" class="fct-input" value="<tpl> $app_array.app_module_sort </tpl>" />
+									</td>
+								</tr>
+								<tr>
+								  <th><tpl> $langSysAppManagePath </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysAppManagePathRemark </tpl></span>
+										<input name='app_module_path' type='text' id="app_module_sort" class="fct-input" value="<tpl> $app_array.app_module_path </tpl>" />
+								    </td>
+								</tr>
+								<tr>
+								    <th><tpl> $langSysAppManageSysPath </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysAppManageSysPathRemark </tpl></span>
+										<input name='app_module_sys_path' type='text' id="app_module_sys_path" class="fct-input" value="<tpl> $app_array.app_module_sys_path </tpl>" />
+								    </td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysAppManageUpdateSave </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='<tpl> $site_url </tpl>/system/app_module.manage.php?action=list'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$("#form_add").validate({
+	errorClass: "wrong",
+	rules: {
+		app_module_name: {required:true},
+		app_module_sort: {required:true,number:true},
+		app_module_path: {required:true},
+		app_module_sys_path: {required:true}
+	},
+	messages: {
+		app_module_name: {required:"<tpl> $errSysAppManageNameIsEmpty </tpl>"},
+		app_module_sort: {required:"<tpl> $errSysAppManageSortNotNumber </tpl>",number:"<tpl> $errSysAppManageSortNotNumber </tpl>"},
+		app_module_path: {required:"<tpl> $errSysAppManagePathIsEmpty </tpl>"},
+		app_module_sys_path: {required:"<tpl> $errSysAppManageSysPathIsEmpty </tpl>"}
+	}
+});
+</script>

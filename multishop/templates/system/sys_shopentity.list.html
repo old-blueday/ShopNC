@@ -1,0 +1,100 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysEntityShopAttestation </tpl> &gt;&gt; <tpl> $langSysEntityShopList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form id="form_search" name="form_search" action="shopentity.manage.php" method="get">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysEntityShopName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.shop_name </tpl>" name="shop_name" id="shop_name" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysEntityAuditingEstate </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="audit_state" id="audit_state">
+										<option value="1" <tpl> if $condition.audit_state eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysEntityStateWaiting </tpl></option>
+										<option value="2" <tpl> if $condition.audit_state eq '2' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysEntityStatePass </tpl></option>
+										<option value="3" <tpl> if $condition.audit_state eq '3' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysEntityStateDeny </tpl></option>
+									</select>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="shopentity.manage.php" id="form1" name="form1" method="post">
+			<input type="hidden" name="action" id="action" value="update" />
+			<input type="hidden" name="sel_state" id="sel_state" value="2" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-4"><tpl> $langSysEntityShopName </tpl></td>
+						<td class="es-2"><tpl> $langSysEntityShopAttestationEstate </tpl></td>
+						<td class="es-2"><tpl> $langSysCOperate </tpl></td>
+					</tr>
+					<tpl> if $shop_array[0].shop_id neq'' </tpl>
+						<tpl> section name=loop loop=$shop_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="shop_id[]" type="checkbox" value="<tpl> $shop_array[loop].shop_id </tpl>" /></td>
+						<td><tpl> $shop_array[loop].shop_name </tpl></td>
+						<td><tpl> $shop_array[loop].audit_state </tpl></td>
+						<td>
+							<a href="shopentity.manage.php?action=modi&shop_id=<tpl> $shop_array[loop].shop_id </tpl>"><tpl> $langSysCEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $shop_array[0].shop_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $shop_array[0].shop_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" id="passed" value="<tpl> $langSysEntityAuditing </tpl>" type="button" />
+				<input class="bthl" name="" id="deny" value="<tpl> $langSysEntityRefuse </tpl>" type="button" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#passed').click(function(){
+		$('#sel_state').val('2');
+		document.getElementById('form1').submit();
+	});
+	$('#deny').click(function(){
+		$('#sel_state').val('3');
+		document.getElementById('form1').submit();
+	});
+});
+</script>
+</body>
+</html>

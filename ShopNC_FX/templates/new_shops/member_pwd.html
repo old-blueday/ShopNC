@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<meta http-equiv="keywords" content="<tpl> $shops_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $shops_description </tpl>" /> 
+<title><tpl> $home_pass </tpl>-<tpl> $shops_name </tpl></title>
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+</head>
+<body>
+<div id="container">
+<tpl> include_php file='../shop_header.php' </tpl><!-- end of header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft uc_right">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><a href="?action=index"><tpl> $home_member </tpl></a><tpl> $home_pass </tpl><!--修改密码--></div>
+			</div>
+			<div class="con">
+				<h1><tpl> $home_pass </tpl><!--修改密码--></h1>
+				<form action="?action=change_passsave" method="post" id="pwd_form" name="pwd_form" onsubmit="return CheckPwd();">
+					<table class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="166" align="right"><tpl> $home_userpass </tpl><!--原密码-->:</td>
+							<td width="254"><input name="oldpass" type="password" id="oldpass" class="inputbg" />
+							<span id="noWord2" style="display:none;"><tpl> $home_nopass </tpl></span></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_newpass </tpl><!--新密码-->：</td>
+							<td><input name="newpass" type="password" id="newpass" class="inputbg" />
+							<span id="noWord" style="display:none;"><tpl> $home_nopass </tpl></span>
+					<span id="dataError" style="display:none;"><tpl> $home_wrongpwd </tpl></span></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_rnewpass </tpl><!--确认新密码-->：</td>
+							<td><input name="rnewpass" type="password" id="rnewpass" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td><div class="enter_but" onclick="$('#pwd_form').submit()"></div></td>
+						</tr>
+					</table>
+				</form>
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+			<tpl>include file ='member_left.html'</tpl>
+		<div class="clear"></div>
+
+	</div>
+	<!--end content-->
+<tpl> include_php file='../shop_footer.php' </tpl><!-- end of footer -->	
+</div>
+</body>
+</html>

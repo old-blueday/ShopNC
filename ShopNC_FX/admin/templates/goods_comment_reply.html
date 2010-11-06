@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_goods_manage </tpl> - <tpl>$admin_goods_comment_rtitle</tpl></title><!-- 商品管理 - 评论回复 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#reply_comment").validate({
+		errorClass: "wrong",
+		rules: {
+			reply_content	: {required:true}
+		},
+		messages: {
+			reply_content	: {required: "<tpl>$admin_goods_comment_reply_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <form action="<tpl>$Site_Url</tpl>/admin/admin_goods_comment.php?action=add_reply" name="reply_comment" id="reply_comment" method="POST">
+    	<input type="hidden" name="comment_id" value="<tpl>$comment_array.comment_id</tpl>"/>
+	<h2><span class="alignRight"><a href="admin_goods_comment.php" target="_self">{<tpl>$admin_goods_comment_list</tpl><!-- 商品评论列表 -->}</a></span><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >> <tpl>$admin_goods_comment_rtitle</tpl><!-- 评论回复 -->
+	</h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_goods_comment_submit </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_comment_con</tpl><!-- 评论内容 -->:</td>
+            <td>
+				<div class="comment-who"><strong><tpl>$comment_array.user_name</tpl></strong> <tpl>$admin_goods_comment_said</tpl><!-- 说 -->:</div>
+				<div class="comment-con">
+					<tpl>$comment_array.comment_body</tpl>
+				</div>
+			</td>
+          </tr>
+          <tr class="add_reply">
+            <td><tpl>$admin_goods_comment_reply</tpl><!-- 回复 -->:</td>
+            <td><textarea name="reply_content" id="reply_content" cols="45" rows="5"><tpl>$comment_array.comment_repost</tpl></textarea>
+			<div class="check-error"><label style="display:none" for="reply_content" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_goods_comment_submit </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $admin_goods_comment_reset </tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

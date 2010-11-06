@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* CSS Document */
+#mainbanner .pic_content {
+height:220px;
+overflow:hidden;
+width:490px;
+}
+#switchbanner {
+height:220px;
+overflow:hidden;
+width:490px;
+}
+#switchbanner_bg {
+	height:30px;
+	_height:29px;
+	margin-top:190px;
+	opacity:0.3;
+	position:absolute;
+	width:490px;
+	z-index:1000;
+	background-color:#000;
+	background-color:none\9;
+	*background-color:none;
+	_background-color:none;
+	background: url(../images/pic_bg.png) repeat\9;
+	*background: url(../images/pic_bg.png) repeat;
+	_background: url(../images/pic_bg.gif) repeat;
+	_border-top-width: 1px;
+	_border-top-style: solid;
+	_border-top-color: #999;
+}
+#switchbanner_info {
+color:#FFFFFF;
+_color:#000000;
+cursor:pointer;
+height:15px;
+margin-top:198px;
+padding:0 0 0 20px;
+position:absolute;
+width:380px;
+z-index:1001;
+}
+#switchbanner_text {
+height:17px;
+margin:195px 0 0 400px;
+position:absolute;
+width:80px;
+z-index:1002;
+}
+#switchbanner_text ul {
+display:block;
+height:16px;
+list-style-type:none;
+opacity:0.8;
+padding-top:1px;
+width:80px;
+}
+#switchbanner_text ul li {
+background-color:#000000;
+color:#FFFFFF;
+cursor:pointer;
+display:inline;
+float:left;
+font-family:Tahoma;
+font-size:11px;
+height:14px;
+line-height:14px;
+margin:1px;
+text-align:center;
+width:14px;
+}
+#switchbanner_list a {
+display:block;
+height:220px;
+overflow:hidden;
+position:absolute;
+width:490px;
+}

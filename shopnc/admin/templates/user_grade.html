@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_user_grade_list</tpl></title><!-- 会员管理 - 会员等级列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body>
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_user_grade.php?action=grade_add" target="_self" class="btnInput"><tpl>$admin_user_grade_add</tpl><!-- 添加会员等级 --></a></span>
+	<tpl>$admin_header_user_manage</tpl><!-- 会员管理 --> >> <tpl>$admin_user_grade_list</tpl><!-- 会员等级 -->    
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+    <div class="entry-body" id="p-list-div">
+	<form id="form1" name="form1" method="post" action="admin_user_grade.php?action=grade_del">
+	<h5>
+	<div class="floatRight2">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" /><span>:<tpl>$admin_user_grade_edit</tpl><!-- 编辑 --></span>
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" /><span>:<tpl>$admin_user_grade_list_del</tpl><!-- 删除 --></span>
+                </div>
+              <input type="submit" value="<tpl>$admin_user_grade_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+	</h5>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><label>
+            <input type="checkbox" name="singlecheck_all" id="all" />
+            </label></th>
+            <th><tpl>$admin_user_grade_list_name</tpl><!-- 等级名称 --></th>
+			<th><tpl>$admin_user_grade_list_discount</tpl><!-- 优惠折扣 --></th>
+            <th><tpl>$admin_user_grade_list_state</tpl><!-- 等级状态 --></th>
+            <!-- <th><tpl>$admin_user_grade_list_time</tpl>优惠时长</th> -->
+            <th><tpl>$admin_user_grade_list_oper</tpl><!-- 操作 --></th>
+          </tr
+		  ><tpl> section name=list loop=$grade_array </tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="grade_id[]" id="checkbox2" class="cb" />
+            </label></td>
+            <td><tpl>$grade_array[list].grade_name</tpl></td>
+            <!-- <td><tpl>$grade_array[list].grade_time</tpl></td> -->
+            <td><tpl>$grade_array[list].grade_discount</tpl>&nbsp;<tpl>$admin_user_grade_unit</tpl></td>
+			 <td>
+			 <span id="state_<tpl> $grade_array[list].grade_id</tpl>"><a onclick="nc_state_update('<tpl> $grade_array[list].grade_id</tpl>','grade_state','<tpl> $grade_array[list].grade_state </tpl>','state_<tpl> $grade_array[list].grade_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>$grade_array[list].grade_state</tpl>.gif" alt="<tpl>$admin_user_grade_list_edit_state</tpl>" /></a></span></td>
+            <td>
+            	<a href="admin_user_grade.php?action=grade_add&grade_id=<tpl>$grade_array[list].grade_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_user_grade_list_edit</tpl>" /><!-- 编辑 --></a> 
+                <a href="admin_user_grade.php?action=grade_del&grade_id=<tpl>$grade_array[list].grade_id</tpl>"  onclick="return confirm('<tpl>$admin_user_grade_list_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_user_grade_list_del</tpl>" /><!-- 删除 --></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+		<h5 class="h5_down">
+		<div class="floatRight2">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" /><span>:<tpl>$admin_user_grade_edit</tpl><!-- 编辑 --></span>
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" /><span>:<tpl>$admin_user_grade_list_del</tpl><!-- 删除 --></span>
+                </div>
+              <input type="submit" value="<tpl>$admin_user_grade_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+		</h5>
+            </form>
+			</div>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+<!--
+/* ajax修改状态 */
+function nc_state_update(grade_id,ajax_type,old_state,id) {
+	$.get('admin_user_grade.php',{'action':'user_grade_ajax','ajax_type':ajax_type,'old_state':old_state,'grade_id':grade_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+//-->
+</script>
+</body>
+</html>

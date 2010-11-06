@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_ad_poster_add</tpl></title><!-- 工具管理 - 添加广告位 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#ad_area").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_position_name	: {required:true},
+			txt_position_width	: {required:true,number:true},
+			txt_position_height	: {required:true,number:true},
+			txt_position_info	: {required:true}
+			
+		},
+		messages: {
+			txt_position_name	: {required: "<tpl>$admin_tool_ad_poster_name_null</tpl>"},
+			txt_position_width	: {required: "<tpl>$admin_tool_ad_poster_width_null</tpl>",number:"<tpl>$admin_tool_ad_poster_number</tpl>"},
+			txt_position_height	: {required: "<tpl>$admin_tool_ad_poster_height_null</tpl>",number:"<tpl>$admin_tool_ad_poster_number</tpl>"},
+			txt_position_info	: {required: "<tpl>$admin_tool_ad_poster_desc_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+    <form action="admin_tool_ad.php?action=ad_area_save" name="ad_area" id="ad_area" method="post">
+    	<input type="hidden" name="position_id" value="<tpl>$position_array.position_id</tpl>"/>
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_tool_ad.php?action=ad_area_list" target="_self" class="btnInput"><tpl>$admin_tool_ad_poster_list</tpl><!-- 广告位列表 --></a><a href="admin_tool_ad.php?action=ad_list" class="btnInput"><tpl>$admin_tool_ad_list</tpl><!-- 广告列表 --></a></span>
+	<tpl>$admin_header_tools_manage</tpl> >> <tpl>if $position_array.position_id!=''</tpl><tpl>$admin_tool_ad_poster_edit</tpl><tpl>else</tpl><tpl>$admin_tool_ad_poster_add</tpl><tpl>/if</tpl><!-- 工具管理 >> 添加广告位 -->
+	</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>if $position_array.position_id!=''</tpl><tpl>$admin_tool_ad_poster_edit</tpl><tpl>else</tpl><tpl>$admin_tool_ad_poster_add</tpl><tpl>/if</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_ad_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_tool_ad_poster_name</tpl><!-- 广告位名称 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_position_name" id="txt_position_name"  value="<tpl>$position_array.position_name|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_position_name" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_poster_width</tpl><!-- 广告位宽度 -->:</td>
+            <td><input class="TextBoxAt" name="txt_position_width" id="txt_position_width" type="text" size="5"  value="<tpl>$position_array.position_width</tpl>" />
+            <tpl>$admin_tool_ad_poster_px</tpl><!-- px -->&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_position_width" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_poster_height</tpl><!-- 广告位高度 -->:</td>
+            <td><input class="TextBoxAt" name="txt_position_height" id="txt_position_height" type="text" size="5"  value="<tpl>$position_array.position_height</tpl>" />
+            <tpl>$admin_tool_ad_poster_px</tpl><!-- px -->&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_position_height" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_poster_desc</tpl><!-- 广告位描述 -->:</td>
+            <td><input class="TextBoxAt" name="txt_position_info" id="txt_position_info" type="text" size="30"  value="<tpl>$position_array.position_info|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_position_info" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tr>
+            <td>&nbsp;</td>
+            <td>
+			<input type="submit" name="button" id="button" value="<tpl>$admin_tool_ad_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_tool_ad_reset</tpl>" class="btnInput" /><!-- 重置 -->
+			</td>
+          </tr>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+	</div>
+  </form>
+ <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,1094 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAllManage </tpl> &gt;&gt; <tpl> $langSysProductEdit </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="product.manage.php" method="post" enctype="multipart/form-data" name="ownaddproduct" id="ownaddproduct">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="slPCId" id="slPCId" value="<tpl> $slPCId </tpl>" />
+					    <input type="hidden" name="slPCId_save" id="slPCId_save" value="<tpl> $slPCId </tpl>" />
+					    <input type="hidden" name="txtPid" id="txtPid" value="<tpl> $product_array.p_code </tpl>"/>
+					    <input type="hidden" name="txtPcode" id="txtPcode" value="<tpl> $product_array.p_code </tpl>"/>
+					    <input type="hidden" name="txtPstarttime" id="txtPstarttime" value="<tpl> $product_array.p_start_time </tpl>"/>
+					    <input type="hidden" name="txtPendtime" id="txtPendtime" value="<tpl> $product_array.p_end_time </tpl>"/>
+					    <input type="hidden" name="txtPstate" id="txtPstate" value="<tpl> $product_array.p_state </tpl>"/>
+					    <input type="hidden" name="txtViewnum" id="txtViewnum" value="<tpl> $product_array.p_view_num </tpl>"/>
+						<input type="hidden" name="pic_num" id="pic_num" value="<tpl> $pic_num|default:'0' </tpl>"/>
+						<input type="hidden" name="member_id" id="member_id" value="<tpl> $product_array.member_id </tpl>"/>
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysBuyType </tpl>:</th>
+									<td>
+										<input type="radio" id="radioSelltype0" name="radioSelltype" value="0" onclick="changeAuctionType('0');" <tpl> if $selltype==0 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="radioSelltype0"><tpl> $langPauction </tpl></label>
+								        <input type="radio" id="radioSelltype1" name="radioSelltype" value="1" onclick="changeAuctionType('1');" <tpl> if $selltype==1 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="radioSelltype1"><tpl> $langPfixprice </tpl></label>
+								        <input type="radio" id="radioSelltype2" name="radioSelltype" value="2" onclick="changeAuctionType('2');" <tpl> if $selltype==2 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="radioSelltype2"><tpl> $langPcamel </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysProductCate </tpl>:</th>
+									<td>
+										<div id="pc_id_originality" style="display:''">&nbsp;
+									     	<tpl> foreach item = cate_path from = $cate_path </tpl>
+									     		<tpl>$cate_path.name|replace:'&nbsp;':''</tpl> >
+									     	<tpl>/foreach</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<input type="button" id="edit_button" class="bthl" value="<tpl> $langSysEdit </tpl>" onclick="editstate()"/>
+								    	</div>
+								    	<div id="pc_id_edit" style="display:none">
+									        <select name="pc_c1" id="pc_c1" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);">
+										        <option value=""></option>
+										        <tpl> foreach item = parent from = $ProductCateArray </tpl>
+										        <option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>" ><tpl>$parent.name</tpl></option>
+										        <tpl> /foreach </tpl>     
+									        </select>
+									        <select name="pc_c2" id="pc_c2" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);"></select>
+									        <select name="pc_c3" id="pc_c3" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);"></select>
+									        <select name="pc_c4" id="pc_c4" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);"></select>
+									        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									        <input type="button" class="bthl" id="cancel_edit_button" value="<tpl> $langSysCancelEdit </tpl>" onclick="canceledit()" />
+								        </div>
+									</td>
+								</tr>
+								<tr id="old_new">
+									<th><tpl> $langSysProductType </tpl>:</th>
+									<td>
+										<input type="radio" value="0" id="on1" name="radioType" <tpl> if $product_array.p_type == 0 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="on1"><tpl> $langPnew </tpl></label>
+										<input type="radio" value="1" id="on6" name="radioType" <tpl> if $product_array.p_type == 1 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="on6"><tpl> $langPold </tpl></label>
+						                <span id="restOn8"><input type="radio" value="2" name="radioType" id="on8" <tpl> if $product_array.p_type == 2 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="on8"><tpl> $langPnouse </tpl></label></span>
+									</td>
+								</tr>
+								<tpl> if $have_attribute == 1 </tpl>
+								<tr id="baby">
+									<th><tpl> $langSysProductAttribute </tpl>:</th>
+									<td>
+										<table cellSpacing="0" cellPadding="0" border="0">
+										<tpl> foreach from=$product_attribute item=one </tpl>
+											<tr>
+												<td><tpl> $one.a_name </tpl>:
+													<tpl> if $one.a_type == 0 </tpl>
+														<select name="attribute_content[]">
+															<option value=""></option>
+															<tpl> foreach from=$one.content item=two </tpl>
+																<option value="<tpl> $two.ac_id </tpl>|<tpl> $two.a_id </tpl>" <tpl> if $two.ischecked eq 1 </tpl> selected <tpl> /if </tpl> ><tpl> $two.ac_content </tpl></option>
+															<tpl> /foreach </tpl>
+														</select>
+													<tpl> /if </tpl>
+													<tpl> if $one.a_type == 1 </tpl>
+														<tpl> foreach from=$one.content item=two </tpl>
+															<input name="attribute_content[]" id="attribute_content_<tpl> $two.ac_id </tpl>" class="input_radio" type="checkbox" value="<tpl> $two.ac_id </tpl>|<tpl> $two.a_id </tpl>" <tpl> if $two.ischecked eq 1 </tpl> checked <tpl> /if </tpl> ><label for="attribute_content_<tpl> $two.ac_id </tpl>"><tpl> $two.ac_content </tpl></label>
+														<tpl> /foreach </tpl>
+													<tpl> /if </tpl>
+												</td>
+											</tr>
+										<tpl> /foreach </tpl>
+										</table>
+									</td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr>
+									<th><label for='txtPname'><tpl> $langSysPBrand </tpl>:</label></th>
+									<td>
+										<input type="hidden" name="brand_id" id="brand_id" value="<tpl> $product_array.p_brand_id </tpl>" />
+							        	<select id="brand_c1" name="brand_c1" style="width: 120px">
+											<option valus="" selected></option>
+											<tpl> foreach item = parent from = $brand_list </tpl>
+												<option <tpl> if $sel_brand[0].pb_id eq $parent.pb_id </tpl> selected <tpl> /if  </tpl> value="<tpl>$parent.pb_id</tpl>||<tpl>$parent.is_parent</tpl>"><tpl> $parent.pb_name </tpl></option>
+											<tpl> /foreach </tpl>
+										</select>
+										<select id="brand_c2" name="brand_c2" style="width: 120px">
+											<option valus="<tpl> $sel_brand[1].pb_id </tpl>" selected><tpl> $sel_brand[1].pb_name </tpl></option>
+										</select>
+										<select id="brand_c3" name="brand_c3" style="width: 120px">
+											<option valus="<tpl> $sel_brand[2].pb_id </tpl>" selected><tpl> $sel_brand[2].pb_name </tpl></option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><label for='txtPname'><tpl> $langSysProductBabyName </tpl>:</label></th>
+									<td>
+										<input id="txtPname" name="txtPname" class="fct-input" maxlength="60" value="<tpl> $product_array.p_name </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langUploadPic </tpl>:</th>
+									<td>
+<!--										<input name="txtPpic" type="file" id="txtPpic" size="40" />-->
+										
+							            <input type="hidden" name="p_pic" id="p_pic" value="<tpl> $pic_line </tpl>" />
+<!--										<div id="previewImage">-->
+											<div class="bingpai">
+											<tpl> if $pic_array|@count > 0 </tpl>
+											
+											<tpl> section name=loop loop=$pic_array </tpl>
+												<li><img src="<tpl> $site_url </tpl>/<tpl> $pic_array[loop].small_pic </tpl>" /><br /><p><a href='javascript:;' onclick=ajaxFileDel("<tpl> $pic_array[loop].small_pic </tpl>",this);><tpl> $langSysCDel </tpl></a></p></li>
+											<tpl> /section </tpl>
+											<tpl> /if </tpl>
+<!--										</div>-->
+											</div>
+											<div id="div_pic_upload">
+											<a href="javascript:;" onclick="pic_add_tr();"><img src="<tpl> $site_url </tpl>/templates/system/images/tj-1.jpg" /></a>
+											</div>
+									</td>
+								</tr>
+								<script>
+								var num=0;
+								function pic_add_tr(){
+									if($("#pic_num").val() > 2){
+										alert("<tpl> $langPPicNumOne </tpl>3<tpl> $langPPicNumTwo </tpl>");
+										return false;
+									}
+									$('#div_pic_upload').append('<input type=\'file\' name=\'txtPpic_'+num+'\' /><br />');
+									num++;
+									$("#pic_num").val(parseInt($("#pic_num").val())+1);
+								}
+								</script>
+								<tr>
+									<th><label for='txtPintro'><tpl> $langProductInfo </tpl>:</label></th>
+									<td>
+										<div id="fcks">
+										<tpl>php</tpl>
+											include_once('../classes/resource/editor/editor.class.php');
+											$editor=new editor('txtPinfo');
+											$editor->Value=$this->_tpl_vars['product_array']['p_intro'];
+											$editor->BasePath='../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=621;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th><label for='txtPstorage'><tpl> $langSysProductStorage </tpl>:</label></th>
+									<td>
+										<input maxLength="<tpl> $storage_maxlength </tpl>" size="5" class="fct-input" name="txtPstorage" id="txtPstorage" value="<tpl> $product_array.p_storage|default:1 </tpl>" />&nbsp;<tpl> $langSysProductAPiece </tpl>
+									</td>
+								</tr>
+								<tpl> if $config_predeposit eq '1' </tpl>
+								
+								<tr>
+									<th><label for='txtPstorage'><tpl> $langPPredeposit </tpl>:</label></th>
+									<td>
+										<input type="checkbox" class="input_radio" name="pay_predeposit" id="pay_predeposit" <tpl> if $product_array.p_predeposit_state eq '0' </tpl> checked <tpl> /if </tpl> value="0" /><label for="pay_predeposit"><tpl> $langPPredeposit </tpl></label>
+									</td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr>
+									<th><label for='txtPayment'><tpl> $langSysProductPayment </tpl>:</label></th>
+									<td>
+										<tpl> foreach from=$payment_array item=one key=key  </tpl>
+											<input onclick="if(this.checked == true){select_cur('<tpl> $one.currency_line </tpl>');}else{select_no_cur('<tpl> $one.currency_line </tpl>','<tpl> $key </tpl>');}" type="checkbox" <tpl> if $one.check eq '1' </tpl> checked <tpl> /if </tpl> value="<tpl> $key </tpl>" name="txtPayment[<tpl> $key </tpl>]" id="txtPayment_<tpl> $key </tpl>" class="input_radio" /><label for="txtPayment_<tpl> $key </tpl>"><tpl> $one.name </tpl></label>
+											<input type="hidden" name="payment_cur_<tpl> $key </tpl>" id="payment_cur_<tpl> $key </tpl>" value="<tpl> $one.currency_line </tpl>" />
+											
+										<tpl> /foreach </tpl>
+									</td>
+								</tr>
+								<tr id="tr_product_currency">
+									<th><tpl> $langProductCurrency </tpl>:</th>
+									<td>
+										<tpl> foreach from=$exchange_array item=one key=key  </tpl>
+											<input type="hidden" name="exchange_rate_<tpl> $one.exchange_name </tpl>" id="exchange_rate_<tpl> $one.exchange_name </tpl>" value="<tpl> $one.exchange_rate </tpl>" /><!--  -->
+											<div style="display:<tpl> $one.display </tpl>" id="div_cur_<tpl> $one.exchange_name </tpl>">
+												<input type="checkbox" 
+												<tpl> foreach item=two from=$product_currency </tpl>
+													<tpl> if $two eq $one.exchange_name </tpl>
+													checked
+													<tpl> /if </tpl>
+												<tpl> /foreach </tpl>
+												name="currency[<tpl> $one.exchange_name </tpl>]" id="currency_<tpl> $one.exchange_name </tpl>" value="<tpl> $one.exchange_name </tpl>" class="input_radio" /><label for="currency_<tpl> $one.exchange_name </tpl>"><tpl> $one.exchange_remark </tpl>(<tpl> $one.exchange_name </tpl>)</label>&nbsp;&nbsp;&nbsp;
+												<div id="price_rate_<tpl> $one.exchange_name </tpl>">
+													<tpl> if $product_array.p_price neq '' </tpl>
+														<tpl> if $product_array.p_price/$one.exchange_rate*100|string_format:"%.2f" < 0.01 </tpl>
+															0.01
+														<tpl> else </tpl>
+															<tpl> $product_array.p_price/$one.exchange_rate*100|string_format:"%.2f" </tpl>
+														<tpl> /if </tpl>
+													<tpl> /if </tpl>
+												</div>
+											</div>
+										<tpl> /foreach </tpl>
+									</td>
+								</tr>
+								<script>
+								function select_cur(str){
+									if(str.indexOf('|') >= 0){
+										line = str.split('|');
+										for(i=0;i<line.length;i++){
+											$("#div_cur_"+line[i]).css("display",'');
+										}
+									}else{
+										$("#div_cur_"+str).css("display",'');
+									}
+								}
+								function select_no_cur(str,payment_name){
+
+									cur_array = str.split('|');
+									for(i=0;i<cur_array.length;i++){
+										cur_sign = false;
+										$('#ownaddproduct input[type=hidden]').each(function(){
+
+											if('payment_cur_'+payment_name != this.name && this.name.indexOf('payment_cur_') >= 0){
+												other_cur_array = this.value.split('|');
+												payment_pro_name = this.name.replace('payment_cur_','txtPayment_');
+												for(j=0;j<other_cur_array.length;j++){
+													if(cur_array[i] == other_cur_array[j] && $('#'+payment_pro_name).attr('checked') == true){
+														//
+														cur_sign = true;
+													}
+												}
+												payment_pro_name = '';
+											}
+
+										})
+										if(cur_sign == false){
+											$("#div_cur_"+cur_array[i]).css("display",'none');
+											$("#currency_"+cur_array[i]).attr("checked",false);
+										}
+									}
+								}
+								function price_to_exchange(price){
+									if(price == ''){
+										price = 0;
+									}else{
+										price = price*1;
+									}
+									$('#ownaddproduct input[type=hidden]').each(function(){
+										if(this.name.indexOf('exchange_rate_') >= 0){
+											var line = this.name.split('exchange_rate_');
+											value = $("#exchange_rate_"+line[line.length-1]).val();
+											one = accDiv(price,value);
+											if(Math.round(one*10000)/100 < 0.01){
+												$("#price_rate_"+line[line.length-1]).html(0.01);//Math.round(one*100)/100
+											}else{
+												$("#price_rate_"+line[line.length-1]).html(Math.round(one*10000)/100);
+											}
+										}
+									});
+								}
+								function accMul(arg1,arg2)
+								{
+									var m=0,s1=arg1.toString(),s2=arg2.toString();
+									try{m+=s1.split(".")[1].length}catch(e){}
+									try{m+=s2.split(".")[1].length}catch(e){}
+									return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
+								}
+								function accDiv(arg1,arg2){
+									var t1=0,t2=0,r1,r2;
+									try{t1=arg1.toString().split(".")[1].length}catch(e){}
+									try{t2=arg2.toString().split(".")[1].length}catch(e){}
+									with(Math){
+										r1=Number(arg1.toString().replace(".",""));
+										r2=Number(arg2.toString().replace(".",""));
+										return (r1/r2)*pow(10,t2-t1);
+									}
+								}
+								</script>
+								<!--<tr id="auctionOption1">
+     
+      							</tr>-->
+								<tr id="auctionOption2">
+									<th><tpl> $langSysInceptPrice </tpl>:</th>
+									<td>
+										<span class="dptn-1"><tpl> $langSysInceptPriceSet </tpl>
+								        	<div id="catePriceLimita"></div>
+								        </span> 
+										<input maxlength="<tpl> $price_maxlength </tpl>" class="fct-input" id="minimumBid" name="minimumBid" value="<tpl> $product_array.p_price </tpl>" onkeyup="price_to_exchange(this.value);" />&nbsp;<tpl> $langCYuan </tpl>
+									</td>
+								</tr>
+								<!--<tr id="auctionOption3">
+							        <th></th>
+							        <td></td>
+						        </tr>-->
+						        <tr id="auctionOption4">
+							        <th><tpl> $langProductAPriceAddScope </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductAddPriceSelect </tpl><a href="http://www.shopnc.net/document/multishop_help_v26/html/xitong_houtaishuoming_shangpinguanli/jingpaizidongjiajia/index.html" target=_blank><tpl> $langSysProductASystemAutoAdd </tpl></a></span>
+							        	<input type="radio" class="input_radio" checked="checked" name="system_step" value="1" id="inc1" onclick="document.getElementById('price_step').readOnly=true;document.getElementById('price_step').className='disabled';document.getElementById('price_step').value=0;" /><label for="inc1"><tpl> $langSysProductASystemAuto </tpl></label><br />
+							        	<input type="radio" class="input_radio" name="system_step" value="0" id="inc2" onclick="document.getElementById('price_step').readOnly=false;document.getElementById('price_step').className=''" /><label for="inc2"><tpl> $langSysProductAUserDefined </tpl></label>
+							            <input maxlength="<tpl> $price_maxlength </tpl>" name="price_step" id="price_step" value="<tpl> $product_array.p_price </tpl>" class="fct-input" />&nbsp;<tpl> $langCYuan </tpl>
+									    <script type="text/javascript">
+									    if (document.getElementById('inc1').checked) {
+									    	document.getElementById('price_step').readOnley=true;
+									    	document.getElementById('price_step').className='disabled';
+									    	document.getElementById('price_step').value = 0;
+									    }
+										</script>
+							        </td>
+						        </tr>
+						        <!--<tr id="fixpriceOption1">
+							        <th></th>
+							        <td></td>
+						        </tr>-->
+						        <tr id="fixpriceOption2">
+							        <th><label for='txtPprice'><tpl> $langProductPrice </tpl>:</label></th>
+							        <td>
+							        	<span class="dptn-1"><label for='txtPprice' style="display:block"><tpl> $langSysProductSetFastness </tpl></label></span>
+							        	<input type="text" id="txtPprice" maxlength="<tpl> $price_maxlength </tpl>" class="fct-input" name="txtPprice" value="<tpl> $product_array.p_price </tpl>" onkeyup="price_to_exchange(this.value);" />&nbsp;<tpl> $langCYuan </tpl>
+							        </td>
+						        </tr>
+						        <!--<tr id="camelOption1">
+							        <th></th>
+							        <td></td>
+						        </tr>-->
+						        <tr id="camelOption2">
+							        <th><tpl> $langGroupPrice </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductBuyNumMix </tpl><div id="catePriceLimit2"></div></span>
+								        <input type="text" id="txtGroupprice" maxlength="<tpl> $price_maxlength </tpl>" size="12" class="fct-input" name="txtGroupprice" value="<tpl> $product_array.p_group_price </tpl>" />&nbsp;<tpl> $langCYuan </tpl>
+									</td>
+						        </tr>
+						        <!--<tr id="camelOption3">
+							        <th></th>
+							        <td></td>
+						        </tr>-->
+						        <tr id="camelOption5">
+							        <th><tpl> $langOldPrice </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductOldGroup </tpl></span>
+							        	<input type="text" id="txtPoldprice" maxlength="<tpl> $price_maxlength </tpl>" size="12" class="fct-input" name="txtPoldprice" value="<tpl> $product_array.p_price </tpl>" />&nbsp;<tpl> $langCYuan </tpl>
+							        </td>
+						        </tr>
+						        <tr id="camelOption4">
+							        <th><tpl> $langSysProductAGroupMinCount </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductA5To100BabyNum </tpl><br /><tpl> $langSysProductABuyNumGroupMixNum </tpl></span>
+							        	<input type="text" id="txtGroupmincount" class="fct-input" maxlength="<tpl> $price_maxlength </tpl>" size="12" name="txtGroupmincount" value="<tpl> $product_array.p_group_mincount|default:5 </tpl>" />&nbsp;<tpl> $langSysProductAPiece </tpl>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langProductArea </tpl>:</th>
+							        <td>
+							        	<input type="hidden" name="area_id" id="area_id" value="<tpl> $product_array.p_area_id </tpl>" />
+										<select id="area_c1" name="area_c1" style="width: 120px">
+											<option valus="" selected></option>
+											<tpl> foreach item = parent from = $area_array </tpl>
+											<option <tpl> if $sel_area[0].area_id eq $parent.area_id </tpl> selected <tpl> /if  </tpl> value="<tpl>$parent.area_id</tpl>||<tpl>$parent.is_parent</tpl>"><tpl> $parent.area_name </tpl></option>
+											<tpl> /foreach </tpl>
+										</select>
+										<select id="area_c2" style="width: 120px" name="area_c2">
+											<option valus="<tpl> $sel_area[1].area_id </tpl>" selected><tpl> $sel_area[1].area_name </tpl></option>
+										</select>
+										<select id="area_c3" style="width: 120px" name="area_c3">
+											<option valus="<tpl> $sel_area[2].area_id </tpl>" selected><tpl> $sel_area[2].area_name </tpl></option>
+										</select>
+										<select id="area_c4" style="width: 120px" name="area_c4">
+											<option valus="<tpl> $sel_area[3].area_id </tpl>" selected><tpl> $sel_area[3].area_name </tpl></option>
+										</select>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langSysTranFee </tpl>:</th>
+							        <td>
+							        	<div class="dptn-1" id="whenNotAuction">
+							        		<tpl> $langSysProductATranFeeKilter </tpl>
+							        	</div>
+							        	<div class="dptn-1" id="whenAuction" style="display:none;">
+							        		<tpl> $langSysProductASaleBabyIssue </tpl>
+							        	</div>
+							        	<ul style="list-style:none">
+											<li>
+												<input name="radioTransfee" type="radio" id="whopsSeller" checked onclick="$('#ApplyPostage').css('display','none')" value="0" <tpl> if $product_array.p_transfee_charge eq '0' || $product_array.p_transfee_charge eq '' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="whopsSeller"><tpl> $langSelaTranFee </tpl></label>
+											</li>
+											<li>
+												<input name="radioTransfee" type="radio" id="whopsBuyer" class="input_radio" onclick="$('#ApplyPostage').css('display','block')" value="1" /><label for="whopsBuyer"><tpl> $langProductAListBear </tpl></label>
+											</li>
+							            </ul>
+							            <!--<ul>
+							                <li id="ApplyPostage" <tpl> if $product_array.p_transfee_charge eq '0' || $product_array.p_transfee_charge eq '' </tpl> style="display:none" <tpl> /if </tpl> >
+
+							                <tpl> $langPCommonlyPost </tpl>:<input maxLength="12" size="8" id="pyTF" name="pyTF" class="fct-input-2" value="<tpl> $product_array.p_tf_py|default:0.0 </tpl>" />&nbsp;<tpl> $langCYuan </tpl>
+							                <tpl> $langPCelerityPost </tpl>:<input maxLength="12" size="8" id="kdTF" name="kdTF" class="fct-input-2" value="<tpl> $product_array.p_tf_kd|default:0.0 </tpl>" />&nbsp;<tpl> $langCYuan </tpl>
+							                EMS:<input maxLength="12" size="8" id="emsTF" name="emsTF" class="fct-input-2" value="<tpl> $product_array.p_tf_ems|default:0.0 </tpl>" />&nbsp;<tpl> $langCYuan </tpl>
+
+											</li>
+							            </ul>-->
+										<div style="padding-left:20px; padding-top:10px; background-color:#f8f8f8; border:#ececec 1px solid;" id="ApplyPostage" <tpl> if $product_array.p_transfee_charge eq '0' || $product_array.p_transfee_charge eq '' </tpl>style="display:none"<tpl> /if </tpl>>
+											<input type="radio" name="use_postage" id="use_postage_1" value='1' checked /><label for="use_postage_1"><tpl> $langSysPUsePostage </tpl></label>
+											<br />
+											<div id="postage_sel_div" style=" padding-left:21px; padding-top:7px;">
+											<tpl> if $postage_array.postage_id eq '' </tpl>
+												<span id="postageName" style=" padding-left:3px; padding-top:5px; padding-right:3px;"><tpl> $langSysPUsePostageClickButton </tpl></span> 
+												<input class="bthl" type="button" id="postageButton" value="<tpl> $langSysPSelPostage </tpl>" onclick="gotoSelectPostage();" />
+												<input type="hidden" id="postage_id" name="postage_id" value="" />
+											<tpl> else </tpl>
+												<span id="postageName" style=" padding-left:3px; padding-top:5px; padding-right:3px;"><tpl> $postage_array.postage_title </tpl></span> 
+												<input class="bthl" type="button" id="postageButton" value="<tpl> $langSysPSelPostageRepeat </tpl>" onclick="gotoSelectPostage();" />
+												<input type="hidden" id="postage_id" name="postage_id" value="<tpl> $postage_array.use_postage_id </tpl>" />
+											<tpl> /if </tpl>
+											</div>
+											<div style=" clear:both; padding-top:5px;"><input type="radio" name="use_postage" id="use_postage_0" value='0' />
+												<tpl> $langPCommonlyPost </tpl>:<input maxLength="<tpl> $price_maxlength </tpl>" size="8" id="pyTF" name="pyTF" class="fct-input-2" value="<tpl> $product_array.p_tf_py </tpl>" />
+												<tpl> $langPCelerityPost </tpl>:<input maxLength="<tpl> $price_maxlength </tpl>" size="8" id="kdTF" name="kdTF" class="fct-input-2" value="<tpl> $product_array.p_tf_kd </tpl>" />
+												EMS:<input maxLength="<tpl> $price_maxlength </tpl>" size="8" id="emsTF" name="emsTF"  class="fct-input-2" value="<tpl> $product_array.p_tf_ems </tpl>" /></p>
+										</div>
+							        </td>
+						        </tr>
+						        <tr id="inv">
+							        <th><tpl> $langInvoices </tpl>:</th>
+							        <td>
+							        	<input type="radio" class="input_radio" id="invoiceN" value="0" name="radioInvoices" id="radioInvoices" <tpl> if $product_array.p_have_invoices eq 0 </tpl> checked <tpl> /if </tpl> /><label for="invoiceN"><tpl> $langCNot </tpl></label>
+          								<input type="radio" class="input_radio" id="invoiceY" value="1" name="radioInvoices" id="radioInvoices2" <tpl> if $product_array.p_have_invoices eq 1 </tpl> checked <tpl> /if </tpl> /><label for="invoiceY"><tpl> $langCHave </tpl></label>
+							        </td>
+						        </tr>
+						        <tr id="wy">
+							        <th><tpl> $langWarranty </tpl>:</th>
+							        <td>
+							        	<input type="radio" class="input_radio" id="warrantyN" value="0" name="radioWarranty" <tpl> if $product_array.p_have_warranty eq 0 </tpl> checked <tpl> /if </tpl> /><label for="warrantyN"><tpl> $langCNot </tpl></label>
+          								<input type="radio" class="input_radio" id="warrantyY" value="1" name="radioWarranty" <tpl> if $product_array.p_have_warranty eq 1 </tpl> checked <tpl> /if </tpl> /><label for="warrantyY"><tpl> $langCHave </tpl></label>
+							        </td>
+						        </tr>
+						        <tr id="rz">
+							        <th><tpl> $langPattestation </tpl>:</th>
+							        <td>
+							        	<label for="txtPgenuine"><input type="checkbox" name="txtPgenuine" id="txtPgenuine" value="1" <tpl> if $product_array.p_genuine eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><img src="<tpl> $site_url </tpl>/templates/system/images/pic_zp.gif" align="absmiddle" alt="<tpl> $langPgenuine </tpl>" /><tpl> $langPgenuine </tpl></label>
+        								<label for="txtP7day"><input type="checkbox" name="txtP7day" id="txtP7day" value="1" <tpl> if $product_array.p_7day_return eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><img src="<tpl> $site_url </tpl>/templates/system/images/pic_7day.gif" align="absmiddle" alt="<tpl> $langP7dayreturn </tpl>" /><tpl> $langP7dayreturn </tpl></label>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langSysValidDays </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductABabyInfoIssueTime </tpl></span>
+							        	<input type="text" name="slValiddays" id="slValiddays" maxLength="3" size="8" value="<tpl> $product_array.p_valid_days|default:'7' </tpl>" class="fct-input" />&nbsp;<tpl> $langPday </tpl>
+							        </td>
+						        </tr>
+						        <tr id="republish">
+							        <th><tpl> $langProductAAutoPublish </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductASystemHelpYouAuto </tpl></span>
+							        	<input type="checkbox" value="1" name="chxAutopublish" id="chxAutopublish" <tpl> if $product_array.p_auto_publish == "1" </tpl> checked <tpl> /if </tpl><tpl> if $product_array.p_auto_publish == "" </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="chxAutopublish"><tpl> $langCYes </tpl></label>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langRecommended </tpl>:</th>
+							        <td>
+							        	<input type="checkbox" class="input_radio" value="1" name="chxRecommended" id="chxRecommended" <tpl> if $product_array.p_recommended == "1" </tpl> checked <tpl> /if </tpl> /><label for="chxRecommended"><tpl> $langCYes </tpl></label>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langProductARemark </tpl>:</th>
+							        <td>
+	    								<textarea class="fct-input-5" id="txtRemark" name="txtRemark"><tpl> $product_array.p_remark </tpl></textarea>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langPKeywords </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langPKeywordsRemark </tpl></span>
+	    								<input type="text" name="txtKeywords" id="txtKeywords" maxlength="80" value="<tpl> $product_array.p_keywords </tpl>" class="fct-input" />
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langPDescription </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langPDescriptionRemark </tpl></span>
+	    								<textarea class="fct-input-5" id="txtDescription" name="txtDescription"><tpl> $product_array.p_description </tpl></textarea>
+							        </td>
+						        </tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input type="submit" class="bthl" value="<tpl> $langCsubmit </tpl>" />
+								<input type="hidden" name="curpage" value="<tpl>$curpage</tpl>" />
+								<input type="button" class="bthl" value="<tpl> $langCReturn </tpl>" onclick="location.href='product.manage.php?action=ajax_list&curpage=<tpl>$curpage</tpl>'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+function changeAuctionType(type){
+
+	var ele = document.ownaddproduct.elements["radioType"];
+	var newRestSpan = document.getElementById('restOn8');
+	if(newRestSpan){
+		if(type == '2'){
+			newRestSpan.style.display = 'none';
+			removeRestTitle(mytitle);
+		}else{
+			newRestSpan.style.display = '';
+			if(radOn8 && radOn8.checked){
+				addRestTitle(mytitle);
+			}
+		}
+	}
+
+	if(type == '0') {
+		document.getElementById('whopsSeller').checked = 'checked';
+		document.getElementById('whopsBuyer').disabled = true;
+		document.getElementById('whenAuction').style.display = '';
+		document.getElementById('whenNotAuction').style.display = 'none';
+		auction();
+	}else{
+		if (type == '1'){
+			fixprice();
+		}else{
+			camel();
+		}
+		document.getElementById('whopsBuyer').disabled = false;
+		document.getElementById('whenAuction').style.display = 'none';
+		document.getElementById('whenNotAuction').style.display = '';
+
+	}
+}
+
+var myAuctionType = document.getElementById('radioSelltype2');
+var newRestSpan = document.getElementById('restOn8');
+
+var mytitle = document.getElementById('txtPname');
+
+var radOn1 = document.getElementById('on1');
+var radOn6 = document.getElementById('on6');
+var radOn8 = document.getElementById('on8');
+
+function removeRestTitle(title){
+	if(title){
+		var titleValue = title.value;
+
+		if(titleValue.indexOf(" <tpl> $langProductASelf </tpl>") != -1){
+			titleValue = titleValue.replace(" <tpl> $langProductASelf </tpl>","");
+		}
+		title.value = titleValue;
+	}
+}
+
+function addRestTitle(title){
+	if(title){
+		var titleValue = title.value;
+
+		if(titleValue.indexOf(" <tpl> $langProductASelf </tpl>")==-1){
+			titleValue = titleValue +" <tpl> $langProductASelf </tpl>";
+		}
+		title.value = titleValue;
+	}
+}
+
+if(newRestSpan){
+	if(myAuctionType && myAuctionType.checked){
+		newRestSpan.style.display = 'none';
+
+		if(radOn8 && radOn8.checked){
+			radOn8.checked = false;
+		}
+	}else{
+		newRestSpan.style.display = '';
+	}
+}
+
+function fixprice() {
+
+	var isSeniorShop = "true";
+	document.getElementById('auctionOption2').style.display = 'none';
+	document.getElementById('auctionOption4').style.display = 'none';
+
+	document.getElementById('camelOption2').style.display = 'none';
+	document.getElementById('camelOption4').style.display = 'none';
+	document.getElementById('camelOption5').style.display = 'none';
+
+	document.getElementById('fixpriceOption2').style.display = '';
+
+	document.getElementById('txtPoldprice').value = document.getElementById('txtPprice').value;
+
+	document.getElementById('republish').style.display = '';
+
+	currentIsFixPrice = true;
+}
+
+function auction() {
+
+	var isSeniorShop = "true";
+	document.getElementById('auctionOption2').style.display = '';
+	document.getElementById('auctionOption4').style.display = '';
+
+	document.getElementById('camelOption2').style.display = 'none';
+	document.getElementById('camelOption4').style.display = 'none';
+	document.getElementById('camelOption5').style.display = 'none';
+
+	document.getElementById('fixpriceOption2').style.display = 'none';
+
+
+	document.getElementById('txtPoldprice').value = document.getElementById('txtPprice').value;
+
+	document.getElementById('republish').style.display = '';
+
+	currentIsFixPrice = false;
+
+	$('#whopsSeller').trigger('click');
+	$('#ApplyPostage').css('display','none');
+}
+
+function camel() {
+	var isSeniorShop = "true";
+	document.getElementById('auctionOption2').style.display = 'none';
+	document.getElementById('auctionOption4').style.display = 'none';
+
+	document.getElementById('fixpriceOption2').style.display = 'none';
+
+	document.getElementById('camelOption2').style.display = '';
+	document.getElementById('camelOption4').style.display = '';
+	document.getElementById('camelOption5').style.display = '';
+
+	document.getElementById('republish').style.display = 'none';
+
+	currentIsFixPrice = false;
+
+}
+
+fixprice();
+
+changeAuctionType(<tpl> $selltype </tpl>);
+
+if(<tpl> $product_array.p_transfee_charge </tpl> == '1') {
+	document.getElementById('whopsBuyer').checked = true;
+	document.getElementById('ApplyPostage').style.display = 'block';
+}
+
+$(document).ready(function() {
+
+	tonext_area('#area_c1');
+	tonext_brand('#brand_c1');
+	tonext_edit('#pc_c1');
+
+	<tpl> if $list_class_error != '' </tpl>
+	alert(<tpl> $list_class_error </tpl>);
+	<tpl> /if </tpl>
+	
+	//use postage
+	$('#use_postage_1').click(function(){
+		$('#pyTF').attr('disabled',true);//.css({})
+		$('#kdTF').attr('disabled',true);//.css({})
+		$('#emsTF').attr('disabled',true);//.css({})
+		$('#postage_sel_div').css('display','block');
+		$('#pyTF').next('label').css('display','none');
+		$('#kdTF').next('label').css('display','none');
+		$('#emsTF').next('label').css('display','none');
+	});
+	//no use postage
+	$('#use_postage_0').click(function(){
+		$('#pyTF').attr('disabled',false);//.css({})
+		$('#kdTF').attr('disabled',false);//.css({})
+		$('#emsTF').attr('disabled',false);//.css({})
+		$('#postage_sel_div').css('display','none');
+	});
+	//no use postage
+	$('#whopsSeller').click(function(){
+		$('#use_postage_1').attr('checked',true).trigger('click');
+	});
+	//document ready postage click
+	<tpl> if $product_array.p_transfee_charge eq '1' </tpl>
+		<tpl> if $product_array.use_postage eq '0' </tpl>
+			$('#use_postage_0').trigger('click');
+		<tpl> /if </tpl>
+		<tpl> if $product_array.use_postage eq '1' </tpl>
+			$('#use_postage_1').trigger('click');
+		<tpl> /if </tpl>
+	<tpl> else </tpl>
+		$('#whopsSeller').trigger('click');
+	<tpl> /if </tpl>
+
+	$("#ownaddproduct").validate({
+		errorClass: "wrong",
+		rules: {
+			slPCId:{required:true},
+			txtPname: {required:true},
+			txtPstorage: {
+				required:true,
+				number:true,
+				min: function(){
+						if($("#radioSelltype2").attr('checked')==true){
+							return 5;
+						}else{
+							return 1;
+						}
+					}
+			},
+			minimumBid: {
+				required: "#radioSelltype0:checked",
+				number: true,
+				min: function(){
+						if($("#radioSelltype0").attr('checked')==true){
+							return 0.01;
+						}else{
+							return 0;
+						}
+					}
+			},
+			price_step: {
+				required: "#radioSelltype0:checked",
+				number: true,
+				min: function(){
+					if($("#radioSelltype0").attr('checked')==true && $("#inc2").attr('checked')==true){
+						return 1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			txtPprice: {required: "#radioSelltype1:checked",number: true,min: 0.01},
+			txtGroupprice: {required:"#radioSelltype2:checked",number:true,min: function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						return 0.1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			txtPoldprice: {required: "#radioSelltype2:checked",number: true,min: function(){return $("#txtGroupprice").val();}},
+			txtGroupmincount: {
+				required: "#radioSelltype2:checked",
+				number: true,
+				min: function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						return 5;
+					}else{
+						return 0;
+					}
+				},
+				max:function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						if($("#txtPstorage").val() >= 100){
+							return 100;
+						}else{
+							return $("#txtPstorage").val();
+						}
+					}else{
+						return 10000000;
+					}
+				}
+			},
+			area_id: {required: true},
+			pyTF: {
+				required: check_validate_pyTF_required,
+				number: check_validate_pyTF_number,
+				min: check_validate_pyTF_min,
+				max: check_validate_pyTF_max
+			},
+			kdTF: {
+				required: check_validate_kdTF_required,
+				number: check_validate_kdTF_number,
+				min: check_validate_kdTF_min,
+				max: check_validate_kdTF_max
+			},
+			emsTF: {
+				required: check_validate_emsTF_required,
+				number: check_validate_emsTF_number,
+				min: check_validate_emsTF_min,
+				max: check_validate_emsTF_max
+			},
+			slValiddays: {
+				required: true,
+				number: true,
+				min: 1,
+				max: 30
+			},
+			postage_id:{
+				required: check_validate_postage_required
+			}
+		},
+		messages: {
+			txtPname: {required: "<tpl> $errProductNameEmpty </tpl>"},
+			txtPstorage: {
+				required: "<tpl> $errPstorage </tpl>",
+				number: "<tpl> $errPstorage </tpl>",
+				min: function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						return "<tpl> $errPstorageByGroup </tpl>";
+					}else{
+						return "<tpl> $errPstorage </tpl>";
+					}
+				}
+			},
+			minimumBid: {required: "<tpl> $errMinimumbidWrong </tpl>",number: "<tpl> $errMinimumbidWrong </tpl>",min: "<tpl> $errMinimumbidWrong </tpl>"},
+			price_step: {required: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",number: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",min: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>"},
+			txtPprice: {required: "<tpl> $errPprice </tpl>",number: "<tpl> $errPprice </tpl>",min: "<tpl> $errPprice </tpl>"},
+			txtGroupprice: {required: "<tpl> $errGroupprice </tpl>",number: "<tpl> $errGroupprice </tpl>",min: "<tpl> $errGroupprice </tpl>"},
+			txtPoldprice: {required: "<tpl> $errPoldprice </tpl>",number: "<tpl> $errPoldprice </tpl>",min: "<tpl> $errPoldprice </tpl>"},
+			txtGroupmincount: {required: "<tpl> $errGroupmincount </tpl>",number: "<tpl> $errGroupmincount </tpl>",min:"<tpl> $errGroupmincount </tpl>",max:"<tpl> $errGroupmincount </tpl>"},
+			area_id: {required: "<tpl> $errProvince </tpl>"},
+			pyTF: {required: "<tpl> $langProductPyTFIsEmpty </tpl>",number: "<tpl> $langProductPyTFIsEmpty </tpl>",min: "<tpl> $langProductPyTFIsEmpty </tpl>", max: "<tpl> $langProductPyTFIsEmpty </tpl>"},
+			kdTF: {required: "<tpl> $langProductKdTFIsEmpty </tpl>",number: "<tpl> $langProductKdTFIsEmpty </tpl>",min: "<tpl> $langProductKdTFIsEmpty </tpl>", max: "<tpl> $langProductKdTFIsEmpty </tpl>"},
+			emsTF: {required: "<tpl> $langProductEMSTFIsEmpty </tpl>",number: "<tpl> $langProductEMSTFIsEmpty </tpl>",min: "<tpl> $langProductEMSTFIsEmpty </tpl>", max: "<tpl> $langProductEMSTFIsEmpty </tpl>"},
+			slValiddays: {required: "<tpl> $errValiddays </tpl>",number: "<tpl> $errValiddays </tpl>",min: "<tpl> $errValiddays </tpl>",max: "<tpl> $errValiddays </tpl>"},
+			postage_id:{required: "<tpl> $errSysPPostageTplIsEmpty </tpl>"}
+		},
+		submitHandler: function() {
+			var check_sign = false;
+			var payment_check = false;
+			var predeposit_check = false;
+			var payment_alert_sign = false;
+
+			if($('#pay_predeposit').attr('checked') == true){
+				predeposit_check = true;
+			}
+			$("#ownaddproduct input[type=hidden]").each(function(){
+				if(this.name.indexOf('payment_cur_') == 0){
+					str = this.name.split('payment_cur_');
+					if($('#txtPayment_'+str[1]).attr('checked') == true){
+						str2 = $('#payment_cur_'+str[1]).val().split('|');
+						payment_check = true;
+						for(i=0;i<str2.length;i++){
+							if($('#currency_'+str2[i]).attr('checked') == true){
+								check_sign = true;
+								break;
+							}
+						}
+						if(check_sign == false){
+							payment_alert_sign = true;
+						}
+					}
+				}
+				check_sign = false;
+			});
+
+			if(predeposit_check == true){
+				if(payment_alert_sign == false){
+					document.getElementById('ownaddproduct').submit();
+				}else{
+					alert('<tpl> $errPaymentSelCur </tpl>');
+					return false;
+				}
+			}else{
+				if(payment_alert_sign == false && payment_check == true){
+					document.getElementById('ownaddproduct').submit();
+				}else{
+					alert('<tpl> $errPaymentSelCur </tpl>');
+					return false;
+				}
+			}
+
+		}
+	});
+	//validate function
+	function check_validate_postage_required(){
+		if($('#use_postage_1').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_pyTF_required(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_pyTF_number(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_pyTF_min(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return 0;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_pyTF_max(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return 999.99;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_kdTF_required(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_kdTF_number(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_kdTF_min(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return 0;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_kdTF_max(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return 999.99;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_emsTF_required(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_emsTF_number(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_emsTF_min(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return 0;
+		}else{
+			return false;
+		}
+	}
+	function check_validate_emsTF_max(){
+		if($('#use_postage_0').attr('checked') == true && $('#whopsBuyer').attr('checked') == true){
+			return 999.99;
+		}else{
+			return false;
+		}
+	}
+});
+
+function ajaxFileDel(pic_url,obj){
+	$.ajax({
+		url: "product.manage.php",
+		data: 'action=pic_del&pic_name='+pic_url,
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '0'){
+				alert(msg.message);
+			}else{
+				$(obj).parents("li").remove();
+				arr = $('#p_pic').val().split('|');
+				for(i=0;i<arr.length;i++){
+					if(arr[i] == pic_url){
+						delete(arr[i]);
+					}
+				}
+				$('#p_pic').val(arr.join('|'));
+				$("#pic_num").val(parseInt($("#pic_num").val())-1);
+			}
+		}
+	});
+	return false;
+}
+
+//获得宝贝类目
+function tonext_edit(whos) {
+	$(whos).change(
+	function(){
+		var valarray=$(this).val().split('||');
+		$('#slPCId').val(valarray[0]);
+		if (valarray[1]=='1') {
+			$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+			$.ajax({
+				url: '../member/own_productcate.php',
+				data: 'action=list&id='+valarray[0],
+				success: function (data) {
+					DataArray = data.split("|||");
+					var a='';
+					for (var i = 0; i<DataArray.length-1; i++)
+					{
+						att=DataArray[i].split("||");
+						id=att[0];cla=att[2];
+						a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+					};
+					$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+					tonext_edit($(whos).next());
+				}
+			});
+		} else {
+		    $(whos).nextAll().html('').attr('disabled','true');
+		    $('#cancel_edit_button').attr('disabled','');
+		}
+	})
+}
+function editstate(){
+	$("#pc_id_originality").css("display","none");
+	$("#pc_id_edit").css("display","");
+}
+function canceledit(){
+	$("#pc_id_originality").css("display","");
+	$("#pc_id_edit").css("display","none");
+	var str = $("#slPCId_save").val();
+	$("#slPCId").val(str);
+
+	$("#pc_c1").val("");
+	$("#pc_c2").val("");
+	$("#pc_c3").val("");
+	$("#pc_c4").val("");
+}
+//获得宝贝属性类目
+function ajax_get_attribute(pc_id){
+	array=pc_id.split('||');
+	$.ajax({
+		url: 'product.manage.php',
+		data: 'action=ajax_get_attribute&pc_id='+array[0],
+		success: function(data){
+			if(data != ''){
+				$('#baby').html(data);
+			}else{
+				$('#baby').html('');
+			}
+		}
+	});
+}
+//获得地区类目
+function tonext_area(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');
+			$('#area_id').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../home/tohtml.php',
+					data: 'action=get_area&id='+valarray[0],
+					success: function(data){
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext_area($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+}
+//select postage
+function gotoSelectPostage(){
+	window.open("postage.manage.php?action=sel_postage&member_id=<tpl> $product_array.member_id </tpl>");
+}
+function afterSelectPostage(postage_id, postageName,member_id) {
+	if(member_id == $('#member_id').val()){
+		$('#postage_id').val(postage_id);
+		$('#postageName').html(postageName);
+		$('#postageButton').val("<tpl> $langSysPSelPostageRepeat </tpl>");
+	}
+}
+</script>

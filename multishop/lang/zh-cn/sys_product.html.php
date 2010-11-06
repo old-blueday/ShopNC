@@ -1,0 +1,34 @@
+<?php
+$lang['langSysPStaticManage']="商品静态管理";
+$lang['langSysPCreateStaticPage']="生成静态页面";
+$lang['langSysPCreateStaticPageOK']="生成商品静态页成功";
+$lang['langSysPStaticPageCreateOK']="静态页面生成成功";
+$lang['langSysPStatic']="静态化";
+$lang['langSysPCreateStaticPageAccess']="将商品生成静态页面访问，可以提高用户打开页面速度，降低服务器资源消耗。";
+$lang['langSysPInIssueTime']="按商品发布时间";
+$lang['langSysPBeginTime']="开始时间";
+$lang['langSysPEndTime']="结束时间";
+$lang['langSysPInTimeCreateStatic']="按时间生成静态页面";
+$lang['langSysPSelectTimeNotIssue']="所选时间段内没有商品发布";
+$lang['langSysPOperatorLostEndTimeBeginTime']="操作失败：结束时间不能早于开始时间！";
+$lang['langSysPInNotCreateStatic']="按未生成静态的商品";
+$lang['langSysPNotCreateStaticCreatePage']="将未生成过静态的商品生成静态页面";
+$lang['langSysPCommendUseThisFunctionCreate']="(推荐使用此功能将商品生成静态页面)";
+$lang['langSysPAllCreateStaticPage']="将全部商品重新生成静态页面";
+$lang['langSysPPleaseCautionUseThisFunction']="(注意：请慎用此功能，商品数量巨大时将占用大量系统资源)";
+$lang['langSysPInAll']="按全部商品";
+$lang['langSysPInClassCreateStaticPage']="按商品分类";
+$lang['langSysPSelect']="选择";
+$lang['langSysPClass']="商品分类";
+$lang['langSysPAllSelect']="全  选";
+$lang['langSysPcontrarySelect']="反  选";
+$lang['langSysCleanPicCache']="清除商品废弃图片";
+$lang['langSysCleanPicCacheRemark']="(清除发布商品时上传的废弃图片，节约空间容量)";
+$lang['langSysCleanPicCacheIsSucc']="清除商品废弃图片操作成功";
+$lang['langSysCleanPicCacheIsLost']="清除商品废弃图片操作失败";
+$lang['langSysPStaticDoNow']="正在进行静态化，请等待...";
+$lang['langSysPStaticDoFail']="静态化操作失败，请检查网络连接是否正确，重新生成";
+$lang['langSysPStaticDoSucc']="已经完成";
+$lang['langSysPStaticPleaseSelClass']="请选择商品分类";
+$lang['langSysPStaticIsNotOpen']="商品静态已经关闭，请从系统设置中开启后再进行操作";
+?>

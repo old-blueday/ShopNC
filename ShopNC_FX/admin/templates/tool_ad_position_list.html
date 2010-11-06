@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_ad_poster_list</tpl></title><!-- 工具管理 - 广告位列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body>
+<div id="content">
+	<h2><span class="alignRight"><a href="admin_tool_ad.php?action=add_ad_area" target="_self">{<tpl>$admin_tool_ad_poster_add</tpl><!-- 添加广告位 -->}</a><a href="admin_tool_ad.php?action=ad_list">{<tpl>$admin_tool_ad_list</tpl><!-- 广告列表 -->}</a></span><tpl>$admin_header_tools_manage</tpl> >> <tpl>$admin_tool_ad_poster_list</tpl><!-- 工具管理 >> 广告位列表 -->
+    	
+    </h2>
+    <div class="entry-body" id="p-list-div">
+      <form id="form1" name="form1" method="post" action="admin_tool_ad.php?action=del_ad_area">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="5" class="searchbar">
+            	<div class="alignRight">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" />:<tpl>$admin_tool_ad_edit</tpl><!-- 编辑 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" />:<tpl>$admin_tool_ad_del</tpl><!-- 删除 -->
+                </div>
+              <input type="submit" value="<tpl>$admin_tool_ad_del</tpl>" class="delBtnInput" /><!-- 删除 -->            </td>
+          </tr>
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl>$admin_tool_ad_poster_name</tpl><!-- 广告位名称 --></th>
+            <th><tpl>$admin_tool_ad_poster_width</tpl><!-- 广告位宽度 --></th>
+            <th><tpl>$admin_tool_ad_poster_height</tpl><!-- 广告位高度 --></th>
+            <th><tpl>$admin_tool_ad_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$position_array</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" <tpl>if $position_array[list].position_id == 1</tpl> disabled <tpl>else</tpl> name="position_id[]" <tpl>/if</tpl> value="<tpl>$position_array[list].position_id</tpl>"  class="cb" />
+            </label></td>
+            <td><tpl>$position_array[list].position_name</tpl></td>
+            <td><tpl>$position_array[list].position_width</tpl></td>
+            <td><tpl>$position_array[list].position_height</tpl></td>
+            <td>
+            	<a href="admin_tool_ad.php?action=add_ad_area&position_id=<tpl>$position_array[list].position_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" /><!-- 编辑 --></a>
+            	<tpl>if $position_array[list].position_id != 1</tpl> 
+            <a href="admin_tool_ad.php?action=del_ad_area&position_id=<tpl>$position_array[list].position_id</tpl>" onclick="return confirm('<tpl>$admin_tool_ad_poster_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" /><!-- 删除 --></a>            
+            	<tpl>/if</tpl>
+            </td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="5" class="searchbar">
+              <input type="submit" value="<tpl>$admin_tool_ad_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              <div class="pagebar"><tpl>$showpage</tpl></div></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,79 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $lanagMailTemplateList </tpl> &gt;&gt; <tpl> $lanagMailTemplateAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="mailcontent.manage.php" method="post" id="form_modimailcontent">
+						<input type="hidden" name="action" id="action" value="addsave" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $lanagMailType </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $lanagMailTypeTemplateUseEnglish </tpl></span>
+									<input class="fct-input" name="txtMailGenre" id="txtMailGenre" type="text" maxlength="40" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $lanagMailTitle </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $lanagMailSendTitleInset </tpl></span>
+									<input class="fct-input" name="txtMailTitle" id="txtMailTitle" type="text" maxlength="40" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $lanagMailExplain </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $lanagMailFalseCodeNeedTechnicTogether </tpl></span>
+										<textarea class="fct-input" name="txtMaildesc" id="txtMaildesc" rows="4"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $lanagMailContent </tpl>:</th>
+									<td>
+										<tpl>php</tpl>
+											include_once('../classes/resource/editor/editor.class.php');
+											$editor=new editor('txtContent');
+											$editor->Value='';
+											$editor->BasePath='../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=621;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $lanagMailSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $lanagMailReturnList </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$("#form_modimailcontent").validate({
+	errorClass: "wrong",
+	rules: {
+		txtMailGenre: {required:true},
+		txtMailTitle: {required:true}
+	},
+	messages: {
+		txtMailGenre: {required: "<tpl> $lanagMailFillInTemplateType </tpl>"},
+		txtMailTitle: {required: "<tpl> $lanagMailPleaseFillInTemplateTitle </tpl>"}
+	}
+});
+</script>
+</body>
+</html>

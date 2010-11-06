@@ -1,0 +1,100 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysProductCate </tpl> &gt;&gt; <tpl> $langSysProductSelectCate </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysProductCate </tpl>:</th>
+									<td>
+										<select name="pc_c1" id="pc_c1" style="WIDTH: 110px" value="<tpl> $pc_id </tpl>">
+											<option value=""></option>
+											<tpl> foreach item = parent from = $ProductCateArray </tpl>
+											<option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>" <tpl> if $parent.id eq $sel_pc.0.pc_id </tpl> selected<tpl> /if </tpl>><tpl>$parent.name</tpl></option>
+											<tpl> /foreach </tpl>     
+										</select>
+										<select name="pc_c2" id="pc_c2" style="WIDTH: 110px">
+										<tpl> if $sel_pc.1.pc_name neq '' </tpl><option><tpl> $sel_pc.1.pc_name </tpl></option><tpl> /if </tpl>
+										</select>
+										<select name="pc_c3" id="pc_c3" style="WIDTH: 110px">
+										<tpl> if $sel_pc.2.pc_name neq '' </tpl><option><tpl> $sel_pc.2.pc_name </tpl></option><tpl> /if </tpl>
+										</select>
+										<select name="pc_c4" id="pc_c4" style="WIDTH: 110px">
+										<tpl> if $sel_pc.3.pc_name neq '' </tpl><option><tpl> $sel_pc.3.pc_name </tpl></option><tpl> /if </tpl>
+										</select>
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="hidden" id="pc_id"/>
+										<input type="button" class="bthl" id="ok_edit_button" value="<tpl> $langCEnsure </tpl>" onclick="javascript:selectCateToPublish();" />
+										<input type="button" class="bthl" id="cancel_edit_button" value="<tpl> $langSysCancelEdit </tpl>" onclick="javascript:canceledit();" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(
+	function () {
+		tonext_edit('#pc_c1');
+	}
+);
+//获得宝贝类目
+function tonext_edit(whos) {
+	$(whos).change(
+	function(){
+		var valarray=$(this).val().split('||');
+		$('#pc_id').val(valarray[0]);
+		if (valarray[1]=='1') {
+			$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+			$.ajax({
+				url: '../system/product_auction.manage.php',
+				data: 'action=ajax_get_cate&id='+valarray[0],
+				success: function (data) {
+					DataArray = data.split("|||");
+					var a='';
+					for (var i = 0; i<DataArray.length-1; i++)
+					{
+						att=DataArray[i].split("||");
+						id=att[0];cla=att[2];
+						a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+					};
+					$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+					tonext_edit($(whos).next());
+				}
+			});
+		} else {
+		    $(whos).nextAll().html('').attr('disabled','true');
+		    $('#ok_edit_button').attr('disabled','');
+		    $('#cancel_edit_button').attr('disabled','');
+		}
+	})
+}
+//确定
+function selectCateToPublish() {
+	var pc_id = $('#pc_id').val();
+	try{
+		window.opener.window.afterSelectCate(pc_id);
+	} catch(e){
+		//alert(e);
+	}
+	window.close();
+}
+//取消编辑
+function canceledit() {
+	window.close();
+}
+</script>
+</body>
+</html>

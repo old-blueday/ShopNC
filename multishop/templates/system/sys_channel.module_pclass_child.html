@@ -1,0 +1,11 @@
+<table class="shop-breeze">
+	<tpl> section name=listclass loop=$product_class_array </tpl> 
+		<tr>
+			<td colspan="2">&nbsp;&nbsp;&nbsp;
+			<input <tpl> if $product_class_array[listclass].is_check eq '1' </tpl> checked="checked" <tpl> /if </tpl> type="checkbox" name="check_id_<tpl> $product_class_array[listclass].pc_id </tpl>" id="check_id_<tpl> $product_class_array[listclass].pc_id </tpl>" onclick="product_class_set_check(this.value);" value="<tpl> $product_class_array[listclass].pc_id </tpl>" class="input_radio" />
+			<tpl> $product_class_array[listclass].pc_name </tpl>
+			<tpl> $langCSort </tpl>:<input onblur="product_class_set_check(<tpl> $product_class_array[listclass].pc_id </tpl>);" name="sort_<tpl> $product_class_array[listclass].pc_id </tpl>" id="sort_<tpl> $product_class_array[listclass].pc_id </tpl>" type="text" value="<tpl> $product_class_array[listclass].sort_value|default:'0' </tpl>" size="5" maxlength="5" class="fct-input-2" />
+			</td>
+		</tr>
+	<tpl> /section </tpl>
+</table>

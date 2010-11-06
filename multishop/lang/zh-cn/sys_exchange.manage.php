@@ -1,0 +1,19 @@
+<?php
+$lang['langCNot']="无";
+$lang['langExchangeNotContent']="暂无相关内容";
+$lang['langExchangeManage']="汇率管理";
+$lang['langExchangeType']="币种";
+$lang['langExchangeRate']="汇率";
+$lang['langExchangeState']="状态";
+$lang['langExchangeStateClose']="关闭";
+$lang['langExchangeStateOpen']="开启";
+$lang['langExchangeSubmit']="提交";
+$lang['langExchangeValueIsWrong']="汇率的值只能为数字，并且不能为0";
+$lang['langSysExchangeUpdateWrong']="更新失败，请假查您的提交的信息是否正确";
+$lang['langSysExchangeUpdateOk']="汇率更新成功";
+$lang['langSysExchangeRemark']="  单位：人民币/100外币 比如 美元：人民币为7：1，那么汇率中应该填写700，也就是700人民兑换100美元";
+$lang['langSysExchangeText']="文字说明";
+$lang['langSysDefaultExchange']="默认货币";
+$lang['langSysExchangeLogUpdate']="系统->汇率管理->修改汇率信息";
+$lang['langExchangeList']="汇率列表";
+?>

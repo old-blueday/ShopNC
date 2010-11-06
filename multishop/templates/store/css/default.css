@@ -1,0 +1,73 @@
+a{
+	color:#333;
+	text-decoration: none;
+}
+a:link {  text-decoration: none; }
+
+a.blue:link, a.blue:visited { color: #014cc9; text-decoration: none; }
+
+a.blue:hover, a.blue:active { color: #014cc9; text-decoration: underline; }
+
+a.org:link, a.org:visited { color: #ff4e00; text-decoration: none; }
+
+a:hover, a:active, a.org:hover, a.org:active { color: #ff4e00; text-decoration: underline; }
+
+address, caption, th, em { font-weight: 400; }
+
+body {
+	background-color: #fff;
+	text-align: center;
+	font-family: tahoma, verdana, simsun, "microsoft yahei", "arial unicode ms", mingliu, arial, helvetica;
+	font-size: 12px;
+	line-height: 1.5em;
+}
+
+button { cursor: pointer; font-size: 12px; margin: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px; }
+
+caption, tbody, tfoot, thead, tr, th, td, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table {
+	margin: 0px;
+	padding: 0px;
+}
+var {
+	font-style: normal;
+}
+
+
+em, cite { font-style: normal; }
+
+fieldset, img { border:none; }
+
+h3, h4, h5, h1, h2 { font-size: 1em; }
+
+select { font-size: 12px; }
+
+table { border-collapse: collapse; }
+ul, ol, li {
+	list-style-type: none;
+}
+
+.barbtm { clear: both; float: left; font-size: 1px; height: 8px; line-height:8px; width: 100%; }
+
+.center { text-align: center; }
+
+.clear { clear: both; display: block; font: 0px/0 sans-serif; height: 0px; overflow: hidden; }
+
+.display { display: block; }
+
+.h, .none { display: none; }
+
+.left { float: left; }
+
+.m { margin: auto; width: 950px; }
+
+.right { float: right; width:202px; }
+
+#wrapper { text-align: left; }
+.sidebar_all { width: 100%; clear: both; float: left; margin-top: 6px; }
+
+/*  所在位置导航  */#sitenav { float: left; font-size: 12px; line-height: 24px; width: 950px; height: 24px; padding-bottom: 4px; background: url(../images/itemtitlesbg.jpg) repeat-x left top;}
+	#sitenav a{}
+	#sitenav span { background: url(../images/title_sign.gif) no-repeat left center; float: left; padding-left: 16px; margin-left: 8px; display: inline;}
+	#pic_view img{ max-width:280px;autoimg:expression(onload=function(){this.style.width=(this.offsetWidth > 280)?"280px":"auto"});}
+
+

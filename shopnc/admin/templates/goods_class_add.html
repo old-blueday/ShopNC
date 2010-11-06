@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_class_add</tpl></title><!-- 商品管理 - 添加商品分类 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$('#tab1').click(function(){
+		$('#entry1').fadeIn(600);
+	});
+	$('#tab2').click(function(){
+		$('#entry2').fadeIn(600);
+	});
+	$('#tab3').click(function(){
+		$('#entry3').fadeIn(600);
+	});
+	/* 对需要填写验证的信息，进行验证 */
+	$("#goods_class").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_class_name	: {required	:true}
+		},
+		messages: {
+			txt_class_name	: {required	: "<tpl>$admin_goods_class_name_is_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+    <form action="admin_goods_class.php?action=save" method="post" name="goods_class" id="goods_class">
+    	<input type="hidden" name="class_id" value="<tpl>$class.class_id</tpl>"/>
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_goods_class.php?action=list" target="_self" class="btnInput"><tpl>$admin_goods_class_list</tpl><!-- 商品分类列表 --></a></span>
+	<tpl>$admin_header_goods_manage</tpl><!-- 商品管理 --> >> <tpl>if $class.class_id!=''</tpl><tpl>$admin_goods_class_edit</tpl><tpl>else</tpl><tpl>$admin_goods_class_add</tpl><tpl>/if</tpl><!-- 添加商品分类 -->
+</b>
+    </h4>
+	<div id="rightcon">
+			<div class="rc_con">
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_goods_class_base</tpl><!-- 基本信息 --></a></li>
+        <li id="tab2"><a href="#nogo"><tpl>$admin_goods_class_other</tpl><!-- 独有属性 --></a></li>
+        <!-- <li id="tab3"><a href="#nogo"><tpl>$admin_nc_help</tpl>帮助信息</a></li> -->
+    </ul>
+    <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_class_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_name</tpl><!-- 分类名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_name" id="txt_class_name" value="<tpl>$class.class_name|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_class_name" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class_top</tpl><!-- 父级目录 -->:</td>
+            <td><tpl>$txt_class_top_id</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_attr</tpl><!-- 属性选择 -->:</td>
+            <td><tpl>$type_select</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class_put</tpl><!-- 发布 -->:</td>
+            <td><tpl>$txt_class_state</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class_menu</tpl><!-- 发布在首页导航处 -->:</td>
+            <td><tpl>$txt_class_menu</tpl></td>
+          </tr>
+          <!-- <tr>
+            <td><tpl>$admin_goods_class_language</tpl> --><!-- 分类语言显示 --><!-- :</td>
+            <td><tpl>$language_select</tpl></td>
+          </tr> -->
+          <tr>
+            <td><tpl>$admin_goods_class_sort</tpl><!-- 分类排序 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_sort" id="txt_class_sort" value="<tpl>$class.class_sort</tpl>" /></td>
+          </tr>
+          <!-- <tr>
+            <td><tpl>$admin_goods_class_url</tpl>分类指向的url外联 :</td>
+            <td><input type="text" name="txt_class_url" id="txt_class_url" value="<tpl>$class.class_url</tpl>"/><div class="check-error"><label style="display:none" for="txt_class_url" class="wrong" metaDone="true" generated="true"></label></div></td>
+          </tr>-->
+          <tr>
+            <td><tpl>$admin_goods_class_keyword</tpl><!-- 关键字 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_keywords" id="txt_class_keywords" value="<tpl>$class.class_keywords|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class_description</tpl><!-- 描述 -->:</td>
+            <td><textarea name="txt_class_description" id="txt_class_description" cols="45" rows="5"><tpl>$class.class_description</tpl></textarea></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class_modify_set</tpl><!-- admin_goods_class_modify_set --></td>
+            <td><input name="modify_sub" id="modify_sub" type="checkbox" value="1" /><tpl>$admin_goods_class_sub_set</tpl></td>
+          </tr>
+        </table>
+    </div><!--  end of entry2  -->
+    <div class="entry-body" id="entry2" style="display:none;">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(1)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.0|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(2)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.1|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(3)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.2|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(4)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.3|escape:html</tpl>" /></td>
+          </tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(5)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.4|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(6)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.5|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(7)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.6|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(8)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.7|escape:html</tpl>" /></td>
+          </tr>		
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(9)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.8|escape:html</tpl>" /></td>
+          </tr>
+            <td width="120"><tpl>$admin_goods_class_attr_name</tpl>(10)<!-- 属性名称 -->:</td>
+            <td><input class="TextBoxAt"  type="text" name="txt_class_attr[]" value="<tpl>$class.class_other_attr.9|escape:html</tpl>" /></td>
+          </tr>  
+        </table>
+    </div><!--  end of entry2  -->
+
+    <div class="btnDiv" style="padding:0 0 10px 140px;">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_class_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+      &nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="button2" id="button2" value="<tpl>$admin_goods_class_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+	</div>
+    </form>
+	<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

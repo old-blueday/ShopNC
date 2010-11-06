@@ -1,0 +1,95 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopClassManage </tpl> &gt;&gt; <tpl> $langSysShopClassList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='shopcategory.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysShopClassAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="shopcategory.manage.php" id="form1" name="form1" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-5"><tpl> $langCSort </tpl></td>
+						<td class="es-4"><tpl> $langShopClassName </tpl></td>
+						<td class="es-2"><tpl> $langSysCOperate </tpl></td>
+					</tr>
+					<tpl> if $category_array[0].class_id neq '' </tpl>
+						<tpl> section name=loop loop=$category_array </tpl>
+						
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="del_id[]" value="<tpl> $category_array[loop].class_id </tpl>" />
+						<input type="hidden" name="id[]" value="<tpl> $category_array[loop].class_id </tpl>" />
+						</td>
+						<td><input class="fct-input-2" name="class_sort[]" type="text" value="<tpl> $category_array[loop].class_sort </tpl>" size="5" maxlength="5" /></td>
+						<td>
+							<tpl> $category_array[loop].class_name </tpl>
+							<tpl> if $category_array[loop].is_parent eq '1' </tpl>
+							<a href="shopcategory.manage.php?action=list&parent_id=<tpl> $category_array[loop].class_id </tpl>"><tpl> $langSysShopClassChild </tpl></a> 
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="shopcategory.manage.php?action=modi&id=<tpl> $category_array[loop].class_id </tpl>"><tpl> $langCedit </tpl></a>
+							|
+							<a href="shop.manage.php?shop_class=<tpl> $category_array[loop].class_id </tpl>"><tpl> $langSysShopClassViewShop </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $category_array[0].class_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $category_array[0].class_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="" id="update_sort" value="<tpl> $langShopSubmitSort </tpl>" type="button" />
+				<tpl> if $parent_id neq 0 </tpl>
+				<input class="bthl" name="" value="<tpl> $langSysShopReturn </tpl>" type="button" onclick="location.href='shopcategory.manage.php?action=list'" />
+				<tpl> /if </tpl>
+				<select name="move_class_id" id="move_class">
+					<option value=""><tpl> $langSysCMoveTo </tpl></option>
+					<tpl> foreach from=$sel_category item=one </tpl>
+					<option value="<tpl> $one.class_id </tpl>"><tpl> $one.class_name </tpl></option>
+					<tpl> /foreach </tpl>
+				</select>	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form1').submit();
+	});
+	$('#update_sort').click(function(){
+		$('input[id=action]').val('sort');
+		document.getElementById('form1').submit();
+	});
+});
+</script>
+</body>
+</html>

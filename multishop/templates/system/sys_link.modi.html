@@ -1,0 +1,100 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langLinkFirendManage </tpl> &gt;&gt; <tpl> $langLinkModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="link.manage.php" enctype="multipart/form-data" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="link_id" id="link_id" value="<tpl> $link_array.link_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langLinkWord </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_title" id="txt_title" type="text" maxlength="30" value="<tpl> $link_array.link_title </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langLinkJump </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_url" id="txt_url" type="text" maxlength="255" value="<tpl> $link_array.link_url </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langLinkImage </tpl>:</th>
+									<td id="td_link_pic">
+										<tpl> if $link_array.link_pic neq '' </tpl><img src="<tpl> $site_url </tpl>/<tpl> $link_array.link_pic </tpl>" border="0" style="width:<tpl> $link_info.pic_width </tpl>px; height:<tpl> $link_info.pic_height </tpl>px" />
+											<input type="button" id="delbutton" class="bthl" name="delbutton" value="<tpl> $langLinkDel </tpl>" />
+										<tpl> else </tpl>
+											<input name="txt_pic" id="txt_pic" type="file" />
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langCSort </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_sort" id="txt_sort" type="text" maxlength="9" value="<tpl> $link_array.link_sort </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langLinkDisFashion </tpl>:</th>
+									<td>
+										<input name="txt_type" id="txt_type_0" class="input_radio" type="radio" value="0" <tpl> if $link_array.link_type eq '0' || $link_array.link_type eq '' </tpl> checked="checked"<tpl> /if </tpl> /><label for="txt_type_0"><tpl> $langLinkImage </tpl></label>
+										<input name="txt_type" id="txt_type_1" class="input_radio" type="radio" value="1" <tpl> if $link_array.link_type eq '1' </tpl> checked="checked"<tpl> /if </tpl> /><label for="txt_type_1"><tpl> $langLinkWord </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langLinkWhetherClose </tpl>:</th>
+									<td>
+										<input name="txt_close" id="txt_close_1" class="input_radio" type="radio" value="1" <tpl> if $link_array.link_close eq '1' </tpl> checked="checked"<tpl> /if </tpl> /><label for="txt_close_1"><tpl> $langCYes </tpl></label>
+										<input name="txt_close" id="txt_close_0" class="input_radio" type="radio" value="0" <tpl> if $link_array.link_close eq '0' </tpl> checked="checked"<tpl> /if </tpl> /><label for="txt_close_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_title: {required:true},
+			txt_url: {required:true,url:true},
+			txt_sort: {required:true,number:true}
+		},
+		messages: {
+			txt_title: {required:"<tpl> $langLinkWordNotNull </tpl>"},
+			txt_url: {required:"<tpl> $langLinkJumpNotNull </tpl>",url:"<tpl> $errLinkJumpIsWrong </tpl>"},
+			txt_sort: {required:"<tpl> $langLinkSortNotNull </tpl>",number:"<tpl> $langLinkSerialNumberIsNum </tpl>"}
+		}
+	});
+	
+	//Del image
+	$('#delbutton').click(function(){
+		$.ajax({
+			url: "link.manage.php",
+			data: 'action=del_pic&link_id='+<tpl> $link_array.link_id </tpl>,
+			type:'post',
+			dataType:"json"
+		});
+		$('#td_link_pic').html('<input name="txt_pic" id="txt_pic" type="file" />');
+	});
+});
+</script>
+</body>
+</html>

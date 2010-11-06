@@ -1,0 +1,6 @@
+<ul id="<tpl> $InfoSelectorTarget.id </tpl>" >
+  <tpl>foreach item = InfoSelectorTarget from = $InfoSelectorTarget.body</tpl>
+  <li class="<tpl>$InfoSelectorTarget.class</tpl>" ><a href="<tpl>$InfoSelectorTarget.link</tpl>" id="<tpl>$InfoSelectorTarget.id</tpl>" > <tpl>$InfoSelectorTarget.name</tpl> </a></li>
+  <tpl>/foreach</tpl>
+</ul>
+<tpl>$InfoSelectorTarget.id</tpl>

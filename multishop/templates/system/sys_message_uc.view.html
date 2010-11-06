@@ -1,0 +1,41 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langMessageLetterGroupSend </tpl> &gt;&gt; <tpl> $langMessageView </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langMessageTitle </tpl>:</th>
+									<td><tpl> $message_array.subject </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langMessageSendTime </tpl>:</th>
+									<td><tpl> $message_array.send_time </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langMessageContent </tpl>:</th>
+									<td><tpl> $message_array.message </tpl></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='message.manage.php?action=list'" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shopping_cart2_name</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+/* 提交操作 */
+function to_submit() {
+	document.getElementById('cart03').submit();
+}
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl>
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="shopping_pic"></div>
+  <div class="top">&nbsp;</div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$shopping_cart2_name</tpl><!-- 我的购物车 --></h2>
+    </div>
+<form name="cart03" id="cart03" action="shopping.php?action=step_3" method="post" target="_self">
+    <div id="cart">
+      <div class="inside"><span class="btns_left back_t"><a href="shopping.php?action=step_1"><tpl>$shopping_cart2_back</tpl><!-- 返回上一步 --></a></span><span class="btns_right front_t"><a href="#" onclick="to_submit();"><tpl>$shopping_cart2_step3</tpl></a></span>
+        <div class="clear">&nbsp;</div>
+        <div class="bills">
+          <div class="title">
+            <h3><tpl>$shopping_cart2_goods</tpl><!-- 已选购商品 --></h3>
+            <div class="clear">&nbsp;</div>
+          </div>
+          <div class="item">
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td width="10%">&nbsp;</td>
+                <td width="20%" align="left"><tpl>$shopping_cart2_goods_name</tpl><!-- 商品名称 --></td>
+                <td width="10%" align="center"><tpl>$shopping_cart2_goods_price</tpl><!-- 本产品单价 --></td>
+				<td width="15%" align="center"><tpl>$shopping_cart_goods_color</tpl>/<tpl>$shopping_cart_goods_size</tpl><!-- 颜色/规格 --></td>
+                <td width="10%" align="center"><tpl>$shopping_cart2_goods_num</tpl><!-- 数量 --></td>
+                <td align="center"><tpl>$shopping_cart2_goods_count_price</tpl><!-- 本产品合计 --></td>
+              </tr>
+            </table>
+          </div>
+          <ul>
+            <li>
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+				<tpl>section name=list loop=$cart_goods</tpl>
+                  <tr>
+                    <td width="10%" height="80" align="center"><a href="product.php?id=<tpl>$cart_goods[list].goods_id</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$cart_goods[list].goods_small_image</tpl>" width="60" height="60" /></a></td>
+                    <td width="20%" align="left"><a href="product.php?id=<tpl>$cart_goods[list].goods_id</tpl>"><tpl>$cart_goods[list].goods_name</tpl></a></td>
+                    <td width="10%" align="center"><tpl>$currencys_set.currencies_symbol</tpl><tpl>$cart_goods[list].goods_pricedesc</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+					<td width="15%" align="center"><tpl>$cart_goods[list].color</tpl>/<tpl>$cart_goods[list].size</tpl></td>
+                    <td width="10%" align="center"><tpl>$cart_goods[list].goods_num</tpl></td>
+                    <td align="center"><tpl>$currencys_set.currencies_symbol</tpl><tpl>math equation="x*y" x=$cart_goods[list].goods_pricedesc y=$cart_goods[list].goods_num format="%.2f"</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+				  <tpl>/section</tpl>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+        </div>
+        <dl>
+          <dt><tpl>$shopping_cart2_price</tpl><!-- 商品总额 -->:</dt>
+          <dd><tpl>$currencys_set.currencies_symbol</tpl><tpl>$price_count</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></dd>
+        </dl>
+        <div class="clear">&nbsp;</div>
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart2_order_info</tpl><!-- 订单信息 --></strong></h3>
+          </div>
+          <ul>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" class="table" >
+                <tbody>
+                  <tr>
+                    <th width="15%"><tpl>$shopping_cart2_all_price</tpl><!-- 订单总金额 -->:</th>
+                    <td width="18%"><tpl>$currencys_set.currencies_symbol</tpl><tpl>$price_true_count</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                    <th width="15%"><tpl>$shopping_cart2_pay_type</tpl><!-- 付款方式 -->:</th>
+                    <td width="18%"><tpl>$pay_type.pay_name</tpl></td>
+                    <th width="15%"><tpl>$shopping_cart2_send_price</tpl><!-- 配送费用 -->:</th>
+                    <td width="18%"><tpl>$currencys_set.currencies_symbol</tpl><tpl>$nc_send_price</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+                  <tr>
+                    <th><tpl>$shopping_cart2_send_pay_fee</tpl><!-- 付款方式 -->:</th>
+                    <td><tpl>$pay_type.pay_fee</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                    <th><tpl>$shopping_cart2_send_type</tpl><!-- 配送方式 -->:</th>
+                    <td><tpl>$send_info.send_name</tpl></td>
+                    <th><tpl>$shopping_cart2_invoice</tpl><!-- 发票 -->:</th>
+                    <td><tpl>if $smarty.post.invoice == '0'</tpl><tpl>$shopping_cart2_invoice_no</tpl><!-- 不需要 --><tpl>else</tpl><tpl>$shopping_cart2_invoice_yes</tpl><!-- 需要 -->(<tpl>$smarty.post.invoice_top</tpl>)<tpl>/if</tpl></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <div class="clear">&nbsp;</div>
+        </div>
+        
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart2_receiver_info</tpl><!-- 收货人信息 --></strong></h3>
+          </div>
+          <ul>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" class="table" >
+                <tbody>
+                  <tr>
+                    <th width="14%"><tpl>$shopping_cart2_receiver_name</tpl><!-- 收货人姓名 -->:</strong></th>
+                    <td width="18%"><tpl>$user_info.other_true_name</tpl></td>
+                    <th width="14%"><tpl>$shopping_cart2_receiver_email</tpl><!-- 电子信箱 -->:</th>
+                    <td width="24%"><tpl>$user_info.other_email</tpl></td>
+                    <th width="14%"><tpl>$shopping_cart2_receiver_zip</tpl><!-- 邮政编码 -->:</th>
+                    <td width="15%"><tpl>$user_info.other_zip</tpl></td>
+                  </tr>
+                  <tr>
+                    <th><tpl>$shopping_cart2_receiver_mobile</tpl><!-- 联络手机 -->:</th>
+                    <td><tpl>$user_info.other_mobilephone</tpl></td>
+                    <th><tpl>$shopping_cart2_receiver_phone</tpl><!-- 联络电话 -->:</th>
+                    <td><tpl>$user_info.other_phone</tpl></td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <th><tpl>$shopping_cart2_receiver_address</tpl><!-- 收货人地址 -->:</th>
+                    <td colspan="5"><tpl>$user_info.txt_other_country</tpl><tpl>$user_info.txt_other_province</tpl><tpl>$user_info.txt_other_city</tpl><tpl>$user_info.txt_other_county</tpl><tpl>$user_info.other_address</tpl></td>
+                  </tr>
+                  <tr>
+                    <th><tpl>$shopping_cart2_remarks</tpl><!-- 备注 -->:</th>
+                    <td colspan="5">&nbsp;<tpl>$smarty.post.textarea</tpl></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul><div class="clear">&nbsp;</div>
+        </div>
+			<input type="hidden" name="receiver_name" value="<tpl>$user_info.other_true_name</tpl>" /><!-- 收货人姓名 -->
+			<input type="hidden" name="receiver_country" value="<tpl>$user_info.txt_other_country</tpl>" /><!-- 国 -->
+			<input type="hidden" name="receiver_province" value="<tpl>$user_info.txt_other_province</tpl>" /><!-- 省 -->
+			<input type="hidden" name="receiver_city" value="<tpl>$user_info.txt_other_city</tpl>" /><!-- 市 -->
+			<input type="hidden" name="receiver_city" value="<tpl>$user_info.txt_other_county</tpl>" /><!-- 县 -->
+			<input type="hidden" name="receiver_address" value="<tpl>$user_info.other_address</tpl>" /><!-- 收货人地址 -->
+			<input type="hidden" name="receiver_email" value="<tpl>$user_info.other_email</tpl>" /><!-- 收货人email -->
+			<input type="hidden" name="receiver_post" value="<tpl>$user_info.other_zip</tpl>" /><!-- 收货人邮编 -->
+			<input type="hidden" name="receiver_tele" value="<tpl>$user_info.other_phone</tpl>" /><!-- 收货人电话 -->
+			<input type="hidden" name="receiver_mobile" value="<tpl>$user_info.other_mobilephone</tpl>" /><!-- 收货人手机 -->
+			
+			<input type="hidden" name="transport_id" value="<tpl>$send_info.send_id</tpl>" /><!-- 配送id -->
+			<input type="hidden" name="transport_name" value="<tpl>$send_info.send_name</tpl>" /><!-- 配送名称 -->
+			<input type="hidden" name="transport_price" value="<tpl>$nc_send_price</tpl>" /><!-- 配送价格 -->
+			<input type="hidden" name="transport_content" value="<tpl>$smarty.post.textarea</tpl>" /><!-- 备注内容 -->
+			
+			<input type="hidden" name="invoice" value="<tpl>$smarty.post.invoice</tpl>" /><!-- 是否需要发票 -->
+			<input type="hidden" name="invoice_top" value="<tpl>$smarty.post.invoice_top</tpl>" /><!-- 发票抬头 -->
+			
+			<input type="hidden" name="pay_id" value="<tpl>$pay_type.pay_id</tpl>" /><!-- 支付id -->
+			<input type="hidden" name="pay_name" value="<tpl>$pay_type.pay_name</tpl>" /><!-- 支付名称 -->
+			<input type="hidden" name="pay_price" value="<tpl>$pay_type.pay_fee</tpl>" /><!-- 支付手续费用 -->
+			<input type="hidden" name="pay_content" value="" /><!-- 支付内容 -->
+			<input type="hidden" name="price_count" value="<tpl>$price_true_count</tpl>" /><!-- 支付总金额 -->        
+        <span class="btns_left back_b"><a href="shopping.php?action=step_1"><tpl>$shopping_cart2_back</tpl><!-- 返回上一步 --></a></span><span class="btns_right front_b"><a href="#" onclick="to_submit();"><tpl>$shopping_cart2_step3</tpl></a></span></div>
+      <div class="clear">&nbsp;</div>
+    </div>
+	</form>
+  </div>
+  <div class="clear" style="height:6px;">&nbsp;</div>
+  <div class="bottom">&nbsp;</div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl>
+<!-- 底部内容:END -->
+</body>
+</html>

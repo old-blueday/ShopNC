@@ -1,0 +1,26 @@
+
+<DIV class=Title style=" background-image:url(<tpl> $template_dir </tpl>/home/images/standard_side_title172.gif); background-repeat:no-repeat; background-position:left 0px;font-family:'宋体'; padding:0px; margin:0px  height:20px; line-height:20px;"><h2><tpl> $langPBuyBobyMore </tpl></h2></DIV>
+<div  style=" width:20px; display:block;float:left; padding-left:30px; padding-bottom:20px; margin-left:auto; margin-right:auto"> 
+
+<UL >
+
+<tpl> section name=loop loop=$buyed_array </tpl>
+	<tpl> if $ifhtml eq '1' && $buyed_array[loop].html_url neq '' </tpl>
+	<li style=" float:left; padding-left:-10px; width:100px; text-align:center; margin-top:20px">
+		<a target="_blank" href="<tpl> $buyed_array[loop].html_url </tpl>" ><img src="../<tpl>$buyed_array[loop].p_pic|default:'../templates/orange/images/noimgs.gif' </tpl>" width=80 height=80 border="0" style=" padding-left:20px"/>
+			<span style=" width:120px;display:block; float:left"><tpl> $buyed_array[loop].p_name </tpl></span>
+		
+		</a>
+		</li>
+	<tpl> else </tpl>
+		<LI  style=" float:left; padding-left:-10px; width:100px; text-align:center; margin-top:20px"><A title="<tpl> $buyed_array[loop].p_name </tpl>" href="product.php?action=view&pid=<tpl> $buyed_array[loop].p_code </tpl>" style="text-align:center" target=_blank >
+		<span style="width:110px; text-align:center"><img border="0"src="<tpl> $site_url </tpl>/<tpl> $buyed_array[loop].p_pic|default:'templates/orange/images/noimgs.gif' </tpl>" style=" width:80px;  padding-left:20px;margin-left:auto; margin:auto" /></span>
+<span style=" width:120px;display:block; float:left"><I style="width:110px;display:block; float:left">￥<tpl> $buyed_array[loop].p_price </tpl></I><tpl> $buyed_array[loop].p_name </tpl></span>
+
+</A></LI>
+	<tpl> /if </tpl>
+<tpl> /section </tpl>
+
+</UL>
+<div style=" clear:both"></div>
+</div>

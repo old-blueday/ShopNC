@@ -1,0 +1,10 @@
+<?php
+$lang['langAgreementMUserManage']="用户协议管理";
+$lang['langAgreementMContent']="协议内容";
+$lang['langAgreementMShopUser']="管理商城用户注册协议。";
+$lang['langAgreementMDataToLoading']="数据正在加载中……";
+$lang['langAgreementMSubmit']="提&nbsp;&nbsp;&nbsp;&nbsp;交";
+$lang['langAgreementMOperatorOk']="操作成功";
+$lang['langAgreementMOperatorLost']="操作失败";
+$lang['langAgreementLog']="系统设置->用户协议->编辑协议";
+?>

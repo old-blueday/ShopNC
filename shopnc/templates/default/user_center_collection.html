@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$favorite_top_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content" style="height:380px;">
+      <div class="title">
+        <h3 id="collection"><tpl>$favorite_title</tpl><!-- 收藏商品 --></h3>
+      </div>
+      <div class="inside">
+        <div class="inside-tit"><tpl>$favorite_me</tpl><!-- 我收藏的商品列表 --></div>
+        <table id="tablesorter-demo" class="tablesorter" border="0" cellspacing="1" 
+cellpadding="0">
+          <thead>
+            <tr>
+              <th width="40%"><tpl>$favorite_name</tpl><!-- 商品名称 --></th>
+              <th width="30%"><tpl>$favorite_our_price</tpl><!-- 本店售价 --></th>
+              <th width="30%"><tpl>$favorite_oper</tpl><!-- 操作 --></th>
+            </tr>
+          </thead>
+          <tbody>
+		  <tpl>section name=list loop=$collection_array</tpl>
+            <tr>
+              <td><a href="<tpl> $Site_Url </tpl>/product.php?id=<tpl>$collection_array[list].goods_id</tpl>" target="_blank"><tpl>$collection_array[list].goods_name</tpl></a></td>
+              <td><tpl>$collection_array[list].goods_pricedesc</tpl></td>
+              <td><span class="control_btn"><a href="<tpl> $Site_Url </tpl>/shopping.php?goods_id=<tpl>$collection_array[list].goods_id</tpl>&goods_num=1">
+                <h5 id="incate"><tpl>$favorite_add_to_cart</tpl><!-- 加入购物车 --></h5>
+                </a></span><span class="control_btn"><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=del_collection&collection_id=<tpl>$collection_array[list].collection_id</tpl>" onclick="return confirm('<tpl>$favorite_del_conf</tpl>');">
+                <h5 id="del"><tpl>$favorite_del</tpl><!-- 删除 --></h5>
+                </a></span></td>
+            </tr>
+			<tpl>/section</tpl>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3"><tpl>$show_page</tpl></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="clear" style="height:12px;">&nbsp;</div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <!-- 用户中心内容:END -->
+  <!-- 用户中心菜单:START -->
+  	<tpl>include file ='user_center_menu.html'</tpl>
+  <!-- 用户中心菜单:END -->
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

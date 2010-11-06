@@ -1,0 +1,423 @@
+body, div, span, h1, h2, h3, h4, ul, li, img, p, b, textarea, input, select, form{
+	font-family:verdana,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	}
+.gfd {
+	margin: 5px 0px 0px 3px; 
+	width: 148px;
+}
+.gftit {
+	background-position: 0px -31px; 
+	margin-bottom: 2px; 
+	position: relative; 
+	height: 29px;
+	cursor:pointer;
+}
+.gftit{ 
+	background-image:url(../images/nc-bg-1.gif);
+	}
+	
+a.clsfd {
+	display: block; 
+	left: 3px; 
+	width: 9px; 
+	position: absolute; 
+	top: 15px; 
+	height: 9px;
+	background:url(../images/nc-s.gif) no-repeat;
+}
+a.bgf1 {
+ 	background-position:0px -13px;	
+}
+a.bgf1:hover{
+	background-position:-17px -13px;
+	}
+a.bgf2 {
+ 	background-position:0px 0px;	
+}
+a.bgf2:hover{
+	background-position:-17px 0px;
+	}
+span.gfname {
+	font-weight: normal; 
+	left: 21px; 
+	cursor: hand; 
+	color: #3b597a; 
+	position: absolute; 
+	top: 9px;
+	text-decoration: none;
+	font-size:14px;
+	font-family: Verdana, Arial;
+}
+.gfdbdy li.on{
+	background-image:url(../images/nc-bg-1.gif);
+	background-repeat:no-repeat;
+}
+.gfdbdy li.on2{
+	background-image:url(../images/nc-bg-1.gif);
+	background-repeat:no-repeat;
+}
+/*
+Background image
+*/
+.gfdbdy li b.icos {
+	display: block; 
+	font-size: 1px; 
+	left: 10px; 
+	width: 17px; 
+	position: absolute; 
+	height: 16px;
+	background-image:url(../images/left-menu.gif);
+	background-repeat:no-repeat;
+}
+/*
+Icon coordinates
+*/
+.icoibx1 {
+	background-position: 0px 0px;
+}
+.icoibx2 {
+	background-position: -31px 0px;
+}
+.icoibx3 {
+	background-position: 0px -225px;
+}
+.icoibx4 {
+	background-position: -31px -33px;
+}
+.icoibx5 {
+	background-position: -31px -65px;
+}
+.icoibx6 {
+	background-position: -31px -96px;
+}
+.icoibx7 {
+	background-position: -31px -128px;
+}
+.icoibx8 {
+	background-position: -31px -160px;
+}
+.icoibx9 {
+	background-position: -31px -192px;
+}
+.icoibx10 {
+	background-position: -31px -224px;
+}
+.icoibx11 {
+	background-position: -65px -0px;
+}
+.icoibx12 {
+	background-position: -65px -32px;
+}
+.icoibx13 {
+	background-position: -65px -64px;
+}
+.icoibx14 {
+	background-position: -65px -97px;
+}
+.icoibx15 {
+	background-position: -65px -128px;
+}
+.icoibx16 {
+	background-position: -65px -160px;
+}
+.icoibx17 {
+	background-position: 0px -33px;
+}
+.icoibx18 {
+	background-position: -65px -192px;
+}
+.icoibx19 {
+	background-position: -65px -224px;
+}
+.icoibx20 {
+	background-position: 0px -128px;
+}
+.icoibx21 {
+	background-position: 0px -160px;
+}
+.icoibx22 {
+	background-position: -99px 0px;
+}
+.icoibx23 {
+	background-position: -99px -32px;
+}
+.icoibx24 {
+	background-position: -99px -64px;
+}
+.icoibx25 {
+	background-position: -99px -97px;
+}
+.icoibx26 {
+	background-position: -99px -128px;
+}
+.icoibx27 {
+	background-position: -99px -160px;
+}
+.icoibx28 {
+	background-position: -99px -192px;
+}
+.icoibx29 {
+	background-position: 0px -224px;
+}
+.icoibx30 {
+	background-position: -99px -224px;
+}
+.icoibx31 {
+	background-position: -133px 0px;
+}
+.icoibx32 {
+	background-position: -133px -32px;
+}
+.icoibx33 {
+	background-position: -133px -64px;
+}
+.icoibx34 {
+	background-position: -133px -96px;
+}
+.icoibx35 {
+	background-position: -133px -128px;
+}
+.icoibx36 {
+	background-position: 0px -97px;
+}
+.icoibx37 {
+	background-position: -133px -160px;
+}
+.icoibx38 {
+	background-position: -133px -192px;
+}
+.icoibx39 {
+	background-position: -133px -224px;
+}
+.icoibx40 {
+	background-position: -167px 0px;
+}
+.icoibx41 {
+	background-position: -167px -32px;
+}
+.icoibx42 {
+	background-position: 0px -65px;
+}
+.icoibx43 {
+	background-position: 0px -97px;
+}
+.icoibx44 {
+	background-position: -167px -64px;
+}
+.icoibx45 {
+	background-position: -167px -96px;
+}
+.icoibx46 {
+	background-position: -167px -128px;
+}
+.icoibx47 {
+	background-position: -167px -160px;
+}
+.icoibx48 {
+	background-position: -167px -192px;
+}
+.icoibx49 {
+	background-position: -167px -224px;
+}
+.icoibx50 {
+	background-position: -200px 0px;
+}
+.icoibx51 {
+	background-position: -200px -32px;
+}
+.icoibx52 {
+	background-position: -200px -32px;
+}
+.icoibx53 {
+	background-position: -200px -64px;
+}
+.icoibx54 {
+	background-position: -200px -96px;
+}
+.icoibx55 {
+	background-position: -200px -128px;
+}
+.icoibx56 {
+	background-position: -200px -160px;
+}
+.icoibx57 {
+	background-position: -200px -193px;
+}
+.icoibx58 {
+	background-position: -200px -225px;
+}
+.icoibx59 {
+	background-position: -233px 0px;
+}
+.icoibx60 {
+	background-position: -233px -32px;
+}
+.icoibx61 {
+	background-position: -233px -64px;
+}
+.icoibx62 {
+	background-position: -233px -97px;
+}
+.icoibx63 {
+	background-position: -233px -128px;
+}
+.icoibx64 {
+	background-position: 0px -192px;
+}
+.icoibx65 {
+	background-position: -233px -159px;
+}
+.icoibx66 {
+	background-position: -233px -192px;
+}
+.icoibx67 {
+	background-position: -233px -224px;
+}
+.icoibx68 {
+	background-position: -267px 0px;
+}
+.icoibx69 {
+	background-position: -267px -33px;
+}
+.icoibx70 {
+	background-position: -267px -65px;
+}
+.icoibx71 {
+	background-position: -267px -97px;
+}
+.icoibx72 {
+	background-position: -267px -128px;
+}
+.icoibx73 {
+	background-position: -267px -160px;
+}
+.icoibx74 {
+	background-position: -267px -193px;
+}
+.icoibx75 {
+	background-position: -267px -226px;
+}
+.hide {
+	display: none
+}
+.gfdbdy { width:140px; margin-top:5px;}
+.gfdbdy li {
+	position: relative; 
+	height: 26px
+}
+
+.gfdbdy li b.icos {
+	display: block; 
+	font-size: 1px; 
+	left: 10px; 
+	width: 17px; 
+	position: absolute; 
+	top: 5px; 
+	height: 16px
+}
+.gfdbdy li b.icoloading {
+	border-right: 0px; 
+	background-position: 0px 0px; 
+	border-top: 0px; 
+	border-left: 0px; 
+	width: 16px; 
+	border-bottom: 0px; 
+	height: 16px; 
+	background-color: transparent
+}
+.gfdbdy li.bar {
+	height: 6px
+}
+a.gfnm {
+	left: 33px; 
+	position: absolute; 
+	top: 6px
+}
+a.gfnm {
+	display: block; 
+	overflow: hidden; 
+	width: 106px; 
+	white-space: nowrap; 
+	height: 17px; 
+	text-decoration: none
+}
+a.gfnm:hover {
+	text-decoration: none
+}
+.icodft {
+	background-position: -36px -7px
+}
+.icosnt {
+	background-position: -61px -7px
+}
+.icodel {
+	background-position: -88px -7px
+}
+.icoggao {
+	background-position: -257px -7px
+}
+.icospm {
+	background-position: -114px -7px
+}
+.icomfd {
+	background-position: -142px -8px
+}
+.icomfd2 {
+	background-position: -229px -7px
+}
+.icopsn {
+	background-position: -168px -6px; 
+	margin-top: -1px
+}
+.yui-b a {
+	color: #333
+}
+.yui-b a:hover {
+	color: #000
+}
+
+#leftcon{
+	float: left;
+	border-top-width: 2px;
+	background-color: #f6f9fd;
+	text-align:left;
+	border-right:#9db3c5 1px solid;
+	width:154px;
+	
+	}
+.gfd h3.gftit a.moreservwp:hover{
+	color:#207bd6;
+	}
+b.moreservico {
+	display: block; 
+	width: 14px; 
+	position: absolute; 
+	height: 14px
+}
+b.moreservico {
+	background-position: -568px -86px; 
+	right: 0px; 
+	top: 2px
+}
+/*
+The drop-down of
+*/
+.my_menu {
+	float: left;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scrollbar-face-color:#E6F5FF;
+	scrollbar-highlight-color:#ffffff;
+	scrollbar-shadow-color:#B0D4ED;
+	scrollbar-3dlight-color:#B0D4ED;
+	scrollbar-arrow-color:#4B6888;
+	scrollbar-track-color:#fdfdfd;
+	scrollbar-darkshadow-color:#ffffff;
+	width:153px;
+	position:relative;
+	z-index:10000;
+	
+	}

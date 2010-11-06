@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<tpl>include file ='header_new.html'</tpl>
+<div id="layout_page">
+<div id="leftbar">
+	      <div class="goodsitem_top_news">
+	<div id="daohang_0">
+	<div class="side_left_new" ></div>
+        <div class="side_right_new"></div>
+		<ul>
+		<li><tpl> $langNewsYourLocation </tpl>  <a href="<tpl> $site_url </tpl>" target="_blank"><tpl> $langCIndex </tpl></a> > <a href="<tpl> $site_url </tpl>/home/news.php?action=list"><tpl> $langNewsIndexName </tpl></a> > <tpl> $class_array.news_c_name </tpl></li>
+   </ul>
+</div>
+</div>
+<div id="news_main">
+	<ul>
+		<tpl> section name=loop loop=$news_array </tpl>
+			<li> <span style="float:left; margin-right:8px; display:inline; margin-top:7px;"> <img src="<tpl> $template_dir </tpl>/home/images/images_new/109.gif" /></span> <a href="<tpl> $news_array[loop].url </tpl>" <tpl> if $news_array[loop].news_jump_url neq '' </tpl>target="_blank"<tpl> /if </tpl> title='<tpl> $news_array[loop][2] </tpl>'><tpl> $news_array[loop][2] </tpl></a></li>
+		<tpl> /section </tpl>
+	</ul>
+	 <div id="news_list"><tpl> $page_list </tpl></div>
+	</div>
+</div>
+<div class="rightbar" style="float:left; margin:0 0 0 10px">
+      <div class="title1">
+        <h3><tpl> $langNewsInfoList </tpl></h3>
+      </div>
+      <div class="content1">
+	  	<div  class="gehang_color">
+	  	  <ul>
+			<tpl> section name=i loop=$news_class_array </tpl>
+				<li <tpl> if $smarty.section.i.rownum%2 eq 1 </tpl> id="sigle_news" <tpl> /if </tpl>><a href="<tpl> $site_url </tpl>/home/news.php?action=list&cid=<tpl> $news_class_array[i].news_c_id </tpl>" title="<tpl> $news_class_array[i].news_c_name </tpl>"><tpl> $news_class_array[i].news_c_name </tpl></a></li>
+			<tpl> /section </tpl>
+		</ul>
+		</div>
+      </div>
+    </div>
+  <div class="clear" style="height:24px;"></div>
+</div>
+	<tpl> include file ='../../../html/footer.html' </tpl> 
+</body>
+</html>

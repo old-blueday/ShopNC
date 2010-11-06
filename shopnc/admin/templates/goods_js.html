@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_js</tpl></title><!-- 商品管理 - 商品调用 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.rankset').css('display', 'none');
+	$('#typeset').change(function(){
+		if($(this).attr('value') == 'h'){
+			$('.rankset').css('display', '');
+		} else {
+			$('.rankset').css('display', 'none');
+		}
+	});
+	$('#js_select').change(function(){
+		if($(this).attr('value') == 'class'){
+			$('#goods_class').css('display', '');
+		} else {
+			$('#goods_class').css('display', 'none');
+		}
+	});
+	$('#goods_class').css('display', 'none');
+});
+
+/* 生成js调用代码 */
+	function checkform(){
+		var product_type = document.getElementById("js_select").value;
+		var num = document.getElementById("goods_num").value;
+		var show = document.getElementById("display-pic");
+		if(show.checked){
+			var show_value = 1;
+		}
+		else{
+			var show_value = 0;
+		}
+		var arrange_type = document.getElementById("typeset").value;
+		var is_show = document.getElementById("display-more");
+		if(is_show.checked){
+			var is_show_value = 1;
+		}
+		else{
+			var is_show_value = 0;
+		}
+		var show_num = document.getElementById("show_num").value;
+		var condition = "";
+		if(product_type == "class"){
+			var goods_type = document.getElementById("txt_class_top_id").value;
+			condition = "condition=type&bid="+goods_type+"&num="+num;
+		} else {
+			condition = "condition="+product_type+"&num="+num;
+		}
+		if(arrange_type == "h"){
+			var arrange = "h";
+		}
+		if(arrange_type == "v"){
+			var arrange = "v";
+		}
+		var charset = document.getElementById('charset').value;
+		
+		var js = '\<script src\=\"<tpl>$Site_Url</tpl>/shops_js.php?'+condition+'&action=goods_js&show='+show_value+'&arrange='+arrange+'&is_show='+is_show_value+'&charset='+charset+'&show_num='+show_num+'\"\>\<\/script\>';
+		document.getElementById("create_js").value=js;
+		
+	}
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+<h4 id="rightcon_h"><b><tpl>$admin_header_goods_manage</tpl> >> <tpl>$admin_goods_js</tpl><!-- 商品管理 >> 商品调用 -->
+</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_goods_js</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="button" name="button" id="button" onClick="javascript:return checkform();" value="<tpl>$admin_goods_js_generate</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="100%" border="0">
+        <tr>
+          <td width="180"><tpl>$admin_goods_js_choice</tpl><!-- 请选择显示商品类型 -->:</td>
+          <td>
+            <label>
+            <select name="js_select" id="js_select">
+				<option value="new"><tpl>$admin_goods_js_new</tpl><!-- 最新商品 --></option>
+				<option value="hot"><tpl>$admin_goods_js_hot</tpl><!-- 热卖商品 --></option>
+				<option value="commend"><tpl>$admin_goods_js_commend</tpl><!-- 推荐商品 --></option>
+				<option value="special"><tpl>$admin_goods_js_special</tpl><!-- 特价商品 --></option>
+				<option value="class"><tpl>$admin_goods_js_category</tpl><!-- 商品分类 --></option>
+            </select>
+            </label></td>
+        </tr>
+        <tr id="goods_class">
+          <td><tpl>$admin_goods_js_type</tpl>:</td>
+          <td><tpl>$txt_class_top_id</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_js_display_num</tpl><!-- 显示商品数量 -->:</td>
+          <td><label>
+            <input name="goods_num" id="goods_num" type="text" size="5" />
+          </label>
+            <label for="display-pic">
+            <input type="checkbox" name="display-pic" value="checkbox" id="display-pic" />
+            <tpl>$admin_goods_js_display_pic</tpl><!-- 显示图片 -->
+            </label></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_js_sort_type</tpl><!-- 选择商品排列方式 -->:</td>
+          <td>
+            <label>
+            <select name="typeset" id="typeset">
+				<option value="v"><tpl>$admin_goods_js_vertical</tpl><!-- 竖排 --></option>
+				<option value="h"><tpl>$admin_goods_js_row</tpl><!-- 横排 --></option>
+            </select>
+            </label>
+          <label for="display-more" class="rankset">
+          <input type="checkbox" name="display-more" value="checkbox" id="display-more" />
+          <tpl>$admin_goods_js_more_line</tpl><!-- 显示多行 -->
+          </label></td>
+        </tr>
+        <tr class="rankset">
+          <td><tpl>$admin_goods_js_every_line</tpl><!-- 每行显示的商品数量 -->:</td>
+          <td><label>
+            <input class="TextBoxAt2"  type="text" name="show_num" id="show_num" />
+          </label></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_js_charset</tpl>:</td>
+          <td>
+            <select name="charset" id="charset">
+              <option value="utf-8">utf-8<tpl>$admin_goods_js_utf8</tpl></option>
+              <option value="gb2312">gb2312<tpl>$admin_goods_js_gb2312</tpl></option>
+              <option value="big5">big5<tpl>$admin_goods_js_big5</tpl></option>
+            </select>          </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_js_generate</tpl><!-- 生成的JS代码 -->:</td>
+          <td><label>
+          <textarea name="create_js" id="create_js" cols="50" rows="6"></textarea>
+          </label></td>
+        </tr>
+		<tr>
+          <td>&nbsp;</td>
+          <td>
+		  <input type="button" name="button" id="button" onClick="javascript:return checkform();" value="<tpl>$admin_goods_js_generate</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <!-- 重置 -->
+		  </td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+	</div>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

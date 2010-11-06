@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_map</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+</head>
+<body>
+<!--头部:START-->
+<tpl>include_php file ='header.php'</tpl><!-- 头部信息header -->
+<!--头部:END-->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!--页面:START-->
+<div id="formbox">
+  <div class="toppic" id="sitemap_pic"></div>
+  <div class="top"></div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$shop_map</tpl></h2>
+    </div>
+    <div id="sitemap">
+      <ul>
+        <li>
+          <h3><a href="<tpl> $Site_Url </tpl>"><tpl>$shop_index</tpl></a></h3>
+        </li>
+        <li>
+          <h3><tpl>$shop_class</tpl></h3>
+		  <tpl>section name=list loop=$class_array</tpl>
+          <dl>
+            <dt><a href="<tpl> $Site_Url </tpl>/product_class.php?classid=<tpl>$class_array[list].class_id</tpl>" target="_blank" ><tpl>$class_array[list].class_name</tpl></a>:</dt>
+            <tpl>section name=l loop=$class_array[list].sub_class</tpl>
+			<dd><a href="<tpl> $Site_Url </tpl>/product_class.php?classid=<tpl>$class_array[list].sub_class[l].class_id</tpl>" target="_blank" ><tpl>$class_array[list].sub_class[l].class_name</tpl></a></dd>
+			<tpl>/section</tpl>
+          </dl>
+		  <tpl>/section</tpl>
+        </li>
+        <li>
+          <h3><tpl>$shop_other</tpl><!-- 网店其他 --></h3>
+		  <dl><dd><a href="<tpl> $Site_Url </tpl>/product_subject.php" target="_blank"><tpl>$shop_subject</tpl><!-- 主题馆 --></a></dd>
+		  <dd><a href="<tpl> $Site_Url </tpl>/product_brand.php?action=index" target="_blank"><tpl>$shop_brand</tpl><!-- 品牌展示 --></a></dd>
+		  <dd><a href="<tpl> $Site_Url </tpl>/article_class.php" target="_blank"><tpl>$shop_news</tpl><!-- 网店文章 --></a></dd>
+		  </dl>
+        </li>
+      </ul>
+    </div>
+  </div><div class="clear" style="margin-top:8px;">&nbsp;</div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部信息footer -->
+<!--底部内容:END-->
+</body>
+</html>

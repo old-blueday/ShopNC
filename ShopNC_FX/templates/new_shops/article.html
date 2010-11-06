@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<meta http-equiv="keywords" content="<tpl> $atticle_content_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $atticle_content_description </tpl>" /> 
+<title><tpl>$article_array.title</tpl> - <tpl> $shops_name </tpl></title>
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+</head>
+<body>
+<div id="container">
+<tpl> include_php file='shop_header.php' </tpl><!-- end of header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><a href="<tpl> $Site_Url </tpl>/shop_article.php?action=article_list&id=<tpl> $article_array.cid </tpl>"><tpl>$article_array.cname</tpl></a><tpl>$article_array.title</tpl>
+				</div>
+			</div>
+			<div class="con">
+			<div class="clear"></div>
+				<div class="article">
+					<h1><tpl>$article_array.title</tpl></h1>
+					<div class="article_con">
+						<tpl>$article_array.content</tpl>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		<div class="w_conright">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead w_wlist">
+				<strong><tpl> $artic_class </tpl></strong>
+				</div>
+			</div>
+			<div class="con">
+				<div class="w_crcon">
+				<tpl> section name=i loop=$artclass_array </tpl>
+				<tpl> if $smarty.section.i.rownum < 4 </tpl>
+					<div class="w_crconh2_r"></div>
+					<h2><a href="<tpl> $site_url </tpl>/shop_article.php?action=article&id=<tpl> $artclass_array[i].cid</tpl>"><tpl> $artclass_array[i].cname </tpl></a></h2>
+					<div class="clear"></div>
+					<div class="w_list_con">
+						<ul>
+							<tpl>foreach item = sub_class from = $artclass_array[i].body</tpl>
+								<li><a href="<tpl> $Site_Url </tpl>/shop_article.php?action=article_content&id=<tpl> $sub_class.aid </tpl>" target="_blank" title="<tpl> $sub_class.title </tpl>"><tpl> $sub_class.title </tpl></a></li>
+							<tpl>/foreach</tpl>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				<tpl> /if </tpl>	
+				<tpl> /section </tpl>
+
+				</div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+			
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead w_shop">
+				<strong><tpl> $hot_shops </tpl></strong>
+				</div>
+			</div>
+			<div class="con">
+				<div class="w_crcon">
+					<ul class="w_cr_hotshop">
+					<tpl> section name=list loop=$hot_shops_array </tpl> <!--热门商店-->
+						<li><a href="http://<tpl> $hot_shops_array[list].domainname </tpl><tpl> $domainname </tpl>" target="_blank" title="<tpl> $hot_shops_array[list].shopname </tpl>"><tpl> $hot_shops_array[list].shopname </tpl></a></li>
+					<tpl> /section </tpl>
+					</ul>
+				</div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+<tpl> include_php file='shop_footer.php' </tpl><!-- end of footer -->
+</div>
+</body>
+</html>

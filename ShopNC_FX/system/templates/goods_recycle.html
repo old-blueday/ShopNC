@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$system_header_goods_manage</tpl> - <tpl>$system_goods_recycle</tpl></title><!-- 商品管理 - 商品回收站 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+	function changeFun(value){
+		document.getElementById("action").value = value;
+	}
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body>
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_goods.php?action=goods_page" target="_self" class="btnInput"><tpl>$admin_goods_add</tpl><!-- 添加商品 --></a><a href="admin_goods.php?action=list" target="_self" class="btnInput"><tpl>$system_goods_list</tpl><!-- 商品列表 --></a></span>
+<tpl>$system_header_goods_manage</tpl><!-- 商品管理 --> &gt;&gt; <tpl>$system_goods_recycle</tpl><!-- 商品回收站 -->
+  	</b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><div class="floatRight">
+        <form action="admin_goods.php?action=recycle" method="post">
+          <tpl> $sel_goods_class </tpl>
+          <!-- 商品分类 -->
+          <input class="TextBoxAt2" type="text" name="search" id="search" value="<tpl> if $smarty.post.search != '' </tpl> <tpl>$smarty.post.search</tpl> <tpl> /if </tpl>" />
+          <input type="submit" name="button" id="button" value="<tpl>$admin_goods_list_submit</tpl>" class="btnInput" />
+          <!-- 提交 -->
+        </form>
+      </div>
+      <form  action="admin_goods.php"  method="post">
+	  <input type="hidden" name="action" id="action" value="recycle" />
+	  		<select name="fun" id="fun" class="delBtnInput" onchange="changeFun(this.value)">
+            <option value="recycle"><tpl>$admin_goods_recycle_select_oper</tpl><!-- 选择操作 --></option>
+            <option value="del_goods_true"><tpl>$admin_goods_recycle_del</tpl><!-- 删除 --></option>
+            <option value="reduction_goods"><tpl>$admin_goods_recycle_reduction</tpl><!-- 还原 --></option>
+          </select>
+          <input type="submit" value="<tpl>$admin_goods_recycle_enter</tpl>" class="delBtnInput" /><!-- 确定 --></h5>
+  <div class="entry-body" id="p-list-div">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+      <tr>
+        <th><input type="checkbox" name="all" id="all" /></th>
+        <th class="textLeft"><tpl>$admin_goods_recycle_bn</tpl>
+          <!-- 商品货号 --></th>
+        <th><tpl>$admin_goods_recycle_name</tpl>
+          <!-- 商品名称 --></th>
+        <th><tpl>$admin_goods_recycle_class</tpl>
+          <!-- 商品分类 --></th>
+        <th><tpl>$admin_goods_recycle_price</tpl>
+          <!-- 商品价格 --></th>
+        <th><tpl>$admin_goods_recycle_oper</tpl>
+          <!-- 操作 --></th>
+      </tr>
+      <tpl> section name=i loop=$goods_array </tpl>
+      <tr>
+        <td><label>
+          <input type="checkbox" name="gid[]" id="gid[]" value="<tpl> $goods_array[i].goods_id </tpl>" class="cb" />
+          </label></td>
+        <td class="textLeft"><tpl> $goods_array[i].goods_bn </tpl></td>
+        <td><tpl> $goods_array[i].goods_name </tpl></td>
+        <td><tpl> $goods_array[i].class_name </tpl></td>
+        <td><tpl> $goods_array[i].goods_provider_price </tpl></td>
+        <td><a href="admin_goods.php?action=reduction_goods&gid=<tpl> $goods_array[i].goods_id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_revert.gif" alt="<tpl>$admin_goods_recycle_reduction</tpl>" title="<tpl>$admin_goods_recycle_reduction</tpl>" /></a> <a href="admin_goods.php?action=del_goods_true&gid=<tpl> $goods_array[i].goods_id </tpl>" onclick="return confirm('<tpl>$admin_goods_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl>$admin_goods_recycle_del</tpl>" title="<tpl>$admin_goods_recycle_del</tpl>" /></a> </td>
+      </tr>
+      <tpl> /section </tpl>
+    </table>
+    
+    <div class="clear"></div>
+  </div>
+  <h5 class="h5_down"><div class="pagebar">
+            <tpl>$show_page</tpl>
+          </div><select name="fun" id="fun" class="delBtnInput" onchange="changeFun(this.value)">
+            <option value="recycle"><tpl>$admin_goods_recycle_select_oper</tpl><!-- 选择操作 --></option>
+            <option value="del_goods_true"><tpl>$admin_goods_recycle_del</tpl><!-- 删除 --></option>
+            <option value="reduction_goods"><tpl>$admin_goods_recycle_reduction</tpl><!-- 还原 --></option>
+          </select>
+          <input type="submit" value="<tpl>$admin_goods_recycle_enter</tpl>" class="delBtnInput" /><!-- 确定 -->
+          </h5></form>
+  <!--  end of p-list-div  -->
+  </div>
+  <tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

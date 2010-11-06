@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_goods_brand_add </tpl></title><!-- 添加商品品牌 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_brand").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_brand_name				: {required:true},
+			txt_brand_image_width		: {required:true,number:true},
+			txt_brand_image_height		: {required:true,number:true},
+			txt_brand_url				: {url		:true}
+		},
+		messages: {
+			txt_brand_name				: {required: "<tpl>$admin_goods_brand_name_null</tpl>"},
+			txt_brand_image_width		: {required: "<tpl>$admin_goods_brand_width_null</tpl>",number:"<tpl>$admin_goods_brand_width_error</tpl>"},
+			txt_brand_image_height		: {required: "<tpl>$admin_goods_brand_height_null</tpl>",number:"<tpl>$admin_goods_brand_height_error</tpl>"},
+			txt_brand_url				: {url		:"<tpl>$admin_goods_brand_url_http</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <form action="admin_goods_brand.php?action=goods_brand_save" method="post" enctype="multipart/form-data" name="add_brand" id="add_brand">
+    <input type="hidden" name="txt_brand_id" value="<tpl> $brand_array.brand_id </tpl>" />
+	<input type="hidden" name="txt_old_pic" value="<tpl> $brand_array.brand_image </tpl>" />
+	<h2><span class="alignRight"><a href="admin_goods_brand.php?action=goods_brand_list" target="_self">{<tpl> $admin_goods_brand_list </tpl><!-- 商品品牌列表 -->}</a></span><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >> <tpl> if $brand_array.brand_id != '' </tpl> <tpl> $admin_goods_brand_edit </tpl> <tpl> else </tpl> <tpl> $admin_goods_brand_add </tpl> <tpl> /if </tpl><!-- 添加商品品牌 -->
+	</h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_goods_brand_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl> $admin_goods_brand_name </tpl><!-- 品牌名称 -->:</td>
+            <td><input type="text" name="txt_brand_name" id="txt_brand_name" value="<tpl> $brand_array.brand_name|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_brand_name" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_brand_put </tpl><!-- 发布 -->:</td>
+            <td><tpl> $brand_ifput </tpl></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_brand_order </tpl><!-- 品牌排序 -->:</td>
+            <td><input name="txt_brand_sort" type="text" id="txt_brand_sort" size="10" value="<tpl> $brand_array.brand_sort </tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_brand_url </tpl><!-- 指向的url外联 -->:</td>
+            <td><input type="text" name="txt_brand_url" id="txt_brand_url" value="<tpl> $brand_array.brand_url </tpl>" /><div class="check-error"><label style="display:none" for="txt_brand_url" class="wrong" metaDone="true" generated="true"></label></div></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_brand_logo </tpl><!-- 上传LOGO -->:</td>
+            <td><tpl> if $brand_array.brand_image!='' </tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $brand_array.brand_image </tpl>" width='160' height='60' /><br /><br /><tpl> /if </tpl><input type="file" name="txt_brand_image" id="txt_brand_image" /><tpl>$admin_goods_brand_width_good</tpl>&nbsp;&nbsp;<tpl>$admin_goods_brand_height_good</tpl>
+		 <input name="txt_brand_image_width" id="txt_brand_image_width" type="hidden" size="10" value="260" />
+		 <input name="txt_brand_image_height" id="txt_brand_image_height" type="hidden" size="10" value="60" />
+			</td>
+		  </tr>
+		  <!-- 品牌logo参数 -->
+		  <!--
+          <tr>
+            <td><tpl> $admin_goods_brand_logo_info </tpl>:</td>
+            <td><tpl> $admin_goods_brand_logo_width </tpl>:<input name="txt_brand_image_width" id="txt_brand_image_width" type="text" size="10" value="<tpl>if $brand_array.brand_image_width!='' </tpl><tpl> $brand_array.brand_image_width </tpl><tpl>else</tpl>260<tpl>/if</tpl>" />&nbsp;<span class="red">*</span>&nbsp;&nbsp;<tpl>$admin_goods_brand_width_good</tpl>
+			<div class="check-error"><label style="display:none" for="txt_brand_image_width" class="wrong" metaDone="true" generated="true"></label></div>
+            <tpl> $admin_goods_brand_logo_height </tpl>:<input name="txt_brand_image_height" id="txt_brand_image_height" type="text" size="10" value="<tpl>if $brand_array.brand_image_height!=''</tpl><tpl> $brand_array.brand_image_height </tpl><tpl>else</tpl>60<tpl>/if</tpl>" />&nbsp;<span class="red">*</span>&nbsp;&nbsp;<tpl>$admin_goods_brand_height_good</tpl>
+			<div class="check-error"><label style="display:none" for="txt_brand_image_height" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>-->
+          <tr>
+            <td><tpl> $admin_goods_brand_keywords </tpl><!-- 关键字 -->:</td>
+            <td><input type="text" name="txt_brand_keywords" id="txt_brand_keywords" value="<tpl> $brand_array.brand_keywords|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_brand_description </tpl><!-- 描述 -->:</td>
+            <td><textarea name="txt_brand_description" id="txt_brand_description" cols="45" rows="5"><tpl> $brand_array.brand_description </tpl></textarea></td>
+          </tr>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_goods_brand_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>  $admin_goods_brand_reset </tpl>"  class="btnInput" /><!-- 重置 -->
+    </div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_list</tpl></title><!-- 商品管理 - 商品列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 显示缩略图 */
+	<tpl> section name=i loop=$goods_array </tpl>
+		$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_icon").mouseover(function(){
+			$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_thumb").show();
+		});
+		$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_icon").mouseout(function(){
+			$("#imgTd<tpl>$smarty.section.i.rownum</tpl> img.img_thumb").hide();
+		});
+	<tpl> /section </tpl>
+
+	var boxs  = $('input[type=checkbox]'); 
+	  boxs.each(function(){
+		$(this).attr("checked" , 'true');      // 循环选中多选框对象
+	  });
+	  $(".delBtnInput").attr('disabled',''); 
+	  
+	  
+/* 对需要填写验证的信息，进行验证 */
+/*	$("#form_all").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_all_goods_storage		: {number:true,minValue:0},
+			txt_all_price				: {number:true,minValue:0}
+		},
+		messages: {
+			txt_all_goods_storage		: {number:"<tpl>$admin_goods_all_storage_error</tpl>",minValue:"<tpl>$admin_goods_all_storage_error</tpl>"},
+			txt_all_price				: {number:"<tpl>$admin_goods_all_price_error</tpl>",minValue:"<tpl>$admin_goods_all_price_error</tpl>"}
+		}
+	});	  
+*/	  
+	  
+});
+</script>
+</head>
+
+<body id="goodsList">
+<div id="content">
+    <h2><tpl>$admin_header_goods_manage</tpl><!-- 商品管理 --> >> <tpl>$admin_goods_list</tpl><!-- 商品列表 -->
+    </h2>
+    <div class="entry-body" id="p-list-div">
+		<form action="admin_shop_goods.php" name="form_all" id="form_all"  method="post" >
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+         <tr>
+          	<td colspan="10" class="searchbar">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align:left">
+  <tr>
+    <td style="text-align:right"><tpl>$admin_goods_list_all_set</tpl><tpl>$admin_goods_list_storage</tpl></td>
+	<td style="text-align:left"><input style="width: 64px;" type="text" name="txt_all_goods_storage" id="txt_all_goods_storage" size="4" value="" /></td>
+    <td style="text-align:right"><tpl>$admin_goods_list_all_set</tpl><tpl>$admin_goods_list_goods_price</tpl></td>
+	<td style="text-align:left"><input style="width: 64px;" type="text" name="txt_all_goods_price" id="txt_all_goods_price" size="4" value="" /></td>
+    <td style="text-align:right"><tpl>$admin_goods_list_pricedesc</tpl><tpl>$admin_goods_list_all</tpl></td>
+	<td style="text-align:left"><select style="width: 64px;" name="txt_all_goods_pricedesc_type">
+			  	<option value="up"><tpl>$admin_goods_list_price_up</tpl></option>
+			  	<option value="down"><tpl>$admin_goods_list_price_down</tpl></option>
+			  </select>
+		<tpl>$admin_goods_list_all_value</tpl><input size="3" type="text" name="txt_all_goods_pricedesc" id="txt_all_goods_pricedesc" value="" />%</td>
+    <td></td>
+	<td><input type="hidden" name="action" value="save" /></td>
+  </tr>
+  <tr>
+    <td style="text-align:right"><tpl>$admin_goods_class</tpl></td>
+	<td style="text-align:left"><tpl>$sel_goods_class</tpl></td>
+    <td style="text-align:right"><tpl>$admin_goods_brand</tpl></td>
+	<td style="text-align:left"><tpl>$goods_brand</tpl></td>
+    <td style="text-align:right"><tpl>$admin_goods_subject</tpl></td>
+	<td style="text-align:left"><tpl>$goods_subject</tpl></td>
+	<td><input type="submit" value="<tpl>$admin_goods_list_add_shop_goods</tpl>" class="delBtnInput" /><!-- 发布 --></td>
+    <td></td>
+  </tr>
+</table>
+            	
+			  
+			</td>
+		</tr>
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><span><tpl>$admin_goods_list_goods_bn</tpl><!-- 商品编号 --></span></th>
+            <th><span>
+              <tpl>$admin_goods_list_goods_class</tpl>
+            <!-- 商品类别 -->
+            </span></th>
+            <th><span>
+              <tpl>$admin_goods_list_goodname</tpl>
+            <!-- 商品名称 -->
+            </span></th>
+            <th><span>
+              <tpl>$admin_goods_list_img</tpl>
+            <!-- 缩略图 -->
+            </span></th>
+            <th><tpl>$admin_goods_list_provider</tpl><!-- 供货价格 --></th>
+            <th><tpl>$admin_goods_list_limit_price</tpl><!-- 最高/最低（价格修改） --></th>
+			<th><tpl>$admin_goods_list_goods_price</tpl><!-- 市场价格 --></th>
+			<th><tpl>$admin_goods_list_pricedesc</tpl><!-- 本店售价 --></th>
+            <th><tpl>$admin_goods_list_storage</tpl><!-- 库存 --></th>
+          </tr>
+         <tpl> section name=i loop=$goods_array </tpl>
+          <tr>
+            <td><label>
+            <input type="checkbox" name="gid[]" id="gid[]" value="<tpl> $goods_array[i].goods_id </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $goods_array[i].goods_bn </tpl></td>
+            <td><tpl> $goods_array[i].class_name </tpl></td>
+            <td><a href="<tpl>$Site_Url</tpl>/admin/admin_goods.php?action=goods_page&modify_id=<tpl>$goods_array[i].goods_id</tpl>"><tpl> $goods_array[i].goods_name </tpl></a></td>
+            <td id="imgTd<tpl>$smarty.section.i.rownum</tpl>"><tpl> if $goods_array[i].goods_image eq "default.jpg"</tpl><tpl>$admin_goods_list_null</tpl><!-- 无 --><tpl>else</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_pic.gif" alt="" class="img_icon" />
+            <div class="thumbDiv"><img src="<tpl>$Site_Url</tpl>/<tpl> $goods_array[i].goods_small_image </tpl>" class="img_thumb" /></div>
+            <tpl>/if</tpl></td>
+            <td><tpl> $goods_array[i].goods_provider_price </tpl></td>
+			<td><tpl> $goods_array[i].goods_up_price </tpl>/<tpl> $goods_array[i].goods_down_price </tpl></td>
+            <td><input name="txt_goods_price<tpl>$goods_array[i].goods_id</tpl>" type="text" value='' size="10" maxlength="10" /></td>			
+            <td><input name="txt_goods_pricedesc<tpl>$goods_array[i].goods_id</tpl>" type="text" value='' size="10" maxlength="10" /></td>
+            <td><input name="txt_goods_storage<tpl>$goods_array[i].goods_id</tpl>" type="text" value='<tpl>$goods_array[i].goods_storage|default:10</tpl>' size="10" maxlength="10" /></td>
+          </tr>
+          <tpl> /section </tpl>
+          <tr>
+          	<td colspan="10" class="searchbar">
+              <div class="pagebar">
+                  <tpl>$show_page</tpl>
+              </div>
+            </td>
+          </tr>
+        </table>
+    </form>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

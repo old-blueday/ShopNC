@@ -1,0 +1,6 @@
+<ul class="PathLinksLevel">
+   <li> <a href="../home/category.php" target="_blank"><tpl> $langCAllSort </tpl></a> > <tpl>foreach item = PathLinks from = $PathLinks</tpl></li>
+  <li><a href="product.php?action=list&pcid=<tpl>$PathLinks.id</tpl>" target="_blank"> <tpl>$PathLinks.name|replace:'&nbsp;':''</tpl></a> > </li>
+  <tpl>/foreach</tpl>
+  <tpl> $product_row.p_name </tpl>
+</ul>

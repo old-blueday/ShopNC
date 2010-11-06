@@ -1,0 +1,90 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<tpl> if $output.type eq '0' </tpl><!-- Í¼Æ¬ -->
+		<div class="blockcontent">
+			<div class="">
+				<ul>
+					<tpl> section name=loop loop=$output.list </tpl>
+					<li><a href="<tpl> $output.list[loop].adv_url </tpl>" target="_blank"><img width="<tpl> $output.list[loop].adv_width </tpl>" height="<tpl> $output.list[loop].adv_heigth </tpl>" src="<tpl> $site_url </tpl>/<tpl> $output.list[loop].adv_pic </tpl>"></a></li>
+					<tpl> /section </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+		<tpl> if $output.type eq '1' </tpl><!-- ÎÄ×Ö -->
+		<div class="blockcontent">
+			<div class="">
+				<ul>
+					<tpl> section name=loop loop=$output.list </tpl>
+					<li><a href="<tpl> $output.list[loop].adv_url </tpl>" target="_blank"><tpl> $output.list[loop].adv_title </tpl></a></li>
+					<tpl> /section </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+		<tpl> if $output.type eq '2' </tpl><!-- »ÃµÆÆ¬ -->
+		<div class="blockcontent">
+			<div class="">
+				<ul>
+					<li>
+						<tpl> if $flash eq '1' </tpl>
+						<div style="width:<tpl> $output.list[0].adv_width </tpl>px;height:<tpl> $output.list[0].adv_heigth </tpl>px;"><img src="<tpl>$site_url</tpl>/templates/channel_drag/images/nobody_imgs.gif" width="100%" height="100%" /></div>
+						<tpl> /if </tpl>
+						<tpl> if $flash neq '1' </tpl>
+							<style type="text/css">
+.scroll<tpl> $block_content </tpl>{width:<tpl> $output.list[0].adv_width </tpl>px;height:<tpl> $output.list[0].adv_heigth </tpl>px;overflow:hidden;position:relative;border:#ccc 1px solid;}
+.slider<tpl> $block_content </tpl>{position:absolute;}
+.slider<tpl> $block_content </tpl> img{width:<tpl> $output.list[0].adv_width </tpl>px;height:<tpl> $output.list[0].adv_heigth </tpl>px;display:block;}
+.num<tpl> $block_content </tpl>{position:absolute;right:5px;bottom:5px;}
+.num<tpl> $block_content </tpl> li{float:left;color:#FF7300;text-align:center;line-height:16px;width:16px;height:16px;font-family:Arial;font-size:12px;cursor:pointer;overflow:hidden;margin:3px 1px;border:1px solid #FF7300;background-color:#fff;}
+.num<tpl> $block_content </tpl> li.on{color:#fff;line-height:21px;width:21px;height:21px;font-size:16px;margin:0 1px;border:0;background-color:#FF7300;font-weight:bold;}
+</style><script language="javascript" >
+$(function(){
+     var len = $("#idNum<tpl> $block_content </tpl> > li").length;
+var index = 0;
+$("#idNum<tpl> $block_content </tpl> li").mouseover(function(){
+   index =   $("#idNum<tpl> $block_content </tpl> li").index(this);
+   showImg<tpl> $block_content </tpl>(index);
+}); 
+$('#idTransformView<tpl> $block_content </tpl>').hover(function(){
+     if(MyTime){
+     clearInterval(MyTime);
+     }
+},function(){
+     MyTime = setInterval(function(){
+       showImg<tpl> $block_content </tpl>(index)
+     index++;
+     if(index==len){index=0;}
+     } , 3000);
+});
+var MyTime = setInterval(function(){
+   showImg<tpl> $block_content </tpl>(index)
+   index++;
+   if(index==len){index=0;}
+} , 3000);
+})
+function showImg<tpl> $block_content </tpl>(i){
+   $("#idSlider<tpl> $block_content </tpl>").stop(true,false).animate({top : -<tpl> $output.list[0].adv_heigth </tpl>*i},800);
+   $("#idNum<tpl> $block_content </tpl> li")
+    .eq(i).addClass("on")
+    .siblings().removeClass("on");
+}
+</script><div class="scroll<tpl> $block_content </tpl>" id="idTransformView<tpl> $block_content </tpl>">
+    <ul class="slider<tpl> $block_content </tpl>" id="idSlider<tpl> $block_content </tpl>">
+	<tpl> section name=loop loop=$output.list </tpl><a target="_blank" href="<tpl> $output.list[loop].adv_url </tpl>"><img src="<tpl> $site_url </tpl>/<tpl> $output.list[loop].adv_pic </tpl>" /></a><tpl> /section </tpl>
+    </ul>
+    <ul class="num<tpl> $block_content </tpl>" id="idNum<tpl> $block_content </tpl>">
+       <tpl> section name=loop loop=$output.list </tpl><li><tpl>$smarty.section.loop.index+1</tpl></li><tpl> /section </tpl>
+    </ul>
+						<tpl> /if </tpl>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

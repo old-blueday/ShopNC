@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$system_header_goods_manage</tpl> - <tpl>$admin_goods_attr_add</tpl></title><!-- 商品管理 - 添加属性 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input[@name='txt_attribute_type']").click(function(){
+		if($(this).attr('value') == '2'){
+			$('#txt_attribute_select_body').removeAttr('disabled');
+			$('#txt_attribute_select_body').css('background', '#FFFFFF');
+		} else {
+			$('#txt_attribute_select_body').attr('disabled', 'disabled');
+			$('#txt_attribute_select_body').css('background', '#F1F2F3');
+		}
+	});
+	<tpl>if $attr_info.attribute_select_body!=''</tpl>
+			$('#txt_attribute_select_body').removeAttr('disabled');
+			$('#txt_attribute_select_body').css('background', '#FFFFFF');
+	<tpl>/if</tpl>
+	
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_attribute_name	: {required:true},
+			txt_goods_type_id	: {required:true}
+		},
+		messages: {
+			txt_attribute_name	: {required: "<tpl>$admin_goods_attr_name_null</tpl>"},
+			txt_goods_type_id	: {required:"<tpl>$admin_goods_type_name_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+<form action="admin_goods_attribute.php?action=save" name="form" id="form" method="post">
+<input type="hidden" name="txt_goods_type_id" value="<tpl>$smarty.get.type_id</tpl>" />
+<input type="hidden" name="txt_attribute_id" value="<tpl>$attr_info.attribute_id</tpl>" />
+	<h2><tpl>$system_header_goods_manage</tpl> &gt;&gt; <tpl>$admin_goods_attr_add</tpl><!-- 商品管理 >> 添加属性 -->
+    	<span class="alignRight"><a href="admin_goods_attribute.php?action=list&type_id=<tpl>$smarty.get.type_id</tpl>" target="_self">{<tpl>$admin_goods_attr_list</tpl><!-- 商品属性列表 -->}</a></span>    
+    </h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_click_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="90%" border="0">
+        <tr>
+          <td><tpl>$admin_goods_attr_name</tpl><!-- 属性名称 -->:</td>
+          <td><label>
+            <input type="text" name="txt_attribute_name" id="txt_attribute_name" value="<tpl>$attr_info.attribute_name|escape:html</tpl>" />
+          </label><span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_attribute_name" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+		<tr>
+          <td><tpl>$admin_goods_attr_type</tpl><!-- 所属商品类型 -->:</td>
+          <td><label>
+            <tpl>$type_select</tpl>
+          </label>
+		  <div class="check-error"><label style="display:none" for="txt_goods_type_id" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_attr_sort</tpl><!-- 属性排序 -->:</td>
+          <td>
+			<input name="txt_attribute_sort" type="text" size="5" value="<tpl>if $attr_info.attribute_sort==''</tpl>0<tpl>else</tpl><tpl>$attr_info.attribute_sort</tpl><tpl>/if</tpl>" />
+            </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_attr_input_type</tpl><!-- 该属性值的录入方式 -->:</td>
+          <td>
+           <tpl>$attribute_type</tpl>
+            
+            </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_goods_attr_value_list</tpl><!-- 可选值列表 -->:</td>
+          <td><label>
+            <textarea name="txt_attribute_select_body" cols="45" rows="5" id="txt_attribute_select_body" disabled="disabled" style="background:#F1F2F3;"><tpl>$attr_info.attribute_select_body</tpl></textarea>
+          </label><tpl>$admin_goods_attr_value_list_body</tpl></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_click_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_goods_reset</tpl>"  class="btnInput" /><!-- 重置 -->
+    </div>
+</form>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

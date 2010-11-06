@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$forget_get_passwd</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 头部:START -- >
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="register_pic"></div>
+  <div class="top"></div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$forget_get_passwd</tpl></h2>
+    </div>
+    <div class="register_box">
+      <form id="get_passwd_form" name="get_passwd_form" method="post" action="user.php?action=get_passwd" >
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <th class="forgetpass"><label for="txt_username"><span>*</span><tpl>$forget_usernmae</tpl><!-- 请输入注册时的用户名 -->
+            :</label></th>
+            <td colspan="2"><label for="reg_user">
+              <input id="user_name" name="user_name" type="text" class="textinput" style="width:290px;"/>
+              </label></td>
+          </tr>
+          <tr>
+            <th class="forgetpass"><label for="reg_mail"><span>*</span><tpl>$forget_email</tpl><!-- 请输入注册时的E-mail -->
+            :</label></th>
+            <td colspan="2"><label for="reg_mail">
+              <input id="user_email" name="user_email" type="text" class="textinput" style="width:290px;"/>
+              </label></td>
+          </tr>
+          <tr>
+            <th colspan="3"><div class="line"></div></th>
+          </tr>
+          <tr>
+            <td colspan="3" style="text-align:center;"><input type="submit" name="button" id="button" class="btn_forgetpass" value="<tpl>$forget_submit</tpl>" /></td>
+          </tr>
+          <tr>
+            <th colspan="3">&nbsp;</th>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!--底部内容:END-->
+</body>
+</html>

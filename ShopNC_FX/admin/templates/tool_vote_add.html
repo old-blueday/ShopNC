@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_vote_add</tpl></title><!-- 工具管理 - 添加投票 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<link type="text/css" href="<tpl>$Site_Url</tpl>/js/calendar/blue/blue.css" rel="Stylesheet" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/calendar/Calendar.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_vote_title		: {required:true},
+			txt_vote_start_time	: {required:true},
+			txt_vote_end_time	: {required:true}
+		},
+		messages: {
+			txt_vote_title		: {required: "<tpl>$admin_tool_vote_name_null</tpl>"},
+			txt_vote_start_time	: {required: "<tpl>$admin_tool_vote_state_time_null</tpl>"},
+			txt_vote_end_time	: {required: "<tpl>$admin_tool_vote_end_time_null</tpl>"}
+		}
+	});
+});
+</script>
+<script language="javascript">
+<tpl>if $vote_array.option_num !='' </tpl>
+var i=<tpl>$vote_array.option_num</tpl>;
+<tpl>else</tpl>
+var i=1;
+<tpl>/if</tpl>
+function add_option()
+{ 
+	var num;
+	num = parseFloat(document.getElementById('option_num').value)+i;
+    if(num>20){
+		alert("<tpl>$admin_tool_vote_option_max</tpl>");
+		return;
+  	}	
+  for(i;i<num;i++) {
+  var obj = document.getElementById("option");
+  obj.innerHTML+="<br/><tpl>$admin_tool_vote_content</tpl>"+parseFloat(i+1)+": <input name=\"txt_option_tile[]\" type=\"text\" size=\"50\" />&nbsp;<tpl>$admin_tool_vote_num</tpl>&nbsp;&nbsp;<input name=\"txt_option_num[]\" type=\"text\" size=\"5\" value=\"0\" />&nbsp;<tpl>$admin_tool_vote_sort</tpl>&nbsp;&nbsp;<input name=\"txt_option_sort[]\" type=\"text\" size=\"5\" value=\"0\" />";
+  }
+}
+function reset_option()
+{ 
+	var obj = document.getElementById("option");
+	obj.innerHTML="<tpl>$admin_tool_vote_content</tpl>1: <input name=\"txt_option_tile[]\" type=\"text\" size=\"50\" />&nbsp;<tpl>$admin_tool_vote_num</tpl>&nbsp;&nbsp;<input name=\"txt_option_num[]\" type=\"text\" size=\"5\" />&nbsp;<tpl>$admin_tool_vote_sort</tpl>&nbsp;&nbsp;<input name=\"txt_option_sort[]\" type=\"text\" size=\"5\" />";
+}
+
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+  <form action="admin_tool_vote.php?action=vote_save" method="post" name="form1" id="form1">
+  <input type="hidden" name="txt_vote_id" value="<tpl>$vote_array.vote_id</tpl>" />
+    <h2><span class="alignRight"><a href="admin_tool_vote.php?action=vote_list" target="_self">{<tpl>$admin_tool_vote_list</tpl>}</a></span><!-- 投票列表 --><tpl>$admin_header_tools_manage</tpl> >> <tpl>if $vote_array.vote_id!=''</tpl><tpl>$admin_tool_vote_edit</tpl><tpl>else</tpl><tpl>$admin_tool_vote_add</tpl><tpl>/if</tpl><!-- 工具管理 >> 添加投票 -->
+    	
+	</h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_vote_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_tool_vote_name</tpl><!-- 投票名称 -->:</td>
+				<td><input type="text" name="txt_vote_title" id="txt_vote_title" size="30" value="<tpl>$vote_array.vote_title|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_vote_title" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_tool_vote_start</tpl><!-- 开始时间 -->:</td>
+				<td><input type="text" name="txt_vote_start_time" id="txt_vote_start_time" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl>$vote_array.vote_start_time</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_vote_start_time" class="wrong" metaDone="true" generated="true"></label></div></td>
+			</tr>
+			<tr>
+				<td><tpl>$amdin_tool_vote_end</tpl><!-- 结束时间 -->:</td>
+				<td><input type="text" name="txt_vote_end_time" id="txt_vote_end_time" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl>$vote_array.vote_end_time</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_vote_end_time" class="wrong" metaDone="true" generated="true"></label></div></td>
+			</tr>
+			<!-- <tr>
+				<td><tpl>$admin_tool_vote_repeat</tpl>可重复投票:</td>
+				<td><tpl>$refresh</tpl></td>
+			</tr> -->
+			<tr>
+				<td><tpl>$admin_tool_vote_member</tpl><!-- 只可会员投票 -->:</td>
+				<td><tpl>$member</tpl></td>
+			</tr>
+			<tr class="display_logo">
+				<td><tpl>$admin_tool_vote_type</tpl><!-- 类型 -->:</td>
+				<td><tpl>$type</tpl></td>
+			</tr>
+			<tr class="display_logo">
+				<td><tpl>$admin_tool_vote_state</tpl><!-- 状态 -->:</td>
+				<td><tpl>$state</tpl></td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_tool_vote_select</tpl><!-- 投票选项 -->:</td>
+				<td><div id="option">
+				<tpl>if $vote_array.option_num  == ''</tpl>
+				  <tpl>$admin_tool_vote_content</tpl>1:<!-- 内容 -->
+				    <input name="txt_option_tile[]" type="text" size="50" />
+			      <tpl>$admin_tool_vote_num</tpl><!-- 票数 -->
+			      <input name="txt_option_num[]" type="text" size="5" />
+		      <tpl>$admin_tool_vote_sort</tpl><!-- 排序 -->
+		     &nbsp;<input name="txt_option_sort[]" type="text" size="5" />
+			  <tpl>else</tpl>
+			  <tpl>section name=list loop=$vote_array.vote_option</tpl>
+				<br /><tpl>$admin_tool_vote_content</tpl><tpl>$smarty.section.list.index+1</tpl>: <!-- 内容 -->
+				    <input name="txt_option_tile[]" type="text" size="50" value="<tpl>$vote_array.vote_option[list].option_tile|escape:html</tpl>" />
+			      <tpl>$admin_tool_vote_num</tpl><!-- 票数 -->
+			      <input name="txt_option_num[]" type="text" size="5" value="<tpl>$vote_array.vote_option[list].option_num</tpl>" />
+		      <tpl>$admin_tool_vote_sort</tpl><!-- 排序 -->
+		      <input name="txt_option_sort[]" type="text" size="5" value="<tpl>$vote_array.vote_option[list].option_sort</tpl>" />		
+			  <input name="txt_option_id[]" type="hidden" value="<tpl>$vote_array.vote_option[list].option_id</tpl>"/>
+			  <tpl>/section</tpl>
+			  <tpl>/if</tpl>
+			  </div></td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_tool_vote_select_add</tpl><!-- 增加选项 -->:</td>
+				<td><input name="option_num" id="option_num" type="text" size="5" />
+				  <label>
+				  <input type="button" name="Submit" value="<tpl>$admin_tool_vote_add</tpl>" onclick="add_option();" class="btnInput" /><!-- 增加 -->
+				  <tpl>if $vote_array.vote_id==''</tpl>
+				  <input type="button" name="Submit" value="<tpl>$admin_tool_vote_del</tpl>" onclick="reset_option();" class="btnInput" /><!-- 取消 -->
+				  <tpl>/if</tpl>
+			    </label></td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_vote_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_tool_vote_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script type="text/javascript" language="javascript">
+$(function(){
+   $("#txt_vote_start_time").datepicker();
+   $("#txt_vote_end_time").datepicker();
+  
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_member_add</tpl></title><!-- 会员管理 - 添加会员 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript">
+$(document).ready(function(){
+/* 对需要填写验证的信息，进行验证 */
+	$("#add_user").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_user_name		: {required:true},
+			txt_user_email		: {required:true,email:true}
+			<tpl>if $user_array.user_id == ''</tpl>
+			,txt_user_password	: {required:true},
+			txt_r_user_password	: {required:true,equalTo:'#txt_user_password'}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			txt_user_name		: {required: "<tpl>$admin_user_name_null</tpl>"},
+			txt_user_email		: {required:"<tpl>$admin_user_email_null</tpl>",email:"<tpl>$admin_user_email_error</tpl>"}
+			<tpl>if $user_array.user_id == ''</tpl>
+			,txt_user_password	: {required: "<tpl>$admin_user_passwd_null</tpl>"},
+			txt_r_user_password	: {required: "<tpl>$admin_user_confpasswd_null</tpl>",equalTo:"<tpl>$admin_user_confpasswd_error</tpl>"}
+			<tpl>/if</tpl>
+		}
+	});
+
+	<tpl>if $country_select != ''</tpl>
+	$("#country_select").html('<tpl>$country_select</tpl>');
+	<tpl>/if</tpl>
+	<tpl>if $province_select != ''</tpl>
+	$("#province_select").html('<tpl>$province_select</tpl>');
+	<tpl>/if</tpl>
+	<tpl>if $city_select != ''</tpl>
+	$("#city_select").html('<tpl>$city_select</tpl>');
+	<tpl>/if</tpl>
+	<tpl>if $county_select != ''</tpl>
+	$("#county_select").html('<tpl>$county_select</tpl>');
+	<tpl>/if</tpl>	
+	/*
+	* 下拉菜单点击事件
+	* select_top_name	为点击菜单
+	* select_name		为子菜单
+	*/
+	var	area_change=function(select_top_name,select_name){
+	$('#'+select_top_name).change(function(){
+			var item_value	= $("select[@name="+select_top_name+"] option[@selected]").val();
+			var	option_top	= "<option value=\"0\" selected=\"selected\"><tpl>$admin_user_add_select</tpl></option>";
+			/* ajax传值 */
+			$.post('../admin/admin_module_region.php',{'action':'ajax_area','area_id':item_value},function(data) {
+			/* 当选择为第一或是第二菜单的时候，情况第三，第四菜单 */
+			if(select_top_name == 'select0') {
+				/* 隐藏下面id的下拉菜单 */
+				$("#select2,#select3,#select1").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();	
+			} else if (select_top_name == 'select1') {
+				/* 隐藏下面id的下拉菜单 */
+				$("#select2,#select3").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+			} else if (select_top_name == 'select2') {
+				$("#select3").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+				var item_city	 = $("select[@name='select2'] option[@selected]").text();
+			} else if (select_top_name == 'select3') {
+				/* 获取选中值，此中缺少一个地区，也就是第四级地区（如果加入，对应其他地方也需要修改） */
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+				var item_city	 = $("select[@name='select2'] option[@selected]").text();
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+			}
+			if(select_name != 0) {
+			/* 如果下级菜单有值，显示下级菜单内容 */
+				if(data != '') {
+					$("#"+select_name).css("display","");
+					$("#"+select_name).empty();
+					$("#"+select_name).append(option_top+data);
+					
+				}
+			}
+			});
+		});
+	};
+	/* 调用下拉点击函数 */
+	area_change('select0','select1');
+	area_change('select1','select2');
+	area_change('select2','select3');
+	area_change('select3',0);
+	
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body id="noulmenu">
+  <form action="admin_user.php?action=user_save" method="post" name="add_user" id="add_user">
+    <input type="hidden" name="user_id" id="user_id" value="<tpl>$smarty.get.user_id</tpl>" />
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_user.php?action=user_list" target="_self" class="btnInput">
+      <tpl>$admin_member_list</tpl>
+      <!-- 会员列表 -->
+      </a></span>
+      <tpl>$admin_header_user_manage</tpl>
+      <!-- 会员管理 -->
+      >>
+      <tpl>if $smarty.get.user_id!=''</tpl><tpl>$admin_member_edit</tpl><tpl>else</tpl><tpl>$admin_member_add</tpl><tpl>/if</tpl>
+      <!-- 添加会员 -->
+       </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>if $smarty.get.user_id!=''</tpl><tpl>$admin_member_edit</tpl><tpl>else</tpl><tpl>$admin_member_add</tpl><tpl>/if</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_add_submit</tpl>" class="btnInput" />
+      <!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="40%" border="0">
+        <tr>
+          <td><tpl>$admin_user_add_name</tpl>
+            <!-- 帐号 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_name" id="txt_user_name" value="<tpl>$user_array.user_name|escape:html</tpl>" <tpl>if $user_array.user_name!=''</tpl>disabled="disabled"<tpl> /if </tpl>  />&nbsp;<span class="red">*</span>
+		        <div class="check-error">
+                <label style="display:none" for="txt_user_name" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+		  </td>
+        </tr>
+		<tpl>if $smarty.get.user_id==''</tpl>
+        <tr>
+          <td><tpl>$admin_user_add_passwd</tpl>
+            <!-- 密码 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_password" id="txt_user_password" />&nbsp;<span class="red">*</span>
+		  <div class="check-error">
+                <label style="display:none" for="txt_user_password" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_enter_passwd</tpl>
+            <!-- 确认密码 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_r_user_password" id="txt_r_user_password" />&nbsp;<span class="red">*</span>
+		  <div class="check-error">
+                <label style="display:none" for="txt_r_user_password" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+		  </td>
+        </tr>
+		<tpl>/if</tpl>
+        <tr>
+          <td><tpl>$admin_user_add_email</tpl>
+            <!-- 电子邮箱 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_email" id="txt_user_email"  value="<tpl>$user_array.user_email</tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error">
+                <label style="display:none" for="txt_user_email" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_state</tpl>
+            <!-- 状态 -->
+            :</td>
+          <td><tpl> $user_state </tpl>
+          </td>
+        </tr>
+      </table>
+      <p id="notice"><strong>
+        <tpl>$admin_user_add_other</tpl>
+        <!-- 以下为选填内容 -->
+        </strong></p>
+      <table width="80%" border="0" style="background:#f5f5f5;">
+        <tr>
+          <td><tpl>$admin_user_add_grade</tpl>
+            <!-- 等级 -->
+            :</td>
+          <td><tpl>$user_grade</tpl>
+          </td>
+<td><tpl>$admin_user_add_call</tpl>
+            <!-- 座机 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_phone" id="txt_user_phone"  value="<tpl>$user_array.user_phone|escape:html</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_truename</tpl>
+            <!-- 真实姓名 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_true_name" id="txt_user_true_name"  value="<tpl>$user_array.user_true_name|escape:html</tpl>" /></td>
+          <td><tpl>$admin_user_add_mobile</tpl>
+            <!-- 手机 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_mobilephone" id="txt_user_mobilephone"  value="<tpl>$user_array.user_mobilephone|escape:html</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_sex</tpl>
+            <!-- 性别 -->
+            :</td>
+          <td><tpl> $sex </tpl></td>
+           <td><tpl>$admin_user_add_other_call</tpl>
+            <!-- 其他电话 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_otherphone" id="txt_user_otherphone"  value="<tpl>$user_array.user_otherphone|escape:html</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_area</tpl>
+            <!-- 地区 -->
+            :</td>
+          <td colspan="3"><span id="country_select"><select name="select0" id="select0">
+						  <option value="0" selected="selected"><tpl>$admin_user_add_select</tpl><!-- 请选择... --></option>
+						  <tpl>section name=list loop=$top_region</tpl>
+							<option value="<tpl>$top_region[list].area_id</tpl>"><tpl>$top_region[list].area_name</tpl></option>
+							<tpl>/section</tpl>
+						  </select>
+					</span>
+					<span id="province_select">
+				    <select name="select1" id="select1" style="display:none">
+						  </select>
+					</span>
+					<span id="city_select">
+					<select name="select2" id="select2" style="display:none">
+						  </select>
+					</span>
+					<span id="county_select">
+					<select name="select3" id="select3" style="display:none">
+					 </select>
+					</span>
+          </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_address</tpl>
+            <!-- 详细地址 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_address" id="txt_user_address"  value="<tpl>$user_array.user_address|escape:html</tpl>" /></td>
+          <td><tpl>$admin_user_add_qq</tpl>
+            <!-- QQ -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_qq" id="txt_user_qq"  value="<tpl>$user_array.user_qq|escape:html</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_add_zip</tpl>
+            <!-- 邮政编码 -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_zip" id="txt_user_zip"  value="<tpl>$user_array.user_zip|escape:html</tpl>" /></td>
+          <td><tpl>$admin_user_add_msn</tpl>
+            <!-- MSN -->
+            :</td>
+          <td><input class="TextBoxAt" type="text" name="txt_user_msn" id="txt_user_msn"  value="<tpl>$user_array.user_msn|escape:html</tpl>" /></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_add_submit</tpl>" class="btnInput" />
+      <!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_user_add_reset</tpl>"  class="btnInput" />
+      <!-- 重置 -->
+    </div>
+	</div>
+  </form>
+ <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+</body>
+</html>

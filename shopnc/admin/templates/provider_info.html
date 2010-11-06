@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_provider_manage </tpl> - <tpl> $admin_provider_add </tpl><!-- 供应商管理 - 添加供应商 --></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_provider").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_provider_pname	: {required:true},
+			txt_provider_name	: {required:true}
+			<tpl> if $provider_array.provider_id == ''</tpl>
+			,txt_provider_passwd: {required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			txt_provider_pname	: {required: "<tpl>$admin_provider_name_null</tpl>"},
+			txt_provider_name	: {required: "<tpl>$admin_provider_id_null</tpl>"}
+			<tpl> if $provider_array.provider_id == ''</tpl>
+			,txt_provider_passwd: {required: "<tpl>$admin_provider_passwd_null</tpl>"}
+			<tpl>/if</tpl>
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<form id="add_provider" name="add_provider" method="post" action="admin_provider_info.php?action=provider_save">
+<input type="hidden" name="txt_provider_id" id="txt_provider_id" value="<tpl> $provider_array.provider_id </tpl>" />
+	<h4 id="rightcon_h"><b><tpl> $admin_header_provider_manage </tpl><!-- 供应商管理 --> >> <tpl> $admin_header_provider_edit </tpl><!-- 修改帐号信息 -->  
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl> $admin_header_provider_edit </tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_provider_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="90%" border="0">
+        <tr>
+          <td><tpl> $admin_provider_name </tpl><!-- 供应商名称 -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_pname" id="txt_provider_pname" readonly="readonly" value="<tpl> $provider_array.provider_pname |escape:html</tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_provider_pname" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+          <td><tpl> $admin_provider_phone </tpl><!-- 联系电话 -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_contacts" id="txt_provider_contacts"  value="<tpl> $provider_array.provider_contacts|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_provider_id </tpl><!-- 供应商帐号 -->:</td>
+          <td><input class="TextBox" type="text" name="txt_provider_name" id="txt_provider_name" readonly="readonly"  value="<tpl> $provider_array.provider_name|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_provider_name" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+          <td><tpl> $admin_provider_address </tpl><!-- 联系地址 -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_address" id="txt_provider_address"  value="<tpl> $provider_array.provider_address|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_provider_passwd </tpl><!-- 供应商密码 -->:</td>
+          <td><input type="text" name="txt_provider_passwd" id="txt_provider_passwd"  value="" />&nbsp;<tpl> if $provider_array.provider_id=='' </tpl><span class="red">*</span><tpl>/if</tpl>
+		  <div class="check-error"><label style="display:none" for="txt_provider_passwd" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+          <td><tpl> $admin_provider_email </tpl><!-- 电子邮箱 -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_email" id="txt_provider_email"  value="<tpl> $provider_array.provider_email|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_provider_user </tpl><!-- 联系人 -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_contacts" id="txt_provider_contacts"  value="<tpl> $provider_array.provider_contacts|escape:html </tpl>" /></td>
+          <td><tpl> $admin_provider_qq </tpl><!-- QQ -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_qq" id="txt_provider_qq"  value="<tpl> $provider_array.provider_qq|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_provider_ifpub </tpl><!-- 是否发布 -->:</td>
+          <td><tpl> $provider_state </tpl></td>
+          <td><tpl> $admin_provider_msn </tpl><!-- MSN -->:          </td>
+          <td><input class="TextBox" type="text" name="txt_provider_msn" id="txt_provider_msn"  value="<tpl> $provider_array.provider_msn|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_provider_description </tpl><!-- 详细描述 -->:</td>
+          <td colspan="3"><textarea name="txt_privider_description" id="txt_privider_description" cols="45" rows="5"><tpl> $provider_array.privider_description </tpl></textarea></td>
+        </tr>
+		<tr>
+          <td>&nbsp;</td>
+          <td colspan="3">
+		  <input type="submit" name="button" id="button" value="<tpl> $admin_provider_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $admin_provider_reset </tpl>"  class="btnInput" /><!-- 重置 -->
+		  </td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,409 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langChannelManage </tpl> &gt;&gt; <tpl> $langChannelAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="channel.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" id="action" value="update" />
+						<input type="hidden" name="add_module_sign_num" id="add_module_sign_num" value="0" />
+						<input type="hidden" name="txtid" id="txtid" value="<tpl> $channel_array.channel_id </tpl>" />
+						
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langChannelName </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langChannelNameDescription </tpl></span>
+										<input name="txtname" type="text" id="txtname" class="fct-input" maxlength="100" value="<tpl> $channel_array.channel_name </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langChannelCompositor </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langChannelSortDescription </tpl></span>
+										<input name="txtsort" type="text" id="txtsort" class="fct-input" maxlength="10" value="<tpl> $channel_array.channel_sort </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langChannelEstate </tpl>:</th>
+									<td>
+									<input name="txtstate" type="radio" value="0" class="input_radio" id="type_0" <tpl> if $channel_array.channel_state eq "0" </tpl> checked="checked" <tpl> /if </tpl> /><label for="type_0"><tpl> $langCOpen </tpl></label>
+									<input name="txtstate" type="radio" value="1" class="input_radio" id="type_1" <tpl> if $channel_array.channel_state eq "1" </tpl> checked="checked" <tpl> /if </tpl> /><label for="type_1"><tpl> $langCClose </tpl></label>
+									</td>
+								</tr>									
+								<tr id="show_sign">
+									<th><tpl> $langChannelId </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langChannelEnglishAndNum </tpl></span>
+										<input name="txtsign" type="text" id="txtsign" class="fct-input" maxlength="100" value="<tpl> $channel_array.channel_sign </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th width="150"><tpl> $langChannelModeSelect </tpl>：</th>
+									<td colspan='2'>
+										<input name="channel_type" id="channel_type_0" type="radio" class="input_radio" value="0" checked onclick="if($('this:checked')){$('#customize').show();$('#jump_url').hide();$('#show_select_modoule').hide();$('#show_sign').hide();$('#action').val('update');}" /><label for="channel_type_0"><tpl> $langChannelModeType1 </tpl></label>
+										<input name="channel_type" id="channel_type_1" type="radio" class="input_radio" value="1" onclick="if($('this:checked')){$('#jump_url').show();$('#customize').hide();$('#show_select_modoule').hide();$('#show_sign').hide();$('#action').val('update');}" /><label for="channel_type_1"><tpl> $langChannelJumpUrl </tpl></label>
+										<input name="channel_type" id="channel_type_3" type="radio" class="input_radio" value="3" onclick="if($('this:checked')){$('#show_select_modoule').show();$('#jump_url').hide();$('#customize').hide();$('#show_sign').show();$('#action').val('update_templates');}" /><label for="channel_type_3"><tpl> $langChannelModeType2 </tpl></label>
+									</td>
+								</tr>	
+								<tbody id="show_select_modoule" style="display:none;">									
+								<tr>
+									<th><tpl> $langChannelSelectTemplate </tpl>:</th>
+									<td>
+										<tpl> $path </tpl>
+										<select name="channel_temp_name" id="channel_temp_name">
+											<tpl> foreach item=one from=$file_array </tpl>
+												<tpl> if $one.type eq "file" </tpl>
+													<option <tpl> if $channel_array.channel_temp_name eq $one.name </tpl> selected="selected" <tpl> /if </tpl> value="<tpl> $one.name </tpl>"><tpl> $one.name </tpl></option>
+												<tpl> /if </tpl>
+											<tpl> /foreach </tpl>
+										</select>
+									</td>
+								</tr>
+								<tr>
+								  <th width="150"><tpl> $langChannelModule </tpl></th>
+									<td class="td rowform" colspan="2">
+										<table width="100%" border="0" cellpadding="0" cellspacing="0" rules="none" class="tables_table" >
+											<!-- 已添加的模块列表 -->
+											<tbody id="add_module_sign" align="left">
+												<tpl> foreach from=$module_array item=one key=key </tpl>
+													<tr>
+														<td>
+														<span class="btn_left">
+															<input  type='button' value='<tpl> $one.module_new_name </tpl>' onclick="modi_module('<tpl> $key </tpl>');deleteRow(this);set_module_style('disabled');" class="bthl"/>
+														  </span>
+															<input type='hidden' name='<tpl> $key </tpl>'  id='<tpl> $key </tpl>' value='<tpl> $module_value.$key </tpl>'/>
+															<a href='javascript:;' onclick='if($("#add_module")[0].disabled != true){deleteProhibitionElements("<tpl> $key </tpl>");deleteRow(this);}else{alert("<tpl> $langModuleDelWrong </tpl>");}' title="<tpl> $langChannelDelThisModule </tpl>">删除</a>
+													  </td>
+													</tr>
+												<tpl> /foreach </tpl>
+											</tbody>
+									  </table>		
+									</td>
+								</tr>
+								<tr>
+								  <th width="150"><tpl> $langChannelModule </tpl></th>
+									<td colspan="2" align="left" class="td rowform">
+									<span class="btn_left">
+										<input type="button" value="<tpl> $langChannelAddModule </tpl>" id="add_module" class="bthl"/>
+									  </span>
+									  <tpl> $langChannelNewModuleName </tpl></td>
+								</tr>
+								</tbody>														
+								<tbody id="jump_url" <tpl> if $channel_array.channel_type eq 0 </tpl> style="display:none;" <tpl> /if </tpl> >
+								<tr>
+									<th><tpl> $langChannelJumpUrl </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langChannelFormat </tpl></span>
+										<input name="txturl" type="text" id="txturl" class="fct-input" maxlength="255" value="<tpl> $channel_array.channel_url </tpl>" />
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='channel.manage.php?action=list'" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<div id="module_block" style="display:none; width:800px; height:460px; margin:0; padding:0;"></div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+</body>
+</html>
+<script>
+var jquery = $;
+var module_block = $('#module_block')[0];
+
+$(document).ready(function() {
+
+	
+	Prohibition = new Array();
+	Prohibition[0] = "add_module_sign_num";
+	Prohibition[1] = "txtname";
+	Prohibition[2] = "txtsort";
+	Prohibition[3] = "txtstate";
+	Prohibition[4] = "add_module";
+	Prohibition[5] = "body_module";
+	Prohibition[6] = "add_module_sign";
+	Prohibition[7] = "channel_temp_name";
+	Prohibition[8] = "|||";
+	Prohibition[9]  = "||";
+	Prohibition[10] = "|";
+	Prohibition[11] = ":";
+	
+	
+	<tpl> foreach from=$channel_array.channel_block item=one </tpl>
+		var length = Prohibition.length;
+		Prohibition[length] = "<tpl> $one.module_new_name </tpl>";
+	<tpl> /foreach </tpl>
+
+	
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txtname: {required:true},
+			txtsort: {required:true,number:true,min:0},
+			txturl: {required:function(){
+					if($('#channel_type_1').attr('checked') == true){
+						return true;
+					}else{
+						return false;
+					}
+				},url:function(){
+					if($('#channel_type_1').attr('checked') == true){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+		},
+		messages: {
+			txtname: {required:"<tpl> $langChannelNameNotNull </tpl>"},
+			txtsort: {required:"<tpl> $langChannelNumNotNull </tpl>",number:"<tpl> $langChannelNumIsNumber </tpl>",min:"<tpl> $langChannelSortErrZero </tpl>"},
+			txturl: {required:"<tpl> $langChannelJumpUrlNull </tpl>",url:"<tpl> $langChannelJumpUrlErr </tpl>"}	
+		}
+	});
+
+	
+	$('#add_module').click(function(e){
+
+		$.blockUI(module_block, { width: '800px', height:'460px',top:'80px', left:'20%' });
+
+		$('#module_block').html("<tpl> $langChannelModule </tpl>:"+
+		"<tr><td>"+
+		"<select name='body_select_module' id='body_select_module' onchange='change_module(this.value);ajax_get_module(this.value)'>"+
+		"<option value='adv_module'><tpl> $langChannelAdv </tpl></option>"+
+		"<option value='vote_module'><tpl> $langChannelVote </tpl></option>"+
+		"<option value='product_module'><tpl> $langChannelMerchandise </tpl></option>"+
+		"<option value='shop_module'><tpl> $langChannelShop </tpl></option>"+
+		"<option value='pclass_module'><tpl> $langChannelMerchandiseType </tpl></option>"+
+		"<option value='shopclass_module'><tpl> $langChannelShopType </tpl></option>"+
+//		"<option value='customize_module'><tpl> $langChannelCustomizeModule </tpl></option>"+
+		"</select>"+
+		"<input type='button' value='确定' class='bthl' onclick=\"form_submit(this);\"/>&nbsp;<input type='button' value='<tpl> $langChannelCancel </tpl>' onclick='deleteRow(this);set_module_style(\"no_disabled\");' class='bthl' />"+
+		"<div id='adv_module' style='display:none'></div>"+
+		"<div id='vote_module' style='display:none'></div>"+
+		"<div id='product_module' style='display:none'></div>"+
+		"<div id='shop_module' style='display:none'></div>"+
+		"<div id='pclass_module' style='display:none'></div>"+
+		"<div id='shopclass_module' style='display:none'></div>"+
+//		"<div id='customize_module' style='display:none'></div>"+
+		"</td></tr>");
+
+		$("#add_module").attr("disabled","disabled");
+
+		change_module($("#body_select_module option:selected").val());
+
+		ajax_get_module($("#body_select_module option:selected").val());
+
+		set_module_style("disabled");
+
+	});
+	setChennelType('<tpl> $channel_array.channel_type </tpl>');
+});
+
+
+function deleteRow(elem) {
+	
+	$.unblockUI();
+	
+	var row = $(elem).parent().parent();
+	
+	row.fadeOut('normal', function() {
+	row.remove();
+	});
+	
+	$("#add_module").attr("disabled","");
+}
+
+
+function change_module(str){
+	$('#adv_module').html('');
+	$('#vote_module').html('');
+	$('#product_module').html('');
+	$('#shop_module').html('');
+	$('#pclass_module').html('');
+	$('#shopclass_module').html('');
+//	$('#customize_module').html('');
+
+	$('#'+str).slideDown("fast");
+}
+
+
+function ajax_get_module(str){
+	$.ajax({
+		url: "channel.manage.php",
+		data: "action=get_module&module_name="+str,
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+			if(msg != ""){
+				$("#"+str).html(msg);
+			}else{
+				$("#"+str).html("<tpl> $langChannelModuleNonentitySelectOther </tpl>");
+			}
+		}
+	});
+	return false;
+}
+
+
+function modi_module(str,module_new_name){
+
+	var temp_name = '';
+    var buttonvalue = $('#'+str).val();
+
+	temp_name_array = str.split("_");
+
+	var module_name=temp_name_array[0]+'_'+temp_name_array[1];
+
+	deleteProhibitionElements(module_new_name);
+	
+	$.ajax({
+		url: "channel.manage.php",
+		data: "action=get_module&module_name="+module_name+"&modi_string="+$('#'+str).val(),
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+
+			$.blockUI(module_block, { width: '800px', height:'460px',top:'80px', left:'20%' });
+
+			$("#add_module").attr("disabled","disabled");
+
+			$('#module_block').html("<tpl> $langChannelModule </tpl>:&nbsp;<input type='button' value='<tpl> $langChannelConfirm </tpl>' onclick='form_submit(this)' class='bthl' /><div id='"+module_name+"' style='display:none'></div>");
+
+			change_module(module_name);
+
+			$("#"+module_name).html(msg);
+
+		}
+	});
+	return false;
+}
+
+function form_submit()
+{
+ var patrn=/^[a-zA-Z0-9]{1,100}$/; //正则匹配.
+ temp_name = $("#module_new_name").val();
+ if (!patrn.exec(temp_name)){alert("<tpl> $langChannelModuleIdIs100EnglistOrNum </tpl>");	return false;}  
+ $("#module_block").children('div').children("form:first").trigger("onsubmit");
+
+} 
+function cancel_modi_module(temp_name,str,module_new_name){
+
+    jquery("#add_module_sign").append("<tr><td>"+
+		"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+		"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+str+"'/>"+
+		"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}' title='<tpl> $langChannelDelThisModule </tpl>'><tpl> $langChannelDelThisModule </tpl></a>"+
+		"</td></tr>");
+}
+
+function checkRepeatModuleName(name){
+	for(index in Prohibition) {
+		if(Prohibition[index] == name){
+			alert("<tpl> $langChannelModuleIdSelectOtherName </tpl>");
+			return false;
+		}
+	}
+	for(i=0;i<12;i++){
+		if(name.indexOf(Prohibition[i]) >= 0){
+			alert("<tpl> $langChannelModuleIdSelectOtherName </tpl>");
+			return false;
+		}
+	}
+	
+	Prohibition[Prohibition.length] = name;
+	return true;
+}
+
+
+function deleteProhibitionElements(elem){
+	for(index in Prohibition) {
+		if(Prohibition[index] == elem){
+			delete Prohibition[index];
+			return true;
+		}
+	}
+	return false;
+}
+
+//add_module_sign
+
+function set_module_style(str){
+	if(str=='disabled'){
+		$("#add_module_sign input[type=button]").each(function(){
+			$(this).attr('disabled',true);
+		});
+	}else if(str='no_disabled'){
+		$("#add_module_sign input[type=button]").each(function(){
+			$(this).attr('disabled',false);
+		});
+	}
+	return false;
+}
+
+
+function setChennelType (val) {
+	//自定义模板了型
+	if (val == '0') {
+		$('#customize').show();
+		$('#show_select_modoule').hide();
+		$('#jump_url').hide();
+		$('#show_sign').hide();
+		$('#channel_type_0').attr('checked','true');				
+	}
+	//跳转链接类型
+	if (val == '1') {
+		$('#jump_url').show();
+		$('#customize').hide();
+		$('#show_select_modoule').hide();
+		$('#show_sign').hide();
+		$('#channel_type_1').attr('checked','true');		
+	}
+	//选择模板类型
+	if (val == '3') {
+		$('#show_select_modoule').show();
+		$('#show_sign').show();
+		$('#jump_url').hide();
+		$('#customize').hide();
+		$('#action').val('update_templates');
+		$('#channel_type_3').attr('checked','true');
+	}		
+}
+
+function numRow(){
+	var num = $('#add_module_sign').children('tr').length;
+	$('#add_module_sign_num').val(num);
+}
+function closeDiy()
+{}
+
+function getPageContent(address){
+	$.ajax({
+		url: address,
+		dataType:"javascript",
+		success: function(msg){
+			$("#" + ShowDiv).html(msg);
+		}
+	});
+}
+</script>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title>shopnc</title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("rightcon").style.height = (wh-140)+"px";
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+}
+</script>
+</head>
+<body>
+<h4 id="rightcon_h"><b><tpl> $shop_admin_index_center </tpl><!--SHOPNC 管理中心--></b></h4>
+		<div id="rightcon">
+			<tpl> if $install_exist eq 1 </tpl>
+			<div class="red-notice"> <tpl> $shop_admin_index_install_recommend </tpl><!--您还没有删除 install 文件夹，出于安全的考虑，我们建议您删除 install 文件夹。--> </div>
+			<tpl> /if </tpl>
+			<div class="rc_con">
+				<h5><tpl> $shop_admin_index_order_stats </tpl><!--订单统计信息--></h5>
+				<table class="rc_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="20%"><a href="admin_order.php?action=order_list&order_state=no_conf"><tpl> $shop_admin_index_order_noconf </tpl><!--未确认订单-->:</a></td>
+						<td width="30%"><strong><tpl> $order_array.no_conf </tpl> </strong></td>
+						<td width="20%"><a href="admin_order.php?action=order_list&&order_state=no_pay"><tpl> $shop_admin_index_order_nopay </tpl><!--待支付订单-->:</a></td>
+						<td width="30%"><strong><tpl> $order_array.no_pay </tpl></strong></td>						
+					</tr>
+					<tr>
+						<td><a href="admin_order.php?action=order_list&&order_state=no_send"><tpl> $shop_admin_index_order_nosend </tpl><!--待发货订单-->:</a></td>
+						<td><strong><tpl> $order_array.no_send </tpl></strong></td>
+						<td><a href="admin_order.php?action=order_list&&order_state=trade_ok"><tpl> $shop_admin_index_order_ok </tpl><!--已成交订单-->:</a></td>
+						<td><strong><tpl> $order_array.trade_ok </tpl></strong></td>
+					</tr>
+<!--					<tr>
+						<td><a href="#"><tpl> $shop_admin_index_less_goods_book </tpl>新缺货登:</a></td>
+						<td><strong>0</strong></td>
+						<td><a href="#"><tpl> $shop_admin_index_pay_back_apliay </tpl>退款申请:</a></td>
+						<td><strong>0</strong></td>
+					</tr>-->
+				</table>
+			</div>
+<!--			<div class="rc_con">
+				<h5><tpl> $shop_admin_index_visit_stats </tpl>访问统计</h5>
+				<table class="rc_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="20%"><tpl> $shop_admin_index_visite_today </tpl>今日访问:</td>
+						<td width="30%"><strong>0</strong></td>
+						<td width="20%">在线人数:</td>
+						<td width="30%"><strong>0</strong></td>
+					</tr>
+					<tr>
+						<td><a href="#">最新留言:</a></td>
+						<td><strong>0</strong></td>
+						<td><a href="#">未审核评论:</a></td>
+						<td><strong>0</strong></td>
+					</tr>
+				</table>
+			</div>-->
+			<tpl>if $pay_receive_type eq 2</tpl>
+			<div class="rc_con">
+				<h5><tpl> $shop_admin_index_product_stats </tpl><!--实体商品统计信息--></h5>
+				<table class="rc_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="20%"><a href="admin_goods.php?action=list"><tpl> $shop_admin_index_product_all </tpl><!--商品总数-->:</a></td>
+						<td width="30%"><strong><tpl> $goods_array.goods_count </tpl></strong></td>
+						<td width="20%"><a href="admin_goods.php?action=list&goods_alarm=1"><tpl> $shop_admin_index_product_notes </tpl><!--库存警告商品数-->:</a></td>
+						<td width="30%"><strong><tpl> $goods_array.goods_alarm_num </tpl></strong></td>
+					</tr>
+				</table>
+			</div>
+			<div class="rc_con">
+				<h5><tpl> $shop_admin_index_varatul_product_stats </tpl><!--虚拟商品统计信息--></h5>
+				<table class="rc_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="20%"><a href="admin_goods.php?action=list&goods_type=virtual_card"><tpl> $shop_admin_index_product_all </tpl><!--商品总数-->:</a></td>
+						<td width="30%"><strong><tpl> $goods_array.virtual_goods_count </tpl></strong></td>
+						<td width="20%"><a href="admin_goods.php?action=list&goods_type=virtual_card&goods_alarm=1"><tpl> $shop_admin_index_product_notes </tpl><!--库存警告商品数-->:</a></td>
+						<td width="30%"><strong><tpl> $goods_array.virtual_goods_alarm_num</tpl></strong></td>
+					</tr>
+				</table>
+			</div>
+			<tpl>/if</tpl>			
+			<div class="rc_con">
+				<h5><tpl> $shop_admin_index_shop_stats </tpl><!--店铺统计信息--></h5>
+				<table class="rc_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="20%"><a href="admin_shop.php?action=shop_list"><tpl> $shop_admin_index_shop_all </tpl><!--店铺总数-->:</a></td>
+						<td width="30%"><strong><tpl> $shop_array.shop_count</tpl></strong></td>
+						<td width="20%"><a href="admin_shop_class.php?action=class_list"><tpl> $shop_admin_index_shop_class_all </tpl><!--店铺分类-->:</a></td>
+						<td width="30%"><strong><tpl> $shop_array.shop_class_count</tpl></strong></td>
+					</tr>
+				</table>
+			</div>						
+			<div class="rc_con">
+				<h5><tpl> $shop_admin_index_system_stats </tpl><!--系统信息--></h5>
+				<table class="rc_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="20%"><tpl> $shop_admin_index_system_os_ver </tpl><!--服务器操作系统-->:</td>
+						<td width="30%"><tpl> $info_array.os_ver </tpl>(<tpl> $info_array.os_ip </tpl>)</td>
+						<td width="20%"><tpl> $shop_admin_index_system_web_os</tpl><!--Web 服务器-->:</td>
+						<td width="30%"><tpl> $info_array.web_os</tpl></td>
+					</tr>
+					<tr>
+						<td><tpl> $shop_admin_index_system_php_ver </tpl><!--PHP 版本-->:</td>
+						<td><tpl> $info_array.php_ver </tpl></td>
+						<td><tpl> $shop_admin_index_system_mysql_ver </tpl><!--MySQL 版本-->:</td>
+						<td><tpl> $info_array.mysql_ver </tpl></td>
+					</tr>
+					<tr>
+						<td><tpl> $shop_admin_index_system_socket </tpl><!--Socket 支持-->:</td>
+						<td><tpl> $info_array.socket </tpl></td>
+						<td><tpl> $shop_admin_index_system_timezone </tpl><!--时区设置-->:</td>
+						<td><tpl> $info_array.timezone </tpl></td>
+					</tr>
+					<tr>
+						<td><tpl> $shop_admin_index_system_gd </tpl><!--GD 支持-->:</td>
+						<td><tpl> $info_array.gd2 </tpl></td>
+						<td><tpl> $shop_admin_index_system_zlib </tpl><!--Zlib 支持-->:</td>
+						<td><tpl> $info_array.zlib </tpl></td>
+					</tr>
+					<tr>
+						<td><tpl> $shop_admin_index_system_safe_mode </tpl><!--安全模式-->:</td>
+						<td><tpl> $info_array.safe_mode </tpl></td>
+						<td><tpl> $shop_admin_index_system_uplaod </tpl><!--文件上传的最大大小-->:</td>
+						<td><tpl> $info_array.upload_max_filesize </tpl></td>
+					</tr>
+<!--					<tr>
+						<td>ShopNC 版本:</td>
+						<td>v1.0.0 RELEASE 20090706</td>
+						<td>安装日期:</td>
+						<td>2009-07-06</td>
+					</tr>-->
+					<tr>
+						<td><tpl>$shop_admin_index_charset</tpl>:</td>
+						<td><tpl>$nc_charset</tpl></td>
+						<td><tpl>$shop_admin_index_ver</tpl>:</td>
+						<td>V 1.0</td>
+					</tr>
+				</table>
+			</div>
+			<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+			<div class="clear"></div>
+		</div>
+</body>
+</html>

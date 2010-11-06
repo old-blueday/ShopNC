@@ -1,0 +1,163 @@
+<form action="javascript:;" id="form_module_vote" name="form_module_vote" method="post" onsubmit="return vote_submit_module();" class="zhezhao">
+    <table border="0" cellpadding="0" cellspacing="0" class="fct-1">
+		<tr>
+			<th><tpl> $langChannelModuleName </tpl>:</th>
+			<td>
+				<input type="text" name="module_new_name" id="module_new_name" class="fct-input" value="<tpl> $modi_array.module_new_name </tpl>" maxlength="40" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding:0px; margin:0px;">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+					<tr>
+						<td style="border-bottom:none;">
+							<select style="width:320px;" name="vote_left_select" id="vote_left_select" size="6" multiple="multiple">
+			                	<tpl> section name=loop loop=$vote_array </tpl>
+					            	<option value="<tpl> $vote_array[loop].vote_id </tpl>">
+						            	<tpl> $vote_array[loop].vote_title </tpl>
+						            </option>
+					            <tpl> /section </tpl>
+			            	</select>
+			            </td>
+						<td style="border-bottom:none;">
+							<input type="button" value="===>>" id="vote_left_to_right" class="bthl" />
+							<br />
+							<input type="button" value="<<===" id="vote_right_to_left" class="bthl" />
+						</td>
+						<td style="border-bottom:none; border-right:none;">
+							<select style="width:320px;" name="vote_right_select" id="vote_right_select" size="6" multiple="multiple">
+								<tpl> if $right_select[0].vote_id neq "" </tpl>
+									<tpl> section name=loop loop=$right_select </tpl>
+									<option value="<tpl> $right_select[loop].vote_id </tpl>"><tpl> $right_select[loop].vote_title </tpl></option>
+									<tpl> /section </tpl>
+								<tpl> /if </tpl>
+					  		</select>
+					  	</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr style="display:none">
+            <td colspan="3"><div align="center"><input type="submit" value="<tpl> $langCEnsure </tpl>" class="bthl" /></div></td>
+      	</tr>
+  </table>
+</form>
+<script>
+
+jquery(document).ready(function() {
+
+	jquery('#vote_left_to_right').click(function(){
+		 var Option="";
+		 jquery("select[name='vote_left_select']").find("option").each(function(){
+			if(this.selected == true){
+				jquery("<option value="+this.value+">"+this.text+"</option>").appendTo("#vote_right_select");
+			}
+		 });
+
+		 jquery("select[name='vote_left_select'] option[selected]").remove();
+	});
+
+	jquery('#vote_right_to_left').click(function(){
+		 var Option="";
+		 jquery("select[name='vote_right_select']").find("option").each(function(){
+			if(this.selected == true){
+				jquery("<option value="+this.value+">"+this.text+"</option>").appendTo("#vote_left_select");
+			}
+		 });
+
+		 jquery("select[name='vote_right_select'] option[selected]").remove();
+	});
+
+	jquery('#vote_left_select').dblclick(function(){
+		 var Option="";
+		 jquery("select[name='vote_left_select']").find("option").each(function(){
+			if(this.selected == true){
+				jquery("<option value="+this.value+">"+this.text+"</option>").appendTo("#vote_right_select");
+			}
+		 });
+
+		 jquery("select[name='vote_left_select'] option[selected]").remove();
+	});
+
+	jquery('#vote_right_select').dblclick(function(){
+		 var Option="";
+		 jquery("select[name='vote_right_select']").find("option").each(function(){
+			if(this.selected == true){
+				jquery("<option value="+this.value+">"+this.text+"</option>").appendTo("#vote_left_select");
+			}
+		 });
+
+		 jquery("select[name='vote_right_select'] option[selected]").remove();
+	});
+});
+
+
+function vote_submit_module(){
+
+	var module_new_name = "";
+	var str = "";
+	var param_array = new Array();
+
+	jquery("#vote_right_select").find("option").each(function(){
+		str += "select_id:"+this.value+'|||';
+	});
+	
+	if(str == ""){
+		alert("<tpl> $langChannelAddVoteInfoNotNull </tpl>");
+		return false;
+	}
+	
+	module_new_name = jquery("#module_new_name").val();
+	if (module_new_name == ''){
+		alert("<tpl> $langChannelPleaseModuleName </tpl>");
+		return false;
+	}
+
+	param_array[0] = "module_new_name:"+module_new_name;
+	
+	<tpl> if $modi_array.temp_name eq '' </tpl>
+	
+		var temp_name = "vote_module_" + Math.round(Math.random()*10000);
+		param_array[1] = "temp_name:" + temp_name;
+		
+	<tpl> else </tpl>
+	
+		var temp_name = "<tpl> $modi_array.temp_name </tpl>";
+		param_array[1] = "temp_name:<tpl> $modi_array.temp_name </tpl>";
+		
+	<tpl> /if </tpl>
+	
+	param_array[2] = "module_type:vote";
+	param_array[3] = str;
+	
+	var str = "";
+	for(i=0;i<param_array.length;i++){
+		if(i==param_array.length-1){
+			str += param_array[i];
+		}else{
+			str += param_array[i]+'|||';
+		}
+	}
+	
+	if(checkRepeatModuleName(module_new_name) == false){return false;}
+
+	jquery("#add_module_sign").append("<tr><td>"+
+		"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\",\""+module_new_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+		"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+str+"'/>"+
+		"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}'><tpl> $langChannelDelThisModule </tpl></a>"+
+		"</td></tr>");
+	
+	jquery("#body_module").html("");
+	
+  	jquery("#add_module").attr("disabled","");
+	
+	set_module_style('no_disabled');
+	
+	jquery.unblockUI();
+	
+	jquery("#module_block").html('');
+	closeDiy('moduleupdate');
+	closeDiy('moduleadd');
+	return false;
+}
+</script>

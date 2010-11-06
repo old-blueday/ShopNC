@@ -1,0 +1,96 @@
+
+.pikachoose{width:290px;margin:0 auto 50px auto;}
+/* This is the ul you have all your images in */
+.pikachoose ul{padding-left:0;width:290px;height:180px;margin:0;overflow:hidden;}
+.pikachoose ul li{float: left;border:1px solid #555;padding:2px;background:#777;margin:0 6px 4px 0;position:relative;overflow:hidden;}
+.pikachoose ul li div img{position:relative;cursor:pointer;}
+
+/* this is the surroundner for all your elements. This is also the fake border around the main img and room for caption */
+.pika_main{display:block;position:relative; width:288px; height:288px}
+/*sine we give it the fake border, you need to position the image a little. */
+.pika_main_img{position:relative;z-index:-1}
+.pika_subdiv{text-align:center;cursor: pointer; position: relative; text-align: center; z-index: 1; margin:0px;padding:0px;}
+.pika_subdiv a{margin:0px auto;}
+.pika_animationDivs{margin:0px auto;} /*must match top/left padding for subdiv */
+.pika_subdiv img, .pika_subdiv a img{border:none;}
+
+.pika_caption a{color:white;}
+
+
+
+
+.pika_navigation a{font-size: 12px; text-decoration: none;}
+.pika_navigation a:hover{text-decoration: underline;}
+.pika_navigation{padding-top:10px;clear:both;text-align:center;}
+
+/* if you want to 'hide' these jus make their height and width 1px */
+
+
+div.jqZoomTitle
+{
+	z-index:5000;
+	text-align:center;
+	font-size:11px;
+	font-family:Tahoma;
+	height:16px;
+	padding-top:2px;
+	position:absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	color: #FFF;
+	background: #999;
+
+}
+
+.jqZoomPup
+{
+		overflow:hidden;
+		background-color: #FFF;
+		-moz-opacity:0.6;
+		opacity: 0.6;
+		filter: alpha(opacity = 60);
+		z-index:10;
+		border-color:#c4c4c4;
+		border-style: solid;
+		cursor:crosshair;
+}
+
+.jqZoomPup img
+{
+	border: 0px;
+}
+
+.preload{
+	-moz-opacity:0.8;
+	opacity: 0.8;
+   filter: alpha(opacity = 80);
+	color: #333;
+	font-size: 12px;
+	font-family: Tahoma;
+   text-decoration: none;
+	border: 1px solid #CCC;
+   background-color: white;
+   padding: 8px;
+	text-align:center;
+   background-image: url(../images/loading.gif);
+   background-repeat: no-repeat;
+   background-position: 43px 30px;
+	width:90px;
+	* width:100px;
+	height:43px;
+	*height:55px;
+	z-index:10;
+	position:absolute;
+	top:3px;
+	left:3px;
+
+}
+
+.jqZoomWindow
+{
+	border: 1px solid #999;
+	background-color: #FFF;
+}
+
+

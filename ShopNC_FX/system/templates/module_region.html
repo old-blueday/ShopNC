@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_region</tpl><!-- 模块管理 - 地区管理 --></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_area_name	: {required:true}
+		},
+		messages: {
+			txt_area_name	: {required: "<tpl>$admin_module_region_name_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="sql">
+<form id="form1" name="form1" method="post" action="admin_module_region.php?action=save_region">
+  <input type="hidden" name="area_top_id" value="<tpl>$smarty.get.area_top_id</tpl>"  />
+  <input type="hidden" name="area_id" value="<tpl>$smarty.get.area_id</tpl>" />
+    <h4 id="rightcon_h"><b><tpl>$system_header_module_manage</tpl> &gt;&gt; <tpl>$admin_module_region</tpl><!-- 模块管理 >> 地区管理 --></b></h4>
+<div id="rightcon">
+		<div class="rc_con">
+				<h5><tpl>$admin_module_region</tpl></h5>
+	<div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="optionTab">
+			<tr>
+				<td><tpl>if $smarty.get.area_id != ''</tpl><tpl>$admin_module_region_edit</tpl><tpl>else</tpl><tpl>$admin_module_region_add</tpl><tpl>/if</tpl><!-- 添加一级地区 -->:
+				  <input class="TextBoxAt2" type="text" name="txt_area_name" id="txt_area_name" value="<tpl>$area_info.area_name</tpl>" />
+				<input type="submit" name="Submit3" value="<tpl>$admin_module_region_ok</tpl>" class="btnInput" /><!-- 确定 -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tpl>if $smarty.get.area_top_id !=0</tpl><a href="admin_module_region.php?action=region_list&area_top_id=<tpl>$area_name.area_top_id</tpl>"><tpl>$admin_module_region_view</tpl><tpl>$admin_module_region_top</tpl></a>&nbsp;&nbsp;&nbsp;<a href="admin_module_region.php?action=region_list&area_top_id=0"><tpl>$admin_module_region_view</tpl><tpl>$admin_module_region_levelone</tpl></a><tpl>/if</tpl>
+				<div class="check-error"><label style="display:none" for="txt_area_name" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+		</table>
+		<div class="border">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="stripeMe" id="all_sql">
+				<tr>
+					<th colspan="3" id="region-th"><tpl>if $area_name.area_name != ''</tpl><tpl>$area_name.area_name</tpl><tpl>else</tpl><tpl>$admin_module_region_levelone</tpl><tpl>/if</tpl><!-- 一级地区 --></th>
+				</tr>
+				<tr>
+					<td class="textLeft">
+					<tpl>section name=list loop=$area_array</tpl>
+					<div class="region-tab">
+						<span><a href="admin_module_region.php?action=region_list&area_top_id=<tpl>$area_array[list].area_id</tpl>"><tpl>$area_array[list].area_name</tpl></a></span>
+						<span class="link-span">
+							<a href="admin_module_region.php?action=region_list&area_id=<tpl>$area_array[list].area_id</tpl>&area_top_id=<tpl>$area_array[list].area_top_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_region_manage</tpl>" /></a><!-- 管理 -->
+							<a href="admin_module_region.php?action=del_region&area_id=<tpl>$area_array[list].area_id</tpl>&area_top_id=<tpl>$area_array[list].area_top_id</tpl>" onclick="return confirm('<tpl>$admin_module_region_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_region_del</tpl>" /></a><!-- 删除 -->
+						</span>
+					</div>
+					<tpl>/section</tpl>
+					</td>
+				</tr>
+			</table>
+		</div>
+    </div><!--  end of entry2  -->
+	<div class="clear"></div>
+</form>
+</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

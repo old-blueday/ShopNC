@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$modify_userinfo_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+	
+	<tpl>if $country_select != ''</tpl>
+	$("#country_select").html('<tpl>$country_select</tpl>');
+	<tpl>/if</tpl>
+	<tpl>if $province_select != ''</tpl>
+	$("#province_select").html('<tpl>$province_select</tpl>');
+	<tpl>/if</tpl>
+	<tpl>if $city_select != ''</tpl>
+	$("#city_select").html('<tpl>$city_select</tpl>');
+	<tpl>/if</tpl>
+	<tpl>if $county_select != ''</tpl>
+	$("#county_select").html('<tpl>$county_select</tpl>');
+	<tpl>/if</tpl>
+		
+	/* 输入信息的校验 */
+	$("#modify_userinfo").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_user_true_name	: {minLength	:2,		maxLength:30},
+			txt_user_email		: {required		:true,	email:true,maxLength:30},
+			txt_user_address	: {minLength	:2,		maxLength:50},
+			txt_user_zip		: {ZIP			:true},
+			txt_user_phone		: {Phone		:true},
+			txt_user_mobilephone: {Mobile		:true},
+			txt_user_otherphone	: {Phone		:true},
+			txt_user_qq			: {minLength	:2,		maxLength:30},
+			txt_user_msn		: {minLength	:2,		maxLength:30}
+		},
+		messages: {
+			txt_user_true_name	: {minLength:"<tpl>$modify_userinfo_string_min</tpl>",maxLength:"<tpl>$modify_userinfo_string_max</tpl>"},
+			txt_user_email		: {required:"<tpl>$modify_userinfo_email_is_null</tpl>",email:"<tpl>$modify_userinfo_email_error</tpl>",maxLength:"<tpl>$modify_userinfo_string_max</tpl>"},
+			txt_user_address	: {minLength:"<tpl>$modify_userinfo_string_min</tpl>",maxLength:"<tpl>$modify_userinfo_address_max</tpl>"},
+			txt_user_zip		: {ZIP:"<tpl>$modify_userinfo_zip_error</tpl>"},
+			txt_user_phone		: {Phone:"<tpl>$modify_userinfo_phone_error</tpl>"},
+			txt_user_mobilephone: {Mobile:"<tpl>$modify_userinfo_mobilphone_error</tpl>"},
+			txt_user_otherphone	: {Phone:"<tpl>$modify_userinfo_phone_error</tpl>"},
+			txt_user_qq			: {minLength:"<tpl>$modify_userinfo_string_min</tpl>",maxLength:"<tpl>$modify_userinfo_string_max</tpl>"},
+			txt_user_msn		: {minLength:"<tpl>$modify_userinfo_string_min</tpl>",maxLength:"<tpl>$modify_userinfo_string_max</tpl>"}
+		}
+	});
+	/*
+	* 下拉菜单点击事件
+	* select_top_name	为点击菜单
+	* select_name		为子菜单
+	*/
+	var	area_change=function(select_top_name,select_name){
+	$('#'+select_top_name).change(function(){
+			var item_value	= $("select[@name="+select_top_name+"] option[@selected]").val();
+			var	option_top	= "<option value=\"0\" selected=\"selected\"><tpl>$modify_userinfo_select</tpl></option>";
+			/* ajax传值 */
+			$.post('../admin/admin_module_region.php',{'action':'ajax_area','area_id':item_value},function(data) {
+			/* 当选择为第一或是第二菜单的时候，情况第三，第四菜单 */
+			if(select_top_name == 'select0') {
+				/* 隐藏下面id的下拉菜单 */
+				$("#select2,#select3,#select1").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();	
+			} else if (select_top_name == 'select1') {
+				/* 隐藏下面id的下拉菜单 */
+				$("#select2,#select3").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+			} else if (select_top_name == 'select2') {
+				$("#select3").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+				var item_city	 = $("select[@name='select2'] option[@selected]").text();
+			} else if (select_top_name == 'select3') {
+				/* 获取选中值，此中缺少一个地区，也就是第四级地区（如果加入，对应其他地方也需要修改） */
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+				var item_city	 = $("select[@name='select2'] option[@selected]").text();
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+			}
+			if(select_name != 0) {
+			/* 如果下级菜单有值，显示下级菜单内容 */
+				if(data != '') {
+					$("#"+select_name).css("display","");
+					$("#"+select_name).empty();
+					$("#"+select_name).append(option_top+data);
+					
+				}
+			}
+			});
+		});
+	};
+	/* 调用下拉点击函数 */
+	area_change('select0','select1');
+	area_change('select1','select2');
+	area_change('select2','select3');
+	area_change('select3',0);
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content">
+      <div class="title">
+        <h3 id="userintro"><tpl>$modify_userinfo</tpl><!-- 个人信息 --></h3>
+      </div>
+      <div class="inside">
+        <form name="modify_userinfo"id="modify_userinfo" action="user_center.php?action=update_userinfo" method="post">
+          <div class="inside-tit"><tpl>$modify_userinfo_modify_userinfo</tpl><!-- 修改个人信息 --></div>
+          <div class="inside-content">
+            <dl id="userinfo_form">
+              <dt><tpl>$modify_userinfo_true_name</tpl><!-- 真实姓名 -->:</dt>
+              <dd>
+                <input type="text" name="txt_user_true_name" value="<tpl>$userinfo.user_true_name|escape:html</tpl>" class="textinput" style="width:150px;"/>
+				<div class="check-error"><label style="display:none" for="txt_user_true_name" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt><tpl>$modify_userinfo_sex</tpl><!-- 性别 -->:</dt>
+              <dd><input type="radio" name="txt_user_sex" value="0" <tpl>if $userinfo.user_sex eq 0</tpl>checked="checked" <tpl>/if</tpl> />
+						  <tpl>$modify_userinfo_boy</tpl><!-- 男 -->
+						  <input type="radio" name="txt_user_sex" value="1" <tpl>if $userinfo.user_sex eq 1</tpl>checked="checked" <tpl>/if</tpl>/>
+						  <tpl>$modify_userinfo_girl</tpl><!-- 女 --> </dd>
+              <dt><tpl>$modify_userinfo_email</tpl><!-- /*电子邮箱*/ -->:</dt>
+              <dd>
+                <input type="text" name="txt_user_email" id="txt_user_email" value="<tpl>$userinfo.user_email</tpl>" class="textinput"  style="width:150px;"/>&nbsp;<span style="color:red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_user_email" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt><tpl>$modify_userinfo_area</tpl><!-- 所在地区 -->:</dt>
+              <dd>
+					<span id="country_select"><select name="select0" id="select0">
+						  <option value="0" selected="selected"><tpl>$modify_userinfo_select</tpl><!-- 请选择... --></option>
+						  <tpl>section name=list loop=$top_region</tpl>
+							<option value="<tpl>$top_region[list].area_id</tpl>"><tpl>$top_region[list].area_name</tpl></option>
+							<tpl>/section</tpl>
+						  </select>
+					</span>
+					<span id="province_select">
+				    <select name="select1" id="select1" style="display:none">
+						  </select>
+					</span>
+					<span id="city_select">
+					<select name="select2" id="select2" style="display:none">
+						  </select>
+					</span>
+					<span id="county_select">
+					<select name="select3" id="select3" style="display:none">
+					</select>
+					</span>
+              </dd>
+              <dt><tpl>$modify_userinfo_address</tpl><!-- 具体地址 -->:</dt>
+              <dd>
+                <input type="text"  name="txt_user_address" id="txt_user_address" value="<tpl>$userinfo.user_address|escape:html</tpl>" class="textinput" style="width:300px;"/>
+				<div class="check-error"><label style="display:none" for="txt_user_address" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt><tpl>$modify_userinfo_zip</tpl><!-- 邮政编码 -->:</dt>
+              <dd>
+                <input  name="txt_user_zip" type="text" id="txt_user_zip" value="<tpl>$userinfo.user_zip</tpl>" class="textinput" style="width:150px;"/>
+				<div class="check-error"><label style="display:none" for="txt_user_zip" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt><tpl>$modify_userinfo_phone</tpl><!-- 宅电 -->:</dt>
+              <dd>
+                <input type="text"  name="txt_user_phone" id="txt_user_phone" value="<tpl>$userinfo.user_phone</tpl>" class="textinput" style="width:150px;"/>
+				<div class="check-error"><label style="display:none" for="txt_user_phone" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt><tpl>$modify_userinfo_mobilephone</tpl><!-- 手机 -->:</dt>
+              <dd>
+                <input type="text"  name="txt_user_mobilephone" id="txt_user_mobilephone" value="<tpl>$userinfo.user_mobilephone</tpl>" class="textinput" style="width:150px;" />
+				<div class="check-error"><label style="display:none" for="txt_user_mobilephone" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt><tpl>$modify_userinfo_otherphone</tpl><!-- 其他电话 -->:</dt>
+              <dd>
+                <input name="txt_user_otherphone" type="text" id="txt_user_otherphone" value="<tpl>$userinfo.user_otherphone</tpl>" class="textinput" style="width:150px;"/>
+              <div class="check-error"><label style="display:none" for="txt_user_otherphone" class="wrong" metaDone="true" generated="true"></label></div>
+			  </dd>
+              <dt>QQ:</dt>
+              <dd>
+                <input name="txt_user_qq" type="text" id="txt_user_qq" id="txt_user_qq" value="<tpl>$userinfo.user_qq|escape:html</tpl>" class="textinput" style="width:150px;"/>
+				<div class="check-error"><label style="display:none" for="txt_user_qq" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+              <dt>MSN:</dt>
+              <dd>
+                <input name="txt_user_msn" type="text" id="txt_user_msn" id="txt_user_msn" value="<tpl>$userinfo.user_msn|escape:html</tpl>" class="textinput" style="width:150px;"/>
+				<div class="check-error"><label style="display:none" for="txt_user_msn" class="wrong" metaDone="true" generated="true"></label></div>
+              </dd>
+            </dl>
+            <div class="formbtns" >
+			<input type="hidden" name="txt_user_state" value="<tpl>$userinfo.user_state</tpl>" />
+              <input name="submit_name" type="submit" class="inputbutton"value="<tpl>$modify_userinfo_affirm_modify</tpl>" />
+              <input name="reset_name" type="reset" class="inputbutton"value="<tpl>$modify_userinfo_cancel</tpl>" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="clear" style="height:12px;">&nbsp;</div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <!-- 用户中心内容:END -->
+  <!-- 用户中心菜单:START -->
+  	<tpl>include file ='user_center_menu.html'</tpl>
+  <!-- 用户中心菜单:END -->
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

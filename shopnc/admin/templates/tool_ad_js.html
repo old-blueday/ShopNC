@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_ad</tpl> - <tpl>$admin_tool_ad_js</tpl></title><!-- 工具管理 - 广告管理 - JS调用 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+    <form action="admin_goods_class.php?action=save" method="post" name="goods_class" id="goods_class">
+    	<input type="hidden" name="class_id" value="<tpl>$class.class_id</tpl>"/>
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_tool_ad.php?action=ad_list" target="_self" class="btnInput"><tpl>$admin_tool_ad_list</tpl><!-- 广告列表 --></a><a href="admin_tool_ad.php?action=ad_area_list" target="_self" class="btnInput"><tpl>$admin_tool_ad_poster_list</tpl><!-- 广告位列表 --></a></span>
+	<tpl>$admin_header_tools_manage</tpl> >> <tpl>$admin_tool_ad</tpl> >> <tpl>$admin_tool_ad_js</tpl><!-- 工具管理 >> 广告管理 >> JS调用 -->
+	</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_tool_ad_js</tpl></h5>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_tool_ad_code_type</tpl><!-- 编码类型 -->:</td>
+            <td><input name="code_charset" type="radio"  onclick="change_code('utf-8')" checked="checked" />
+              <tpl>$admin_tool_ad_code_utf8</tpl><!-- UTF-8 -->
+              <input type="radio" name="code_charset" onclick="change_code('gb2312')" />
+              <tpl>$admin_tool_ad_code_gb</tpl><!-- GB2312 -->
+              <input type="radio" name="code_charset" onclick="change_code('big5')" />
+              <tpl>$admin_tool_ad_code_big</tpl><!-- BIG5 --></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_js_text</tpl><!-- js文本框 -->:</td>
+            <td>
+				<textarea name="txt_ad" cols="45" rows="5" id="txt_ad"><script src="<tpl>$Site_Url</tpl>/shops_js.php?action=shops_ad&js_charset=utf-8&ad_id=<tpl>$smarty.get.ad_id</tpl>"></script></textarea>
+				<br />
+			</td>
+          </tr>
+        </table>
+    </div><!--  end of entry1  -->
+</div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+function change_code(str) {
+	var ad_str = '<script src=\"<tpl>$Site_Url</tpl>/shops_js.php?action=shops_ad&js_charset='+str+'&ad_id=<tpl>$smarty.get.ad_id</tpl>"><\/script>';
+	document.getElementById('txt_ad').value = ad_str;
+}
+</script>
+</body>
+</html>

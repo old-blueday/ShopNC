@@ -1,0 +1,107 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCNews </tpl> &gt;&gt; <tpl> $langSysNList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='news.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysNAdd </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="news.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="ajax_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysNNewsName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.search_title </tpl>" name="search_title" id="search_title" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysNClassName </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<tpl> $slCId </tpl>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysNNewsSort </tpl>:</th>
+								<td class="it-2" colspan="3"> 
+									<tpl> $slOrder </tpl>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="news.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysNSel </tpl></td>
+						<td class="es-4"><tpl> $langSysNNewsName </tpl></td>
+						<td class="es-2"><tpl> $langSysNNewsDate </tpl></td>
+						<td class="es-2"><tpl> $langSysNNewsSort </tpl></td>
+						<td class="es-2"><tpl> $langSysNManage </tpl></td>
+					</tr>
+					<tpl> if $news_array[0].news_id neq '' </tpl>
+						<tpl> section name=loop loop=$news_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="news_id[]" type="checkbox" value="<tpl> $news_array[loop].news_id </tpl>"/></td>
+						<td><tpl> $news_array[loop].news_title </tpl></td>
+						<td><tpl> $news_array[loop].news_date </tpl></td>
+						<td><tpl> $news_array[loop].news_sort </tpl></td>
+						<td><a href="news.manage.php?action=modi&id=<tpl> $news_array[loop].news_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langSysNEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $news_array[0].news_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $news_array[0].news_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<select name="move_class_id" id="move_class">
+					<option value=""><tpl> $langSysNMoveTo </tpl></option>
+					<tpl> section name=loop loop=$class_array </tpl>
+					<option value="<tpl> $class_array[loop].news_c_id </tpl>"><tpl> $class_array[loop].news_c_name </tpl></option>
+					<tpl> /section </tpl>
+				</select>	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('move_class');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

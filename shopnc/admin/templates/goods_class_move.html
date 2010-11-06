@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_goods_brand_add </tpl></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <form action="admin_goods_class.php?action=move" method="post" name="class_move" id="class_move">
+    <input type="hidden" name="id" id="id" value="<tpl>$goods_class_array.class_id</tpl>" />
+	<h4 id="rightcon_h"><b>
+	<span class="alignRight"><a href="admin_goods_class.php?action=list" target="_self" class="btnInput"><tpl> $admin_goods_class_list </tpl><!-- 商品分类列表 --></a></span><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >> <tpl>$admin_goods_class_move</tpl><!--分类商品移动-->
+	</b>
+    </h4>
+	<div id="rightcon">
+			<div class="rc_con">
+    <div class="entry-body" id="entry1">
+	<h5><tpl>$admin_goods_class_move</tpl></h5>
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_class_move</tpl><!--分类商品移动-->:</td>
+            <td>
+			<tpl>$admin_goods_class_list_shall</tpl><!--  将  --><font color="red"><tpl>$goods_class_array.class_name</tpl></font><tpl>$admin_goods_class_list_move_to</tpl><!--  转移到  -->
+          	  <tpl>$class_top_id_2</tpl>
+			</td>
+          </tr>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_class_click_move</tpl>" class="btnInput" /><!-- 点此移动 -->
+    </div>
+	</div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

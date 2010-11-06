@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$vote_view_name</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="search_pic"></div>
+  <div class="top"></div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$vote_view_name</tpl><!-- 投票结果 --></h2>
+    </div>
+    <div class="register_box">
+      <div class="votetitle"><tpl>$vote_array.0.title</tpl></div>
+      <table width="500" border="0" align="center" cellPadding="0" cellSpacing="0" id="votecharttab">
+        <tbody>
+		<tpl>section name=list loop=$vote_array.1</tpl>
+          <tr>
+            <td width="100" align="right"><strong><tpl>$vote_array.1[list].option_tile</tpl></strong></td>
+            <td width="300"><span class="vote-chart-percent"><em 
+      style="width:<tpl>if $vote_option_num !=0</tpl><tpl>$vote_array.1[list].option_num/$vote_option_num*100</tpl>%<tpl>else</tpl>0%<tpl>/if</tpl>;"><strong></strong></em></span></td>
+            <td width="100"><tpl>if $vote_option_num !=0</tpl><tpl>math equation="(x/y)*100" x=$vote_array.1[list].option_num y=$vote_option_num format="%.0f"</tpl>%<tpl>/if</tpl>(<tpl>$vote_array.1[list].option_num</tpl><tpl>$vote_view_num</tpl><!-- 票 -->)</td>
+          </tr>
+		<tpl>/section</tpl>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部信息footer -->
+<!--底部内容:END-->
+</body>
+</html>

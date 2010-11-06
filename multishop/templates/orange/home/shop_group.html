@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>
+include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/group.css" rel="stylesheet" type="text/css" />
+<tpl>if $NCharset == "GBK"</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.countdowngbk.min.js" ></script>
+<tpl>else</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.countdown.min.js" ></script>
+<tpl>/if</tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.accordion.js"></script>
+<script language="javascript" >
+$(function () {
+	$('ul.drawers').accordion({
+		header: 'H2.drawer-handle',
+		selectedClass: 'open',
+		event: 'mouseover'
+	});
+});
+
+
+
+
+$(function(){
+
+     var len = $("#idNum > li").length;
+var index = 0;
+$("#idNum li").mouseover(function(){
+   index =   $("#idNum li").index(this);
+   showImg(index);
+}); 
+$('#swiftbanner').hover(function(){
+     if(MyTime){
+     clearInterval(MyTime);
+     }
+},function(){
+     MyTime = setInterval(function(){
+       showImg(index)
+     index++;
+     if(index==len){index=0;}
+     } , 4000);
+});
+var MyTime = setInterval(function(){
+   showImg(index)
+   index++;
+   if(index==len){index=0;}
+} , 4000);
+})
+function showImg(i){
+   $("#idSlider").stop(true,false).animate({top : -180*i},800);
+   $("#idNum li")
+    .eq(i).addClass("on")
+    .siblings().removeClass("on");
+}
+</script>
+</head>
+<body>
+<div id="wrapper" class="m"> 
+  <!--Header-->
+  <tpl> include file="header_new.html" </tpl>
+  <!--End Header-->
+  <div class="clear">&nbsp;</div>
+  <div id="main">
+    <div class="mainbox">
+      <div class="leftLayout sideStyle">
+        <div class="left">
+          <div class="title">
+            <h3><tpl> $langMallActivityInformation </tpl></h3>
+          </div>
+          <ul>
+          	<tpl> section name=n loop=$news_array </tpl>
+          		<li><a href="<tpl> $news_array[n].news_href </tpl>" title="<tpl> $news_array[n].news_title </tpl>" target="_blank"><tpl> $news_array[n].news_title_cut </tpl></a></li>
+          	<tpl> /section </tpl>
+          </ul>
+        </div> 
+        <div id="swiftbanner">
+          <ul class="slider" id="idSlider">
+			<tpl> foreach from=$topics_group_slide item=one </tpl>
+			 <li><a href="<tpl> $one.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $one.pic </tpl>" width="480" height="180"/></a></li>
+			<tpl> /foreach </tpl>
+          </ul>
+          <ul class="num" id="idNum">
+			<tpl> foreach from=$topics_group_slide item=one key=key </tpl>
+			  <li><tpl> $key+1 </tpl></li>
+			<tpl> /foreach </tpl>
+          </ul>
+        </div>
+        <div class="clear">&nbsp;</div>
+        <div class="goodsListStyle">
+          <div class="title">
+            <h3><tpl> $langGroupArea </tpl></h3>
+          </div>
+          <ul class="content">
+		    <tpl> foreach from=$product_group_array item=v </tpl>
+            <li>
+              <div class="goodsPic"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><img src="<tpl> if $v.p_pic neq '' </tpl><tpl> $site_url </tpl>/<tpl> $v.p_pic </tpl><tpl> else </tpl><tpl> $template_dir </tpl>/images/noimgm.gif<tpl> /if </tpl>" style="width:130px;height:130px;"/></a></div>
+              <dl>
+                <dt class="goodsName"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><tpl> $v.p_name </tpl></a></dt>
+                <dd class="basicPrice"><tpl> $langStartPrice </tpl>: <tpl> $v.p_price </tpl> <tpl> $langYuan </tpl></dd>
+                <dd class="maxPrice"><tpl> $langGroupPrice </tpl>: <tpl> $v.p_group_price </tpl> <tpl> $langYuan </tpl></dd>
+              </dl>
+              <div class="auctionBtn"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><tpl> $langStartGroup </tpl></a></div>
+            </li>
+			<tpl> /foreach </tpl>
+          </ul>
+        </div>
+      </div>
+      <div class="rightLayout">
+        <dl id="superGroup">
+          <dt class="goodsPic" >
+			<tpl> if $top_product.p_code neq '' </tpl>
+				<a target="_blank" href="product_group.php?action=view&p_code=<tpl> $top_product.p_code </tpl>">
+					<tpl> if $top_product.topics_pic neq '' </tpl>
+						<img src="<tpl> $site_url </tpl>/<tpl> $top_product.topics_pic </tpl>" width="235" height="329" />
+					<tpl> else </tpl>
+						<img src="<tpl> $template_dir </tpl>/home/images_new/pics/cztg.png" width="235" height="329" />
+					<tpl> /if </tpl>
+				</a>
+			<tpl> else </tpl>
+				<img src="<tpl> $template_dir </tpl>/home/images_new/pics/cztg.png" width="235" height="329" />
+			<tpl> /if </tpl>          
+          </dt>
+          <dd class="martPrice"><tpl> $langStartPrice </tpl>:<span><tpl> $top_product.p_price|default:'0' </tpl></span><tpl> $langYuan </tpl></dd>
+          <dd class="groupPrice"><tpl> $langPTopGroupPrice </tpl>:<span><tpl> $top_product.p_group_price|default:'0' </tpl></span><tpl> $langYuan </tpl></dd>
+          <dd class="btn">
+				<tpl> if $top_product.p_code neq '' </tpl>
+					<a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $top_product.p_code </tpl>" target="_blank"><tpl> $langStartGroup </tpl></a>
+				<tpl> else </tpl>
+					<a href=""><tpl> $langStartGroup </tpl></a>
+				<tpl> /if </tpl>          	
+          </dd>
+          <dd class="mixPeople"><tpl> $langPTopGroupMinBid </tpl>:<span><tpl> $ex_top_product.min_count|default:'0' </tpl></span><tpl> $langPPeople </tpl></dd>
+        </dl>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <div class="allBannerBox">
+		<tpl> if $topics_group_banner1.pic neq '' </tpl>
+			<a href="<tpl> $topics_group_banner1.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_group_banner1.pic </tpl>" width="945" height="90" /></a>
+		<tpl> /if </tpl>    	
+    </div>
+    <div class="mainbox">
+      <div class="leftLayout">
+        <div class="goodsListStyle">
+          <div class="title">
+            <h3><tpl> $langEndAuction </tpl></h3>
+          </div>
+          <ul class="content">
+		    <tpl> foreach from=$product_end_array item=v </tpl>
+            <li>
+              <div class="goodsPic"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><img src="<tpl> if $v.p_pic neq '' </tpl><tpl> $site_url </tpl>/<tpl> $v.p_pic </tpl><tpl> else </tpl><tpl> $template_dir </tpl>/images/noimgm.gif<tpl> /if </tpl>" style="width:130px;height:130px;" /></a></div>
+              <dl>
+                <dt class="goodsName"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><tpl> $v.p_name </tpl></a></dt>
+                <dd class="overTime"><tpl> $v.p_left_time </tpl></dd>
+                <dd class="maxPrice"><tpl> $langGroupPrice </tpl>: <tpl> $v.p_group_price </tpl> <tpl> $langYuan </tpl></dd>
+              </dl>
+              <div class="auctionBtn"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><tpl> $langStartGroup </tpl></a></div>
+            </li>
+			<tpl> /foreach </tpl>
+          </ul>
+        </div>
+      </div>
+      <div class="rightLayout">
+        <div class="right sideStyle">
+          <div class="title"><h3><tpl> $langMallActivityInformation </tpl></h3></div>
+            <ul class="drawers">
+			  <tpl> foreach from=$product_activity_array item=v </tpl>
+              <li class="drawer">
+                <h2 class="drawer-handle"><tpl> $v.p_name </tpl></h2>
+                <div class="goodsIntro">
+                  <div class="pic"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><img src="<tpl> if $v.p_pic neq '' </tpl><tpl> $site_url </tpl>/<tpl> $v.p_pic </tpl><tpl> else </tpl><tpl> $template_dir </tpl>/images/noimgs.gif<tpl> /if </tpl>" alt="<tpl> $v.p_name </tpl>" width="64" height="64" /></a></div>
+                  <dl>
+                    <dt><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl> $v.p_code </tpl>" target="_blank"><tpl> $v.p_name </tpl></a></dt>
+                    <dd class="quantity"><tpl> $langNowCountPeopleGroup </tpl>: <tpl> $v.p_bid_num </tpl>  <tpl> $langFrequency </tpl></dd>
+                    <dd class="maxPrice"><tpl> $langGroupPrice </tpl>: <tpl> $v.p_group_price </tpl> <tpl> $langYuan </tpl></dd>
+                  </dl>
+                </div>
+              </li>
+			  <tpl> /foreach </tpl>
+            </ul>
+        </div><div class="right" style="border-top:none;"><ul class="sideAd">
+			<tpl> if $topics_group_right1.pic neq '' </tpl>
+				<li>
+					<a href="<tpl> $topics_group_right1.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_group_right1.pic </tpl>" width="190" height="70" /></a>
+				</li>
+			<tpl> /if </tpl>
+			<tpl> if $topics_group_right2.pic neq '' </tpl>
+				<li>
+					<a href="<tpl> $topics_group_right2.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_group_right2.pic </tpl>" width="190" height="70" /></a>
+				</li>
+			<tpl> /if </tpl>
+         </ul>
+      </div></div>
+    </div>
+    <div class="clear"></div>
+    <div class="allBannerBox">
+		<tpl> if $topics_group_banner2.pic neq '' </tpl>
+			<a href="<tpl> $topics_group_banner2.url </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $topics_group_banner2.pic </tpl>" width="945" height="90" /></a>
+		<tpl> /if </tpl>
+    </div>
+  </div>
+  <tpl> include file='../use_help.html' </tpl>  
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

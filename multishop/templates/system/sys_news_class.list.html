@@ -1,0 +1,62 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCNews </tpl> &gt;&gt; <tpl> $langSysNListClass </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='news.manage.php?action=add_class'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysNAddClass </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="news.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langSysNDelClassConfirm </tpl>');">
+			<input type="hidden" name="action" id="action" value="del_class" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysNSel </tpl></td>
+						<td class="es-4"><tpl> $langSysNName </tpl></td>
+						<td class="es-2"><tpl> $langSysNManage </tpl></td>
+					</tr>
+					<tpl> if $class_array[0].news_c_id neq '' </tpl>
+						<tpl> section name=loop loop=$class_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="news_c_id[]" type="checkbox" value="<tpl> $class_array[loop].news_c_id </tpl>"/></td>
+						<td><tpl> $class_array[loop].news_c_name </tpl></td>
+						<td><a href="news.manage.php?action=modi_class&id=<tpl> $class_array[loop].news_c_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langSysNEdit </tpl></a>
+						 | 
+						<a href="news.manage.php?action=ajax_list&search_cid=<tpl> $class_array[loop].news_c_id </tpl>"><tpl> $langSysNListInfo </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $class_array[0].news_c_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $class_array[0].news_c_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

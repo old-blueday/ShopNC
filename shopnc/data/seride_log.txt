@@ -1,0 +1,13 @@
+SERIDE LOG FILE - Started at 2009/11/16 15:47
+=============================================
+
+[-!-] Malitious Request Found
+Time: 2009/11/16 15:47
+Error ID: 2
+Source IP: 127.0.0.1
+Action Page: /shopnc61/shopnc61/admin/login.php?action=login
+Request Method: POST
+HTTP Referer: http://localhost/shopnc61/shopnc61/admin/login.php
+HTTP User Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; QQPinyinSetup 620; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; .NET CLR 2.0.50727; 360SE)
+
+

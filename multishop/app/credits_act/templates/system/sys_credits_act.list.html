@@ -1,0 +1,74 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAppManage </tpl> &gt;&gt; <tpl> $langCACreditsAction </tpl> &gt;&gt; <tpl> $langSysManage </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='../<tpl> $app_module.app_module_sign </tpl>/system.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langCAAdd </tpl></b>
+					</div>
+				</div>
+			<form action="../<tpl> $app_module.app_module_sign </tpl>/system.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langSysCADelShort </tpl></td>
+						<td><tpl> $langSysCATitle </tpl></td>
+						<td class="es-5"><tpl> $langSysCAEndTime </tpl></td>
+						<td class="es-6"><tpl> $langSysCAState </tpl></td>
+						<td class="es-7"><tpl> $langSysCAOperate </tpl></td>
+					</tr>
+					<tpl> if $act_list[0].ca_id neq '' </tpl>
+						<tpl> section name=loop loop=$act_list </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="ca_id[]" type="checkbox" value="<tpl> $act_list[loop].ca_id </tpl>"/></td>
+						<td><tpl> $act_list[loop].ca_title </tpl></td>
+						<td><tpl> $act_list[loop].ca_end_time </tpl></td>
+						<td>
+							<tpl> if $act_list[loop].ca_state eq '0' </tpl>
+								<tpl> $langSysCAStateZero </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $act_list[loop].ca_state eq '1' </tpl>
+								<tpl> $langSysCAStateOne </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="../<tpl> $app_module.app_module_sign </tpl>/system.php?action=modi&id=<tpl> $act_list[loop].ca_id </tpl>"><tpl> $langSysCAModi </tpl></a> 
+							<a href="../<tpl> $app_module.app_module_sign </tpl>/system.php?action=msg_list&id=<tpl> $act_list[loop].ca_id </tpl>"><tpl> $langSysCAMsgManage </tpl></a>
+							<a href="../<tpl> $app_module.app_module_sign </tpl>/system.php?action=apply_list&id=<tpl> $act_list[loop].ca_id </tpl>"><tpl> $langSysCAConvertManage </tpl></a>
+						</td>
+					</tr>
+					<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $act_list[0].ca_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $act_list[0].ca_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input type="submit" value="<tpl> $langSysCADel </tpl>" id="supply_del" name="supply_del"  class="bthl" />
+				<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='<tpl> $site_url </tpl>/system/app_module.manage.php?action=list'" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

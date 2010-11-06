@@ -1,0 +1,182 @@
+
+<form action="javascript:;" id="form_module_pclass" name="form_module_pclass" method="post" onsubmit="return pclass_submit_module();" class="zhezhao">
+	<table border="0" cellpadding="0" cellspacing="0" class="fct-1">
+		<tr>
+			<th><tpl> $langChannelModuleName </tpl>:</th>
+			<td>
+				<input type="hidden" name="action" id="action" value="pclass_set_check_finish" />
+				<input type="text" name="module_new_name" id="module_new_name" class="fct-input" value="<tpl> $modi_array.module_new_name </tpl>" maxlength="40" />
+				<input type="hidden" name="pclass_temp_name" id="pclass_temp_name" value="" />
+				<input type="hidden" name="module_type" id="module_type" value="pclass" />
+			</td>
+		</tr>
+		<tr>
+		  	<th><tpl> $langChannelTypeNameWordNum </tpl>:</th>
+			<td>
+				<input type="text" name="name_num" class="fct-input" id="name_num" value="<tpl> $modi_array.name_num </tpl>" maxlength="2" />
+				<p><tpl> $langChannelHomeDisSiz </tpl></p>
+			</td>
+		</tr>
+		<tr>
+		  	<th><tpl> $langChannelHomeDisType </tpl>:</th>
+			<td>
+				<input name="show_type" type="radio" id="type_0" <tpl> if $modi_array.show_type eq '0' || $modi_array.show_type eq '' </tpl> checked="checked" <tpl> /if </tpl> value="0" class="input_radio" /><label for="type_0"><tpl> $langChannelLayer </tpl></label>
+				<input name="show_type" type="radio" id="type_1" <tpl> if $modi_array.show_type eq '1' </tpl> checked="checked" <tpl> /if </tpl> value="1" class="input_radio" /><label for="type_1"><tpl> $langChannelSingleness </tpl></label>
+				<input name="show_type" type="radio" id="type_2" <tpl> if $modi_array.show_type eq '2' </tpl> checked="checked" <tpl> /if </tpl> value="2" class="input_radio" /><label for="type_2"><tpl> $langChannelMenu </tpl></label>
+				<input name="show_type" type="radio" id="type_3" <tpl> if $modi_array.show_type eq '3' </tpl> checked="checked" <tpl> /if </tpl> value="3" class="input_radio" /><label for="type_3"><tpl> $langChannelCProductClass </tpl></label>
+			<p><tpl> $langChannelLayerDisTypeSinglenessNotClass </tpl></p>
+			</td>
+		</tr>
+		<tr style="display:none">
+		    <td colspan="2"><div align="center"><input type="submit" value="<tpl> $langCEnsure </tpl>" class="bthl" /></div></td>
+		</tr>	
+		<tr>
+			<td colspan="2"><tpl> $langChannelNeedDis2Class </tpl></td>
+		</tr>
+
+		<tpl> section name=listclass loop=$product_class_array </tpl>
+		<tr>
+			<td colspan="2">
+				<input <tpl> if $product_class_array[listclass].is_check eq '1' </tpl> checked="checked" <tpl> /if </tpl> type="checkbox" name="check_id_<tpl> $product_class_array[listclass].pc_id </tpl>" id="check_id_<tpl> $product_class_array[listclass].pc_id </tpl>" onclick="product_class_set_check(this.value);" value="<tpl> $product_class_array[listclass].pc_id </tpl>" class="input_radio" />
+				<a id="a_<tpl> $product_class_array[listclass].pc_id </tpl>" href="javascript:;" <tpl> if $product_class_array[listclass].is_parent eq '1' </tpl> onclick="ajax_get_child_class('<tpl> $product_class_array[listclass].pc_id </tpl>');" <tpl> /if </tpl> >+</a>
+				<tpl> $product_class_array[listclass].pc_name </tpl>
+				<tpl> $langCSort </tpl>:<input onblur="product_class_set_check(<tpl> $product_class_array[listclass].pc_id </tpl>);" name="sort_<tpl> $product_class_array[listclass].pc_id </tpl>" id="sort_<tpl> $product_class_array[listclass].pc_id </tpl>" type="text" value="<tpl> $product_class_array[listclass].sort_value|default:'0' </tpl>" size="5" maxlength="5" class="fct-input-2" />
+			</td>
+		</tr>
+		<tr style="height:0; line-height:0">
+			<td colspan="2" align="left" style="height:0; line-height:0">
+		  		<div style="display:none;" id="div_<tpl> $product_class_array[listclass].pc_id </tpl>"></div>
+		  	</td>
+		</tr>
+		<tpl> /section </tpl>
+
+	</table>
+</form>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script>
+
+function pclass_submit_module(){
+
+	var module_new_name = "";
+	var patrn_num=/^[0-9]{1,1000}$/;
+	var sort_value = "";
+	var name_num = "";
+
+	module_new_name = jquery("#module_new_name").val();
+	if (module_new_name == ''){
+		alert("<tpl> $langChannelPleaseModuleName </tpl>");
+		return false;
+	}
+	
+	name_num = jquery("#name_num").val();
+	if (!patrn_num.exec(name_num)){
+		alert("<tpl> $langChannelTypeNameLengthIsNum </tpl>");
+		return false;
+	}
+	
+	<tpl> if $modi_array.temp_name eq '' </tpl>
+	
+		var temp_name = "pclass_module_" + Math.round(Math.random()*10000);
+		jquery('#pclass_temp_name').val(temp_name);
+		
+	<tpl> else </tpl>
+	
+		var temp_name = "<tpl> $modi_array.temp_name </tpl>";
+		jquery('#pclass_temp_name').val(temp_name);
+		
+	<tpl> /if </tpl>
+	
+	if(checkRepeatModuleName(module_new_name) == false){return false;}
+	var queryString = jquery("#form_module_pclass").formSerialize();
+	jquery.ajax({
+		url: "../system/channel.manage.php",
+		data: queryString,
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+
+			jquery("#add_module_sign").append("<tr><td>"+
+				"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\",\""+module_new_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+				"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+msg+"'/>"+
+				"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}'><tpl> $langChannelDelThisModule </tpl></a>"+
+				"</td></tr>");
+			
+			jquery("#body_module").html("");
+			
+			jquery("#add_module").attr("disabled","");
+			
+			set_module_style('no_disabled');
+			
+			jquery.unblockUI();
+			
+			jquery("#module_block").html('');
+			closeDiy('moduleadd');
+			closeDiy('moduleupdate');
+		},
+		error: function(){
+			alert('<tpl> $langChannelModuleSaveClassErr </tpl>');
+		}
+	});
+	return false;
+}
+
+
+function product_class_set_check(id){
+	str = jquery("#sort_"+id).val();
+	if(jquery("#check_id_"+id).attr('checked')){
+
+		jquery.ajax({
+			url: "../system/channel.manage.php",
+			data: "action=pclass_set_check&pc_id="+id+"&sort="+str,
+			type:'post',
+			dataType:"html",
+			error: function(){
+				alert('<tpl> $langChannelModuleCheckClass </tpl>');
+			}
+		});
+	}else{
+		jquery.ajax({
+			url: "../system/channel.manage.php",
+			data: "action=pclass_set_clean_check&pc_id="+id,
+			type:'post',
+			dataType:"html",
+			error: function(){
+				alert('<tpl> $langChannelModuleCleanIdErr </tpl>');
+			}
+		});
+	}
+	
+	return false;
+}
+
+function ajax_get_child_class(id){
+
+	var str = jquery("#div_"+id).html();
+	
+	if(jquery("#div_"+id).css('display') != 'block'){
+		if(str == ''){
+			jquery("#div_"+id).css('display','');
+			jquery.ajax({
+				url: "../system/channel.manage.php",
+				data: "action=pclass_child_list&id="+id+"&channel_read_param="+jquery('#channel_read_param').val()+"&module_name=<tpl> $modi_array.temp_name </tpl>&txtid="+jquery('#txtid').val(),
+				type:'post',
+				dataType:"html",
+				success: function(msg){
+					jquery("#div_"+id).html(msg);
+				},
+				error: function(){
+					alert('<tpl> $langChannelModuleGetClassErr </tpl>');
+				}
+			});
+			jquery("#a_"+id).text('-');
+		}else{
+			jquery("#a_"+id).text('-');
+			jquery("#div_"+id).css('display','');
+		}	
+	}else{
+		jquery("#a_"+id).text('+');
+		jquery("#div_"+id).css('display','none');
+	}
+	return false;
+}
+</script>

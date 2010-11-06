@@ -1,0 +1,61 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSystemPGroupManage </tpl> &gt;&gt; <tpl> $langSystemPGroupList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='system_power.manage.php?action=add_group'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSystemPAddGroup </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="system_power.manage.php?action=del_group" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSystemPDelete </tpl></td>
+						<td class="es-4"><tpl> $langSystemPGroupName </tpl></td>
+						<td class="es-3"><tpl> $langSystemPAssign </tpl></td>
+					</tr>
+					<tpl> if $sys_group_list[0].sys_group_id neq '' </tpl>
+						<tpl> section name=loop loop=$sys_group_list </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="sys_group_id[]" value="<tpl> $sys_group_list[loop].sys_group_id </tpl>" /></td>
+						<td><tpl> $sys_group_list[loop].sys_group_name </tpl></td>
+						<td><a href="system_power.manage.php?action=modi_group&sys_group_id=<tpl> $sys_group_list[loop].sys_group_id </tpl>&curpage=<tpl> $curpage </tpl>"><tpl> $langSystemPSetup </tpl></a>
+						|
+						<a href="system_power.manage.php?action=ajax_member&sys_group_id=<tpl> $sys_group_list[loop].sys_group_id </tpl>"><tpl> $langSystemPAdminList </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $sys_group_list[0].sys_group_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $sys_group_list[0].sys_group_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

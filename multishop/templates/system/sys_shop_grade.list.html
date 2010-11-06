@@ -1,0 +1,49 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCShopGrade </tpl> &gt;&gt; <tpl> $langSysCShopGradeList </tpl></div>
+					 <div class="gtlbar-right" onclick="location.href='shop_grade.manage.php?action=grade_add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysCShopGradeAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="shop_grade.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="grade_del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langGradeSelect </tpl></td>
+						<td class="es-4"><tpl> $langGradeName </tpl></td>
+						<td class="es-4"><tpl> $langGradeGoodsNum </tpl></td>
+						<td class="es-4"><tpl> $langGradeCost </tpl></td>
+						<td class="es-4"><tpl> $langGradeConfirm </tpl></td>
+						<td class="es-4"><tpl> $langGOperation </tpl></td>
+					</tr>
+					<tpl> if $grade_array[0].grade_id neq '' </tpl>
+						<tpl> section name=loop loop=$grade_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><tpl>if $grade_array[loop].grade_id != 1</tpl><input name="grade_id[]" type="checkbox" value="<tpl> $grade_array[loop].grade_id </tpl>"/><tpl>/if</tpl></td>
+						<td><tpl> $grade_array[loop].grade_name </tpl></td>
+						<td><tpl> $grade_array[loop].goods_num </tpl></td>
+						<td><tpl> $grade_array[loop].cost </tpl></td>
+						<td><tpl>if $grade_array[loop].shop_confirm == 1</tpl><tpl>$langGradeYes</tpl><tpl>else</tpl><tpl>$langGradeNo</tpl><tpl>/if</tpl></td>
+						<td><a href="shop_grade.manage.php?action=grade_modi&grade_id=<tpl> $grade_array[loop].grade_id </tpl>"><tpl> $langGradeEdit </tpl></a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

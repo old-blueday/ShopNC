@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title>
+<tpl>$shop_admin_header_tools_manage</tpl>
+-
+<tpl>$system_tools_log</tpl>
+</title>
+<!-- 工具管理 - 日志管理 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+	function changeFun(value){
+		$("#action_log").attr("value",value);
+		$("#form1").submit();
+	}
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body id="goodsList">
+<h4 id="rightcon_h"><b>
+	<tpl>$shop_admin_header_tools_manage</tpl>
+	<!-- 工具管理 -->
+	&gt;&gt;
+	<tpl>$system_tools_log</tpl>
+	<!-- 日志管理 -->
+	</b></h4>
+<div id="rightcon">
+	<div class="rc_con">
+		<h5>
+		<div class="floatRight">
+			<form id="form" name="form" action="admin_tool_log.php?action=log_list" method="get">
+				<input type="hidden" name="search" value="search" />
+				<input type="hidden" name="action" value="log_list" />
+				<tpl>$search_log</tpl>
+				<input class="TextBoxAt2" type="text" name="search_key" id="search_key" />
+				<input type="submit" name="button" id="button" value="<tpl>$admin_tool_log_search</tpl>" class="btnInput" />
+				<!-- 日志搜索 -->
+			</form>
+		</div>
+		<form id="form1" name="form1" action="admin_tool_log.php"  method="get">
+			<input type="submit" name="del" value="<tpl>$admin_tool_log_del</tpl>" class="delBtnInput" />
+			<!-- 删除 -->
+			<input type="hidden" name="action" id="action_log" value="log_del" />
+			<select name="clear_type" id="clear_type"  >
+				<option value="">
+				<tpl>$admin_tool_log_select</tpl>
+				</option>
+				<option value=7 />
+				<tpl>$admin_tool_log_one_week</tpl>
+				</option>
+				<option value=30 />
+				<tpl>$admin_tool_log_one_month</tpl>
+				</option>
+				<option value=90 />
+				<tpl>$admin_tool_log_three_month</tpl>
+				</option>
+				<option value=180 />
+				<tpl>$admin_tool_log_six_month</tpl>
+				</option>
+				<option value=365 />
+				<tpl>$admin_tool_log_year</tpl>
+				</option>
+				<option value="all" />
+				<tpl>$admin_tool_log_all</tpl>
+				</option>
+			</select>
+			<input type="button" onclick="changeFun('log_clear');" value="<tpl>$admin_tool_log_clear</tpl>" class="btnInput" />
+			<!-- 清理日志 -->
+			</h5>
+			<div class="entry-body" id="p-list-div">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+					<tr>
+						<th><input type="checkbox" name="all" id="all" /></th>
+						<th><tpl>$admin_tool_log_user</tpl>
+							<!-- 执行人 --></th>
+						<th><tpl>$admin_tool_log_group</tpl>
+							<!-- 执行人级别 --></th>
+						<th><tpl>$admin_tool_log_ip</tpl>
+							<!-- ip地址 --></th>
+						<th><tpl>$admin_tool_log_time</tpl>
+							<!-- 执行时间 --></th>
+						<th class="textLeft"><tpl>$admin_tool_log_info</tpl>
+							<!-- 执行记录 --></th>
+					</tr>
+					<tpl> section name=list loop=$log_array </tpl>
+					<tr>
+						<td><input type="checkbox" name="log_id[]" value="<tpl>$log_array[list].log_id</tpl>"  class="cb"  /></td>
+						<td><tpl>$log_array[list].log_user</tpl></td>
+						<td><tpl>if $log_array[list].admin_group == '1'</tpl>
+							<tpl>$admin_create_user</tpl>
+							<tpl>else</tpl>
+							<tpl>$admin_user</tpl>
+							<tpl>/if</tpl></td>
+						<td><tpl>$log_array[list].log_ip</tpl></td>
+						<td><tpl>$log_array[list].log_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+						<td class="textLeft"><tpl>$log_array[list].log_info</tpl></td>
+					</tr>
+					<tpl> /section </tpl>
+				</table>
+			</div>
+			<h5 class="h5_down">
+				<div class="pagebar">
+					<tpl>$log_page</tpl>
+				</div>
+				<input type="submit" name="del" value="<tpl>$admin_tool_log_del</tpl>" class="delBtnInput" />
+			</h5>
+		</form>
+	</div>
+	<!--  end of p-list-div  -->
+	<tpl>include_php file ='footer.php'</tpl>
+	<!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

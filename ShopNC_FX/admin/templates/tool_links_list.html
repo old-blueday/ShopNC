@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tools_flink</tpl></title><!-- 工具管理 - 友情链接管理 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<style type="text/css">
+body {
+	font-size:12px;
+}
+</style>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_tool_link.php?action=add_link" target="_self">{<tpl>$admin_tool_link_add</tpl><!-- 添加友情链接 -->}</a></span><tpl>$admin_header_tools_manage</tpl><!-- 工具管理 --> >> <tpl>$admin_tool_link_list</tpl><!-- 友情链接列表 -->
+    	</h2>
+    <div class="entry-body" id="p-list-div">
+    <form id="form1" name="form1" method="post" action="admin_tool_link.php?action=del_link">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+          	<td colspan="8" class="searchbar">
+            	<div class="alignRight">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" />:<tpl>$admin_tool_link_list_edit</tpl><!-- 编辑 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" />:<tpl>$admin_tool_link_list_del</tpl><!-- 删除 -->
+                </div>
+              <input type="submit" value="<tpl>$admin_tool_link_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+            </td>
+          </tr>
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl>$admin_tool_link_list_name</tpl><!-- 网站名称 --></th>
+            <th><tpl>$admin_tool_link_list_logo</tpl><!-- 网站logo --></th>
+            <th><tpl>$admin_tool_link_list_email</tpl><!-- 站长邮箱 --></th>
+            <th><tpl>$admin_tool_link_list_time</tpl><!-- 时间 --></th>
+            <th><tpl>$admin_tool_link_list_state</tpl><!-- 状态 --></th>
+            <th><tpl>$admin_tool_link_list_sort</tpl><!-- 排序 --></th>
+			<th><tpl>$admin_tool_link_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$link_array </tpl>
+          <tr>
+            <td><label>
+            <input type="checkbox" name="lid[]" value="<tpl> $link_array[list].link_id </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $link_array[list].link_web_name </tpl></td>
+            <td><tpl> if $link_array[list].link_logo != '' </tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $link_array[list].link_logo </tpl>" width="80" height="50" /><tpl> else </tpl><tpl>$admin_tool_link_list_text</tpl><tpl>/if</tpl></td>
+            <td><tpl> $link_array[list].link_email </tpl></td>
+            <td><tpl> $link_array[list].link_time|date_format:"%Y-%m-%d" </tpl></td>
+            <td>
+			<span id="state_<tpl> $link_array[list].link_id</tpl>"><a onclick="nc_state_update('<tpl> $link_array[list].link_id</tpl>','link_state','<tpl> $link_array[list].link_state </tpl>','state_<tpl> $link_array[list].link_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $link_array[list].link_state </tpl>.gif" alt="<tpl>$admin_tool_link_list_edit_state</tpl>" /></a></span></td>
+            <td><tpl> $link_array[list].link_sort </tpl></td>
+            <td><a href="admin_tool_link.php?action=add_link&link_id=<tpl> $link_array[list].link_id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" alt="<tpl>$admin_tool_link_list_edit</tpl>" title="<tpl>$admin_tool_link_list_edit</tpl>" /></a>
+            	<a href="admin_tool_link.php?action=del_link&lid=<tpl> $link_array[list].link_id </tpl>"  onclick="return confirm('<tpl>$admin_tool_link_list_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl>$admin_tool_link_list_del</tpl>" title="<tpl>$admin_tool_link_list_del</tpl>" /></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+          <tr>
+          	<td colspan="8" class="searchbar">
+              <input type="submit" value="<tpl>$admin_tool_link_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+			  <div class="pagebar"><tpl>$showpage</tpl></div>
+            </td>
+          </tr>
+        </table>
+    </form>
+    	<div class="clear"></div>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+/* ajax修改状态 */
+function nc_state_update(link_id,ajax_type,old_state,id) {
+	$.get('admin_tool_link.php',{'action':'link_state_ajax','ajax_type':ajax_type,'old_state':old_state,'link_id':link_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+</body>
+</html>

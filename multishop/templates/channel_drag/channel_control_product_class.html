@@ -1,0 +1,44 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<tpl> if $output.type eq '0' </tpl>
+		<div class="blockcontent">
+			<div class="product_cy">
+				<ul>
+					<tpl> foreach item=one from=$output.list key=key </tpl>
+						<tpl> if $one.pc_id neq '' </tpl>
+							<li><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $one.pc_id </tpl>" title="<tpl> $one.pc_name</tpl>"><tpl> $one.pc_name </tpl></a></li>
+							<tpl> if $one.child_class neq '' </tpl>
+							<li class="suojin">
+								<tpl> foreach item=two from=$one.child_class key=key2 </tpl>
+									<a <tpl> if $two.is_highlight eq '1' </tpl>style="color:#FF5500"<tpl> /if </tpl> target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $two.pc_id </tpl>" title="<tpl> $two.pc_name </tpl>"><tpl> $two.pc_name </tpl></a>
+								<tpl> /foreach </tpl>
+							</li>
+							<tpl> /if </tpl>
+						<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+		<tpl> if $output.type eq '1' </tpl>
+		<div class="blockcontent">
+			<div class="product_cy">
+				<ul>
+					<tpl> foreach item=one from=$output.list </tpl>
+						 <tpl> if  $one.pc_id eq 'NULL' || $one.pc_id eq ''</tpl>
+						<tpl> else </tpl>
+						<li>
+							<a <tpl> if $two.is_highlight eq '1' </tpl>style="color:#FF5500"<tpl> /if </tpl> target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $one.pc_id </tpl>" title="<tpl>$one.pc_name</tpl>"><tpl>$one.pc_name</tpl></a>
+						</li>
+						<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

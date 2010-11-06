@@ -1,0 +1,93 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysProductBrandRemark </tpl> &gt;&gt; <tpl> $langSysProductBrandList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='product_brand.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysProductBrandAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="product_brand.manage.php" id="form1" name="form1" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysCDel </tpl></td>
+						
+						<td class="es-4"><tpl> $langSysProductBrandName </tpl></td>
+						<td class="es-5"><tpl> $langSysProductBrandSort </tpl></td>
+						<td class="es-6"><tpl> $langSysCOperate </tpl></td>
+					</tr>
+					<tpl> if $brand_list[0].pb_id neq '' </tpl>
+						<tpl> section name=loop loop=$brand_list </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+							<input type="checkbox" name="pb_id[]" value="<tpl> $brand_list[loop].pb_id </tpl>" />
+						</td>
+						<td>
+							<tpl> $brand_list[loop].pb_name </tpl>
+							<tpl> if $brand_list[loop].is_parent eq '1' </tpl> 
+								[<a href="product_brand.manage.php?action=list&id=<tpl> $brand_list[loop].pb_id </tpl>"><tpl> $langSysProductBrandChild </tpl></a>]
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<input type="hidden" name="id[<tpl> $brand_list[loop].pb_id </tpl>]" value="<tpl> $brand_list[loop].pb_id </tpl>" />
+							<input class="fct-input-2" name="sort[<tpl> $brand_list[loop].pb_id </tpl>]" value="<tpl> $brand_list[loop].pb_sort </tpl>" size="5" maxlength="5" type="text" />
+						</td>
+						<td>
+							<a href="product_brand.manage.php?action=modi&id=<tpl> $brand_list[loop].pb_id </tpl>"><tpl> $langSysCEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $brand_list[0].pb_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="" id="button_sort" value="<tpl> $langSysProductBrandSortUpdate </tpl>" type="button" />
+				<tpl> if $parent_id neq '' </tpl>
+				<input class="bthl" name="" value="<tpl> $langSysProductBrandReturnParent </tpl>" type="button" onclick="location.href='product_brand.manage.php?action=list&id=<tpl> $parent_id </tpl>'" />
+				<tpl> /if </tpl>
+				<select name="move_brand_id" id="move_brand">
+					<option value=""><tpl> $langSysProductBrandMoveTo </tpl></option>
+					<tpl> foreach from=$sel_brand item=one </tpl>
+					<tpl> if $one[5] <= 2 </tpl>
+					<option value="<tpl> $one[0] </tpl>"><tpl> $one[2] </tpl></option>
+					<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</select>	
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_brand').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form1').submit();
+	});
+	$('#button_sort').click(function(){
+		$('input[id=action]').val('sort');
+		document.getElementById('form1').submit();
+	});
+});
+</script>
+</body>
+</html>

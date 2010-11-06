@@ -1,0 +1,16 @@
+<tpl> if $search_type eq 'product' </tpl>	
+
+		<option value='0'><tpl> $langCAllSort </tpl></option>
+		<tpl> section name=loop loop=$search_cate </tpl>
+		<tpl> if $smarty.section.loop.rownum<10 or ($smarty.section.loop.rownum>20 and $smarty.section.loop.rownum<30) or ($smarty.section.loop.rownum>40 and $smarty.section.loop.rownum<50) </tpl><tpl> assign var="fathercss" value="" </tpl><tpl> else </tpl><tpl> assign var="fathercss" value="style='background-color:#CCCCCC'" </tpl><tpl> /if </tpl>
+			<option <tpl> $fathercss </tpl> value='<tpl> $search_cate[loop][0] </tpl>'><tpl> $search_cate[loop][2] </tpl></option>
+		<tpl> /section </tpl>
+<tpl> else </tpl>
+
+		<tpl> foreach from = $search_cate item=one key=key </tpl>
+		<tpl> assign var="num" value=$num+1 </tpl>
+		<tpl> if $num<10 or ($num >20 and $num < 30) or ($num>40 and $num<50) </tpl><tpl> assign var="fathercss" value="" </tpl><tpl> else </tpl><tpl> assign var="fathercss" value="style='background-color:#CCCCCC'" </tpl><tpl> /if </tpl>
+			<option <tpl> $fathercss </tpl> value='<tpl> $key </tpl>'><tpl> $one </tpl></option>
+		<tpl> /foreach </tpl>
+	
+<tpl> /if </tpl>

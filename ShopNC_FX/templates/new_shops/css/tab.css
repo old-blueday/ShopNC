@@ -1,0 +1,114 @@
+@charset "utf-8";
+.tagcon {
+	margin-top: 20px;
+}
+.item_title {
+	float: left;
+	background-color: #FFF;
+	width: 200px;
+	padding-left: 10px;
+}
+.lcon_left .item_title, .lcon_right .item_title {
+	width: 120px;
+}
+.langcon .con .more, .lcon_left .con .more, .lcon_right .con .more, .tagcon .more {
+	margin-top: 15px;
+	margin-right: 10px;
+}
+
+
+/* CSS Document */
+#tags, #tagstw, #tagsth, #tagsfo {
+	HEIGHT: 25px;
+	padding: 0px;
+}
+
+#tags LI, #tagstw LI, #tagsth LI, #tagsfo LI {
+	FLOAT: left;
+	MARGIN-RIGHT: 3px;
+	LIST-STYLE-TYPE: none;
+	HEIGHT: 25px;
+	background-image: url(../images/tabP.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 81px;
+}
+.con #tagstw li, .con #tagsth li, .con #tagsfo li {
+	background-image: none;
+}
+
+#tags LI A, #tagstw LI A, #tagsth LI A, #tagsfo LI A {
+	COLOR: #000000;
+	LINE-HEIGHT: 25px;
+	HEIGHT: 25px;
+	TEXT-DECORATION: none;
+	text-align: center;
+	display: block;
+}
+.con #tagstw li a, .con #tagsth li a, .con #tagsfo li a  {
+	color: #BD0000;
+}
+
+#tags LI.emptyTag, #tagstw LI.emptyTag, #tagsth LI.emptyTag, #tagsfo LI.emptyTag {
+	BACKGROUND: none transparent scroll repeat 0% 0%; WIDTH: 4px
+}
+#tags LI.selectTag, #tagstw LI.selectTag, #tagsth LI.selectTag, #tagsfo LI.selectTag {
+	BACKGROUND-POSITION: left bottom; MARGIN-BOTTOM: -2px; POSITION: relative; HEIGHT: 26px
+}
+#tags LI.selectTag A, #tagstw LI.selectTag A, #tagsth LI.selectTag A, #tagsfo LI.selectTag A {
+	COLOR: #BD0000; LINE-HEIGHT: 26px; HEIGHT: 26px; font-weight:bold;
+}
+
+#tagContent, #tagContenttw, #tagContentth, #tagContentfo {
+	padding: 1px;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #d3d3d3;
+}
+.con #tagContenttw, .con #tagContentth, .con #tagContentfo {
+	padding-top: 10px;
+}
+
+.tagContent {
+	display: none;
+	COLOR: #474747;
+}
+#tagContent DIV.selectTag, #tagContenttw DIV.selectTag, #tagContentth DIV.selectTag, #tagContentfo DIV.selectTag {
+	display: block
+}
+
+.tagContent li {
+	display:block;
+	float:left;
+	height:150px;
+	line-height:18px;
+	overflow:hidden;
+	text-align:center;
+	width:140px;
+	margin-top: 5px;
+	margin-right: 11px;
+	_margin-right: 8px;
+	margin-left: 11px;
+	_margin-left: 8px;
+}
+.con #tagContenttw .tagContent ul li, .con #tagContentth .tagContent ul li, .con #tagContentfo .tagContent ul li {
+	margin-top: 20px;
+	margin-right: 6px;
+	_margin-right: 3px;
+	margin-left: 6px;
+	_margin-left: 3px;
+}
+.con #tagContenttw .tagContent ul li span, .con #tagContentth .tagContent ul li span, .con #tagContentfo .tagContent ul li span {
+	display:block;
+	height:16px;
+	overflow:hidden;
+	width:140px;
+}
+.tagContent li img {
+border:1px solid #E0E0E0;
+height:96px;
+padding:6px;
+text-align:center;
+width:96px;
+}
+.fC {color:#BD0000;}

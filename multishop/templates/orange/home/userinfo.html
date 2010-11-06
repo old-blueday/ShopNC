@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper" class="m">
+  <!-- Header -->
+  <tpl> include file="header_new.html" </tpl>
+  <!-- End Header -->
+  <!-- Main -->
+  <div class="clear">&nbsp;</div>
+  <!-- layout -->
+  
+
+<table width="100%" class="userinfoo" border="0" align="center" cellpadding="0">
+	<tr>
+		<td class="infoo-1"><tpl> $langMloginname </tpl></td>
+		<td><tpl> $member_array.login_name </tpl></td>
+		<td class="infoo-1"><tpl> $langMregist_time </tpl></td>
+		<td><tpl> $member_array.regist_time </tpl></td>
+	</tr>
+	<tr>
+		<td class="infoo-1"><tpl> $langMLastLoginTime </tpl></td>
+		<td><tpl> $member_array.last_login_time </tpl></td>
+		<td colspan="2">
+			<a href="<tpl> $site_url </tpl>/home/product.php?aciton=list&shopname=<tpl> $member_array.login_name </tpl>" target="_blank"><tpl> $langMViewProduct </tpl></a>
+			<tpl> if $shop_array.shop_id neq '' </tpl>
+				<a href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $member_array.member_id </tpl>" target="_blank"><tpl> $langMViewShop </tpl></a>
+			<tpl> /if </tpl>
+		</td>
+	</tr>
+
+</table>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

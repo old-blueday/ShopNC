@@ -1,0 +1,100 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langOtherAdvManage </tpl> &gt;&gt; <tpl> $langOtherAdvList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='advertisement.manage.php?action=make_cache'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langOtherAdvCreateCacheFile </tpl></b>
+					</div>
+					<div class="gtlbar-right" onclick="location.href='advertisement.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langOtherAddAdv </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="advertisement.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langOtherAddType </tpl>:</th>
+								<td class="it-2" colspan="3">
+									<select name="select_type">
+										<tpl> foreach from=$select_type item=one key=key </tpl>
+										<option <tpl> if $condition.select_type eq $key </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+										<tpl> /foreach </tpl>
+									</select>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="advertisement.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langOtherSelect </tpl></td>
+						<td class="es-4"><tpl> $langOtherTransferCode </tpl></td>
+						<td class="es-2"><tpl> $langOtherType </tpl></td>
+						<td class="es-2"><tpl> $langOtherEstate </tpl></td>
+						<td class="es-2"><tpl> $langCSort </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $adv_array[0].adv_id neq '' </tpl>
+		  				<tpl> section name=loop loop=$adv_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="adv_id[]" type="checkbox" value="<tpl> $adv_array[loop].adv_id </tpl>"/></td>
+						<td><tpl> $adv_array[loop].adv_code </tpl></td>
+						<td><tpl> $adv_array[loop].type_name </tpl></td>
+						<td>
+							<tpl> if $adv_array[loop].adv_state eq '0' </tpl>
+								<tpl> $langCOpen </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $adv_array[loop].adv_state eq '1' </tpl>
+								<tpl> $langCClose </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td><tpl> $adv_array[loop].adv_sort </tpl></td>
+						<td><a href="advertisement.manage.php?action=modi&id=<tpl> $adv_array[loop].adv_id </tpl>"><tpl> $langCedit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $adv_array[0].adv_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $adv_array[0].adv_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

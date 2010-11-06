@@ -1,0 +1,11 @@
+<tpl> foreach item = goods from = $product_order_array </tpl>
+<ul>
+         <li style="color:#0033FF;  background:url(<tpl> $template_dir </tpl>/images/shopping_cart_icon.gif) no-repeat; padding-left:20px">
+		 	<tpl> if $ifhtml eq '1' && $goods.html_url neq '' </tpl>
+				<a target="_blank" href="<tpl> $goods.html_url </tpl>">
+			<tpl> else </tpl>
+				<a target="_blank" href="../home/product.php?action=view&pid=<tpl> $goods.p_code </tpl>">
+			<tpl> /if </tpl>
+		 <tpl> $goods.p_name </tpl></a><br /><em style="color:#FF9900; font-weight:700"><tpl> $goods.unit_price </tpl></em></li>
+</ul>
+<tpl>/foreach</tpl>

@@ -1,0 +1,133 @@
+<script language="javascript">
+$(function(){
+	$('#mainform').validate({
+		debug:"true",
+		errorClass: "wrong",
+		rules:{
+			txtBuyNum:{
+				max: function() {
+					if(parseInt(<tpl> $p_storage </tpl>) > 0){
+						return <tpl> $p_storage </tpl>;
+					}else{
+						return 0;
+					}
+				},
+				min: function() {
+					if(parseInt(<tpl> $p_storage </tpl>) > 0){
+						return 1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			txtProvince:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			txtCity:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			area_id:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			txtAddress:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			txtZip:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			txtPhone:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			txtReceiveName:{required: function() {if($('#_edit_address').css('display')=='none'){return false;}else{return true;}}},
+			txtPayPrice:{
+				required: function() {
+					if(<tpl> $sell_type </tpl>==0){
+						return true;
+					}else{
+						return false;
+					}
+				},
+				min:function() {
+					if(<tpl> $sell_type </tpl>==0){
+						return "<tpl> $min_price </tpl>";
+					}else{
+						return 0;
+					}
+				}
+			}
+		},
+		messages:{
+			txtBuyNum: {max: "<tpl> $langPBuyNumWrongMax </tpl><tpl> $p_storage </tpl>",min: "<tpl> $langPBuyNumWrongMin </tpl>"},
+			txtProvince: {required: "<tpl> $langPReceiveProvinceIsEmpty </tpl>"},
+			txtCity:{required: "<tpl> $langPReceiveCityIsEmpty </tpl>"},
+			area_id:{required: "<tpl> $langPReceiveProvinceIsEmpty </tpl>"},
+			txtAddress:{required: "<tpl> $langPReceiveAddressIsEmpty </tpl>"},
+			txtZip:{required: "<tpl> $langPReceiveZipIsEmpty </tpl>"},
+			txtPhone:{required: "<tpl> $langPPhoneNameIsEmpty</tpl>"},
+			txtReceiveName:{required: "<tpl> $langPReceiveNameIsEmpty </tpl>"},
+			txtPayPrice:{required: "<tpl> $langPDidMoneyIsEmpty </tpl><tpl> $min_price </tpl>",min:"<tpl> $langPDidMoneyIsEmpty </tpl><tpl> $min_price </tpl>"}
+		},
+		submitHandler: function() {
+			//整理运费
+			change_tffee();
+
+			var  myForm=document.forms['mainform'];
+			//如果选择预付款支付，则验证预付款金额是否可以支付
+			if($('#radio_predeposit').attr('checked') == true){
+				if(parseFloat($('#predeposit_price').val()) > parseFloat($('#available_predeposit').val())){
+					alert('<tpl> $errPPredepositLessRemark </tpl>');
+					return false;
+				}
+			}
+			//检查购买数量
+			if($('#buy_num').val() > 0 ){
+				if(parseInt($('#buy_num').val()) < parseInt($('#txtBuyNum').val())){
+					alert('<tpl> $alertProductBuyBabyNum </tpl>');return false;
+				}else{
+					document.getElementById('Submit').disabled = true;
+					$.ajax({
+						url: "product.php",
+						data: "action=check_code&checkcode="+$('#checkcode').val()+"&random_number="+Math.random(),
+						success: function (data) {
+							if(data=='1'){
+								myForm.action='product_buy.php?action=order';
+								myForm.method='POST';
+								myForm.submit();
+							}else{
+								alert('<tpl>$alertCodeErr</tpl>');
+								document.getElementById('Submit').disabled = false;
+								return false;
+							}
+						}
+					});
+				}
+			}else{
+				alert('<tpl> $alertProductBuyBabyNum </tpl>');return false;
+			}
+		}
+	});
+	$('table.bb tr td input').focus(function() { $(this).parent().next().find('label').addClass('label_focus') }).blur(function() { $(this).parent().next().find('label').removeClass('label_focus');});
+	//遮罩效果
+	var question = $('#question')[0];
+	$("#blockUi").click(function(){
+		window.open('../member/own_predeposit.php?action=pay');
+		$.blockUI(question, { width: '275px' });
+	});
+	$('#yes').click(function() {
+		ajax_get_predeposit()
+		$.unblockUI();
+		return false;
+	});
+	//跳转到帮助页面
+	$('#no').click(function() {
+		location.href='http://www.shopnc.net/forum/';
+	});
+})
+//取会员可用资金
+function ajax_get_predeposit(){
+	$.ajax({
+		url: "../member/own_predeposit.php",
+		data: 'action=ajax_get_predeposit',
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '1'){//成功
+				$('#available_predeposit').val(msg.message);
+				$('#span_available_predeposit').html(msg.message);
+			}
+			/*else{//失败
+				alert('失败');
+			}*/
+		}
+	});
+	return false;
+}
+</script>

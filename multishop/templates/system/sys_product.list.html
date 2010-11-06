@@ -1,0 +1,192 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAllManage </tpl> &gt;&gt; <tpl> $langSysPList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="product_fixprice.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="ajax_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysType </tpl>:</th>
+								<td colspan="3">
+									<input type="hidden" name="searchcate" id="searchcate" />
+									<select name="c1" id="c1" class="sele-1">
+										<option value=""></option>
+										<tpl> foreach item = parent from = $ProductCateArray </tpl>
+										<option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>"><tpl>$parent.name</tpl></option>
+										<tpl> /foreach </tpl>
+									</select>
+									<select name="c2" id="c2" class="sele-1">
+									</select>
+									<select name="c3" id="c3" class="sele-1">
+									</select>
+									<select name="c4" id="c4" class="sele-1">
+									</select>  
+								</td>
+							</tr>
+							<tpl> if $sys_group_info.sys_group_area_id neq "" </tpl>
+							<tr>
+								<th class="wd"><tpl> $langSysPAreaSeach </tpl>:</th>
+								<td colspan="3">
+									<input type="hidden" name="p_area_id" id="p_area_id" />
+									<div id="adddiv"></div>
+								</td>
+							</tr>
+							<tpl> /if </tpl>
+							<tr>
+								<th class="wd"><tpl> $langSysSaleBound </tpl>:</th>
+								<td colspan="3">
+									<input class="fct-input" value="" name="price_min" type="text" />
+									<tpl> $langSysProductTo </tpl>
+									<input class="fct-input" value="" name="price_max" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysKeyWord </tpl>:</th>
+								<td colspan="3">
+									<input class="fct-input" value="" name="keyword" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysSaleMemberName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="" name="shopname" type="text" />
+								</td>
+								<th class="wd"></th>
+								<td>
+									<input class="bthl" name="" value="<tpl> $langSysSeach </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="product_fixprice.manage.php" method="get" name="form_del" id="form_del" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"></td>
+						<td class="es-4"><tpl> $langSysProductName </tpl></td>
+						<td class="es-5"><tpl> $langSysProductSale </tpl></td>
+						<td class="es-5"><tpl> $langSysProductPrice </tpl></td>
+						<td class="es-5"><tpl> $langSysResidualTime </tpl></td>
+						<td class="es-5"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $product_array[0].p_code neq '' </tpl>
+						<tpl> foreach item=product from=$product_array </tpl>
+							<tr class="es-td">
+								<td id="check-1"><input type="checkbox" name="chboxPid[]" value="<tpl> $product.p_code </tpl>" /></td>
+								<td><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product.p_code </tpl>" target="_blank"><tpl> $product.p_name </tpl></a></td>
+								<td><a href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $product.member_id </tpl>" target='_blank'><tpl> $product.shopmaster </tpl></a></td>
+								<td><tpl> assign var='sell_type' value = $product.p_sell_type </tpl><tpl> $p_sell_type[$sell_type] </tpl><br/><tpl> $product.p_price </tpl></td>
+								<td><tpl> $product.left_days </tpl><tpl> $langPday </tpl><tpl> $product.left_hours </tpl><tpl> $langPhour </tpl><tpl> $product.left_minutes </tpl><tpl> $langPminute </tpl></td>
+								<td>
+								<tpl> if $product.operator_remark eq '' </tpl>
+									<a href="<tpl> $product.modi_url </tpl>&searchcate=<tpl> $product_condition.searchcate </tpl>&pcid=<tpl> $product_condition.pcid </tpl>&searchtype=<tpl> $product_condition.searchtype|default:'1' </tpl>&shopname=<tpl> $product_condition.shopname </tpl>&tf_charge=<tpl> $product_condition.tf_charge </tpl>&autopub=<tpl> $product_condition.autopub </tpl>&order=<tpl> $product_condition.order </tpl>&sorttype=<tpl> $product_condition.sorttype </tpl>&search_place=<tpl> $product_condition.search_place </tpl>&curpage=<tpl> $curpage </tpl>"><tpl> $langSysProductEdit </tpl></a>
+									<!--|
+									<tpl> $langSysProductInfractOperator </tpl>-->
+									<input type="hidden" name="can_operator[]" value="<tpl> $product.p_code </tpl>" />
+								<tpl> else </tpl>
+									<font color="#FF0000"><tpl> $product.operator_remark </tpl></font>
+								<tpl> /if </tpl>
+								</td>
+							</tr>
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $product_array[0].p_code eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $product_array[0].p_code neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="pro_del" id="pro_del" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="pro_down" id="pro_down" value="<tpl> $langSysProductdown </tpl>" type="button" />
+				<input class="bthl" name="pro_stat" id="pro_stat" value="<tpl> $langSysCreateStat </tpl>" type="button" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+
+	//Select product site
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'p_area_id'
+				});
+	tonext('#c1');
+
+	$('#pro_down').click(function(){
+		if(confirm('<tpl> $langProductConfDown </tpl>')){
+			$('#form_del input[id=action]').val('under');
+			document.getElementById('form_del').submit();
+		}
+	});
+	
+	$('#pro_stat').click(function(){
+		$('#form_del input[id=action]').val('make_html');
+		document.getElementById('form_del').submit();
+	});
+});
+
+function tonext(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#category').val(valarray[0]);
+			$('#searchcate').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../member/own_productcate.php',
+					data: 'action=list&id='+valarray[0],
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++)
+						{
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						};
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+};
+</script>

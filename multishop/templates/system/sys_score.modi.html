@@ -1,0 +1,84 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysScoreReputablyManage </tpl> &gt;&gt; <tpl> $langSysScoreModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="score.manage.php?action=modisave" method="POST" id="form_modi">
+						<input type="hidden" name="genre" value="<tpl> $score_array.genre </tpl>">
+						<input type="hidden" name="oldscore" value="<tpl> $score_array.score </tpl>">
+						<input type="hidden" name="score_id" value="<tpl> $score_array.score_id </tpl>">
+						<input type="hidden" name="memberid" value="<tpl> $score_array.member_id </tpl>">
+						<input type="hidden" name="gradememberid" value="<tpl> $score_array.grade_member_id </tpl>">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysScoreMerchandiseName </tpl>:</th>
+									<td>
+									<tpl> if $order_array.sp_html neq '' </tpl>
+										<a href="<tpl> $site_url </tpl>/home/order.php?action=sp_html&sp_code=<tpl> $order_array.sp_code </tpl>" target="_blank">
+									<tpl> else </tpl>
+										<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $order_array.p_code </tpl>" target="_blank">
+									<tpl> /if </tpl>
+									<tpl> $order_array.p_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreOrderNumber </tpl>:</th>
+									<td><tpl> $order_array.sp_code </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSAppraiser </tpl>:</th>
+									<td><tpl> $score_array.membername </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreByAppraiser </tpl>:</th>
+									<td><tpl> $score_array.grademembername </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreGrade </tpl>:</th>
+									<td><tpl> $rdoScore </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreMessage </tpl>:</th>
+									<td><textarea class="fct-input" name="content" cols="" rows=""><tpl> $score_array.content </tpl></textarea></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreModiExplain </tpl>:</th>
+									<td><textarea class="fct-input" name="txtmodireason" cols="" rows=""></textarea></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreAppraiseTime </tpl>:</th>
+									<td><tpl> $score_array.pubtime </tpl></td>
+								</tr>
+								<tpl> if $score_array.modify_time ne '' </tpl>
+								<tr>
+									<th><tpl> $langSysScoreLastModiExplain </tpl>:</th>
+									<td><tpl> $score_array.modify_reason </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysScoreLastModiTime </tpl>:</th>
+									<td><tpl> $score_array.modify_time </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langCmodi </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysScoreReturnList </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

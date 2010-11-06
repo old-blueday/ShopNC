@@ -1,0 +1,25 @@
+<div id="GuestBook">
+	<div id="GuestBookTitle">
+		<div id="GBNewMessage"><tpl> $langStoreNewLeaveWord </tpl></div>
+		<div class="GBallMessage"><a href="message.php?action=new&userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreMyLeaveWord </tpl></a></div>
+		<div class="GBallMessage"><a href="message.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreAllLeaveWord </tpl></a></div>
+		<div style="clear:both"></div>
+	</div>
+	<div id="GuestBookContent11"> 
+		<div class="MessageContent"><tpl> $langSMessageDisList </tpl>-><a href="../member/own_productmessage.php?action=buy"><tpl> $langSMessageSaleRestore </tpl></a><tpl> $langSMessageLookEstate </tpl> </div>
+		<form action="message.php?action=save" method="post">
+			<div class="liuyan_tex"><textarea class="liuyan_tx" name="txtMessage" cols="" rows="" id="txtMessage"></textarea></div>
+			<div class="txtMessage"><tpl> $langSMessageCode </tpl>:
+			<input name="code" type="text" id="code" style="width:40px; vertical-align:middle" class="searchinput">
+			<img src="<tpl> $site_url </tpl>/classes/libraries/code.php" onclick="this.src='<tpl> $site_url </tpl>/classes/libraries/code.php?' + Math.random()" title="<tpl> $langSMessageOnClickCode </tpl>" id="codeimage" name="codeimage" style="vertical-align:middle" />
+			</div>
+			<div  class="txtMessage1">
+				<input class="input_submit"  name="submit" type="submit" value="<tpl> $langSMessageSubmit </tpl>"/>
+				<input class="input_submit"  type="reset" value="<tpl> $langSMessageSewrite </tpl>" />
+				<input type="hidden" value="<tpl> $shop_info.member_id </tpl>" name="userid" id="userid" />
+			</div>
+		</form>
+		<div style="clear:both"></div>
+	</div>
+<div style="clear:both"></div>
+</div>

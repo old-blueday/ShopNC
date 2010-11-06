@@ -1,0 +1,62 @@
+<script>
+/* 验证表单 */
+$(function(){
+	$("#addnews").validate({
+		event: "keyup",
+		errorClass: "error",
+		rules: {
+			txtShopName: {required:true,minlength:3,maxlength:30},
+			slcShopClass: {required:true},
+			area_id: {required:true}
+		},
+		messages: {
+			txtShopName: {required: "<?php echo $lang['langShopNameNotNull']; ?>",minlength:"<?php echo $lang['langShopNameLeast3size']; ?>",maxlength:"<?php echo $lang['langShopNameMost30size']; ?>"},	
+			slcShopClass: {required: "<?php echo $lang['langShopClassNotNull']; ?>"},
+			area_id: {required:"<?php echo $lang['langShopPleaseSelectLocus']; ?>"}
+		}
+	});
+});
+function changeSubmit(){
+	var str = document.getElementById('chkShopRule');
+	if(str.value == '1'){
+		document.getElementById('submit1').disabled = false;
+		str.value = 0;
+	}else if(str.value == '0'){
+		document.getElementById('submit1').disabled = true;
+		str.value = 1;
+	}
+}
+// 地区选择
+function tonext(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#area_id').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><?php echo $lang['langCDataToLoading']; ?></option>');
+				$.ajax({
+					url: '../home/tohtml.php',
+					data: 'action=get_area&id='+valarray[0]+'&random_number='+Math.random(),
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+};
+$().ready(function() {
+	tonext('#c1');
+});
+</script>

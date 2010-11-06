@@ -1,0 +1,53 @@
+<script type="text/javascript">
+	function addgray(){
+		$('.select02').each(function(){
+			if ($(this).find('li').length=='0'){$(this).css('background','#eee')}else{$(this).css('background','')}
+		})
+	};
+	function tonext(whos) {
+		$(whos).find('li').click(
+			function(){			
+				$(whos).find('li').removeClass('Selected');
+				$(this).addClass('Selected');
+				if ($(this).hasClass('IsFather')) {
+					//$("#next").attr("disabled",true);
+					$(whos).next().html('<li><tpl> $langCDataToLoading </tpl></li>');
+					$.ajax({
+						url: 'own_productcate.php',
+						data: 'action=list&id='+$(this).attr('id')+'&random_number='+Math.random(),
+						success: function (data) {
+							DataArray = data.split("|||");var a='';for (var i = 0; i<DataArray.length-1; i++) {att=DataArray[i].split("||");id=att[0];var cla="";if ('1'==att[2]) {cla="IsFather"};a+='<li id='+id+' class='+cla+'>'+att[1]+'</li>';};
+							$(whos).next().html(a).css('background','').nextAll().html('').css('background','#eee');tonext('#'+$(whos).next().attr('id'));
+							writeselected();
+						}
+					});
+				} else {
+					$(whos).nextAll().html('').css('background','#eee');
+					writeselected();
+					//$("#next").attr("disabled",false);
+				};
+				$("#next").attr("disabled",false);
+		})
+	};
+	function writeselected(){
+		a=$(".select02 li.Selected").map(function(){return $(this).html();}).get().join(" &gt; ") ;
+		b=$(".select02 li.Selected").map(function(){return $(this).attr('id');}).get().join("|") ;
+		$('#NowSelectedResult').html(a);
+		//$.cookie('saveselect', b);
+		
+		c=$(".select02 li.Selected:last").attr('id');
+		$("#select_cate_id").val(c);
+		$("#select_all_id").val(b);
+	}
+	$().ready(function(){addgray();tonext('#select_first');});
+	
+	/* 验证表单 */
+function checkForm(){
+	if($('#NowSelectedResult').html() != ''){
+		return true;
+	}else{
+		alert("请先选择商品类别");
+		return false;
+	}
+}
+</script>

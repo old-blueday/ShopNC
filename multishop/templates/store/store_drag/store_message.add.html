@@ -1,0 +1,20 @@
+<div class="blocktitle">
+	<em><a href="message.php?action=new&userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langSMessageSendLeaveWord </tpl></a></em>
+	<h2><tpl> $langStoreStyleBlockMessage </tpl></h2>
+</div>
+<div class="blockcontent">
+	<!-- 模块主体内容 -->
+	<div class="shop_16">
+	<ul style=" padding-bottom:10px; float:left; clear:both; padding-left:150px;">
+		<form action="message.php?action=save" method="post">
+			<li><textarea  name="txtMessage" cols="40" rows="5" id="txtMessage"></textarea></li>
+		
+			<li><input style=" width:50px;" name="code" type="text" id="code" />
+			<img style="vertical-align:-5px;*vertical-align:-2px;" src="<tpl> $site_url </tpl>/classes/libraries/code.php" onclick="this.src='<tpl> $site_url </tpl>/classes/libraries/code.php?' + Math.random()" title="<tpl> $langSMessageOnClickCode </tpl>" id="codeimage" name="codeimage" />
+			<input style=" *vertical-align:-3px;" name="submit" type="submit" value="<tpl> $langSMessageSubmit </tpl>"/>
+			<input style=" *vertical-align:-3px;" type="reset" value="<tpl> $langSMessageSewrite </tpl>"  />
+			<input type="hidden" value="<tpl> $shop_info.member_id </tpl>" name="userid" id="userid" /></li>
+		</form>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,104 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSystemPAdminManage </tpl> &gt;&gt; <tpl> $langSystemPAdminList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='system_power.manage.php?action=add_member'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSystemPAddAdmin </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="system_power.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="member" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSystemPGroupName </tpl>:</th>
+								<td class="it-1">
+									<select name="sys_group_id" id="sys_group_id">
+										<option value=""><tpl> $langSysCPleaseSelect </tpl></option>
+										<tpl> section name=loop loop=$group_array </tpl>
+										<option <tpl> if $group_array[loop].sys_group_id eq $sys_group_id </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $group_array[loop].sys_group_id </tpl>"><tpl> $group_array[loop].sys_group_name </tpl></option>
+										<tpl> /section </tpl>
+									</select>
+								</td>
+								<td class="it-2" colspan="2">
+									<input class="bthl" name="" value="<tpl> $langSystemPSearch </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="system_power.manage.php" id="form_del" name="form_del" method="post"  onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del_member" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSystemPDelete </tpl></td>
+						<td class="es-4"><tpl> $langSystemPAdminName </tpl></td>
+						<td class="es-3"><tpl> $langSystemPAttributeGroup </tpl></td>
+						<td class="es-2"><tpl> $langSysCOperate </tpl></td>
+					</tr>
+					<tpl> if $sys_member_list[0].sys_member_id neq '' </tpl>
+						<tpl> section name=loop loop=$sys_member_list </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="sys_member_id[]" value="<tpl> $sys_member_list[loop].sys_member_id </tpl>" /></td>
+						<td><tpl> $sys_member_list[loop].sys_login_name </tpl></td>
+						<td><tpl> $sys_member_list[loop].sys_group_name </tpl></td>
+						<td><a href="system_power.manage.php?action=modi_member&sys_member_id=<tpl> $sys_member_list[loop].sys_member_id </tpl>"><tpl> $langCedit </tpl></a>
+						 | 
+						<a href="system_power.manage.php?action=log&sys_member_id=<tpl> $sys_member_list[loop].sys_member_id </tpl>"><tpl> $langSystemPLookOperatorLog </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $sys_member_list[0].sys_member_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $sys_member_list[0].sys_member_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<select name="move_group_id" id="move_member">
+					<option value=""><tpl> $langSystemPAdminMoveTo </tpl></option>
+					<tpl> section name=loop loop=$group_array </tpl>
+					<option value="<tpl> $group_array[loop].sys_group_id </tpl>"><tpl> $group_array[loop].sys_group_name </tpl></option>
+					<tpl> /section </tpl>
+				</select>	 
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_member').change(function(){
+		$('input[id=action]').val('move_member');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

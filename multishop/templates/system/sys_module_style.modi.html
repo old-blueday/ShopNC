@@ -1,0 +1,76 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopDragManage </tpl> &gt;&gt; <tpl> $langSysShopStyleUpdate </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="shop_module_style.manage.php" id="form_add" name="form_add" enctype="multipart/form-data" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="style_id" value="<tpl> $sd_array.style_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+							
+							<tr>
+									<th><tpl> $langSysShopStyleName </tpl>:</th>
+									<td><input name='style_name' class="fct-input" type='text' id="style_name" value="<tpl> $sd_array.style_name </tpl>"/></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopStyleUpdate </tpl>:</th>
+									<td><input type="button" class="bthl" value="<tpl> $langSysShopStyleUpdateOnclick</tpl>" onclick='javascript:window.open("../store/module_style.php?action=control&id=<tpl> $sd_array.style_id </tpl>");'/>
+									<input type="hidden" name="style_body" id="style_body" value="<tpl> $sd_array.style_body </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopStyleType </tpl>:</th>
+									<td>
+										<select class="sele-2" name="style_type">
+										<tpl> if $sd_array.style_type eq '0' </tpl>	
+											<option value="0" selected="selected"><tpl> $langSysShopStyleOpen </tpl></option>
+											<option value="1"><tpl> $langSysShopStyleClose </tpl></option>
+											<tpl> else </tpl>
+											<option value="0" ><tpl> $langSysShopStyleOpen </tpl></option>
+											<option value="1" selected="selected"><tpl> $langSysShopStyleClose </tpl></option>
+												<tpl> /if </tpl>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langCSort </tpl>:</th>
+									<td>
+										<input class="fct-input" name="style_order" id="style_order" type="text" value="<tpl> $sd_array.style_order </tpl>" maxlength="9" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			sd_sort: {required:true,number:true,min:0}
+		},
+		messages: {
+			sd_sort: {required:"<tpl> $errSysShopDragPicSortIsWrong </tpl>",number:"<tpl> $errSysShopDragPicSortIsWrong </tpl>",min:"<tpl> $errSysShopDragPicSortIsWrong </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

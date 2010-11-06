@@ -1,0 +1,397 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCChannelIndexManage </tpl> &gt;&gt; <tpl> $langSysCChannelIndexManage </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="channel.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="index_update" />
+						<input type="hidden" name="add_module_sign_num" id="add_module_sign_num" value="0" />
+						<input type="hidden" name="channel_read_param" id="channel_read_param" value="index" />
+						<div class="ctge-1-1">
+						
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+							<tr>
+							<th><tpl> $langChannelTypeLayout </tpl></th>
+							<td>
+							<tpl> if $index_type eq "0" </tpl>
+							<!--<input type="radio" name="typeLayout" value="0" checked="checked" class="input_radio" id="radio1" onclick="javascript:$('#tbody1').show();$('#tbody2').hide();" /><tpl>$langChannelCustomizeLayout</tpl>-->&nbsp;<input class="input_radio" type="radio" name="typeLayout" value="1" id="radio2" onclick="javascript:$('#tbody2').show();$('#tbody1').hide();" /><tpl>$langChannelSaveLayout</tpl>
+							<tpl> /if </tpl>
+							<tpl> if $index_type eq "1" </tpl>
+							<!--<input type="radio" name="typeLayout" value="0" id="radio1" onclick="javascript:$('#tbody1').show();$('#tbody2').hide();" /><tpl>$langChannelCustomizeLayout</tpl>-->&nbsp;<input type="radio" name="typeLayout" value="1" id="radio2" onclick="javascript:$('#tbody2').show();$('#tbody1').hide();" checked="checked" /><tpl>$langChannelSaveLayout</tpl>
+							<tpl> /if </tpl>
+									</td></tr>
+							<tbody id="tbody1">
+								<!--<tr>
+									<th><tpl> $langChannelSelectTemplate </tpl>:</th>
+									<td><input type="button" class="bthl" value="<tpl> $langCedit </tpl>" onclick="javascript:window.open('<tpl> $site_url </tpl>/home/index_drag.php?action=control')"  />
+									</td>
+								</tr>-->
+							</tbody>
+							<tbody id="tbody2">
+								<tr>
+									<th><tpl> $langChannelSelectTemplate </tpl>:</th>
+									<td>
+									<tpl> $path </tpl>
+									<select name="channel_temp_name" id="channel_temp_name">
+										<tpl> foreach item=one from=$file_array </tpl>
+											<tpl> if $one.type eq "file" </tpl>
+												<option <tpl> if $template_name eq $one.name </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $one.name </tpl>"><tpl> $one.name </tpl></option>
+											<tpl> /if </tpl>
+										<tpl> /foreach </tpl>
+									</select></td>
+								</tr>
+								
+								<tr>
+									<th><tpl> $langChannelModule </tpl>:</th>
+									<td>
+										<input type="button" value="<tpl> $langChannelAddModule </tpl>" id="add_module" class="bthl" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langChannelAlreadyAddModule </tpl>:</th>
+									<td>
+										<table border="0" cellpadding="0" cellspacing="0" rules="none">
+											
+											<tbody id="add_module_sign">
+												<tpl> foreach from=$module_array item=one key=key </tpl>
+													<tr>
+														<td>
+															<input type='button' 
+															<tpl> foreach from=$index_array item=two key=key_2 </tpl>
+																<tpl> if $two.temp_name eq $key </tpl>
+																value='<tpl> $two.module_new_name </tpl>'
+																<tpl> /if </tpl>
+															<tpl> /foreach </tpl>
+															class="bthl" onclick="modi_module('<tpl> $key </tpl>');deleteRow(this);set_module_style('disabled');"/>
+															<input type='hidden' name='<tpl> $key </tpl>' id='<tpl> $key </tpl>' value='<tpl> $one </tpl>'/>
+															<a href='javascript:;'  onclick='if($("#add_module")[0].disabled != true){deleteProhibitionElements("<tpl> $key </tpl>");deleteRow(this);}else{alert("<tpl> $langModuleDelWrong </tpl>");}' title="<tpl> $langChannelDelThisModule </tpl>"><tpl> $langChannelDelThisModule </tpl></a>
+														</td>
+													</tr>
+												<tpl> /foreach </tpl>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<div id="module_block" style="display:none; width:800px; height:460px; margin:0; padding:0;"></div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+</body>
+</html>
+<script>
+var jquery=$;
+var module_block = $('#module_block')[0];
+if($("#radio1").attr("checked")==true)
+{
+	$("#tbody2").hide();
+}
+if($("#radio2").attr("checked")==true)
+{
+	$("#tbody1").hide();
+}
+$(document).ready(function() {
+
+	
+	Prohibition = new Array();
+	Prohibition[0] = "add_module_sign_num";
+	Prohibition[1] = "txtname";
+	Prohibition[2] = "txtsort";
+	Prohibition[3] = "txtstate";
+	Prohibition[4] = "add_module";
+	Prohibition[5] = "body_module";
+	Prohibition[6] = "add_module_sign";
+	Prohibition[7] = "channel_temp_name";
+	Prohibition[8] = "|||";
+	Prohibition[9]  = "||";
+	Prohibition[10] = "|";
+	Prohibition[11] = ":";
+	
+	
+	<tpl> foreach from=$channel_array.channel_block item=one </tpl>
+		var length = Prohibition.length;
+		Prohibition[length] = "<tpl> $one.module_new_name </tpl>";
+	<tpl> /foreach </tpl>
+
+	
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txtname: {required:true},
+			txtsort: {required:true,number:true,min:0},
+			txturl: {required:function(){
+					if($('#channel_type_1').attr('checked') == true){
+						return true;
+					}else{
+						return false;
+					}
+				},url:function(){
+					if($('#channel_type_1').attr('checked') == true){
+						return true;
+					}else{
+						return false;
+					}
+				}
+			}
+		},
+		messages: {
+			txtname: {required:"<tpl> $langChannelNameNotNull </tpl>"},
+			txtsort: {required:"<tpl> $langChannelNumNotNull </tpl>",number:"<tpl> $langChannelNumIsNumber </tpl>",min:"<tpl> $langChannelSortErrZero </tpl>"},
+			txturl: {required:"<tpl> $langChannelJumpUrlNull </tpl>",url:"<tpl> $langChannelJumpUrlErr </tpl>"}	
+		}
+	});
+
+	
+	$('#add_module').click(function(e){
+
+		$.blockUI(module_block, { width: '800px', height:'460px',top:'80px', left:'20%' });
+
+		$('#module_block').html("<tpl> $langChannelModule </tpl>:"+
+		"<tr><td>"+
+		"<select name='body_select_module' id='body_select_module' onchange='change_module(this.value);ajax_get_module(this.value)'>"+
+		"<option value='adv_module'><tpl> $langChannelAdv </tpl></option>"+
+		"<option value='vote_module'><tpl> $langChannelVote </tpl></option>"+
+		"<option value='product_module'><tpl> $langChannelMerchandise </tpl></option>"+
+		"<option value='shop_module'><tpl> $langChannelShop </tpl></option>"+
+		"<option value='pclass_module'><tpl> $langChannelMerchandiseType </tpl></option>"+
+		"<option value='shopclass_module'><tpl> $langChannelShopType </tpl></option>"+
+//		"<option value='customize_module'><tpl> $langChannelCustomizeModule </tpl></option>"+
+		"</select>"+
+		"&nbsp;<input type='button' value='<tpl> $langChannelConfirm </tpl>' onclick='submit_onclick()' class='bthl' />&nbsp;<input type='button' value='<tpl> $langChannelCancel </tpl>' onclick='deleteRow(this);set_module_style(\"no_disabled\");' class='bthl' />"+
+		"<div id='adv_module' style='display:none'></div>"+
+		"<div id='vote_module' style='display:none'></div>"+
+		"<div id='product_module' style='display:none'></div>"+
+		"<div id='shop_module' style='display:none'></div>"+
+		"<div id='pclass_module' style='display:none'></div>"+
+		"<div id='shopclass_module' style='display:none'></div>"+
+//		"<div id='customize_module' style='display:none'></div>"+
+		"</td></tr>");
+
+		$("#add_module").attr("disabled","disabled");
+
+		change_module($("#body_select_module option:selected").val());
+
+		ajax_get_module($("#body_select_module option:selected").val());
+
+		set_module_style("disabled");
+
+	});
+});
+function submit_onclick()
+{
+	var idval=$("#body_select_module").val();
+	$("#module_block").children("#"+idval).children("form:first").trigger("onsubmit");
+}
+function update_submit_onclick(obj)
+{
+	
+	$("#module_block").children('div').children("form:first").trigger("onsubmit");
+}
+
+function deleteRow(elem) {
+	
+	$.unblockUI();
+	
+	var row = $(elem).parent().parent();
+	
+	row.fadeOut('normal', function() {
+	row.remove();
+	});
+	
+	$("#add_module").attr("disabled","");
+}
+
+
+function change_module(str){
+	$('#adv_module').html('');
+	$('#vote_module').html('');
+	$('#product_module').html('');
+	$('#shop_module').html('');
+	$('#pclass_module').html('');
+	$('#shopclass_module').html('');
+//	$('#customize_module').html('');
+
+	$('#'+str).slideDown("fast");
+}
+
+
+function ajax_get_module(str){
+	$.ajax({
+		url: "channel.manage.php",
+		data: "action=get_module&module_name="+str,
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+			if(msg != ""){
+				$("#"+str).html(msg);
+			}else{
+				$("#"+str).html("<tpl> $langChannelModuleNonentitySelectOther </tpl>");
+			}
+		}
+	});
+	return false;
+}
+
+
+function modi_module(str,module_new_name){
+
+	var temp_name = '';
+
+	temp_name_array = str.split("_");
+
+	var module_name=temp_name_array[0]+'_'+temp_name_array[1];
+
+	deleteProhibitionElements(module_new_name);
+	
+	$.ajax({
+		url: "channel.manage.php",
+		data: "action=get_module&module_name="+module_name+"&modi_string="+$('#'+str).val(),
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+
+			$.blockUI(module_block, { width: '800px', height:'460px',top:'80px', left:'20%' });
+
+			$("#add_module").attr("disabled","disabled");
+
+			$('#module_block').html("<tpl> $langChannelModule </tpl>:&nbsp;<input type='button' value='<tpl> $langChannelConfirm </tpl>' onclick='update_submit_onclick(this)' class='bthl' /><div id='"+module_name+"' style='display:none'></div>");
+
+			change_module(module_name);
+
+			$("#"+module_name).html(msg);
+
+		}
+	});
+	return false;
+}
+
+
+
+function checkRepeatModuleName(name){
+	for(index in Prohibition) {
+		if(Prohibition[index] == name){
+			alert("<tpl> $langChannelModuleIdSelectOtherName </tpl>");
+			return false;
+		}
+	}
+	for(i=0;i<12;i++){
+		if(name.indexOf(Prohibition[i]) >= 0){
+			alert("<tpl> $langChannelModuleIdSelectOtherName </tpl>");
+			return false;
+		}
+	}
+	
+	Prohibition[Prohibition.length] = name;
+	return true;
+}
+
+
+function deleteProhibitionElements(elem){
+	for(index in Prohibition) {
+		if(Prohibition[index] == elem){
+			delete Prohibition[index];
+			return true;
+		}
+	}
+	return false;
+}
+
+//add_module_sign
+
+function set_module_style(str){
+	if(str=='disabled'){
+		$("#add_module_sign input[type=button]").each(function(){
+			$(this).attr('disabled',true);
+		});
+	}else if(str='no_disabled'){
+		$("#add_module_sign input[type=button]").each(function(){
+			$(this).attr('disabled',false);
+		});
+	}
+	return false;
+}
+
+
+function numRow(){
+	var num = $('#add_module_sign').children('tr').length;
+	$('#add_module_sign_num').val(num);
+}
+
+
+function getPageContent(address){
+	$.ajax({
+		url: address,
+		dataType:"javascript",
+		success: function(msg){
+			$("#" + ShowDiv).html(msg);
+		}
+	});
+}
+
+// js copy function support for IE/FireFox/mozilla/ns 
+function copyToClipboard(txt){ 
+	
+     if(window.clipboardData){ 
+     	
+             window.clipboardData.clearData(); 
+             window.clipboardData.setData("Text", txt); 
+             
+     }else if(navigator.userAgent.indexOf("Opera") != -1){ 
+     	
+          window.location = txt; 
+          
+     }else if (window.netscape){ 
+     	
+          try{
+               netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect"); 
+          }catch(e){ 
+               alert("<tpl> $errChannelBrowseWrong </tpl>"); 
+          }
+          
+          var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard); 
+          
+          if (!clip) {return;}
+               
+          var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable); 
+          
+          if (!trans) {return;}
+          
+          trans.addDataFlavor('text/unicode'); 
+          
+          var str = new Object(); 
+          var len = new Object(); 
+          var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString); 
+          var copytext = txt; 
+          str.data = copytext; 
+          trans.setTransferData("text/unicode",str,copytext.length*2); 
+          var clipid = Components.interfaces.nsIClipboard; 
+          
+          if (!clip){return false;}
+          clip.setData(trans,null,clipid.kGlobalClipboard); 
+     }
+}
+function closeDiy()
+{}
+</script>

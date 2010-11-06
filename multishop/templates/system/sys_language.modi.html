@@ -1,0 +1,81 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langLanguageManage </tpl> &gt;&gt; <tpl> $langLanguageAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="language.manage.php" id="form_modi" name="form_modi" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="language_id" id="language_id" value="<tpl> $language_array.language_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langLanguageName </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtname" id="txtname" type="text" maxlength="10" value="<tpl> $language_array.language_name </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langLanguageSign </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtsign" id="txtsign" type="text" maxlength="10" value="<tpl> $language_array.language_sign </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langLanguagePath </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtpath" id="txtpath" type="text" maxlength="10" value="<tpl> $language_array.language_path </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langLanguageSort </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtsort" id="txtsort" type="text" maxlength="9" value="<tpl> $language_array.language_sort </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langLanguageDefault </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtstate" id="txtstate_1" value="1" <tpl> if $language_array.language_state eq 1 </tpl>checked="checked"<tpl> /if </tpl> /><label for="txtstate_1"><tpl> $langLanguageYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtstate" id="txtstate_0" value="0" <tpl> if $language_array.language_state eq 0 </tpl>checked="checked"<tpl> /if </tpl> /><label for="txtstate_0"><tpl> $langLanguageNo </tpl></label>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langLanguageSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langLanguageReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_modi").validate({
+		errorClass: "wrong",
+		rules: {
+			txtname: {required: true},
+			txtsign: {required: true},
+			txtpath: {required: true},
+			txtsort: {required: true,number: true,min:0}
+		},
+		messages: {
+			txtname: {required: "<tpl> $errLanguageNameIsEmpty </tpl>"},
+			txtsign: {required: "<tpl> $errLanguageSignIsEmpty </tpl>"},
+			txtpath: {required: "<tpl> $errLanguagePathIsEmpty </tpl>"},
+			txtsort: {required: "<tpl> $errLanguageSortMustBeNumber </tpl>",number: "<tpl> $errLanguageSortMustBeNumber </tpl>",min:"<tpl> $errLanguageSortMustBeNumber </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

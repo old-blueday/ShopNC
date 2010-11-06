@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl> if  $backurl != "" </tpl>
+<META HTTP-EQUIV="REFRESH" CONTENT="2; URL=<tpl> $backurl </tpl>">
+<tpl> /if </tpl>
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<tpl> $uc_output </tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<tpl>include file ='header_new.html'</tpl>
+<div id="wrapper" class="m">
+	<div id="sitenav"><span> <tpl> $langCIndex </tpl> > <tpl> $langSystemPrompted </tpl></span></div>
+	<div id="searchbox">
+		<div class="error3_forget">
+			<tpl>$error_message</tpl>
+			<br />
+			<a href="<tpl> $backurl </tpl>"  class="button" style="display:block; margin:10px auto; color:#FFF;"><tpl> $langCReturn </tpl></a>
+		</div>
+	</div>
+  <div class="clear" style="height:24px;"></div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

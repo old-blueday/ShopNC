@@ -1,0 +1,89 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCHelp </tpl> &gt;&gt; <tpl> $langSysHUpdate </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="help.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="id" id="id" value="<tpl> $help_array.h_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysHHelpName </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txttitle" id="txttitle" type="text" maxlength="80" value="<tpl> $help_array.h_title </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysHClassName </tpl>:</th>
+									<td>
+									<select name="h_parent_id" id="h_parent_id">
+									<tpl> section name=loop loop=$class_array </tpl>
+										<tpl> if $class_array[loop].h_id eq $help_array.h_parent_id </tpl>
+										<option value="<tpl>$class_array[loop].h_id</tpl>" selected="selected"><tpl>$class_array[loop].h_title</tpl></option>
+										<tpl> else </tpl>
+										<option value="<tpl>$class_array[loop].h_id</tpl>"><tpl>$class_array[loop].h_title</tpl></option>
+										<tpl> /if </tpl>
+									<tpl> /section </tpl>
+									</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysHHelpContent </tpl>:</th>
+									<td>
+										<tpl>php</tpl>
+											include_once('../classes/resource/editor/editor.class.php');
+											$editor=new editor('txtcontent');
+											$editor->Value=$this->_tpl_vars['help_array']['h_content'];
+											$editor->BasePath='../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=621;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysHHelpSort </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtsort" id="txtsort" type="text" maxlength="9" value="<tpl> $help_array.h_seq_num </tpl>" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysHSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysHReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txttitle: {required: true},
+			help_c_id: {required: true,min: 1},
+			txtsort: {required: true,number: true,min: 0},
+		},
+		messages: {
+			txttitle: {required: "<tpl> $errSysHHelpNameIsEmpty </tpl>"},
+			help_c_id: {required: "<tpl> $errSysHHelpClassIsEmpty </tpl>",min:"<tpl> $errSysHHelpClassIsEmpty </tpl>"},
+			txtsort: {required: "<tpl> $errSysHHelpSortIsWrong </tpl>",number: "<tpl> $errSysHHelpSortIsWrong </tpl>",min: "<tpl> $errSysHHelpSortIsWrong </tpl>"},
+		}
+	});
+});
+</script>
+</body>
+</html>

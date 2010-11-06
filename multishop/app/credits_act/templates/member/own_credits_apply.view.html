@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/member/css/layout.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/member/css/shop.manage.css" rel="stylesheet" type="text/css" />
+<tpl>
+include file ='../head.config.html'</tpl>
+</head>
+<body><tpl>include file ='../top.html'</tpl>
+<div class="clear"></div>
+<div id="container761">
+	<div class="own_member_main">
+		<tpl>include file ='own_menu.html'</tpl>
+		<div class="member_right">
+		<div class="new_main_left">
+		<div class="new_main_left1">
+	<h1 class="new_text">
+		<tpl> $langCaMemerList </tpl>
+	</h1>
+		 <i></i>
+	</div>
+		  <b></b>
+	</div>
+	<div id="own_main_rightop">
+
+       <div id="filtermaincon" >
+            <tpl> $langCaMemerListRemark </tpl>
+		</div>
+</div>
+<div id="own_main_rightop_line" style="margin-top:-3px;">
+	  <b class="b4"></b>
+	  <b class="b3"></b>
+	  <b class="b2"></b>
+	  <b class="b1"></b>
+	  </div>
+<table class="jifen" border="1" cellpadding="0" cellspacing="0" bordercolor="#DDE0E3" style="overflow:visible; margin-top:10px" >
+	<tr><td colspan="10"></td></tr> 
+	<tr>
+		<td height="30" colspan="2" align="right"  valign="middle"><a style="padding-right:10px;" href="<tpl> $site_url </tpl>/app/credits_act/index.php?action=view&ca_id=<tpl> $apply_array.ca_id </tpl>" target="_blank"><tpl> $langSysCAViewAct </tpl>>></a></td>
+	</tr>	
+	<tr class="tr_FAFAFA">
+		<td width="120"><span><tpl> $langSysCAGoods </tpl>：</span></td>
+		<td><p><tpl> $apply_array.cag_name </tpl></p></td>
+	</tr>
+	<tr>
+		<td><span><tpl> $langSysCAGoodsPic </tpl>：</span></td>
+		<td><p><a href="<tpl> $site_url </tpl>/<tpl> $apply_array.cag_pic </tpl>" target="_blank"><img width="200" height="150" src="<tpl> $site_url </tpl>/<tpl> $apply_array.cag_pic </tpl>" border="0" /></a></p></td>
+	</tr>		
+	<tr>
+		<td><span><tpl> $langSysCAApplyNum </tpl>：</span></td>
+		<td><p><tpl> $apply_array.caa_num </tpl> <tpl> $langSysCAApplyPiece </tpl></p></td>
+	</tr>	
+	<tr>
+		<td><span><tpl> $langSysCAState </tpl>：</span></td>
+		<td><p style="color:#FF0000;"><tpl> $apply_array.state </tpl></p></td>
+	</tr>	
+	<tr>
+		<td><span><tpl> $langSysCAApplyCredits </tpl>：</span></td>
+		<td><p><tpl> $apply_array.cag_credits </tpl><tpl> $langSysCAApplyCent </tpl></p></td>
+	</tr>		
+	<tr>
+		<td><span><tpl> $langSysCAApplyTotalCredits </tpl>：</span></td>
+		<td><p><tpl> $apply_array.total_credits </tpl><tpl> $langSysCAApplyCent </tpl></p></td>
+	</tr>		
+	<tr>
+		<td><span><tpl> $langSysCAApplyTime </tpl>：</span></td>
+		<td><p><tpl> $apply_array.caa_time </tpl></p></td>
+	</tr>		
+
+</table>
+<div style="background:#F3F3F3; padding:5px 10px 0px 10px;height:25px; text-align:left;"><input type="button" name="btn" class="new_anniu inp-inp" value="<tpl> $langApplyBack </tpl>" onclick="history.back();" /></div>
+</div>
+</div>
+<tpl> include file ='../../../../html/footer.html' </tpl>
+</div>
+</body>
+</html>

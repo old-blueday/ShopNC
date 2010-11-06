@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_user_cmpetence</tpl></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body>
+<div id="content">
+	<h2><span class="alignRight"><a href="admin_administrator.php?action=admin_list" target="_self">{<tpl>$admin_user_list</tpl><!-- 管理员列表 -->}</a></span>   <tpl>$admin_system_user</tpl> >> <tpl>$admin_user_cmpetence</tpl>
+    	 
+    </h2>
+   <form id="form1" name="form1" method="post" action="admin_administrator.php?action=save_cmpetence">
+   <input type="hidden" name="admin_id" value="<tpl>$smarty.get.admin_id</tpl>" />
+   <div class="entry-body" id="p-list-div">
+   	<ul class="roleul">
+	<tpl>section name=list loop=$cmpetence_array</tpl>
+		<tpl>if $cmpetence_array[list].admin_languae!=''</tpl>
+		<li>
+			<h3><label><tpl>$cmpetence_array[list].admin_languae</tpl></label></h3>
+			<dl>
+			<tpl>section name=l loop=$cmpetence_array[list].admin_sub</tpl>
+				<dd><label><input type="checkbox" name="cmpetence[]" <tpl>if $cmpetence_array[list].admin_sub[l].admin_select == 1</tpl> checked="checked"<tpl>/if</tpl> value="<tpl>$cmpetence_array[list].admin_sub[l].admin_cmpetence</tpl>" class="cb" /><tpl>$cmpetence_array[list].admin_sub[l].admin_languae</tpl></label></dd>
+			<tpl>/section</tpl>
+				<div class="clear"></div>
+			</dl>
+			<div class="clear"></div>
+		</li>
+		<tpl>/if</tpl>
+	<tpl>/section</tpl>
+	</ul>
+	<div class="textCenter">
+	  <label for="all">
+	  <input type="checkbox" name="checkbox3" value="checkbox" id="all" /><tpl>$admin_cmpetence_all_select</tpl><!-- 全选 -->
+	  </label>
+	  <label>
+	  <input type="submit" name="Submit" value="<tpl>$admin_cmpetence_submit</tpl>" class="btnInput" />
+	  </label>
+	</div>
+    </div><!--  end of entry-body  -->
+  </form>
+  <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

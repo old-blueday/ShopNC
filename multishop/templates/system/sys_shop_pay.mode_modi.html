@@ -1,0 +1,146 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopPayModeManage </tpl> &gt;&gt; <tpl> $langSysShopPayModeEditContent </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="shop_pay.manage.php" id="form_update" name="form_update" method="post">
+						<input type="hidden" name="action" value="mode_update" />
+						<input type="hidden" name="mode_id" id="mode_id" value="<tpl> $mode_array.mode_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysShopPayModeName </tpl>:</th>
+									<td>
+										<input name="mode_name" class="fct-input" type="text" id="mode_name" maxlength="100" value="<tpl> $mode_array.mode_name </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopPayModeType </tpl>:</th>
+									<td>
+									<input class="input_radio" type="radio" name="mode_type" id="mode_type_0" value="0" 
+									<tpl> if $mode_array.mode_type eq '0' </tpl> checked="checked" <tpl> /if </tpl> onclick="$('#tr_shop_show_time').css('display','');$('#tr_product_number').css('display','none');" /><tpl> $langSysShopPayModeTypeTime </tpl><br />
+									<input class="input_radio" type="radio" name="mode_type" id="mode_type_1" value="1" <tpl> if $mode_array.mode_type eq '1' </tpl> checked="checked" <tpl> /if </tpl> onclick="$('#tr_shop_show_time').css('display','none');$('#tr_product_number').css('display','');" /><tpl> $langSysShopPayModeTypeNumber </tpl><br />
+									<input class="input_radio" type="radio" name="mode_type" id="mode_type_2" value="2" <tpl> if $mode_array.mode_type eq '2' </tpl> checked="checked" <tpl> /if </tpl> onclick="$('#tr_shop_show_time').css('display','');$('#tr_product_number').css('display','');" /><tpl> $langSysShopPayModeTypeAll </tpl>
+									</td>
+								</tr>
+								<tr id="tr_shop_show_time">
+									<th><tpl> $langSysShopPayModeShopTime </tpl>:</th>
+									<td>
+										<input name="mode_shop_show_time" class="fct-input" type="text" id="mode_shop_show_time" maxlength="10" value="<tpl> $mode_array.mode_shop_show_time </tpl>" />
+										<tpl> $langSysShopPayModeUnit </tpl>:<tpl> $langSysShopPayModeUnitDay </tpl>
+									</td>
+								</tr>
+								<tr id="tr_product_number" style="display:none">
+								    <th><tpl> $langSysShopPayModeProductNumber </tpl>:</th>
+									<td>
+										<input name="mode_product_number" class="fct-input" type="text" id="mode_product_number" maxlength="10" value="<tpl> $mode_array.mode_product_number </tpl>" />
+										<tpl> $langSysShopPayModeUnit </tpl>:<tpl> $langSysShopPayModeUnitGe </tpl>
+								    </td>
+								</tr>
+								<tr>
+								  <th><tpl> $langSysShopPayModeMoney </tpl>:</th>
+									<td>
+										<input name="mode_money" class="fct-input" type="text" id="mode_money" maxlength="10" value="<tpl> $mode_array.mode_money </tpl>" />
+										<tpl> $langSysShopPayModeUnit </tpl>:<tpl> $langSysShopPayModeUnitYuan </tpl>
+								    </td>
+								</tr>
+								<tr>
+								    <th><tpl> $langSysShopPayModeRemark </tpl>:</th>
+									<td>
+										<textarea name="mode_remark" cols="50" class="fct-input" rows="6" id="mode_remark"><tpl> $mode_array.mode_remark </tpl></textarea> 
+								    </td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function() {
+<tpl> if $mode_array.mode_type eq '0' </tpl>
+	$('#tr_shop_show_time').css('display','');$('#tr_product_number').css('display','none');
+<tpl> /if </tpl>
+<tpl> if $mode_array.mode_type eq '1' </tpl>
+	$('#tr_shop_show_time').css('display','none');$('#tr_product_number').css('display','');
+<tpl> /if </tpl>
+<tpl> if $mode_array.mode_type eq '2' </tpl>
+	$('#tr_shop_show_time').css('display','');$('#tr_product_number').css('display','');
+<tpl> /if </tpl>
+
+	$("#form_update").validate({
+		errorClass: "wrong",
+		rules: {
+			mode_name: {required:true},
+			mode_shop_show_time: {
+				required:function(){
+					if($('#mode_type_0').attr('checked') == true || $('#mode_type_2').attr('checked') == true){
+						return true
+					}else{
+						return false;
+					}
+				},
+				number:function(){
+					if($('#mode_type_0').attr('checked') == true || $('#mode_type_2').attr('checked') == true){
+						return true
+					}else{
+						return false;
+					}
+				},
+				min:function(){
+					if($('#mode_type_0').attr('checked') == true || $('#mode_type_2').attr('checked') == true){
+						return 1;
+					}else{
+						return false;
+					}
+				}
+			},
+			mode_product_number: {required:function(){
+					if($('#mode_type_1').attr('checked') == true || $('#mode_type_2').attr('checked') == true){
+						return true
+					}else{
+						return false;
+					}
+				},number:function(){
+					if($('#mode_type_1').attr('checked') == true || $('#mode_type_2').attr('checked') == true){
+						return true
+					}else{
+						return false;
+					}
+				},
+				min:function(){
+					if($('#mode_type_1').attr('checked') == true || $('#mode_type_2').attr('checked') == true){
+						return 1;
+					}else{
+						return false;
+					}
+				}
+			},
+			mode_money: {required:true,number:true}
+		},
+		messages: {
+			mode_name: {required:"<tpl> $errSysShopPayModeNameIsEmpty </tpl>"},
+			mode_shop_show_time: {required:"<tpl> $errSysShopPayModeShopTimeIsNotNumber </tpl>",number:"<tpl> $errSysShopPayModeShopTimeIsNotNumber </tpl>",min:"<tpl> $errSysShopPayModeShopTimeMinIs1 </tpl>"},
+			mode_product_number: {required:"<tpl> $errSysShopPayModeProductNumberIsNotNumber </tpl>",number:"<tpl> $errSysShopPayModeProductNumberIsNotNumber </tpl>",min:"<tpl> $errSysShopPayModeProductNumberMinIs1 </tpl>"},
+			mode_money: {required:"<tpl> $errSysShopPayModeProductNumberIsNotNumber </tpl>",number:"<tpl> $errSysShopPayModeProductNumberIsNotNumber </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

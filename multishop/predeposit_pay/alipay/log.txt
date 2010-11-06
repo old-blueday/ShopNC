@@ -1,0 +1,76 @@
+﻿执行日期：20100717165353
+veryfy_result=HTTP/1.1 200 OK
+,Date: Sat, 17 Jul 2010 08:53:52 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=117.11.219.227.1279356832200.9; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=117.11.219.227.1279356832200.9|1279358632; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=07E6C6F55C402EF6090478DBBD1112A6; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=gbOv2qF9SfoFFTuWTIYG$8o7Qpj+zJpay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ return_url_log:sign=6ef57c3329db0aa4682a6cb738add00f&mysign=6ef57c3329db0aa4682a6cb738add00f&body=预存款充值&buyer_email=huazi_php@hotmail.com&buyer_id=2088202595563100&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%2Fvwbh3I%2BLXBKfpNgf5v829GSe8yKFH%2Fyg62a3HcH3oRq2Uc4YGmb5MIwE&notify_time=2010-07-17 16:53:46&notify_type=trade_status_sync&out_trade_no=23&payment_type=1&seller_email=cevin1991@yahoo.cn&seller_id=2088102708837750&subject=预存款充值&total_fee=0.10&trade_no=2010071708815910&trade_status=TRADE_FINISHED
+执行日期：20100717170457
+veryfy_result=HTTP/1.1 200 OK
+,Date: Sat, 17 Jul 2010 09:04:55 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=117.11.219.227.1279357496130.3; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=117.11.219.227.1279357496130.3|1279359296; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=14389FA4491A5C785A660E72EDB99992; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=$eGZHpJLZbLlUh0F6oJT$RiC5ShGTTpay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ return_url_log:sign=686641204886ef870757b0813f07ffb9&mysign=686641204886ef870757b0813f07ffb9&body=预存款充值&buyer_email=huazi_php@hotmail.com&buyer_id=2088202595563100&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%2Fvwbh3I%2BLXBKfpepf1xyF9c1zQuSVuWVEcujqMRtckHq05nJoAe1P1hZB&notify_time=2010-07-17 17:04:50&notify_type=trade_status_sync&out_trade_no=24&payment_type=1&seller_email=cevin1991@yahoo.cn&seller_id=2088102708837750&subject=预存款充值&total_fee=0.10&trade_no=2010071708882010&trade_status=TRADE_FINISHED
+执行日期：20100717170504
+veryfy_result=HTTP/1.1 200 OK
+,Date: Sat, 17 Jul 2010 09:05:03 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=117.11.219.227.1279357503814.3; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=117.11.219.227.1279357503814.3|1279359303; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=2A4FE5108E0C66751A9AC47E3F7B74E9; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=9NbFypwiL5Sms6JG$8VeYa6fgckrBApay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ return_url_log:sign=686641204886ef870757b0813f07ffb9&mysign=686641204886ef870757b0813f07ffb9&body=预存款充值&buyer_email=huazi_php@hotmail.com&buyer_id=2088202595563100&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%2Fvwbh3I%2BLXBKfpepf1xyF9c1zQuSVuWVEcujqMRtckHq05nJoAe1P1hZB&notify_time=2010-07-17 17:04:50&notify_type=trade_status_sync&out_trade_no=24&payment_type=1&seller_email=cevin1991@yahoo.cn&seller_id=2088102708837750&subject=预存款充值&total_fee=0.10&trade_no=2010071708882010&trade_status=TRADE_FINISHED
+执行日期：20100717170529
+veryfy_result=HTTP/1.1 200 OK
+,Date: Sat, 17 Jul 2010 09:05:28 GMT
+,Server: Apache
+,Set-Cookie: ali_apache_id=117.11.219.227.1279357528900.8; path=/; domain=.alipay.com; expires=Wed, 30-Nov-2084 01:01:01 GMT
+,Set-Cookie: ali_apache_sid=117.11.219.227.1279357528900.8|1279359328; path=/; domain=.alipay.com
+,Set-Cookie: JSESSIONID=343CD370C30367541A7DB395A1E6121F; Path=/
+,Set-Cookie: ALIPAYJSESSIONID=yps8LZhj9$N7bruPRwsyye4RT$QpXCpay; Domain=.alipay.com; Path=/
+,Content-Language: zh-CN
+,Content-Length: 4
+,Vary: Accept-Encoding
+,Cache-Control: max-age=0,no-cache
+,Expires: Thu, 05 Jan 1995 22:00:00 GMT
+,Pragma: no-cache
+,Connection: close
+,Content-Type: text/html;charset=GBK
+,
+,true
+ return_url_log:sign=686641204886ef870757b0813f07ffb9&mysign=686641204886ef870757b0813f07ffb9&body=预存款充值&buyer_email=huazi_php@hotmail.com&buyer_id=2088202595563100&exterface=create_direct_pay_by_user&is_success=T&notify_id=RqPnCoPT3K9%2Fvwbh3I%2BLXBKfpepf1xyF9c1zQuSVuWVEcujqMRtckHq05nJoAe1P1hZB&notify_time=2010-07-17 17:04:50&notify_type=trade_status_sync&out_trade_no=24&payment_type=1&seller_email=cevin1991@yahoo.cn&seller_id=2088102708837750&subject=预存款充值&total_fee=0.10&trade_no=2010071708882010&trade_status=TRADE_FINISHED

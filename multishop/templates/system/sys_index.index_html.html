@@ -1,0 +1,164 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langIStaticManage </tpl> &gt;&gt; <tpl> $langIndexCreatePage </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+                    	<form name="form1" id="form1" action="product.html.php" method="POST">
+						<input type="hidden" name="action" value="" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langIShopIndex </tpl>:</th>
+									<td>
+										<tpl> if $config_index_html eq '1' </tpl>
+											<input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='html.manage.php?action=index'" />
+										<tpl> else </tpl>
+											<tpl> $langSysHtmlIndexRemark </tpl>
+										<tpl> /if </tpl>
+									</td>
+                                	<!--<th><tpl> $langIHomeChannel </tpl>:</th>
+									<td>
+										<tpl> if $config_channel_html eq '1' </tpl>
+											<input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='html.manage.php?action=channel'" />
+										<tpl> else </tpl>
+											<tpl> $langSysHtmlChannelRemark </tpl>
+										<tpl> /if </tpl>
+									</td>-->
+									<th><tpl> $langIFirendLink </tpl>:</th>
+									<td colspan="3"><input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='html.manage.php?action=link'" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langIFooterBasicCote </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='section.manage.php?action=section_html'" /></td>
+									<th><tpl> $langIFooter </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='html.manage.php?action=footer'" /></td>
+								</tr>
+								<!--<tr>
+									<th><tpl> $langIFirendLink </tpl>:</th>
+									<td colspan="3"><input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='html.manage.php?action=link'" /></td>
+								</tr>-->
+								<tr>
+									<th><tpl> $langINews </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateJs </tpl>" type="button" onclick="location.href='news.manage.php?action=make_all_js&ifhtml=1'" /></td>
+									<th><tpl> $langIAdv </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateJs </tpl>" type="button" onclick="location.href='advertisement.manage.php?action=make_cache&ifhtml=1'" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langWareSort </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateCatch </tpl>" type="button" onclick="location.href='pclass.manage.php?action=restart&ifhtml=1'" /></td>
+									<th><tpl> $langIndexArea </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateCatch </tpl>" type="button" onclick="location.href='area.manage.php?action=restartarea&ifhtml=1'" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langIndexProductBrand </tpl>:</th>
+									<td><input class="bthl" value="<tpl> $langIndexCreateCatch </tpl>" type="button" onclick="location.href='product_brand.manage.php?action=restart&ifhtml=1'" /></td>
+									<th><tpl> $langIHomeChannel </tpl>:</th>
+									<td>
+										<tpl> if $config_channel_html eq '1' </tpl>
+											<input class="bthl" value="<tpl> $langIndexCreateHtml </tpl>" type="button" onclick="location.href='html.manage.php?action=channel'" />
+										<tpl> else </tpl>
+											<tpl> $langSysHtmlChannelRemark </tpl>
+										<tpl> /if </tpl>									
+									</td>									
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langIAllCreateStatic </tpl>" type="button" onclick="show_block();" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<div id="question" class="loding-1" style="display:none;">
+	
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script>
+
+//show blockUI
+var question = $('#question')[0];
+
+function show_block(){
+	
+	$.blockUI(question, { width: '273px',height: '120px' });
+	
+	$('#question').html('<h3><tpl> $langIndexStaticDoNow </tpl></h3><br />');
+	
+	operation(0);
+}
+
+//close block
+function close_block(){
+	$.unblockUI();
+}
+
+function operation(key){
+	
+	var operation_arr = new Array();
+	operation_arr[0] = 'pclass.manage.php?action=restart&ifhtml=2';
+	operation_arr[1] = 'area.manage.php?action=restartarea&ifhtml=2';
+	operation_arr[2] = 'product_brand.manage.php?action=restart&ifhtml=2';
+	operation_arr[3] = 'section.manage.php?action=section_html&ifhtml=2';
+	operation_arr[4] = 'html.manage.php?action=footer&ifhtml=2';
+	operation_arr[5] = 'html.manage.php?action=link&ifhtml=2';
+	operation_arr[6] = 'news.manage.php?action=make_all_js&ifhtml=2';
+	operation_arr[7] = 'advertisement.manage.php?action=make_cache&ifhtml=2';
+	operation_arr[8] = 'html.manage.php?action=index&ifhtml=2';
+	operation_arr[9] = 'html.manage.php?action=channel&ifhtml=2';
+
+	ajax_submit(operation_arr[key],key,operation_arr.length);
+}
+
+function ajax_submit(url,key,num){
+	$.ajax({
+		url: url,
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			key++;
+			if(msg.type == 1){
+				$('#question').html("<h3><tpl> $langIndexStaticDoNow </tpl></h3><br />"+msg.message);
+				if(key != num){
+					operation(key);
+				}else{
+					endAlert();
+				}
+			}else{
+				if(key != num){
+					$('#question').html("<h3><tpl> $langIndexStaticDoNow </tpl></h3><br />"+msg.message+"<br /><br /><input type='button' value='<tpl> $langIndexSkip </tpl>' class='bthl' onclick='operation("+key+");' />");
+				}else{
+					$('#question').html("<h3><tpl> $langIndexStaticDoNow </tpl></h3><br />"+msg.message+"<br /><br /><input type='button' value='<tpl> $langIndexSkip </tpl>' class='bthl' onclick='endAlert();close_block();' />");
+				}
+			}
+		},
+		error :function(){
+			alert('<tpl> $langIndexStaticDoFail </tpl>');
+			close_block();
+		}
+	});
+	return false;
+}
+
+function endAlert(){
+	alert('<tpl> $langIndexStaticDoSucc </tpl>');
+	close_block();
+}
+</script>
+</body>
+</html>

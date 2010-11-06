@@ -1,0 +1,51 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSystemPSysOperatorLog </tpl> &gt;&gt; <tpl> $langSystemPLogContent </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='?action=export_txt'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSystemPEduceTxtFile </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="system_power.manage.php" id="form_del" name="form_del" method="post">
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-7"><tpl> $langSystemPOperatorTime </tpl></td>
+						<td class="es-2"><tpl> $langSystemPAdminName </tpl></td>
+						<td class="es-4"><tpl> $langSystemPLogContent </tpl></td>
+					</tr>
+					<tpl> if $sys_log_list[0].sys_log_time neq '' </tpl>
+						<tpl> section name=loop loop=$sys_log_list </tpl>
+					<tr class="es-td">
+						<td><tpl> $sys_log_list[loop].sys_log_time </tpl></td>
+						<td><tpl> $sys_log_list[loop].sys_login_name </tpl></td>
+						<td><tpl> $sys_log_list[loop].sys_log_note </tpl></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $sys_log_list[0].sys_log_time eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $sys_log_list[0].sys_log_time neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

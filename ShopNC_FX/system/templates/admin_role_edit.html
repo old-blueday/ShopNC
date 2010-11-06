@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_user_cmpetence</tpl></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_system.php?action=admin_list" target="_self" class="btnInput"><tpl>$admin_user_list</tpl><!-- 管理员列表 --></a></span><tpl>$shop_admin_header_system_manage</tpl> &gt;&gt; <tpl>$admin_user_cmpetence</tpl> </b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_user_cmpetence</tpl></h5>
+	
+   <form id="form1" name="form1" method="post" action="admin_system.php?action=save_cmpetence">
+   <input type="hidden" name="admin_id" value="<tpl>$smarty.get.admin_id</tpl>" />
+   <div class="entry-body" id="p-list-div">
+   	<ul class="roleul">
+	<tpl>section name=list loop=$cmpetence_array</tpl>
+		<tpl>if $cmpetence_array[list].admin_languae!=''</tpl>
+		<li>
+			<h3><label><tpl>$cmpetence_array[list].admin_languae</tpl></label></h3>
+			<dl>
+			<tpl>section name=l loop=$cmpetence_array[list].admin_sub</tpl>
+				<dd><label><input type="checkbox" name="cmpetence[]" <tpl>if $cmpetence_array[list].admin_sub[l].admin_select == 1</tpl> checked="checked"<tpl>/if</tpl> value="<tpl>$cmpetence_array[list].admin_sub[l].admincmpetence</tpl>" class="cb" /><span><tpl>$cmpetence_array[list].admin_sub[l].admin_languae</tpl></span></label></dd>
+			<tpl>/section</tpl>
+				<div class="clear"></div>
+			</dl>
+			<div class="clear"></div>
+		</li>
+		<tpl>/if</tpl>
+	<tpl>/section</tpl>
+	</ul>
+	<div class="textCenter">
+	  <label for="all">
+	  <input type="checkbox" name="checkbox3" value="checkbox" id="all" /><tpl>$admin_cmpetence_all_select</tpl><!-- 全选 -->
+	  </label>
+	  <label>
+	  <input type="submit" name="Submit" value="<tpl>$admin_cmpetence_submit</tpl>" class="btnInput" />
+	  </label>
+	</div>
+    </div><!--  end of entry-body  -->
+  </form>
+  </div>
+  <tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

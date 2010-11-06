@@ -1,0 +1,70 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreStyleBlockProduct </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_dh">
+		<dl>
+		<!---<dd><tpl> $langStoreOut </tpl>:</dd>
+		<dd class="t-k"><a href="product.php?userid=<tpl> $shop_info.member_id </tpl>&price=<tpl> $condition.price </tpl>&classid=<tpl> $condition.classid </tpl>&list=<tpl> $list </tpl>" title="<tpl> $langStoreOpenImageBrowse </tpl>"></a></dd>
+		<dd class="t-t"><a href="product.php?userid=<tpl> $shop_info.member_id </tpl>&price=<tpl> $condition.price </tpl>&classid=<tpl> $condition.classid </tpl>&view_type=list&list=<tpl> $list </tpl>" title="<tpl> $langStoreCloseImageBrowse </tpl>"></a></dd>-->
+		
+		<dd><tpl> $langStoreSort </tpl>:</dd>
+		<tpl> if $condition.price eq 'down' </tpl>
+			<dd class="t-i"><input title="<tpl> $langStorePriceHighToLow </tpl>" type="button" onclick="location.href='product.php?userid=<tpl> $shop_info.member_id </tpl>&price=up&classid=<tpl> $condition.classid </tpl>&view_type=<tpl> $view_type </tpl>&list=<tpl> $list </tpl>'" id="price_d" /></dd>
+		<tpl> else </tpl>
+			<dd class="t-i"><input title="<tpl> $langStorePriceLowToHigh </tpl>" type="button" onclick="location.href='product.php?userid=<tpl> $shop_info.member_id </tpl>&price=down&classid=<tpl> $condition.classid </tpl>&view_type=<tpl> $view_type </tpl>&list=<tpl> $list </tpl>'" id="price" /></dd>
+		<tpl> /if </tpl>
+		<dd style=" padding-left:280px;"><tpl> $page_list </tpl></dd>
+		</dl>
+	</div>
+	<div class="shop_5">
+		<div class="picture0">
+			<tpl> if $product_array[0].p_code neq '' </tpl>
+			<ul>
+				<tpl> section name=loop loop=$product_array </tpl>
+				<li>
+					<div class="shop_middle">
+					<p><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[loop].p_code </tpl>" title="<tpl> $product_array[loop].p_name </tpl>">
+						<tpl> if $product_array[loop].small_pic neq '' </tpl>
+							<img src="<tpl> $site_url </tpl>/<tpl> $product_array[loop].small_pic </tpl>" border="0" />
+						<tpl> else </tpl>
+							<img src="<tpl> $template_dir </tpl>/images/noimgs.gif" border="0" />
+						<tpl> /if </tpl>
+						</a></p>
+					</div>
+					<p>
+						<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[loop].p_code </tpl>" title="<tpl> $product_array[loop].p_name </tpl>"><tpl> $product_array[loop].p_short_name </tpl></a>
+					</p>
+					<p>
+						<tpl> if $product_array[loop].p_sell_type eq '0' </tpl>
+							<tpl> $langStoreProductSellAuction </tpl>
+						<tpl> /if </tpl>
+						<tpl> if $product_array[loop].p_sell_type eq '1' </tpl>
+							<tpl> $langCfixprice </tpl>
+						<tpl> /if </tpl>
+						<tpl> if $product_array[loop].p_sell_type eq '2' </tpl>
+							<tpl> $langStoreProductSellGroup </tpl>
+						<tpl> /if </tpl>
+					</p>
+					<p><strong><img src="<tpl> $template_dir </tpl>/images/y.gif" /><font style="color:#FF0000;">
+						<tpl> if $product_array[loop].p_sell_type eq '2' </tpl>
+							<tpl> $product_array[loop].p_group_price </tpl> 
+						<tpl> else </tpl>
+							<tpl> $product_array[loop].p_price </tpl>
+						<tpl> /if </tpl>
+					</font></strong></p>
+				</li>
+				<tpl> /section </tpl>
+			</ul>
+			<ul>
+				<div class="fenye"><tpl> $page_list </tpl></div>
+			</ul>
+			<tpl> else </tpl>
+			<ul>
+				<li><tpl> $langCNull </tpl></li>
+			</ul>
+			<tpl> /if </tpl>
+		</div>
+	</div>
+</div>

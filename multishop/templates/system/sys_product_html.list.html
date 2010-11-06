@@ -1,0 +1,199 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPStaticManage </tpl> &gt;&gt; <tpl> $langSysPCreateStaticPage </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+                    	<form name="form1" id="form1" action="product.html.php" method="POST">
+						<input type="hidden" name="action" value="" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+                                <tr>
+									<th><tpl> $langSysPInIssueTime </tpl>:</th>
+									<td>
+										<tpl> $langSysPBeginTime </tpl>:<input class="fct-input" readonly="true" value="" name="start_date" id="start_date" type="text" />
+										<tpl> $langSysPEndTime </tpl>:<input class="fct-input" readonly="true" value="" name="end_date" id="end_date" type="text" />
+                                    	<input class="bthl" value="<tpl> $langSysPStatic </tpl>" type="button" onclick="static_submit('time');" />
+                                	</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPInNotCreateStatic </tpl>:</th>
+									<td>
+                                    	<input class="bthl" value="<tpl> $langSysPStatic </tpl>" type="button" onclick="static_submit('no_create');" />
+                                	</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPInAll </tpl>:</th>
+									<td>
+                                    	<input class="bthl" value="<tpl> $langSysPStatic </tpl>" type="button" onclick="static_submit('all');" />
+                                	</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCleanPicCache </tpl>:</th>
+									<td>
+                                    	<input class="bthl" value="<tpl> $langSysCleanPicCache </tpl>" type="button" onclick="location.href='product.html.php?action=make_pic_cache'" />
+                                	</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPInClassCreateStaticPage </tpl>:</th>
+									<td>
+                                    	<select name="c1" id="c1" class="sele-1">
+											<option value=""></option>
+											<tpl> foreach item = parent from = $ProductCateArray </tpl>
+											<option value="<tpl> $parent.id </tpl>||<tpl> $parent[5] </tpl>"><tpl> $parent.name </tpl></option>
+											<tpl> /foreach </tpl>
+										</select>
+										<select name="c2" id="c2" class="sele-1">
+										</select>
+										<select name="c3" id="c3" class="sele-1">
+										</select>
+										<select name="c4" id="c4" class="sele-1">
+										</select>
+										<input type="hidden" name="pc_id" id="pc_id" />
+										<input class="bthl" id="button_make_html" value="<tpl> $langSysPStatic </tpl>" type="button" onclick="if($('#pc_id').val() == ''){alert('<tpl> $langSysPStaticPleaseSelClass </tpl>');return false;}else{static_submit('p_class')};" />
+                                	</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<div id="question" class="loding-1" style="display:none;">
+	
+</div>
+<input type="hidden" name="loop_num" id="loop_num" value="0" /> <!-- loop number -->
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	tonext('#c1');
+	
+	$('#start_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	$('#end_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+
+//show blockUI
+var question = $('#question')[0];
+function show_block(){
+	$.blockUI(question, { width: '273px',height: '100px' });
+}
+//close block
+function close_block(){
+	$.unblockUI();
+}
+//static submit
+function static_submit(type){
+	
+	show_block();
+	$('#question').html('<h3><tpl> $langSysPStaticDoNow </tpl></h3><br />');
+	
+	make_html(type);
+}
+
+function make_html(type){
+	var loop_num = $('#loop_num').val();
+	var start_date = $('#start_date').val();
+	var end_date = $('#end_date').val();
+	var pc_id = $('#pc_id').val();
+	switch(type){
+		case 'time':
+			str = 'action=make_html&start_date='+start_date+'&end_date='+end_date+'&loop_num='+loop_num;
+			break;
+		case 'no_create':
+			str = 'action=make_html&make_type='+type+'&loop_num='+loop_num;
+			break;
+		case 'all':
+			str = 'action=make_html&loop_num='+loop_num;
+			break;
+		case 'p_class':
+			str = 'action=make_html&pc_id='+pc_id+'&loop_num='+loop_num;
+			break;
+	}
+	$.ajax({
+		url: "product.html.php",
+		data: str,
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			$('#question').html("<h3><tpl> $langSysPStaticDoNow </tpl></h3><br />"+msg.message);
+			// succ
+			if(msg.type == 1){
+				//loop num ++
+				$('#loop_num').val(parseInt($('#loop_num').val())+1);
+				make_html(type);
+			}
+			if(msg.type == 0){
+				$('#loop_num').val(0);
+				alert(msg.message);
+				// close block
+				close_block();
+			}
+		},
+		error :function(){
+			alert('<tpl> $langSysPStaticDoFail </tpl>');
+			// close block
+			close_block();
+		}
+	});
+	return false;
+}
+
+//product class
+function tonext(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#pc_id').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../member/own_productcate.php',
+					data: 'action=list&id='+valarray[0],
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().not('#button_make_html').html('').attr('disabled','true');
+			}
+		}
+	)
+}
+</script>
+</body>
+</html>

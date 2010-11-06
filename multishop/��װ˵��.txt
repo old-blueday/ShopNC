@@ -1,0 +1,116 @@
+﻿ShopNC多用户商城系统 v2.7 安装说明
+
+*****************************
+*** 环境要求及操作系统要求***
+*****************************
+
+一、ShopNC多用户商城具备跨平台特性，可以运行于 Linux/FreeBSD/Unix 及微软 Windows 2000/2003/XP/NT
+    等各种操作系统环境下。我们已在软件中针对上述操作系统做了大量的测试和实地检验,保证 ShopNC多用
+    户商城 可以在上述系统中安全稳定的运行，但您仍然需要做好服务器操作系统级的安全防备措施。
+    例如 Windows 用户需更改 MySQL for Windows 的初始 root 密码,避免跨目录的文件读写. 类Unix 用户
+    需避免使用过于简单的密码，避免跨用户目录的文件读写，做好服务器上其他相关软件（如 Sendmail、
+    ftpd、httpd）等的安全防范，使用较新的软件版本等。 
+    如果您租用虚拟主机，一般正规和技术力量较强的虚拟主机提供商会已经做好操作系统的各项准备，用户
+    可不必关注此部分。 
+
+二、推荐使用 Linux/FreeBSD 操作系统，不仅完全免费，而且可以获得更好的稳定性和负载能力。 
+
+
+
+*****************************
+*** 语言及数据库支撑环境要求*
+*****************************
+
+
+ShopNC多用户商城 需要服务器上装有如下软件： 
+
+一、 可用的 httpd 服务器（如 Apache、IIS 等）,php 4.4.8 及以上,Zend Optimizer 3.X 及以上,MySQL 4.1 
+     及以上以上软件除了 httpd 软件有可能需要购买以外，其余均为跨平台的免费软件，推荐使用以上软件的
+     最新稳定版本，不仅拥有更多的功能，而且通常已修复了已知老版本的安全漏洞。
+
+
+二、 如果您租用虚拟主机，请咨询虚拟主机提供商，您的空间服务器是否已安装了上述软件。由于 ShopNC多用
+     户商城的数据表具有前缀设计，因此通常情况下可以将 ShopNC多用户商城与其他软件安装在同一个数据库
+     中，或采用不同的前缀名从而在同一个数据库中安装多种应用而不产生冲突。 
+
+三、 您的 MySQL 数据库账号应当拥有 CREATE、DROP、ALTER 等执行权限，同时文件空间需不低于 100M，数据库
+     空间不低于50M，通常您的虚拟空间都会满足这个条件，以满足包括 ShopNC多用户商城 在内的绝大多数网络
+     软件的正常运行。如果您不了解具体情况，请咨询您的空间提供商。 
+
+四、 安装可能用到的工具软件
+
+     ShopNC多用户商城开发团队尽量使得安装步骤简单方便，但仍然可能会用到一些常用的工具软件。如果您通
+     过网络将 ShopNC多用户商城软件上传到服务器上,您将可能需要一个 FTP 客户端软件.通过您的服务器 FTP
+     账号，使用该 FTP 客户端软件将相关文件上传到服务器上。同时您可能需要一个简单的文本文件编辑软件，
+     用以对配置文件进行参数修改，一般操作系统自带的如 Windows 的“记事本”或第三方软件如 UltraEdit 等
+     都能胜任。ShopNC多用户商城要求使用 FTP 软件上传 php 文件时，使用二进制（BINARY）方式进行，否则
+     将无法正常使用。 
+     
+     安装后请按照系统配置说明对ShopNC多用户商城进行相关设置，以保证商城业务流程的顺利运行。
+
+
+
+****************************************
+*** 必须保持可写权限文件夹及文件列表 ***
+****************************************
+
+注意：下边目录是必须要保证具备可写权限的。
+	但凡标记了<dir>{目录} 或者 <file>{文件} 的都是必须要具备可写权限的。
+	如果没有该文件或者文件夹，则手动新增一个即可
+
+
+root:\multishop
+┣multishop\ 
+┃  ┣app\   <dir>
+┃  ┣index.html     <file>
+┃  ┣index_zh.html   <file>
+┃  ┣attachments\   <dir>
+┃  ┣cache\   <dir>
+┃  ┃  ┣lang\   <dir>
+┃  ┃  ┣menu\   <dir>
+┃  ┣config\   <dir>
+┃  ┃  ┣config.ini.php   <file>
+┃  ┃  ┣payment.ini.php   <file>
+┃  ┣install\   <dir>
+┃  ┣html\   <dir>
+┃  ┃  ┣agreement.html   <file>
+┃  ┃  ┣js\   <dir>
+┃  ┃  ┣news_javascript\   <dir>
+┃  ┃  ┣section\   <dir>
+┃  ┃  ┣user\   <dir>
+┃  ┣payment\   
+┃  ┃  ┣alipay\   <dir>
+┃  ┃  ┃  ┣alipay_config.php   <file>
+┃  ┃  ┣paypal\   
+┃  ┃  ┃  ┣includes\   <dir>
+┃  ┃  ┃  ┃  ┣config.inc.php   <file>
+┃  ┃  ┃  ┃  ┣global_config.inc.php   <file>
+┃  ┃  ┣tenpay\     <dir>
+┃  ┃  ┃  ┣tenpay_config.php   <file>
+┃  ┣share\   
+┃  ┃  ┣baseconfig.inc.php   <file>
+┃  ┃  ┣fileType.inc.php   <file>
+┃  ┃  ┣filterstring.inc.php   <file> 
+┃  ┃  ┣indexparam\   <dir>
+┃  ┃  ┃  ┣default.php   <file>
+┃  ┃  ┃  ┣orange.php   <file>
+┃  ┃  ┃  ┣green.php   <file>
+┃  ┃  ┣keyword\   <dir>
+┃  ┃  ┣statdata\   <dir>
+┃  ┃  ┃  ┣all_screen.dat   <file>
+┃  ┃  ┃  ┣day1.dat   <file>
+┃  ┃  ┃  ┣day2.dat   <file>
+┃  ┃  ┃  ┣pvip_top.dat   <file>
+┃  ┣sqlback\   <dir>
+┃  ┣templates\	<dir>
+┃  ┃  ┣channel_drag\picfile\	<dir>
+┃  ┃  ┣store\picfile\	<dir>
+┃  ┃  ┣templates_c\	<dir>
+
+
+
+
+
+				 天津市网城创想科技有限责任公司 ShopNC多用户开发团队
+                                                                                                 
+									2010年9月1日

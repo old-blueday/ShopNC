@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<style type="text/css">
+			/*  hide from ie on mac \ */html {
+				height: 100%;
+				overflow: auto;
+			}
+			#container {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				height: 100%;
+				width:  100%;
+			}
+			/*  end hide  */body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background-color: #FFFFFF;
+			}
+		</style>
+
+
+<!--  import swfobject js, version 1.5  -->
+<script type="text/javascript" src="../js/swfobject.js"></script>
+
+</head>
+<body>
+ 
+<div id="container">
+	<!--  这个div里面的内容是当Flash不能读出来时候显示，基本可以忽略 -->
+			<strong>You need to upgrade your Flash Player</strong>
+		</div>
+ 
+<script type="text/javascript">
+		// <![CDATA[
+		// 创建object，最后的#FFFFFF是背景颜色
+		var so = new SWFObject("<tpl> $template_dir </tpl>/flash/pic_view.swf", "pic_view", "100%", "100%", "8", "#FFFFFF");
+		// 侦测是否安装Flash控件，没有的话，使用ADOBE的Express Flash Installation来即时安装，然后显示下面的Flash
+		so.useExpressInstall('../js/expressinstall.swf');
+		
+		so.addParam("scale", "noscale");
+		so.addParam("quality","high");
+		// 传递参数
+		so.addParam("FlashVars","pURL=<tpl> $pURL </tpl>&pCode=NDFBODIxNkQ0REE1NENGRQ%3D%3D");
+		// 在container DIV里面显示Flash
+		so.write("container");
+		
+		// ]]>
+	</script>
+    
+    
+
+</body>
+</html>

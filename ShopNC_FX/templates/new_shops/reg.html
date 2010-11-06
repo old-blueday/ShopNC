@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<meta http-equiv="keywords" content="<tpl> $shops_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $shops_description </tpl>" /> 
+<title><tpl> $reg_title </tpl>-<tpl> $shops_name </tpl></title>
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript">
+function reg(){
+	if (!$('#xieyi').attr('checked')){
+		alert('<tpl>$reg_info_no</tpl>');
+	}else{
+		$('#reg_form').submit();
+	}
+}
+$(document).ready(function(){
+	$("#reg_form").validate({
+		errorClass: "wrong",
+		rules: {
+			reg_domain:	{required:true,Nozhcn:true},
+			reg_user:	{required:true,minLength:2,maxLength:20},
+			reg_pass:	{required:true,minLength:6,maxLength:20},
+			reg_rpass:	{required:true,minLength:6,maxLength:20,equalTo:'#reg_pass'},
+			reg_mail:	{required:true,email:true},
+			reg_shopname:{required:true},
+			reg_code:	{required:true}
+		},
+		messages: {
+			reg_domain:	{required: "<tpl>$check_domain_null</tpl>",Nozhcn: "不能输入中文"},
+			reg_user:	{required: "<tpl>$check_user_null</tpl>",minLength: "<tpl>$check_user_min</tpl>",maxLength: "<tpl>$check_user_max</tpl>"},
+			reg_pass:	{required: "<tpl>$check_pass_null</tpl>",minLength: "<tpl>$check_pass_min</tpl>",maxLength: "<tpl>$check_pass_max</tpl>"},
+			reg_rpass:	{required: "<tpl>$check_repass_null</tpl>",minLength: "<tpl>$check_repass_min</tpl>",maxLength: "<tpl>$check_repass_max</tpl>",equalTo:"<tpl>$check_double_pass</tpl>"},
+			reg_mail:	{required:"<tpl>$check_mail_null</tpl>",email:"<tpl>$check_mail_error</tpl>"},
+			reg_shopname:	{required:"<tpl>$check_shopname_null</tpl>"},
+			reg_code:	{required:"<tpl>$check_code_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div id="container">
+<tpl>include_php file ='../shop_header.php'</tpl><!-- 头部信息header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft longer">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead"> <strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><tpl> $reg_title </tpl> </div>
+			</div>
+			<div class="con">
+				<div class="reg_left">
+					<h1><tpl>$reg_info</tpl><!--用户协议--></h1>
+					<div class="agree">
+						<tpl> $info_array.info_text </tpl>
+					</div>
+					<div class="accept">
+						<input name="xieyi" id="xieyi" type="checkbox" checked="checked" value="1" />
+						<strong><tpl>$reg_info_ok</tpl><!--阅读并认可上述用户协议--></strong></div>
+				</div>
+				<div class="reg_right"><form id="reg_form" name="reg_form" method="post" action="?action=save">
+					<table class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="166" align="right"><tpl>$reg_domain</tpl><!--子店域名-->：</td>
+							<td colspan="2">http://
+								<input type="text" name="reg_domain" id="reg_domain" class="inputbg shortinput" style="ime-mode:Disabled;" />
+								<tpl> $domainname </tpl>
+								<span>*</span>
+				<div class="check-error">
+                	<label style="display:none" for="reg_domain" class="wrong" metaDone="true" generated="true"></label>
+              	</div>
+								</td>
+						</tr>
+						<tr>
+							<td colspan="3"><img src="<tpl> $templates_subpath </tpl>/images/hsearch_line.gif" width="407" height="6" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_user </tpl>：</td>
+							<td colspan="2"><input type="text" class="inputbg" name="reg_user" id="reg_user" />
+								<span>*</span>
+								<div class="check-error">
+                	<label style="display:none" for="reg_user" class="wrong" metaDone="true" generated="true"></label>
+              	</div></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_pass </tpl>：</td>
+							<td colspan="2"><input name="reg_pass" type="password" id="reg_pass"  class="inputbg" />
+								<span>*</span>
+						<div class="check-error">
+                	<label style="display:none" for="reg_pass" class="wrong" metaDone="true" generated="true"></label>
+              	</div>		
+								</td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_rpass </tpl>：</td>
+							<td colspan="2"><input name="reg_rpass" type="password" id="reg_rpass" class="inputbg" />
+								<span>*</span>
+						<div class="check-error">
+                	<label style="display:none" for="reg_rpass" class="wrong" metaDone="true" generated="true"></label>
+              	</div>		
+								</td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_mail </tpl>：</td>
+							<td colspan="2"><input type="text" id="reg_mail" name="reg_mail" class="inputbg" />
+								<span>*</span>
+							<div class="check-error">
+                	<label style="display:none" for="reg_mail" class="wrong" metaDone="true" generated="true"></label>
+              	</div>
+								</td>
+						</tr>
+						<tr>
+							<td colspan="3"><img src="<tpl> $templates_subpath </tpl>/images/hsearch_line.gif" width="407" height="6" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_shopname </tpl>：</td>
+							<td colspan="2"><input type="text" id="reg_shopname" name="reg_shopname" class="inputbg" />
+								<span>*</span>
+							<div class="check-error">
+                	<label style="display:none" for="reg_shopname" class="wrong" metaDone="true" generated="true"></label>
+              	</div>	
+								</td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_shoptype </tpl>：</td>
+							<td colspan="2"><select name="shoptype" id="shoptype">
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option value="<tpl> $node_array[i].sub_array[j].id </tpl>">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></option>
+						<tpl> /section </tpl>
+					<tpl> /section </tpl>	
+                    </select>
+								<span>*</span></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $select_template </tpl>：</td>
+							<td colspan="2"><select name="templates" id="templates">
+                        	<option value="default"><tpl> $default_template </tpl></option>
+                    </select>
+					<div class="check-error">
+                	<label style="display:none" for="templates" class="wrong" metaDone="true" generated="true"></label>
+              	</div>
+					</td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_shopinfo </tpl>：</td>
+							<td colspan="2"><textarea name="reg_shopinfo" id="reg_shopinfo" cols="40" rows="5"></textarea></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $reg_code </tpl>:</td>
+							<td width="97"><input name="reg_code" type="text" id="reg_code" size="8"  class="inputbg shortinput" /></td>
+							<td width="157" valign="middle"><img src="../classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;cursor: pointer" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='<tpl> $Site_Url </tpl>/classes/libraries/code.php?' + Math.random()" />
+							<span>*</span>
+							 <div class="check-error">
+                	<label style="display:none" for="reg_code" class="wrong" metaDone="true" generated="true"></label>
+              	</div>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td colspan="2"><div class="reg_but" onclick="reg()"></div></td>
+						</tr>
+					</table></form>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+	<tpl> include_php file='../shop_footer.php' </tpl><!-- end of footer -->	
+</div>
+</body>
+</html>

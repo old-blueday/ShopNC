@@ -1,0 +1,145 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopPayManage </tpl> &gt;&gt; <tpl> $langSysShopPayDetail </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="shop_pay.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="detail_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayMemberName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.search_member_name </tpl>" name="search_member_name" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysShopPayName </tpl>:</th>
+								<td class="it-2">
+									<select name="search_pay">
+										<option value=""><tpl> $langSysShopPayModeSearchSel </tpl></option>
+										<option <tpl> if $condition.search_pay eq 'alipay' </tpl>selected="selected"<tpl> /if </tpl> value="alipay"><tpl> $langSysShopPayAlipay </tpl></option>
+										<option <tpl> if $condition.search_pay eq 'tenpay' </tpl>selected="selected"<tpl> /if </tpl> value="tenpay"><tpl> $langSysShopPayTenpay </tpl></option>
+										<option <tpl> if $condition.search_pay eq '99bill' </tpl>selected="selected"<tpl> /if </tpl> value="99bill"><tpl> $langSysShopPayKqpay </tpl></option>
+										<tpl> section name=loop loop=$offline_pay </tpl>
+											<option <tpl> if $condition.search_pay eq $offline_pay[loop].pay_name </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $offline_pay[loop].pay_name </tpl>"><tpl> $offline_pay[loop].pay_name </tpl></option>
+										<tpl> /section </tpl>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayDate </tpl>:</th>
+								<td colspan="3">
+									<input class="fct-input" value="<tpl> $condition.search_start_date </tpl>" name="search_start_date" type="text" />
+									<tpl> $langSysShopPaySearchTo </tpl>
+									<input class="fct-input" value="<tpl> $condition.search_end_date </tpl>" name="search_end_date" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayModeName </tpl>:</th>
+								<td class="it-1">
+									<select name="search_mode_id" id="search_mode_id">
+										<option value=""><tpl> $langSysShopPayModeSearchSel </tpl></option>
+										<tpl> section name=loop loop=$mode_array </tpl>
+										<option <tpl> if $condtion.search_mode_id eq $mode_array[loop].mode_id </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $mode_array[loop].mode_id </tpl>"><tpl> $mode_array[loop].mode_name </tpl></option>
+										<tpl> /section </tpl>
+									</select>
+								</td>
+								<th class="wd"></th>
+								<td>
+									<input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="shop_pay.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="detail_del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysShopPayDel </tpl></td>
+						<td class="es-4"><tpl> $langSysShopPayMemberName </tpl></td>
+						<td class="es-2"><tpl> $langSysShopPayModeMoney </tpl></td>
+						<td class="es-2"><tpl> $langSysShopPayName </tpl></td>
+						<td class="es-2"><tpl> $langSysShopPayDate </tpl></td>
+						<td class="es-2"><tpl> $langSysShopPayState </tpl></td>
+						<td class="es-2"><tpl> $langSysShopPayModeOperate </tpl></td>
+					</tr>
+					<tpl> if $detail_array[0].pay_detail_id neq '' </tpl>
+						<tpl> section name=loop loop=$detail_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="pay_detail_id[]" value="<tpl> $detail_array[loop].pay_detail_id </tpl>" /></td>
+						<td><tpl> $detail_array[loop].login_name </tpl></td>
+						<td><tpl> $detail_array[loop].pay_mode_money </tpl></td>
+						<td>
+							<tpl> if $detail_array[loop].pay_type eq '1' </tpl>
+								<tpl> if $detail_array[loop].pay_name eq 'alipay' </tpl>
+									<tpl> $langSysShopPayAlipay </tpl>
+								<tpl> /if </tpl>
+								<tpl> if $detail_array[loop].pay_name eq 'tenpay' </tpl>
+									<tpl> $langSysShopPayTenpay </tpl>
+								<tpl> /if </tpl>
+								<tpl> if $detail_array[loop].pay_name eq '99bill' </tpl>
+									<tpl> $langSysShopPayKqpay </tpl>
+								<tpl> /if </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $detail_array[loop].pay_type eq '2' </tpl>
+								<tpl> $detail_array[loop].pay_name </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td><tpl> $detail_array[loop].date_line </tpl></td>
+						<td>
+							<tpl> if $detail_array[loop].pay_sign eq '0' </tpl>
+								<tpl> $langSysShopPayDetailPayStateZero </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $detail_array[loop].pay_sign eq '1' </tpl>
+								<tpl> $langSysShopPayDetailPayStateOne </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $detail_array[loop].pay_sign eq '2' </tpl>
+								<tpl> $langSysShopPayDetailPayStateTwo </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $detail_array[loop].pay_sign eq '3' </tpl>
+								<tpl> $langSysShopPayDetailPayStateThree </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td><a href="shop_pay.manage.php?action=detail_modi&id=<tpl> $detail_array[loop].pay_detail_id </tpl>"><tpl> $langSysShopPayModeOperate </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $detail_array[0].pay_detail_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $detail_array[0].pay_detail_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

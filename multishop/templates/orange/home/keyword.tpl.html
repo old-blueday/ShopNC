@@ -1,0 +1,1 @@
+<tpl> section name=i loop=$show_array </tpl><a href="<tpl> if $show_array[i].keyword_url neq '' </tpl><tpl> $show_array[i].keyword_url </tpl><tpl> else </tpl><tpl> $site_url </tpl>/home/product.php?action=list&searchtype=1&keyword=<tpl> $show_array[i].keyword_name </tpl><tpl> /if </tpl>" target="_blank"><tpl> $show_array[i].keyword_name </tpl></a>&nbsp;&nbsp;<tpl> /section </tpl>

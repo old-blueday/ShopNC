@@ -1,0 +1,121 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langChannelManage </tpl> &gt;&gt; <tpl> $langChannelList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='channel.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langChannelAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="channel.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<input type="hidden" name="state" id="state" value="" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langChannelSelect </tpl></td>
+						<td class="es-4"><tpl> $langChannelName </tpl></td>
+						<td class="es-6"><tpl> $langChannelShowType </tpl></td>
+						<td class="es-6"><tpl> $langCSort </tpl></td>
+						<td class="es-6"><tpl> $langChannelEstate </tpl></td>
+						<td class="es-7"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $channel_array[0].channel_id neq '' </tpl>
+		  				<tpl> section name=i loop=$channel_array </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+							<input name="channel_id[]" type="checkbox" value="<tpl> $channel_array[i].channel_id </tpl>"/>
+						</td>
+						<td><tpl> $channel_array[i].channel_name </tpl></td>
+						<td>
+							<tpl> if $channel_array[i].channel_type eq '3' </tpl>
+								<tpl> $langChannelModeSystem </tpl>
+							<tpl> elseif $channel_array[i].channel_type eq '0' </tpl>
+								<tpl> $langChannelModeType1 </tpl>													
+							<tpl> else </tpl><!--Channel Jump Links-->
+								<tpl> $langChannelModeType3 </tpl>
+							<tpl> /if </tpl>						
+						</td>
+						<td><tpl> $channel_array[i].channel_sort </tpl></td>
+						<td>
+							<tpl> if $channel_array[i].channel_state eq "0" </tpl><tpl> $langCOpen </tpl><tpl> /if </tpl>
+							<tpl> if $channel_array[i].channel_state eq "1" </tpl><tpl> $langCClose </tpl><tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="channel.manage.php?action=modi&id=<tpl> $channel_array[i].channel_id </tpl>"><tpl> $langCedit </tpl></a>
+							<tpl> if $channel_array[i].channel_type eq '3' and $config_channel_html eq '1'</tpl><!--Custom Channels-->
+								<a href="javascript:;" onclick="ajax_html('<tpl> $channel_array[i].channel_id </tpl>');" class="static_a_pic" title="<tpl> $langChannelCreateHomePage </tpl>"><tpl> $langChannelCreateHomePage </tpl></a>
+							<tpl> elseif $channel_array[i].channel_type eq '0' </tpl>
+								<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_array[i].channel_id </tpl>" target="_blank"><tpl> $langChannelPreview </tpl></a>
+								<a target="_blank" href="../home/channel.php?action=control&id=<tpl> $channel_array[i].channel_id </tpl>"><tpl> $langChannelStyleControl </tpl></a>														
+							<tpl> else </tpl><!--Channel Jump Links-->
+									<tpl> if $channel_array[i].channel_type eq '3'</tpl>
+										<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_array[i].channel_id </tpl>" target="_blank"><tpl> $langChannelPreview </tpl></a>
+									<tpl>else</tpl>
+										<a href="<tpl> $channel_array[i].channel_url </tpl>" target="_blank"><tpl> $langChannelPreview </tpl></a>
+									<tpl>/if</tpl>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $channel_array[0].channel_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $channel_array[0].channel_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input type="submit" class="bthl" value="<tpl> $langSysCDel </tpl>" />
+				<input type="button" class="bthl" value="<tpl> $langChannelOpenSelect </tpl>" id="channel_open" />
+				<input type="button" class="bthl" value="<tpl> $langChannelCloseSelect </tpl>" id="channel_close" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$('#channel_close').click(function(){
+		$('input[id=action]').val('close');
+		document.getElementById('form_del').submit();
+	});
+	$('#channel_open').click(function(){
+		$('input[id=action]').val('open');
+		document.getElementById('form_del').submit();
+	});
+})
+//生成静态
+function ajax_html(id){
+	$.ajax({
+		url: "html.manage.php",
+		data: "action=one_channel&id="+id,
+		type:'post',
+		success: function(msg){
+			if(msg != ""){
+				alert(msg);
+			}
+		}		
+	});
+	return false;
+}
+</script>

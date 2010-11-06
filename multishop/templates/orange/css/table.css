@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+tr.over td{background:#D7F7FF}
+.table_product{width:90%;margin:auto}
+.table_product td{border-top:1px solid #E1E1E1;border-bottom:1px solid #E1E1E1;background:#F9F9F9}
+.table_product th{width:120px;font-size:14px;vertical-align:top}
+.table_product th,.table_product td{padding:6px}
+.table_thC6ECF8_tdF6F6F6{margin-top:20px}
+.table_thC6ECF8_tdF6F6F6 th,.table_thC6ECF8_tdF6F6F6 td{padding:5px;border-bottom:1px solid #D5D5D5;background:#F6F6F6;vertical-align:top}
+.table_thC6ECF8_tdF6F6F6 th{width:100px;border-bottom:1px solid #83CBE2;background:#C6ECF8;font-size:14px;text-align:right}
+.table_thF5F5F5_tdfff{border:1px solid #ddd}
+.table_thF5F5F5_tdfff td,.table_thF5F5F5_tdfff th{border-top:1px solid #ddd;border-bottom:1px solid #ddd;border-right:1px solid #f1f1f1;border-left:1px solid #f1f1f1}
+.table_thF5F5F5_tdfff th{background:WhiteSmoke;font-weight:700}
+.table_white{
+	line-height:30px;
+	background-color: #FFF;
+	width: 600px;
+	margin-top: 10px;
+}
+.table01 caption{padding:0 5px;color:#f50;font-size:14px;font-weight:700;line-height:25px;text-align:left;height:35px}
+.table01 th{width:150px;font-weight:100;text-align:right}
+tr.tr_dotted td{border-bottom:1px dotted #B4B4B4;padding:3px}
+tr.tr_FAFAFA th{border-top:1px solid #ddd;border-bottom:1px solid #ddd;background:#FAFAFA;font-weight:100}
+#OtherInfo th{border-top:1px solid #DCB0A7;border-bottom:1px solid #DCB0A7;background:#F3E6E2}
+#ProductInfo th{border-top:1px solid #adf;border-bottom:1px solid #adf;background:#E1F9FF}
+#TradeCondition th{border-top:1px solid #AFEBA0;border-bottom:1px solid #AFEBA0;background:#E3F8DE}
+#TradeCondition td{
+	font-size: 14px;
+}
+.table01{border-top:1px solid #ddd;border-bottom:1px solid #ddd;background:#FAFAFA;line-height:25px}
+.table_buy {
+	border-top: 2px solid #9cf;
+	margin-top: 20px;
+}
+.table_buy th h1 {
+	background: #eee;
+	margin: 1px 0 0;
+	display: block;
+	text-align: left;
+	padding: 5px 10px;
+	color: #444;
+}
+.table_buy th {
+	padding: 0;
+}

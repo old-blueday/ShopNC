@@ -1,0 +1,55 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopFirendLink </tpl> &gt;&gt; <tpl> $langSysShopFirendLinkList </tpl></div>
+				</div>
+			</div>
+			<form action="shoplink.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+            <input type="hidden" name="action" id="action" value="del" />
+            <input type="hidden" name="shop_id" id="shop_id" value="<tpl> $link_array[0].shop_id </tpl>" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysShopSelect </tpl></td>
+						<td class="es-4"><tpl> $langSysFirendLinkShop </tpl></td>
+					</tr>
+					<tpl> if $link_array[0].link_id neq '' </tpl>
+						<tpl> section name=loop loop=$link_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="link_id[]" type="checkbox" value="<tpl> $link_array[loop].link_id </tpl>"/></td>
+						<td><tpl> $link_array[loop].shop_name </tpl></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $link_array[0].link_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $link_array[0].link_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="" value="<tpl> $langSysCReturn </tpl>" type="button" onclick="location.href='shoplink.manage.php?action=list'" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+</head>
+<body><tpl>include file ='../header.html'</tpl>
+<div  id="wrapper" class="m"> 
+
+<div  id="sitenav"><span><tpl>$langIndexPage</tpl> > <tpl>$langGetBackPwd</tpl></span></div>
+<div id="searchbox" style=" margin-bottom:20px; ">
+  <div class="error3_forget">
+  	<tpl> if $result eq "1" </tpl>
+  		<tpl>$langMThird</tpl>
+	<tpl> else </tpl>
+		<tpl>$errMThird</tpl>
+	<tpl> /if </tpl>	
+  </div>
+
+  </div>
+
+  
+</div><br />  <tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

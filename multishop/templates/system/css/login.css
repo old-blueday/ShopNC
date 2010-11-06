@@ -1,0 +1,61 @@
+﻿@charset "utf-8";
+#wrap { width: 724px; margin: 0 auto;}
+#wrap .top { width: 100%; position: relative; height: 40px; margin-top: 36px; margin-bottom: 12px;}
+#logo { background: url(../images/img-login.gif) no-repeat -538px -249px; height: 40px; width: 320px; text-indent: -9999px;}
+#topmenu { float: right; position: absolute; right: 0px; top: 10px;}
+#topmenu li { float: left;}
+#topmenu li a { float: left; font-family: "微软雅黑", Verdana, Tahoma; font-size: 12px; color: #057CC3; font-weight: 600; margin-left: 12px; line-height: 20px;}
+#topmenu li a:hover { color: #FF8E06;}
+		
+#wrap .content { width: 100%; float: left;}
+	.intro { background: url(../images/img-login.gif) no-repeat -1px -1px; height: 200px; width: 468px; position: relative;}
+		.intro .pic { background: url(../images/img-login.gif) no-repeat -2px -249px; height: 162px; width: 133px; position: absolute; left: 0px; bottom: 0px;}
+		.intro .txt { position: absolute; top: 40px; width: 268px; background: url(../images/img-login.gif) no-repeat -538px -82px; height: 139px; text-indent: -9999px; right: 20px;}
+	.info {font-size: 13px; line-height: 24px; color: #999; width: 468px; margin-top: 10px;}
+
+	.login {background: url(../images/img-login.gif) no-repeat -173px -249px; height: 280px; width: 200px; padding: 10px 22px 0 22px; float: right; }
+		.login .text { font-family: "微软雅黑", Verdana, Tahoma; color: #FFF; font-size: 12px; font-weight: 600; line-height: 30px; height: 30px; float: left; padding-right: 10px;}
+		.login label { background: url(../images/img-login.gif) no-repeat -538px -1px; float: left; height: 26px; padding-left:8px }
+		.login input { float: left; background: url(../images/img-login.gif) no-repeat -570px -27px; height: 18px; border: none; font-size: 12px; line-height: 18px; padding-top: 7px; width:170px;}
+		#code{ float: left; background: url(../images/img-login.gif) no-repeat -660px -27px; height: 18px; border: none; font-size: 12px; line-height: 18px; padding-top: 7px; width:80px;}
+		*html .login input{height: 21px;line-height: 21px;padding-top: 4px;}
+		*+html .login input{height: 21px;line-height: 21px;padding-top: 4px;}
+		.login .codeimg {float: left; padding: 3px 5px 5px 10px;}
+		.login .select {height: 22px; float: left; margin-top: 5px; margin-left: 0px; display: inline;}
+		.login .code { float: left; width: 100px;}
+		.login .btn { height: 30px; width: 94px; margin-left: 50px; margin-top: 28px; border:none; background: url(../images/img-login.gif);background-repeat: no-repeat;background-position: -2px -453px; cursor: pointer;}
+		.login .tag { color: #FFF; line-height: 20px; margin: 16px auto 0 auto; width: 80%; position:relative; height: 20px;}
+
+#copyright{
+	font-family: Tahoma;
+	text-align: right;
+	line-height: 22px;
+	height: 22px;
+	color: #057CC3;
+	margin-top: 6px;
+	font-size: 11.5px;
+	word-spacing: -0.25em;
+}
+*html #copyright{
+	word-spacing: 0.1em;
+	font-size: 11px;
+}
+*+html #copyright{
+word-spacing: 0.1em;
+
+font-size: 11px;}
+#copyright a ,#copyright a:hover {color: #F90;}
+.left {	float:left;}
+caption, tbody, tfoot, thead, tr, th, td, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table {
+	margin: 0px;
+	padding: 0px;
+}
+.clear { clear: both; display: block; font: 0px/0 sans-serif; height: 0px; overflow: hidden; }
+a{ text-decoration:none;}
+#langSelect{
+	vertical-align:-7px;
+	}
+ul,li{
+	list-style-type:none;
+	}
+

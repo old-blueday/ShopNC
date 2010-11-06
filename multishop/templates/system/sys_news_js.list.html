@@ -1,0 +1,64 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCNews </tpl> &gt;&gt; <tpl> $langSysNListJs </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='news.manage.php?action=make_all_js'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysNMakeAllJs </tpl></b>
+					</div>
+					<div class="gtlbar-right" onclick="location.href='news.manage.php?action=add_js'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysNAddJs </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="news.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del_js" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysNSel </tpl></td>
+						<td class="es-4"><tpl> $langSysNJsCode </tpl></td>
+						<td class="es-2"><tpl> $langSysNManage </tpl></td>
+					</tr>
+					<tpl> if $js_array[0].news_js_id neq '' </tpl>
+		  				<tpl> section name=loop loop=$js_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="news_js_id[]" type="checkbox" value="<tpl> $js_array[loop].news_js_id </tpl>"/></td>
+						<td>&lt;script src=&quot;&lt;tpl&gt; $site_url &lt;/tpl&gt;/html/news_javascript/<tpl>$js_array[loop].md5_id</tpl>.js&quot;&gt;&lt;/script&gt;</td>
+						<td><a href="news.manage.php?action=modi_js&id=<tpl> $js_array[loop].news_js_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langSysNEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $js_array[0].news_js_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $js_array[0].news_js_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

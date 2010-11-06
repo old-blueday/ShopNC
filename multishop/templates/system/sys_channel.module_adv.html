@@ -1,0 +1,85 @@
+<form action="javascript:;" id="form_module_adv" name="form_module_adv" method="post"  onsubmit="return submit_module();" class="zhezhao">
+<table border="0" cellpadding="0" cellspacing="0" class="fct-1" style="border-top:#cad9eb 1px solid;">
+	<tr>
+	  <th><tpl> $langChannelModuleName </tpl>:</th>
+	  <td>
+	  	  <input type="text" name="module_new_name" id="module_new_name" class="fct-input" value="<tpl> $modi_array.module_new_name </tpl>" maxlength="40" />
+	  </td>
+	</tr>
+	<tr>
+		<th><tpl> $langChannelAdvCode </tpl>:</th>
+		<td>
+			<select name="adv_left_select" id="adv_left_select">
+				<tpl> section name=loop loop=$adv_array </tpl>
+					<option <tpl> if $adv_array[loop].adv_code eq $modi_array.code </tpl> selected="selected" <tpl> /if </tpl> value="<tpl> $adv_array[loop].adv_code </tpl>"><tpl> $adv_array[loop].adv_code </tpl></option>
+				<tpl> /section </tpl>
+	  		</select>
+	  	</td>
+	</tr>
+	<tr>
+		<td colspan="2"></td>
+    </tr>
+</table>
+</form>
+<script>
+
+function submit_module(){
+	
+	var module_new_name = "";
+	var str='';
+	var num = jquery("#add_module_sign_num").val();
+	var param_array = new Array();
+	
+	module_new_name = jquery("#module_new_name").val();
+	if (module_new_name == ''){
+		alert("<tpl> $langChannelPleaseModuleName </tpl>");
+		return false;
+	}
+	
+	param_array[0] = "module_new_name:"+module_new_name;
+	
+	<tpl> if $modi_array.temp_name eq '' </tpl>
+	
+		var temp_name = "adv_module_" + Math.round(Math.random()*10000);
+		param_array[1] = "temp_name:" + temp_name;
+		
+	<tpl> else </tpl>
+	
+		var temp_name = "<tpl> $modi_array.temp_name </tpl>";
+		param_array[1] = "temp_name:<tpl> $modi_array.temp_name </tpl>";
+		
+	<tpl> /if </tpl>
+	
+	param_array[2] = "code:"+jquery("#adv_left_select").val();
+	param_array[3] = "module_type:adv"
+
+	for(i=0;i<param_array.length;i++){
+		if(i==param_array.length-1){
+			str += param_array[i];
+		}else{
+			str += param_array[i]+'|||';
+		}
+	}	
+	
+	if(checkRepeatModuleName(module_new_name) == false){return false;}
+	
+	jquery("#add_module_sign").append("<tr><td>"+
+		"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\",\""+module_new_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+		"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+str+"'/>"+
+		"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}' title='<tpl> $langChannelDelThisModule </tpl>'><tpl> $langChannelDelThisModule </tpl></a>"+
+		"</td></tr>");
+	
+	jquery("#body_module").html("");
+	
+  	jquery("#add_module").attr("disabled","");
+	
+	set_module_style('no_disabled');
+	
+	jquery.unblockUI();
+	
+	jquery("#module_block").html('');
+	closeDiy('moduleadd');
+	closeDiy('moduleupdate');
+	return false;
+}
+</script>

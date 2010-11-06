@@ -1,0 +1,89 @@
+<tpl> if $show_type eq '0' </tpl>
+	<tpl> assign var=index_value value=1 </tpl>
+	<tpl> section name=i loop=$pclass_array </tpl>
+		<tpl> if $pclass_array[i].pc_id neq '' </tpl>
+		<tpl> if $smarty.section.i.index%3 eq 0 && $smarty.section.i.index neq '0' </tpl>
+			<tpl>if $smarty.section.i.index%2 == 1</tpl>
+			<tr class="odd">
+			<tpl>else</tpl>
+			<tr class="odd even">
+			<tpl>/if</tpl>
+		<tpl>/if</tpl>
+		<tpl>if $smarty.section.i.index == 0</tpl>
+		<tr class="odd even">
+		<tpl>/if</tpl>
+			<td><h4><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $pclass_array[i].pc_id </tpl>" title="<tpl>$one.pc_name</tpl>" class="org"><tpl>$pclass_array[i].pc_name</tpl></a></h4>
+					<ul>
+						<tpl> if $pclass_array[i].child_class neq '' </tpl>
+							<tpl> foreach item=two from=$pclass_array[i].child_class key=key2 </tpl>
+								<li>
+								<a target="_blank" <tpl> if $two.is_highlight eq '1' </tpl>class="org"<tpl> /if </tpl> href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $two.pc_id </tpl>" title="<tpl> $two.pc_name </tpl>"><tpl> $two.pc_name </tpl></a>
+								</li>
+							<tpl> /foreach </tpl>
+						<tpl> /if </tpl>
+					</ul>
+				</td>
+			<tpl> if ($smarty.section.i.index+1)%3 eq 0 && $smarty.section.i.index neq '0' </tpl>
+			</tr>
+			<tpl> /if </tpl>
+			<tpl>if $smarty.section.i.total == ($smarty.section.i.index+1)</tpl>
+				<tpl>if ($smarty.section.i.index+1)%3 == 1 </tpl>
+				<td>&nbsp;</td><td>&nbsp;</td>
+				<tpl>elseif ($smarty.section.i.index+1)%3 == 2</tpl>
+				<td>&nbsp;</td>
+				<tpl>/if</tpl>
+			</tr>
+			<tpl>/if</tpl>
+			
+	 	<tpl> /if </tpl>
+	<tpl> /section </tpl>
+<tpl> /if </tpl>
+
+<tpl> if $show_type eq '1' </tpl><!-- 单一 -->
+	<tpl> foreach item=one from=$pclass_array </tpl>
+		<li>
+			<a <tpl> if $two.is_highlight eq '1' </tpl>style="color:#FF5500"<tpl> /if </tpl> target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $one.pc_id </tpl>" title="<tpl>$one.pc_name</tpl>"><tpl>$one.pc_name</tpl></a>
+		</li>
+	<tpl> /foreach </tpl>
+<tpl> /if </tpl>
+
+<tpl> if $show_type eq '2' </tpl><!-- 二级伸缩菜单样式 -->
+	<SCRIPT src="<tpl> $site_url </tpl>/js/channel_class_menu.js" type=text/javascript></SCRIPT>
+	<link href="<tpl> $site_url </tpl><tpl>$templatepath</tpl>/home/css/channel_class_menu.css" rel="stylesheet" type="text/css">
+	<ul id="channel_class_nav">
+		<tpl> foreach item=one from=$pclass_array </tpl>
+			<tpl> if $one.pc_id neq '' </tpl>
+			<li><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $one.pc_id </tpl>" title="<tpl>$one.pc_name</tpl>"><tpl>$one.pc_name</tpl></a>
+			<tpl> if $one.child_class neq '' </tpl>
+				<ul><span><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $one.pc_id </tpl>" title="<tpl>$one.pc_name</tpl>"><tpl>$one.pc_name</tpl></a></span>
+					<tpl> foreach item=two from=$one.child_class </tpl>
+						<tpl> if $two.pc_id neq '' </tpl>
+						<li>
+						
+						<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $two.pc_id </tpl>" title="<tpl> $two.pc_name </tpl>"><tpl> $two.pc_name </tpl></a></li> 
+						<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</ul>
+			<tpl> /if </tpl>
+			</li>
+			<tpl> /if </tpl>
+		<tpl> /foreach </tpl>
+	</ul>
+<tpl> /if </tpl>
+
+<tpl> if $show_type eq '3' </tpl>
+
+	<tpl> section name=i loop=$pclass_array </tpl>
+	 	<tpl> if $pclass_array[i].pc_id neq '' </tpl>
+			<li>
+				<dt><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $pclass_array[i].pc_id </tpl>" title="<tpl>$one.pc_name</tpl>"><tpl>$pclass_array[i].pc_name</tpl></a></dt>
+				<tpl> if $pclass_array[i].child_class neq '' </tpl>
+					<tpl> foreach item=two from=$pclass_array[i].child_class key=key2 </tpl>
+						<dd><a <tpl> if $two.is_highlight eq '1' </tpl>style="color:#FF5500"<tpl> /if </tpl> target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=textlist&pcid=<tpl> $two.pc_id </tpl>" title="<tpl> $two.pc_name </tpl>"><tpl> $two.pc_name </tpl></a></dd>
+					<tpl> /foreach </tpl>
+				<tpl> /if </tpl>
+			</li>
+		<tpl> /if </tpl>
+	<tpl> /section </tpl>
+
+<tpl> /if </tpl>

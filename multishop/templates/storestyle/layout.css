@@ -1,0 +1,290 @@
+﻿@charset "utf-8";
+/*  CSS Document  */input {
+	line-height:1em;
+	height: 20px;
+	font-family: "宋体";
+}
+#ShopFP {
+
+	width: 950px;
+	margin:0 auto;
+	display:block;
+	height:100%
+}
+#container1024{
+	overflow:visible;
+	clear: both;
+	margin:10px auto;
+}
+
+#NavBar {
+	padding: 3px 0px 0px 0px;
+	height: 24px;
+	font-size:12px;
+	margin: 0px;
+}
+#NavBar li {
+	color: #111;
+}
+#NavBar a {
+	color: #fff;
+}
+/**#NavBar li.select {
+	margin: 0px 0px 0px 43px;
+	padding: 4px 28px 0px 4px;
+}
+**/
+ul.NavBar {
+	font-size: 14px;
+	font-weight: 700;
+}
+ul.NavBar li {
+	float: left;
+	
+	margin: 0px 10px;
+	
+	display: inline;
+}
+ul.NavBar a {
+	font-weight: 700;
+}
+
+
+ul.NavBar li.select a{
+color:#fff}
+#SubNavBar ul.NavBar {
+	float: left;
+}
+#InShopSearch {
+	float: left;
+	
+}
+#ShopInfo {
+	width: 100%;
+	padding: 0;
+}
+#ShopInfo #banner_pic{width:950px;}
+#ShopFP_top {width:950px;}
+#ShopMain {
+
+	margin-top: 20px;
+	clear: both;
+}
+#ItemCol {
+	float: right;
+	width: 79%;
+
+}
+
+
+
+
+/* ItemCategories CSS Document  */.ItemCategoriesTitle {
+	line-height: 20px;
+	font-weight: 700;
+	color: #FFF;
+	padding-left: 15px;
+	text-align:left
+}
+.ItemContent {
+	background-color: #FFF;
+	padding: 10px;
+	text-align:left;
+}
+.ItemContent ul {
+	font-size: 12px;
+}
+.ItemContent li {
+
+	padding-top:2px;
+	padding-bottom:2px;
+	padding-right:5px;
+	text-align:left
+}
+.shopmain2 {
+	font-size: 14px;
+}
+#shopmain1 {
+	width: 20%;
+	clear: both;
+	float: left;
+	overflow:hidden;
+}
+
+/* ItemCategories CSS Document over */#SubNavBar {
+	height: 24px;
+}
+#SortByPrice {
+	padding: 2px;
+	text-align:left
+}
+.ViewInfoLeft {
+	float: left;
+	line-height: 20px;
+	padding-left: 5px;
+}
+.ViewInfoRight {
+	line-height: 20px;
+	float: right;
+	padding-right: 10px;
+}
+#ShopFP .Item {
+	width: 24%;
+	float: left;
+	text-align: center;
+	margin: 10px 0px 5px;
+	padding: 0px 0px 5px;
+}
+#itemcol2 li.ItemPic {
+	height: 106px;
+	padding: 5px;
+}
+.ItemName {
+	height: 37px;
+	padding-left:8px;
+	padding-right:8px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	line-height: 1.2em;
+	overflow:hidden
+}
+#ViewInfoBottom {
+	line-height: 18px;
+	height: 25px;
+	clear: both;
+	margin: 15px 0px;
+}
+
+#itemcol2 {
+}
+#ViewInfoTop {
+	height: 45px;
+}
+.ItemPrice {
+	color: #f50;
+	font-weight: 700;
+}
+.ItemTimeLeft {
+	color: #666;
+	padding: 2px;
+}
+#PicAndFav {
+	float: left;
+	width: 130px;
+	margin: 20px 20px 0;
+}
+
+#ShopPic {
+	clear: both;
+	width:100px;
+	height:100px;
+	margin: auto;margin-bottom:8px
+}
+#ShopPic img {
+width:100px;
+height:100px;
+}
+#addtofav {
+	line-height: 18px;
+	text-align: center;
+	margin-top: 5px;
+}
+#ShopInfoList {
+	width: 240px;
+	float: left;
+	margin-top: 5px;
+}
+#ShopInfoList .ListHint {
+	font-weight: 700;
+	margin-right: 8px;
+	display: block;
+	float: left;
+	width: 60px;
+	clear: left;
+	text-align: right;
+}
+#ShopAnnounceContainer {
+	line-height: 20px;
+	float: right;
+	height:64%;
+	width: 44%;
+	text-align:left
+}
+
+
+/* RecommendedItems */.ReItemPic {
+	height: 100%;
+}
+.ReItem {
+	text-align: center;
+	margin: 0px 1%;
+}
+#RecommendedItems table {
+	border-width: 0px;
+	width: 100%;
+}
+/* RecommendedItems over *//* GuestBookContent document */.GBMessage {
+	background-color: #FFF;
+	width: 100%;
+	padding: 8px 0px;
+	margin:0px;	border-bottom: 1px solid #CCC;
+}
+.GBMessage_even {
+	background: #EAEAEA;
+}
+.ReplyTheMessage {
+	float: right;
+	width: 5%;
+	line-height: 40px;
+}
+.IdAndTime {
+	line-height: 20px;
+	float: left;
+	width: 18%;
+	text-align: center;
+	background-color:#FFFFFF
+}
+.MessageContent {
+	line-height: 20px;
+	float: left;
+	width: 82%;
+	background-color:#FFF;
+}
+.MessageFromSeller {
+	color: #f60;
+}
+.MessageFromSellerHint {
+	font-weight: 700;
+	color: #000;
+}
+#GuestBook {
+	margin: 0px 0px 10px 0px;
+
+
+}
+#GuestBookTitle {
+	height:100%;
+}
+#GBNewMessage {
+	color: #FFF;
+	float: left;
+	padding: 3px 0px 0px 10px;
+	font-size: 14px;
+	font-weight: 700;
+}
+.GBallMessage {
+	float: right;
+	
+	padding-right: 10px;
+	line-height: 24px;
+}
+/* GuestBookContent document over */#ShopInfoList li {
+	line-height: 2em;
+	text-align:left;
+	padding-left:5px;
+	width:100%
+}
+#ShopInfoList img {
+	vertical-align: middle;
+}
+

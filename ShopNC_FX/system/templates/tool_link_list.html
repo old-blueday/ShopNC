@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_admin_header_tools_manage</tpl> - <tpl>$shop_admin_tools_link</tpl></title><!-- 工具管理 - 友情链接管理 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_tool_link.php?action=add_link" target="_self" class="btnInput"><tpl>$shop_admin_shop_tool_link_add</tpl></a></span>
+<tpl>$shop_admin_header_tools_manage</tpl><!-- 工具管理 --> &gt;&gt; <tpl>$shop_admin_tool_link_list</tpl><!-- 友情链接列表 -->
+    	</b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<form id="form1" name="form1" method="post" action="admin_tool_link.php?action=del_link">
+				<h5><div class="floatRight2">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" /><span>:<tpl>$shop_admin_shop_tool_link_edit</tpl><!-- 编辑 --></span>
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" /><span>:<tpl>$shop_admin_shop_tool_link_list_del</tpl><!-- 删除 --></span>
+                </div>
+              <input type="submit" value="<tpl>$shop_admin_shop_tool_list_del</tpl>" class="delBtnInput" /><!-- 删除 --></h5>
+    <div class="entry-body" id="p-list-div">
+    
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl>$shop_admin_shop_tool_link_list_webname</tpl></th>	<!-- 网站名称 -->
+            <th><tpl>$shop_admin_shop_tool_link_list_weblogo</tpl></th>	<!-- Logo -->
+            <th><tpl>$shop_admin_shop_tool_link_list_webemail</tpl></th><!-- 站长邮箱 -->
+            <th><tpl>$shop_admin_shop_tool_link_list_time</tpl></th>	<!-- 时间 -->
+            <th><tpl>$shop_admin_shop_tool_link_list_state</tpl></th>	<!-- 状态 -->
+            <th><tpl>$shop_admin_shop_tool_link_list_sort</tpl></th>	<!-- 排序 -->
+			<th><tpl>$shop_admin_shop_tool_link_list_operate</tpl></th>	<!-- 操作 -->
+          </tr>
+		  <tpl> section name=list loop=$link_array </tpl>
+          <tr>
+            <td><label>
+            <input type="checkbox" name="fid[]" value="<tpl> $link_array[list].fid </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $link_array[list].webname </tpl></td>
+            <td><tpl> if $link_array[list].logo != '' </tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $link_array[list].logo </tpl>" width="80" height="50" /><tpl> else </tpl><tpl>$shop_admin_shop_tool_link_list_txt</tpl><tpl>/if</tpl></td>
+            <td><tpl> $link_array[list].email </tpl></td>
+            <td><tpl> $link_array[list].ftime|date_format:"%Y-%m-%d" </tpl></td>
+            <td>
+			<span id="state_<tpl> $link_array[list].fid</tpl>"><a onclick="nc_state_update('<tpl> $link_array[list].fid</tpl>','state','<tpl> $link_array[list].state </tpl>','state_<tpl> $link_array[list].fid</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $link_array[list].state </tpl>.gif" alt="<tpl>$shop_admin_shop_tool_link_list_edit_state</tpl>" /></a></span></td><!-- 更改状态 -->
+            <td><tpl> $link_array[list].sort </tpl></td>
+            <td><a href="admin_tool_link.php?action=add_link&fid=<tpl> $link_array[list].fid </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" alt="<tpl>$shop_admin_shop_tool_link_list_edit</tpl>" title="<tpl>$shop_admin_shop_tool_link_list_edit</tpl>" /></a><!-- 编辑 -->
+            	<a href="admin_tool_link.php?action=del_link&fid=<tpl> $link_array[list].fid </tpl>"  onclick="return confirm('<tpl>$shop_admin_shop_tool_link_list_delconfo</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl>$shop_admin_shop_tool_link_list_del</tpl>" title="<tpl>$shop_admin_shop_tool_link_list_del</tpl>" /></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+    </form>
+    	<div class="clear"></div>
+    </div><!--  end of p-list-div  -->
+	<h5 class="h5_down">
+	<div class="pagebar"><tpl>$showpage</tpl></div>
+              <input type="submit" value="<tpl>$shop_admin_shop_tool_link_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+			  </h5>
+	
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+/* ajax修改状态 */
+function nc_state_update(fid,ajax_type,old_state,id) {
+	$.get('admin_tool_link.php',{'action':'link_state_ajax','ajax_type':ajax_type,'old_state':old_state,'fid':fid,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+</body>
+</html>

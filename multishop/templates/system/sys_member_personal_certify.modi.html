@@ -1,0 +1,105 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPersonalCertifyManage </tpl> &gt;&gt; <tpl> $langSysPersonalCertifyCheck </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="member_personal_certify.manage.php" id="form1" name="form1" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="member_id" value="<tpl> $member_array.member_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysPersonalCertifyMemberName </tpl>:</th>
+									<td><tpl> $member_array.login_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPersonalCertifyState </tpl>:</th>
+									<td>
+										<tpl> if $member_array.personal_certify eq '0' </tpl>
+											<tpl> $langSysPersonalCertifyStateZero </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $member_array.personal_certify eq '1' </tpl>
+											<tpl> $langSysPersonalCertifyStateOne </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $member_array.personal_certify eq '2' </tpl>
+											<tpl> $langSysPersonalCertifyStateTwo </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $member_array.personal_certify eq '3' </tpl>
+											<tpl> $langSysPersonalCertifyStateThree </tpl>
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPersonalCertifyCardUp </tpl>:</th>
+									<td><a target="_blank" href="<tpl> $site_url </tpl>/<tpl> $member_array.personal_certify_identitycard_up </tpl>"><img width="200px;" height="100px;" src="<tpl> $site_url </tpl>/<tpl> $member_array.personal_certify_identitycard_up </tpl>" /></a></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPersonalCertifyCardBack </tpl>:</th>
+									<td>
+										<a target="_blank" href="<tpl> $site_url </tpl>/<tpl> $member_array.personal_certify_identitycard_back </tpl>"><img width="200px;" height="100px;" src="<tpl> $site_url </tpl>/<tpl> $member_array.personal_certify_identitycard_back </tpl>" /></a>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPersonalCertifyChangeState </tpl>:</th>
+									<td>
+										<select name="sel_state" id="sel_state" onchange="if(this.value=='3'){$('#deny_reason').show();}else{$('#deny_reason').hide();}">
+											<option value="2"><tpl> $langSysPersonalCertifyStateTwo </tpl></option>
+											<option value="3"><tpl> $langSysPersonalCertifyStateThree </tpl></option>
+										</select>
+									</td>
+								</tr>
+								<tpl> if $member_array.personal_certify_deny_reason neq '' </tpl>
+								<tr>
+									<th><tpl> $langSysPersonalCertifyLastReason </tpl>:</th>
+									<td><tpl> $member_array.personal_certify_deny_reason </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tr id="deny_reason" style="display:none">
+									<th><tpl> $langSysPersonalCertifyDenyReason </tpl>:</th>
+									<td>
+										<textarea class="fct-input" name="personal_certify_deny_reason" id="personal_certify_deny_reason" cols="" rows=""></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_update").validate({
+		errorClass: "wrong",
+		rules: {
+			personal_certify_deny_reason: {required: 
+					function(){
+						if($("#sel_state").val()=='3'){
+							return true;
+						}else{
+							return false;
+						}
+					}}
+		},
+		messages: {
+			personal_certify_deny_reason: {required: "<tpl> $errSysPersonalCertifyDenyReasonIsEmpty </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

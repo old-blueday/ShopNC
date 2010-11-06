@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_title</tpl></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("my_menu").style.height = (wh-96)+"px";
+//document.getElementById("sidbar").style.height = (wh-82)+"px";
+document.getElementById("my_menu").style.height = (wh-16)+"px";
+//document.getElementById("sidbar").style.height = (wh-10)+"px";
+}
+
+$(document).ready(function(){
+	
+	//hide message_body after the first one
+	<tpl>if $show_state == 'all'</tpl>
+	$(".menu_con").hide();
+	<tpl>/if</tpl>
+	//toggle message_body
+	$(".menu_head").click(function(){
+		$(this).next(".menu_con").slideToggle(500)
+		.siblings(".menu_con").hide(500);
+		$(this).toggleClass("active");
+		$(this).siblings(".menu_head").removeClass("active");
+		$(".menu_con a").removeClass("active");
+		return false;
+	});
+	
+	$(".menu_con a").click(function(){
+		$(this).addClass("active");
+		$(this).siblings("a").removeClass("active");
+		return true;
+	});
+});
+</script>
+</head>
+<body>
+<div id="leftcon">
+	<div id="my_menu" class="my_menu">
+		<tpl>if $show_state=='system' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_shop_manage</tpl><!--  网店管理  --></h4>
+		<div class="menu_con">
+			<a  href="admin_system.php?action=base_site" target="main-frame"><b class="setting01"></b><tpl>$admin_system_site</tpl><!--  基本设置  --></a>
+			<a  href="admin_system.php?action=view_site" target="main-frame"><b class="setting02"></b><tpl>$admin_system_index</tpl><!--  首页设置  --></a>
+			<a  href="admin_system.php?action=templates_site" target="main-frame"><b class="setting03"></b><tpl>$admin_system_templates</tpl><!--  模板选取  --></a>
+			<a  href="admin_system.php?action=email_site" target="main-frame"><b class="setting04"></b><tpl>$admin_system_email</tpl><!--  邮件管理  -->	</a>
+			<a  href="admin_administrator.php?action=admin_list" target="main-frame"><b class="setting05"></b><tpl>$admin_system_user</tpl><!--  管理员设置  --></a>
+			<a  href="admin_system.php?action=system_info" target="main-frame"><b class="setting06"></b><tpl>$admin_system_info</tpl><!--  系统信息  -->	</a>
+			<a href="admin_system.php?action=system_image" target="main-frame"><b class="setting07"></b><tpl>$admin_system_image</tpl><!--  图片水印  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='product' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_goods_manage</tpl><!--  商品管理  --></h4>
+		<div class="menu_con">
+			<a href="admin_goods.php?action=goods_page" target="main-frame"><b class="doogs01"></b><tpl>$admin_goods_add</tpl><!--  新增商品  --></a>
+			<a href="admin_goods.php?action=list" target="main-frame"><b class="doogs02"></b><tpl>$admin_goods_list</tpl><!--  商品列表  --></a>
+			<a href="admin_goods_class.php?action=page_goods_class" target="main-frame"><b class="doogs03"></b><tpl>$admin_goods_class_add</tpl><!--  添加商品分类  --></a>
+			<a href="admin_goods_class.php?action=list" target="main-frame"><b class="doogs04"></b><tpl>$admin_goods_class_list</tpl><!--  商品分类列表  --></a>
+			<a href="admin_goods_brand.php?action=add_goods_brand" target="main-frame"><b class="doogs05"></b><tpl>$admin_goods_brand_add</tpl><!--  添加品牌分类  --></a>
+			<a href="admin_goods_brand.php?action=goods_brand_list" target="main-frame"><b class="doogs06"></b><tpl>$admin_goods_brand_list</tpl><!--  品牌分类列表  --></a>
+			<a href="admin_goods_subject.php?action=add_goods_subject" target="main-frame"><b class="doogs07"></b><tpl>$admin_goods_subject_add</tpl><!--  添加主题分类  --></a>
+			<a href="admin_goods_subject.php?action=goods_subject_list" target="main-frame"><b class="doogs08"></b><tpl>$admin_goods_subject_list</tpl><!--  主题分类列表  --></a>
+			<a href="admin_goods_attribute.php" target="main-frame"><b class="doogs09"></b><tpl>$admin_goods_type</tpl><!--  商品类型  -->	</a>
+			<a href="admin_goods_comment.php" target="main-frame"><b class="doogs10"></b><tpl>$admin_goods_comments</tpl><!--  商品评论  --></a>
+			<a href="admin_goods_extends.php?action=goods_csv" target="main-frame"><b class="doogs11"></b><tpl>$admin_goods_csv</tpl><!--  商品导入导出  --></a>
+			<a href="admin_goods_extends.php?action=goods_js" target="main-frame"><b class="doogs12"></b><tpl>$admin_goods_js</tpl><!--  商品调用  -->	</a>
+			<a href="admin_goods_extends.php?action=pic_manage" target="main-frame"><b class="doogs13"></b><tpl>$admin_goods_pic_manage</tpl><!--  图片管理  --></a>
+			<a href="admin_goods.php?action=recycle"  target="main-frame"><b class="doogs14"></b><tpl>$admin_goods_recycle</tpl><tpl>$goods_recycle_num</tpl><!--  商品回收站  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='order' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_order_manage</tpl><!--  订单管理  --></h4>
+		<div class="menu_con">
+			<a href="admin_order.php?action=order_list" target="main-frame"><b class="order01"></b><tpl>$admin_order_list</tpl><!--  订单列表  --></a>
+			<a href="admin_order.php?action=conf_list" target="main-frame"><b class="order02"></b><tpl>$admin_order_confirmation</tpl><!--  已确认订单  --></a>
+			<a href="admin_order.php?action=pay_list" target="main-frame"><b class="order03"></b><tpl>$admin_order_parment</tpl><!--  已付款订单  --></a>
+			<a href="admin_order.php?action=send_list" target="main-frame"><b class="order04"></b><tpl>$admin_order_shipments</tpl><!--  已发货订单  --></a>
+			<a href="admin_order.php?action=fill_list" target="main-frame"><b class="order05"></b><tpl>$admin_order_filing</tpl><!--  已归档订单  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='member' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_user_manage</tpl><!--  会员管理  -->	</h4>
+		<div class="menu_con">
+			<a href="admin_user.php?action=user_list" target="main-frame"><b class="user01"></b><tpl>$admin_member_list</tpl><!--  会员列表  --></a>
+			<a href="admin_user.php?action=user_add" target="main-frame"><b class="user02"></b><tpl>$admin_member_add</tpl><!--  会员添加  --></a>
+			<a href="admin_user_grade.php?action=grade_list" target="main-frame"><b class="user03"></b><tpl>$admin_member_rating</tpl><!--  会员等级  --></a>
+			<a href="admin_user.php?action=user_interface" target="main-frame"><b class="user04"></b><tpl>$admin_member_merger</tpl><!--  会员整合  -->	</a>
+			<a href="admin_ask.php?action=ask_list" target="main-frame"><b class="user05"></b><tpl>$admin_member_ask</tpl><!--  在线客服  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='provider' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_provider_manage</tpl><!--  供应商管理  --></h4>
+		<div class="menu_con">
+			<a href="admin_provider.php?action=add_provider" target="main-frame"><b class="provider01"></b><tpl>$admin_provider_add</tpl><!--  供应商管理  --></a>
+			<a href="admin_provider.php?action=provider_list" target="main-frame"><b class="provider02"></b><tpl>$admin_provider_list</tpl><!--  供应商管理  --></a>
+			<a href="admin_provider.php?action=goods_list" target="main-frame"><b class="provider03"></b><tpl>$admin_provider_goods_list</tpl><!--  供应商商品管理  -->	</a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='article' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_article_manage</tpl><!--  文章管理  --></h4>
+		<div class="menu_con">
+			<a href="admin_article_class.php?action=add_article_class" target="main-frame"><b class="article01"></b><tpl>$admin_article_class_add</tpl><!--  添加分类  --></a>
+			<a href="admin_article_class.php?action=article_class_list" target="main-frame"><b class="article02"></b><tpl>$admin_article_class_list</tpl><!--  分类列表  --></a>
+			<a href="admin_article.php?action=add_article" target="main-frame"><b class="article03"></b><tpl>$admin_article_add</tpl><!--  添加文章  --></a>
+			<a href="admin_article.php?action=article_list" target="main-frame"><b class="article04"></b><tpl>$admin_article_list</tpl><!--  文章列表  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='tools' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_tools_manage</tpl><!--  工具管理  --></h4>
+		<div class="menu_con">
+			<a href="admin_tool_db.php?action=db_sql_back" target="main-frame"><b class="tools01"></b><tpl>$admin_tools_db</tpl><!--  数据库管理  --></a>
+			<a href="admin_tool_link.php?action=link_list" target="main-frame"><b class="tools02"></b><tpl>$admin_tools_flink</tpl><!--  友情链接管理  --></a>
+			<a href="admin_tool_log.php?action=log_list" target="main-frame"><b class="tools03"></b><tpl>$admin_tools_log</tpl><!--  操作日志  --></a>
+			<a href="admin_tool_file.php?action=templates" target="main-frame"><b class="tools04"></b><tpl>$admin_tools_template</tpl><!--  模板管理  --></a>
+			<a href="admin_tool_file.php?action=language_file" target="main-frame"><b class="tools05"></b><tpl>$admin_tools_language</tpl><!--  语言包管理  --></a>
+			<a href="admin_tool_mail.php?action=send_mail" target="main-frame"><b class="tools06"></b><tpl>$admin_tools_email</tpl><!--  发送邮件  --></a>
+			<a href="admin_tool_vote.php?action=vote_list" target="main-frame"><b class="tools07"></b><tpl>$admin_tools_vot</tpl><!--  投票管理  -->	</a>
+			<a href="admin_tool_ad.php?action=ad_list" target="main-frame"><b class="tools08"></b><tpl>$admin_tools_ad</tpl><!--  广告管理  --></a>
+			<a href="admin_tool_map.php?action=show_map" target="main-frame"><b class="tools09"></b><tpl>$admin_tools_map</tpl><!--  地图管理  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='module' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_module_manage</tpl><!--  模块管理  --></h4>
+		<div class="menu_con">
+			<a href="admin_module_currencies.php?action=currencies_list" target="main-frame"><b class="module01"></b><tpl>$admin_module_money</tpl><!--  货币管理  --></a>
+			<a href="admin_module_language.php?action=language_area" target="main-frame"><b class="module02"></b><tpl>$admin_module_language</tpl><!--  语言管理  --></a>
+			<a href="admin_module_pay.php?action=pay_area" target="main-frame"><b class="module03"></b><tpl>$admin_module_pay</tpl><!--  支付管理  -->	</a>
+			<!--  a href="#nogo"><tpl>$admin_module_card</tpl>  --><!--  信用卡管理  --><!--  /a  -->
+			<a href="admin_module_send.php?action=send_area" target="main-frame"><b class="module04"></b><tpl>$admin_module_transport</tpl><!--  配送管理  --></a>
+			<a href="admin_module_region.php?action=region_list" target="main-frame"><b class="module05"></b><tpl>$admin_module_area</tpl><!--  地区管理  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+		<tpl>if $show_state=='analysis' or $show_state=='all'</tpl>
+		<h4 class="menu_head"><tpl>$admin_header_system_manage</tpl><!--  系统分析  --></h4>
+		<div class="menu_con">
+			<a href="admin_stat_products.php?action=index" target="main-frame"><b class="system01"></b><tpl>$admin_statis_goods</tpl><!--  商品统计  --></a>
+			<a href="admin_stat_provider.php?action=index" target="main-frame"><b class="system02"></b><tpl>$admin_statis_provider</tpl><!--  供应商统计  --></a>
+			<a href="admin_stat_member.php?action=index" target="main-frame"><b class="system03"></b><tpl>$admin_statis_user</tpl><!--  会员统计  --></a>
+			<a href="admin_stat_visit.php?action=index" target="main-frame"><b class="system04"></b><tpl>$admin_statis_visit</tpl><!--  访问统计  --></a>
+		</div>
+		<!--   end of adminmenu   -->
+		<tpl>/if</tpl>
+	</div>
+	<!--   end of my_menu   -->
+	<div class="clear"></div>
+</div>
+<!--   end of sidebar   -->
+</body>
+</html>

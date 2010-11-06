@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_member_list</tpl></title><!-- 会员管理 - 会员列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+/* 修改产品状态 */
+function nc_state_update(user_id,ajax_type,old_state,id) {
+	$.get('admin_user.php',{'action':'user_ajax','ajax_type':ajax_type,'old_state':old_state,'user_id':user_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_user.php?action=user_add" target="_self" class="btnInput"><tpl>$admin_member_add</tpl><!-- 添加会员 --></a></span>
+	<tpl>$admin_header_user_manage</tpl><!-- 会员管理 --> >> <tpl>$admin_member_list</tpl><!-- 会员列表 -->    
+</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5>
+			<div class="floatRight2">
+                	<form id="form2" name="form2" method="get">
+					<input type="hidden" name="action" value="user_list" />
+                          <select name="select_type" id="select_type">
+                            <option value=""><tpl>$admin_user_list_search_select</tpl><!-- 选择搜索方式 --></option>
+                            <option value="user_name"><tpl>$admin_user_list_name_search</tpl><!-- 按账号搜索 --></option>
+                            <option value="true_user_name"><tpl>$admin_user_list_user_search</tpl><!-- 按会员等级搜索 --></option>
+                          </select>
+                          <input class="TextBoxAt2" type="text" name="keywords" id="keywords" value="<tpl>$smarty.get.keywords</tpl>" />
+                          <input type="submit" name="button" id="button" value="<tpl>$admin_user_list_submit</tpl>" class="btnInput" /><!-- 提交 -->
+                    </form>
+                </div>
+      <form id="form1" name="form1" method="post" action="admin_user.php?action=user_del">
+              <input type="submit" value="<tpl>$admin_user_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+			</h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><label>
+            <input type="checkbox" name="singlecheck_all" id="all" />
+            </label></th>
+            <th><tpl>$admin_user_list_name</tpl><!-- 帐号 --></th>
+            <th><tpl>$admin_user_list_sex</tpl><!-- 性别 --></th>
+            <th><tpl>$admin_user_list_email</tpl><!-- 邮箱 --></th>
+            <th><tpl>$admin_user_list_grade</tpl><!-- 等级 --></th>
+            <th><tpl>$admin_user_list_state</tpl><!-- 状态 --></th>
+            <th><tpl>$admin_user_list_time</tpl><!-- 注册时间 --></th>
+            <th><tpl>$admin_user_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$user_array </tpl>
+          <tr id="line<tpl> $user_array[list].user_id </tpl>">
+            <td><label>
+              <input type="checkbox" name="user_id[]" id="checkbox2" value="<tpl> $user_array[list].user_id </tpl>" class="cb" />
+            </label></td>
+            <td><a href="admin_user.php?action=user_add&user_id=<tpl> $user_array[list].user_id </tpl>"><tpl> $user_array[list].user_name </tpl></a></td>
+            <td><tpl> if $user_array[list].user_sex==0 </tpl><tpl>$admin_user_list_man</tpl><tpl> else </tpl><tpl>$admin_user_list_woman</tpl><tpl> /if </tpl></td>
+            <td><tpl> $user_array[list].user_email </tpl></td>
+            <td><tpl> if $user_array[list].grade_name=='' </tpl><tpl>$admin_user_list_grade_user</tpl><tpl> else </tpl> <a href="admin_user_grade.php?action=grade_add&grade_id=<tpl> $user_array[list].grade_id </tpl>"><tpl> $user_array[list].grade_name </tpl></a><tpl> /if </tpl></td>
+            <td><span id="user_<tpl>$user_array[list].user_id</tpl>"><a onclick="nc_state_update('<tpl>$user_array[list].user_id</tpl>','user_state','<tpl> $user_array[list].user_state </tpl>','user_<tpl>$user_array[list].user_id</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $user_array[list].user_state </tpl>.gif" alt="<tpl>$admin_user_list_click_update</tpl>" /></a></span></td>
+            <td><tpl>$user_array[list].user_register_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+            <td>
+            	<a href="admin_user.php?action=user_add&user_id=<tpl> $user_array[list].user_id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_user_list_edit</tpl>" /><!-- 编辑 --></a> 
+            	<a href="admin_user.php?action=user_consignee&user_id=<tpl> $user_array[list].user_id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_addr.gif" title="<tpl>$admin_user_list_address</tpl>" /><!-- 收货地址 --></a> 
+                <a href="admin_user.php?action=user_del&user_id=<tpl> $user_array[list].user_id </tpl>" onclick="return confirm('<tpl>$admin_user_list_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_user_list_del</tpl>" /><!-- 删除 --></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+		<h5 class="h5_down">
+		<div class="pagebar"><tpl> $show_page </tpl></div></td>
+		<input type="submit" value="<tpl>$admin_user_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+		</h5>
+      </form>
+	  </div>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

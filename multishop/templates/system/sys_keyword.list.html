@@ -1,0 +1,114 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langKeywordManage </tpl> &gt;&gt; <tpl> $langKeywordList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='keyword.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langKeywordAdd </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="keyword.manage.php" method="get" name="search" id="search">
+						<input type="hidden" name="action" id="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langKeywordName </tpl>:</th>
+								<td>
+									<input type="text" name="keyword_name" id="keyword_name" class="fct-input" value="<tpl> $condition.like_name </tpl>" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langKeywordDisplay </tpl>:</th>
+								<td>
+									<select name="keyword_display" id="keyword_display">
+										<option value=""><tpl> $langKeywordPleaseSelect </tpl></option>
+										<option value="1"><tpl> $langKeywordYes </tpl></option>
+										<option value="0"><tpl> $langKeywordNo </tpl></option>
+									</select>&nbsp;&nbsp;
+									<input type="submit" name="submit"  class="bthl" value="<tpl> $langSysSearch </tpl>" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="keyword.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langKeywordSelect </tpl></td>
+						<td class="es-5"><tpl> $langKeywordSort </tpl></td>
+						<td class="es-2"><tpl> $langKeywordName </tpl></td>
+						<!--<td class="es-5"><tpl> $langKeywordSeachDegree </tpl></td>-->
+						<td class="es-4"><tpl> $langKeywordUrl </tpl></td>
+						<td class="es-5"><tpl> $langKeywordDisplay </tpl></td>
+						<td class="es-6"><tpl> $langKeywordOperation </tpl></td>
+					</tr>
+					<tpl> if $keyword_array[0].keyword_id neq '' </tpl>
+		  				<tpl> foreach item=keyword from=$keyword_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="keyword_id[]" type="checkbox" value="<tpl> $keyword.keyword_id </tpl>"/></td>
+						<td><input name="keyword_sort[<tpl> $keyword.keyword_id </tpl>]" type="text" class="fct-input-2" value="<tpl> $keyword.keyword_sort </tpl>" /><input type="hidden" name="id[<tpl> $keyword.keyword_id </tpl>]" value="<tpl> $keyword.keyword_id </tpl>" /></td>
+						<td><tpl> $keyword.keyword_name </tpl></td>
+						<!--<td><tpl> $keyword.keyword_num </tpl></td>-->
+						<td><tpl> $keyword.keyword_url </tpl></td>
+						<td>
+							<tpl> if $keyword.keyword_display eq 1 </tpl>
+								<tpl> $langKeywordYes </tpl>
+							<tpl> else </tpl>
+								<tpl> $langKeywordNo </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+						<a href="keyword.manage.php?action=modi&id=<tpl> $keyword.keyword_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langKeywordModi </tpl></a>
+						</td>
+					</tr>
+					
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $keyword_array[0].keyword_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $keyword_array[0].keyword_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="" id="update_sort" value="<tpl> $langKeywordSubmitSort </tpl>" type="button" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$('#update_sort').click(function(){
+		$('input[id=action]').val('sort');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>

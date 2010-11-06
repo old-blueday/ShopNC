@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_send_list</tpl></title><!-- 模块管理 - 配送列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body id="goodsList">
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_module_send.php?action=send_area" target="_self">{<tpl>$admin_module_send_region</tpl>}</a></span><!-- 配送区域 --> <tpl>$admin_header_module_manage</tpl> >> <tpl>$admin_module_send_list</tpl><!-- 模块管理 >> 配送列表 -->
+    	   
+	</h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+         <tr>
+          	<td colspan="5" class="searchbar">
+            <div class="textRight">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" />:<tpl>$admin_module_send_list_install</tpl><!-- 安装 -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" />:<tpl>$admin_module_send_list_edit</tpl><!-- 编辑 -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif"/>:<tpl>$admin_module_send_list_uninstall</tpl><!-- 卸载 -->
+            </div>
+			</td>
+		</tr>
+          <tr>
+            <th><tpl>$admin_module_send_list_name</tpl><!-- 配送名称 --></th>
+            <th width="40%"><tpl>$admin_module_send_list_desc</tpl><!-- 配送描述 --></th>
+            <th><tpl>$admin_module_send_list_send</tpl><!-- 货到付款 --></th>
+            <th><tpl>$admin_module_send_list_sort</tpl><!-- 排序 --></th>
+            <th><tpl>$admin_module_send_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$transport_type_array</tpl>
+          <tr>
+            <td><tpl>$transport_type_array[list].name</tpl></td>
+            <td class="textLeft"><tpl>$transport_type_array[list].info</tpl></td>
+            <td class="flag"><tpl> if $transport_type_array[list].pay_type=='0'</tpl><tpl> $admin_module_send_yes</tpl><tpl>else</tpl><tpl>$admin_module_send_no</tpl><tpl>/if</tpl></td>
+            <td>1</td>
+            <td>
+				<tpl>if $transport_type_array[list].install==1</tpl><a href="admin_module_send.php?action=send_buy_area&send_id=<tpl>$transport_type_array[list].send_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" title="<tpl>$admin_module_send_list_edit</tpl>" /></a><!-- 设置区域 -->
+				<a href="admin_module_send.php?action=del_send_type&file_name=<tpl>$transport_type_array[list].file</tpl>&send_id=<tpl>$transport_type_array[list].send_id</tpl>""><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif" title="<tpl>$admin_module_send_list_uninstall</tpl>" /></a><!-- 卸载 --><tpl>else</tpl><a href="admin_module_send.php?action=add_send_type&file_name=<tpl>$transport_type_array[list].file</tpl>&transport_area_directory=<tpl>$transport_area_info.send_area_directory</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" title="<tpl>$admin_module_send_list_install</tpl>" /></a><!-- 安装 --><tpl>/if</tpl>
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+        </table>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+
+</body>
+</html>

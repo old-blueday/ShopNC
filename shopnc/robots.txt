@@ -1,0 +1,23 @@
+#
+# robots.txt for ShopNC
+# Version 6.0
+#
+
+User-agent: *
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /attachments/
+Disallow: /images/
+Disallow: /install/
+Disallow: /data/
+Disallow: /include/
+Disallow: /share/
+Disallow: /classes/
+Disallow: /language/
+Disallow: /templates/
+Disallow: /uc_client/
+Disallow: /uc_server/
+Disallow: /shopping.php
+Disallow: /header.php
+Disallow: /footer.php

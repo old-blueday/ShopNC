@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<title></title>
+<link href="<tpl> $site_url </tpl><tpl> $templates_subpath </tpl>/css/reset-fonts-grids.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $site_url </tpl><tpl> $templates_subpath </tpl>/css/header.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="doc3">
+	<div id="yui-main">
+		 <div class="yui-b">
+		 	<div class="yui-g">
+				<div class="gtop gtopmus">
+					<a href="<tpl> $site_url </tpl>" target=_blank><img class="glogo" alt="shopnc" src="<tpl> $site_url </tpl><tpl> $templates_subpath </tpl>/images/logo.gif" border=0>
+					</a>
+					<div class="tlink">
+					<b><tpl> $smarty.session.s_admin.name </tpl></b>
+					&nbsp;&nbsp;<a href="<tpl> $site_url </tpl>" target="_blank"><tpl> $langCShopIndex </tpl></a>&nbsp;
+					|&nbsp;<a href="http://www.shopnc.net/product/multishop.php" target="_blank"><tpl> $langCNewFunction </tpl></a>&nbsp;
+					|&nbsp;<a href="index.php?action=help" target="mainFrame"><tpl> $langCHelp </tpl></a>&nbsp;
+					|&nbsp;<a href="http://www.shopnc.net/company/contact.php" target="_blank"><tpl> $langCFooterContact </tpl></a>&nbsp;
+					|&nbsp;<a href="javascript:;" onclick="admin_password_set();"><tpl> $langCModiPass </tpl></a>&nbsp;
+					|&nbsp;<a href="index.php?action=clear_cache" target="mainFrame"><tpl> $langSysCUpdateCache </tpl></a>&nbsp;
+					|&nbsp;<a href="index.php?action=out" target="_parent"><tpl> $langCOutSys </tpl></a>
+					</div>
+					<div class="gnav">
+						<ul id="navers">
+							<tpl> foreach from=$navers item=one key=key </tpl>
+								<li><a href="javascript:;" id="navers_<tpl> $one.power </tpl>" onclick="openwindow('<tpl> $one.power </tpl>');" <tpl> if $one.power eq $type </tpl>class="on"<tpl> /if </tpl>><tpl> $one.name </tpl></a></li>
+							<tpl> /foreach </tpl>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script language="javascript">
+function openwindow(type){
+	$('li').each(function(){
+		$(this).children('a').removeClass();
+	})
+	$('#navers_'+type).addClass('on');
+	window.open("<tpl> $site_url </tpl>/system/index.php?action=entrance&type="+type,"leftFrame");
+}
+function admin_password_set(){
+	window.open("<tpl> $site_url </tpl>/system/index.php?action=admin_password","mainFrame");
+}
+$(document).ready(function(){
+	<tpl> if $type eq 'index' || $type eq '' </tpl>
+	openwindow('index');
+	<tpl> /if </tpl>
+});
+</script>
+</html>

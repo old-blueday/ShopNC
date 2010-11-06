@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBliC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/search.css" rel="stylesheet" type="text/css" />
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+</head>
+<body><tpl>include file ='header_new.html'</tpl>
+<script>
+$(function (){
+	$('#adddiv').addSelect({
+		ajaxUrl:'../home/tohtml.php',
+		ajaxAction:'get_area',
+		hiddenId:'shop_area_id'
+	});
+})
+</script>
+<div id="wrapper" class="m">
+  <!-- Header -->
+  <!-- End Header -->
+  <div class="clear">&nbsp;</div>
+  <!-- 位置导航 -->
+  <div id="sitenav"><span><a href="<tpl> $site_url </tpl>"><tpl> $langCIndex </tpl></a> > <tpl> $langCSearchShop </tpl></span></div>
+  <!-- End位置导航 -->
+  <div id="searchbox">
+    <div id="searchpicshop"></div>
+    <ul id="searchtab">
+      <li><a href="product.php?action=search"><span><tpl> $langCSearchBaby </tpl></span></a></li>
+      <li class="current"><a href="JavaScript: void(null);"><span><tpl> $langCSearchShop </tpl></span></a></li>
+    </ul>
+    <div class="searchcontent">
+      <form id="mainform" action="shop.php" method="get">
+	  <input type="hidden" id="shop_area_id" name="shop_area_id"/>
+        <ul class="form_advance" id="searchitem">
+          <li>
+            <div class="searchformleft"><tpl> $langShopName </tpl>：</div>
+            <div class="searchformright">
+              <INPUT class="searchforminput" id="keyword" accessKey="s" size="48" name="keyword">
+            </div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langShopShopkeeperName </tpl>：</div>
+            <div class="searchformright">
+              <INPUT class="searchforminput" id="seler_name" size="48" name="txtMaster">
+            </div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langShopSaleRange </tpl>：</div>
+            <div class="searchformright">
+              <INPUT class="searchforminput" name="txtSaleRange">
+            </div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langShopArea </tpl>：</div>
+			<div id="adddiv" class="searchformright"></div>
+          </li>
+          <li>
+            <div class="searchformleft"><tpl> $langShopSort </tpl>：</div>
+            <div class="searchformright">
+              <tpl> $shop_select_category </tpl>
+            </div>
+          </li>
+          <li class="submitbox" >
+            <input type="image" name="imageField" id="imageField" src="<tpl> $site_url </tpl>/templates/orange/home/images/searchbtn_shop.gif" />
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <div class="clear" style="height:24px;"></div>
+</div>
+  <tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_order_manage</tpl> - <tpl>$admin_order_list</tpl></title><!-- 订单管理 - 订单列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+	function change_state(value){
+		document.getElementById("action_type").value = value;
+	}
+</script>
+</head>
+
+<body>
+<div id="content">
+	<h2><tpl>$admin_header_order_manage</tpl> >> <tpl>$admin_order_list</tpl><!-- 订单管理 >> 订单列表 -->
+    </h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="10" class="searchbar">
+            	<div class="alignRight">
+                	<form id="form2" name="form2" method="get">
+					<input type="hidden" name="action" value="order_list" />
+					<input type="hidden" name="search" value="order_search" /> 
+						<label>
+                          <select name="select" id="select">
+                            <option value=""><tpl>$admin_order_search_choice</tpl><!-- 选择搜索方式 --></option>
+                            <option value="order_serial"><tpl>$admin_order_search_order</tpl><!-- 按订单号搜索 --></option>
+                            <option value="receiver_name"><tpl>$admin_order_search_buyer</tpl><!-- 按订货人搜索 --></option>
+                          </select>
+						</label>
+                          <label><input type="text" name="order_keywords" id="order_keywords" /></label>
+                          <label><input type="submit" value="<tpl>$admin_order_submit</tpl>" class="btnInput" /><!-- 提交 --></label>
+                    </form>
+                </div>
+            </td>
+          </tr>
+		  <form method="post" action="?action=order_del">
+          <tr>
+            <th><label><input type="checkbox" name="all" id="all" /></label></th>
+            <th><tpl>$admin_order_num</tpl><!-- 订单编号 --></th>
+            <th><tpl>$admin_order_book_time</tpl><!-- 下单日期 --></th>
+            <th><tpl>$admin_order_money_amount</tpl><!-- 订单金额 --></th>
+            <th><tpl>$admin_order_shipping_price</tpl><!-- 配送费用 --></th>
+            <th><tpl>$admin_order_type_of_payment</tpl><!-- 付款方式 --></th>
+            <th><tpl>$admin_order_orderer</tpl><!-- 订货人 --></th>
+            <th><tpl>$admin_order_consignee</tpl><!-- 收货人 --></th>
+            <th><tpl>$admin_order_state</tpl><!-- 订单状态 --></th>
+            <th><tpl>$admin_order_operate</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$order_array</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="order_id[]" id="checkbox2" value="<tpl>$order_array[list].order_id</tpl>" class="cb" />
+            </label></td>
+            <td><tpl>$order_array[list].order_serial</tpl></td>
+            <td><tpl>$order_array[list].create_time|date_format:"%Y-%m-%d"</tpl></td>
+            <td><tpl>$order_array[list].order_price</tpl></td>
+            <td><tpl>$order_array[list].transport_price</tpl></td>
+            <td><tpl>$order_array[list].pay_name</tpl></td>
+            <td><tpl>if $order_array[list].user_name != ''</tpl><tpl>$order_array[list].user_name</tpl><tpl>else</tpl><tpl>$order_array[list].receiver_name</tpl><tpl>/if</tpl></td>
+            <td><tpl>$order_array[list].receiver_name</tpl></td>
+            <td>
+			<tpl>if $order_array[list].order_state == 0</tpl><font color="#FF0000"><tpl>$admin_order_unconfirmed</tpl></font><tpl>else</tpl><tpl>$admin_order_be_confirmed</tpl><!-- 已确认 --><tpl>/if</tpl>,
+						<tpl>if $order_array[list].order_state1 == 0</tpl><font color="#FF0000"><tpl>$admin_order_not_paid</tpl></font><tpl>else</tpl><tpl>$admin_order_have_paid</tpl><!-- 已付款 --><tpl>/if</tpl>,
+						<tpl>if $order_array[list].order_state2 == 0</tpl><font color="#FF0000"><tpl>$admin_order_no_send</tpl></font><tpl>else</tpl><tpl>$admin_order_yes_send</tpl><!-- 已发货 --><tpl>/if</tpl>,
+						<tpl>if $order_array[list].order_state3 == 0</tpl><font color="#FF0000"><tpl>$admin_order_no_fill</tpl></font><tpl>else</tpl><tpl>$admin_order_already_filled</tpl><!-- 已归档 --><tpl>/if</tpl>
+			</td>
+            <td>
+            	<a href="admin_order.php?action=order_view&order_id=<tpl>$order_array[list].order_id</tpl>" target="_self"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" title="<tpl>$admin_order_view</tpl>" /><!-- 查看订单 --></a> 
+               <tpl>if $pay_receive_type eq 1</tpl>
+			    <a href="admin_order.php?action=order_del&order_id=<tpl>$order_array[list].order_id</tpl>" onclick="return confirm('<tpl>$admin_order_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_order_delete</tpl>" /><!-- 删除 --></a>
+				<tpl>/if</tpl>
+            </td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="10" class="searchbar" height="25">
+			<label>
+                <input type="submit" name="submit" value="<tpl>$admin_order_delete</tpl>" class="delBtnInput" />
+			</label>
+              <div class="pagebar">
+                  <tpl>$order_page</tpl>
+              </div>
+            </td>
+          </tr>
+		   </form>
+        </table>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

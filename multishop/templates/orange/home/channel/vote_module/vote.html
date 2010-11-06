@@ -1,0 +1,29 @@
+<tpl> if $vote_array[0].vote_id neq '' </tpl>
+	<tpl> foreach from=$vote_array item=one </tpl>
+		<form action='<tpl> $site_url </tpl>/home/vote.php?action=vote' method='post' name='form_p_list' id='form_p_list' target='_blank'>
+			<input type='hidden' name='vote_id' value='<tpl> $one.vote_id </tpl>'  />
+			<input type='hidden' name='vote_refresh' value='<tpl> $one.vote_refresh </tpl>'  />
+			<input type='hidden' name='vote_member' value='<tpl> $one.vote_member </tpl>'  />
+			<input type='hidden' name='type' value='<tpl> $type </tpl>'  />
+		<div class="poll_question" ><tpl> $one.vote_title </tpl></div>
+		<div class="poll_checkbox">
+			<tpl> foreach from=$one.content key=key name = name item=two </tpl>
+				<tpl> if $one.vote_check eq '0' </tpl>
+					<p><input <tpl> if $smarty.foreach.name.iteration eq '1' </tpl>checked='checked'<tpl> /if </tpl> name='vote_check' id='vote_check' type='radio' value='<tpl> $key </tpl>'>
+				<tpl> else if $one.vote_check eq '1' </tpl>
+					<p><input <tpl> if $smarty.foreach.name.iteration eq '1' </tpl>checked='checked'<tpl> /if </tpl> name='vote_check[]' id='vote_check[]' type='checkbox' value='<tpl> $key </tpl>'>
+				<tpl> /if </tpl>
+				<label for="vote_check[]"><tpl> $two.option </tpl></label></p>
+				<input type='hidden' name='vote_option[]' value='<tpl> $two.option </tpl>' />
+				<input type='hidden' name='vote_num[]' value='<tpl> $two.num </tpl>' />
+			<tpl> /foreach </tpl>
+		</div>
+		<div class="center">
+			<input type='submit' value='<tpl> $langCsubmit </tpl>' />
+			
+		
+			<input type='button' value='<tpl> $langCview </tpl>' onClick="location.href='<tpl> $site_url </tpl>/home/vote.php?action=view&vote_id=<tpl> $one.vote_id </tpl>'" />
+		</div>
+		</form>
+	<tpl> /foreach </tpl>
+<tpl> /if </tpl>

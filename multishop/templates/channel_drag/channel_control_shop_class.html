@@ -1,0 +1,45 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<tpl> if $output.type eq '0' </tpl>
+		<div class="blockcontent">
+			<div class="shop_py">
+				<ul>
+					<tpl> foreach item=one from=$output.list key=key </tpl>
+						 <tpl> if  $one.class_name eq 'NULL' || $one.class_name eq ''</tpl>
+						 <tpl> else </tpl>
+						<li>
+							<a target="_blank" href="<tpl> $site_url </tpl>/home/shop.php?action=list&slcShopClass=<tpl> $one.class_id </tpl>" title="<tpl> $one.class_name </tpl>"><tpl> $one.class_name </tpl></a>
+							<tpl> if $one.child_class[0].class_id neq '' </tpl>
+							<li class="suojin">
+									<tpl> foreach item=two from=$one.child_class key=key2 </tpl>
+										<a target="_blank" href="<tpl> $site_url </tpl>/home/shop.php?action=list&slcShopClass=<tpl> $two.class_id </tpl>" title="<tpl> $two.class_name </tpl>"><tpl> $two.class_name </tpl></a>
+									<tpl> /foreach </tpl>
+							</li>
+							<tpl> /if </tpl>
+						</li>
+					 <tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+		<tpl> if $output.type eq '1' </tpl>
+		<div class="blockcontent">
+			<div class="">
+				<ul>
+					<tpl> foreach item=one from=$output.list </tpl>
+					 <tpl> if  $one.class_name eq 'NULL' || $one.class_name eq ''</tpl>
+					<tpl> else </tpl>
+					<li><a target="_blank" href="<tpl> $site_url </tpl>/home/shop.php?action=list&slcShopClass=<tpl> $one.class_id </tpl>" title="<tpl> $one.class_name </tpl>"><tpl> $one.class_name </tpl></a></li>
+					<tpl> /if </tpl>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

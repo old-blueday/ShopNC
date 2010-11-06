@@ -1,0 +1,65 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMessageManage </tpl> &gt;&gt; <tpl> $langSysMessageModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="shopmessage.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="message_id" value="<tpl> $message_array.message_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysShop </tpl>:</th>
+									<td><tpl> $message_array.shop_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMessageHuman </tpl>:</th>
+									<td><tpl> $message_array.member_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMessageTime </tpl>:</th>
+									<td><tpl> $message_array.message_time </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysContent </tpl>:</th>
+									<td>
+										<textarea class="fct-input" name="message_content" id="message_content"><tpl> $message_array.message_content </tpl></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMessageSeller </tpl>:</th>
+									<td><tpl> $message_array.login_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysRevertContent </tpl>:</th>
+									<td>
+										<textarea class="fct-input" name="message_recontent" id="message_recontent"><tpl> $message_array.message_recontent </tpl></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysRevertTime </tpl>:</th>
+									<td><tpl> $message_array.re_time </tpl></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

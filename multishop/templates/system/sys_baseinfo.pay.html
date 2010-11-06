@@ -1,0 +1,92 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langBPaymentFace </tpl> &gt;&gt; <tpl> $langSysMenuSystemPaySet </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="baseinfo.manage.php" method="post" id="form_add" name="form_add">
+						<input type="hidden" name="action" value="savepay" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langBalipay </tpl>:</th>
+									<td>
+										<input name="txtalipay" type="text" id="txtalipay" class="fct-input" value="<tpl> $paymentinfo_online_array.alipay </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBalipayPartner </tpl>:</th>
+									<td>
+									<input name="txtalipay_partner" type="text" id="txtalipay_partner" class="fct-input" value="<tpl> $paymentinfo_online_array.alipay_partner </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBalipayKey </tpl>:</th>
+									<td>
+										<input name="txtalipay_security_code" type="password" id="txtalipay_security_code" class="fct-input" value="<tpl> $paymentinfo_online_array.alipay_security_code </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBTenpay </tpl>:</th>
+									<td>
+										<input name="txttenpay" type="text" id="txttenpay" class="fct-input" value="<tpl> $paymentinfo_online_array.tenpay </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBTenpayKey </tpl>:</th>
+									<td>
+										<input name="txttenpay_key" type="password" id="txttenpay_key" class="fct-input" value="<tpl> $paymentinfo_online_array.tenpay_key </tpl>"/>
+									</td>
+								</tr>
+<!--								<tr>
+									<th><tpl> $langBKqpay </tpl>:</th>
+									<td>
+										<input name="txt99bill" type="text" id="txt99bill" class="fct-input" value="<tpl> $paymentinfo_online_array.99bill </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBKqpayKey </tpl>:</th>
+									<td>
+										<input name="txt99bill_key" type="password" id="txt99bill_key" class="fct-input" value="<tpl> $paymentinfo_online_array.99bill_key </tpl>"/>
+									</td>
+								</tr> -->
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langBSubmit </tpl>" type="submit" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<!--<script>
+$("#form_add").validate({
+	errorClass: "wrong",
+	rules: {
+		txtalipay: {required:true},
+		txtalipay_partner: {required:true,},
+		txtalipay_security_code: {required:true},
+		txttenpay: {required:true},
+		txttenpay_key: {required:true,}
+	},
+	messages: {
+		txtalipay: {required: "<tpl> $errBSMTPEmailServerIsEmpty </tpl>"},
+		txtalipay_partner: {required:"<tpl> $errBSMTPEmailIsEmpty </tpl>"},
+		txtalipay_security_code: {required: "<tpl> $errBSMTPEmailUserIsEmpty </tpl>"},
+		txttenpay: {required: "<tpl> $errBSMTPEmailPasswordIsEmpty </tpl>"},
+		txttenpay_key: {required: "<tpl> $errBSMTPEmailPassportIsEmpty </tpl>"}
+	}
+});
+</script>-->

@@ -1,0 +1,98 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSClientAnalyse </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_sys.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<input type="hidden" name="type" value="<tpl> $type </tpl>" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<select name="time">
+										<option value=""></option>
+										<option value="1" <tpl> if $time eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSToday </tpl></option>
+										<option value="2" <tpl> if $time eq '2' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSYesterday </tpl></option>
+										<option value="3" <tpl> if $time eq '3' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSBeforeYesterday </tpl></option>
+										<option value="all" <tpl> if $time eq 'all' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSAll </tpl></option>
+									</select>
+								</td>
+								<th class="wd"><tpl> $langSysStaticsDesignatedTime </tpl>:</th>
+								<td>
+									<input class="fct-input" readonly="true" value="<tpl> if $time neq '1' && $time neq '2' && $time neq '3' && $time neq 'all' </tpl><tpl> $time </tpl><tpl> /if </tpl>" name="txt_time" id="txt_time" />&nbsp;&nbsp;
+									<input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="3">
+										<input type="radio" class="input_radio" id="type_os" <tpl> if $type eq 'os' </tpl> checked <tpl> /if </tpl> /><label for="type_os" onclick="location.href='statics_sys.manage.php?action=list&type=os'"><tpl> $langSysSOperatorSystem </tpl></label>
+										<input type="radio" class="input_radio" id="type_browse" <tpl> if $type eq 'browse' </tpl> checked <tpl> /if </tpl> onclick="location.href='statics_sys.manage.php?action=list&type=browse'" /><label for="type_browse"><tpl> $langSysSBrowserKemel </tpl></label>
+										<input type="radio" class="input_radio" id="type_screen" <tpl> if $type eq 'screen' </tpl> checked <tpl> /if </tpl> onclick="location.href='statics_sys.manage.php?action=list&type=screen'" /><label for="type_screen"><tpl> $langSysTellApart </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3"><tpl> $langSysSNonceTimeSegment </tpl>:<tpl> $date </tpl></td>
+								</tr>
+								<tr>
+									<td colspan="3"><tpl> $statics_flash </tpl></td>
+								</tr>
+								<tr>
+									<th style="text-align:center;">&nbsp;</th>
+									<th style="text-align:center;">PV</th>
+									<th style="text-align:center;"><tpl> $langSysSPercent </tpl></th>
+								</tr>
+								<tr>
+									<td><tpl> $langSysSTotalize </tpl></td>
+								    <td><tpl> $num_sum|default:'0' </tpl></td>
+									<td>100%</td>
+								</tr>
+								<tpl> if $system_array|@count > 0 </tpl>
+									<tpl> section name=loop loop=$system_array </tpl>
+										<tpl> if $smarty.section.loop.rownum <= '20' </tpl>
+											<tr>
+												<td><tpl> $system_array[loop].name </tpl></td>
+												<td><tpl> $system_array[loop].pv </tpl></td>
+												<td><tpl> $system_array[loop].perc </tpl>%</td>
+										    </tr>
+										<tpl> /if </tpl>
+								    <tpl> /section </tpl>
+							    <tpl> /if </tpl>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	$('#txt_time').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+</script>
+</body>
+</html>

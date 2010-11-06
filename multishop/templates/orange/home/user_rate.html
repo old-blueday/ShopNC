@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>
+include file ='../head.config.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+function getUserScore(t) {
+	var h = '';
+	if (t == '') {
+		h = 'user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=<tpl> $genre </tpl>';
+	}
+	if (t == '1') {
+		h = 'user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=<tpl> $genre </tpl>&score=1';
+	}
+	if (t == '0') {
+		h = 'user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=<tpl> $genre </tpl>&score=0';
+	}
+	if (t == '-1') {
+		h = 'user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=<tpl> $genre </tpl>&score=-1';
+	}
+	window.location.href = h+'&time=<tpl> $smarty.get.time </tpl>';
+}
+</script>
+</head>
+<body>
+<div id="wrapper" class="m">
+	<!-- Header -->
+	<tpl>include file ='../top.html'</tpl>
+	<!-- End Header -->
+	<!-- Main -->
+	<div class="clear">&nbsp;</div>
+	<!-- layout -->
+
+	<div class="ft-left">
+		<div class="blockcontent">
+			<div class="shop_xiny">
+				<div id="RateSummary"><!-- 店主个人信息 -->
+					<table class="wd-wid" width="100%" border="0" cellpadding="0">
+					<tr>
+						<td colspan="4" align="left">
+							<h2><span class="ren-tou"><tpl> $langSRateIndividualInfo </tpl></span></h2>
+						</td>
+					</tr>
+					<tr>
+						<td width="84" height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateMumberName </tpl>:&nbsp;</td>
+						<td width="115" align="left">&nbsp;<a href="<tpl> $site_url </tpl>/home/userinfo.php?userid=<tpl> $frame_shop_info.member_id </tpl>"><tpl> $frame_shop_info.login_name </tpl></a></td>
+					</tr>
+					<tr>
+						<td height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateSaleCredit </tpl>:&nbsp;</td>
+						<td align="left">&nbsp;<tpl>$frame_shop_info.sale_score|default:"0" </tpl>
+							<a style="white-space:nowrap;" href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>">
+								<tpl> foreach from=$sell_score_level.median item=one </tpl>
+									<tpl> if $sell_score_level.level eq '0' </tpl>
+										<img title="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+									<tpl> /if </tpl>
+									<tpl> if $sell_score_level.level eq '1' </tpl>
+										<img title="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+									<tpl> /if </tpl>
+									<tpl> if $sell_score_level.level eq '2' </tpl>
+										<img title="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+									<tpl> /if </tpl>
+								<tpl> /foreach </tpl>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateBuyCredit </tpl>:&nbsp;</td>
+						<td align="left">&nbsp;<tpl> $frame_shop_info.buy_score|default:"0" </tpl><a style="white-space:nowrap;" href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>"><tpl> foreach from=$buy_score_level.median item=one </tpl>
+									<tpl> if $buy_score_level.level eq '0' </tpl>
+										<img title="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+									<tpl> /if </tpl>
+									<tpl> if $buy_score_level.level eq '1' </tpl>
+										<img title="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+									<tpl> /if </tpl>
+									<tpl> if $buy_score_level.level eq '2' </tpl>
+										<img title="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+									<tpl> /if </tpl>
+								<tpl> /foreach </tpl>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateSaleReputably </tpl>:&nbsp;</td>
+						<td align="left">&nbsp;<tpl> $sell_sta.good_percent </tpl></td>
+					</tr>
+					<tr>
+						<td height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateBuyReputably </tpl>:&nbsp;</td>
+						<td align="left">&nbsp;<tpl> $buy_sta.good_percent </tpl></td>
+						
+					</tr>
+					<tr>
+						<td height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateAddress </tpl>:&nbsp;</td>
+						<td align="left" bgcolor="#FFFFFF">&nbsp;<tpl> section name=loop loop=$sel_area </tpl><tpl> $sel_area[loop].area_name </tpl><tpl> /section </tpl></td>
+					</tr>
+					<tr>
+						<td height="30" align="right" bgcolor="#FDF7E7"><tpl> $langSRateCorrespondence </tpl>:&nbsp;</td>
+						<td align="left">&nbsp;
+							<a href="../member/own_message.php?action=add&username=<tpl>$frame_shop_info.sms_username</tpl>" target="_blank"><img src="<tpl>$site_url</tpl>/templates/store/images/zhannei.gif" alt="<tpl> $langSRateSendCorrespondence </tpl>"/></a>
+							<tpl> if $frame_shop_info.TAOBAO neq '' </tpl>	
+								<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=1&uid=<tpl> $frame_shop_info.TAOBAO </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=1&uid=<tpl> $frame_shop_info.TAOBAO </tpl>&site=cntaobao&s=2" alt="<tpl> $langPOnClickMyMessage </tpl>" /></a>
+							<tpl> /if </tpl> 
+							<tpl> if $frame_shop_info.QQ neq '' </tpl>	  
+								<a href=tencent://message/?uin=<tpl> $frame_shop_info.QQ </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $frame_shop_info.QQ </tpl>:4 alt="<tpl> $langPOnClickMyMessage </tpl>"></a>
+							<tpl> /if </tpl> 
+							<tpl> if $frame_shop_info.MSN neq '' </tpl>
+								<A href="msnim:chat?contact=<tpl> $frame_shop_info.MSN </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0"></A>
+							<tpl> /if </tpl>
+							<tpl> if $frame_shop_info.SKYPE neq '' </tpl>
+								<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+								<a href="skype:<tpl> $frame_shop_info.SKYPE </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="20" height="20" alt="Skype Me?!" /></a>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+					<tpl> if $report|@count > 0 </tpl>
+					<tr>
+						<td colspan="4" style=" padding-top:5px; padding-bottom:5px;">
+							<div>
+								<ul>
+									<tpl> foreach item=i from=$report </tpl>
+										<li style=" float:left; padding:0px 5px; background-color:#ffffff; border:#ccc 1px solid; margin-left:3px;"><tpl> $langStoreBecause </tpl>&quot;<tpl> $i.type_name </tpl>&quot;<tpl> $langStoreByReport </tpl>:<tpl> $i.num </tpl><tpl> $langStoreNum </tpl></li>
+									<tpl> /foreach </tpl>
+								</ul>
+							</div>
+						</td>
+					</tr>
+					<tpl> /if </tpl>
+					</table>
+				</div>
+			</div>
+		
+		<div class="ft_lefticon">
+			<div id="RateSummary_right" style="text-align:left;margin:0 0 10px 0;"><!-- 店主作为买家和卖家的评价度显示 -->
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="center" class="rr_left">
+			<table width="100%" class="lj-xi" cellpadding="0" cellspacing="0">
+				<tr>
+					<td height="30" align="left">
+						<h2><span class="ren-tou-2">
+						<tpl> $langSRateSaleCredit </tpl>:<a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>"><tpl>$frame_shop_info.sale_score|default:"0" </tpl></a>
+						<a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>">
+							<tpl> foreach from=$sell_score_level.median item=one </tpl>
+								<tpl> if $sell_score_level.level eq '0' </tpl>
+									<img title="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+								<tpl> /if </tpl>
+								<tpl> if $sell_score_level.level eq '1' </tpl>
+									<img title="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+								<tpl> /if </tpl>
+								<tpl> if $sell_score_level.level eq '2' </tpl>
+									<img title="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $sell_score_level.interval.one </tpl>-<tpl> $sell_score_level.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" align="absmiddle">
+								<tpl> /if </tpl>
+							<tpl> /foreach </tpl>
+						</a></span><em><tpl> $langSRateReputablyPercent </tpl>:<font color="#ff5500"><tpl> $sell_sta.good_percent </tpl></font></em></h2>   	  			
+					</td>
+				</tr>
+			</table>
+			<table width="723" class="lianjie-se" border="0" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+				<tr>
+					<td bgcolor="#fefaea">&nbsp;</td>
+					<td height="30" align="center" bgcolor="#FDF7E7"><tpl> $langSRateLatelyOneWeek </tpl></td>
+					<td align="center"  bgcolor="#FEF2D4"><tpl> $langSRateLatelyOneMonth </tpl></td>
+					<td align="center" bgcolor="#FDEEC5"><tpl> $langSRateLatelySixMonth </tpl></td>
+					<td align="center" bgcolor="#FDE9B4"><tpl> $langSRateSixMonthFormer </tpl></td>
+					<td align="center" bgcolor="#FCE5A7"><tpl> $langSRateTotalize </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_01.gif" align="absmiddle" /><tpl> $langSRateReputably </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=1&time=week"><tpl> $sell_sta.one_week_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=1&time=month"><tpl> $sell_sta.one_month_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=1&time=six_month"><tpl> $sell_sta.six_month_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=1&time=former_six_month"><tpl> $sell_sta.former_six_month_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $sell_sta.six_month_good+$sell_sta.former_six_month_good </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_03.gif" align="absmiddle" /><tpl> $langSRateMiddlingAppraise </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=0&time=week"><tpl> $sell_sta.one_week_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=0&time=month"><tpl> $sell_sta.one_month_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=0&time=six_month"><tpl> $sell_sta.six_month_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=0&time=former_six_month"><tpl> $sell_sta.former_six_month_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $sell_sta.six_month_normal+$sell_sta.former_six_month_normal </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_02.gif" align="absmiddle" /><tpl> $langSRateLowAppraise </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=-1&time=week"><tpl> $sell_sta.one_week_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=-1&time=month"><tpl> $sell_sta.one_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=-1&time=six_month"><tpl> $sell_sta.six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&score=-1&time=former_six_month"><tpl> $sell_sta.former_six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $sell_sta.six_month_bad+$sell_sta.former_six_month_bad </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><tpl> $langSRateTotalize </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&time=week">
+					<tpl> $sell_sta.one_week_good+$sell_sta.one_week_normal+$sell_sta.one_week_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&time=month">
+					<tpl> $sell_sta.one_month_good+$sell_sta.one_month_normal+$sell_sta.one_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&time=six_month">
+					<tpl> $sell_sta.six_month_good+$sell_sta.six_month_normal+$sell_sta.six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=s&time=former_six_month">
+					<tpl> $sell_sta.former_six_month_good+$sell_sta.former_six_month_normal+$sell_sta.former_six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $sell_sta.six_month_good+$sell_sta.former_six_month_good+$sell_sta.six_month_normal+$sell_sta.former_six_month_normal+$sell_sta.six_month_bad+$sell_sta.former_six_month_bad </tpl></td>
+				</tr>
+			</table>
+		</td>
+	<tr>
+	</tr>
+		<td align="center" class="rr_right">
+			<table width="100%" class="lj-xi" cellpadding="0" cellspacing="0">
+				<tr>
+				<td height="30" align="left">
+					<h2><span class="ren-tou-1">
+					<tpl> $langSRateBuyCredit </tpl>:<a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>"><tpl> $frame_shop_info.buy_score|default:"0" </tpl></a>
+					<a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>">
+						<tpl> foreach from=$buy_score_level.median item=one </tpl>
+							<tpl> if $buy_score_level.level eq '0' </tpl>
+								<img title="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+							<tpl> /if </tpl>
+							<tpl> if $buy_score_level.level eq '1' </tpl>
+								<img title="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+							<tpl> /if </tpl>
+							<tpl> if $buy_score_level.level eq '2' </tpl>
+								<img title="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $buy_score_level.interval.one </tpl>-<tpl> $buy_score_level.interval.two </tpl><tpl> $langStoreIntegralLookBuy </tpl>" align="absmiddle">
+							<tpl> /if </tpl>
+						<tpl> /foreach </tpl>
+					</a> 	</span><em><tpl> $langSRateReputablyPercent </tpl>:<font color="#ff5500"><tpl> $buy_sta.good_percent </tpl></font></em></h2> 		
+				</td>
+				</tr>
+			</table>  
+			<table width="723"  class="lianjie-se" border="0" cellpadding="0" cellspacing="0" bordercolor="#CCCCCC">
+				<tr>
+					<td bgcolor="#fefaea">&nbsp;</td>
+					<td height="30" align="center" bgcolor="#fdf7e7"><tpl> $langSRateLatelyOneWeek </tpl></td>
+					<td align="center"  bgcolor="#fef2d4"><tpl> $langSRateLatelyOneMonth </tpl></td>
+					<td align="center" bgcolor="#fdeec5"><tpl> $langSRateLatelySixMonth </tpl></td>
+					<td align="center" bgcolor="#FDE9B4"><tpl> $langSRateSixMonthFormer </tpl></td>
+					<td align="center" bgcolor="#FCE5A7"><tpl> $langSRateTotalize </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_01.gif" align="absmiddle" /><tpl> $langSRateReputably </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=1&time=week"><tpl> $buy_sta.one_week_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=1&time=month"><tpl> $buy_sta.one_month_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=1&time=six_month"><tpl> $buy_sta.six_month_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=1&time=former_six_month"><tpl> $buy_sta.former_six_month_good </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $buy_sta.six_month_good+$buy_sta.former_six_month_good </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_03.gif" align="absmiddle" /><tpl> $langSRateMiddlingAppraise </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=0&time=week"><tpl> $buy_sta.one_week_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=0&time=month"><tpl> $buy_sta.one_month_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=0&time=six_month"><tpl> $buy_sta.six_month_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=0&time=former_six_month"><tpl> $buy_sta.former_six_month_normal </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $buy_sta.six_month_normal+$buy_sta.former_six_month_normal </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_02.gif" align="absmiddle" /><tpl> $langSRateLowAppraise </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=-1&time=week"><tpl> $buy_sta.one_week_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=-1&time=month"><tpl> $buy_sta.one_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=-1&time=six_month"><tpl> $buy_sta.six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&score=-1&time=former_six_month"><tpl> $buy_sta.former_six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $buy_sta.six_month_bad+$buy_sta.former_six_month_bad </tpl></td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#FFFFFF"><tpl> $langSRateTotalize </tpl></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&time=week"><tpl> $buy_sta.one_week_good+$buy_sta.one_week_normal+$buy_sta.one_week_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&time=month"><tpl> $buy_sta.one_month_good+$buy_sta.one_month_normal+$buy_sta.one_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&time=six_month"><tpl> $buy_sta.six_month_good+$buy_sta.six_month_normal+$buy_sta.six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><a href="user_rate.php?userid=<tpl> $frame_shop_info.member_id </tpl>&genre=b&time=former_six_month"><tpl> $buy_sta.former_six_month_good+$buy_sta.former_six_month_normal+$buy_sta.former_six_month_bad </tpl></a></td>
+					<td height="30" align="center" bgcolor="#FFFFFF"><tpl> $buy_sta.six_month_good+$buy_sta.former_six_month_good+$buy_sta.six_month_normal+$buy_sta.former_six_month_normal+$buy_sta.six_month_bad+$buy_sta.former_six_month_bad </tpl></td>
+				</tr>
+			</table></td>
+	</tr>
+</table>
+			
+		</div>
+			<div id="navmenubar">
+				<div class="sideleft">&nbsp;</div>
+				<div class="p-jia navmenu" id="Categorymenu"><!-- 评价内容显示 -->
+					<ul class="itemtabbut" id="categorymenu">
+					<tpl> if $time neq '' </tpl>
+						<li><a href="user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=s" class="selected"><span><tpl> $time </tpl> <tpl> $langScoreFrom </tpl><tpl> $genre_type </tpl><tpl> $langScoreText </tpl><tpl> $score_type </tpl></span></a></li>				
+					<tpl> /if </tpl>
+					<li><a href="user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=s" <tpl> if ($genre eq 's' || $genre eq '') && $time eq '' </tpl> class="selected" <tpl> /if </tpl> ><span><tpl> $langScoreBuyAppraise </tpl></span></a></li>
+					<li><a href="user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=b" <tpl> if $genre eq 'b' && $time eq '' </tpl> class="selected" <tpl> /if </tpl> ><span><tpl> $langScoreSaleAppraise </tpl></span></a></li>
+					<li><a href="user_rate.php?userid=<tpl> $smarty.get.userid </tpl>&genre=set" <tpl> if $genre eq 'set' && $time eq '' </tpl> class="selected" <tpl> /if </tpl> ><span><tpl> $langSRateOtherAppraise </tpl></span></a></li>
+					</ul>
+				</div>
+				<div class="sideright">&nbsp;</div>
+				<div class="clear"></div>
+			</div>
+			<div class="itemcontent">  
+				<div id="DisplaySettings">
+					<span class="ys-3"><tpl> $langScoreProductInfo </tpl></span>
+					<span class="ys-2"><tpl> $langSetScore </tpl></span>
+					<span class="ys-1">
+						<select name="score_act" id="score_act" onchange="return getUserScore(this.value)" style="width:55px;">
+						<option value="" <tpl> if $score eq '' </tpl> selected <tpl> /if </tpl> ><tpl> $langSetComment </tpl></option>
+						<option value="1" <tpl> if $score eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSRateReputably </tpl></option>
+						<option value="0" <tpl> if $score eq '0' </tpl> selected <tpl> /if </tpl> ><tpl> $langSRateMiddlingAppraise </tpl></option>
+						<option value="-1" <tpl> if $score eq '-1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSRateLowAppraise </tpl></option>
+						</select>
+					</span>
+					
+					
+				</div>
+				<div class="zt-ys" style=" text-align:left">
+				<table class="bi-xx" width="100%" border="0" cellspacing="0" cellpadding="0">
+					<tpl> if $score_array[0].score_id neq '' </tpl>
+						<tpl> section name=i loop=$score_array </tpl>
+							<tr>
+								<td width="50" height="40" align="center" valign="middle" bgcolor="#FFFFFF">
+									<tpl> if $score_array[i].score eq "1" </tpl><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_01.gif" alt="<tpl> $langSRateReputably </tpl>" /><tpl> /if </tpl>
+									<tpl> if $score_array[i].score eq "0" </tpl><img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_03.gif" alt="<tpl> $langSRateMiddlingAppraise </tpl>" /><tpl> /if </tpl>
+									<tpl> if $score_array[i].score eq "-1" </tpl>
+									<img src="<tpl> $template_dir </tpl>/../member/images/pj_040924_02.gif" alt="<tpl> $langSRateLowAppraise </tpl>" /><tpl> /if </tpl>
+								</td>
+								<td height="40"valign="middle" bgcolor="#FFFFFF">
+									<p class="rate"> <tpl> $score_array[i].content </tpl></p>
+									<span class="date">[<tpl> $score_array[i].pubtime </tpl>]</span>
+								</td>
+								<td width="185" height="40" valign="middle" bgcolor="#FFFFFF">
+									<div class="conm_user">
+									<tpl> if $score_array[i].genre eq 's' </tpl><tpl> $langStoreBuyer </tpl><tpl> else </tpl><tpl> $langStoreSeller </tpl><tpl> /if </tpl>:
+									<a href="<tpl> $site_url </tpl>/home/userinfo.php?userid=<tpl> $score_array[i].member_id </tpl>" target="_blank"><tpl> $score_array[i].member_name </tpl></a>
+									</div>
+								</td>
+								<td width="240" height="40" valign="middle" bgcolor="#FFFFFF">
+									<tpl> if $score_array[i].html_url neq '' </tpl>
+									<p class="exp"><a href="<tpl> $score_array[i].html_url </tpl>" target="_blank"><tpl> $score_array[i].p_name </tpl></a></p>
+									<tpl> else </tpl>
+									<p class="exp"><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $score_array[i].p_code </tpl>" target="_blank"><tpl> $score_array[i].p_name </tpl></a></p>
+									<tpl> /if </tpl>
+									<span class="price"><em><tpl> $score_array[i].unit_price </tpl></em><tpl> $langCYuan </tpl></span>
+								</td>	
+							</tr>
+						<tpl> /section </tpl>
+						<tr>
+							<td class="conm_pages" height="29" colspan="4" align="right">
+							<tpl> $pagelist </tpl>
+							</td>
+						</tr>    
+					<tpl> else </tpl>
+						<tr><td style="padding:10px 0 10px 10px;"><tpl> $langScoreTransitorilyNotMessage </tpl></td></tr>
+					<tpl> /if </tpl>
+				</table>
+				<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+		</div>
+	</div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

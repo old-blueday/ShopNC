@@ -1,0 +1,285 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langInteManage </tpl> &gt;&gt; <tpl> $langInteLaissezPasserSet </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form1" name="form1" method="post" action="integration.manage.php">
+						<input type="hidden" name="action" value="save" />
+						<div class="ctge-1-1">
+							<table cellpadding="0" cellspacing="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langPassportIfOpen </tpl>:</th>
+									<td>
+										<input name="open_passport" type="radio" id="open_passport_1" value="1" onclick="$('#div_open_passport').show();" <tpl> if $config_array.open_passport eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="open_passport_1"><tpl> $langPassportIfOpenYes </tpl></label>
+										<input name="open_passport" type="radio" id="open_passport_0" value="0" <tpl> if $config_array.open_passport eq '0' </tpl> checked <tpl> /if </tpl> onclick="$('#div_open_passport').hide();" class="input_radio" /><label for="open_passport_0"><tpl> $langPassportIfOpenNo </tpl></label>
+									</td>
+								</tr>
+							</table>
+							<div id="div_open_passport" <tpl> if $config_array.open_passport eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+								<table cellpadding="0" cellspacing="0" class="fct" border="0">
+									<tr>
+										<th><tpl> $langInteLaissezPasserKEY </tpl>:</th>
+										<td><input name="passport_key" id="passport_key" class="fct-input" value="<tpl> $config_array.passport_key </tpl>" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langPassportAs </tpl>:</th>
+										<td>
+											<!--<input name="passport_type" type="radio" id="passport_type_0" value="0" <tpl> if $config_array.passport_type eq '0' </tpl> checked <tpl> /if </tpl> onclick="javascript:$('#div_passport_client').hide();$('#div_client_detail').hide();$('#div_passport_server').show();$('#div_server_detail').show();$('#div_passport_uc').hide();$('#div_uc_detail').hide();passport_type_remark_show('0');" class="input_radio" /><label for="passport_type_0"><tpl> $langPassportAsServer </tpl></label>
+											<input name="passport_type" type="radio" id="passport_type_1" value="1" onclick="javascript:$('#div_passport_server').hide();$('#div_passport_client').show();$('#div_server_detail').hide();$('#div_client_detail').show();$('#div_passport_uc').hide();$('#div_uc_detail').hide();passport_type_remark_show('1')" <tpl> if $config_array.passport_type eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="passport_type_1"><tpl> $langPassportAsClient </tpl></label> -->
+											<input name="passport_type" type="radio" id="passport_type_2" value="2" onclick="javascript:$('#div_passport_server').hide();$('#div_passport_client').hide();$('#div_passport_uc').show();$('#div_server_detail').hide();$('#div_client_detail').hide();$('#div_uc_detail').show();passport_type_remark_show('2')" <tpl> if $config_array.passport_type eq '2' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="passport_type_2"><tpl> $langPassportAsUC </tpl></label>
+											<p id="passport_type_remark"></p>
+										</td>
+									</tr>
+								</table>
+								<div id="div_passport_server" <tpl> if $config_array.passport_type neq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+									<table cellpadding="0" cellspacing="0" class="fct" border="0">
+										<tr>
+											<th><tpl> $langInteSystem </tpl>:</th>
+											<td>
+												<select name="intergration" onchange="change_sys(this.value);">
+													<option value="phpwind" <tpl> if $config_array.open_phpwind eq '1' </tpl> selected <tpl> /if </tpl> >PHPwind</option>
+													<option value="phpcms" <tpl> if $config_array.open_phpcms eq '1' </tpl> selected <tpl> /if </tpl> >PHPCMS</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langInteCharset </tpl>:</th>
+											<td>
+												<select name="charset">
+													<option value="gbk" <tpl> if $config_array.api_charset eq 'gbk' </tpl> selected <tpl> /if </tpl> >gbk</option>
+													<option value="utf-8" <tpl> if $config_array.api_charset eq 'utf-8' </tpl> selected <tpl> /if </tpl> >utf-8</option>
+												</select>
+											</td>
+										</tr>
+										<tr id="phpwind_sign" <tpl> if $config_array.open_phpwind eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+											<th><tpl> $langIntePHPwindBBSDir </tpl>:</th>
+											<td><input name="phpwind_url" id="phpwind_url" class="fct-input" value="<tpl> $config_array.phpwind_path </tpl>" /></td>
+										</tr>
+										<tbody id="discuz_sign" <tpl> if $config_array.open_discuz eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+											<tr>
+												<th><tpl> $langInteDiscuzBBSDir </tpl>:</th>
+												<td><input name="discuz_url" id="discuz_url" class="fct-input" value="<tpl> $config_array.discuz_url </tpl>" /></td>
+											</tr>
+											<tr>
+												<th><tpl> $langInteXspaceBlogDir </tpl>:</th>
+												<td><input name="xspace_url" id="xspace_url" class="fct-input" value="<tpl> $config_array.xspace_url </tpl>" /></td>
+											</tr>
+										</tbody>
+										<tbody id="ecms_sign" <tpl> if $config_array.open_ecms eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+											<tr>
+												<th><tpl> $langInteEmpireCMSDir </tpl>:</th>
+												<td><input name="ecms_url" id="ecms_url" class="fct-input" value="<tpl> $config_array.ecms_path </tpl>" /></td>
+											</tr>
+											<tr>
+												<th><tpl> $langInteEmpireCMSSetupDir </tpl>:</th>
+												<td>
+													<span class="dptn"><tpl> $langInteExample </tpl></span>
+													<input name="ecms_path_absolut" id="ecms_path_absolut" class="fct-input" value="<tpl> $config_array.ecms_path_absolut </tpl>" />
+												</td>
+											</tr>
+										</tbody>
+										<tr id="dedecms_sign" <tpl> if $config_array.open_dedecms eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+											<th><tpl> $langInteDEDECMSDir </tpl>:</th>
+											<td><input name="dedecms_url" id="dedecms_url" class="fct-input" value="<tpl> $config_array.dedecms_path </tpl>" /></td>
+										</tr>
+										<tbody id="cmsware_sign" <tpl> if $config_array.open_cmsware eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+											<tr>
+												<th><tpl> $langInteCMSWAREDir </tpl>:</th>
+												<td><input name="cmsware_url" id="cmsware_url" class="fct-input" value="<tpl> $config_array.cmsware_path </tpl>" /></td>
+											</tr>
+											<tr>
+												<th><tpl> $langInteCMSWARESetupDir </tpl>:</th>
+												<td><input name="cmsware_path_absolut" id="cmsware_path_absolut" class="fct-input" value="<tpl> $config_array.cmsware_path_absolut </tpl>" />&nbsp;<tpl> $langInteExampleCMSWARE </tpl></td>
+											</tr>
+											<tr>
+												<th><tpl> $langInteCWPSAccessPassword </tpl>:</th>
+												<td><input name="cmsware_TransactionAccessKey" id="cmsware_TransactionAccessKey" class="fct-input" value="<tpl> $config_array.cmsware_TransactionAccessKey </tpl>" /></td>
+											</tr>
+										</tbody>
+										<tr id="phpcms_sign" <tpl> if $config_array.open_phpcms eq '0' </tpl> style="display:none;" <tpl> /if </tpl> >
+											<th><tpl> $langIntePHPCMSBBSDir </tpl>:</th>
+											<td><input name="phpcms_url" id="phpcms_url" class="fct-input" value="<tpl> $config_array.phpcms_path </tpl>" /></td>
+										</tr>
+									</table>
+								</div>
+								<div id="div_passport_client" <tpl> if $config_array.passport_type neq '1' </tpl> style="display:none;" <tpl> /if </tpl> >
+									<table cellpadding="0" cellspacing="0" class="fct" border="0">
+										<tr>
+											<th><tpl> $langPassportServerUrl </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPassportServerUrlNote </tpl></span>
+												<input name="passport_url" id="passport_url" class="fct-input" value="<tpl> $config_array.passport_url </tpl>"/>
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportLoginUrl </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPassportLoginUrlNote </tpl></span>
+												<input name="passport_login" id="passport_login" class="fct-input" value="<tpl> $config_array.passport_login </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportLogoutUrl </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPassportLogoutUrlNote </tpl></span>
+												<input name="passport_logout" id="passport_logout" class="fct-input" value="<tpl> $config_array.passport_logout </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportRegUrl </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPassportRegUrlNote </tpl></span>
+												<input name="passport_register" id="passport_register" class="fct-input" value="<tpl> $config_array.passport_register </tpl>" />
+											</td>
+										</tr>
+									</table>
+								</div>
+								<div id="div_passport_uc" <tpl> if $config_array.passport_type neq '2' </tpl> style="display:none;" <tpl> /if </tpl> >
+									<table cellpadding="0" cellspacing="0" class="fct" border="0">
+										<tr>
+											<th><tpl> $langPassportUCDBhost </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCdbhostNote </tpl></span>
+												<input name="uc_dbhost" id="uc_dbhost" class="fct-input" value="<tpl> $config_uc_array.uc_dbhost </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCDBname </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCdbnameNote </tpl></span>
+												<input name="uc_dbname" id="uc_dbname" class="fct-input" value="<tpl> $config_uc_array.uc_dbname </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCDBuser </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCdbuserNote </tpl></span>
+												<input name="uc_dbuser" id="uc_dbuser" class="fct-input" value="<tpl> $config_uc_array.uc_dbuser </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCDBpw </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCdbpwNote </tpl></span>
+												<input name="uc_dbpw" id="uc_dbpw" class="fct-input" value="<tpl> $config_uc_array.uc_dbpw </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCDBtablepre </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCdbtbpreNote </tpl></span>
+												<input name="uc_dbtablepre" id="uc_dbtablepre" class="fct-input" value="<tpl> $config_uc_array.uc_dbtablepre </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCDBcharset </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCdbcharsetNote </tpl></span>
+												<select name="uc_databasechar">
+													<option value="utf8" <tpl> if $config_uc_array.uc_dbcharset eq 'utf8' </tpl> selected <tpl> /if </tpl> >utf8</option>
+													<option value="gbk" <tpl> if $config_uc_array.uc_dbcharset eq 'gbk' </tpl> selected <tpl> /if </tpl> >gbk</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCapi </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCapiNote </tpl></span>
+												<input name="uc_api" id="uc_api" class="fct-input" value="<tpl> $config_uc_array.uc_api </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCcharset </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCcharsetNote </tpl></span>
+												<select name="uc_charset">
+													<option value="utf-8" <tpl> if $config_uc_array.uc_charset eq 'utf8' </tpl> selected <tpl> /if </tpl> >utf-8</option>
+													<option value="gbk" <tpl> if $config_uc_array.uc_charset eq 'gbk' </tpl> selected <tpl> /if </tpl> >gbk</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<th>UCenter IP:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCipNote </tpl></span>
+												<input name="uc_ip" id="uc_ip" class="fct-input" value="<tpl> $config_uc_array.uc_ip </tpl>" />
+											</td>
+										</tr>
+										<tr>
+											<th><tpl> $langPassportUCappid </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langPUCDetailNCUCappidNote </tpl></span>
+												<input name="uc_appid" id="uc_appid" class="fct-input" value="<tpl> $config_uc_array.uc_appid </tpl>" />
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	
+	passport_type_remark_show('<tpl> $config_array.passport_type </tpl>');
+	
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			passport_key: {required:true}
+		},
+		messages: {
+			passport_key: {required: "<tpl> $langInteFillInLaissezPasserKEY </tpl>"}
+		}
+	});
+});
+
+function change_sys(str){
+	$('#phpwind_sign').hide();
+	$('#discuz_sign').hide();
+	$('#dedecms_sign').hide();
+	$('#phpcms_sign').hide();
+	$('#ecms_sign').hide();
+	$('#cmsware_sign').hide();
+	$('#'+str+'_sign').show();
+	$('#showprogress').css("display",'none');
+}
+
+function goBack(){
+//	$('#showcontent').css('display','');
+	$('#showprogress').css("display",'none');
+	$('#showprogressing').css("display",'none');
+}
+
+function passport_type_remark_show(type){
+	switch(type){
+		case '0':
+			$('#passport_type_remark').html('<tpl> $langInteShopNCAsServer </tpl>');
+			break;
+		case '1':
+			$('#passport_type_remark').html('<tpl> $langInteShopNCAsClient </tpl>');
+			break;
+		case '2':
+			$('#passport_type_remark').html('<tpl> $langInteShopNCAsUCenter </tpl>');
+			break;
+	}
+}
+</script>

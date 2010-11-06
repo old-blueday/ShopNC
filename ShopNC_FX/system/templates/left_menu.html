@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><tpl>$admin_header_title</tpl></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("my_menu").style.height = (wh-96)+"px";
+//document.getElementById("sidbar").style.height = (wh-82)+"px";
+document.getElementById("my_menu").style.height = (wh-16)+"px";
+//document.getElementById("sidbar").style.height = (wh-10)+"px";
+}
+
+$(document).ready(function(){
+	
+	//hide message_body after the first one
+	<tpl>if $show_state == 'all'</tpl>
+	$(".menu_con").hide();
+	<tpl>/if</tpl>
+	//toggle message_body
+	$(".menu_head").click(function(){
+		$(this).next(".menu_con").slideToggle(500)
+		.siblings(".menu_con").hide(500);
+		$(this).toggleClass("active");
+		$(this).siblings(".menu_head").removeClass("active");
+		$(".menu_con a").removeClass("active");
+		return false;
+	});
+	
+	$(".menu_con a").click(function(){
+		$(this).addClass("active");
+		$(this).siblings("a").removeClass("active");
+		return true;
+	});
+});
+</script>
+</head>
+
+<body>
+<div id="leftcon">
+			<div id="my_menu" class="my_menu">
+				<tpl>if $show_state=='system' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_system_manage</tpl><!--系统设置--></h4>
+				<div class="menu_con">
+				<a href="admin_system.php?action=base_site" target="main-frame"><b class="setting"></b><tpl>$system_system_site</tpl><!--系统设置--></a>
+				<a href="admin_system.php?action=admin_list" target="main-frame"><b class="admin"></b><tpl>$system_system_user</tpl><!--管理员设置--></a>
+				<a href="admin_system.php?action=email_site" target="main-frame"><b class="email"></b><tpl>$system_system_email</tpl><!--邮件设置--></a>
+				<a href="admin_system.php?action=system_info" target="main-frame"><b class="system"></b><tpl>$system_system_info</tpl><!--系统信息--></a>
+				<a href="admin_system.php?action=system_image" target="main-frame"><b class="photos"></b><tpl>$system_system_image</tpl><!--  图片水印  --></a>
+				</div>
+				<tpl>/if</tpl>
+				<tpl>if $show_state=='shop' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_shop_manage</tpl><!--网店管理--></h4>
+				<div class="menu_con">
+				<a href="admin_shop_class.php?action=class_add" target="main-frame"><b class="addshopclass"></b><tpl>$system_shop_class_add</tpl><!--网店类别添加--></a>
+				<a href="admin_shop_class.php?action=class_list" target="main-frame"><b class="shopclasslist"></b><tpl>$system_shop_class_list</tpl><!--网络类别列表--></a>
+				<a href="admin_shop.php?action=shop_add" target="main-frame"><b class="addshop"></b><tpl>$system_shop_add</tpl><!--网店添加--></a>
+				<a href="admin_shop.php?action=shop_list" target="main-frame"><b class="shoplist"></b><tpl>$system_shop_list</tpl><!--网店列表--></a>
+				</div>
+				<tpl>/if</tpl>
+		
+				<tpl>if $pay_receive_type eq 2</tpl><!--在主店收款情况下，出现商品管理，订单管理-->		
+					<tpl>if $show_state=='product' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_goods_manage</tpl><!--商品管理--></h4>
+				<div class="menu_con">
+				<a href="admin_goods.php?action=goods_page" target="main-frame"><b class="additem"></b><tpl>$system_goods_add</tpl><!--  新增商品  --></a>
+				<a href="admin_goods.php?action=list" target="main-frame"><b class="itemlist"></b><tpl>$system_goods_list</tpl><!--  商品列表  --></a>
+				<a href="admin_goods.php?action=goods_page&goods_type=virtual_card"  target="main-frame"><b class="virtualcard"></b><tpl>$system_virtual_card_add</tpl><!--  添加新虚拟  --></a>
+				<a href="admin_goods.php?action=list&goods_type=virtual_card"  target="main-frame"><b class="virtualcardlist"></b><tpl>$system_virtual_card_list</tpl><!--  虚拟卡列表  --></a>
+				<a href="admin_goods_class.php?action=page_goods_class" target="main-frame"><b class="additemclass"></b><tpl>$system_goods_class_add</tpl><!--  添加商品分类  --></a>
+				<a href="admin_goods_class.php?action=list" target="main-frame"><b class="itemclasslist"></b><tpl>$system_goods_class_list</tpl><!--  商品分类列表  --></a>
+				<a href="admin_goods.php?action=recycle"  target="main-frame"><b class="recycle"></b><tpl>$system_goods_recycle</tpl><tpl>$goods_recycle_num</tpl><!--  商品回收站  --></a>
+				</div>
+					<tpl>/if</tpl>
+					<tpl>if $show_state=='order' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_order_manage</tpl><!--  订单管理  --></h4>
+				<div class="menu_con">
+				<a href="admin_order.php?action=order_list&order_state=no_conf" target="main-frame"><b class="neworder"></b><tpl>$system_order_list_no_conf</tpl><!--  待确认订单  --></a>
+				<a href="admin_order.php?action=order_list&order_state=no_pay" target="main-frame"><b class="rightorder"></b><tpl>$system_order_list_no_pay</tpl><!--  待支付订单  --></a>
+				<a href="admin_order.php?action=order_list&order_state=no_send" target="main-frame"><b class="paidorder"></b><tpl>$system_order_list_no_send</tpl><!--  待发货订单  --></a>
+				<a href="admin_order.php?action=order_list&order_state=no_filing" target="main-frame"><b class="saveorder"></b><tpl>$system_order_list_no_filing</tpl><!--  待归档订单  --></a>				
+				<a href="admin_order.php?action=order_list&order_state=trade_ok" target="main-frame"><b class="saveorder"></b><tpl>$system_order_list_filing</tpl><!--  已归档订单  --></a>
+				<a href="admin_order.php?action=month_pay" target="main-frame"><b class="saveorder"></b><tpl> $system_order_list_month_pay </tpl><!--  利润结算  --></a>
+				</div>
+					<tpl>/if</tpl>
+				<tpl>/if</tpl>
+				<tpl>if $show_state=='article' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_article_manage</tpl><!--文章管理--></h4>
+				<div class="menu_con">
+				<a href="admin_article.php?action=article_class_add" target="main-frame"><b class="addpaperclass"></b><tpl>$system_article_class_add</tpl><!--文章分类添加--></a>
+				<a href="admin_article.php?action=article_class_list" target="main-frame"><b class="paperclasslist"></b><tpl>$system_article_class_list</tpl><!--文章分类列表--></a>
+				<a href="admin_article.php?action=article_add" target="main-frame"><b class="addpaper"></b><tpl>$system_article_add</tpl><!--文章添加--></a>
+				<a href="admin_article.php?action=article_list" target="main-frame"><b class="paperlist"></b><tpl>$system_article_list</tpl><!--文章列表--></a>
+				</div>
+				<tpl>/if</tpl>
+				<tpl>if $show_state=='tool' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_tools_manage</tpl><!--工具管理--></h4>
+				<div class="menu_con">
+				<a href="admin_tool_link.php?action=link_list" target="main-frame"><b class="links"></b><tpl>$system_tools_flink</tpl><!--友情链接--></a>
+				<a href="admin_tool_db.php?action=db_sql_back" target="main-frame"><b class="database"></b><tpl>$system_tools_db</tpl><!--数据库备份--></a>
+				<a href="admin_tool_mail.php?action=send_mail" target="main-frame"><b class="sendmail"></b><tpl>$system_tools_email</tpl><!--邮件发送--></a>
+				<a href="admin_tool_log.php?action=log_list" target="main-frame"><b class="logs"></b><tpl>$system_tools_log</tpl><!--  操作日志  --></a>
+				</div>
+				<tpl>/if</tpl>
+		
+				<tpl>if $pay_receive_type eq 2</tpl><!--在主店收款情下，出现模块管理-->			
+					<tpl>if $show_state=='module' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_module_manage</tpl><!--  模块管理  --></h4>
+				<div class="menu_con">
+				<a href="admin_module_pay.php?action=pay_area" target="main-frame"><b class="defrayal"></b><tpl>$system_module_pay</tpl><!--  支付管理  --></a>
+				<a href="admin_module_send.php?action=send_area" target="main-frame"><b class="send"></b><tpl>$system_module_transport</tpl><!--  配送管理  --></a>
+				<a href="admin_module_region.php?action=region_list" target="main-frame"><b class="zone"></b><tpl>$system_module_area</tpl><!--  地区管理  --></a> </div>
+					<tpl>/if</tpl>
+				<tpl>/if</tpl>
+				<tpl>if $show_state=='analysis' or $show_state=='all'</tpl>
+				<h4 class="menu_head"><tpl>$system_header_analysis_manage</tpl><!--统计分析--></h4>
+				<div class="menu_con"> 
+				<a href="admin_statistics.php?action=shop" target="main-frame" ><b class="regshop"></b><tpl>$system_statis_shop_reg</tpl><!--注册网店--></a>
+				<a href="admin_statistics.php?action=shop_sell_top" target="main-frame" ><b class="selltops"></b><tpl>$system_statis_shop_sell</tpl><!--网店销售排行--></a>
+				<a href="admin_statistics.php?action=shop_goods_sell" target="main-frame" ><b class="sellitem"></b><tpl>$system_statis_shop_main_sell</tpl><!--主店产品销售--></a>
+				<a href="admin_statistics.php?action=shop_class_sell" target="main-frame" ><b class="hotshop"></b><tpl>$system_statis_shop_cate_sell</tpl><!--热销店铺分类--></a></div>
+				<tpl>/if</tpl>
+			</div>
+			<div class="clear"></div>
+		</div>
+</body>
+</html>

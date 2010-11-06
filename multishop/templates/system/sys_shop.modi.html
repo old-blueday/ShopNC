@@ -1,0 +1,174 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopManageAllShop </tpl> &gt;&gt; <tpl> $langSysShopModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+                    	<form name="form_shop" id="form_shop" action="shop.manage.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="area_id" id="area_id" value="<tpl> $shop_array.shop_area_id </tpl>" />	
+                        <input type="hidden" name="shop_id" id="shop_id" value="<tpl> $shop_array.shop_id </tpl>" />
+						<input type="hidden" name="action" value="update" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysName </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtShopName" id="txtShopName" value="<tpl> $shop_array.shop_name </tpl>" type="text" maxlength="80" />                                	</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopHost </tpl>:</th>
+									<td><tpl> $shop_array.login_name </tpl></td>
+								</tr>
+								<tr>
+								  <th><tpl> $longSysShopGrade </tpl>:</th>
+								  <td><select name="shop_grade" class="new_input">
+                                        <tpl> foreach from=$shop_grade item=one </tpl>
+											<option <tpl> if $one.grade_id eq $shop_array.shop_grade </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $one.grade_id </tpl>"><tpl> $one.grade_name </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                        </select>&nbsp;&nbsp;<a href="shop_grade.manage.php?action=grade_list"><tpl>$longSysShopGradeShow</tpl></a></td>
+							  </tr>
+							  <tpl>if $shop_array.grade_state == 1</tpl>
+								<tr>
+								  <th><tpl>$longSysShopGradeConfirm</tpl></th>
+								  <td>
+								    <input type="checkbox" name="grade_state" value="yes" />&nbsp;<tpl>$longSysShopGradeConfirmYes</tpl></td>
+							  </tr>
+							  <tpl>/if</tpl>
+								<tr>
+									<th><tpl> $langSysShopLogo </tpl>:</th>
+									<td id="td_logo">
+										<tpl> if $shop_array.shop_pic != "" </tpl> 
+                                        <img height="60" width="60" src="<tpl> $site_url </tpl>/<tpl> $shop_array.shop_pic|default:'images/storepic_default.gif' </tpl>" /> <a href="javascript:;" onclick="ajax_delLogo('<tpl> $shop_array.shop_id </tpl>')"><tpl> $langCdele </tpl></a> 
+                                        <tpl> else </tpl>
+                                        <input name="fileShopLogo" type="file" id="fileShopLogo" />
+                                        <tpl> /if </tpl>									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysShopBanner </tpl>:</th>
+									<td id="td_banner">
+                                    <tpl> if $shop_array.shop_banner_pic != "" </tpl> 
+                                    	<img height="60" width="60" src="<tpl> $site_url </tpl>/<tpl> $shop_array.shop_banner_pic|default:'images/storepic_default.gif' </tpl>" /> <a href="javascript:;" onclick="ajax_delBanner('<tpl> $shop_array.shop_id </tpl>')"><tpl> $langCdele </tpl></a> 
+                                    <tpl> else </tpl>
+										<input name="fileShopBanner" type="file" id="fileShopBanner" />
+                                    <tpl> /if </tpl>                                    </td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSClass </tpl>:</th>
+									<td>
+										<select name="slcShopClass" class="new_input" style="width:230px">
+                                        <tpl> foreach from=$shop_select_category item=one </tpl>
+											<option <tpl> if $one.class_id eq $shop_array.shop_class </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $one.class_id </tpl>"><tpl> $one.class_name </tpl></option>
+											<tpl> foreach from=$one.child item=two </tpl>
+												<option <tpl> if $two.class_id eq $shop_array.shop_class </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $two.class_id </tpl>">&nbsp;&nbsp;&nbsp;&nbsp;<tpl> $two.class_name </tpl></option>
+											<tpl> /foreach </tpl>
+                                        <tpl> /foreach </tpl>
+                                        </select>									</td>
+								</tr>
+                                <tr>
+									<th><tpl> $langSysShopBound </tpl>:</th>
+									<td>
+                                    	<textarea class="fct-input" name="txtSaleRange" id="txtSaleRange" rows="" cols=""><tpl> $shop_array.sale_range </tpl></textarea>                                	</td>
+								</tr>
+                                <tr>
+									<th><tpl> $langSysShopLocus </tpl>:</th>
+									<td>
+									<div id="adddiv"></div>                                	</td>
+								</tr>
+                                <tr>
+									<th><tpl> $langSysShopIntro </tpl>:</th>
+									<td>
+										<tpl>php</tpl>
+											include_once('../classes/resource/editor/editor.class.php');
+											$editor=new editor('txtShopIntro');
+											$editor->Value=$this->_tpl_vars['shop_array']['shop_intro'];
+											$editor->BasePath='../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=621;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>                                	</td>
+								</tr>
+                                <tr>
+									<th><tpl> $langSysShopAffiche </tpl>:</th>
+									<td>
+                                    <textarea class="fct-input" name="txtProclamation" id="txtProclamation" rows="" cols=""><tpl>  $shop_array.proclamation </tpl></textarea>                                	</td>
+								</tr>
+                                <tr>
+									<th><tpl> $langSysShopTime </tpl>:</th>
+									<td><tpl> $shop_array.practice_time </tpl></td>
+								</tr>
+                                <tr>
+									<th><tpl> $langSysSEstate </tpl>:</th>
+									<td><tpl> $shop_array.open_state </tpl></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					type:'modi',
+					modi_id:'<tpl> $shop_array.shop_area_id </tpl>',
+					hiddenId:'area_id'
+				});
+	
+	$('#form_shop').validate({
+		errorClass: "wrong",
+		rules: {
+			txtShopName: {required:true},
+			area_id: {required:true}
+		},
+		messages: {
+			txtShopName: {required: "<tpl> $langSysShopCheckShopname </tpl>"},
+			area_id: {required: "<tpl> $langSysShopCheckArea </tpl>"}
+		}
+	});
+});
+//Del logo
+function ajax_delLogo(id){
+	if(confirm('<tpl> $langCConfirmDelete </tpl>')){
+		$.ajax({
+			url: "shop.manage.php",
+			data: 'action=dellogo&shop_id='+id,
+			type:'post',
+			dataType:"json"
+		});
+		$('#td_logo').html('<input name="fileShopLogo" type="file" id="fileShopLogo" />');
+	}
+}
+//Del banner
+function ajax_delBanner(id){
+	if(confirm('<tpl> $langCConfirmDelete </tpl>')){
+		$.ajax({
+			url: "shop.manage.php",
+			data: 'action=delbanner&shop_id='+id,
+			type:'post',
+			dataType:"json"
+		});
+		$('#td_banner').html('<input name="fileShopBanner" type="file" id="fileShopBanner" />');
+	}
+}
+</script>
+</body>
+</html>

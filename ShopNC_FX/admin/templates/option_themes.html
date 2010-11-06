@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_shop_manage</tpl> - <tpl>$admin_system_templates</tpl></title><!-- 网店管理 - 模板选取 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("ul#themesList li").mouseover(function(){
+		$("ul#themesList li").removeClass("mhover");
+		$("ul#themesList li p.btn").hide();
+		$(this).addClass("mhover");
+		$(this).children("p.btn").show();
+	});
+	$("ul#themesList li").mouseout(function(){
+		$("ul#themesList li").removeClass("mhover");
+		$("ul#themesList li p.btn").hide();
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("ul#themesList li.current").append("<p class='colororange'><strong><tpl>$admin_system_theme_now_use</tpl></strong><p>");<!-- 当前使用模板 -->
+	$("ul#themesList li.current").mouseover(function(){
+		$(this).children("p.btn").hide();
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <h2><tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_templates</tpl><!-- 网店管理 >> 模板选取 --></h2>
+    <div class="entry-body" id="entry1">
+        <ul id="themesList">
+            <li class="current">
+                    <img src="<tpl>$template_default.image</tpl>">
+                <p><tpl>$template_default.name</tpl></p>
+                <p class="btn"><a href="#nogo"><tpl>$admin_system_theme_preview</tpl><!-- 预览 --></a>|<a href="#nogo"><tpl>$admin_system_theme_apply</tpl><!-- 应用 --></a></p>
+            </li>
+			<tpl>section name=list loop=$template</tpl>
+            <li>
+                <div class="screenshot">
+                    <img src="<tpl>$template[list].image</tpl>">
+                </div>
+                <p><tpl>$template[list].name</tpl></p>
+                <p class="btn"><a href="#nogo"><tpl>$admin_system_theme_preview</tpl></a>|<a href="?action=change_temp&temp_name=<tpl>$template[list].name</tpl>"><tpl>$admin_system_theme_apply</tpl></a></p>
+            </li>
+			<tpl>/section</tpl>
+            <div class="clear"></div>
+        </ul>
+    </div><!--  end of entry1  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

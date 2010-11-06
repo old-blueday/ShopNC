@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<style filename="04" info="haha">
+		默认
+	</style>
+	<style filename="02" info="haha1">
+		绿野仙踪
+	</style>
+	<style filename="03" info="haha2">
+		粉红女郎
+	</style>
+	<style filename="01" info="haha3">
+		金色池塘
+	</style>
+	<style filename="05" info="haha3">
+		秋色
+	</style>
+	<style filename="06" info="haha4">
+		书籍
+	</style>
+	<style filename="07" info="haha5">
+		女人
+	</style>
+	<style filename="08" info="haha6">
+		幼儿
+	</style>
+	<style filename="09" info="haha7">
+		数码
+	</style>
+	<style filename="10" info="haha8">
+		粉色家园
+	</style>
+	<style filename="11" info="haha9">
+		牛仔系列
+	</style>
+</root>

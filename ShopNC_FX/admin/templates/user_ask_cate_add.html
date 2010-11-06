@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_ask_add</tpl></title><!-- 会员管理 - 新增问题类别 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<style type="text/css">
+th {
+	padding:5px 10px;
+	text-align:left;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_cate").validate({
+		errorClass: "wrong",
+		rules: {
+			cate_name	: {required:true}
+		},
+		messages: {
+			cate_name	: {required: "<tpl>$admin_ask_name_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+<body id="noulmenu">
+<div id="content">
+    <h2><span class="alignRight">
+			<a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_cate" target="_self">{<tpl>$admin_ask_cate</tpl><!-- 问题类别 -->}</a>
+			<a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_list" target="_self">{<tpl>$admin_ask_list</tpl><!-- 客服管理列表 -->}</a>
+			<!-- <a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_handle" target="_self">{处理情况}</a>
+			<a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_sample" target="_self">{回复样板}</a> -->
+		</span><tpl>$admin_header_user_manage</tpl> >> <tpl>if $smarty.get.ac_id!=''</tpl><tpl>$admin_ask_edit</tpl><tpl>else</tpl><tpl>$admin_ask_add</tpl><tpl>/if</tpl><!-- 会员管理 - 新增问题类别 -->
+		
+	</h2>
+	<form action="admin_ask.php?action=save_ask_cate" method="POST" name="add_cate" id="add_cate">
+	<tpl>$ac_id</tpl>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_ask_reply_submit</tpl>" class="btnInput" /><!-- 点此提交 -->
+    </div>
+    <div class="entry-body" id="entry1">
+	  <table width="100%" border="0">
+        <tr>
+          <td width="100"><tpl>$admin_ask_cate_name</tpl><!-- 类别名称 -->:</td>
+          <td><label>
+            <tpl>$cate_name</tpl>
+          </label>
+		  <div class="check-error"><label style="display:none" for="cate_name" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_cate_put</tpl><!-- 是否发布 -->:</td>
+          <td><label>
+           <tpl>$if_issue</tpl>
+          </label>
+            </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_cate_marked</tpl><!-- 是否内定 -->:</td>
+          <td><label>
+            <tpl>$if_marked</tpl>
+          </label>
+            </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_reply_reply_body</tpl><!-- 回复内容 -->:</td>
+          <td><label>
+            <tpl>$reply_body</tpl>
+          </label></td>
+        </tr>
+		<tr>
+		  <td>&nbsp;</td>
+		  <td><label>
+		    <input type="submit" name="Submit" value="<tpl>$admin_ask_reply_submit</tpl>" class="btnInput" /><!-- 点此提交 -->
+		    <input type="reset" name="Submit2" value="<tpl>$admin_ask_reply_reset</tpl>" class="btnInput" /><!-- 重置 -->
+		  </label></td>
+		</tr>
+      </table>
+	 </form>
+  </div>
+  <!--  end of entry1  -->
+ <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

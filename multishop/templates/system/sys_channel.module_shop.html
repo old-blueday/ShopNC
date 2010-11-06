@@ -1,0 +1,203 @@
+<form action="javascript:;" id="form_module_shop" name="form_module_shop" method="post" onsubmit="return shop_submit_module();" class="zhezhao">
+	<div class="shopnc-module">
+		<table style="border-left:#cad9eb 1px solid; border-top:#cad9eb 1px solid;" border="0" cellpadding="0" cellspacing="0" class="fct-1">
+			<tr>
+				<th width="80"><tpl> $langChannelType </tpl>:</th>
+				<td width="240">
+					<select name="slcShopClass" id="slcShopClass">
+						<option value=""><tpl> $langChannelAll </tpl></option>
+						<tpl> foreach from=$category_array item=one key=key </tpl>
+							<option value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+						<tpl> /foreach </tpl>
+					</select>
+					<tpl> $shop_select_category </tpl>
+				</td>
+			</tr>
+			<tr>
+				<th width="80"><tpl> $langChannelStoreName </tpl>:</th>
+				<td width="240">
+					<input type="text" id="txtShopName" name="txtShopName" class="fct-input-2" />&nbsp;&nbsp;
+					<input value="<tpl> $langChannelseach </tpl>" type="button" class="bthl" onclick="shop_submit_search();" />
+				</td>
+			</tr>
+			<tr>
+				<td style="border:none; padding:0px;" colspan="2">
+					<div id="shop_search_list">
+				
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="shopnc-module">
+	    <table style="border-left:#cad9eb 1px solid; border-top:#cad9eb 1px solid;" border="0" cellpadding="0" cellspacing="0" class="fct-1">
+			<tr>
+			    <th width="80"><tpl> $langChannelModuleName </tpl>:</th>
+				<td width="240">
+					<input type="text" name="module_new_name" id="module_new_name" class="fct-input-2" value="<tpl> $modi_array.module_new_name </tpl>" maxlength="40" />
+				</td>
+			</tr>
+			<tr>
+			    <th width="80"><tpl> $langChannelTypeNameWordNum </tpl>:</th>
+				<td width="240">
+					<input type="text" name="name_num" class="fct-input-2" id="name_num" value="<tpl> $modi_array.name_num </tpl>" maxlength="2" />
+				</td>
+			</tr>
+			<tr>
+			  	<th><tpl> $langChannelHomeDisType </tpl>:</th>
+				<td width="240">
+					<input type="radio" name="show_type" id="type_0" value="0" 
+					<tpl> if $modi_array.show_type eq '0' || $modi_array.show_type eq '' </tpl> checked="checked" <tpl> /if </tpl> class="input_radio" /><label for="type_0"><tpl> $langChannelWord </tpl></label>
+					<input type="radio" name="show_type" id="type_1" value="1" <tpl> if $modi_array.show_type eq '1' </tpl> checked="checked" <tpl> /if </tpl> class="input_radio" /><label for="type_1"><tpl> $langChannelImage </tpl></label>
+					<input type="radio" name="show_type" id="type_2" value="2" <tpl> if $modi_array.show_type eq '2' </tpl> checked="checked" <tpl> /if </tpl> class="input_radio" /><label for="type_2"><tpl> $langChannelNewAddShop </tpl></label>
+				</td>
+			</tr>
+			<tr>
+				<td style="padding:0px; margin:0px; border:none;" colspan="2">
+					<table  style=" width:100%;" border="0" cellpadding="0" cellspacing="0" id="shop_list" class="fct-1">
+					<tr>
+						<td width="200" bgcolor="#EAEFF6">&nbsp;
+							<tpl> $langChannelShopName </tpl></td>
+					    <td width="120" bgcolor="#EAEFF6">
+					    	<tpl> $langCSort </tpl></td>
+					    <td width="50" bgcolor="#EAEFF6">
+					    	<tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $modi_array.shop_id[0].shop_id neq "" </tpl>
+						<tpl> foreach from=$modi_array.shop_id item=one key=key </tpl>
+						<tr>
+							<td width="200">
+								<tpl> $one.shop_name </tpl></td>
+						    <td width="120">
+							    <input type="text" class="fct-input-2" size="4" name="shop_sort[<tpl> $one.shop_id </tpl>]" id="shop_sort_<tpl> $one.shop_id </tpl>" value="<tpl> $modi_array.sort_value[$key] </tpl>" />
+							    <input type="hidden" name="shop_id[<tpl> $one.shop_id </tpl>]" id="shop_id_<tpl> $one.shop_id </tpl>" value="<tpl> $one.shop_id </tpl>" />
+						    </td>
+							<td width="50"><a href="javascript:;" onclick="var row=jquery(this).parent().parent();row.fadeOut('normal', function(){row.remove();});">
+								<tpl> $langCdele </tpl></a></td>
+						</tr>
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl>
+				  	</table>
+				</td>
+			</tr>
+			<tr style="display:none">
+				<td colspan="3"><div align="center"><input type="submit" value="<tpl> $langChannelConfirm </tpl>" class="bthl" /></div></td>
+			</tr>
+			
+		</table>
+	</div>
+</form>
+<script>
+
+function shop_submit_module(){
+
+	var module_new_name = "";
+	var patrn_num=/^[0-9]{1,1000}$/;
+	var sort_value = "";
+	var param_array = new Array();
+	var name_num = "";
+	var shop_str = "";
+	var sort_sign = true;
+	
+	module_new_name = jquery("#module_new_name").val();
+	if (module_new_name == ''){
+		alert("<tpl> $langChannelPleaseModuleName </tpl>");
+		return false;
+	}
+
+	name_num = jquery("#name_num").val();
+	if (!patrn_num.exec(name_num)){
+		alert("<tpl> $langChannelShopNameLengthIsNum </tpl>");
+		return false;
+	}
+	
+	jquery('#shop_list input[type="hidden"]').each(function(){
+		if(this.value != ""){
+			shop_str += "shop_id:"+this.value+"|||";
+			sort_value += "sort_value:"+jquery("#shop_sort_"+this.value).val()+"|||";
+			if (!patrn_num.exec(jquery("#shop_sort_"+this.value).val())){
+				sort_sign=false;
+			}
+		}
+	});
+	
+	if(shop_str == ""){
+		alert("<tpl> $langChannelAddShopInfoNotNull </tpl>");
+		return false;
+	}
+
+	if(sort_sign == false){
+		alert("<tpl> $langChannelCompositorNumIsNumber </tpl>");
+		return false;
+	}
+	
+	param_array[0] = "module_new_name:"+module_new_name+"|||";
+	
+	<tpl> if $modi_array.temp_name eq '' </tpl>
+	
+		var temp_name = "shop_module_" + Math.round(Math.random()*10000);
+		param_array[1] = "temp_name:" + temp_name + "|||";
+		
+	<tpl> else </tpl>
+	
+		var temp_name = "<tpl> $modi_array.temp_name </tpl>";
+		param_array[1] = "temp_name:<tpl> $modi_array.temp_name </tpl>|||";
+		
+	<tpl> /if </tpl>
+	
+	param_array[2] = "name_num:" + name_num + "|||";
+	param_array[3] = "module_type:shop|||";
+	param_array[4] = shop_str;
+	param_array[5] = sort_value;
+	param_array[6] = "show_type:" + jquery("input[name='show_type']:checked").val();
+	
+	var str = "";
+	for(i=0;i<param_array.length;i++){
+		str += param_array[i];
+	}
+	
+	if(checkRepeatModuleName(module_new_name) == false){return false;}
+
+	jquery("#add_module_sign").append("<tr><td>"+
+		"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\",\""+module_new_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+		"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+str+"'/>"+
+		"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}'><tpl> $langChannelDelThisModule </tpl></a>"+
+		"</td></tr>");
+	
+	jquery("#body_module").html("");
+	
+  	jquery("#add_module").attr("disabled","");
+	
+	set_module_style('no_disabled');
+	
+	jquery.unblockUI();
+	
+	jquery("#module_block").html('');
+	closeDiy('moduleadd');
+	closeDiy('moduleupdate');
+	return false;
+}
+
+function shop_submit_search(){
+	ShowDiv = 'shop_search_list';
+	var search_shop_keyword = escape(jquery("#txtShopName").val());
+	jquery.ajax({
+		url: "../system/channel.manage.php",
+		data: "action=shop_search&slcShopClass="+jquery("#slcShopClass").val()+"&txtShopName="+search_shop_keyword,
+		type:'get',
+		dataType:"html",
+		success: function(msg){
+			if(msg != ""){
+				ShowDiv = 'shop_search_list';
+				jquery("#shop_search_list").html(msg);
+			}else{
+				alert("<tpl> $langChannelThisTypeNotShop </tpl>");
+			}
+		},
+		error: function(){
+			alert('<tpl> $langChannelModuleSearchShopErr </tpl>');
+		}
+	});
+	return false;
+}
+</script>

@@ -1,0 +1,46 @@
+<tpl> if $news_array[0].news_id neq "" </tpl>
+<table width="100%">
+	<tpl> section name=loop loop=$news_array </tpl>
+	<tr>
+		<td style=" border-left:#cad9eb 1px solid; *border-left:none;"><tpl> $smarty.section.loop.rownum </tpl>.</td>
+		<td><tpl> $news_array[loop].news_title </tpl></td>
+		<td><a href="javascript:;" onclick="check_repeat_id('<tpl> $news_array[loop].news_id </tpl>');"><tpl> $langChannelSelect </tpl></a></td>
+	</tr>
+	<tpl> /section </tpl>
+	<tr><td colspan="3"><div style=" float:right;""><tpl> $page_list </tpl></div></td></tr>
+</table>
+<tpl> /if </tpl>
+<script>
+
+function check_repeat_id(id){
+	var sign = true;
+	jquery('#pro_list input[type="text"]').each(function(){
+		if(this.name == "p_sort["+id+"]"){
+			sign = false;
+		}
+	});
+	if(sign == false){
+		alert("<tpl> $langChannelListExistSelect </tpl>");
+	}else{
+		search_result_set(id);
+	}
+	return false;
+}
+
+function search_result_set(id){
+	jquery.ajax({
+		url: "../system/channel.manage.php",
+		data: "action=news_search_info&new_id="+id,
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+			if(msg != ""){
+				jquery('#pro_list').append(msg);
+			}else{
+				alert("<tpl> $langChannelIdErr </tpl>");
+			}
+		}
+	});
+	return false;
+}
+</script>

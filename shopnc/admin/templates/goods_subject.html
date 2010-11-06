@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_goods_subject_list </tpl></title><!-- 商品主题分类列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script language="javascript">	
+
+/* 修改品牌状态 */
+function nc_state_update(subject_id,ajax_type,old_state,id) {
+	$.get('admin_goods_subject.php',{'action':'subject_ajax','ajax_type':ajax_type,'old_state':old_state,'subject_id':subject_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+<style type="text/css">
+body {
+	font-size:12px;
+}
+</style>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_goods_subject.php?action=add_goods_subject" target="_self" class="btnInput"><tpl> $admin_goods_subject_add </tpl></a></span>
+	<tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >><tpl> $admin_goods_subject_list </tpl> <!-- 商品主题列表 -->
+</b>
+    </h4>
+	<div id="rightcon">
+			<div class="rc_con">
+			<form id="form" name="form" action="admin_goods_subject.php" method="post">
+	    <input type="hidden" name="action" id="action" value="goods_subject_del"/>
+        <input type="hidden" name="old_subject_id" id="old_subject_id"/>
+		<input type="hidden" name="select" id="select" />
+			<h5>
+			<div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/><span>:<tpl>$admin_goods_class_list_deit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" /><span>:<tpl>$admin_goods_class_list_del</tpl><!--  删除  --></span>
+			 </div>
+			 <input type="submit" value="<tpl> $admin_goods_subject_list_del </tpl>" class="delBtnInput" />
+			</h5>
+    <div class="entry-body" id="p-list-div">
+    
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th class="textLeft"><input type="checkbox" name="all" id="all" /></th>
+            <th class="textLeft"><tpl> $admin_goods_subject_list_name </tpl><!-- 主题名称 --></th>
+            <th><tpl> $admin_goods_subject_list_ifput </tpl><!-- 是否发布 --></th>
+            <th><tpl> $admin_goods_subject_list_order </tpl><!-- 主题排序 --></th>
+            <th><tpl> $admin_goods_subject_list_logo </tpl><!-- 主题图片 --></th>
+            <th><tpl> $admin_goods_subject_list_goods </tpl><!-- 商品数量 --></th>
+            <th><tpl> $admin_goods_subject_list_oper </tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=i loop=$subject_array </tpl>
+          <tr>
+            <td class="textLeft"><label>
+            <input type="checkbox" name="sid[]" id="sid[]" value="<tpl> $subject_array[i].subject_id </tpl>" class="cb" />
+            </label></td>
+            <td width="25%" class="textLeft"><tpl> $subject_array[i].subject_name </tpl></td>
+            <td width="15%"><span id="state_<tpl> $subject_array[i].subject_id </tpl>"><a onclick="nc_state_update('<tpl> $subject_array[i].subject_id </tpl>','subject_state','<tpl> $subject_array[i].subject_state </tpl>','state_<tpl> $subject_array[i].subject_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $subject_array[i].subject_state </tpl>.gif" alt='<tpl>$admin_goods_subject_click_update</tpl>' title='<tpl>$admin_goods_subject_click_update</tpl>' /></a></span></td>
+            <td width="15%"><tpl> $subject_array[i].subject_sort </tpl></td>
+            <td><tpl> if $subject_array[i].subject_image!='' </tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $subject_array[i].subject_image </tpl>" width='80' height='30' /><tpl> else </tpl>  <tpl> $admin_goods_subject_image_null </tpl> <tpl> /if </tpl></td>
+            <td width="20%"><tpl>$subject_array[i].goods_count</tpl></td>
+            <td width="15%">
+            	<a href="admin_goods_subject.php?action=add_goods_subject&subject_id=<tpl> $subject_array[i].subject_id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" alt="<tpl> $admin_goods_subject_list_eidt </tpl>" title="<tpl> $admin_goods_subject_list_eidt </tpl>" /></a>&nbsp;
+            	<a href="admin_goods_subject.php?action=goods_subject_del&old_subject_id=<tpl> $subject_array[i].subject_id </tpl>" onclick="return confirm('<tpl>$admin_goods_subject_list_del3</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl> $admin_goods_subject_list_del </tpl>" title="<tpl> $admin_goods_subject_list_del </tpl>" /></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+		<h5 class="h5_down">
+		<div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/><span>:<tpl>$admin_goods_class_list_deit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" /><span>:<tpl>$admin_goods_class_list_del</tpl><!--  删除  --></span>
+			 </div>
+			 <input type="submit" value="<tpl> $admin_goods_subject_list_del </tpl>" class="delBtnInput" />
+		</h5>
+    </form>
+    	<div class="clear"></div>
+		
+    </div><!--  end of p-list-div  -->
+	</div>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

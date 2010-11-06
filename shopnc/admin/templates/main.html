@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title>shopnc</title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("rightcon").style.height = (wh-140)+"px";
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+}
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body id="home">
+  <h4 id="rightcon_h"><b><tpl>$admin_index_main_index</tpl><!-- 管理首页 --></b>
+    </h4>
+<div id="rightcon">
+	<tpl>if $nc_message!=''</tpl>
+	  <div class="red-notice"><tpl>$nc_message</tpl></div>
+	  <tpl>/if</tpl>
+			<div class="rc_con">
+			<h5>
+			<div class="floatRight">
+				<label>
+				<input type="button" name="addgood" onclick="location.href='admin_goods.php?action=goods_page'" value="<tpl>$admin_index_main_goods_add</tpl>" class="btnInput" />
+				</label>
+				<label>
+				<input type="button" name="addcate" onclick="location.href='admin_goods_class.php?action=page_goods_class'" value="<tpl>$admin_index_main_class_add</tpl>" class="btnInput" />
+				</label>
+				</div>
+			  <tpl>$admin_index_main_thing</tpl><!-- 当前情况 -->
+			</h5>
+	  
+	  <!--  end of red-notice  -->
+	  <div class="entry-body" id="p-list-div">
+		<table id="pListTab" width="100%" border="0" cellpadding="0" cellspacing="0" id="nowTab" class="stripeMe">
+		  <tr>
+			<td class="odd"><tpl>$admin_index_main_have</tpl><!-- 您现在有 --><a href="admin_goods.php?action=list"><tpl>$goods_num</tpl><tpl>$admin_index_main_have1</tpl><!-- 个商品 --></a><tpl>$admin_index_main_includes</tpl><!-- ，包含于 --><a href="admin_goods_class.php?action=list"><tpl>$class_num</tpl><tpl>$admin_index_main_includes1</tpl><!-- 个分类 --></a>.
+			  </th>
+		  </tr>
+		  <tr>
+			<td class="ood"><tpl>$admin_index_main_templates</tpl><!-- 您正在使用 --> <strong><tpl>$templatesname</tpl></strong> <tpl>$admin_index_main_templates1</tpl>.
+			  <input type="button" name="changetheme" value="<tpl>$admin_index_main_change_templates</tpl>" onclick="location.href='admin_system.php?action=templates_site'" class="btnInput" /><!-- 更好主题模板 -->
+			  <tpl>$admin_index_main_version</tpl><!-- 当前ShopNC版本为 --> V6.0 20091124
+			  </td>
+		  </tr>
+		</table>
+	  </div>
+	  <!--  end of entry-body  -->
+	  </div>
+	  
+	  <div class="rc_con">
+	  <h5>
+	  <span class="floatRight2"><a href="admin_order.php?action=order_list"><tpl>$admin_index_main_all_order</tpl><!-- 查看详情及全部 --></a></span>
+			  <tpl>$admin_index_main_new_order</tpl><!-- 最新5张订单 -->
+	  </h5>
+	  <div class="entry-body">
+		<table id="pListTab" width="100%" border="0" cellpadding="0" cellspacing="0" class="stripeMe">
+		  <tr>
+			<th><tpl>$admin_index_main_order_bn</tpl><!-- 订单编号 --></th>
+			<th><tpl>$admin_index_main_order_date</tpl><!-- 下单日期 --></th>
+			<th><tpl>$admin_index_main_order_money</tpl><!-- 订单金额 --></th>
+			<th><tpl>$admin_index_main_send_money</tpl><!-- 配送费用 --></th>
+			<th><tpl>$admin_index_main_pay_type</tpl><!-- 付款方式 --></th>
+			<th><tpl>$admin_index_main_buy_user</tpl><!-- 订货人 --></th>
+			<th><tpl>$admin_index_main_order_state</tpl><!-- 订单状态 --></th>
+			<th><tpl>$admin_index_main_oper</tpl><!-- 操作 --></th>
+		  </tr>
+		  <tpl>section name=list loop=$order_array</tpl>
+		  <tr>
+			<td><tpl>$order_array[list].order_serial</tpl></td>
+			<td><tpl>$order_array[list].create_time|date_format:"%Y-%m-%d"</tpl></td>
+			<td><tpl>$order_array[list].order_price</tpl></td>
+			<td><tpl>$order_array[list].transport_price</tpl></td>
+			<td><tpl>$order_array[list].pay_name</tpl></td>
+			<td><tpl>if $order_array[list].user_name != ''</tpl><tpl>$order_array[list].user_name</tpl><tpl>else</tpl><tpl>$order_array[list].receiver_name</tpl>(<tpl>$admin_order_guest</tpl>)<tpl>/if</tpl></td>
+			<td><tpl>if $order_array[list].order_state == 0</tpl><font color="#FF0000"><tpl>$admin_order_unconfirmed</tpl></font><tpl>else</tpl><tpl>$admin_order_be_confirmed</tpl><!-- 已确认 --><tpl>/if</tpl>,
+							<tpl>if $order_array[list].order_state1 == 0</tpl><font color="#FF0000"><tpl>$admin_order_not_paid</tpl></font><tpl>else</tpl><tpl>$admin_order_have_paid</tpl><!-- 已付款 --><tpl>/if</tpl>,
+							<tpl>if $order_array[list].order_state2 == 0</tpl><font color="#FF0000"><tpl>$admin_order_no_send</tpl></font><tpl>else</tpl><tpl>$admin_order_yes_send</tpl><!-- 已发货 --><tpl>/if</tpl>,
+							<tpl>if $order_array[list].order_state3 == 0</tpl><font color="#FF0000"><tpl>$admin_order_no_fill</tpl></font><tpl>else</tpl><tpl>$admin_order_already_filled</tpl><!-- 已归档 --><tpl>/if</tpl></td>
+			<td>
+					<a href="admin_order.php?action=order_view&order_id=<tpl>$order_array[list].order_id</tpl>" target="_self"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" title="<tpl>$admin_order_view</tpl>" /><!-- 查看订单 --></a> 
+					<a href="admin_order.php?action=order_del&order_id=<tpl>$order_array[list].order_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_order_delete</tpl>" /><!-- 删除 --></a>
+			</td>
+		  </tr>
+		  <tpl>/section</tpl>
+		</table>
+	  </div>
+	  </div>
+	  <!--  end of tab-wrapper  -->
+	  <!--  end of more-info  -->
+	<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+</body>
+</html>

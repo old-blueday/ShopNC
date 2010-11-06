@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_admin_header_shop_manage</tpl> - <tpl>$shop_admin_shop_class_list</tpl></title><!--  网店管理 - 网店分类列表  -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body>
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_shop_class.php?action=class_add" target="_self" class="btnInput"><tpl>$shop_admin_shop_class_add</tpl><!--  添加分类  --></a></span><tpl>$shop_admin_header_shop_manage</tpl><!--  商品管理  --> &gt;&gt; <tpl>$shop_admin_shop_class_list</tpl><!--  商品分类列表  -->
+    	</b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+		<form id="form" name="form" action="admin_goods_class.php" method="post">
+    	<input type="hidden" name="action" id="action"/>
+        <input type="hidden" name="id" id="id"/>
+        <input type="hidden" name="select" id="select" />
+			<h5><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_folder_add.gif" /><span>:<tpl>$shop_admin_shop_class_list_add_sub</tpl><!--  添加子分类  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/><span>:<tpl>$shop_admin_shop_class_list_edit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" /><span>:<tpl>$shop_admin_shop_class_list_del</tpl><!--  删除  --></span>
+            </div></h5>
+    <div class="entry-body" id="p-list-div">
+    
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          
+          <tr>
+            <th class="textLeft"><tpl>$shop_admin_shop_class_list_classname</tpl></th>
+            <th><tpl>$shop_admin_shop_class_list_is_pub</tpl></th>
+            <th><tpl>$shop_admin_shop_class_list_order</tpl></th>
+            <th class="ao"><tpl>$shop_admin_shop_class_list_add_operate</tpl></th>
+          </tr>
+		  <tpl> section name=i loop=$node_array </tpl>
+          <tr>
+            <td class="classname font14"><tpl> $node_array[i].name</tpl></td>
+            <td><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $node_array[i].iffb </tpl>.gif" alt="<tpl>$shop_admin_article_class_list_edit_state</tpl>" /></td>
+            <td><tpl> $node_array[i].sort</tpl></td>
+            <td class="ao"><a href="admin_shop_class.php?action=class_add&top_id=<tpl> $node_array[i].id </tpl>" ><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_folder_add.gif" title="<tpl> $shop_admin_article_class_list_add_sub </tpl>" /><!-- 添加子分类 --></a>
+            	<a href="admin_shop_class.php?action=class_add&tid=<tpl> $node_array[i].id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl> $shop_admin_article_class_list_edit </tpl>" /><!-- 编辑 --></a> 
+              <a href="admin_shop_class.php?action=del_class&tid=<tpl> $node_array[i].id </tpl>" onclick="return confirm('<tpl>$shop_admin_shop_class_list_del_conf</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl> $shop_admin_article_class_list_del </tpl>" /><!-- 删除 --></a></td>
+          </tr>
+		  		<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+				    <tr>
+					<td class="classname font14">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></td>
+            		<td><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $node_array[i].sub_array[j].iffb </tpl>.gif" alt="<tpl>$shop_admin_article_class_list_edit_state</tpl>" /></td>
+            		<td><tpl> $node_array[i].sub_array[j].sort </tpl></td>
+            		<td class="ao">
+            	<a href="admin_shop_class.php?action=class_add&tid=<tpl> $node_array[i].sub_array[j].id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl> $shop_admin_article_class_list_edit </tpl>" /><!-- 编辑 --></a> 
+              <a href="admin_shop_class.php?action=del_class&tid=<tpl> $node_array[i].sub_array[j].id </tpl>" onclick="return confirm('<tpl>$shop_admin_shop_class_list_del_conf</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl> $shop_admin_article_class_list_del </tpl>" /><!-- 删除 --></a></td>
+					</tr>
+				<tpl> /section </tpl>
+			<tpl>/section</tpl>
+        </table>
+    
+    	<div class="clear"></div>
+    </div><!--   end of p-list-div   -->
+	<h5 class="h5_down"><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_folder_add.gif" /><span>:<tpl>$shop_admin_shop_class_list_add_sub</tpl><!--  添加子分类  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/><span>:<tpl>$shop_admin_shop_class_list_edit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" /><span>:<tpl>$shop_admin_shop_class_list_del</tpl><!--  删除  --></span>
+            </div></h5></form>
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+
+</div><!--   end of content   -->
+</body>
+</html>

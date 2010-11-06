@@ -1,0 +1,50 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> if $complaint_report eq 'complaint' </tpl><tpl> $langComplaintManage </tpl><tpl> else </tpl><tpl> $langComLawManage </tpl><tpl> /if </tpl> &gt;&gt; <tpl> if $complaint_report eq 'complaint' </tpl><tpl> $langComplaintInfo </tpl> <tpl> $langComplaintManageOperator </tpl><tpl> else </tpl><tpl> $langCompLawInfo </tpl> <tpl> $langComplaintManageOperator </tpl><tpl> /if </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="complaint.manage.php" method="post" id="form_add" name="form_add">
+						<input type="hidden" name="action" value="modify_handling" />
+						<input type="hidden" name="complaint_report" value="<tpl> $complaint_report </tpl>" />
+						<input type="hidden" name="complaint_report_id" value="<tpl> $complaint_report_id </tpl>" />
+						<input type="hidden" name="revocation" value="<tpl> $revocation </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langComplaintOperatorResult </tpl>:</th>
+									<td><textarea class="fct-input" name="result" id="result"></textarea></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input type="submit" class="bthl" value="<tpl> $langComplaintEndOperator </tpl>" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='complaint.manage.php?action=view&complaint_report=<tpl> $complaint_report </tpl>&complaint_report_id=<tpl> $complaint_report_id </tpl>'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$("#form_add").validate({
+	errorClass: "wrong",
+	rules: {
+		result: {required:true}
+	},
+	messages: {
+		result: {required:"<tpl> $langComplaintContentNotNull </tpl>"}
+	}
+});
+</script>

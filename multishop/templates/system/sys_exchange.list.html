@@ -1,0 +1,88 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langExchangeManage </tpl> &gt;&gt; <tpl> $langExchangeList </tpl></div>
+				</div>
+			</div>
+			<form action="exchange.manage.php?action=update" id="form1" name="form1" method="post">
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-2"><tpl> $langExchangeType </tpl></td>
+						<td class="es-4"><tpl> $langExchangeRate </tpl></td>
+						<td class="es-2"><tpl> $langSysExchangeText </tpl></td>
+						<td class="es-3"><tpl> $langExchangeState </tpl></td>
+					</tr>
+					<tpl> if $exchange_array[0].exchange_id neq '' </tpl>
+						<tpl> section name=loop loop=$exchange_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><tpl> $exchange_array[loop].exchange_name </tpl></td>
+						<td>
+							<input class="fct-input" maxlength="8" value="<tpl> $exchange_array[loop].exchange_rate </tpl>" name="txtexchange_rate[<tpl> $exchange_array[loop].exchange_id </tpl>]" id="txtexchange_rate[<tpl> $exchange_array[loop].exchange_id </tpl>]" type="text" />
+						</td>
+						<td>
+							<input class="fct-input" maxlength="9" value="<tpl> $exchange_array[loop].exchange_remark </tpl>" name="txtexchange_remark[<tpl> $exchange_array[loop].exchange_id </tpl>]" type="text" />
+						</td>
+						<td>
+							<input type="radio" class="input_radio" name="txtexchange_default" id="txtexchange_default_<tpl> $exchange_array[loop].exchange_id </tpl>" value="<tpl> $exchange_array[loop].exchange_id </tpl>" <tpl> if $exchange_array[loop].exchange_default eq '1' </tpl> checked <tpl> /if </tpl> />
+							<label for="txtexchange_default_<tpl> $exchange_array[loop].exchange_id </tpl>"><tpl> $langSysDefaultExchange </tpl></label>
+							<tpl> if $exchange_array[loop].exchange_default neq '1' </tpl>
+								<input type="radio" class="input_radio" id="txtexchange_state_<tpl> $exchange_array[loop].exchange_id </tpl>_1" name="txtexchange_state[<tpl> $exchange_array[loop].exchange_id </tpl>]" value="1" <tpl> if $exchange_array[loop].state eq '1' </tpl> checked <tpl> /if </tpl> />
+								<label for="txtexchange_state_<tpl> $exchange_array[loop].exchange_id </tpl>_1"><tpl> $langExchangeStateOpen </tpl></label>
+								<input type="radio" class="input_radio" id="txtexchange_state_<tpl> $exchange_array[loop].exchange_id </tpl>_0" name="txtexchange_state[<tpl> $exchange_array[loop].exchange_id </tpl>]" value="0" <tpl> if $exchange_array[loop].state eq '0' </tpl> checked <tpl> /if </tpl> />
+								<label for="txtexchange_state_<tpl> $exchange_array[loop].exchange_id </tpl>_0"><tpl> $langExchangeStateClose </tpl></label>
+							<tpl> else </tpl>
+								<input type="hidden" name="txtexchange_state[<tpl> $exchange_array[loop].exchange_id </tpl>]" value="1" />
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $exchange_array[0].exchange_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbar">
+				<input class="bthl" name="" id="update" value="<tpl> $langExchangeSubmit </tpl>" type="button" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#update").click(function(){
+		var sign = true
+		var strP=/^\d+(\.\d+)?$/;
+		$('#form1 input[type=text]').each(function(){
+			if(this.name.indexOf("txtexchange_rate") >= 0){
+				if(!this.value) {
+					return false;
+				}
+				if(!strP.test(this.value)){
+					sign = false;
+				}else{
+					if(parseFloat(this.value) != this.value || parseFloat(this.value) == 0) {
+						sign = false;
+					}
+				}
+			}
+		});
+		
+		if(sign == true){
+			document.getElementById('form1').submit();
+		}else{
+			alert('<tpl> $langExchangeValueIsWrong </tpl>');
+		}
+	});
+});
+</script>
+</body>
+</html>

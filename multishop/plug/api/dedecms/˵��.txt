@@ -1,0 +1,5 @@
+本接口适合dedecms v4 v5
+
+官方的passport文件有BUG,用passport文件夹里的文件覆盖dedecms里的文件即可
+
+修正了官方PASSPORT不可以带入用户名和邮箱的问题

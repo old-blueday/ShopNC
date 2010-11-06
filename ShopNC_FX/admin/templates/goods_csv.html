@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_csv_title</tpl></title><!-- 商品管理 - 商品导入导出 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<style type="text/css">
+th {
+	padding:5px 10px;
+}
+</style>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <h2><tpl>$admin_header_goods_manage</tpl><!-- 商品管理 --> >> <tpl>$admin_goods_csv_title</tpl><!-- 商品导入导出 --></h2>
+    <div class="entry-body" id="entry1">
+    	  <form id="form1" name="form1" method="post" action="?action=csv_out">
+    	    <table width="100%" border="0" bgcolor="#E8E8E8" cellpadding="0" cellspacing="1">
+              <tr bgcolor="#FFFFFF">
+                <td><b><tpl>$admin_goods_csv_tx</tpl><!-- 文字数据输出 -->
+                </b></td>
+				<td><font color="#FF0000"><tpl>$admin_goods_csv_tx_info</tpl></font><!-- 这里将会把数据库数据直接转换成友好的文字说明。注意:不可以直接用于数据库数据更新 --><br /><tpl>$admin_goods_csv_out_charset</tpl><!-- 导出字符集 -->:<input type="radio" name="out_charset" value="utf-8" /><tpl>$admin_goods_csv_utf8</tpl><!-- 国际标准字符（utf-8） --><input type="radio" name="out_charset" value="gb2312"  checked="checked" /><tpl>$admin_goods_csv_gb2312</tpl><!-- 简体中文（gb2312） --><input type="radio" name="out_charset" value="big5" /><tpl>$admin_goods_csv_big5</tpl><!-- 繁体中文（big5） --></td>
+              </tr>
+              <tr bgcolor="#FFFFFF">
+                <td colspan="2" class="textCenter"><label>
+                  <input type="submit" name="Submit" value="<tpl>$admin_goods_run</tpl>" class="btnInput" /><!-- 开始执行 -->
+                </label></td>
+              </tr>
+            </table>
+	  </form>
+			<form action="?action=csv_in" method="post" enctype="multipart/form-data" name="form2" id="form2">
+				<table width="100%" border="0" bgcolor="#E8E8E8" cellpadding="0" cellspacing="1" style=" solid #E8E8E8; margin-top:20px;">
+				  <tr bgcolor="#FFFFFF">
+					<td><b><tpl>$admin_goods_csv_import</tpl></b><!-- 导入商品 --></td>
+				  	<td><a href="data/example.zip"><font color="#FF0000"><tpl>$admin_goods_csv_sql_info</tpl></font></a></td>
+				  </tr>
+				  <tr bgcolor="#FFFFFF">
+					<td align="right"><tpl>$admin_goods_csv_file_type</tpl><!-- CSV格式文件 -->:</td>
+					<td><label>
+					  <input type="file" name="file" />
+					</label><br /><tpl>$admin_goods_csv_in_charset</tpl>:<input type="radio" name="out_charset" value="utf-8" /><tpl>$admin_goods_csv_utf8</tpl><!-- 国际标准字符（utf-8） --><input type="radio" name="out_charset" value="gb2312"  checked="checked" /><tpl>$admin_goods_csv_gb2312</tpl><!-- 简体中文（gb2312） --><input type="radio" name="out_charset" value="big5" /><tpl>$admin_goods_csv_big5</tpl><!-- 繁体中文（big5） --></td>
+				  </tr>
+				  <tr bgcolor="#FFFFFF">
+					<td colspan="2" class="textCenter"><label>
+					  <input type="submit" name="Submit2" value="<tpl>$admin_goods_run</tpl>" class="btnInput" /><!-- 开始执行 -->
+					</label></td>
+				  </tr>
+				</table>
+      </form>
+	</div>
+    <!--  end of entry1  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

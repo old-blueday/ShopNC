@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/buy.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper" class="m"> 
+	<!--Header-->
+	<tpl> include file="header_new.html" </tpl>
+	<!--End Header-->
+	<div class="clear">&nbsp;</div>
+	<div id="sitenav">
+		<span><a href="<tpl> $site_url </tpl>/home/product.php?action=list"><tpl> $langCAllSort </tpl></a> > <tpl> $product_class_string </tpl> > <tpl> $langPInfo </tpl></span>
+	</div>
+	<div class="clear"></div>
+	<div id="buyProcess">
+		<ul>
+			<li class="firstCurrent"><span class="01"><tpl> $langPBuyProcessOne </tpl></span></li>
+			<li><span><tpl> $langPBuyProcessTwo </tpl></span></li>
+			<li><span><tpl> $langPBuyProcessThree </tpl></span></li>
+			<li><span><tpl> $langPBuyProcessFour </tpl></span></li>
+			<li class="last"><span><tpl> $langPBuyProcessFive </tpl></span></li>
+		</ul>
+	</div>
+	<div id="main">
+	<form name="mainform" id="mainform" method="post" action="product_group.php?action=order">
+		<input type="hidden" name="p_group_price" value="<tpl> $product_row.p_group_price </tpl>" />
+		<input type="hidden" name="p_code" value="<tpl> $product_row.p_code </tpl>" />	
+	  <div class="left">
+			<div class="leftsideBox">
+				<div class="title">
+					<span id="goodsInfo"></span>
+					<h3><tpl> $langPAuctionBuyProductInfo </tpl></h3>
+				</div>
+				<div class="content">
+					<div id="goodsPic">
+						<a href="product_auction.php?action=view&p_code=<tpl> $product_row.p_code </tpl>" target="_blank"><img id="product_img" src="<tpl>if $product_row.mid_pic neq ''</tpl><tpl> $site_url </tpl>/<tpl> $product_row.mid_pic </tpl><tpl>else</tpl><tpl> $template_dir </tpl>/images/noimgm.gif<tpl>/if</tpl>" width="192" height="192" /></a>
+					</div>
+					<dl>
+						<dt><tpl> $langPBabyName </tpl>: </dt>
+						<dd><a href="product_auction.php?action=view&p_code=<tpl> $product_row.p_code </tpl>" target="_blank"><tpl> $product_row.p_name </tpl></a></dd>
+					</dl>
+					<dl>
+						<dt><tpl> $langPHNoncePrice </tpl>: </dt>
+						<dd><tpl> $product_row.p_group_price </tpl> <tpl> $langCYuan </tpl></dd>
+						<input type="hidden" name="predeposit_price" id="predeposit_price" value="<tpl> $product_row.p_group_price </tpl>" />
+					</dl>
+					<dl>
+						<dt><tpl> $langUserArea </tpl>: </dt>
+						<dd>
+							<tpl> section name=loop loop=$sel_area </tpl>
+								<var><tpl> $sel_area[loop].area_name </tpl></var>
+							<tpl> /section </tpl>
+						</dd>
+					</dl>
+					<dl>
+						<dt><tpl> $langPSale </tpl>: </dt>
+						<dd><tpl> $product_row.login_name </tpl></dd>
+					</dl>
+				</div>
+					<div class="leftsideBox">
+						<div class="title"><span id="payment"></span>
+							<h3><tpl> $langPPayment </tpl></h3>
+						</div>
+						<div class="content">
+						
+							<tpl> foreach from=$payment_array item=one key=key </tpl>
+							<!-- 如果是预付款支付，则显示可用金额 -->
+							<tpl> if $$one.field == 'predeposit' </tpl>
+							<input type="radio" name="txtPayment" id="radio_predeposit" <tpl> if $one.check eq '1' </tpl>checked="checked"<tpl> /if </tpl> value="<tpl> $one.field </tpl>" /><tpl> $one.name </tpl>
+							（<tpl> $langPAvailablePredeposit </tpl>：￥<span id="span_available_predeposit"><tpl> $member_array.available_predeposit </tpl></span><input type="button" name="blockUi" id="blockUi" value="<tpl> $langProductPredepositPay </tpl>" />）
+							<tpl> else </tpl>
+							<input type="radio" name="txtPayment" <tpl> if $one.check eq '1' </tpl>checked="checked"<tpl> /if </tpl> value="<tpl> $one.field </tpl>" /><tpl> $one.name </tpl>
+							<tpl> /if </tpl>
+							<br />
+							<tpl> /foreach </tpl>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+					<div class="leftsideBox">
+						<div class="title"><span id="currencyType"></span>
+							<h3><tpl> $langPPaymentCurrency </tpl></h3>
+						</div>
+						<div class="content">
+							<tpl> foreach from=$exchange_array item=one key=key </tpl>
+							<span id="div_<tpl> $key </tpl>_currency">
+							
+							<input type="radio" <tpl> if $one.exchange_name == 'CNY' </tpl>checked="checked"<tpl> /if </tpl> name="p_currency" value="<tpl> $one.exchange_id </tpl>" /><tpl> $exchange_remark[$key] </tpl>(<tpl> $key </tpl>):<tpl> $one.exchange_remark </tpl>
+							</span><br />
+							<!-- 如果是预付款支付，隐藏域作为验证预付款账户是否可以进行支付 -->
+							<tpl> /foreach </tpl>
+						</div>
+					</div>
+			</div>
+        </div>
+		<div class="right">
+			<div class="rightSideBox">
+				<div class="title">
+					<span><a href="../member/own_receive.php" target="_blank"><tpl> $langPmanageMeAddress </tpl></a></span>
+					<h3><tpl> $langPConfirmAddress </tpl></h3>
+				</div>
+				<div class="content">
+					<ul id="addlist">
+						<tpl> section name=i loop=$receive_array </tpl>
+							<li>
+								<input type="radio" name="bid_receive_code" value="<tpl> $receive_array[i].receive_code </tpl>" id="add<tpl> $receive_array[i].receive_code </tpl>" <tpl> if $receive_array[i].checked eq '1' </tpl>checked<tpl> /if </tpl> />
+								<label for="add<tpl> $receive_array[i].receive_code </tpl>">
+								<tpl> foreach from=$receive_array[i].sel_area item=one key=key </tpl>
+									<tpl> $one.area_name </tpl>
+								<tpl> /foreach </tpl>
+								<tpl> $receive_array[i].address </tpl> (<tpl> $langPConsignee </tpl>: <tpl> $receive_array[i].receive_name </tpl>)
+								</label>
+							</li>
+						<tpl> /section </tpl>
+						<li>
+              <tpl> if $receive_array[0].receive_code neq '' </tpl>
+              	<input name="bid_receive_code" id="receive_other" type="radio" value="new" /> <tpl> $langPOtherAddress </tpl>
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="receive_tb" style="display:none;">
+              <tpl> else </tpl>
+			  	<input name="bid_receive_code" type="radio" value="new" style="display:none" checked="checked" />
+              	<table width="100%" border="0" cellspacing="0" cellpadding="0" id="receive_tb">
+              <tpl> /if </tpl>
+								<tr>
+									<th><tpl> $langPTown </tpl>: </th>
+									<td>
+                                    	<div id="adddiv"></div>
+										<input type="hidden" name="receive_area_id" id="receive_area_id" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langPRowAddress </tpl>: </th>
+									<td>
+										<label for="address"></label>
+										<input name="address" type="text" class="textInput" id="address" size="80" />
+									</td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td style="color:#F60;"><tpl> $errProductNotMake </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPPostalcode </tpl>: </th>
+									<td><input name="zip" type="text" class="textInput" id="zip" size="12" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPConsigneeName </tpl>: </th>
+									<td><input name="receive_name" type="text" class="textInput" id="receive_name" size="12" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPPhone </tpl>: </th>
+									<td><input name="phone" type="text" class="textInput" id="phone" size="24"  /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPMobileTelephone </tpl>: </th>
+									<td><input name="mobilephone" type="text" class="textInput" id="mobilephone" size="24"  /></td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td  style="color:#F60;"><tpl> $langPExpressAffiliation </tpl></td>
+								</tr>
+							</table>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="rightSideBox">
+				<div class="title">
+					<h3><tpl> $langPConfirmBuyNum </tpl></h3>
+				</div>
+				<div class="content">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						<th><tpl> $langPBuyNum </tpl>: </th>
+						<td>
+							<label for="buy_num">
+							<input name="buy_num" type="text" class="textInput" id="buy_num" value="1" size="3" />
+							<span><tpl> $langPMayBuy </tpl><tpl> $group_product.max_count </tpl><tpl> $langPPiece </tpl></span></label>
+						</td>
+						</tr>
+						<tr>
+							<th><tpl> $langPCarryFashion </tpl>: </th>
+							<td><tpl> $langPCarriageSaleBear </tpl></td>
+						</tr>
+						<tr>
+							<th><tpl> $langPGroupMargin </tpl>: </th>
+							<td>
+								<tpl>$group_product.set_money</tpl><tpl> $langCYuan </tpl>&nbsp;&nbsp;&nbsp;&nbsp;(<tpl> $langPAvailablePredeposit </tpl>：￥<span id="span_available_predeposit"><tpl> $member_array.available_predeposit </tpl></span><tpl>if $member_array.available_predeposit < $group_product.set_money</tpl><input type="button" name="blockUi_1" id="blockUi_1" value="<tpl> $langProductPredepositPay </tpl>" class="btn" /><tpl>/if</tpl>)<br />
+								<p class="notes" style="color:red;"><tpl> $langPGroupMargina </tpl></p>
+								<input type="hidden" name="need_margin" value="<tpl>$group_product.set_money</tpl>" />
+								<input type="hidden" name="available_predeposit" id="available_predeposit" value="<tpl> $member_array.available_predeposit </tpl>" />
+								<div id="question" style="display:none;"> 
+									<input type="button" id="yes" value="<tpl> $langProductPredepositPaySucc </tpl>" onclick="payOk();" class="btn"/> 
+									<input type="button" id="no" value="<tpl> $langProductPredepositPayFail </tpl>" onclick="payFail();" class="btn"/>
+								</div> 
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="rightSideBox">
+				<div class="title">
+					<h3><tpl> $langPConfirmSubmitOrder </tpl></h3>
+				</div>
+				<div class="content">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<th><input type="checkbox" name="bid_anonymous" value='1' id="bid_anonymous" style="height:28px"/>
+							<label for="checkbox"></label></th>
+							<td><label for="bid_anonymous"><strong><tpl> $langPHideMyUserName </tpl></strong><span><tpl> $langPSelectAnonymity </tpl></span></label></td>
+						</tr>
+						<tr>
+							<th><tpl> $langProductCode </tpl>: </th>
+							<td>
+							<input name="checkcode" type="text" class="textInput" id="checkcode" size="8" />
+							<img id="checkCodeImg" src="../classes/libraries/code.php" onclick="this.src='../classes/libraries/code.php?' + Math.random()"  align="absmiddle">
+							<a href="javascript:;" onclick="document.getElementById('checkCodeImg').src='../classes/libraries/code.php?' + Math.random()"><tpl> $langPNotClarityInstead </tpl></a>
+							</td>
+						</tr>
+						<!--<tr>
+							<th><input name="checkbox2" type="checkbox" id="checkbox2" style="height:28px" checked="checked"/></th>
+							<td> 同意<a href="#">竞拍服务协议</a><span>(请认真阅读此协议后，确定同意才能继续购买)</span></td>
+						</tr>-->
+						<tr>
+							<th rowspan="2">&nbsp;</th>
+							<td><input type="submit" name="button2" id="button2" value="<tpl> $langPConfirmToBuy </tpl>" class="btn"/></td>
+						</tr>
+						<!--<tr>
+							<td><p class="notes">点击按钮表示您将确认够买并同意支付货款，您可在确认后选择支付宝宝方式安全付款。<br />
+							如需要修改商品价格(包括运费)，请您点击确认按钮后，联系卖家进行修改。</p></td>
+						</tr>-->
+					</table>
+				</div>
+			</div>
+		</div>
+		</form>
+		<div class="clear"></div>
+	</div>
+	<div class="clear" style="height:8px;"></div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+<script language="JavaScript" type="text/javascript" src="../js/jquery1.4/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+function payOk(){
+	ajaxGetPredeposit();
+	closeBlock();
+}
+function payFail(){
+	window.open("http://www.shopnc.net/forum");
+	closeBlock();
+}
+function closeBlock(){
+	$.unblockUI();
+}
+function ajaxGetPredeposit(){
+	$.ajax({
+		url: "../member/own_predeposit.php",
+		data: 'action=ajax_get_predeposit',
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '1'){
+				//$('#available_predeposit').val(msg.message);
+				$('#span_available_predeposit').html(msg.message);
+			}
+		}
+	});
+	return false;
+}
+$(document).ready(function(){
+	<tpl> if $margin_sign eq 0 </tpl>
+
+		function accMul(price,percent){
+			if(isNaN(price) == 'NaN' || parseInt(price) < 5){
+				$('#hidden_auction_margin').val('5');
+				$('#auction_margin').html('5');
+				return 5;
+			}
+			var m=0,s1=price.toString(),s2=percent.toString();
+			try{m+=s1.split(".")[1].length}catch(e){};
+			try{m+=s2.split(".")[1].length}catch(e){};
+			result = Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m);
+			if(result < 5){
+				$('#hidden_auction_margin').val('5');
+				$('#auction_margin').html('5');
+				return 5;
+			}else{
+				$('#hidden_auction_margin').val(result);
+				$('#auction_margin').html(result);
+				return result;
+			}
+		}
+	<tpl> /if </tpl>
+
+	$("#blockUi").click(function(){
+		window.open('../member/own_predeposit.php?action=pay');
+		$.blockUI(
+			{ message:$('#question').html()},
+			{ width: '275px' }
+		);
+	});
+	
+	$("#blockUi_1").click(function(){
+		window.open('../member/own_predeposit.php?action=pay');
+		$.blockUI(
+			{ message:$('#question').html()},
+			{ width: '275px' }
+		);
+	});
+	//其他收货地址
+	$("input[type=radio][name=bid_receive_code]").click(function(){
+		if ($(this).val() != 'new') {
+			$("#receive_tb").hide();
+		} else {
+			$("#receive_tb").show();
+		}
+	});	
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'receive_area_id'
+				});
+	//validate
+	$("#mainform").validate({
+		errorClass: "wrong",
+		rules: {
+			receive_area_id:{required:receiveChecked},
+			address:{required:receiveChecked},
+			zip:{required:receiveChecked},
+			receive_name:{required:receiveChecked},
+			phone:{required:receiveCheckedTwoSelOne},
+			mobilephone:{required:receiveCheckedTwoSelOne},
+			checkcode:{required:true},
+			buy_num: {required: true,number: true,min: 1,max:<tpl> $group_product.max_count </tpl>}
+		},
+		messages: {
+			receive_area_id:{required:"<tpl> $errPReceiveAreaIsEmpty </tpl>"},
+			address:{required:"<tpl> $langPReceiveAddressIsEmpty </tpl>"},
+			zip:{required:"<tpl> $langPReceiveZipIsEmpty </tpl>"},
+			receive_name:{required:"<tpl> $langPReceiveNameIsEmpty </tpl>"},
+			phone:{required:"<tpl> $langPContactInputOne </tpl>"},
+			mobilephone:{required:"<tpl> $langPContactInputOne </tpl>"},
+			checkcode:{required:"<tpl> $alertCodeErr </tpl>"},
+			buy_num: {required: "<tpl> $langGroupBuyNumberEmpty </tpl>",number: "<tpl> $langGroupBuyNumberError </tpl>",min:"<tpl> $langGroupBuyNumberMin </tpl>",max:"<tpl> $langGroupBuyNumberMax </tpl><tpl> $group_product.max_count </tpl><tpl> $langProductAPiece </tpl>"}
+		}
+		<tpl> if $margin_sign eq 0 </tpl>
+		,
+		submitHandler: function(form) {
+			if(parseFloat($('#span_available_predeposit').html()) > parseFloat(<tpl>$group_product.set_money</tpl>)){
+				form.submit();
+			}else {
+				alert('<tpl> $errPAuctionPredepositIsEmpty </tpl>');
+				return false;
+			}
+		}
+		<tpl> /if </tpl>
+	});
+	function receiveChecked(){
+		if($("input[type=radio][name=bid_receive_code]:checked").val() == 'new'){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+	function receiveCheckedTwoSelOne(){
+		var sign = receiveChecked();
+		if(sign == true){
+			if($.trim($('#phone').val()) == '' && $.trim($('#mobilephone').val()) == ''){
+				return true;
+			}else{
+				return false;	
+			}
+		}else{
+			return false;	
+		}
+	}
+});
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shopping_cart3_name</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl>
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="shopping_pic"></div>
+  <div class="top">&nbsp;</div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$shopping_cart3_name</tpl><!-- 我的购物车 --></h2>
+    </div>
+    <div id="cart">
+      <div class="inside">
+        <div class="bills_ok">
+          <table width="100%" border="0" cellspacing="2" cellpadding="2">
+            <thead><tr>
+              <td colspan="2"><tpl>$shopping_cart3_buy_ok</tpl><!-- 感谢您在本店购物！您的订单已提交成功。 --></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <th><tpl>$shopping_cart3_order_serial</tpl><!-- 您的商品订单号为 -->:</th>
+              <td><span class="STYLE1"><tpl>$order_serial</tpl></span></td>
+            </tr>
+            <tr>
+              <th><tpl>$shopping_cart3_all_price</tpl><!-- 您的应付款总金额为 -->:</th>
+              <td><strong><tpl>$currencys_set.currencies_symbol</tpl> <tpl>$price_count</tpl> <tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></strong></td>
+            </tr>
+            <tr>
+              <th><tpl>$shopping_cart3_send_type</tpl><!-- 您选定的配送方式为 -->:</th>
+              <td><strong><tpl>$transport_name</tpl></strong></td>
+            </tr>
+            <tr>
+              <th><tpl>$shopping_cart3_pay_type</tpl><!-- 您选定的支付方式为 -->:</th>
+              <td><strong><tpl>$pay_name</tpl></strong></td>
+            </tr></tbody>
+            <tfoot><tr>
+              <td colspan="2"><tpl>$form_code</tpl></td>
+            </tr></tfoot>
+          </table>
+        </div>
+        <div class="clear">&nbsp;</div>
+        <p><span class="btns_left back_b"><a href="<tpl> $Site_Url </tpl>"><tpl>$shopping_cart3_back_index</tpl></a></span></p>
+        <p><span class="btns_right front_b"><span class="continue-buy"><a href="member/user_center.php"><tpl>$shopping_cart3_back_user_center</tpl><!-- 返回用户中心 --></a></span></span></p>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+  </div>
+  <div class="clear" style="height:6px;">&nbsp;</div>
+  <div class="bottom">&nbsp;</div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl>
+<!-- 底部内容:END -->
+</body>
+</html>

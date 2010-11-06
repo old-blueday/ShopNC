@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_user_grade_add</tpl></title><!-- 会员管理 - 添加会员等级 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_grade").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_grade_name		: {required:true},
+			txt_grade_discount	: {required:true,number:true,minValue:0.1,maxValue:10}
+		},
+		messages: {
+			txt_grade_name		: {required: "<tpl>$admin_user_grade_name_null</tpl>"},
+			txt_grade_discount	: {required: "<tpl>$admin_user_grade_discount_null</tpl>",number:"<tpl>$admin_user_grade_discount_error</tpl>",minValue:"<tpl>$admin_user_grade_min_discount</tpl>",maxValue:"<tpl>$admin_user_grade_max_discount</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+<form action="admin_user_grade.php?action=grade_save" method="post" name="add_grade" id="add_grade">
+<input type="hidden" name="txt_grade_id" id="txt_grade_id"  value="<tpl>$grade_array.grade_id</tpl>" >
+	<h2><span class="alignRight"><a href="admin_user_grade.php?action=grade_list" target="_self">{<tpl>$admin_user_grade_list</tpl><!-- 会员等级列表 -->}</a></span> <tpl>$admin_header_user_manage</tpl><!-- 会员管理 --> >> <tpl>if $grade_array.grade_id!=''</tpl><tpl>$admin_user_grade_list_edit</tpl><tpl>else</tpl><tpl>$admin_user_grade_add</tpl><tpl>/if</tpl><!-- 添加会员等级 -->
+    	   
+    </h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_grade_add_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="100%" border="0">
+        <tr>
+          <td width="80"><tpl>$admin_user_grade_add_name</tpl><!-- 等级名称 -->:</td>
+          <td><input type="text" name="txt_grade_name" id="txt_grade_name" value="<tpl>$grade_array.grade_name|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_grade_name" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <!-- <tr> 
+          <td><tpl>$admin_user_grade_add_time</tpl>优惠时长>:</td>
+          <td><input type="text" name="txt_grade_time" id="txt_grade_time"  value="<tpl>$grade_array.grade_time</tpl>" /></td>
+        </tr> -->
+        <tr>
+          <td><tpl>$admin_user_grade_add_discount</tpl><!-- 优惠折扣 -->:</td>
+          <td><input type="text" name="txt_grade_discount" id="txt_grade_discount" size="8"  value="<tpl>$grade_array.grade_discount</tpl>" />&nbsp;<tpl>$admin_user_grade_unit</tpl>&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_grade_discount" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_grade_add_state</tpl><!-- 等级状态 -->:</td>
+          <td><tpl>$grade_state</tpl></td>
+        </tr>
+      </table>
+</div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_grade_add_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_user_grade_add_reset</tpl>"  class="btnInput" /><!-- 重置 -->
+    </div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

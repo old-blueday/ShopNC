@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_ad_add</tpl></title><!-- 工具管理 - 添加广告 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<link type="text/css" href="<tpl>$Site_Url</tpl>/js/calendar/blue/blue.css" rel="Stylesheet" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/calendar/Calendar.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_ad").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_ad_title	: {required:true},
+			txt_ad_type		: {required:true},
+			txt_position_id	: {required:true}
+		},
+		messages: {
+			txt_ad_title	: {required: "<tpl>$admin_tool_ad_name_null</tpl>"},
+			txt_ad_type		: {required: "<tpl>$admin_tool_ad_type_null</tpl>"},
+			txt_position_id	: {required: "<tpl>$admin_tool_ad_position_null</tpl>"}
+		}
+	});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var	type_select;
+	$('.adtype').css('display', 'none');
+	type_select = function(){
+		if($(this).attr('value') == 'flash'){
+			$('.adtype').css('display', 'none');
+			$('.adflash').css('display', '');
+		} else if($(this).attr('value') == 'pic'){
+			$('.adtype').css('display', 'none');
+			$('.adpic').css('display', '');
+		} else if($(this).attr('value') == 'code'){
+			$('.adtype').css('display', 'none');
+			$('.adcode').css('display', '');
+		} else if($(this).attr('value') == 'text'){
+			$('.adtype').css('display', 'none');
+			$('.adtx').css('display', '');
+		} else {
+			$('.adtype').css('display', 'none');
+		}
+	};
+	$('#txt_ad_type').change(type_select);
+			<tpl>if $ad_array.ad_type == 'flash'</tpl>
+			$('.adflash').css('display', '');
+			<tpl>elseif $ad_array.ad_type == 'code'</tpl>
+			$('.adcode').css('display', '');
+			<tpl>elseif $ad_array.ad_type == 'pic'</tpl>
+			$('.adpic').css('display', '');
+			<tpl>elseif $ad_array.ad_type == 'text'</tpl>
+			$('.adtx').css('display', '');
+			<tpl>/if</tpl>
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+    <form action="admin_tool_ad.php?action=ad_save" method="post" enctype="multipart/form-data" name="add_ad" id="add_ad">
+    	<input type="hidden" name="ad_id" value="<tpl>$ad_array.ad_id</tpl>"/>
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_tool_ad.php?action=ad_list" target="_self" class="btnInput"><tpl>$admin_tool_ad_list</tpl><!-- 广告列表 --></a><a href="admin_tool_ad.php?action=ad_area_list" target="_self" class="btnInput"><tpl>$admin_tool_ad_poster_list</tpl><!-- 广告位列表 --></a></span>
+	<tpl>$admin_header_tools_manage</tpl> >> <tpl>if $ad_array.ad_id!=''</tpl><tpl>$admin_tool_ad_edit1</tpl><tpl>else</tpl><tpl>$admin_tool_ad_add</tpl><tpl>/if</tpl><!-- 工具管理 >> 添加广告 -->
+	</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>if $ad_array.ad_id!=''</tpl><tpl>$admin_tool_ad_edit1</tpl><tpl>else</tpl><tpl>$admin_tool_ad_add</tpl><tpl>/if</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_tool_ad_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0" style="text-align:left;">
+          <tr>
+            <td width="120"><tpl>$admin_tool_ad_name</tpl><!-- 广告名称 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_title" id="txt_ad_title" value="<tpl>$ad_array.ad_title|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_ad_title" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr <tpl>if $ad_array.ad_id == 1 </tpl> style="display:none" <tpl>/if</tpl> >
+            <td><tpl>$admin_tool_ad_type</tpl><!-- 广告类型 -->:</td>
+            <td><tpl>$ad_select</tpl>&nbsp;<span class="red">*</span>
+            <div class="check-error"><label style="display:none" for="txt_ad_type" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr <tpl>if $ad_array.ad_id == 1 </tpl> style="display:none" <tpl>/if</tpl> >
+            <td><tpl>$admin_tool_ad_position</tpl><!-- 广告位置 -->:</td>
+            <td><tpl>$position_select</tpl>&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_position_id" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tpl>if $ad_array.ad_id == 1 </tpl>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_info</tpl><!-- 广告描述 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_text"  value="<tpl>$ad_array.info_array[0]</tpl>" /></td>
+          </tr>
+		 <tpl>/if</tpl>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_url</tpl><!-- 广告url -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_url"  value="<tpl>$ad_array.ad_url</tpl>" /></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_pic</tpl><!-- 广告图片 -->:</td>
+            <td><input type="file" name="ad_pic" /><tpl>if $ad_array.ad_id == 1 </tpl><tpl>$admin_tool_ad_pic_good</tpl><tpl>/if</tpl><tpl>if $ad_array.ad_type=='pic'</tpl><input type="hidden" name="txt_old_ad_body_pic" value="<tpl>$ad_array.ad_body</tpl>" /><tpl>/if</tpl></td>
+          </tr>
+          <tr class="adpic adtype"><!-- 广告图片缩略图 -->
+            <td></td>
+            <td><tpl>if $ad_array.ad_body!=''</tpl><img src="../<tpl>$ad_array.ad_body</tpl>"/ width="100" height="70" ><tpl>/if</tpl></td>
+          </tr>
+           <tpl>if $ad_array.ad_id != 1 </tpl>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_pic_url</tpl><!-- 图片网址 -->:</td>
+            <td><input class="TextBoxAt" name="txt_ad_body_pic" type="text" size="40"  <tpl>if $ad_array.ad_type=='pic'</tpl>value="<tpl>$ad_array.ad_body</tpl>"<tpl>/if</tpl>  /></td>
+          </tr>
+          <tpl>/if</tpl>
+          <tpl>if $ad_array.ad_id == 1 </tpl>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_info</tpl>2<!-- 广告描述 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_text2"  value="<tpl>$ad_array.info_array[1]</tpl>" /></td>
+          </tr>
+           <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_url</tpl>2<!-- 广告url2 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_url2"  value="<tpl>$ad_array.url_array[0]</tpl>" /></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_pic</tpl>2<!-- 广告图片2 -->:</td>
+            <td><input type="file" name="ad_pic1" /><tpl>$admin_tool_ad_pic_good</tpl><tpl>if $ad_array.ad_type=='pic'</tpl><input type="hidden" name="txt_old_ad_body_pic1" value="<tpl>$ad_array.pic_array[0]</tpl>" /><tpl>/if</tpl></td>
+          </tr>
+          <tr class="adpic adtype"><!-- 广告图片缩略图2 -->
+            <td></td>
+            <td><img src="../<tpl>$ad_array.pic_array[0]</tpl>"/ width="100" height="70" ></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_info</tpl>3<!-- 广告描述 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_text3"  value="<tpl>$ad_array.info_array[2]</tpl>" /></td>
+          </tr>
+           <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_url</tpl>3<!-- 广告url3 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_url3"  value="<tpl>$ad_array.url_array[1]</tpl>" /></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_pic</tpl>3<!-- 广告图片3 -->:</td>
+            <td><input type="file" name="ad_pic2" /><tpl>$admin_tool_ad_pic_good</tpl><tpl>if $ad_array.ad_type=='pic'</tpl><input type="hidden" name="txt_old_ad_body_pic2" value="<tpl>$ad_array.pic_array[1]</tpl>" /><tpl>/if</tpl></td>
+          </tr>
+          <tr class="adpic adtype"><!-- 广告图片缩略图3 -->
+            <td></td>
+            <td><img src="../<tpl>$ad_array.pic_array[1]</tpl>"/ width="100" height="70" ></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_info</tpl>4<!-- 广告描述 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_text4"  value="<tpl>$ad_array.info_array[3]</tpl>" /></td>
+          </tr>
+           <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_url</tpl>4<!-- 广告url4 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_url4"  value="<tpl>$ad_array.url_array[2]</tpl>" /></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_pic</tpl>4<!-- 广告图片4 -->:</td>
+            <td><input type="file" name="ad_pic3" /><tpl>$admin_tool_ad_pic_good</tpl><tpl>if $ad_array.ad_type=='pic'</tpl><input type="hidden" name="txt_old_ad_body_pic3" value="<tpl>$ad_array.pic_array[2]</tpl>" /><tpl>/if</tpl></td>
+          </tr>
+         <tr class="adpic adtype"><!-- 广告图片缩略图4 -->
+            <td></td>
+            <td><img src="../<tpl>$ad_array.pic_array[2]</tpl>"/ width="100" height="70" ></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_info</tpl>5<!-- 广告描述 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_text5"  value="<tpl>$ad_array.info_array[4]</tpl>" /></td>
+          </tr>
+           <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_url</tpl>5<!-- 广告url5 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_url5"  value="<tpl>$ad_array.url_array[3]</tpl>" /></td>
+          </tr>
+          <tr class="adpic adtype">
+            <td><tpl>$admin_tool_ad_pic</tpl>5<!-- 广告图片5 -->:</td>
+            <td><input type="file" name="ad_pic4" /><tpl>$admin_tool_ad_pic_good</tpl><tpl>if $ad_array.ad_type=='pic'</tpl><input type="hidden" name="txt_old_ad_body_pic4" value="<tpl>$ad_array.pic_array[3]</tpl>" /><tpl>/if</tpl></td>
+          </tr>
+         <tr class="adpic adtype"><!-- 广告图片缩略图5 -->
+            <td></td>
+            <td><img src="../<tpl>$ad_array.pic_array[3]</tpl>"/ width="100" height="70" ></td>
+          </tr>
+          <tpl>/if</tpl>
+          <tr class="adflash adtype">
+            <td><tpl>$admin_tool_ad_flash</tpl><!-- 上传Flash -->:</td>
+            <td><input type="file" name="ad_flash" /><tpl>if $ad_array.ad_type=='flash'</tpl><input type="hidden" name="txt_old_ad_body_flash" value="<tpl>$ad_array.ad_body</tpl>" /><tpl>/if</tpl></td>
+          </tr>
+          <tr class="adflash adtype">
+            <td><tpl>$admin_tool_ad_flash_url</tpl><!-- Flash网址 -->:</td>
+            <td><input class="TextBoxAt" name="txt_ad_body_flash" type="text" size="40" <tpl>if $ad_array.ad_type=='flash'</tpl>value="<tpl>$ad_array.ad_body</tpl>"<tpl>/if</tpl>   /></td>
+          </tr>
+		  <tr class="adcode adtype">
+		  	<td><tpl>$admin_tool_ad_code</tpl><!-- 输入广告代码 -->:</td>
+			<td><label>
+			  <textarea name="txt_ad_body_code" cols="50" rows="6"><tpl>if $ad_array.ad_type=='code'</tpl><tpl>$ad_array.ad_body</tpl><tpl>/if</tpl> </textarea>
+			</label></td>
+		  </tr>
+		  <tr class="adtx adtype">
+		  	<td><tpl>$admin_tool_ad_url</tpl><!-- 广告URL -->:</td>
+			<td><input class="TextBoxAt" name="txt_ad_url1" type="text" size="40" value="<tpl>$ad_array.ad_url</tpl>" /></td>
+		  </tr>
+		  <tr class="adtx adtype">
+		  	<td><tpl>$admin_tool_ad_content</tpl><!-- 广告内容 -->:</td>
+			<td><label>
+			  <textarea name="txt_ad_body_text" cols="50" rows="6"><tpl>if $ad_array.ad_type=='text'</tpl><tpl>$ad_array.ad_body</tpl><tpl>/if</tpl></textarea>
+			</label></td>
+		  </tr>
+		   <tpl>if $ad_array.ad_id != 1 </tpl>
+          <tr>
+            <td><tpl>$admin_tool_ad_state</tpl><!-- 广告状态 -->:</td>
+            <td><tpl>$ad_state</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_start</tpl><!-- 开始时间 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_starttime" id="txt_ad_starttime" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl>$ad_array.ad_starttime</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_end</tpl><!-- 结束时间 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_endtime" id="txt_ad_endtime" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl>$ad_array.ad_endtime</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_contact</tpl><!-- 联系人 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_user"  value="<tpl>$ad_array.ad_user</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_email</tpl><!-- 联系邮箱 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_email"  value="<tpl>$ad_array.ad_email</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_tool_ad_tel</tpl><!-- 联系电话 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_ad_call"  value="<tpl>$ad_array.ad_call</tpl>" /></td>
+          </tr>
+		  <tr>
+            <td>&nbsp;</td>
+            <td>
+			<input type="submit" name="button" id="button" value="<tpl>$admin_tool_ad_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_tool_ad_reset</tpl>" class="btnInput" /><!-- 重置 -->
+			</td>
+          </tr>
+          <tpl>/if</tpl>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+	</div>
+  </form>
+ <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script type="text/javascript" language="javascript">
+$(function(){
+   $("#txt_ad_starttime").datepicker();
+   $("#txt_ad_endtime").datepicker();
+  
+})
+</script>
+</body>
+</html>

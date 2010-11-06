@@ -1,0 +1,32 @@
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #44CC44;
+	background-color: #fff;
+	padding: 5px;
+	width: 450px;
+
+	opacity: 0.85;
+	font-family: "ËÎÌו";
+	font-size: 12px;
+	line-height: 23px;
+	
+}
+#tooltip h3, #tooltip div { font-size: 13px;margin: 0; }
+
+#tooltip.pretty {
+	font-family: Arial;
+	border: none;
+	width: 210px;
+	padding:20px;
+	height: 135px;
+	opacity: 0.8;
+	background: url('shadow.png');
+}
+#tooltip.pretty h3 {
+	margin-bottom: 0.75em;
+	font-size: 12pt;
+	width: 220px;
+	text-align: left;
+}
+#tooltip.pretty div { width: 220px; text-align: left; }

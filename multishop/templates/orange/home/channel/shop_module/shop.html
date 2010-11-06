@@ -1,0 +1,9 @@
+<tpl> foreach item=one from=$shop_array </tpl>
+	<li>
+		<tpl> if $ifsubdomain eq '1' && $one.shop_domain neq '' </tpl><!-- 开启2级域名 -->
+			<a target="_blank" href="http://<tpl> $config_domain_prefix </tpl><tpl> $one.shop_domain </tpl><tpl> $config_domain_name </tpl>"><tpl>$one.shop_short_name</tpl></a>
+		<tpl> else </tpl>
+			<a target="_blank" href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $one.member_id </tpl>" title="<tpl>$one.shop_name</tpl>"><tpl>$one.shop_short_name</tpl></a>
+		<tpl> /if </tpl>
+	</li>
+<tpl> /foreach </tpl>

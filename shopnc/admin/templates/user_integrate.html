@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_member_merger</tpl></title><!-- 会员管理 - 会员整合 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body>
+  <form id="form1" name="form1" method="post" action="admin_user.php?action=interface_save">
+    <h4 id="rightcon_h"><b><tpl>$admin_header_user_manage</tpl> >> <tpl>$admin_member_merger</tpl><!-- 会员管理 >> 会员整合 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_member_merger</tpl></h5>
+    <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_add_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+	<div class="entry-body" id="entryTop" style="margin-top:20px; margin-bottom:10px;">
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-bottom:1px solid #eee;">
+        <tr bgcolor="#FFFFFF">
+          <td width="13%"><tpl>$admin_user_integrate_passport</tpl><!-- 是否启用通行证 -->:</td>
+          <td width="82%"><label>
+            <input type="radio" name="open_passport" value="1" class="checkBtn" <tpl>if $interface_info.open_passport==1</tpl>checked="checked"<tpl>/if</tpl> /><tpl>$admin_user_integrate_yes</tpl><!-- 是 -->
+          </label>
+            <label>
+            <input type="radio" name="open_passport" value="0" class="checkBtn" <tpl>if $interface_info.open_passport==0</tpl>checked="checked"<tpl>/if</tpl> /><tpl>$admin_user_integrate_no</tpl><!-- 否 -->
+            </label>            </td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+          <td><tpl>$admin_user_integrate_sys_name</tpl><!-- 整合系统名称 -->:</td>
+          <td><select name="select" onchange="select_interface(this.value)">
+            <option value="open_ucenter"><tpl>$admin_user_integrate_sys_ucenter</tpl><!-- ucenter应用 --></option>
+            <!-- <option value="open_discuz">discuz6.0</option>
+            <option value="open_phpwind">phpwind6.0</option>
+			<option value="open_dedecms">dedecms</option> -->
+          </select>
+		  &nbsp;&nbsp;
+		  <tpl>$admin_user_integrate_sys_charset</tpl><!-- 字符集 -->:
+		  <select name="charset">
+		    <option value="utf-8" <tpl>if $interface_info.uc_charset=='utf-8'</tpl>selected="selected"<tpl>/if</tpl> >==utf-8==</option>
+		    <option value="gbk" <tpl>if $interface_info.uc_charset=='gbk'</tpl>selected="selected"<tpl>/if</tpl>>==gbk==</option>
+		    </select>          </td>
+        </tr>
+        <tr bgcolor="#FFFFFF">
+          <td><tpl>$admin_user_integrate_passport_key</tpl><!-- 通行证密钥 -->:</td>
+          <td>
+		  	  <input class="TextBoxAt" type="text" name="passport_key" value="<tpl>$interface_info.passport_key</tpl>" /></td>
+        </tr>
+      </table>
+	</div>
+    <div class="entry-body" id="open_ucenter">
+      <table border="0" class="alignLeft">
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_db_host</tpl><!-- uc数据库地址 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="uc_dbhost" type="text" size="50" value="<tpl>$interface_info.uc_dbhost</tpl>" />
+              </label></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_db_name</tpl><!-- uc数据库名 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="uc_dbname" type="text" size="50" value="<tpl>$interface_info.uc_dbname</tpl>" />
+              </label></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_db_user</tpl><!-- uc数据库用户名 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="uc_dbuser" type="text" size="50" value="<tpl>$interface_info.uc_dbuser</tpl>" />
+              </label></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_db_passwd</tpl><!-- uc数据库密码 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="uc_dbpw" type="text" size="50" value="<tpl>$interface_info.uc_dbpw</tpl>" />
+              </label></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_dbtablepre</tpl><!-- uc数据库前缀 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="uc_dbtablepre" type="text" size="50" value="<tpl>$interface_info.uc_dbtablepre</tpl>" />
+              </label></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_dbcharset</tpl><!-- uc数据库字符集 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="uc_dbcharset" type="text" size="50" value="<tpl>$interface_info.uc_dbcharset</tpl>" />
+              </label></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_url</tpl><!-- uc地址（url） -->:</td>
+              <td><input class="TextBoxAt" name="uc_api" type="text" size="50" value="<tpl>$interface_info.uc_api</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_charset</tpl><!-- uc系统字符集 -->:</td>
+              <td><input class="TextBoxAt" name="uc_charset" type="text" size="50" value="<tpl>$interface_info.uc_charset</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_ip</tpl><!-- uc系统ip地址 -->:</td>
+              <td><input class="TextBoxAt" name="uc_ip" type="text" size="50" value="<tpl>$interface_info.uc_ip</tpl>" /></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_user_integrate_uc_appid</tpl><!-- uc系统当前应用id -->:</td>
+              <td><input class="TextBoxAt" name="uc_appid" type="text" size="50" value="<tpl>$interface_info.uc_appid</tpl>" />
+			  	<input type="hidden" name="uc_ppp" value="20" />
+				<input type="hidden" name="uc_link" value="true" />
+			  </td>
+            </tr>
+          </table>
+    </div><!--  end of entry1  -->
+	<div class="entry-body" id="open_discuz" style="display:none;">
+      <table border="0" class="alignLeft">
+            <tr>
+              <td><!-- Discuz!论坛路径 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="discuz_path" type="text" size="50" />
+              </label></td>
+            </tr>
+          </table>
+    </div><!--  end of entry2  -->
+    <div class="entry-body" id="open_phpwind" style="display:none;">
+      <table border="0" class="alignLeft">
+            <tr>
+              <td><!-- PHPWIND路径 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="phpwind_path" type="text" size="50" />
+              </label></td>
+            </tr>
+          </table>
+	<div class="clear"></div>
+	</div>
+    <div class="entry-body" id="open_dedecms" style="display:none;">
+      <table border="0" class="alignLeft">
+            <tr>
+              <td><!-- DEDECMS路径 -->:</td>
+              <td><label>
+                <input class="TextBoxAt" name="dedecms_path" type="text" size="50" />
+              </label></td>
+            </tr>
+          </table>
+	<div class="clear"></div>
+	</div>
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_add_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_user_add_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+
+</div><!--  end of content  -->
+<script type="text/javascript">
+  var interface_list = new Array('open_dedecms', 'open_ucenter', 'open_discuz', 'open_phpwind');
+  function select_interface(interface_name)
+  {
+    for (i = 0; i < interface_list.length; i ++)
+    {
+      if (interface_list[i] == interface_name)
+        document.getElementById(interface_name).style.display = "";
+      else
+        document.getElementById(interface_list[i]).style.display = "none";
+    }
+  }
+</script>
+</body>
+</html>

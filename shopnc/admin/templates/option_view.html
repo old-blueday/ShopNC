@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_shop_manage</tpl> - <tpl>$admin_system_display</tpl></title><!-- 网店管理 - 显示设置 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$('#tab1').click(function(){
+		$('#entry1').fadeIn(600);
+	});
+	$('#tab2').click(function(){
+		$('#entry2').fadeIn(600);
+	});
+	$('#tab3').click(function(){
+		$('#entry3').fadeIn(600);
+	});
+	$('#tab4').click(function(){
+		$('#entry4').fadeIn(600);
+	});
+	
+	/* 输入信息的校验 */
+	$("#view_form").validate({
+		errorClass: "wrong",
+		rules: {
+			index_new_num			: {required:true,number:true,minValue:1,maxValue:30},
+			index_spe_num			: {required:true,number:true,minValue:1,maxValue:30},
+			index_hot_num			: {required:true,number:true,minValue:1,maxValue:30},
+			index_commend_num		: {required:true,number:true,minValue:1,maxValue:30},
+			index_brand_num			: {required:true,number:true,minValue:1,maxValue:30},
+			index_subject_num		: {required:true,number:true,minValue:1,maxValue:30},
+			index_notice_num		: {required:true,number:true,minValue:1,maxValue:30},
+			other_goods_class_num	: {required:true,number:true,minValue:1,maxValue:30},
+			other_brand_class_num	: {required:true,number:true,minValue:1,maxValue:30},
+			other_subject_class_num	: {required:true,number:true,minValue:1,maxValue:30}
+		},
+		messages: {
+			index_new_num			: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			index_spe_num			: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			index_hot_num			: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			index_commend_num		: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			index_brand_num			: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			index_subject_num		: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			index_notice_num		: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			other_goods_class_num	: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			other_brand_class_num	: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"},
+			other_subject_class_num	: {required:"<tpl>$admin_system_display_num_error</tpl>",number:"<tpl>$admin_system_display_num_error</tpl>",minValue:"<tpl>$admin_system_display_num_min</tpl>",maxValue:"<tpl>$admin_system_display_num_max</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+  <form id="view_form" name="view_form" method="post" action="?action=system_save">
+    <h4 id="rightcon_h"><b><tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_index</tpl><!-- 网店管理 >> 显示设置 --></b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_system_display_index</tpl><!-- 首页显示 --></a></li>
+        <!-- <li id="tab2"><a href="#nogo"><tpl>$admin_system_display_public</tpl> --> <!-- 公共设置 --> <!--</a></li> -->
+        <li id="tab4"><a href="#nogo"><tpl>$admin_system_validate</tpl><!-- 验证码显示 --></a></li>
+		<li id="tab3"><a href="#nogo"><tpl>$admin_system_display_others</tpl><!-- 其他显示 --></a></li>
+    </ul>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table border="0" class="alignLeft">
+            <tr>
+              <td width="110"><tpl>$admin_system_display_new</tpl><!-- 最新商品显示 -->:</td>
+              <td width="150"><tpl>$radio_array.index_new</tpl></td>
+              <td width="110"><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td width="150"><tpl>$input_array.index_new</tpl><div class="check-error"><label style="display:none" for="index_new_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_special</tpl><!-- 特价商品显示 -->:</td>
+              <td><tpl>$radio_array.index_spe</tpl></td>
+              <td><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td><tpl>$input_array.index_spe</tpl><div class="check-error"><label style="display:none" for="index_spe_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_hot</tpl><!-- 热卖商品显示 -->:</td>
+              <td><tpl>$radio_array.index_hot</tpl></td>
+              <td><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td><tpl>$input_array.index_hot</tpl><div class="check-error"><label style="display:none" for="index_hot_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+			<tr>
+              <td><tpl>$admin_system_display_commend</tpl>:</td>
+              <td><tpl>$radio_array.index_commend</tpl></td>
+              <td><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td><tpl>$input_array.index_commend</tpl><div class="check-error"><label style="display:none" for="index_commend_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_brand</tpl><!-- 品牌显示 -->:</td>
+              <td><tpl>$radio_array.index_brand</tpl></td>
+              <td><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td><tpl>$input_array.index_brand</tpl><div class="check-error"><label style="display:none" for="index_brand_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_subject</tpl><!-- 主题显示 -->:</td>
+              <td><tpl>$radio_array.index_subject</tpl></td>
+              <td><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td><tpl>$input_array.index_subject</tpl><div class="check-error"><label style="display:none" for="index_subject_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_post</tpl><!-- 公告显示 -->:</td>
+              <td><tpl>$radio_array.index_notice</tpl></td>
+              <td><tpl>$admin_system_display_num</tpl><!-- 显示条数 -->:</td>
+              <td><tpl>$input_array.index_notice</tpl><div class="check-error"><label style="display:none" for="index_notice_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_vote</tpl><!-- 投票显示 -->:</td>
+              <td><tpl>$radio_array.index_vote</tpl></td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+    </div><!--  end of entry1  -->
+	<div class="entry-body" id="entry2" style="display:none;">
+        <table width="100%" border="0">
+          <tr>
+            <td width="150"><tpl>$admin_system_display_more_lang</tpl><!-- 显示多语言 -->:</td>
+            <td><tpl>$radio_array.view_language</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_display_more_country</tpl><!-- 显示多国家 -->:</td>
+            <td><tpl>$radio_array.view_state</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$amdin_system_display_cheap_price</tpl><!-- 显示市场价 -->:</td>
+            <td><tpl>$radio_array.view_price</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_display_balance</tpl><!-- 显示差额 -->:</td>
+            <td><tpl>$radio_array.view_than_price</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_display_buy</tpl><!-- 商品直接购买 -->:</td>
+            <td><tpl>$radio_array.view_buy</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_display_fav</tpl><!-- 商品直接收藏 -->:</td>
+            <td><tpl>$radio_array.view_collection</tpl></td>
+          </tr>
+        </table>
+    </div><!--  end of entry2  -->
+	<div class="entry-body" id="entry4" style="display:none;">
+        <table width="100%" border="0">
+          <tr>
+            <td width="150"><tpl>$admin_system_user_reg_validate</tpl><!-- 会员注册验证码显示 -->:</td>
+            <td><tpl>$radio_array.view_reg_validate</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_login_validate</tpl><!-- 登录验证码显示 -->:</td>
+            <td><tpl>$radio_array.view_login_validate</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_provider_validate</tpl><!-- 商家注册验证码显示 -->:</td>
+            <td><tpl>$radio_array.view_provider_validate</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_admin_login_validate</tpl><!-- 后台管理登录验证码显示 -->:</td>
+            <td><tpl>$radio_array.view_admin_login_validate</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_comment_validate</tpl><!-- 后台管理登录验证码显示 -->:</td>
+            <td><tpl>$radio_array.view_comment_validate</tpl></td>
+          </tr> 
+        </table>
+    </div><!--  end of entry4  -->
+    <div class="entry-body" id="entry3" style="display:none;">
+      <table width="100%" border="0">
+            <tr>
+              <td width="150"><tpl>$admin_system_display_cate_num</tpl><!-- 分类页显示商品数 -->:</td>
+              <td><!-- <tpl>$radio_array.other_goods_class</tpl> --><input type="hidden" name="other_goods_class" value="1" />&nbsp;&nbsp;<tpl>$input_array.other_goods_class</tpl><div class="check-error"><label style="display:none" for="other_goods_class_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <tr>
+              <td><tpl>$admin_system_display_brand_num</tpl><!-- 品牌页显示商品数 -->:</td>
+              <td><!-- <tpl>$radio_array.other_brand_class</tpl> --><input type="hidden" name="other_brand_class" value="1" />&nbsp;&nbsp;<tpl>$input_array.other_brand_class</tpl><div class="check-error"><label style="display:none" for="other_brand_class_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr>
+            <!-- <tr>
+              <td><tpl>$admin_system_display_subject_num</tpl>主题页显示商品数:</td>
+              <td><input type="hidden" name="other_subject_class" value="1" />&nbsp;&nbsp;<tpl>$input_array.other_subject_class</tpl><div class="check-error"><label style="display:none" for="other_subject_class_num" class="wrong" metaDone="true" generated="true"></label></div></td>
+            </tr> -->
+          </table>
+    </div><!--  end of entry3  -->
+	<div class="clear"></div>
+    <div class="textLeft btnDiv">
+	<input type="hidden" name="config_type" value="view" />
+	<input type="hidden" name="config_str" value="<tpl>$config_str</tpl>" />
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_system_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

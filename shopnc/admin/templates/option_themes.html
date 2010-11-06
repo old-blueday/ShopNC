@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_shop_manage</tpl> - <tpl>$admin_system_templates</tpl></title><!-- 网店管理 - 模板选取 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("ul#themesList li").mouseover(function(){
+		$("ul#themesList li").removeClass("mhover");
+		$("ul#themesList li p.btn").hide();
+		$(this).addClass("mhover");
+		$(this).children("p.btn").show();
+	});
+	$("ul#themesList li").mouseout(function(){
+		$("ul#themesList li").removeClass("mhover");
+		$("ul#themesList li p.btn").hide();
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("ul#themesList li.current").append("<p class='colororange'><strong><tpl>$admin_system_theme_now_use</tpl></strong><p>");<!-- 当前使用模板 -->
+	$("ul#themesList li.current").mouseover(function(){
+		$(this).children("p.btn").hide();
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+<h4 id="rightcon_h"><b><tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_templates</tpl><!-- 网店管理 >> 模板选取 --></b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5></h5>
+    <div class="entry-body" id="entry1">
+        <ul id="themesList">
+            <li class="current">
+                    <img src="<tpl>$template_default.image</tpl>">
+                <p><tpl>$template_default.name</tpl></p>
+                <p class="btn"><a href="#nogo"><tpl>$admin_system_theme_preview</tpl><!-- 预览 --></a>|<a href="#nogo"><tpl>$admin_system_theme_apply</tpl><!-- 应用 --></a></p>
+            </li>
+			<tpl>section name=list loop=$template</tpl>
+            <li>
+                <div class="screenshot">
+                    <img src="<tpl>$template[list].image</tpl>">
+                </div>
+                <p><tpl>$template[list].name</tpl></p>
+                <p class="btn"><a href="?action=change_temp&temp_name=<tpl>$template[list].name</tpl>"><tpl>$admin_system_theme_apply</tpl></a></p>
+            </li>
+			<tpl>/section</tpl>
+            <div class="clear"></div>
+        </ul>
+    </div><!--  end of entry1  -->
+	</div>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

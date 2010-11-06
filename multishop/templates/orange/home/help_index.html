@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<tpl> include file ='../head.config_new.html' </tpl>
+<link type="text/css" rel="stylesheet" href="<tpl> $site_url </tpl>/help/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl> $site_url </tpl>/help/css/style.css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/help/js/jquery.pngFix.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/help/js/jquery.subMenu.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){$('div.examples').pngFix( );});
+</script>
+<script type="text/javascript">
+var Mysubmenu=null;
+var lasturl;
+$(function(){
+	Mysubmenu=$("#categoryList").submenu
+
+({oneSmOnly:false,speed:500,expandNum:0,savestatus:true});
+	lasturl=document.referrer.toString();
+	if(lasturl==""){
+		lasturl="http://www.multibuy.cn/";
+	}
+	var tmp;
+	var referurl="http://";
+		
+	var arr = lasturl.split("?");
+	var pageurl = arr[0];
+	if(pageurl && pageurl.indexOf("//")){
+		var url1 = pageurl.split("//");
+		if(url1[1] && url1[1].indexOf("/")>0){
+			var urlList = url1[1].split("/");
+			var referkey=0;
+			jQuery.each(urlList,function(key,val){
+				if(val && val=="home"){
+					referkey = key;
+					return false;
+				}else if(val && val=="member"){
+					referkey = key;
+					return false;
+				}else{
+					referkey = key;
+				}
+			});
+			for(i=0;i<referkey;i++){
+				referurl = referurl + urlList[i] + "/";
+			}
+		}else{
+			referurl = referurl + url1[1];
+		}
+	}
+	$('#reg_url').attr("href",referurl+"home/member.php?action=regist");
+	$('#login_url').attr("href",referurl+"home/member.php?action=login");
+	$('#buy_url').attr("href",referurl+"home/category.php");
+	$('#sell_url').attr("href",referurl+"member/own_product.php?action=sell");
+	$('#own_url').attr("href",referurl+"member/own_main.php");
+	$('#searchform').attr("action",referurl+"home/product.php?action=list");
+	$('#advancedsearch').attr("href",referurl+"home/product.php?action=search");
+
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.top-more').hover(function(){
+		$(this).addClass('mhover');
+		$('.top-nav-more').show();
+	}, function(){
+		$(this).removeClass('mhover');
+		$('.top-nav-more').hide();
+	});
+});
+//提交表单，确定搜索路径
+function search_submit(){
+	//$('#form_search_nav').attr('action','../home/product.php');
+    $('#form_search_nav').submit(); 
+}
+</script>
+</head>
+<body style="text-align:left;">
+<div id="container">
+	<div class="m" id="top">
+		<!-- Header -->
+		<tpl> include file='header_new.html' </tpl>
+		<!-- End Header -->
+	</div>
+	<div id="content">
+		<div id="sidebar">
+			<h3>知识分类</h3>
+			<div id="categoryList">
+			<tpl> foreach from=$aData item=v </tpl>
+			<div> <span><strong><tpl> $v.h_title </tpl></strong></span>
+			<tpl> foreach from=$v.son item=v1 </tpl>
+			<a href="index.php?h_id=<tpl> $v1.h_id </tpl>"><tpl> $v1.h_title </tpl></a>
+			<tpl> /foreach </tpl>
+			</div>
+			<tpl> /foreach </tpl>
+			</div>
+			<!-- end of categoryList -->
+		</div>
+		<!-- end of sidebar -->
+		<div id="main">
+			<!-- 通过JS在此调用不同页面 -->
+			<tpl> $h_content </tpl>
+		</div>
+		<!-- end of main -->
+	</div>
+	<!-- end of content -->
+	<div class="clear"></div>
+</div>
+<!-- end of container -->
+<tpl> include file ='../../../html/footer.html' </tpl>
+<!-- end of footer -->
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?php
+$lang['langSysShopMerchandiseClass']="店铺商品分类";
+$lang['langSysShopClassManage']="在这里对店主添加的自定义店铺分类进行管理。";
+$lang['langSysShopproductDel']="删";
+$lang['langSysBabyClassName']="分类名称";
+$lang['langSysproductShop']="店铺名称";
+$lang['langSysShopAllSelect']="全  选";
+$lang['langSysShopContrarySelect']="反  选";
+$lang['langSysShopDel']="删  除";
+$lang['langSysShopManageClassDel']="店铺管理->店铺商品分类管理->删除店铺商品分类";
+$lang['langSysDelShopBabyClassOk']="删除店铺商品分类成功";
+$lang['langSysPleaseSelectDelInfo']="请选择删除的信息";
+$lang['errSysShopProCateHaveClass']="该类别下还有内容，请将所属类别移除后再进行删除";
+$lang['errSysShopProCateNameIsEmpty']="该店铺的商品类别内容不能为空";
+$lang['langSysShopProCateSaveIsSucc']="该店铺的商品类别内容保存成功";
+$lang['langSysShopProCateNum']="类别数量";
+$lang['langSysShopProCateListCate']="查看分类";
+$lang['langSysShopProCateParentClass']="上级分类";
+$lang['langSysShopProCatePic']="类别图片";
+$lang['langSysShopProCateOpen']="展开分类";
+$lang['langSysShopProCateSort']="排序";
+$lang['langSysShopProCateRootClass']="根目录";
+$lang['langSysShopProCateViewPic']="查看原图";
+$lang['langSysShopProCateSave']="修改保存";
+$lang['langSysShopProCateReturn']="返回店铺列表";
+$lang['langSysShopProCateShopList']="店铺列表";
+$lang['langSysShopProCateNumber']="分类数量";
+$lang['langSysShopProCateViewShop']="查看店铺";
+$lang['langSysShopProCateUpdateSucc']="店铺商品类别更新成功";
+$lang['errSysShopProCateChildIsNotEmpty']="删除类别中还有子类别，先将子类别转移或者删除再进行该操作";
+$lang['langSysShopProCateZeroClass']="根类别";
+?>

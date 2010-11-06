@@ -1,0 +1,135 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langComplaintManage </tpl> &gt;&gt; <tpl> $langComplaintList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+					<form action="complaint.manage.php" method="get" name="form_search" id="form_search">
+					<input type="hidden" name="action" value="ajax_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langComplaintObject </tpl>:</th>
+								<td width="15%">
+									<select name="class">
+										<option value="complaint" <tpl> if $complaint_report == 'complaint' </tpl> selected <tpl> /if </tpl> >
+											<tpl> $langComplaintAll </tpl>
+										</option>
+										<option value="sell" <tpl> if $complaint_report == 'sell' </tpl> selected <tpl> /if </tpl> >
+											<tpl> $langComplaintSale </tpl>
+										</option>
+										<option value="buy" <tpl> if $complaint_report == 'buy' </tpl> selected <tpl> /if </tpl> >
+											<tpl> $langComplaintBuy </tpl>
+										</option>
+									</select>
+								</td>
+								<th class="wd"><tpl> $langComplaintType </tpl>:</th>
+								<td width="20%">
+									<select name="type">
+										<option <tpl> if $type eq '' || $type eq 0 </tpl> selected="selected" <tpl> /if </tpl> value="0">
+											<tpl> $langComplaintAllType </tpl>
+										</option>
+										<tpl> foreach from=$complaint_report_type key=key item=line </tpl>
+											<tpl> if $complaint_report == 'complaint' </tpl>
+												<tpl> if $key > 0 && $key <= 4 </tpl>
+													<option <tpl> if $type eq $key </tpl> selected="selected" <tpl> /if </tpl> value="<tpl> $key </tpl>">
+														<tpl> $line </tpl>
+													</option>
+												<tpl> /if </tpl>
+											<tpl> /if </tpl>
+											<tpl> if $complaint_report == 'buy' </tpl>
+												<tpl> if $key > 1 && $key <= 4 </tpl>
+													<option <tpl> if $type eq $key </tpl> selected="selected" <tpl> /if </tpl> value="<tpl> $key </tpl>">
+														<tpl> $line </tpl>
+													</option>
+												<tpl> /if </tpl>
+											<tpl> /if </tpl>
+											<tpl> if $complaint_report == 'sell' </tpl>
+												<tpl> if $key == 1 || $key == 3 </tpl>
+													<option <tpl> if $type eq $key </tpl> selected="selected" <tpl> /if </tpl> value="<tpl> $key </tpl>">
+														<tpl> $line </tpl>
+													</option>
+												<tpl> /if </tpl>
+											<tpl> /if </tpl>
+										<tpl> /foreach </tpl>
+									</select>
+								</td>
+								<td><input class="bthl" type="submit" value="<tpl> $langSysSearch </tpl>" /></td>
+							</tr>
+						</table>
+					</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="complaint.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<input type="hidden" name="complaint_report" value="<tpl> $complaint_report </tpl>" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langComplaintSelect </tpl></td>
+						<td class="es-4"><tpl> $langComplaintReason </tpl></td>
+						<td class="es-7"><tpl> $langComplaintBy </tpl></td>
+						<td class="es-5"><tpl> $langComplaintTime </tpl></td>
+						<td class="es-7"><tpl> $langComplaintOperatorEstate </tpl></td>
+						<td class="es-6"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $complaint_receive_list[0].complaint_report_id neq '' </tpl>
+		  				<tpl> section name=i loop=$complaint_receive_list </tpl>
+							<tr class="es-td">
+								<td id="check-1">
+									<input name="complaint_report_id[]" type="checkbox" value="<tpl> $complaint_receive_list[i].complaint_report_id </tpl>" />
+								</td>
+								<td>
+									<tpl> assign var='c_r_type' value=$complaint_receive_list[i].c_r_type </tpl>
+									<tpl> $complaint_report_type[$c_r_type] </tpl>
+								</td>
+								<td>
+									<a href="<tpl> $site_url </tpl>/home/userinfo.php?userid=<tpl> $complaint_receive_list[i].c_r_member_id </tpl>" target="_blank"><tpl> $complaint_receive_list[i].c_r_login_name </tpl></a>
+								</td>
+								<td><tpl> $complaint_receive_list[i].c_r_add_time </tpl></td>
+								<td>
+									<tpl> assign var = 'c_r_handling' value = $complaint_receive_list[i].c_r_handling_state </tpl>
+									<tpl> assign var = 'hand_type' value = $baseconfig_handling[$c_r_handling] </tpl>
+									<tpl> $hand_type </tpl>
+								</td>
+								<td>
+									<a href="complaint.manage.php?action=view&complaint_report=<tpl> $complaint_report </tpl>&complaint_report_id=<tpl> $complaint_receive_list[i].complaint_report_id </tpl>"><tpl> $langCview </tpl></a>
+								</td>
+							</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $complaint_receive_list[0].complaint_report_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $complaint_receive_list[0].complaint_report_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input type="submit" class="bthl" value="<tpl> $langSysCDel </tpl>" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

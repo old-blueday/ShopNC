@@ -1,0 +1,119 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langLinkFirendManage </tpl> &gt;&gt; <tpl> $langLinkFirendList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='link.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langLinkAddFirend </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="link.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langLinkInTypeLook </tpl>:</th>
+								<td class="it-2" colspan="3"> 
+									<select name="select_type">
+										<option value="0" <tpl> if $select_type eq '0' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langLinkImage </tpl></option>
+										<option value="1" <tpl> if $select_type eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langLinkWord </tpl></option>
+									</select>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="link.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langLinkSelect </tpl></td>
+						<td class="es-4"><tpl> $langLinkTopic </tpl></td>
+						<td class="es-2"><tpl> $langLinkJump </tpl></td>
+						<td class="es-2"><tpl> $langCSort </tpl></td>
+						<td class="es-2"><tpl> $langLinkEstate </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $link_array[0].link_id neq '' </tpl>
+						<tpl> section name=loop loop=$link_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="link_id[]" type="checkbox" value="<tpl> $link_array[loop].link_id </tpl>"/></td>
+						<td>
+							<tpl> if $link_array[loop].link_pic neq '' </tpl>
+								<img src="<tpl> $site_url </tpl>/<tpl> $link_array[loop].link_pic </tpl>" border="0" style="width:<tpl> $link_info.pic_width </tpl>px; height:<tpl> $link_info.pic_height </tpl>px" />
+							<tpl> /if </tpl>
+							<tpl> $link_array[loop].link_title </tpl>
+						</td>
+						<td>
+							<a target="_blank" href="<tpl> $link_array[loop].link_url </tpl>"><tpl> $link_array[loop].link_url|truncate:'30' </tpl></a>
+						</td>
+						<td>
+							<tpl> $link_array[loop].link_sort </tpl>
+						</td>
+						<td>
+							<tpl> if $link_array[loop].link_close eq '0' </tpl>
+								<tpl> $langCOpen </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $link_array[loop].link_close eq '1' </tpl>
+								<tpl> $langCClose </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td><a href="link.manage.php?action=modi&link_id=<tpl> $link_array[loop].link_id </tpl>&curpage=<tpl> $curpage </tpl>"><tpl> $langSysCEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $link_array[0].link_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $link_array[0].link_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				
+				<input class="bthl" name="" id="open" value="<tpl> $langLinkOpen </tpl>" type="button" />
+				<input class="bthl" name="" id="close" value="<tpl> $langLinkClose </tpl>" type="button" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#open').click(function(){
+		$('input[id=action]').val('open');
+		document.getElementById('form_del').submit();
+	});
+	$('#close').click(function(){
+		$('input[id=action]').val('close');
+		document.getElementById('form_del').submit();		   
+	});
+});
+</script>
+</body>
+</html>

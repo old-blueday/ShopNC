@@ -1,0 +1,47 @@
+
+	
+		<div class="picture0">
+			<tpl> if $product_array[0].p_code neq '' </tpl>
+			<ul>
+				<tpl> section name=loop loop=$product_array </tpl>
+				<li>
+					<div class="shop_middle">
+					<p><a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[loop].p_code </tpl>" title="<tpl> $product_array[loop].p_name </tpl>">
+						<tpl> if $product_array[loop].small_pic neq '' </tpl>
+							<img src="<tpl> $site_url </tpl>/<tpl> $product_array[loop].small_pic </tpl>" border="0" />
+						<tpl> else </tpl>
+							<img src="<tpl> $template_dir </tpl>/images/noimgs.gif" border="0" />
+						<tpl> /if </tpl>
+						</a></p>
+					</div>
+					<p>
+						<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_array[loop].p_code </tpl>" title="<tpl> $product_array[loop].p_name </tpl>"><tpl> $product_array[loop].p_short_name </tpl></a>
+					</p>
+					<p>
+						<tpl> if $product_array[loop].p_sell_type eq '0' </tpl>
+							<tpl> $langStoreProductSellAuction </tpl>
+						<tpl> /if </tpl>
+						<tpl> if $product_array[loop].p_sell_type eq '1' </tpl>
+							<tpl> $langCfixprice </tpl>
+						<tpl> /if </tpl>
+						<tpl> if $product_array[loop].p_sell_type eq '2' </tpl>
+							<tpl> $langStoreProductSellGroup </tpl>
+						<tpl> /if </tpl>
+					</p>
+					<p><strong><img src="<tpl> $template_dir </tpl>/images/y.gif" /><font style="color:#FF0000;">
+						<tpl> if $product_array[loop].p_sell_type eq '2' </tpl>
+							<tpl> $product_array[loop].p_group_price </tpl> 
+						<tpl> else </tpl>
+							<tpl> $product_array[loop].p_price </tpl>
+						<tpl> /if </tpl>
+					</font></strong></p>
+				</li>
+				<tpl> /section </tpl>
+			</ul>
+		
+			<tpl> else </tpl>
+			<ul>
+				<li><tpl> $langCNull </tpl></li>
+			</ul>
+			<tpl> /if </tpl>
+		

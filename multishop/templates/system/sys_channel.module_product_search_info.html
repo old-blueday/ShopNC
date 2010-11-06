@@ -1,0 +1,10 @@
+<tr>
+	<td><tpl> $product_array.p_name </tpl></td>
+	<td>
+		<input type="text" size="4" name="p_sort[<tpl> $product_array.p_id </tpl>]" id="p_sort_<tpl> $product_array.p_id </tpl>" value="0" class="fct-input-2" />
+		<input type="hidden" name="p_id[<tpl> $product_array.p_id </tpl>]" id="p_id_<tpl> $product_array.p_id </tpl>" value="<tpl> $product_array.p_id </tpl>" />
+	</td>
+	<td>
+		<a href="javascript:;" onclick="var row=jquery(this).parent().parent();row.fadeOut('normal', function() {row.remove();});" title="<tpl> $langCdele </tpl>"><tpl> $langCdele </tpl></a>
+	</td>
+</tr>

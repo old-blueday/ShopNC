@@ -1,0 +1,192 @@
+/*  CSS Document  */@charset "utf-8";
+.bestlist { background: url(../images/images_new/best_bg.gif) no-repeat; float: left; height: 535px; padding-left: 30px; width: 186px; }
+
+.bestlist .buy { display: block; float: left; height: 20px; margin-top: 5px; width: 20px; }
+
+.bestlist .name { float: left; height: 18px; margin: 0px; overflow: hidden; padding:7px 0 6px 0;white-space: nowrap; width: 180px; }
+
+.bestlist .pics { background-color: #FFF; border: 1px solid #EAE9E3; height: 60px; overflow: hidden; position: relative; text-align: center; width: 60px; margin-top: 5px; margin-right: 4px; float: left;}
+
+.bestlist .pics p { position: static;  +position: absolute;  top: 50%; vertical-align: middle; }
+
+.bestlist .pics img { position: static; +position: relative; left: -50%; padding: 4px;  top: -50%; vertical-align: middle; }
+
+
+.bestlist .price { background: url(../images/images_new/sign_price.gif) no-repeat; display: block; float: left; height: 20px; margin-top: 5px; overflow: hidden; padding-left: 18px; white-space: nowrap; width: 75px; }
+
+.bestlist .top { height: 74px; }
+
+.bestlist .top .name { display: block; float: left; height: 36px; margin-top: 5px; overflow: hidden; padding-bottom: 0px; padding-top: 0px; white-space: normal; width: 120px; }
+
+.bestlist li { clear: left; float: left; height: 31px; line-height: 18px; margin-bottom: 1px; width: 100%; }
+
+.leftbar .content { border: 1px solid #73D5F1; float: left; padding: 3px; width: 216px; }
+
+.leftbar .title { background: url(../images/images_new/right_tit_bg.gif) no-repeat left top ; float: left; height: 28px; width: 224px; }
+
+.leftbar .title h3 { color: #FFF; display: inline; float: left; font-size: 13px; font-weight: 600; line-height: 20px; margin-left: 24px; margin-top: 4px; }
+
+.middlebar { float: left; width: 510px; }
+
+.middlebar .content { display: inline; float: left; margin-right: 8px; width: 502px; }
+
+.middlebar .top { background: url(../images/images_new/channel_goodstitbg.gif) repeat-x right top; float: left; height: 30px; width: 510px; }
+
+.middlebar .top .side_left { background: url(../images/images_new/channel_goodstitbg.gif) no-repeat left bottom; float: left; height: 30px; width: 5px; }
+
+.middlebar .top .side_right { background: url(../images/images_new/channel_goodstitbg.gif) no-repeat right bottom; clear: both; float: right; height: 30px; width: 5px; }
+
+.middlebar .top h3 { background: url(../images/images_new/sign06.gif) no-repeat 2px 10px ; float: left; font-size: 13px; height: 30px; line-height: 30px; padding-left: 18px;}
+
+.recommend_store { float: left;	width: 200px;}
+
+.recommend_store li {	background-color: #FFF;	border: 1px solid #6ED3F1;	float: left;	padding: 5px;	width: 188px;	margin-bottom: 5px;}
+
+.recommend_store .credit { float: left; margin: 0px; position: relative; width: 64px; z-index: 21; }
+
+.recommend_store .credit li { border-bottom-width: 0; border-left-width: 0; border-right-width: 0; border-top-width: 0; margin: 0; padding: 0; }
+
+.recommend_store .credit_content { background: url(../images/images_new/credit_con_bg2.gif) no-repeat;	display: none;	float: left;	height: 83px;	right: 64px; position: absolute; bottom: 0; width: 133px; z-index: 22;}
+
+.recommend_store .credit_content p { color: #000; line-height: 18px; padding-left: 17px; padding-top: 1px;}
+
+.recommend_store .credit_hover { background: url(../images/images_new/credit_bg.gif) no-repeat; }
+
+.recommend_store .credit_link { float: left; clear: left; width: 64px; display: block; cursor: pointer;}
+
+.recommend_store .credit_link .pic {background: #FFF url(../images/images_new/store_pic_bg.gif) no-repeat 0 0; height: 60px; width: 60px; padding: 2px; text-align: center; vertical-align: middle; overflow: hidden; position: relative;}
+
+.recommend_store .credit_link .pic span { position: static; +position: absolute; top: 50%; vertical-align: middle;}
+
+.recommend_store .credit_link .pic img { position: static; +position: relative; left: -50%; top: -50%; margin-top:-1px; vertical-align: middle;}
+
+.recommend_store .credit_link .text { background: url(../images/images_new/credit_bgr.gif) no-repeat; color: #FFF; cursor: pointer; display: block; float: left; height: 14px; line-height: 14px; margin: 0; text-align: center; width: 64px;}
+
+.recommend_store .infolist { float: left; width: 120px; margin-right: 4px;}
+
+.recommend_store .infolist p { color: #666; font-size: 12px; line-height: 20px; clear: left; float: left; width: 100%;}
+
+.recommend_store .storename {font-weight: bold;color: #12A1C9;}
+
+.rightbar { float: right; width: 208px; }
+
+.rightbar .content { width: 200px; float: left; padding: 4px; background-color: #E9F8FD;}
+
+.rightbar .title { background-color: #12A1C9; background: url(../images/images_new/channel_recomtitbg.gif) no-repeat left top; float: left; height: 30px; width: 208px; }
+
+.rightbar .title h3 { color: #FFF; float: left; font-size: 13px; font-weight: 600; line-height: 20px; padding-top: 4px; padding-left: 24px;}
+
+.shopcategory { border:1px solid #73d5f1; border-right:none; margin:0px; float: left; padding:5px 0px; width: 222px; background: url(../images/images_new/line.gif) repeat-y 221px top ; }
+
+.shopcategory a:hover { background-position: left top; color: #FFF; }
+
+.shopcategory li { float: left; }
+
+.shopcategory li a { background: url(../images/images_new/shopcategorylibg.gif) no-repeat left bottom ; float: left; line-height: 26px; padding-left: 25px; padding-right:0; width: 197px }
+
+.thumblist { float: left; margin-bottom: 5px; margin-top: 8px; overflow: hidden; width: 502px; }
+
+.thumblist .pics img { position: static; +position: relative; left: -50%; padding: 4px;  top: -50%; vertical-align: middle; }
+
+.thumblist .name { float: left; margin-top: 5px; }
+
+.thumblist .nomargin { float: left; margin-right: 0; width: 106px; }
+
+.thumblist .pics { border: 1px solid #EAE9E3; height: 104px; line-height: 104px; overflow: hidden; position: relative; text-align: center; width: 104px; }
+
+.thumblist .pics span { position: static; +position: absolute;  top: 50%; vertical-align: middle; }
+
+.thumblist .price { float: left; margin-top: 3px;}
+
+.thumblist .but { margin-top: 3px; float: left; width: 50%;}
+
+.thumblist .but a { background-image: url(../images/images_new/buttons_05.gif) no-repeat left 0; float: left; height: 24px; padding-left: 4px; margin: 0;}
+
+.thumblist .but a:hover {background-position: left -48px;}
+
+.thumblist .but a:hover span { color: #333; background-position: right -72px;}
+
+.thumblist .but a span { background: url(../images/images_new/buttons_05.gif) no-repeat right -24px; float: left; height: 24px; padding-right: 7px; padding-left: 3px; line-height: 24px; color: #999; margin: 0; cursor: pointer;}
+
+.thumblist .but a img { filter: Alpha(Opacity=50%); float: left; padding:7px 4px 9px 0; height: 10px; width: 10px; opacity:0.6;}
+
+.thumblist .but a:hover img {filter: Alpha(Opacity=100%); opacity:1.0;}
+
+.thumblist li { display: block; float: left; margin-right: 26px; width: 106px; margin-bottom: 6px;}
+
+.thumblist p { float: left; line-height: 16px; text-align: center; width: 106px;}
+
+.price { color: #F60; font-family: Tahoma; font-weight: 600;}
+
+.price .font1 { color: #000; font-size: 9px;}
+
+.price .font2 {font-size: 12px;}
+
+.price .font3 {font-size: 9px;}
+	
+.channal_but {width: 100%;}
+
+.channal_but span { text-align: center; width: 50%;}
+
+.newshop { width: 100%; float: left; margin-top: 2px; }
+	
+.newshop .title { background-image: none; background-color: #FFF; height: 24px; float: left; padding-bottom: 4px;}
+	
+.newshop .title h3 { font-size: 13px; font-weight: 600; color: #12A1C9; background: url(../images/images_new/sign06.gif) no-repeat 2px 9px;	padding-left: 16px;}
+
+.newshop ul { float: left; padding: 2px; width: 204px;}
+
+.newshop li { float: left; width: 68px;}
+
+.newshop p { clear: left; float: left; width: 100%;}
+
+.newshop .shoplogo { background: #FFF url(../images/images_new/store_pic_bg.gif) no-repeat 0 0; height: 60px; width: 60px; padding: 2px; text-align: center; vertical-align: middle; overflow: hidden; position: relative;}
+
+.newshop .shoplogo span { position: static; +position: absolute; top: 50%; vertical-align: middle;}
+
+.newshop .shoplogo img { position: static;  +position: relative; left: -50%; top: -50%; margin-top:-1px; vertical-align: middle;}
+
+.newshop .name { line-height: 20px; font-size: 12px; margin-top: 4px; width: 60px; height: 40px; overflow: hidden; text-align: center;}
+
+.categorylist { width: 711px; float: left; *float: left; _float: none;	margin:0 auto 10px auto; background-color: #E9F8FD; border: 1px solid #6ED3F1; padding:3px 5px 4px 0}
+
+.categorylist ul { width: 711px; padding-top: 5px; padding-bottom: 5px;}
+	
+.categorylist li { float: left; width: 220px; display: inline; margin-right: 7px; margin-left: 10px;}
+
+.categorylist dt { font-size: 13px; line-height: 22px; font-weight: 600; float: left; height: 22px; width: 196px; padding-left: 24px; margin-bottom: 4px; display: inline; background: #12A1C9 url(../images/images_new/sign04.gif) no-repeat 4px center;}
+
+.categorylist dt a {color: #FFF;}
+
+.categorylist dl { float: left; width: 220px; height: 94px;}
+	
+.categorylist dd { line-height: 20px; font-size: 12px; float: left; height: 22px; padding-right: 6px; padding-left: 5px; white-space: nowrap; display: block; background: url(../images/images_new/line_01.gif) no-repeat right center;}
+
+.faqlist {width: 96%; margin:5px auto;}
+
+.faqlist li {line-height: 22px;}
+
+#channel_layout .page_left { float: left; width: 224px; }
+
+#channel_layout .page_right { float: right; width: 718px; }
+
+#channel_layout { margin-left: auto; margin-right: auto; width: 950px; }
+
+#switchbanner img {border:none}
+
+#switchbanner { width:500px; height:180px; overflow:hidden; border: 1px solid #E8E7E0;}
+
+#switchbanner_info{ position:absolute; margin-top:140px; height:40px; width:500px; color:#fff; z-index:1001; cursor:pointer; paddng:0 0 x 20px;}
+
+#switchbanner_info b{font-size:14px;display:block}
+
+#switchbanner_bg { position:absolute; background-color:#000; margin-top:140px; height:40px; width:500px; filter: Alpha(Opacity=30); opacity:0.3; z-index:1000;}
+
+#switchbanner_text { position:absolute; height:17px; width:80px; z-index:1002; margin:158px 0 0 418px;}
+
+#switchbanner_text ul { list-style-type:none; width:80px; height:16px; display:block; padding-top:1px; _padding-top:0px; filter: Alpha(Opacity=80); opacity:0.8;}
+
+#switchbanner_text ul li { width:14px; height:14px; float:left; background-color:#000; display:inline; color:#FFF; text-align:center; margin:1px; cursor:pointer; font-family:Tahoma; font-size: 11px; line-height: 14px;}
+
+#switchbanner_list a{ display:block; width:500px; height:180px; position:absolute; overflow:hidden;}
+

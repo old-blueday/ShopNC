@@ -1,0 +1,124 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPostageList </tpl> &gt;&gt; <tpl> $langSysPostageSelect </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tpl> foreach from=$postage_list item=one </tpl>
+								<tr>
+									<th><tpl> $one.postage_title </tpl>:</th>
+									<td colspan='2'>
+										<tpl> $langSysPostageUpdateTime </tpl>:<tpl> $one.postage_update_time </tpl>
+									</td>
+									<td><a href="javascript:;" onclick="selectPostageToPublish('<tpl> $one.postage_id </tpl>','<tpl> $one.postage_title </tpl>','<tpl> $one.member_id </tpl>');"><tpl> $langSysPostageUseThis </tpl></a></td>
+								</tr>
+								<tr>
+									<td><tpl> $langSysPostageWay </tpl></td>
+									<td><tpl> $langSysPostageMoney </tpl></td>
+									<td><tpl> $langSysPostageShipTo </tpl></td>
+									<td><tpl> $langSysPostageSetUp </tpl></td>
+								</tr>
+								<tpl> if $one.postage_ordinary neq '' </tpl>
+									<tpl> foreach from=$one.postage_ordinary item=v_ordinary key=k_ordinary </tpl>
+										<tpl> if $k_ordinary neq 'default' </tpl>
+										<tr>
+											<td><tpl> $langSysPostageOrdinary </tpl></td>
+											<td><tpl> $v_ordinary[1] </tpl></td>
+											<td><tpl> $v_ordinary[0] </tpl></td>
+											<td><tpl> $v_ordinary[2] </tpl></td>
+										</tr>
+										<tpl> /if </tpl>
+									<tpl> /foreach </tpl>
+									<tr>
+										<td><tpl> $langSysPostageOrdinary </tpl></td>
+										<td><tpl> $one.postage_ordinary.default.default </tpl></td>
+										<td><tpl> $langSysPostageAllArea </tpl></td>
+										<td><tpl> $one.postage_ordinary.default.default_up </tpl></td>
+									</tr>
+								<tpl> /if </tpl>
+								<tpl> if $one.postage_fast neq '' </tpl>
+									<tpl> foreach from=$one.postage_fast item=v_fast key=k_fast </tpl>
+										<tpl> if $k_fast neq 'default' </tpl>
+										<tr>
+											<td><tpl> $langSysPostageFast </tpl></td>
+											<td><tpl> $v_fast[1] </tpl></td>
+											<td><tpl> $v_fast[0] </tpl></td>
+											<td><tpl> $v_fast[2] </tpl></td>
+										</tr>
+										<tpl> /if </tpl>
+									<tpl> /foreach </tpl>
+									<tr>
+										<td><tpl> $langSysPostageFast </tpl></td>
+										<td><tpl> $one.postage_fast.default.default </tpl></td>
+										<td><tpl> $langSysPostageAllArea </tpl></td>
+										<td><tpl> $one.postage_fast.default.default_up </tpl></td>
+									</tr>
+								<tpl> /if </tpl>
+								<tpl> if $one.postage_ems neq '' </tpl>
+									<tpl> foreach from=$one.postage_ems item=v_ems key=k_ems </tpl>
+										<tpl> if $k_ems neq 'default' </tpl>
+										<tr>
+											<td><tpl> $langSysPostageEMS </tpl></td>
+											<td><tpl> $v_ems[1] </tpl></td>
+											<td><tpl> $v_ems[0] </tpl></td>
+											<td><tpl> $v_ems[2] </tpl></td>
+										</tr>
+										<tpl> /if </tpl>
+									<tpl> /foreach </tpl>
+									<tr>
+										<td><tpl> $langSysPostageEMS </tpl></td>
+										<td><tpl> $one.postage_ems.default.default </tpl></td>
+										<td><tpl> $langSysPostageAllArea </tpl></td>
+										<td><tpl> $one.postage_ems.default.default_up </tpl></td>
+									</tr>
+								<tpl> /if </tpl>
+								<tpl> /foreach </tpl>
+							</table>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+// area array
+var changeArea = new Array();
+<tpl> foreach from=$sel_area item=one </tpl>
+	changeArea[<tpl> $one[0] </tpl>] = '<tpl> $one[0] </tpl>';
+<tpl> /foreach </tpl>
+
+//
+$(document).ready(function(){
+	$(".show_area").each(function(){
+		temp = $(this).html();
+		temp_array = Array();
+		temp_array = temp.split(',');
+		temp_str = '';
+		for(i=0;i<temp_array.length;i++){
+			if (typeof(changeArea[temp_array[i]]) !== 'undefined'){
+				temp_str += changeArea[temp_array[i]]+',';
+			}
+		}
+		$(this).html(temp_str);
+	});	
+});
+function selectPostageToPublish(postageid, postageName,member_id) {
+	try{
+		window.opener.window.afterSelectPostage(postageid, postageName,member_id);
+	} catch(e){
+		//alert(e);
+	}
+	window.close();
+}
+</script>
+</body>
+</html>

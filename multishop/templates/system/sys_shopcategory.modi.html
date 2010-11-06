@@ -1,0 +1,78 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopClassManage </tpl> &gt;&gt; <tpl> $langSysShopClassModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form1" name="form1" method="post" action="shopcategory.manage.php">
+						<input type="hidden" name="action" value="update" />
+                        <input type="hidden" name="class_id" value="<tpl> $category_array.class_id </tpl>" />
+                        <input type="hidden" name="parent_id" value="<tpl> $category_array.parent_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langShopClassName </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtClassName" id="txtClassName" type="text" maxlength="80" value="<tpl> $category_array.class_name </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langShopClassParent </tpl>:</th>
+									<td>
+                                    	<select name="slcParentId">
+                                        	<option value="0"><tpl> $langSysShopClassSel </tpl></option>
+                                        	<tpl> section name=loop loop=$sel_category </tpl>
+                                            <option <tpl> if $sel_category[loop].class_id eq $category_array.parent_id </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $sel_category[loop].class_id </tpl>"><tpl> $sel_category[loop].class_name </tpl></option>
+                                            <tpl> /section </tpl>
+                                        </select>
+                                    </td>
+								</tr>
+								<!--<tr>
+									<th><tpl> $langShopClassProperty </tpl>£º</th>
+									<td><tpl> $radio_category_property </tpl></td>
+								</tr>-->
+								<tr>
+									<th><tpl> $langCSort </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtClassSort" id="txtClassSort" type="text" size="5" maxlength="5" value="<tpl> $category_array.class_sort </tpl>"/></td>
+								</tr>
+								<tr>
+									<th><tpl> $langShopClassState </tpl>:</th>
+									<td><tpl> $radio_category_state </tpl></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txtClassName: {required:true},
+			txtClassSort: {required:true,number:true,min:0}
+		},
+		messages: {
+			txtClassName: {required: "<tpl> $langSysShopPleaseFillInClass </tpl>"},
+			txtClassSort: {required:"<tpl> $errSysShopClassSortIsEmpty </tpl>",number:"<tpl> $errSysShopClassSortIsNotNumber </tpl>",min:"<tpl> $errSysShopClassSortIsMin </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

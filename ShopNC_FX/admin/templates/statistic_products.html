@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_system_manage</tpl> - <tpl>$admin_stati_products</tpl></title><!-- 统计分析 - 商品统计 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.entry-body').css('margin-top', '40px');
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$('#tab1').click(function(){
+		$('#entry1').fadeIn(600);
+	});
+	$('#tab2').click(function(){
+		$('#entry2').fadeIn(600);
+	});
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+  <form id="form1" name="form1" method="post" action="">
+    <h2><tpl>$admin_header_system_manage</tpl> >> <tpl>$admin_stati_products</tpl><!-- 统计分析 >> 商品统计 --></h2>
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_stati_products_view</tpl><!-- 商品浏览统计 --></a></li>
+        <li id="tab2"><a href="#nogo"><tpl>$admin_stati_products_sell</tpl><!-- 商品销售统计 --></a></li>
+    </ul>
+    <div class="entry-body" id="entry1">
+		<div class="st-display">
+			<tpl>$click_flash</tpl>
+		</div>
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_products_name</tpl><!-- 商品名称 --></th>
+			<th><tpl>$admin_stati_products_price</tpl><!-- 价格 --></th>
+			<th><tpl>$admin_stati_products_view_num</tpl><!-- 查看次数 --></th>
+		</tr>
+		<tpl>if $goods_click_array == null </tpl>
+		<tr>
+			<td colspan="3"><tpl>$admin_stati_no_data</tpl><!-- 暂时没有数据！ --></td>
+		</tr>
+		<tpl>else</tpl>
+		<tpl>section name=list loop=$goods_click_array</tpl>
+		<tr>
+			<td><tpl>$goods_click_array[list].goods_name</tpl></td>
+			<td><tpl>$goods_click_array[list].goods_pricedesc</tpl></td>
+			<td><tpl>$goods_click_array[list].goods_click</tpl></td>
+		</tr>
+		<tpl>/section</tpl>
+		<tpl>/if</tpl>
+		<tr>
+			<td colspan="4"><tpl>$show_page</tpl></td>
+		</tr>
+      </table>
+    </div>
+    <!--  end of entry1  -->
+	<div class="entry-body" id="entry2" style="display:none;">
+		<div class="st-display">
+			<tpl>$pay_flash</tpl>
+		</div>
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_products_name</tpl><!-- 商品名称 --></th>
+			<th><tpl>$admin_stati_products_price</tpl><!-- 价格 --></th>
+			<!-- th><tpl>$admin_stati_products_cate</tpl> --><!-- 所属分类 --><!-- /th -->
+			<th><tpl>$admin_stati_products_sell_num</tpl><!-- 购买次数 --></th>
+		</tr>
+		<tpl>section name=list loop=$goods_pay_array</tpl>
+		<tpl>if $goods_pay_array[list].goods_name!=''</tpl>
+	  	<tr>
+			<td><tpl>$goods_pay_array[list].goods_name</tpl></td>
+			<td><tpl>$goods_pay_array[list].goods_pricedesc</tpl></td>
+			<!-- td>LOMO</td -->
+			<td><tpl>$goods_pay_array[list].pay_count</tpl></td>
+		</tr>
+		<tpl>else</tpl>
+		<tr>
+			<td colspan="4"><tpl>$admin_stati_no_data</tpl><!-- 暂时没有数据！ --></td>
+		</tr>
+		<tpl>/if</tpl>
+		<tpl>/section</tpl>
+	  </table>
+    </div><!--  end of entry2  -->
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

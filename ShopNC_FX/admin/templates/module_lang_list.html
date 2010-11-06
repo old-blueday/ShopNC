@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_lang_list</tpl></title><!-- 模块管理 - 语言列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body id="goodsList">
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_module_language.php?action=add_language_area" target="_self">{<tpl>$admin_module_lang_add</tpl>}</a></span><!-- 添加语言 -->    <tpl>$admin_header_module_manage</tpl> >> <tpl>$admin_module_lang_list</tpl><!-- 模块管理 >> 语言列表 -->
+    	
+	</h2>
+    <div class="entry-body" id="p-list-div">
+  <form  id="form1" name="form1" method="post" action="admin_module_language.php?action=del_language_area">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+         <tr>
+          	<td colspan="7" class="searchbar">
+            	<div class="alignRight">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_currencies_edit</tpl>" />:<tpl>$admin_module_lang_list_edit</tpl><!-- 编辑 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_currencies_del</tpl>" />:<tpl>$admin_module_lang_list_del</tpl><!-- 删除 -->
+                </div>
+              <input type="submit" value="<tpl>$admin_module_lang_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+			</td>
+		</tr>
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl>$admin_module_lang_add_name</tpl><!-- 语言名称 --></th>
+            <th><tpl>$admin_module_lang_add_code</tpl><!-- 语言代码 --></th>
+            <th><tpl>$admin_module_lang_list_pic</tpl><!-- 语言图片 --></th>
+            <th><tpl>$admin_module_lang_list_state</tpl><!-- 语言状态 --></th>
+            <th><tpl>$admin_module_lang_list_sort</tpl><!-- 语言排序 --></th>
+            <th><tpl>$admin_module_lang_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$language_array </tpl>
+          <tr>
+            <td><input type="checkbox" name="language_id[]" value="<tpl>$language_array[list].language_id</tpl>" class="cb" /></td>
+            <td><tpl>$language_array[list].language_name</tpl></td>
+            <td><tpl>$language_array[list].language_code</tpl></td>
+            <td class="flag"><tpl>if $language_array[list].language_image!=''</tpl><img src="<tpl>$Site_Url</tpl>/<tpl>$language_array[list].language_image</tpl>" /><tpl>else</tpl><tpl>$admin_module_lang_list_img_null</tpl><tpl>/if</tpl></td>
+            <td>
+			<span id="state_<tpl> $language_array[list].language_id</tpl>"><a onclick="nc_state_update('<tpl> $language_array[list].language_id</tpl>','language_state','<tpl> $language_array[list].language_state </tpl>','state_<tpl> $language_array[list].language_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>$language_array[list].language_state</tpl>.gif" alt="<tpl>$admin_module_lang_list_edit_state</tpl>" /></a></span></td>
+            <td><tpl>$language_array[list].language_sort</tpl></td>
+            <td>
+				<a href="admin_module_language.php?action=add_language_area&language_id=<tpl>$language_array[list].language_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_lang_list_edit</tpl>" /></a><!-- 编辑 -->
+				<a href="admin_module_language.php?action=del_language_area&language_id=<tpl>$language_array[list].language_id</tpl>" onclick="return confirm('<tpl>$admin_module_lang_list_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_lang_list_del</tpl>" /></a><!-- 删除 -->
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+          	<td colspan="7" class="searchbar">
+            	<div class="alignRight">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_currencies_edit</tpl>" />:<tpl>$admin_module_lang_list_edit</tpl><!-- 编辑 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_currencies_del</tpl>" />:<tpl>$admin_module_lang_list_del</tpl><!-- 删除 -->
+                </div>
+				<input type="submit" name="del" value="<tpl>$admin_module_lang_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              </td>
+          </tr>
+        </table>
+    </form>
+    </div><!--  end of p-list-div  -->
+	<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+<!--
+/* ajax修改状态 */
+function nc_state_update(language_id,ajax_type,old_state,id) {
+	$.get('admin_module_language.php',{'action':'language_ajax','ajax_type':ajax_type,'old_state':old_state,'language_id':language_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+//-->
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<title><tpl>$admin_manage</tpl> - <tpl>$forget_get_passwd</tpl></title><!--  找回密码  -->
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+				<h5 id="logintop"><a href="../"><tpl>$admin_back</tpl><!--  杩斿洖ShopNC  --></a></h5>
+<div id="loginwrapper">
+	<div id="loginheader">
+		<h1><a href="<tpl>$Site_Url</tpl>">ShopNC</a></h1>
+	</div>
+	<h3 id="loginh3"><tpl>$forget_get_passwd</tpl></h3>
+  <form id="login-form" name="form1" method="post" action="login.php?action=get_new_passwd">
+	<div id="logindiv">
+        <ul class="roleList">
+          <li><label>
+            <input type="radio" name="admin_type" value="1" class="checkBtn" checked="checked" /><tpl>$admin_user</tpl><!--  鏈€楂樼鐞嗗憳  -->
+          </label>
+          </li>
+          <li><label>
+            <input type="radio" name="admin_type" value="3" class="checkBtn" /><tpl>$admin_provider</tpl><!--  渚涘簲鍟? -->
+          </label></li>
+          <div class="clear"></div>
+        </ul>
+	    <table width="100%" border="0" cellpadding="0" cellspacing="5">
+          <tr>
+            <td width="40%" align="right"><tpl>$forget_usernmae</tpl><!-- 用户名 -->:</td>
+            <td width="60%"><label>
+              <input class="TextBox" type="text" name="admin_user" id="admin_user" size="18" />
+            </label></td>
+          </tr>
+          <tr>
+            <td align="right"><tpl>$forget_email</tpl><!-- 电子邮件 -->:</td>
+            <td><label>
+              <input class="TextBox" type="text" name="admin_email" id="admin_email" size="18" />
+            </label></td>
+          </tr>
+		  <tr>
+		  	<td colspan="2">
+			<label>
+		  	 >><a href="login.php"><tpl>$forget_back_login</tpl></a>&nbsp;&nbsp;<input type="submit" name="Submit" value="<tpl>$forget_submit</tpl>" class="btnInput" /><!-- 找回密码 -->
+		  	</label></td>
+		  </tr>
+        </table>
+		</div></div>
+	</div>
+  </form>
+</div>
+</body>
+</html>

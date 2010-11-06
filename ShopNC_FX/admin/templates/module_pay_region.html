@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_pay_region_list</tpl></title><!-- 模块管理 - 支付区域 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+<body>
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_module_pay.php?action=add_pay_area" target="_self">{<tpl>$admin_module_pay_region_add</tpl>}</a></span><!-- 添加支付区域 -->  <tpl>$admin_header_module_manage</tpl> >> <tpl>$admin_module_pay_region_list</tpl><!-- 模块管理 >> 支付区域 -->
+    	  
+	</h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+          	<td colspan="4" class="searchbar" >
+            <div class="textRight">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" />:<tpl>$admin_module_pay_region_list_edit</tpl><!-- 编辑支付区域 -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" />:<tpl>$admin_module_pay_region_list_view</tpl><!-- 查看该区域所有支付 -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif"/>:<tpl>$admin_module_pay_region_list_del</tpl><!-- 删除该区域 -->
+            </div>
+            </td>
+          </tr>
+          <tr>
+            <th><tpl>$admin_module_pay_region_name</tpl><!-- 区域名称 --></th>
+            <th><tpl>$admin_module_pay_region_desc</tpl><!-- 支付区域简介 --></th>
+            <th><tpl>$admin_module_pay_region_state</tpl><!-- 支付区域状态 --></th>
+            <th><tpl>$admin_module_pay_region_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$pay_area_array</tpl>
+          <tr>
+            <td><tpl>$pay_area_array[list].pay_area_name</tpl></td>
+            <td class="textLeft" width="40%"><tpl>$pay_area_array[list].pay_area_info</tpl></td>
+            <td>
+			<span id="state_<tpl> $pay_area_array[list].pay_area_id</tpl>"><a onclick="nc_state_update('<tpl> $pay_area_array[list].pay_area_id</tpl>','pay_area_state','<tpl> $pay_area_array[list].pay_area_state </tpl>','state_<tpl> $pay_area_array[list].pay_area_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>$pay_area_array[list].pay_area_state</tpl>.gif" alt="<tpl>$admin_module_pay_region_list_edit_state</tpl>" /></a></span></td>
+            <td>
+             <a href="admin_module_pay.php?action=add_pay_area&pay_area_id=<tpl>$pay_area_array[list].pay_area_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_pay_region_list_edit</tpl>" /></a><!-- 编辑支付区域 -->
+             <a href="admin_module_pay.php?action=pay_type_list&pay_area_directory=<tpl>$pay_area_array[list].pay_area_directory</tpl>&pay_area_id=<tpl>$pay_area_array[list].pay_area_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" title="<tpl>$admin_module_pay_region_list_view</tpl>" /></a><!-- 查看该区域所有支付 -->
+             <a href="admin_module_pay.php?action=del_pay_area&pay_area_id=<tpl>$pay_area_array[list].pay_area_id</tpl>"   onclick="return confirm('<tpl>$admin_module_pay_region_list_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_pay_region_list_del</tpl>" /></a><!-- 删除该区域 -->
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+          	<td colspan="4" class="searchbar">
+            <div class="textRight">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" />:<tpl>$admin_module_pay_region_list_edit</tpl><!-- 编辑支付区域 -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" />:<tpl>$admin_module_pay_region_list_view</tpl><!-- 查看该区域所有支付 -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif"/>:<tpl>$admin_module_pay_region_list_del</tpl><!-- 删除该区域 -->
+            </div>
+            </td>
+          </tr>
+        </table>
+    	<div class="clear"></div>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+<!--
+/* ajax修改状态 */
+function nc_state_update(pay_area_id,ajax_type,old_state,id) {
+	$.get('admin_module_pay.php',{'action':'pay_area_ajax','ajax_type':ajax_type,'old_state':old_state,'pay_area_id':pay_area_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+//-->
+</script>
+</body>
+</html>

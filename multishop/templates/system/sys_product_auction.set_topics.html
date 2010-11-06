@@ -1,0 +1,117 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMenuPromotionsAuction </tpl> &gt;&gt; <tpl> $langSysMenuPromotionsAuctionTopicsPic </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="product_auction.manage.php" method="post" name="ownaddproduct" id="ownaddproduct" enctype="multipart/form-data">
+						<input type="hidden" name="action" value="set_topics_save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysSetTopicsRightTop </tpl>:</th>
+									<td>
+										<tpl> if $topics_auction_pic.pic neq '' </tpl>
+											<img src="<tpl> $site_url </tpl>/<tpl> $topics_auction_pic.pic </tpl>" width="112" height="214" />
+											<input type="button" class="bthl marTop3Px" value="<tpl> $langSysCDel </tpl>" onclick="if(confirm_alert('<tpl> $langCConfirmDelete </tpl>')){location.href='product_auction.manage.php?action=del_topics_pic&type=topics_auction_pic'}" />
+										<tpl> else </tpl>
+											<span class="dptn"><tpl> $langSysSetTopicsPicRemark </tpl></span>
+											<input type="file" name="topics_auction_pic" />
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSetTopicsBannerOne </tpl>:</th>
+									<td>
+										<tpl> if $topics_auction_banner1.pic neq '' </tpl>
+											<img src="<tpl> $site_url </tpl>/<tpl> $topics_auction_banner1.pic </tpl>" width="470" height="50" />
+											<input type="button" class="bthl marTop3Px" value="<tpl> $langSysCDel </tpl>" onclick="if(confirm_alert('<tpl> $langCConfirmDelete </tpl>')){location.href='product_auction.manage.php?action=del_topics_pic&type=topics_auction_banner1'}" />
+										<tpl> else </tpl>
+											<span class="dptn"><tpl> $langSysSetTopicsBannerOneRemark </tpl></span>
+											<input type="file" name="topics_auction_banner1" />
+										<tpl> /if </tpl>
+										<div class="Pad5Px"><tpl> $langSysSetTopicsUrl </tpl>: <input type="text" name="url_topics_auction_banner1" class="fct-input-6" value="<tpl> $topics_auction_banner1.url|default:'http://' </tpl>" /></div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSetTopicsBannerTwo </tpl>:</th>
+									<td>
+										<tpl> if $topics_auction_banner2.pic neq '' </tpl>
+											<img src="<tpl> $site_url </tpl>/<tpl> $topics_auction_banner2.pic </tpl>" width="470" height="50" />
+											<input type="button" class="bthl marTop3Px" value="<tpl> $langSysCDel </tpl>" onclick="if(confirm_alert('<tpl> $langCConfirmDelete </tpl>')){location.href='product_auction.manage.php?action=del_topics_pic&type=topics_auction_banner2'}" />
+										<tpl> else </tpl>
+											<span class="dptn"><tpl> $langSysSetTopicsBannerTwoRemark </tpl></span>
+											<input type="file" name="topics_auction_banner2" />
+										<tpl> /if </tpl>
+										<div class="Pad5Px"><tpl> $langSysSetTopicsUrl </tpl>: <input type="text" name="url_topics_auction_banner2" class="fct-input-6" value="<tpl> $topics_auction_banner2.url|default:'http://' </tpl>" /></div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSetTopicsRightOne </tpl>:</th>
+									<td>
+										<tpl> if $topics_auction_right1.pic neq '' </tpl>
+											<img src="<tpl> $site_url </tpl>/<tpl> $topics_auction_right1.pic </tpl>" width="95" height="35" />
+											<input type="button" class="bthl marTop3Px" value="<tpl> $langSysCDel </tpl>" onclick="if(confirm_alert('<tpl> $langCConfirmDelete </tpl>')){location.href='product_auction.manage.php?action=del_topics_pic&type=topics_auction_right1'}" />
+										<tpl> else </tpl>
+											<span class="dptn"><tpl> $langSysSetTopicsRightOneRemark </tpl></span>
+											<input type="file" name="topics_auction_right1" />
+										<tpl> /if </tpl>
+										<div class="Pad5Px"><tpl> $langSysSetTopicsUrl </tpl>: <input type="text" name="url_topics_auction_right1" class="fct-input-6" value="<tpl> $topics_auction_right1.url|default:'http://' </tpl>" /></div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSetTopicsRightTwo </tpl>:</th>
+									<td>
+										<tpl> if $topics_auction_right2.pic neq '' </tpl>
+											<img src="<tpl> $site_url </tpl>/<tpl> $topics_auction_right2.pic </tpl>" width="95" height="35" />
+											<input type="button" class="bthl marTop3Px" value="<tpl> $langSysCDel </tpl>" onclick="if(confirm_alert('<tpl> $langCConfirmDelete </tpl>')){location.href='product_auction.manage.php?action=del_topics_pic&type=topics_auction_right2'}" />
+										<tpl> else </tpl>
+											<span class="dptn"><tpl> $langSysSetTopicsRightTwoRemark </tpl></span>
+											<input type="file" name="topics_auction_right2" />
+										<tpl> /if </tpl>
+										<div class="Pad5Px"><tpl> $langSysSetTopicsUrl </tpl>: <input type="text" name="url_topics_auction_right2" class="fct-input-6" value="<tpl> $topics_auction_right2.url|default:'http://' </tpl>" /></div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSetTopicsPicSlide </tpl>:</th>
+									<td>
+										<div id="pic_slide">
+											<tpl> foreach from=$top_slide item=one key=key </tpl>
+												<div>
+													<img src="<tpl> $site_url </tpl>/<tpl> $one.pic </tpl>" width="240" height="90" />
+													<input type="button" class="bthl marTop3Px" value="<tpl> $langSysCDel </tpl>" onclick="if(confirm_alert('<tpl> $langCConfirmDelete </tpl>')){location.href='product_auction.manage.php?action=del_topics_pic&type=topics_auction_slide&key=<tpl> $key </tpl>'}" />
+													<span class="marTop3Px"><tpl> $langCSort </tpl>:</span> <input type="text" name="sort_topics_slide[]" class="fct-input-2 marTop3Px" value="<tpl> $key </tpl>" />
+													<div class="Pad5Px"><tpl> $langSysSetTopicsUrl </tpl>: <input type="text" name="url_topics_slide[]" class="fct-input-6" value="<tpl> $one.url|default:'http://' </tpl>" /></div>
+												</div>
+											<tpl> /foreach </tpl>
+										</div>
+										<span class="dptn"><tpl> $langSysSetTopicsSlideRemark </tpl></span>
+										<input style="margin:5px 0;" type="button" name='' id='' value='<tpl> $langCnewSlide </tpl>' onclick="appendSlide();" class="bthl" />										
+									</td>
+								</tr>
+							</table>
+						</div>
+						<script>
+							function appendSlide(){
+								$('#pic_slide').append('<div><input type="file" name="topics_slide[]" /><tpl> $langCSort </tpl>: <input type="text" name="sort_topics_slide[]" class="fct-input-2" value="0" /><br /><tpl> $langSysSetTopicsUrl </tpl>: <input type="text" name="url_topics_slide[]" class="fct-input-6" value="http://" /></div>');
+							}
+						</script>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input type="submit" class="bthl" value="<tpl> $langCsubmit </tpl>" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

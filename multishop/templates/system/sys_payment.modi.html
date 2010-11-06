@@ -1,0 +1,124 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPaymentInterfaceManage </tpl> &gt;&gt; 
+						<tpl> if $config_dir eq 'alipay' </tpl>
+							<tpl> $langSysPaymentAlipay </tpl>
+						<tpl> elseif $config_dir eq 'tenpay' </tpl>
+							<tpl> $langSysPaymentTenpay </tpl>
+						<tpl> elseif $config_dir eq 'offline' </tpl>
+							<tpl> $langSysPaymentOffline </tpl>
+						<tpl> elseif $config_dir eq 'paypal' </tpl>
+							paypal
+						<tpl> else </tpl>
+							<tpl> $langSysPaymentPredeposit </tpl>
+						<tpl> /if </tpl> &gt;&gt; <tpl> $langSysPaymentM </tpl>
+					</div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="payment.manage.php" id="form_modi" name="form_modi" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="config_file" id="config_file" value="<tpl> $config_file </tpl>" />
+						<input type="hidden" name="config_dir" id="config_dir" value="<tpl> $config_dir </tpl>" />
+						<input type="hidden" name="param_line" id="param_line" value="<tpl> $param_line </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+							<tpl> if $config_dir eq 'alipay' </tpl>
+								<tpl> section name=loop loop=$value_array </tpl>
+										<tr id="alipay_info_<tpl> $value_array[loop].param </tpl>">
+											<th><tpl> $value_array[loop].name </tpl>:</th>
+											<td>
+												<tpl> if $value_array[loop].type eq 'text' </tpl>
+													<input type="text" class="fct-input" name="<tpl> $value_array[loop].param </tpl>" id="<tpl> $value_array[loop].param </tpl>" value="<tpl> $value_array[loop].value </tpl>" />
+												<tpl> /if </tpl>
+												<tpl> if $value_array[loop].type eq 'select' </tpl>
+													<select name="<tpl> $value_array[loop].param </tpl>">
+														<tpl> foreach item=one from=$value_array[loop].option key=key </tpl>
+															<option <tpl> if $value_array[loop].value eq $key </tpl>selected=selected<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+														<tpl> /foreach </tpl>
+													</select>
+												<tpl> /if </tpl>
+											</td>
+										</tr>
+									<tpl> /section </tpl>		
+										<tr>
+											<th><tpl> $langSysPaymentMode </tpl>:</th>
+											<td>
+												<span class="dptn"><tpl> $langSysPaymentModeExplain1 </tpl><br/><font color="red"><tpl> $langSysPaymentModeExplain2 </tpl></font></span>
+												<input type="radio" class="input_radio" name="config_mode" id="config_mode_0" value="0" onclick="return alipay_mode_set()"  <tpl> if $payment_mode eq '' || $payment_mode == 'seller' </tpl> checked="checked" <tpl> /if </tpl> /><label for="config_mode_0"><tpl> $langSysPaymentAlipaySeller </tpl></label>
+												<input type="radio" class="input_radio" name="config_mode" id="config_mode_1" value="1" onclick="return alipay_mode_set()" <tpl> if $payment_mode == 'system' </tpl> checked="checked" <tpl> /if </tpl> /><label for="config_mode_1"><tpl> $langSysPaymentAlipaySystem </tpl></label>
+											</td>
+										</tr>																
+										<tr>
+											<th><tpl> $langSysPaymentIfOpen </tpl>:</th>
+											<td>
+												<input class="input_radio" type="radio" name="config_state" id="config_state_1" value="1" <tpl> if $config_state eq '1' || $config_state eq '' </tpl> checked="checked" <tpl> /if </tpl> /><label for="config_state_1"><tpl> $langSysPaymentToOpened </tpl></label>
+												<input class="input_radio" type="radio" name="config_state" id="config_state_0" value="0" <tpl> if $config_state eq '0' </tpl> checked="checked" <tpl> /if </tpl> /><label for="config_state_0"><tpl> $langSysPaymentToClosed </tpl></label>
+											</td>
+										</tr>								
+							<tpl> else </tpl>
+								<tpl> section name=loop loop=$value_array </tpl>
+									<tr>
+										<th><tpl> $value_array[loop].name </tpl>:</th>
+										<td>
+											<tpl> if $value_array[loop].type eq 'text' </tpl>
+												<input type="text" class="fct-input" name="<tpl> $value_array[loop].param </tpl>" id="<tpl> $value_array[loop].param </tpl>" value="<tpl> $value_array[loop].value </tpl>" />
+											<tpl> /if </tpl>
+											<tpl> if $value_array[loop].type eq 'select' </tpl>
+												<select name="<tpl> $value_array[loop].param </tpl>">
+													<tpl> foreach item=one from=$value_array[loop].option key=key </tpl>
+														<option <tpl> if $value_array[loop].value eq $key </tpl>selected=selected<tpl> /if </tpl> value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+													<tpl> /foreach </tpl>
+												</select>
+											<tpl> /if </tpl>
+										</td>
+									</tr>
+								<tpl> /section </tpl>
+									<tr>
+										<th><tpl> $langSysPaymentIfOpen </tpl>:</th>
+										<td>
+											<input class="input_radio" type="radio" name="config_state" id="config_state_1" value="1" <tpl> if $config_state eq '1' || $config_state eq '' </tpl> checked="checked" <tpl> /if </tpl> /><label for="config_state_1"><tpl> $langSysPaymentToOpened </tpl></label>
+											<input class="input_radio" type="radio" name="config_state" id="config_state_0" value="0" <tpl> if $config_state eq '0' </tpl> checked="checked" <tpl> /if </tpl> /><label for="config_state_0"><tpl> $langSysPaymentToClosed </tpl></label>
+										</td>
+									</tr>							
+							<tpl> /if </tpl>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysPaymentModiCommit </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='payment.manage.php?action=list'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	<tpl> if $payment_mode eq 'seller' </tpl>
+	$("#alipay_info_partner").hide();
+	$("#alipay_info_security_code").hide();	
+	<tpl> /if </tpl>
+});
+function alipay_mode_set() {
+	if ($("input[type=radio][id=config_mode_0]").attr('checked')) {
+		$("#alipay_info_partner").hide();
+		$("#alipay_info_security_code").hide();
+	} else {
+		$("#alipay_info_partner").show();
+		$("#alipay_info_security_code").show();
+	}
+	return true;
+}
+</script>
+</body>
+</html>

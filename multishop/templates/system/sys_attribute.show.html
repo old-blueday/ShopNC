@@ -1,0 +1,196 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langAMProductClass </tpl> &gt;&gt; <tpl> $pclass_array.pc_name </tpl> &gt;&gt; <tpl> $langAManage </tpl></div>
+					<div class="gtlbar-right" onclick="add_attribute();numRow();$('#nothing').hide();">
+						<input class="apd" name="" type="button" />
+						<b><tpl> $langAMAddAttribute </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="attribute.manage.php" id="form1" name="form1" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del_attribute" />
+			<input type="hidden" name="pc_id" value="<tpl> $pc_id </tpl>" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langbtnProductDel </tpl></td>
+						<td class="es-4"><tpl> $langAMName </tpl></td>
+						<td class="es-4"><tpl> $langAMType </tpl></td>
+						<td class="es-4"><tpl> $langAInheritance </tpl></td>
+						<td class="es-4"><tpl> $langAMCompositor </tpl></td>
+						<td class="es-4"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $parent_att_array[0].a_id neq '' </tpl>
+					<tpl> section name=loop loop=$parent_att_array </tpl>
+					<tr class="es-td">
+						<td></td>
+						<td><tpl> $parent_att_array[loop].a_name </tpl></td>
+						<td><tpl> if $parent_att_array[loop].a_type eq 0 </tpl><tpl> $langAMBarelyRadio </tpl><tpl> else </tpl><tpl> $langAMCanMoreSelect </tpl><tpl> /if </tpl></td>
+						<td><tpl> if $parent_att_array[loop].a_allow_inherit eq 0 </tpl><tpl> $langCNo </tpl><tpl> else </tpl><tpl> $langCYes </tpl><tpl> /if </tpl></td>
+						<td><tpl> $parent_att_array[loop].a_order </tpl></td>
+						<td></td>
+					</tr>
+					<tpl> /section </tpl>
+					<tpl> /if </tpl>
+					<tpl> if $attribute_array[0].a_id neq '' </tpl>
+						<tpl> section name=loop loop=$attribute_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="chboxId[]" value="<tpl> $attribute_array[loop].a_id </tpl>" />
+						<input type="hidden" name="id[<tpl> $attribute_array[loop].a_id </tpl>]" value="<tpl> $attribute_array[loop].a_id </tpl>" />
+						</td>
+						<td><input type="text" class="fct-input" name="txtAname[<tpl> $attribute_array[loop].a_id </tpl>]" value="<tpl> $attribute_array[loop].a_name </tpl>" maxlength="18" /></td>
+						<td>
+							<input type="radio" class="input_radio" name="txtAtype[<tpl> $attribute_array[loop].a_id </tpl>]" id="txtAtype_<tpl> $attribute_array[loop].a_id </tpl>_0" value="0" <tpl> if $attribute_array[loop].a_type eq 0 </tpl> checked <tpl> /if </tpl> /><label for="txtAtype_<tpl> $attribute_array[loop].a_id </tpl>_0"><tpl> $langAMBarelyRadio </tpl></label>
+							<input type="radio" class="input_radio" name="txtAtype[<tpl> $attribute_array[loop].a_id </tpl>]" id="txtAtype_<tpl> $attribute_array[loop].a_id </tpl>_1" value="1" <tpl> if $attribute_array[loop].a_type eq 1 </tpl> checked <tpl> /if </tpl> /><label for="txtAtype_<tpl> $attribute_array[loop].a_id </tpl>_1"><tpl> $langAMCanMoreSelect </tpl></label>
+						</td>
+						<td>
+							<input type="radio" class="input_radio" name="txtAinherit[<tpl> $attribute_array[loop].a_id </tpl>]" id="txtAinherit_<tpl> $attribute_array[loop].a_id </tpl>_1" value="1" <tpl> if $attribute_array[loop].a_allow_inherit eq 1 </tpl> checked <tpl> /if </tpl> /><label for="txtAinherit_<tpl> $attribute_array[loop].a_id </tpl>_1"><tpl> $langCYes </tpl></label>
+							<input type="radio" class="input_radio" name="txtAinherit[<tpl> $attribute_array[loop].a_id </tpl>]" id="txtAinherit_<tpl> $attribute_array[loop].a_id </tpl>_0" value="0" <tpl> if $attribute_array[loop].a_allow_inherit eq 0 </tpl> checked <tpl> /if </tpl> /><label for="txtAinherit_<tpl> $attribute_array[loop].a_id </tpl>_0"><tpl> $langCNo </tpl></label>
+						</td>
+						<td><input class="fct-input-2" name="sort[<tpl> $attribute_array[loop].a_id </tpl>]" type="text" value="<tpl> $attribute_array[loop].a_order </tpl>" maxlength="9" /></td>
+						<td id="display_button_<tpl> $attribute_array[loop].a_id </tpl>">
+						<input class="bthl" type="button" id="expand_or_hide_<tpl> $attribute_array[loop].a_id </tpl>" value="+&nbsp;<tpl> $langAExpandContent </tpl>" onclick="display_show('<tpl> $attribute_array[loop].a_id </tpl>')" />
+						</td>
+					</tr>
+					<tr id="add_content_<tpl> $attribute_array[loop].a_id </tpl>" class="es-td" style="display:none;">
+						<td></td>
+						<td colspan="5">
+							<ul>
+							<tpl> foreach item=content from=$attribute_array[loop].content </tpl>
+							<li id="span_content_<tpl> $attribute_array[loop].a_id </tpl>_<tpl> $content.ac_id </tpl>">
+								<input name="content[<tpl> $attribute_array[loop].a_id </tpl>][]" id="content" class="fct-input-2" value="<tpl> $content.ac_content </tpl>" />
+								<tpl> $langAAddContentSort </tpl>:
+								<input name="content_sort[<tpl> $attribute_array[loop].a_id </tpl>][]" id="content_sort" class="fct-input-2" value="<tpl> $content.ac_order </tpl>" />
+								<input type="button" value="<tpl> $langSysCDel </tpl>" onclick="del_content(<tpl> $attribute_array[loop].a_id </tpl>,<tpl> $content.ac_id </tpl>)" class="bthl" />
+								<input type="hidden" name="content_id[<tpl> $attribute_array[loop].a_id </tpl>][]" value="<tpl> $content.ac_id </tpl>" />
+							</li>
+							<tpl> /foreach </tpl>
+							</ul>
+							<ul id="span_add_content_<tpl> $attribute_array[loop].a_id </tpl>">
+								
+							</ul>
+							<input class="bthl" type="button" id="add_content_button" value="<tpl> $langAAddContent </tpl>" onclick="add_content('<tpl> $attribute_array[loop].a_id </tpl>')" />
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+					<tbody id="new_attribute">
+					
+					</tbody>
+				</table>
+			</div>
+			<tpl> if $attribute_array[0].a_id eq '' </tpl>
+				<div id="nothing" class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input type="hidden" id="new_attribute_num" name="new_attribute_num" />
+				<input class="bthl" id="del" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" id="update" value="<tpl> $langASaveEdit </tpl>" type="button" />
+				<input class="bthl" id="expand" value="<tpl> $langAAllExpand </tpl>" type="button" onclick="all_expand()" />
+				<input class="bthl" id="hide" value="<tpl> $langAALLHide </tpl>" type="button" onclick="all_hide()" />
+				<input class="bthl" value="<tpl> $langCReturn </tpl>" type="button" onclick="location.href='pclass.manage.php?action=list&id=<tpl> $pc_u_id </tpl>'" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$('#update').click(function(){
+		$('input[id=action]').val('update');
+		document.getElementById('form1').submit();
+	});
+});
+//Start line
+function display_show(id){
+	$('#add_content_'+id).show();
+	$('#display_button_'+id).html("<input class='bthl' type='button' id='expand_or_hide_"+id+"' value='-&nbsp;<tpl> $langAHideContent </tpl>' onclick='display_hide("+id+")' />");
+}
+//Hide row
+function display_hide(id){
+	$('#add_content_'+id).hide();
+	$('#display_button_'+id).html("<input class='bthl' type='button' id='expand_or_hide_"+id+"' value='+&nbsp;<tpl> $langAExpandContent </tpl>' onclick='display_show("+id+")' />");
+}
+//Add Content
+function add_content(id){
+	$('#span_add_content_'+id).append("<li><input name='content_add["+id+"][]' class='fct-input-2' maxlength='18' />&nbsp;<tpl> $langAAddContentSort </tpl>:&nbsp;<input name='content_add_sort["+id+"][]' class='fct-input-2' maxlength='9' value='0' />&nbsp;<input type='button' value='<tpl> $langSysCDel </tpl>' class='bthl' onclick='del_text(this)' />&nbsp;</li>");
+}
+//New attribute add content
+function add_new_content(id){
+	$('#span_new_content_'+id).append("<li><input name='content_new_add["+id+"][]' class='fct-input-2' maxlength='18' />&nbsp;<tpl> $langAAddContentSort </tpl>:&nbsp;<input name='content_new_add_sort["+id+"][]' class='fct-input-2' maxlength='9' value='0' />&nbsp;<input type='button' value='<tpl> $langSysCDel </tpl>' class='bthl' onclick='del_text(this)' />&nbsp;</li>");
+}
+//Delete the contents of an input box
+function del_text(obj){
+	$(obj).parent().remove();
+}
+//Delete Attribute content
+function del_content(a_id,content_id){
+	$.ajax({
+		url: 'attribute.manage.php',
+		data: 'action=del_content&ac_id='+content_id,
+		type: 'post',
+		dataType: 'json',
+		success: function(msg){
+			// succ
+			if(msg.type == 1){
+				$('#span_content_'+a_id+'_'+content_id).remove();
+			}
+		},
+		error :function(){
+			alert('<tpl> $langAContentDelLost </tpl>');
+			return false;
+		}
+	});
+	return false;
+}
+//Expand
+function all_expand(){
+	<tpl> foreach item=att from=$attribute_array </tpl>
+		$('#add_content_<tpl> $att.a_id </tpl>').show();
+		$('#display_button_<tpl> $att.a_id </tpl>').html("<input class='bthl' type='button' id='expand_or_hide_<tpl> $att.a_id </tpl>' value='-&nbsp;<tpl> $langAHideContent </tpl>' onclick='display_hide(<tpl> $att.a_id </tpl>)' />");
+	<tpl> /foreach </tpl>
+}
+//Hide All
+function all_hide(){
+	<tpl> foreach item=att from=$attribute_array </tpl>
+		$('#add_content_<tpl> $att.a_id </tpl>').hide();
+		$('#display_button_<tpl> $att.a_id </tpl>').html("<input class='bthl' type='button' id='expand_or_hide_<tpl> $att.a_id </tpl>' value='+&nbsp;<tpl> $langAExpandContent </tpl>' onclick='display_show(<tpl> $att.a_id </tpl>)' />");
+	<tpl> /foreach </tpl>
+}
+//Add line
+function add_attribute(){
+	var num = $('#new_attribute_num').val();
+	$('#new_attribute').append("<tr class='es-td'>"+
+	"<td></td>"+
+	"<td><input class='fct-input' name='new_txtAname["+num+"]' value='' maxlength='18' /></td>"+
+	"<td><input type='radio' class='input_radio' name='new_txtAtype["+num+"]' id='new_txtAtype_"+num+"_0' value='0' checked /><label for='new_txtAtype_"+num+"_0'><tpl> $langAMBarelyRadio </tpl></label>&nbsp;<input type='radio' class='input_radio' name='new_txtAtype["+num+"]' id='new_txtAtype_"+num+"_1' value='1' /><label for='new_txtAtype_"+num+"_1'><tpl> $langAMCanMoreSelect </tpl></label></td>"+
+	"<td><input type='radio' class='input_radio' name='new_txtAinherit["+num+"]' id='new_txtAinherit"+num+"_1' value='1' /><label for='new_txtAinherit"+num+"_1'><tpl> $langCYes </tpl></label>&nbsp;<input type='radio' class='input_radio' name='new_txtAinherit["+num+"]' id='new_txtAinherit"+num+"_0' value='0' checked /><label for='new_txtAinherit"+num+"_0'><tpl> $langCNo </tpl></label></td>"+
+	"<td><input class='fct-input-2' name='new_sort["+num+"]' value='0' maxlength='9' /></td>"+
+	"<td><input type='button' value='<tpl> $langSysCDel </tpl>' class='bthl' onclick='$(this).parent().parent().remove();$(\"#is_new_content_del_sign_"+num+"\").remove();' /></td>"+
+	"<tr class='es-td' id='is_new_content_del_sign_"+num+"'><td>&nbsp;</td><td colspan='6'>"+
+	"<ul id='span_new_content_"+num+"'></ul>"+
+	"<input class='bthl' type='button' id='add_content_button' value='<tpl> $langAAddContent </tpl>' onclick='add_new_content("+num+")' />"+
+	"</td></tr>");
+}
+//Calculate the number of rows Add Attribute
+function numRow(){
+	var num = $('#new_attribute').children('tr').length;
+	$('#new_attribute_num').val(num);
+}
+numRow();
+</script>

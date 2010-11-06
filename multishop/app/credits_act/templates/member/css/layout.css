@@ -1,0 +1,193 @@
+@charset "utf-8";
+
+@import url("shop.manage.css");
+*{
+font-family:"宋体"}
+
+.HeaderSearchBtn{font-family:"宋体";line-height:1em;height:20px}
+
+.p_pic50{width:expression(this.width >50 && this.height < this.width ? 50:true);max-width:50px;max-height:50px;height:expression(this.height > 50 ? 50:true)}
+.p_pic80{width:expression(this.width >80 && this.height < this.width ? 80:true);max-width:80px;max-height:80px;height:expression(this.height > 80 ? 80:true)}
+.p_pic140{width:expression(this.width >140 && this.height < this.width ? 140:true);max-width:140px;max-height:140px;height:expression(this.height > 140 ? 140:true)}
+
+/*  PathLinksLeve Document  */.PathLinksLevel{margin:5px 0;height:20px}
+.PathLinksLevel li{display:inline;font-weight:700}
+.PathLinksLevel li a{padding-right:12px;background:url(../images/pathlinks_level1_seperate_a.gif) no-repeat right top}
+
+#container761{width:950px; margin-left:auto; margin-right:auto; clear:both;}
+#Containerleft{float:left;width:950px;margin:10px 10px 10px 0}
+
+/*  footer Document 
+#footer{margin-top:20px; width:760px;border-top:1px solid #CCC;clear:both;padding:10px 0;text-align:center;line-height:1.6em}
+#Copyright{margin-top:20px;font-family:Arial,Helvetica,sans-serif} *//*  ItemSummary Document  */#list_shop li li{border-width:0;display:block;height:auto}
+/*  ListPathLinks Document  */#ListPathLinks{height:400px}
+#Logo{float:left; padding-top:3px}
+#product_list{width:100%}
+
+#qsearch,
+#QuickLinks{float:right;clear:right}
+#QuickLinks li{padding:0 2px;display:inline}
+
+.member_right a{color:#014cc9}
+*{margin:0px;padding:0px;list-style:none;font-style:normal;word-break:break-all}
+a img{
+	border-width:0;
+
+}
+#QuickLinks a{color:#04d;font-weight:100;text-decoration:none}
+a:hover,#QuickLinks a:hover{color:#FF7800;text-decoration:none}
+h1{display:inline;font-size:14px;font-weight:700}
+h2{color:#333;font-size: 12px;font-weight: 700}
+hr{border-bottom:1px dashed #eee;height:0}
+select{
+	color:#111;
+	font-size: 12px;
+	height:22px;
+	*height:18px;
+	_height:22px;
+	vertical-align:middle;
+}
+input,textarea,button{
+	color:#111;
+	font-size: 12px;
+	line-height: 20px;
+	font-family: "宋体";
+	height:20px;
+}
+.input_submit{
+	font:12px/1.2em "宋体";
+
+}
+table{
+	width:100%;
+	clear:both;
+	border-collapse:collapse;
+	font-family: "宋体";
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	text-decoration: none;
+}
+table td input{vertical-align:middle}
+
+body{
+	margin:0;
+	background:#fff;
+	color:#111;
+	font:12px/1.2em "宋体";
+	padding-top: 0 13px
+}
+.HackBox {
+	clear: both;
+}
+#product_list_left {
+	float: left;
+	width: 755px;
+}
+#shop_brand_type .apprel_class {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #8E1C33;
+	text-decoration: none;
+	font-weight: 700;
+	padding-left: 20px;
+}
+/* category.list.html */#ChannelTarget {
+	height: 73px;
+	width: 100%;
+	background-color: #FFF;
+}
+#ChannelTarget ul {
+	background-color: #ebefff;
+	margin:10px 0;
+	width: 100%;
+	height: 40px;
+	padding:8px 0 0 0
+}
+#ChannelTarget li {
+	width: 154px;
+	height: 33px;
+	float: left;
+	display: block;
+	background: url(../home/images/cat_market_button.gif) no-repeat;
+	margin-right: 10px;
+	margin-left: 20px;
+	text-align: center;
+	line-height: 33px;
+}
+#ChannelTarget a {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #FFF;
+	text-decoration: none;
+}
+#sale {
+	height: 140px;
+	width: 760px;
+	background: url(../home/images/yahooback_071008_1.gif) no-repeat 5px
+}
+#sale b {
+	margin-left: 45px;
+	padding: 0px;
+}
+
+.anniuniu{
+	color:#FFF;
+	width:59px;
+	border:none;
+	height:23px;
+	vertical-align:middle;
+	background-position:left center;
+	background-color: #FF9900;
+}
+label.error{color:#FF0000; margin-left:5px}
+.table_style2 td{ padding-left:80px; width:100%; margin:0}
+.table_style_nopadding td{
+padding:0; width:auto}
+.blue_border{
+	
+	line-height:25px;
+	border-bottom:#dddddd 1px solid;
+	}
+.blue_top_border{
+
+	height:25px;
+	}
+.blue_border_1 td{
+	border-bottom:#dddddd 1px solid;
+	border-right:#dddddd 1px solid;
+	}
+.blue_border_1 .blue_right{
+	border-right:none;
+	}
+.blue_input{
+	border:#dae2e7 1px solid;
+	width:100px;
+	height:18px;
+	line-height:18px;
+	}
+.jifen span{
+	float:left;
+	display:block;
+	width:115px;
+	text-align:right;
+	padding-top:3px;
+	padding-bottom:3px;
+	}
+.jifen p{
+	float:left;
+	display:block;
+	text-align:left;
+	padding-top:3px;
+	padding-bottom:3px;
+	padding-left:10px;
+	}
+.member_right th,.member_right td{
+	color:#6c7584;
+	}
+.member_right  td{
+	padding-top:8px;
+	padding-bottom:8px;
+	}
+	
+	

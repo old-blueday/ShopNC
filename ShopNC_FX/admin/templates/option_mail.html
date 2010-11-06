@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_shop_manage</tpl> - <tpl>$admin_system_email</tpl></title><!-- 网店管理 - 邮件设置 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$('#tab1').click(function(){
+		$('#entry1').fadeIn(600);
+	});
+	$('#tab2').click(function(){
+		$('#entry2').fadeIn(600);
+	});
+	
+	/* 输入信息的校验 */
+	$("#mail_form").validate({
+		errorClass: "wrong",
+		rules: {
+			smtpserver	: {required	:true,minLength	:3,	maxLength:30},
+			smtpemail	: {required	:true,minLength	:3,	maxLength:30},
+			smtppass	: {required	:true},
+			smtpprot	: {required	:true,number	:true},
+			mailto		: {required	:true,email		:true,	maxLength:30}
+		},
+		messages: {
+			smtpserver	: {required	:"<tpl>$admin_system_email_hosting_null</tpl>",minLength:"<tpl>$admin_system_email_string_min</tpl>",maxLength:"<tpl>$admin_system_email_string_max</tpl>"},
+			smtpemail	: {required	:"<tpl>$admin_system_email_smtp_id_null</tpl>",email:"<tpl>$admin_system_email_string_min</tpl>",maxLength:"<tpl>$admin_system_email_string_max</tpl>"},
+			smtppass	: {required	:"<tpl>$admin_system_email_smtp_pw_null</tpl>"},
+			smtpprot	: {required	:"<tpl>$admin_system_email_smtp_port_null</tpl>",number:"<tpl>$admin_system_email_num</tpl>"},
+			mailto		: {required	:"<tpl>$admin_system_email_display_mail_null</tpl>",email:"<tpl>$admin_system_email__mail_error</tpl>",maxLength:"<tpl>$admin_system_email_string_max</tpl>"}
+		}
+	});
+});
+
+/* 切换邮件发送方式 */
+function showMore(value){
+	if(value=="smtp"){
+		$("#smtp").css("display","");
+	}else{
+		$("#smtp").css("display","none");
+	}
+}
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+  <form action="?action=save_mail" method="post" name="mail_form" id="mail_form">
+    <h2><tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_email</tpl><!-- 网店管理 >> 邮件设置 --></h2>
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_system_email_config</tpl><!-- 参数设置 --></a></li>
+        <li id="tab2"><a href="#nogo"><tpl>$admin_system_email_send</tpl><!-- 邮件发送 --></a></li>
+    </ul>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table border="0" width="35%">
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td width="110"><tpl>$admin_system_email_type</tpl><!-- 邮件发送类型 -->:</td>
+              <td><select name="setmail" id="whichMail" onchange="showMore(this.value)">
+                <option value="mail" <tpl>if $mailtype == 'mail'</tpl>selected="selected"<tpl>/if</tpl>><tpl>$admin_system_email_use_mail</tpl><!-- 系统内容mail发送 --></option>
+                <option value="smtp" <tpl>if $mailtype == 'smtp'</tpl>selected="selected"<tpl>/if</tpl>><tpl>$admin_system_email_use_smtp</tpl><!-- 系统内容smtp发送 --></option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          </table>
+          <div class="notice" id="smtp" style="display:none">
+            <table width="100%" border="0">
+              <tr>
+                <td><tpl>$admin_system_email_hosting</tpl><!-- smtp服务器 -->:</td>
+                <td><input type="text" name="smtpserver" id="smtpserver" value="<tpl>$smtpserver</tpl>" /><div class="check-error"><label style="display:none" for="smtpserver" class="wrong" metaDone="true" generated="true"></label></div></td>
+              </tr>
+              <tr>
+                <td><tpl>$admin_system_email_smtp_id</tpl><!-- smtp邮箱帐户 -->:</td>
+                <td><input type="text" name="smtpemail" id="smtpemail" value="<tpl>$smtpemail</tpl>" /><div class="check-error"><label style="display:none" for="smtpemail" class="wrong" metaDone="true" generated="true"></label></div></td>
+              </tr>
+              <tr>
+                <td><tpl>$admin_system_email_smtp_pw</tpl><!-- smtp邮箱密码 -->:</td>
+                <td><input type="text" name="smtppass" id="smtppass" value="<tpl>$smtppass</tpl>" /><div class="check-error"><label style="display:none" for="smtppass" class="wrong" metaDone="true" generated="true"></label></div></td>
+              </tr>
+              <tr>
+                <td><tpl>$admin_system_email_smtp_port</tpl><!-- smtp服务端口 -->:</td>
+                <td><input type="text" name="smtpprot" id="smtpprot" value="<tpl>$smtpprot</tpl>" /><div class="check-error"><label style="display:none" for="smtpprot" class="wrong" metaDone="true" generated="true"></label></div></td>
+              </tr>
+              <tr>
+                <td><tpl>$admin_system_email_display_mail</tpl><!-- 显示的邮箱 -->:</td>
+                <td><input type="text" name="mailto" id="mailto" value="<tpl>$mailto</tpl>" /><div class="check-error"><label style="display:none" for="mailto" class="wrong" metaDone="true" generated="true"></label></div></td>
+              </tr>
+            </table>
+          </div><!--  end of smtp  -->
+    </div><!--  end of entry1  -->
+	<div class="entry-body" id="entry2" style="display:none;">
+	<br />
+        <table width="100%" border="0">
+          <tr>
+            <td width="150"><tpl>$admin_system_email_new_user</tpl><!-- 新会员注册 -->:</td>
+            <td><input name="new_user_mail" type="radio" <tpl>if $new_user_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="new_user_mail" type="radio" <tpl>if $new_user_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=new_user_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_email_buy_goods</tpl><!-- 商品购买 -->:</td>
+            <td><input name="buy_goods_mail" type="radio" <tpl>if $buy_goods_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="buy_goods_mail" type="radio" <tpl>if $buy_goods_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=buy_goods_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_email_del_goods</tpl><!-- 取消购买商品 -->:</td>
+            <td><input name="del_goods_mail" type="radio" <tpl>if $del_goods_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="del_goods_mail" type="radio" <tpl>if $del_goods_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=del_goods_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_email_pay</tpl><!-- 商品付款 -->:</td>
+            <td><input name="pay_mail" type="radio" <tpl>if $pay_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="pay_mail" type="radio" <tpl>if $pay_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=pay_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_email_goods_send</tpl><!-- 商品发货 -->:</td>
+            <td><input name="send_goods_mail" type="radio" <tpl>if $send_goods_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="send_goods_mail" type="radio" <tpl>if $send_goods_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=send_goods_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_email_end</tpl><!-- 交易结束 -->:</td>
+            <td><input name="end_goods_mail" type="radio" <tpl>if $end_goods_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="end_goods_mail" type="radio" <tpl>if $end_goods_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=end_goods_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_system_virtual_card_send</tpl><!-- 虚拟卡发货 -->:</td>
+            <td><input name="send_virtual_card_mail" type="radio" <tpl>if $send_virtual_card_mail == '1'</tpl>checked="checked"<tpl>/if</tpl> value="1" /><tpl>$admin_send_email</tpl><input name="send_virtual_card_mail" type="radio" <tpl>if $send_virtual_card_mail == '0'</tpl>checked="checked"<tpl>/if</tpl> value="0" /><tpl>$admin_no_send_email</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?action=view_mail_temp&temp_name=send_virtual_card_mail" style="text-decoration: underline;"><tpl>$admin_send_template</tpl></a></td>
+          </tr>		  
+        </table>
+    </div><!--  end of entry2  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_system_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+</form>
+<br /><br /><br /><br /><br /><br />
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script type="text/javascript">
+	<tpl>if $mailtype == 'smtp'</tpl>
+		document.getElementById("smtp").style.display = '';	
+	<tpl>/if</tpl>
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?php
+$lang['langCreditsRegist']="会员注册";
+$lang['langCreditsSuccProductPut']="会员成功发布商品";
+$lang['langCreditsSuccBuy']="会员成功购得商品";
+$lang['langCreditsOpenShop']="会员开店";
+$lang['langCreditsMemberCertify']="会员个人实名认证";
+$lang['langCreditsShopEntity']="会员实体店铺认证";
+$lang['langCreditsGoodScore']="会员给对方好评评价";
+$lang['langCreditsNormalScore']="会员给对方中评评价";
+$lang['langCreditsBadScore']="会员给对方差评评价";
+$lang['langCreditsSuccReport']="会员的投诉举报操作成功";
+$lang['langCreditsReportHandle']="被投诉举报的会员被处理";
+$lang['errCreditsHaveNone']="不存在该积分项目";
+?>

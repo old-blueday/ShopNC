@@ -1,0 +1,115 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAppManage </tpl> &gt;&gt; <tpl> $langCACreditsAction </tpl> &gt;&gt; <tpl> $langCAAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="../<tpl> $app_module.app_module_sign </tpl>/system.php" method="post" enctype="multipart/form-data" name="form_add" id="form_add">
+						<input type="hidden" name="action" value="save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysCATitle </tpl>:</th>
+									<td><input type="text" class="fct-input" maxlength="100" name="ca_title" id="ca_title" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCAEndTime </tpl>:</th>
+									<td>
+										<input type="text" class="fct-input" name="ca_end_time" id="ca_end_time" readonly="readonly" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCAContent </tpl>:</th>
+									<td>
+										<tpl>php</tpl>
+											include_once('../../classes/resource/editor/editor.class.php');
+											$editor=new editor('ca_content');
+											$editor->Value='';
+											$editor->BasePath='../../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=700;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+									</td>
+								</tr>
+								<tr>
+								  <th><tpl> $langSysCAGoods </tpl>:</th>
+									<td>
+										<table width="100%" border="0" cellpadding="0" cellspacing="0" rules="none">
+											<tr>
+												<td><tpl> $langSysCAGoodsName </tpl></td>
+												<td><tpl> $langSysCAGoodsNum </tpl></td>
+												<td><tpl> $langSysCAGoodsCredits </tpl></td>
+												<td><tpl> $langSysCAGoodsPic </tpl></td>
+											</tr>
+											<tbody id="act_pro">
+												<tr>
+													<td><input type='text' class="fct-input-4" size='20' maxlength='100'  name='product_name[]' /></td>
+													<td><input type='text' class="fct-input-2" size='10' maxlength='6' name='product_num[]' /></td>
+													<td><input type='text' class="fct-input-2" size='10' maxlength='6' name='product_credits[]' /></td>
+													<td><input type='file' name='product_pic_0' /></td>
+												</tr>
+											</tbody>
+										</table>
+								    </td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="submit" class="bthl" value="<tpl> $langSysCASave </tpl>" />
+							<input type="button" name="add_button" id="add_button" class="bthl" value="<tpl> $langSysCAGoodsAdd </tpl>" />
+					 		<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='../<tpl> $app_module.app_module_sign </tpl>/system.php?action=ajax_list'" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	//时间
+	$('#ca_end_time').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	//增加一列
+	$('#add_button').click(function(e){
+		var num = $('#act_pro').children('tr').length;
+		$('#act_pro').append("<tr>" +
+		"<td><input type='text' class='fct-input-4' size='20'  name='product_name[]' /></td>" +
+		"<td><input type='text' class='fct-input-2' size='10' name='product_num[]' /></td>" +
+		"<td><input type='text' class='fct-input-2' size='10' name='product_credits[]' /></td>" +
+		"<td><input type='file' name='product_pic_"+num+"' /></td>"
+		+"</tr>"
+		);
+	});
+	//对添加表单做的验证定义
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			ca_title:{required:true},
+			ca_end_time:{required:true}
+		},
+		messages: {
+			ca_title:{required:'<tpl> $errSysCATitleIsEmpty </tpl>'},
+			ca_end_time:{required:'<tpl> $errSysCAEntTimeIsEmpty </tpl>'}
+		}
+	});
+});
+</script>

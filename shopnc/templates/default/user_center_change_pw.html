@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$modify_userinfo_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+	/* 对输入内容进行校验 */
+	$("#form_modify_pw").validate({
+		errorClass: "wrong",
+		rules: {
+			old_password	: {required:true,minLength:6,maxLength:20},
+			new_password	: {required:true,minLength:6,maxLength:20},
+			re_new_password	: {required:true,minLength:6,maxLength:20,equalTo:'#new_password'}
+		},
+		messages: {
+			old_password	: {required: "<tpl>$pw_old_not_null</tpl>",minLength:"<tpl>$pw_string_min</tpl>",maxLength:"<tpl>$pw_string_max</tpl>"},
+			new_password	: {required: "<tpl>$pw_new_not_null</tpl>",minLength:"<tpl>$pw_string_min</tpl>",maxLength:"<tpl>$pw_string_max</tpl>"},
+			re_new_password	: {required: "<tpl>$pw_renew_not_null</tpl>",minLength:"<tpl>$pw_string_min</tpl>",maxLength:"<tpl>$pw_string_max</tpl>",equalTo:"<tpl>$pw_renew_error</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content" style="height:380px;">
+      <div class="title">
+        <h3 id="changepw"><tpl>$pw_change</tpl><!-- 修改密码 --></h3>
+      </div>
+			<form action="user_center.php?action=change_password" name="form_modify_pw" id="form_modify_pw" method="post">
+      <div class="inside">
+        <div class="inside-content" >
+          <dl id="userinfo_form">
+            <dt><tpl>$pw_old</tpl><!-- 输入原密码 -->:</dt>
+            <dd>
+              <input type="password" id="old_password" name="old_password" class="textinput" style="width:150px;"/>&nbsp;<span style="color:red">*</span>
+              <div class="check-error">
+                <label style="display:none" for="old_password" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+			</dd>
+            <dt><tpl>$pw_new</tpl><!-- 输入新密码 -->:</dt>
+            <dd>
+              <input type="password" id="new_password" name="new_password" class="textinput" style="width:150px;"/>&nbsp;<span style="color:red">*</span>
+              <div class="check-error">
+                <label style="display:none" for="new_password" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+			</dd>
+            <dt><tpl>$pw_config</tpl><!-- 确认新密码 -->:</dt>
+            <dd>
+              <input type="password" id="re_new_password" name="re_new_password" class="textinput" style="width:150px;"/>&nbsp;<span style="color:red">*</span>
+              <div class="check-error">
+                <label style="display:none" for="re_new_password" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+		    </dd>
+          </dl>
+          <div class="formbtns" >
+            <input name="submit_button" type="submit" class="inputbutton" value="<tpl>$pw_submit</tpl>" />
+          </div>
+          <div class="clear"></div>
+        </div>		
+      </div>
+	  </form>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <!-- 用户中心内容:END -->
+  <!-- 用户中心菜单:START -->
+  	<tpl>include file ='user_center_menu.html'</tpl>
+  <!-- 用户中心菜单:END -->
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

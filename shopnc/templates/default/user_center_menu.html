@@ -1,0 +1,14 @@
+<div class="sideleft">
+    <h2 class="title"><tpl>$menu_user_center</tpl></h2>
+    <ul class="menu">
+      <li <tpl>if $smarty.get.action == ''</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php"><tpl>$menu_center_index</tpl><!-- 中心首页 --></a></li>
+      <li <tpl>if $smarty.get.action == 'modify_userinfo'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=modify_userinfo"><tpl>$menu_modify_userinfo</tpl><!-- 修改个人信息 --></a></li>
+      <li <tpl>if $smarty.get.action == 'my_order'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=my_order"><tpl>$menu_my_order</tpl><!-- 我的订单 --></a></li>
+      <li <tpl>if $smarty.get.action == 'collection'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=collection"><tpl>$menu_my_collection</tpl><!-- 我的收藏 --></a></li>
+      <li <tpl>if $smarty.get.action == 'message'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=message"><tpl>$menu_my_leave_word</tpl><!-- 我的留言 --></a></li>
+      <li <tpl>if $smarty.get.action == 'consignee_address_manage' or $smarty.get.action == 'shopping_add'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=consignee_address_manage"><tpl>$menu_shopping_address</tpl><!-- 收货地址 --></a></li>
+      <li <tpl>if $smarty.get.action == 'online'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=online"><tpl>$menu_service_online</tpl><!-- 在线客服 --></a></li>
+      <li <tpl>if $smarty.get.action == 'change_pw'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=change_pw"><tpl>$menu_modify_pwd</tpl><!-- 修改密码 --></a></li>
+      <li><a href="<tpl>$Site_Url</tpl>/member/user.php?action=login_out&back_url=index"><tpl>$menu_login_out</tpl><!-- 我要退出 --></a></li>
+    </ul>
+  </div>

@@ -1,0 +1,66 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCreditsManage </tpl> &gt;&gt; <tpl> $langSysMenuCreditsHandle </tpl></div>
+				</div>
+			</div>
+			<div class="ctge">
+					<div class="ctge-1">
+						<form id="form_add" name="form_add" method="post" action="credits.manage.php" >
+						<input type="hidden" name="action" value="handle_save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysCreditsMemberName </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtMemberName" id="txtMemberName" type="text" maxlength="20" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCreditsMemberName </tpl>:</th>
+									<td>
+										<select name="txtHandleMode">
+											<option value="0"><tpl> $langSysCreditsAdd </tpl></option>
+											<option value="1"><tpl> $langSysCreditsLess </tpl></option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCreditsPoints </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtPoints" id="txtPoints" type="text" maxlength="8" value="1" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txtMemberName: {required:true},
+			txtPoints: {required:true,number:true,min:1}
+		},
+		messages: {
+			txtMemberName: {required: "<tpl> $errSysCreditsMemberNameIsEmpty </tpl>"},
+			txtPoints: {required:"<tpl> $errSysCreditsPointsIsEmpty </tpl>",number:"<tpl> $errSysCreditsPointsIsNumber </tpl>",min:"<tpl> $errSysCreditsPointsMin </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

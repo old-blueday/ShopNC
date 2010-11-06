@@ -1,0 +1,114 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysOrderManage </tpl> &gt;&gt; <tpl> $langSysOrderList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="order_countdown.manage.php" method="get" name="form1" id="form1">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysOShiFouPingJia </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="search_comment" id="search_comment">
+										<option value=""><tpl> $langSysOrderPleaseSelect </tpl></option>
+										<option value="0" <tpl> if $condition.search_comment eq '0' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOrderCommentOne </tpl></option>
+										<option value="1" <tpl> if $condition.search_comment eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOrderCommentTwo </tpl></option>
+										<option value="2" <tpl> if $condition.search_comment eq '2' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOrderCommentThree </tpl></option>
+										<option value="3" <tpl> if $condition.search_comment eq '3' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOrderCommentFour </tpl></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysOrderEstate </tpl>:</th>
+								<td class="it-3">
+									<select name="search_sp_state">
+									<option value=""><tpl> $langSysOrderPleaseSelect </tpl></option>
+									<option value="0" <tpl> if $condition.search_sp_state eq '0' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langOrderBuyed </tpl></option>
+									<option value="1" <tpl> if $condition.search_sp_state eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langOrderPayed </tpl></option>
+									<option value="2" <tpl> if $condition.search_sp_state eq '2' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langOrderSended </tpl></option>
+									<option value="3" <tpl> if $condition.search_sp_state eq '3' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langOrderReceived </tpl></option>
+								</select>
+								</td>
+								<th class="wd">
+									<select name="search_name">
+										<option value="shop_name" <tpl> if $condition.search_name eq 'shop_name' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOSearchShopName </tpl></option>
+										<option value="seller_name" <tpl> if $condition.search_name eq 'seller_name' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOSearchSellerName </tpl></option>
+										<option value="buyer_name" <tpl> if $condition.search_name eq 'buyer_name' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysOSearchBuyerName </tpl></option>
+									</select>
+									:
+								</th>
+								<td class="it-0">
+									<input class="fct-input" name="search_name_text" id="search_name_text" value="<tpl> $condition.search_name_text </tpl>" type="text" />
+								</td>
+								<td class="it-1">
+									<input class="bthl" name="" value="<tpl> $langSysOrderSeach </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="order.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysOrderBabyName </tpl></td>
+						<td class="es-2"><tpl> $langSysOrderPrice </tpl></td>
+						<td class="es-2"><tpl> $langSysOrderBuyEstate </tpl></td>
+						<td class="es-2"><tpl> $langOrderClearingState </tpl></td>
+						<td class="es-2"><tpl> $langSysOrderBothAppraise </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $product_order_array[0].sp_id neq'' </tpl>
+						<tpl> section name=loop loop=$product_order_array </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+							<tpl> if $product_order_array[loop].sp_html neq '' </tpl>
+								<a href="<tpl> $site_url </tpl>/home/order.php?action=sp_html&sp_code=<tpl> $product_order_array[loop].sp_code </tpl>" target="_blank">
+							<tpl> else </tpl>
+								<a href="<tpl> $site_url </tpl>/home/product.php?action=view&amp;pid=<tpl> $product_order_array[loop].p_code </tpl>" target="_blank">
+							<tpl> /if </tpl>
+							<tpl> $product_order_array[loop].p_name </tpl>
+							</a>
+						</td>
+						<td><tpl> $product_order_array[loop].total_price </tpl></td>
+						<td><tpl> assign var='p_sp_state' value = $product_order_array[loop].sp_state </tpl><tpl> $sp_state[$p_sp_state] </tpl></td>
+						<td><tpl> $product_order_array[loop].countdown_state_txt </tpl></td>
+						<td><tpl> $product_order_array[loop].comment </tpl></td>
+						<td>
+							<a href="order_countdown.manage.php?action=view&sp_id=<tpl> $product_order_array[loop].sp_id </tpl>"><tpl> $langCview </tpl></a>&nbsp;|&nbsp;<tpl>if $product_order_array[loop].sp_state eq '3' && $product_order_array[loop].countdown_state eq '0' </tpl><a href="order_countdown.manage.php?action=balance&sp_id=<tpl> $product_order_array[loop].sp_id </tpl>" ><tpl>$langCBalance</tpl></a><tpl>else</tpl><span style="color:#BDBDBD"><tpl>$langCBalance</tpl></span><tpl>/if</tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $product_order_array[0].sp_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $product_order_array[0].sp_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

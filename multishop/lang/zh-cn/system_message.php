@@ -1,0 +1,51 @@
+<?php
+$lang['langMessageSelect']="选择";
+$lang['langMessageTitle']="标题";
+$lang['langMessageContent']="内容";
+$lang['langMessageMemberName']="会员名";
+$lang['langMessageManyMember']="(多个会员之间用逗号分隔，最多可填写10个会员名，超过数量限制则系统只向前10位会员发送站内信)";
+
+$lang['langMessageSendType'] = '信息类型';
+$lang['langMessageSendTypeAppoint'] = '指定会员';
+$lang['langMessageSendTypeAll'] = '所有会员';
+$lang['langMessageSendTypeSeller'] = '所有卖家';
+$lang['langMessageSendTypeErr'] = '信息类型必须';
+$lang['langMessageSendTo'] = '发送给';
+$lang['langMessageMessageNotExis'] = '短消息不存在';
+
+$lang['langMessageDEL']="删  除";
+$lang['langMessageContrarySelect']="反  选";
+$lang['langMessageAllSelect']="全  选";
+$lang['langMessageReturn']="返  回";
+$lang['langMessageAllMember']="所有会员";
+$lang['langMessageSeller']="所有卖家";
+$lang['langMessageOneMember']="指定会员";
+$lang['langMessageSendTime']="发送时间";
+$lang['langMessageSendObjectType']="发送对象类型";
+$lang['langMessageLetterGroupSend']="站内信群发";
+$lang['langMessageSendInfo']="发送短信息";
+$lang['langMessageManageShopSendLookDel']="管理商城群发的站内信，可以查看、删除已发送的站内信。";
+$lang['langMessageManageShopSendSelectLookDel']="商城站内信群发，可以选择是否为可删除站内信、不允许会员删除的请填写有效期。";
+$lang['langMessageWhetherAllowDel']="是否允许删除";
+$lang['langMessageNoAllowDel']="不允许删除";
+$lang['langMessageAllowDel']="允许删除";
+$lang['langMessageEndDate']="有效时间截止日期";
+$lang['langMessageFormatExample']="格式如";
+$lang['langMessageOnceSend']="立即发送";
+$lang['langMessageReturnList']="返回到列表";
+$lang['errMessageTitle']="标题不能为空!";
+$lang['errMessageReceiveName']="会员名不能为空!";
+$lang['errMessageContent']="内容不能为空!";
+$lang['errMessageEndDate']="有效时间截止日期不能为空!";
+$lang['langMessageSysSetManageSend']="系统设置->短信息管理->发送短信息";
+$lang['langMessageSysSetManageDel']="系统设置->短信息管理->删除短信息";
+$lang['langMessageSendInfoOk']="发送短信息成功";
+$lang['langMessageDelInfoOk']="删除短信息成功";
+$lang['langMessagePleaseDelInfo']="请选择删除的信息";
+$lang['langMessageAdd']="新增站内信";
+$lang['langMessageSendDoNow']="正在发送，请等待...";
+$lang['langMessageSendLost']="信息发送失败";
+$lang['langMessageMemberNameErr']="会员名称不存在";
+$lang['langMessageList']="站内信列表";
+$lang['langMessageView']="查看站内信";
+?>

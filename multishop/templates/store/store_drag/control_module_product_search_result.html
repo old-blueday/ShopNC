@@ -1,0 +1,78 @@
+<tpl> if $product_array[0].p_id neq "" </tpl>
+<table width="100%" class="border-td" border="0" cellpadding="0" cellspacing="0">
+	<tpl> section name=loop loop=$product_array </tpl>
+	<tr>
+		<td><tpl> $smarty.section.loop.rownum </tpl>.</td>
+		<td><tpl> $product_array[loop].p_name </tpl></td>
+		<td><a href="javascript:;" onclick="check_repeat_id('<tpl> $product_array[loop].p_id </tpl>');"><tpl> $langChannelSelect </tpl></a></td>
+	</tr>
+	<tpl> /section </tpl>
+	<tr><td colspan="3"><div style=" float:right;""><tpl> $page_list </tpl></div></td></tr>
+</table>
+<tpl> /if </tpl>
+<script>
+
+function check_repeat_id(id){
+	if($('moduleupdate').style.display=="none")
+	{
+		var sign = true;
+		jquery('#pro_list input[type="text"]').each(function(){
+			if(this.name == "p_sort["+id+"]"){
+				sign = false;
+			}
+		});
+		if(sign == false){
+			alert("<tpl> $langChannelListExistSelect </tpl>");
+		}else{
+			search_result_set(id);
+		}
+		return false;
+	}else{
+				var sign = true;
+		jquery('#up_pro_list input[type="text"]').each(function(){
+			if(this.name == "p_sort["+id+"]"){
+				sign = false;
+			}
+		});
+		if(sign == false){
+			alert("<tpl> $langChannelListExistSelect </tpl>");
+		}else{
+			search_result_set(id);
+		}
+		return false;
+
+	}
+}
+
+function search_result_set(id){
+	jquery.ajax({
+		url: "control.php",
+		data: "action=product_search_info&p_id="+id,
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+			if(msg != ""){
+				if($('moduleupdate').style.display=="none")
+				{
+					jquery('#pro_list').append(msg);
+				}else{
+					jquery('#up_pro_list').append(msg);
+				}
+				
+			}else{
+				alert("<tpl> $langChannelIdErr </tpl>");
+			}
+		}
+	});
+	return false;
+}
+function getPageContent(address){
+jquery.ajax({
+url: address,
+dataType:"javascript",
+success: function(msg){
+jquery("#" + ShowDiv).html(msg);
+}
+ });
+} 
+</script>

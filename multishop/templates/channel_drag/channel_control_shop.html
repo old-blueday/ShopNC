@@ -1,0 +1,43 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<tpl> if $output.type eq '0' </tpl>
+		<div class="blockcontent">
+			<div class="shop_store">
+				<ul>
+					<tpl> foreach from=$output.list item=one </tpl>
+						<li>
+							<tpl> if $ifsubdomain eq '1' && $one.shop_domain neq '' </tpl>
+								<a target="_blank" href="http://<tpl> $config_domain_prefix </tpl><tpl> $one.shop_domain </tpl><tpl> $config_domain_name </tpl>"><tpl> $one.shop_short_name </tpl></a>
+							<tpl> else </tpl>
+								<a target="_blank" href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $one.member_id </tpl>" title="<tpl> $one.shop_name </tpl>"><tpl> $one.shop_short_name </tpl></a>
+							<tpl> /if </tpl>
+						</li>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+		<tpl> if $output.type eq '1' </tpl>
+		<div class="blockcontent">
+			<div class="shop_store_1">
+				<ul>
+					<tpl> foreach from=$output.list item=one </tpl>
+						<li>
+							<img src="<tpl> $site_url </tpl>/<tpl> $one.shop_pic|default:'templates/channel_drag/images/nobody_imgs.gif' </tpl>" border="0" width="60" height="60"/>
+							<tpl> if $ifsubdomain eq '1' && $one.shop_domain neq '' </tpl>
+								<a target="_blank" href="http://<tpl> $config_domain_prefix </tpl><tpl> $one.shop_domain </tpl><tpl> $config_domain_name </tpl>"><tpl> $one.shop_short_name </tpl></a>
+							<tpl> else </tpl>
+								<a target="_blank" href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $one.member_id </tpl>" title="<tpl> $one.shop_name </tpl>"><tpl> $one.shop_short_name </tpl></a>
+							<tpl> /if </tpl>
+						</li>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

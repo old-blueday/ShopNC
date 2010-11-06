@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><tpl>$my_order_view</tpl> - Powered by ShopNC</title><!-- 订单查看 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+</head>
+
+<body>
+<div id="content">
+    <h3><tpl>$order_array.user_name</tpl> > <tpl>$my_order_goods</tpl><!-- 所购商品 --></h3>
+<div class="entry-body" id="p-list-div" style="margin-top:0;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="8" class="searchbar">&nbsp;
+              
+            </td>
+          </tr>
+          <tr>
+            <th><tpl>$my_order_goods_name</tpl><!-- 商品名称 --></th>
+            <th><tpl>$my_order_goods_price</tpl><!-- 商品单价 --></th>
+            <th><tpl>$my_order_goods_num</tpl><!-- 数量 --></th>
+            <th><tpl>$my_order_goods_color</tpl>/<tpl>$my_order_goods_size</tpl><!-- 颜色/规格 --></th>
+            <th><tpl>$my_order_goods_price_count</tpl><!-- 小计 --></th>
+            <th><tpl>$my_order_state</tpl><!-- 订单状态 --></th>
+          </tr>
+		  <tpl>section name=list loop=$order_goods</tpl>
+          <tr>
+            <td><tpl>$order_goods[list].goods_name</tpl></td>
+            <td><tpl>$order_goods[list].goods_pricedesc</tpl></td>
+            <td><tpl>$order_goods[list].goods_count</tpl></td>
+            <td><tpl>$order_goods[list].goods_color</tpl>/<tpl>$order_goods[list].goods_size</tpl></td>
+            <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>$order_goods[list].goods_pricedesc*$order_goods[list].goods_count</tpl></td>
+            <td><tpl>$order_array.order_state_txt</tpl>,<tpl>$order_array.order_state1_txt</tpl>,<tpl>$order_array.order_state2_txt</tpl>,<tpl>$order_array.order_state3_txt</tpl></td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+          	<td colspan="8" style="text-align:left; border-top:1px solid #e8e8e8;">
+            	<h4><tpl>$my_order_manage_info</tpl>:</h4>
+                <tpl>$my_order_manage_body</tpl>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div><!--  end of entry-body  -->
+    <h3>> <tpl>$my_order_info</tpl><!-- 订单信息 --></h3>
+    <div class="needborder entry-body">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="infoTab">
+        <tr>
+          <th width="100"><tpl>$my_order_number</tpl><!-- 订单编号 -->:</th>
+          <td><tpl>$order_array.order_serial</tpl></td>
+          <th width="100"><tpl>$my_order_create_time</tpl><!-- 下单日期 -->:</th>
+          <td><tpl>$order_array.create_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_state</tpl><!-- 订单状态 -->:</th>
+          <td><tpl>$order_array.order_state_txt</tpl>,<tpl>$order_array.order_state1_txt</tpl>,<tpl>$order_array.order_state2_txt</tpl>,<tpl>$order_array.order_state3_txt</tpl><!-- 支付按钮 --><tpl>$form_code</tpl></td>
+          <th><tpl>$my_order_goods_price</tpl><!-- 商品总金额 -->:</th>
+          <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>math equation="x-y-z" x=$order_array.order_price y=$order_array.transport_price z=$order_array.pay_price format="%.2f"</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_send_type</tpl><!-- 配送方式 -->:</th>
+          <td><tpl>$order_array.transport_name</tpl></td>
+          <th><tpl>$my_order_send_price</tpl><!-- 配送金额 -->:</th>
+          <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>$order_array.transport_price</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_pay_type</tpl><!-- 付款方式 -->:</th>
+          <td><tpl>$order_array.pay_name</tpl></td>
+          <th><tpl>$my_order_pay_price</tpl><!-- 支付手续费 -->:</th>
+          <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>$order_array.pay_price</tpl><tpl>$currencys_set.currencies_units</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_invoice</tpl><!-- 发票信息 -->:</th>
+          <td><tpl>if $order_array.order_invoice == '1'</tpl><tpl>$order_array.order_invoice_top</tpl><tpl>else</tpl><tpl>$my_order_invoice_null</tpl><tpl>/if</tpl></td>
+          <th><tpl>$my_order_count_price</tpl><!-- 订单总金额 -->:</th>
+          <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>$order_array.order_price</tpl><tpl>$currencys_set.currencies_units</tpl></td>
+        </tr>
+      </table>
+    </div><!--  end of needborder  -->
+    <h3>> <tpl>$my_order_receiver_ino</tpl><!-- 收货人信息 --></h3>
+    <div class="needborder entry-body">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="infoTab">
+        <tr>
+          <th width="100"><tpl>$my_order_receiver_user</tpl><!-- 收货人姓名 -->:</th>
+          <td><tpl>$order_array.receiver_name</tpl></td>
+          <th width="100"><tpl>$my_order_receiver_mobile</tpl><!-- 联络手机 -->:</th>
+          <td><tpl>$order_array.receiver_mobile</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_receiver_tele</tpl><!-- 联络电话 -->:</th>
+          <td><tpl>$order_array.receiver_tele</tpl></td>
+          <th><tpl>$my_order_receiver_email</tpl><!-- 电子邮箱 -->:</th>
+          <td><tpl>$order_array.receiver_email</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_receiver_zip</tpl><!-- 邮政编码 -->:</th>
+          <td><tpl>$order_array.receiver_post</tpl></td>
+          <th>&nbsp;</th>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_receiver_address</tpl><!-- 收货地址 -->:</th>
+          <td colspan="3"><tpl>$order_array.receiver_address</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$my_order_receiver_remarks</tpl><!-- /*备注*/ -->:</th>
+          <td colspan="3"><tpl>$order_array.transport_content</tpl></td>
+        </tr>
+      </table>
+    </div><!--  end of needborder  -->
+</div><!--  end of content  -->
+	<div align="center">
+		<tpl>if $shopnc_pay_ok == '1'</tpl><tpl>$my_order_pay_ok</tpl><tpl>/if</tpl>
+		<br />
+      <input type="button" name="button1" id="button1" onclick="window.opener = null;window.open('', '_self');window.close();" value="<tpl>$my_order_close</tpl>" class="btnInput" /><!-- 关闭 -->
+	  
+    </div>
+</body>
+</html>

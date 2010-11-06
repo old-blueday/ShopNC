@@ -1,0 +1,23 @@
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+  <div id="links">
+    <div class="textlink">
+<h3><tpl>$langFriendLink</tpl></h3>
+  <ul>
+	<tpl> section name=i loop=$char_array </tpl>
+		<li><a title="<tpl> $char_array[i].link_title </tpl>" href="<tpl> $char_array[i].link_url </tpl>" target="_blank"><tpl> $char_array[i].link_title </tpl></a></li>
+	<tpl> /section </tpl>
+  </ul>
+</div>
+<div class="clear"></div>
+<div class="logolink">
+  <h3 class="title">合作伙伴</h3>
+  <ul>
+	<tpl> section name=i loop=$pic_array </tpl>
+		<li>
+			<a title="<tpl> $pic_array[i].link_title </tpl>" href="<tpl> $pic_array[i].link_url </tpl>" target="_blank">
+				<img alt="<tpl> $pic_array[i].link_title </tpl>" width="<tpl> $link_info.pic_width </tpl>" height="<tpl> $link_info.pic_height </tpl>" src="<tpl> $site_url </tpl>/<tpl> $pic_array[i].link_pic|default:'templates/orange/images/noimgs.gif' </tpl>" border="0" />
+			</a>
+		</li>
+	<tpl> /section </tpl>
+  </ul>
+</div>

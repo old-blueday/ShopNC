@@ -1,0 +1,14 @@
+<a style=" float:left; margin-top:4px; padding-right:2px; padding-left:2px;" href="<tpl>$site_url</tpl>/member/own_message.php?action=add&username=<tpl>$seller_info.login_name</tpl>" target="_blank"><img src="<tpl>$site_url</tpl>/templates/store/images/zhannei.gif" alt="<tpl> $langSIntroSendCorrespondence </tpl>"/></a>
+<tpl> if $seller_info.TAOBAO neq '' </tpl>	
+	<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=1&uid=<tpl> $seller_info.TAOBAO </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=1&uid=<tpl> $seller_info.TAOBAO </tpl>&site=cntaobao&s=2" alt="<tpl> $langPOnClickMyMessage </tpl>" /></a>
+<tpl> /if </tpl> 
+<tpl> if $seller_info.QQ neq '' </tpl>	  
+	<a href=tencent://message/?uin=<tpl> $seller_info.QQ </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $seller_info.QQ </tpl>:4 alt="<tpl> $langPOnClickMyMessage </tpl>"></a>
+<tpl> /if </tpl> 
+<tpl> if $seller_info.MSN neq '' </tpl>
+	<A href="msnim:chat?contact=<tpl> $seller_info.MSN </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0"></A>
+<tpl> /if </tpl>
+<tpl> if $seller_info.SKYPE neq '' </tpl>
+	<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+	<a href="skype:<tpl> $seller_info.SKYPE </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="20" height="20" alt="Skype Me?!" /></a>
+<tpl> /if </tpl>

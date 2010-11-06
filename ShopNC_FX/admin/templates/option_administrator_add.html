@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_member_add</tpl>
+<!-- 添加会员 --></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+</head>
+<body id="noulmenu">
+<div id="content">
+  <form action="admin_administrator.php?action=admin_save" method="post" name="add_admin" id="add_admin">
+    <input type="hidden" name="admin_id" id="admin_id" value="<tpl>$smarty.get.admin_id</tpl>" />
+    <h2><span class="alignRight"><a href="admin_administrator.php?action=admin_list" target="_self">{<tpl>$admin_user_list</tpl><!-- 管理员列表 -->}</a></span>
+		<tpl>$admin_header_shop_manage</tpl><!-- 网店管理 --> >> <tpl>if $smarty.get.admin_id!=''</tpl><tpl>$admin_user_edit</tpl><tpl>else</tpl><tpl>$admin_user_add</tpl><tpl>/if</tpl><!-- 添加管理员 -->
+       </h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_save</tpl>" class="btnInput" />
+      <!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="40%" border="0">
+        <tr>
+          <td><tpl>$admin_user_name</tpl><!-- 用户名 -->:</td>
+          <td><label>
+            <input type="text" name="txt_admin_name" <tpl>if $smarty.get.admin_id!=''</tpl>readonly="readonly"<tpl>/if</tpl> id="txt_admin_name" value="<tpl>$admin_info.admin_name|escape:html</tpl>" />
+          <span class="red">*</span></label>
+		  <div class="check-error"><label style="display:none" for="txt_admin_name" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+		<tpl>if $admin_info.admin_id != ''</tpl>
+        <tr>
+          <td><tpl>$admin_new_passwd</tpl><!-- 新密码 -->:</td>
+          <td><label>
+            <input type="password" name="txt_admin_password" id="txt_admin_password" />
+          </label></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_new_passwd1</tpl><!-- 确认密码 -->:</td>
+          <td><label>
+            <input type="password" name="txt_admin_old_password" id="txt_admin_old_password" />
+          </label></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_old_passwd</tpl><!-- 原密码 -->:</td>
+          <td><label>
+            <input type="password" name="admin_old_password" id="admin_old_password" />
+          </label></td>
+        </tr>
+		<tpl>else</tpl>
+        <tr>
+          <td><tpl>$admin_passwd</tpl><!-- 密码 -->:</td>
+          <td><label>
+            <input type="password" name="txt_admin_password" id="txt_admin_password" />
+          <span class="red">*</span></label>
+		  <div class="check-error"><label style="display:none" for="txt_admin_password" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_new_passwd1</tpl><!-- 确认密码 -->:</td>
+          <td><label>
+            <input type="password" name="txt_admin_old_password" id="txt_admin_old_password" />
+          <span class="red">*</span></label>
+		  <div class="check-error"><label style="display:none" for="txt_admin_old_password" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+		<tpl>/if</tpl>
+        <tr>
+          <td>E-mail:</td>
+          <td><label>
+            <input type="text" name="txt_admin_email" id="txt_admin_email"  value="<tpl>$admin_info.admin_email</tpl>"  />
+          <span class="red">*</span></label>
+		  <div class="check-error"><label style="display:none" for="txt_admin_email" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_user_state</tpl><!-- 当前状态 -->:</td>
+          <td><label><tpl>$admin_state</tpl></label></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+	<tpl>if $admin_info.admin_cmpetence == 'system_all'</tpl>
+	<input type="hidden" name="txt_admin_state" value="1" />
+	<tpl>/if</tpl>
+	
+      <input type="submit" name="button" id="button" value="<tpl>$admin_user_save</tpl>" class="btnInput" />
+      <!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_user_reset</tpl>"  class="btnInput" />
+      <!-- 重置 -->
+    </div>
+  </form>
+  <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#add_admin').validate({
+		errorClass: "wrong",
+		rules: {
+			txt_admin_name			: {required:true},
+			txt_admin_email			: {required:true,email:true}
+			<tpl>if $admin_info.admin_id == ''</tpl>
+			/* 添加用户时，检查输入密码情况 */
+			,txt_admin_password		:	{required:true},
+			txt_admin_old_password	:	{required:true,equalTo:'#txt_admin_password'}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			txt_admin_name			: {required:"<tpl>$admin_user_name_null</tpl>"}	,
+			txt_admin_email			: {required:"<tpl>$admin_user_email_null</tpl>",email:"<tpl>$admin_user_email_error</tpl>"}
+			<tpl>if $admin_info.admin_id == ''</tpl>
+			/* 添加用户时，检查输入密码情况 */
+			,txt_admin_password		:	{required: "<tpl>$admin_user_passwd_null</tpl>"},
+			txt_admin_old_password	:	{required: "<tpl>$admin_user_passwd_conf</tpl>",equalTo:"<tpl>$admin_two_passwd_same</tpl>"}
+			<tpl>/if</tpl>
+		}
+	});
+});
+//-->
+</script>
+</body>
+</html>

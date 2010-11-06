@@ -1,0 +1,132 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langPreManage </tpl> &gt;&gt; <tpl> $langPreCashSet </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="predeposit.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="cash_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langPreSearchMemberName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.search_member_name </tpl>" name="search_member_name" type="text" />
+								</td>
+								<th class="wd"><tpl> $langPreCashType </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="search_cash_type" id="search_cash_type">
+										<option value=""></option>
+										<option <tpl> if $condition.search_cash_type eq 'offline' </tpl>selected="selected"<tpl> /if </tpl> value="offline"><tpl> $langPreCashTypeOffline </tpl></option>
+										<option <tpl> if $condition.search_cash_type eq 'alipay' </tpl>selected="selected"<tpl> /if </tpl> value="alipay"><tpl> $langPreCashTypeAlipay </tpl></option>
+										<option <tpl> if $condition.search_cash_type eq 'tenpay' </tpl>selected="selected"<tpl> /if </tpl> value="tenpay"><tpl> $langPreCashTypeTenpay </tpl></option>
+										<option <tpl> if $condition.search_cash_type eq '99bill' </tpl>selected="selected"<tpl> /if </tpl> value="99bill"><tpl> $langPreCashTypeKqpay </tpl></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langPreDetailCreateTime </tpl>:</th>
+								<td class="it-5" colspan="3">
+									<input class="fct-input" readonly="readonly" value="<tpl> $condition.search_start_date </tpl>" name="search_start_date" id="search_start_date" type="text" />
+									<tpl> $langPreSearchTo </tpl>
+									<input class="fct-input" readonly="readonly" value="<tpl> $condition.search_end_date </tpl>" name="search_end_date" id="search_end_date" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langPreState </tpl>:</th>
+								<td class="it-2" colspan="3">
+									<select name="search_cash_state">
+										<option value=""></option>
+										<option <tpl> if $condition.search_cash_state eq '0' </tpl>selected="selected"<tpl> /if </tpl> value="0"><tpl> $langPreDetailStateZero </tpl></option>
+										<option <tpl> if $condition.search_cash_state eq '1' </tpl>selected="selected"<tpl> /if </tpl> value="1"><tpl> $langPreDetailStateOne </tpl></option>
+										<option <tpl> if $condition.search_cash_state eq '2' </tpl>selected="selected"<tpl> /if </tpl> value="2"><tpl> $langPreDetailStateTwo </tpl></option>
+									</select>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-2"><tpl> $langPreDetailCreateTime </tpl></td>
+						<td class="es-4"><tpl> $langPreSearchMemberName </tpl></td>
+						<td class="es-5"><tpl> $langPreCashAmount </tpl></td>
+						<td class="es-2"><tpl> $langPreCashType </tpl></td>
+						<td class="es-5"><tpl> $langPreState </tpl></td>
+						<td class="es-2"><tpl> $langPreAction </tpl></td>
+					</tr>
+					<tpl> if $cash_array[0].predeposit_c_id neq '' </tpl>
+						<tpl> section name=loop loop=$cash_array </tpl>
+					<tr class="es-td">
+						<td><tpl> $cash_array[loop].create_time </tpl></td>
+						<td><tpl> $cash_array[loop].member_name </tpl></td>
+						<td><tpl> $cash_array[loop].amount </tpl></td>
+						<td>
+							<tpl> if $cash_array[loop].payment_type eq '1' </tpl><!-- ÏßÏÂ -->
+								<tpl> $langPreCashTypeOffline </tpl>
+							<tpl> else </tpl>
+								<tpl> if $cash_array[loop].payment eq 'alipay' </tpl>
+									<tpl> $langPreCashTypeAlipay </tpl>
+								<tpl> /if </tpl>
+								<tpl> if $cash_array[loop].payment eq 'tenpay' </tpl>
+									<tpl> $langPreCashTypeTenpay </tpl>
+								<tpl> /if </tpl>
+								<tpl> if $cash_array[loop].payment eq '99bill' </tpl>
+									<tpl> $langPreCashTypeKqpay </tpl>
+								<tpl> /if </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<tpl> assign var=one value=$cash_array[loop].record_state </tpl>
+							<tpl> $predeposit_record_state[$one] </tpl>
+						</td>
+						<td><a href="predeposit.manage.php?action=cash_view&id=<tpl> $cash_array[loop].predeposit_c_id </tpl>"><tpl> $langPreView </tpl></a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $cash_array[0].predeposit_c_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $cash_array[0].predeposit_c_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	/*$('#search_start_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	$('#search_end_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});*/
+});
+</script>
+</body>
+</html>

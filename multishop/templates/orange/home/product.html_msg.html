@@ -1,0 +1,61 @@
+<div id="leaveMsgPage" style="PADDING-RIGHT: 0px; DISPLAY: block; PADDING-LEFT: 65px; PADDING-BOTTOM: 10px; MARGIN: 0px 30px; PADDING-TOP: 0px;" align="right"><!-- <span id="html_tem_msgPage"><a href="#" target="_blank">查看更多留言&gt;&gt;</a></span> --></div>
+<tpl> section name=i loop=$message_array </tpl>
+<ul>
+    <li  style="border-bottom:1px dashed #ccc; padding-bottom:5px">
+	<span style="color:#0000FF; font-weight:bold;margin-right:10px;">
+	<tpl> if $message_array[i].anonymous eq 1 </tpl>
+		<tpl> $langPAnonymity </tpl>
+	<tpl> else </tpl>
+		<tpl> $message_array[i].member_name </tpl>
+	<tpl> /if </tpl> 
+	<tpl> $langProductQuestion</tpl>:
+	</span>
+	<span style=" color:#FF6600">
+	<tpl> $message_array[i].message_content </tpl>
+	</span>
+	<div class="clear"></div>
+	<div class="msg_time"> 
+		<em><tpl> $message_array[i].message_time </tpl></em>
+		<tpl> if $ses_login.id eq $product_row.member_id </tpl>
+		
+			<a href="<tpl>$site_url</tpl>/home/productmessage.php?action=re&messageid=<tpl> $message_array[i].message_id </tpl>&pid=<tpl> $product_row.p_code </tpl>"><tpl> $langProductRestoreMessage </tpl></a> <a href="<tpl>$site_url</tpl>/home/productmessage.php?action=del&messageid=<tpl> $message_array[i].message_id </tpl>&pid=<tpl> $product_row.p_code </tpl>"><tpl> $langProductDelMessage </tpl></a>
+		
+	<tpl> /if </tpl>
+	</div>
+	<div class="clear"></div>
+	</li>
+	<tpl> if $message_array[i].message_recontent ne '' </tpl>
+	<li  style="border-bottom:1px dashed #ccc; padding-bottom:5px; padding-top:3px;">
+    <tpl>$langPAnswer</tpl> <tpl> $message_array[i].message_recontent </tpl>
+    </li>
+	<tpl> /if </tpl>
+	</ul>
+<tpl> /section </tpl><br />
+<tpl> if $ses_login.id neq ''  </tpl>
+    <div id="html_tem_leaveMsg_post">
+	<form action="<tpl> $site_url </tpl>/home/productmessage.php?action=save" method="POST" id="mainform" onsubmit="return checkCode();">
+	<input type="hidden" name="hideproductID" value="<tpl> $product_row.p_id </tpl>">
+    <input type="hidden" name="hidememberID" value="<tpl> $product_row.member_id </tpl>">
+    <input type="hidden" name="pid" value="<tpl> $product_row.p_code </tpl>">
+	<table cellspacing="0" cellpadding="0" width="700" align="center" border="0" style="width:700px; margin:0 auto">
+                <tbody>
+                  <tr>
+                    <td colspan="2"> <tpl>$langReferOrReview</tpl>: (<tpl>$langReferOrReviewMsg</tpl>)</td>
+                  </tr>
+                  <tr>
+                    <td align="middle" colspan="2"><div id="hide_msg" style="DISPLAY: none"></div>
+                      <textarea id="txtMessage" style="BORDER-RIGHT: #718da6 1px solid; BORDER-TOP: #718da6 1px solid; BORDER-LEFT: #718da6 1px solid; WIDTH: 700px; BORDER-BOTTOM: #718da6 1px solid" name="txtMessage" rows="7" cols="80" require="true"></textarea></td>
+                  </tr>
+                  <tr>
+                    <td height="70" align="right"><tpl> $langProductCode </tpl>:<input name="code" type="text" id="code" size="4" maxlength="4" /><img src="<tpl> $site_url </tpl>/classes/libraries/code.php" onclick="this.src='<tpl> $site_url </tpl>/classes/libraries/code.php?' + Math.random()" title="<tpl> $langPOnclickInstead </tpl>" id="codeimage" name="codeimage" />
+                      <input name="Submit" id="Submit" type="submit" value="<tpl> $langCsubmit </tpl>">
+                      <input type="reset" value=" <tpl>$langReset</tpl> " name="Submit" /></td>
+                  </tr>
+                </tbody>
+      </table>
+    </form>
+    </div>
+<tpl> else </tpl>	
+    <tpl> $errProductNeed </tpl><a href='<tpl> $site_url </tpl>/home/member.php?action=login'><tpl> $langPLogin </tpl></a><tpl> $errProductMayQuiz </tpl><br>
+    <a href='<tpl> $site_url </tpl>/home/member.php?action=regist'><tpl> $langPRegist </tpl></a>
+<tpl> /if </tpl>

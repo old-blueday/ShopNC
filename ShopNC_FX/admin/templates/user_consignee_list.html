@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_member_list</tpl></title><!-- 会员管理 - 会员列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+</head>
+<body>
+<div id="content">
+	<h2><span class="alignRight"><a href="admin_user.php?action=user_list" target="_self">{
+      <tpl>$admin_member_list</tpl>
+      <!-- 会员列表 -->
+      }</a></span> <tpl>$admin_header_user_manage</tpl><!-- 会员管理 --> >> <tpl>$admin_user_consignee_list</tpl><!-- 会员收货地址 -->
+    	   
+    </h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="8" class="searchbar">
+            	<strong><tpl>$admin_user_consignee_name</tpl>:<tpl>$user_array.user_name</tpl></strong>
+            </td>
+          </tr>
+		  <tpl>section name=list loop=$address_array</tpl>
+		  <tr class="show">
+		  	<td colspan="7" class="showaddr">
+				<p><span><strong><tpl>$admin_user_list_real_name</tpl><!-- 姓名 -->:</strong><tpl>$address_array[list].other_true_name</tpl></span></p>
+				<p>
+					<span><strong><tpl>$admin_user_list_address</tpl><!-- 收货地址 -->:</strong><tpl>$address_array[list].other_country</tpl><tpl>$address_array[list].other_province</tpl><tpl>$address_array[list].other_city</tpl><tpl>$address_array[list].other_address</tpl></span>
+					<span><strong><tpl>$admin_user_list_postcode</tpl><!-- 邮政编码 -->:</strong><tpl>$address_array[list].other_zip</tpl></span>
+				</p>
+				<p>
+					<span><strong><tpl>$admin_user_list_telephone</tpl><!-- 联系电话 -->:</strong><tpl>$address_array[list].other_phone</tpl></span>
+					<span><strong><tpl>$admin_user_list_mobile</tpl><!-- 手机 -->:</strong><tpl>$address_array[list].other_mobilephone</tpl></span>
+				</p>
+			</td>
+			<td class="close">&nbsp;</td>
+		  </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="8" class="searchbar">&nbsp;
+             
+			 </td>
+          </tr>
+        </table>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

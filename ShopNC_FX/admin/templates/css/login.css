@@ -1,0 +1,89 @@
+/* CSS Document */
+body {
+	background:#F9F9F9;
+	font-size:12px;
+}
+.checkBtn {
+	margin-right:3px;
+}
+#logintop {
+	background:url(../images/banner.gif) 0 -30px repeat-x;
+	padding:8px 20px;
+	font-size:14px;
+}
+#logintop a {
+	color:#FFFFFF;
+	text-decoration:underline;
+	font-weight:bold;
+}
+#loginwrapper {
+	background:#FFFFFF;
+	padding:25px 20px 40px 20px;
+	width:260px;
+	border:5px solid #F1F1F1;
+	margin:50px auto;
+}
+#loginheader h1 a {
+	display:block;
+	background:url(../images/login_logo1.gif) 0 0 no-repeat;
+	width:220px;
+	height:50px;
+	text-indent:-9999px;
+}
+#loginh3 {
+	background:#E1E5F1 url(../images/login_h3.gif) 10px center no-repeat;
+	border-top:1px solid #BEC4D0;
+	border-bottom:1px solid #FFFFFF;
+	height:30px;
+	font-size:14px;
+	padding-left:24px;
+	line-height:30px;
+	margin-top:10px;
+}
+#logindiv {
+	background:#F1F5F8;
+	padding:12px 8px;
+	overflow:hidden;
+}
+*+html #logindiv {
+	padding:12px 5px;
+}
+#logindiv table {
+	margin:5px auto;
+	width:220px;
+}
+.textInput {
+	border:1px solid #A5ACB2;
+}
+.btnInput {
+	background:#F9F9F9;
+	border-color:#EAEAEA #CECECE #CECECE #EAEAEA;
+	border-style:solid;
+	border-width:1px;
+	font-size:12px;
+	padding:2px 5px;
+	text-transform:uppercase;
+	cursor:pointer;
+}
+#loginfooter {
+	background:url(../images/hline.gif) 0 0 repeat-x;
+	margin-top:10px;
+	padding-top:10px;
+}
+#loginfooter a {
+	color:#4A7FC8;
+}
+.roleList {
+	overflow:hidden;
+}
+.roleList li {
+	line-height:20px;
+	float:left;
+	margin-right:8px;
+	white-space:nowrap;
+}
+*html .roleList li {
+	margin-right:3px;
+}
+.check-error { margin-top:3px;}
+.check-error label { background:url(../images/bad.gif) no-repeat; color:#a82f2f; padding: 5px 0px 5px 16px;}

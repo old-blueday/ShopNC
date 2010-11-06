@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_goods_manage </tpl> - <tpl> $admin_header_goods_manage </tpl></title><!-- 商品管理 - 商品主题列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_subject").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_subject_name			: {required:true},
+			txt_subject_image_width		: {required:true,number:true},
+			txt_subject_image_height	: {required:true,number:true},
+			txt_subject_url				: {url		:true}
+		},
+		messages: {
+			txt_subject_name			: {required: "<tpl>$admin_goods_subject_name_null</tpl>"},
+			txt_subject_image_width		: {required: "<tpl>$admin_goods_subject_width_null</tpl>",number:"<tpl>$admin_goods_subject_width_error</tpl>"},
+			txt_subject_image_height	: {required: "<tpl>$admin_goods_subject_height_null</tpl>",number:"<tpl>$admin_goods_subject_height_error</tpl>"},
+			txt_subject_url				: {url		:"<tpl>$admin_goods_subject_url_http</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <form action="admin_goods_subject.php?action=goods_subject_save" method="post" enctype="multipart/form-data" name="add_subject" id="add_subject">
+    <input type="hidden" name="txt_subject_id" value="<tpl> $subject_array.subject_id </tpl>" />
+	<input type="hidden" name="txt_old_pic" value="<tpl> $subject_array.subject_image </tpl>" />
+	<h2><span class="alignRight"><a href="admin_goods_subject.php?action=goods_subject_list" target="_self">{<tpl> $admin_goods_subject_list </tpl><!-- 商品主题列表 -->}</a></span><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >> <tpl> if $subject_array.subject_id != '' </tpl> <tpl> $admin_goods_subject_edit </tpl> <tpl> else </tpl> <tpl> $admin_goods_subject_add </tpl> <tpl> /if </tpl><!-- 添加商品主题 -->
+	</h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_goods_subject_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl> $admin_goods_subject_name </tpl><!-- 主题名称 -->:</td>
+            <td><input type="text" name="txt_subject_name" id="txt_subject_name" value="<tpl> $subject_array.subject_name|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_subject_name" class="wrong" metaDone="true" generated="true"></label></div></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_subject_put </tpl><!-- 是否发布 -->:</td>
+            <td><tpl> $subject_ifput </tpl></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_subject_order </tpl><!-- 主题排序 -->:</td>
+            <td><input name="txt_subject_sort" type="text" id="txt_subject_sort" size="10" value="<tpl> $subject_array.subject_sort </tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_subject_url </tpl><!-- 指向的url外联 -->:</td>
+            <td><input type="text" name="txt_subject_url" id="txt_subject_url" value="<tpl> $subject_array.subject_url </tpl>" /><div class="check-error"><label style="display:none" for="txt_subject_url" class="wrong" metaDone="true" generated="true"></label></div></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_subject_logo </tpl><!-- 主题图片 -->:</td>
+            <td><tpl> if $subject_array.subject_image!='' </tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $subject_array.subject_image </tpl>" width='160' height='60' /><br /><br /><tpl> /if </tpl><input type="file" name="txt_subject_image" id="txt_subject_image"  /><tpl>$admin_goods_subject_width_good</tpl>&nbsp;&nbsp;<tpl>$admin_goods_subject_height_good</tpl>
+			<input name="txt_subject_image_width" id="txt_subject_image_width" type="hidden" size="10" value="875" />
+			<input name="txt_subject_image_height" id="txt_subject_image_height" type="hidden" size="10" value="180" />
+			</td>
+          </tr>
+		  <!-- 品牌logo参数 -->
+          <!--
+		  <tr>
+            <td><tpl> $admin_goods_subject_logo_info </tpl>:</td>
+            <td><tpl> $admin_goods_subject_logo_width </tpl>:<input name="txt_subject_image_width" id="txt_subject_image_width" type="text" size="10" value="<tpl>if $subject_array.subject_image_width!=''</tpl><tpl> $subject_array.subject_image_width </tpl><tpl>else</tpl>640<tpl>/if</tpl>" />&nbsp;<span class="red">*</span>&nbsp;&nbsp;<tpl>$admin_goods_subject_width_good</tpl>
+			<div class="check-error"><label style="display:none" for="txt_subject_image_width" class="wrong" metaDone="true" generated="true"></label></div>
+            <tpl> $admin_goods_subject_logo_height </tpl>:<input name="txt_subject_image_height" id="txt_subject_image_height" type="text" size="10" value="<tpl>if $subject_array.subject_image_height!='' </tpl><tpl> $subject_array.subject_image_height </tpl><tpl>else</tpl>132<tpl>/if</tpl>" />&nbsp;<span class="red">*</span>&nbsp;&nbsp;<tpl>$admin_goods_subject_height_good</tpl>
+			<div class="check-error"><label style="display:none" for="txt_subject_image_height" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  -->
+          <tr>
+            <td><tpl> $admin_goods_subject_keywords </tpl><!-- 关键字 -->:</td>
+            <td><input type="text" name="txt_subject_keywords" id="txt_subject_keywords" value="<tpl> $subject_array.subject_keywords|escape:html </tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_goods_subject_description </tpl><!-- 描述 -->:</td>
+            <td><textarea name="txt_subject_description" id="txt_subject_description" cols="45" rows="5"><tpl> $subject_array.subject_description </tpl></textarea></td>
+          </tr>
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_goods_subject_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $admin_goods_subject_reset </tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

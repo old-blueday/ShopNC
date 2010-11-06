@@ -1,0 +1,15 @@
+<?php
+$lang['langPANotInfo']="暂无相关信息！";
+$lang['langPABidTime']="出价时间";
+$lang['langPATotalPrices']="总价(元)";
+$lang['langPAContestBid']="竞拍出价(元)";
+$lang['langPAMentalityPrice']="心理价位(元)";
+$lang['langPANumber']="竞拍数量";
+$lang['langPABabyName']="商品名称";
+$lang['langPASelectBaby']="查询商品";
+$lang['langPAContestEndBaby']="竞拍结束的商品";
+$lang['langPAContestBaby']="竞拍中的商品";
+$lang['langPAState']="竞拍状态";
+$lang['langPAViewProduct']="查看商品";
+$lang['langPAGetCount']="获得数量";
+?>

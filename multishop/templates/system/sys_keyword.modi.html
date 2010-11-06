@@ -1,0 +1,74 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langKeywordManage </tpl> &gt;&gt; <tpl> $langKeywordModiK </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+					<form id="form1" name="form1" method="post" action="keyword.manage.php">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="keyword_id" value="<tpl> $keyword_array.keyword_id </tpl>" />
+						<input type="hidden" name="keyword_num" value="<tpl> $keyword_array.keyword_num </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langKeywordName </tpl>:</th>
+									<td><input name="txt_name" type="text" id="txt_name" class="fct-input" maxlength="30" value="<tpl> $keyword_array.keyword_name </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langKeywordUrl </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langKeywordUrlFormat </tpl></span>
+										<input name="txt_url" type="text" id="txt_url" class="fct-input" maxlength="255" value="<tpl> $keyword_array.keyword_url </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langKeywordDisplay </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="radio_display" id="display_1" value="1" <tpl> if $keyword_array.keyword_display eq 1 </tpl> checked <tpl> /if </tpl> /><label for="display_1"><tpl> $langKeywordYes </tpl></label>
+										<input type="radio" class="input_radio" name="radio_display" id="display_0" value="0" <tpl> if $keyword_array.keyword_display eq 0 </tpl> checked <tpl> /if </tpl> /><label for="display_0"><tpl> $langKeywordNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langKeywordSort </tpl>:</th>
+									<td><input type="text" name="txt_sort" id="txt_sort" maxlength="9" class="fct-input" value="<tpl> $keyword_array.keyword_sort </tpl>" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="hidden" value="<tpl> $curpage </tpl>" name="curpage" />
+							<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='keyword.manage.php?action=list&curpage=<tpl> $curpage </tpl>'" />
+						</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_name: {required:true},
+			txt_url: {required:true, url:true},
+			txt_sort: {required:true, number:true, min:0}
+		},
+		messages: {
+			txt_name: {required: "<tpl> $langKeywordNotNull </tpl>"},
+			txt_url: {required: "<tpl> $langKeywordUrlErr </tpl>", url: "<tpl> $langKeywordUrlFromatErr </tpl>"},
+			txt_sort: {required: "<tpl> $langKeywordSortNotNull </tpl>", number: "<tpl> $langKeywordSortErr </tpl>", min:"<tpl> $langKeywordSortErrZero </tpl>"}
+		}
+	});
+});
+</script>

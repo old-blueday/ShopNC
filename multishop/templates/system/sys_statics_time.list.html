@@ -1,0 +1,93 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSTimeAnalyse </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_time.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<select name="time">
+										<option value=""></option>
+										<option value="1" <tpl> if $input.time eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSYesterday </tpl></option>
+										<option value="2" <tpl> if $input.time eq '2' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSBeforeYesterday </tpl></option>
+									</select>
+								</td>
+								<th class="wd"><tpl> $langSysStaticsDesignatedTime </tpl>:</th>
+								<td>
+									<input class="fct-input" readonly="true" value="<tpl> if $input.time neq '1' && $input.time neq '2' </tpl><tpl> $input.time </tpl><tpl> /if </tpl>" name="txt_time" id="txt_time" />&nbsp;&nbsp;
+									<input class="bthl" value="<tpl> $langSysSSubmit </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="3">
+										<input type="radio" class="input_radio" id="type_one" checked /><label for="type_one"><tpl> $langSysSOneDayFluxContrast </tpl></label>
+										<input type="radio" class="input_radio" id="type_many" onclick="location.href='statics_time.manage.php?action=contrast'" /><label for="type_many"><tpl> $langSysSManyDayFluxContrast </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3"><tpl> $statics_flash </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSPeriodOfTime </tpl></th>
+									<th>PV</th>
+									<th>IP</th>
+								</tr>
+								<tr>
+									<td><tpl> $langSysSTotalize </tpl></td>
+								    <td><tpl> $pv_sum|default:'0' </tpl></td>
+									<td><tpl> $ip_sum|default:'0' </tpl></td>
+								</tr>
+								<tpl> if $time_num[0].pv neq '' </tpl>
+									<tpl> section name=i loop=$time_num </tpl>
+								    <tr>
+								    	<td><tpl> $smarty.section.i.rownum-1 </tpl>:00 - <tpl> $smarty.section.i.rownum </tpl>:00</td>
+										<td><tpl> $time_num[i].pv </tpl></td>
+										<td><tpl> $time_num[i].ip </tpl></td>
+								    </tr>
+									<tpl> /section </tpl>
+	    						<tpl> else </tpl>
+							    <tr>
+									<td colspan="3"><div align="center"><tpl> $langSysSThisTimeNotData </tpl></div></td>
+							    </tr>
+								<tpl> /if </tpl>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	$('#txt_time').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+</script>
+</body>
+</html>

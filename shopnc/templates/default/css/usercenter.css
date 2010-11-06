@@ -1,0 +1,75 @@
+@charset "utf-8";
+#usercenter { }
+#usercenter .sideleft { width: 161px; margin-right: -1px; position:relative; float: left;}
+#usercenter .sideright { width: 720px; float: right;}
+#usercenter .sideright .title { background: url(../images/usercenter_right_titbg.gif) no-repeat left bottom; height: 42px; width: 100%;}
+.sideright .title h3 { font-size: 14px; line-height: 16px; padding: 4px 0px 4px 24px; background: url(../images/usercenter_pics.gif) no-repeat left top; margin: 0px; width: 600px;}
+.sideright .title #home {background-position: 2px -24px;}
+.sideright .title #userintro {background-position: 2px -58px;}
+.sideright .title #order {background-position: 2px -88px;}
+.sideright .title #collection {background-position: 2px -118px;}
+.sideright .title #message {background-position: 2px -148px;}
+.sideright .title #addres {background-position: 2px -178px;}
+.sideright .title #online { background-position: 2px -208px;}
+.sideright .title #changepw {background-position: 2px -238px;}
+.inside-content { width: 690px; border: 1px solid #EEEADB; background-color: #FEFDFC; display: inline; margin-right: 4px; margin-left: 4px; float: left; padding-bottom: 10px;}
+#usercenter .sideright .top { background: url(../images/usercenter_right_bg.gif) no-repeat left top; height: 8px; width: 720px; font-size: 0px;line-height: 0px;}
+#usercenter .sideright .content { background: #F9F8F2; width: 700px; border-right: solid 1px #D7CBBD; border-left: solid 1px #D7CBBD; padding-right: 9px; padding-left: 9px;}
+#usercenter .sideright .bottom { background: url(../images/usercenter_right_bg.gif) no-repeat left bottom; height: 8px; width: 720px; font-size: 0px; line-height: 0px;}
+#usercenter .sideright .inside-tit { background: url(../images/usercenter_pics.gif) no-repeat 4px 10px; font-size: 14px; line-height: 24px; padding: 5px 0px 5px 24px; height: 22px; color: #806F55;}
+#usercenter .inside-tit .add { float: right; background: url(../images/add.gif) no-repeat left 4px; font-size: 12px; line-height: 20px; padding-left: 16px; margin-top: 3px; margin-right: 10px; display: inline;}
+#usercenter .sideleft .title { background: url(../images/userlefttit.gif) no-repeat; width: 110px; margin: 5px 10px;height: 20px; display: inline; float: left; font-size: 14px; line-height: 20px; padding-top: 8px; padding-left: 30px;}
+#usercenter .menu { float: left; width: 161px; margin-top: 16px;}
+#usercenter .menu li { float: left;}
+#usercenter .menu li a { width: 120px; float: left; height: 30px; background: url(../images/usercenter_menu_bg.gif) no-repeat 0px -36px; font-size: 12px; line-height: 30px; padding-left: 40px; padding-right: 1px;}
+#usercenter .menu li a:hover { background-position: 0px -66px;}
+#usercenter .menu .current a , #usercenter .menu .current a:hover{ background: url(../images/usercenter_menu_bg.gif) no-repeat 0px 0px; line-height: 36px; height: 36px; font-size: 14px; width: 120px; margin-top: -2px; position: relative;}
+#userinfo { width: 98%; line-height: 26px; padding: 1%; float: left;}
+#userinfo dt { width: 13%; float: left; text-align: right; padding-right: 1%;}
+#userinfo dd { float: left; width: 35%;}
+table.tablesorter { text-align: left; background: #EEEADB; width: 690px; font-family: arial; font-size: 12px; margin-right: auto; margin-left: auto;}
+table.tablesorter thead tr th { padding: 4px; background: #F4F2EA; font-size: 12px; border: 1px solid #fff; font-weight: 600; text-align: center;}
+table.tablesorter tfoot tr th { border: solid 1px #fff; padding: 4px; background: #F4F2EA; font-size:12px; text-align: right;}
+table.tablesorter tbody td { padding: 4px; background: #FDFDFC; color: #3d3d3d; vertical-align: top; text-align: center;}
+.control_btn { background: url(../images/usercenter_btn_bg1.gif) no-repeat left top; float: left; display: inline; margin-left: 10px;}
+.control_btn h5 { font-weight: normal; padding-left: 20px; color: #525252; background: url(../images/usercenter_btn_pic.gif) no-repeat;}
+.control_btn #incate { background-position: 0px 0px;}
+.control_btn #del { background-position: 0px -30px;}
+.control_btn #see { background-position: 0px -60px;}
+.control_btn #cancel { background-position: 0px -90px;}
+.control_btn #order { background-position: 0px -120px;}
+.control_btn a { background: url(../images/usercenter_btn_bg1.gif) no-repeat right bottom; float: left; margin-left: 4px; padding: 3px 10px 1px 6px; font-size: 12px; line-height: 18px; text-decoration: none; height: 18px; display: inline;}
+.online_ask { padding: 10px; float: left; width: 670px; border: 1px solid #EEEADB; background: #FEFDFC; display: inline; float: left; margin: 0px 4px 10px 4px;}
+.online_ask .ask { padding-bottom: 5px;}
+.online_ask .ask dt { font-size: 14px; font-weight: 600; line-height: 26px;}
+.online_ask .ask dd { font-size: 12px; line-height: 22px;}
+.online_ask .reply { background: #F9F8F2; border: 1px solid #F5F3EF; padding: 5px; color: #806F55; margin-bottom: 5px;}
+.pages { font-size: 12px; line-height: 20px; width: 100%; text-align: right;}
+.online_ask .reply dt { background: url(../images/usercenter_ask_pic.gif) no-repeat 0px 4px; padding-left: 20px; font-size: 12px; line-height: 26px; font-weight: 600;}
+.online_ask .reply dd { padding-left: 24px; font-size: 12px; line-height: 22px;}
+#userinfo_form { width: 98%; line-height: 26px; padding: 1%; float: left;}
+#userinfo_form dt { width: 23%; float: left; text-align: right; padding-right: 1%; line-height: 24px; margin-bottom: 8px; clear: both;}
+#userinfo_form dd { float: left; width: 75%; margin-bottom: 8px;}
+.textinput { height:22px; background: #FDFDF9; border: solid 1px; border-color: #D6D0BE #EBE8DF #EBE8DF #D6D0BE; line-height: 22px; padding: 0px 5px; font-size: 12px; font-family: Tahoma;}
+.textselect { height: 22px; margin-right: 5px; padding-top: 0px; padding-bottom: 0px; float: left;}
+.curfocus { border:1px solid #399; background: #EFF;}
+#address { width: 690px; margin-right: auto; margin-left: auto;}
+#address .default { width: 688px; line-height: 28px; float: left; border: 1px solid #FFBA00; background: #FFFFE6 url(../images/usercenter_add_bg.gif) no-repeat right bottom; font-size: 12px; position: relative; margin-bottom: 24px; padding-top: 10px; padding-bottom: 10px;}
+#address .other { width: 688px; line-height: 28px; float: left; border: 1px solid #D7CBBD; background: #FDFDFD; font-size: 12px; position: relative; margin-bottom: 24px; padding-top: 10px; padding-bottom: 10px;}
+#address .default .serial { width: 40px; height: 80px; float: left; background: url(../images/usercenter_add_sb.gif) no-repeat right top; margin-top: -10px;}
+#address .other .serial { width: 40px; height: 80px; float: left; background: url(../images/usercenter_add_sb.gif) no-repeat right bottom; margin-top: -10px;}
+#address .other .serial h3 { font-size: 18px; height: 16px; width: 16px; margin: 10px auto 0px auto; color: #555; font-family: Arial; font-weight: 600;}
+#address .setup { float: left; clear: left; margin-left: 60px; display: inline; width: 500px;}
+#address .setup span { color: #630; background: #FED15C; border: 1px solid #FFBA01; font-size: 14px; line-height: 20px; float: left; padding: 5px 12px; height: 20px; margin: 6px 6px 0px 0px; display: inline;}
+#address .default .serial h3 { background: url(../images/usercenter_add_sbd.png) no-repeat center top; width: 16px; margin-right: auto; margin-left: auto; margin-top: 20px;}
+#address dl { float: left; width: 600px; margin-left: 10px;}
+#address dt { float: left; text-align: right; border-bottom: dashed 1px #EEEADB; width: 100px;}
+#address dd { float: left; width: 500px; border-bottom: dashed 1px #EEEADB;}
+.formbtns { float: left; clear: left; margin-left: 175px; display: inline; width: 500px;}
+.formbtns span { color: #630; background: #FED15C; border: 1px solid #FFBA01; font-size: 14px; line-height: 20px; float: left; padding: 5px 12px; height: 20px; margin: 6px 6px 0px 0px; display: inline;}
+.message { padding: 10px; float: left; width: 670px; border: 1px solid #EEEADB; background: #FEFDFC; display: inline; margin-right: 4px; margin-left: 4px; margin-bottom: 10px;}
+.message dl { padding-bottom: 5px;}
+.message dt h3 { font-size: 12px; font-weight: 600; line-height: 26px; background: url(../images/usercenter_mes_pic.gif) no-repeat left center; padding-left: 20px;}
+.message dt h3 a { color: #099;}
+.message dd { font-size: 12px; line-height: 22px; padding: 4px; border-top: dotted 1px #EEEADB;}
+.inputbutton { color: #630; background: #FED15C; border: 1px solid #FFBA01; font-size: 14px; line-height: 18px; float: left; padding: 6px 4px 2px 4px; margin: 6px 6px 0px 0px; cursor:pointer;}

@@ -1,0 +1,18 @@
+<ul >
+<tpl> foreach item=product_array name=i from=$product_array </tpl>
+	<li>
+			<dl>
+			<dt class="goodspic">
+					<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array.p_code</tpl>" title="<tpl>$product_array.p_name</tpl>">
+					<img src="<tpl> $site_url </tpl>/<tpl> $product_array.small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" alt="<tpl> $product_array.p_name </tpl>" style="vertical-align:middle" border="0" />
+					</a>
+				</dt>
+				<dd class="goodsname">
+					<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array.p_code</tpl>" title="<tpl>$product_array.p_name</tpl>"><tpl> $product_array.p_short_name </tpl></a>
+				</dd>
+				<dd class="goodsprice">￥<span><tpl> $product_array.p_price </tpl></span>
+				</dd>
+			</dl>
+	</li>
+<tpl> /foreach </tpl>
+</ul>

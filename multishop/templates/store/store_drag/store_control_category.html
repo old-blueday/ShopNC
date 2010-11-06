@@ -1,0 +1,37 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreStyleBlockCategory </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_1">
+		<ul>
+			<tpl> section name=loop loop=$shop_category </tpl>
+			<li><span id="shop_category_show_<tpl> $shop_category[loop].class_id </tpl>" class="<tpl> if $shop_category[loop].class_if_open eq '1' </tpl>f-1<tpl> else </tpl>f-1-1<tpl> /if </tpl>" onclick="shop_category_show('<tpl> $shop_category[loop].class_id </tpl>');"></span><span class="f-2">
+				<a href="product.php?userid=<tpl> $shop_info.member_id </tpl>&classid=<tpl> $shop_category[loop].class_id </tpl>"><tpl> $shop_category[loop].class_name </tpl></a>
+			</span></li>
+				<span id="shop_category_div_<tpl> $shop_category[loop].class_id </tpl>" style="<tpl> if $shop_category[loop].class_if_open eq '1' </tpl>display:none;<tpl> /if </tpl>">
+				<tpl> foreach from=$shop_category[loop].child item=one </tpl>
+					<li><span class="f-2">
+						<tpl> if $one.class_pic neq '' and $one.class_pic neq 'http://'</tpl>
+							<a href="product.php?userid=<tpl> $shop_info.member_id </tpl>&classid=<tpl> $one.class_id </tpl>"><img style="width:100%" src="<tpl> $one.class_pic </tpl>" title="<tpl> $one.class_name </tpl>" /></a>
+						<tpl> else </tpl>
+							<a href="product.php?userid=<tpl> $shop_info.member_id </tpl>&classid=<tpl> $one.class_id </tpl>"><tpl> $one.class_name </tpl></a>
+						<tpl> /if </tpl>
+					</span></li>
+				<tpl> /foreach </tpl>
+				</span>
+			<tpl> /section </tpl>
+		</ul>
+	</div>
+</div>
+<script>
+function shop_category_show(class_id){
+	if(document.getElementById('shop_category_div_'+class_id).style.display == 'none'){
+		document.getElementById('shop_category_show_'+class_id).className = 'f-1-1';
+		document.getElementById('shop_category_div_'+class_id).style.display = '';
+	}else{
+		document.getElementById('shop_category_show_'+class_id).className = 'f-1';
+		document.getElementById('shop_category_div_'+class_id).style.display = 'none';
+	}
+}
+</script>

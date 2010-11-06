@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_article_manage </tpl></title><!-- 添加文章 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_article").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_article_title	: {required:true},
+			txt_article_class_id: {required:true},
+			txt_article_author	: {required:true}
+		},
+		messages: {
+			txt_article_title	: {required: "<tpl>$admin_article_title_null</tpl>"},
+			txt_article_class_id: {required: "<tpl>$admin_article_class_null</tpl>"},
+			txt_article_author	: {required: "<tpl>$admin_article_writer_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<form action="admin_provider_article.php?action=article_save" method="post" name="add_article" id="add_article">
+<input type="hidden" name="txt_article_id" id="txt_article_id" value="<tpl>$smarty.get.aid</tpl>">
+	<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_provider_article.php?action=article_list" target="_self" class="btnInput"><tpl> $admin_article_list </tpl><!-- 文章列表 --></a></span>
+	<tpl> $admin_header_article_manage </tpl><!-- 文章管理 --> >> <tpl>if $smarty.get.aid!=''</tpl><tpl>$admin_article_edit</tpl><tpl>else</tpl><tpl> $admin_article_add </tpl><tpl>/if</tpl><!-- 添加文章 -->    
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>if $smarty.get.aid!=''</tpl><tpl>$admin_article_edit</tpl><tpl>else</tpl><tpl> $admin_article_add </tpl><tpl>/if</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_article_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="90%" border="0">
+        <tr>
+          <td><tpl> $admin_article_title </tpl><!-- 标题 -->:</td>
+          <td><input class="TextBox" type="text" name="txt_article_title" id="txt_article_title" <tpl>if $article_array.article_state == '1'</tpl> disabled="disabled"<tpl>/if</tpl>  value="<tpl> $article_array.article_title|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_article_title" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_article_class </tpl><!-- 文章分类 -->: </td>
+          <td><tpl> $article_class </tpl>&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_article_class_id" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_article_writer </tpl><!-- 作者 -->:</td>
+          <td><input class="TextBox" type="text" name="txt_article_author" id="txt_article_author"  value="<tpl>if $article_array.article_author !=''</tpl><tpl>$article_array.article_author|escape:html</tpl><tpl>else</tpl><tpl>$smarty.session.provider_name|escape:html</tpl><tpl>/if</tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_article_author" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <!-- <tr>
+          <td><tpl> $admin_article_url </tpl> url:</td>
+          <td><input type="text" name="txt_article_url" id="txt_article_url"  value="<tpl> $article_array.article_url </tpl>" /></td>
+        </tr> -->
+        <tr>
+          <td><tpl> $admin_article_sort </tpl><!-- 显示顺序 -->:          </td>
+          <td><input class="TextBoxAt" name="txt_article_sort" type="text" id="txt_article_sort" size="5"  value="<tpl> $article_array.article_sort </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_article_commend </tpl><!-- 是否推荐 -->:</td>
+          <td><tpl> $commend </tpl></td>
+        </tr>
+        <tr>
+        	<td><tpl> $admin_article_put </tpl><!-- 是否发布 -->:</td>
+        	<td><tpl> $ifput </tpl></td>
+        </tr>
+        <tr>
+        	<td><tpl> $admin_article_keyword </tpl><!-- 关键字 -->:</td>
+        	<td><input class="TextBox" type="text" name="txt_article_keywords" id="txt_article_keywords"  value="<tpl> $article_array.article_keywords|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $admin_article_description </tpl><!-- 描述 -->:</td>
+        	<td><input class="TextBox" type="text" name="txt_article_description" id="txt_article_description" value="<tpl> $article_array.article_description|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $admin_article_body </tpl><!-- 文章内容 -->:</td>
+        	<td><textarea name="txt_article_body" id="txt_article_body" cols="45" rows="5"><tpl> $article_array.article_body </tpl></textarea>
+			</td>
+        </tr>
+		<tr>
+        	<td>&nbsp;</td>
+        	<td>
+			<tpl>if $article_array.article_state != '1'</tpl>
+	<input type="hidden" name="article_state" value="<tpl>$article_array.article_state</tpl>"  />
+	<tpl> else </tpl>
+	<input type="hidden" name="txt_article_title" value="<tpl> $article_array.article_title </tpl>"  />
+	<input type="hidden" name="article_commend" value="<tpl>$article_array.article_commend</tpl>"  />
+	<input type="hidden" name="article_class_id" value="<tpl>$article_array.article_class_id</tpl>"  />
+	<tpl>/if</tpl>
+      <input type="submit" name="button" id="button" value="<tpl> $admin_article_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $admin_article_reset </tpl>"  class="btnInput" /><!-- 重置 -->
+			</td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+		
+    </div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

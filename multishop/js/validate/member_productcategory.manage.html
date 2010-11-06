@@ -1,0 +1,17 @@
+<script language="javascript">
+/* 验证添加表单 */
+$(function(){
+	$("#formaddcategory").validate({
+		event: "keyup",
+		errorClass: "wrong",
+		rules: {
+			txtCategory: {required:true},
+			txtSort: {required:true,number: true}
+		},
+		messages: {
+			txtCategory: {required: "<?php echo $lang['errShopProCateClassIsEmpty']; ?>"},
+			txtSort: {required: "<?php echo $lang['errShopProCateSortIsNotNumber']; ?>",number: "<?php echo $lang['errShopProCateSortIsNotNumber']; ?>"}
+		}
+	});
+});
+</script>

@@ -1,0 +1,87 @@
+<div id="topbar">	
+	<div class="sideright">&nbsp;</div>
+      <div class="sideleft">&nbsp;</div>
+      <ul id="downmenu" class="tabs">
+        <li style="padding-left:0px;" class="noline">
+        	<a href="<tpl> $site_url </tpl>/home/category.php" target="_top"><tpl>$langWillBuy</tpl></a>
+        </li>
+        <li><a href="<tpl> $site_url </tpl>/member/own_product.php?action=sell" target="_blank"><tpl>$langWillSell</tpl></a></li>
+        <li style="width:75px;">
+          <p class="tabmenu">
+	          <span class="myshop">
+	          	<a href="<tpl> $site_url </tpl>/member/own_main.php" target="_blank"><tpl>$langMyStore</tpl></a>
+	          </span>
+	          <span class="arrow_down">&nbsp;</span>
+          </p>
+          <ul class="downmenu">
+	  		<tpl> if $login_sign eq '1' </tpl>
+				<li><a href="<tpl> $site_url </tpl>/member/own_product.php?action=sell"><tpl>$langIssueWare</tpl></a></li>
+				<tpl> if $shop_sign eq '1' </tpl>
+					<tpl> if $shop_del neq '1' </tpl>
+					<li><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=view"><tpl>$langSeeStore</tpl></a></li>
+					<li><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=modi"><tpl>$langManageStore</tpl></a></li>
+					<tpl> /if </tpl>
+				<tpl> else </tpl>
+				<li><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=new"><tpl> $langFreeStore </tpl></a></li>
+				<tpl> /if </tpl>
+				<li><a href="<tpl> $site_url </tpl>/member/own_collection.php?genre=store"><tpl>$langMyStow</tpl></a></li>
+			<tpl> /if </tpl>
+          </ul>
+		</li>
+        <li><a href="<tpl> $site_url </tpl>/home/shop.php?action=list&keyword=&slcShopClass="><tpl>$langSailAboutStore</tpl></a></li>
+       
+        <li style="width:75px;">
+          <p class="tabmenu">
+          	<span class="lang"><tpl>$langChoiseLanguage</tpl></span><span class="arrow_down">&nbsp;</span>
+          </p>
+          <ul class="downmenu">
+          <tpl> section name=loop loop=$sel_language </tpl>
+            <li><a href="javascript:changeLang('<tpl> $sel_language[loop].language_path </tpl>');"><tpl> $sel_language[loop].language_name </tpl></a></li>
+			
+          <tpl> /section </tpl>
+          </ul>
+        </li>
+		<li style="width:75px;">
+		<p class="tabmenu">
+			<span class="help"><tpl> $langIMoreFunction </tpl></span><span class="arrow_down">&nbsp;</span>
+		</p>
+		<ul class="downmenu">
+			<li><a href="<tpl> $site_url </tpl>/help/" target="_blank"><tpl>$langClientHelp</tpl></a></li>
+			<tpl> section name=loop loop=$app_list </tpl>
+				<li><a href="<tpl> $site_url </tpl>/app/<tpl> $app_list[loop].app_module_path </tpl>/" target="_blank"><tpl> $app_list[loop].app_module_name </tpl></a></li>
+			<tpl> /section </tpl>
+		</ul>		
+		</li>
+      </ul>
+      <script type="text/javascript">
+        $(document).ready(function(){  
+            $(".tabmenu").mouseover(function(){    
+                $(this).addClass("over");}).mouseout(function(){ 
+                $(this).removeClass("over");})
+                $(".tabmenu").mouseover(function()
+            {$(this).next().css("display","block");},
+        function()
+            {$(this).next().css("display","none");});
+                $(".downmenu").hover(function()
+            {$(this).css("display","block");},
+        function()
+            {$(this).css("display","none");})
+            });
+    </script>
+</div>
+
+<div id="quick_link">
+	<ul>
+	<tpl> foreach item = QuickLinks name = i from = $QuickLinks </tpl>
+		<li <tpl> if $smarty.foreach.i.iteration eq 1 </tpl> id="memberinfo" <tpl> /if </tpl> >
+			<a class="blue" href="<tpl> $QuickLinks.url </tpl>" <tpl> if $QuickLinks.blank eq "1" </tpl>target="_blank"<tpl> /if </tpl> >
+				<tpl> if $smarty.foreach.i.iteration eq 1 </tpl>
+					<span><tpl> $QuickLinks.name </tpl></span>
+				<tpl> else </tpl>
+					<tpl> $QuickLinks.name </tpl>
+				<tpl> /if </tpl>
+			</a>
+		</li>
+	<tpl> /foreach </tpl>
+	</ul>
+</div>

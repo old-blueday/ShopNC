@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_currencies_add</tpl><!-- 模块管理 - 添加货币 --></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_currencies_name		: {required:true},
+			txt_language			: {required:true},
+			txt_currencies_code		: {required:true,maxLength:10},
+			txt_currencies_units	: {required:true,maxLength:10},
+			txt_currencies_rate		: {required:true,maxLength:4},
+			txt_currencies_symbol	: {required:true,maxLength:5}
+		},
+		messages: {
+			txt_currencies_name		: {required: "<tpl>$admin_module_currencies_name_null</tpl>"},
+			txt_language			: {required: "<tpl>$admin_module_currencies_language_null</tpl>"},
+			txt_currencies_code		: {required: "<tpl>$admin_module_currencies_code_null</tpl>",maxLength:"<tpl>$admin_module_currencies_code_long</tpl>"},
+			txt_currencies_units	: {required: "<tpl>$admin_module_currencies_unit_null</tpl>",maxLength:"<tpl>$admin_module_currencies_code_long</tpl>"},
+			txt_currencies_rate		: {required: "<tpl>$admin_module_currencies_rate_null</tpl>",maxLength:"<tpl>$admin_module_currencies_rate_long</tpl>"},
+			txt_currencies_symbol	: {required: "<tpl>$admin_module_currencies_mark_null</tpl>",maxLength:"<tpl>$admin_module_currencies_mark_long</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+    <form action="admin_module_currencies.php?action=currencies_save" method="post" name="form1" id="form1">
+	<input type="hidden" name="txt_currencies_id" value="<tpl>$currencies_array.currencies_id</tpl>" />
+    <h2><span class="alignRight"><a href="admin_module_currencies.php?action=currencies_list" target="_self">{<tpl>$admin_module_currencies_list</tpl><!-- 货币列表 -->}</a></span><tpl>$admin_header_module_manage</tpl> >> <tpl>if $currencies_array.currencies_id!=''</tpl><tpl>$admin_module_currencies_edit</tpl><tpl>else</tpl><tpl>$admin_module_currencies_add</tpl><tpl>/if</tpl><!-- 模块管理 >> 添加货币 -->
+	</h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_module_currencies_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_module_currencies_name</tpl><!-- 货币名称 -->:</td>
+            <td><input type="text" name="txt_currencies_name" id="txt_currencies_name" value="<tpl>$currencies_array.currencies_name|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_currencies_name" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_module_currencies_language</tpl><!-- 对应语言 -->:</td>
+            <td><select name="txt_language" id="txt_language">
+				<option value=""><tpl>$admin_module_currencies_select</tpl></option>
+				<tpl>section name=list loop=$language_array</tpl>
+				<option value="<tpl>$language_array[list].language_id</tpl>" <tpl>if $currencies_array.language_id==$language_array[list].language_id</tpl>selected="selected"<tpl>/if</tpl>><tpl>$language_array[list].language_name</tpl></option>
+				<tpl>/section</tpl>
+				</select>&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_language" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_module_currencies_code</tpl><!-- 货币代码 -->:</td>
+            <td><input type="text" name="txt_currencies_code" id="txt_currencies_code" value="<tpl>$currencies_array.currencies_code|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_currencies_code" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_module_currencies_mark</tpl><!-- 货币符号 -->:</td>
+            <td><input type="text" name="txt_currencies_symbol" id="txt_currencies_symbol" value="<tpl>$currencies_array.currencies_symbol|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_currencies_symbol" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_module_currencies_unit</tpl><!-- 货币单位 -->:</td>
+            <td><input type="text" name="txt_currencies_units" id="txt_currencies_units" value="<tpl>$currencies_array.currencies_units|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_currencies_units" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_module_currencies_rate</tpl><!-- 货币汇率 -->:</td>
+            <td><input type="text" name="txt_currencies_rate" id="txt_currencies_rate" value="<tpl>$currencies_array.currencies_rate|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_currencies_rate" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <!-- <tr>
+            <td><tpl>$admin_module_currencies_num</tpl>--><!-- 保留位数 --><!--:</td>
+            <td><input name="txt_currencies_long" id="txt_currencies_long" type="text" size="5" value="<tpl>$currencies_array.currencies_long</tpl>" /></td>
+          </tr>-->
+        </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_module_currencies_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_module_currencies_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+  </form>
+ <tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

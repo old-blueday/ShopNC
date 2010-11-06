@@ -1,0 +1,40 @@
+.cascading-container{width:auto;height:279px;border:1px solid #B5D1F6;background-color:#E5F0FF;}
+.part01{ float:left;width:186px; margin:3px 0px 2px 3px; display:inline; margin-right:0px;}
+.part01 ul{overflow:auto;width:185px;_width:184px;height:271px; float:left; background:#FFF; border:1px solid #B5D1F6; }
+.part01 ul li{ height:25px; width:160px;_width:160px;display:block; margin:3px; }
+.part01 ul li a{ height:25px;width:160px;_width:159px;line-height:28px;display:block; padding-left:2px; color:#036;}
+.part01 ul li a.classDivClick{background: #E5F0FF; color:#036; text-decoration:none;border:1px solid #98BBD2;}
+.part01 ul li a:hover{  color:#036; text-decoration:none;border:1px solid #98BBD2; background: #E5F0FF; }
+.part01 ul li.parent a:hover{ background: #E5F0FF url(../images/small_point.jpg) no-repeat 155px 10px; color:#036; text-decoration:none;border:1px solid #98BBD2;}
+.part01 ul li.parent a.click{ background: #E5F0FF url(../images/small_point.jpg) no-repeat 155px 10px; color:#036; text-decoration:none;border:1px solid #98BBD2;}
+.part01 ul li.parent a{ background:  url(../images/small_point.jpg) no-repeat 155px 10px; height:25px;width:160px;_width:159px;line-height:28px;display:block; padding-left:2px; color:#036;}
+.part01 ul li.parent a.classDivClick{background: #E5F0FF; color:#036; text-decoration:none;border:1px solid #98BBD2;}
+
+
+
+
+
+.category-extra{margin-bottom:10px;padding-top:20px;color:#444; position:relative;}
+.category-extra dl{padding:7px;border:1px solid #B5D1F6;background-color:#E5F0FF;height:25px;}
+.category-extra dt{float:left;line-height:23px;}
+.category-extra dt a{ color:#06F;}
+.category-extra .arrow{display:block;position:absolute;left:35px;top: 9px;}
+.category-extra .up{width:18px;height:12px; background:url(../images/blue_jiao.gif) no-repeat;}
+
+#services04{ width:600px;height: auto; margin-bottom:5px;float:left; margin-left:100px; display:inline;}
+#services04 li {float:left;   }
+#services04 li a{background: url(../images/showmodes.gif) no-repeat;float:left; width:119px; height:35px; margin-left:10px; float:left;   }
+#services04 li.tu01 a{background-position: 0px 0px;}
+#services04 li.tu02 a{background-position: 0px -35px;}
+#services04 li.tu03 a{background-position: 0px -70px;}
+#services04 li.tu04 a{background-position: 0px -105px;}
+
+#services04 li.tu01 a:hover{background-position:-120px 0px;}
+#services04 li.tu02 a:hover{background-position:-120px -35px;}
+#services04 li.tu03 a:hover{background-position:-120px -70px;}
+#services04 li.tu04 a:hover{background-position:-120px -105px;}
+
+#services04 li.tu01 a.click{background-position:-120px 0px;}
+#services04 li.tu02 a.click{background-position:-120px -35px;}
+#services04 li.tu03 a.click{background-position:-120px -70px;}
+#services04 li.tu04 a.click{background-position:-120px -105px;}

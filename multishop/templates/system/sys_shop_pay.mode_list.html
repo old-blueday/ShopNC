@@ -1,0 +1,105 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMenuShopPay </tpl> &gt;&gt; <tpl> $langSysMenuShopPayModeList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='shop_pay.manage.php?action=mode_add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysShopPayModeAdd4 </tpl></b>
+					</div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="shop_pay.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="mode_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysShopPayModeName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.search_name </tpl>" name="search_name" id="search_name" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysShopPayModeType </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="search_type" id="search_type">
+										<option value=""><tpl> $langSysShopPayModeSearchSel </tpl></option>
+										<option value="0" <tpl> if $condition.search_type eq '0' </tpl> selected="selected" <tpl> /if </tpl> ><tpl> $langSysShopPayModeTypeTime </tpl></option>
+										<option value="1" <tpl> if $condition.search_type eq '1' </tpl> selected="selected" <tpl> /if </tpl> ><tpl> $langSysShopPayModeTypeNumber </tpl></option>
+										<option value="2" <tpl> if $condition.search_type eq '2' </tpl> selected="selected" <tpl> /if </tpl> ><tpl> $langSysShopPayModeTypeAll </tpl></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"></th>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="shop_pay.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="mode_del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langSysShopPayDel </tpl></td>
+						<td class="es-3"><tpl> $langSysShopPayModeName </tpl></td>
+						<td class="es-3"><tpl> $langSysShopPayModeType </tpl></td>
+						<td class="es-6"><tpl> $langSysShopPayModeMoney </tpl></td>
+						<td class="es-1"><tpl> $langSysShopPayModeOperate </tpl></td>
+					</tr>
+					<tpl> if $mode_array[0].mode_id neq '' </tpl>
+						<tpl> section name=i loop=$mode_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="mode_id[]" type="checkbox" value="<tpl> $mode_array[i].mode_id </tpl>" /></td>
+						<td><tpl> $mode_array[i].mode_name </tpl></td>
+						<td>
+						  <tpl> if $mode_array[i].mode_type eq '0' </tpl>
+						  	<tpl> $langSysShopPayModeTypeTime </tpl>
+						  <tpl> /if </tpl>
+						  <tpl> if $mode_array[i].mode_type eq '1' </tpl>
+						  	<tpl> $langSysShopPayModeTypeNumber </tpl>
+						  <tpl> /if </tpl>
+						  <tpl> if $mode_array[i].mode_type eq '2' </tpl>
+						  	<tpl> $langSysShopPayModeTypeAll </tpl>
+						  <tpl> /if </tpl>
+						</td>
+						<td><tpl> $mode_array[i].mode_money </tpl></td>
+						<td><a href="shop_pay.manage.php?action=mode_modi&id=<tpl> $mode_array[i].mode_id </tpl>&curpage=<tpl>$curpage</tpl>&search_name=<tpl> $condition.search_name </tpl>&search_type=<tpl> $condition.search_type </tpl>"><tpl> $langSysShopPayModeEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $mode_array[0].mode_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $mode_array[0].mode_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

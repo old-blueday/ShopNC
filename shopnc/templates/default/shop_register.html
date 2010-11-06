@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_reg</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title><!--  商家入驻  -->
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.metadata.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.form.js"></script>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$("#reg_form").validate({
+		errorClass: "wrong",
+		rules: {
+			reg_user:	{required:true,minLength:2,maxLength:20},
+			reg_pass:	{required:true,minLength:6,maxLength:20},
+			reg_rpass:	{required:true,minLength:6,maxLength:20,equalTo:'#reg_pass'},
+			reg_mail:	{required:true,email:true}
+			<tpl>if $view_config.view_provider_validate=='1'</tpl>
+			,reg_code:	{required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			reg_user:	{required: "<tpl>$shop_user_null</tpl>",minLength: "<tpl>$shop_user_min</tpl>",maxLength: "<tpl>$shop_user_max</tpl>"},
+			reg_pass:	{required: "<tpl>$shop_passwd_null</tpl>",minLength: "<tpl>$shop_passwd_min</tpl>",maxLength: "<tpl>$shop_passwd_max</tpl>"},
+			reg_rpass:	{required: "<tpl>$shop_conf_null</tpl>",minLength: "<tpl>$shop_conf_min</tpl>",maxLength: "<tpl>$shop_conf_max</tpl>",equalTo:"<tpl>$shop_conf_error</tpl>"},
+			reg_mail:	{required:"<tpl>$shop_email_null</tpl>",email:"<tpl>$shop_email_error</tpl>"}
+			<tpl>if $view_config.view_provider_validate=='1'</tpl>
+			,reg_code:	{required:"<tpl>$shop_code_null</tpl>"}
+			<tpl>/if</tpl>
+		}
+	});
+});
+
+/* 检测用户名是否可用 */
+function sub_name(){
+	if($('#reg_user').val().length > 1 && $('#reg_user').val().length < 21){
+		$.get("shop.php",{action: "check_shop",username:$('#reg_user').val()},function(data){
+			if ('0'==data) {		/* 没有被注册 */
+				$("#check_name").removeClass('check-error');
+				$("#check_name").addClass('check-ok');
+				$("#loginname_sign").html('<tpl>$shop_user_use</tpl>');
+			}else if ('1'==data) {	/* 已经被注册 */
+				$("#check_name").toggleClass('check-error');
+				$("#loginname_sign").html('<tpl>$shop_user_error</tpl>');
+			}else {					/* 条件不对 */
+				$("#loginname_sign").html(data);
+			}
+		});
+		$("#check_name").css('display',"");
+	}
+}
+<tpl>if $view_config.view_provider_validate=='1'</tpl>
+/* 验证COOKIE */
+function ajax_code(){
+	var  myForm=document.forms['reg_form'];
+	var  num = Math.round(Math.random()*10000);
+	$.get("shop.php",{action:"check_code",checkcode:$('#reg_code').val(),randow_num:num},function(data){
+	if(data=='1'){
+		$("#code_sign").html('<tpl>$shop_code_error</tpl>');
+		$("#read_service").attr('disabled','disabled')
+	}
+	else{
+		$("#check_code").css('display',"none");
+		$("#read_service").attr('disabled','')
+	}
+	});
+	$("#check_code").css('display',"");
+	return false;
+}
+<tpl>/if</tpl>
+//-->
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl><!--  头部信息header  -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="formbox">
+  <div class="toppic" id="register_pic"></div>
+  <div class="top"></div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$shop_reg</tpl><!-- 商家进驻店铺申请注册 --></h2>
+    </div>
+    <div class="register_box">
+      <form id="reg_form" name="reg_form" method="post" action="shop.php?action=shop_save" >
+	  <tpl>$seride_form</tpl>
+        <table width="100%" border="0" cellpadding="2" cellspacing="2">
+          <tr>
+            <th width="146"><label for="txt_username"><span>*</span><tpl>$shop_user</tpl><!-- 商家名称 -->:</label></th>
+            <td colspan="2"><label for="reg_user">
+              <input id="reg_user" name="reg_user" type="text" class="textinput" onblur="sub_name();" onkeyup="$('#check_name').css('display','none');" style="width:290px;"/>
+              </label>
+              <p><tpl>$shop_user_info</tpl><!-- 可以由英文、数字组成，长度为2-20位 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_user" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+              <div id="check_name" name="check_name" style="display:none">
+                <label id="loginname_sign" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+              <label id="loginname_sign" class="wrong" metaDone="true" generated="true"></label>            </td>
+          </tr>
+          <tr>
+            <th><label for="txt_pwd"><span>*</span><tpl>$shop_passwd</tpl><!-- 密　码 -->:</label></th>
+            <td colspan="2"><label for="reg_pass">
+              <input id="reg_pass" name="reg_pass" type="password" class="textinput" style="width:290px;" />
+              </label>
+              <p><tpl>$shop_passwd_info</tpl><!-- 可以由英文、数字组成，长度为6-20位字符，区分大小写 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_pass" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+          <tr>
+            <th><label for="reg_rpass"><span>*</span><tpl>$shop_passwd1</tpl><!-- 密码确认 -->:</label></th>
+            <td colspan="2"><label for="reg_rpass">
+              <input id="reg_rpass" name="reg_rpass" type="password" class="textinput" style="width:290px;"/>
+              </label>
+              <p><tpl>$shop_passwd1_info</tpl><!-- 请重新输入一遍密码确认 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_rpass" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+          <tr>
+            <th><label for="reg_mail"><span>*</span><tpl>$shop_email</tpl><!-- 电子邮件 -->:</label></th>
+            <td colspan="2"><label for="reg_mail">
+              <input id="reg_mail" name="reg_mail" type="text" class="textinput" style="width:290px;"/>
+              </label>
+              <p><tpl>$shop_email_info</tpl><!-- 使用常用的电子邮箱进行注册，方便密码丢失后的找回 --></p>
+              <div class="check-error">
+                <label style="display:none" for="reg_mail" class="wrong" metaDone="true" generated="true"></label>
+              </div></td>
+          </tr>
+<tpl>if $view_config.view_provider_validate=='1'</tpl>
+          <tr>
+            <th><label for="reg_code"><span>*</span><tpl>$shop_code</tpl><!-- 验证码 -->:</label></th>
+            <td colspan="2"><label for="reg_code">
+              <input id="reg_code" name="reg_code" type="text" size="8" style="text-transform:uppercase" class="textinput" onblur="ajax_code();" style="width:80px;"/>
+              </label>
+              <p><img src="classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='classes/libraries/code.php?' + Math.random()" style="cursor: pointer" /></p>
+              <div class="check-error" id="check-code">
+                <label style="display:none;" for="reg_code" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+              <div id="check_code" style="display:none" class="check-error">
+                <label id="code_sign" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+			  </td>
+          </tr>
+<tpl>/if</tpl>
+          <tr>
+            <th colspan="3"><br /><div class="line"></div></th>
+          </tr>
+          <tr>
+            <th>&nbsp;</th>
+            <td width="148"><label>
+              <input type="submit" name="button" id="button" class="btn_register" value="<tpl>$shop_submit</tpl>" />
+              </label></td>
+            <td width="326">&nbsp;</td>
+          </tr>
+          <tr>
+            <th colspan="3">&nbsp;</th>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="bottom"></div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl><!--  底部信息footer  -->
+<!-- 底部内容:END -->
+</body>
+</html>

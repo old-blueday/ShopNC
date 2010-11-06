@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_ask_cate</tpl></title><!-- 会员管理 - 问题类别 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body>
+<div id="content">
+	<h2><span class="alignRight"><a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_list" target="_self">{<tpl>$admin_ask_list</tpl><!-- 客服管理列表 -->}</a>
+		<a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=add_ask_cate" target="_self">{<tpl>$admin_ask_add</tpl><!-- 新增问题类别 -->}</a>
+		<!-- <a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_handle" target="_self">{处理情况}</a><a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_sample" target="_self">{回复样本}</a> --></span><tpl>$admin_header_user_manage</tpl><!-- 会员管理 --> >> <tpl>$admin_ask_cate</tpl><!-- 问题类别 -->
+		
+	</h2>
+    <div class="entry-body" id="p-list-div">
+	<form action="admin_ask.php?action=del_ask_cate" method="POST">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="6" class="searchbar">
+				<div class="alignRight">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" />:<tpl>$admin_ask_edit</tpl><!-- 编辑 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" />:<tpl>$admin_user_grade_list_del</tpl><!-- 删除 -->
+				</div>
+              <input type="submit" value="<tpl>$admin_ask_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+            </td>
+          </tr>
+          <tr>
+            <th><label>
+            <input type="checkbox" name="singlecheck_all" id="all" />
+            </label></th>
+            <th><tpl>$admin_ask_cate_num</tpl><!-- 类别编号 --></th>
+            <th><tpl>$admin_ask_cate_name</tpl><!-- 类别名称 --></th>
+            <th><tpl>$admin_ask_cate_put</tpl><!-- 是否发布 --></th>
+            <th><tpl>$admin_ask_cate_marked</tpl><!-- 是否内定 --></th>
+			<th><tpl>$admin_ask_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+          <tpl>section name=list loop=$ask_cate_array</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="co_id[]" class="cb" value="<tpl>$ask_cate_array[list].ac_id</tpl>" />
+            </label></td>
+            <td><tpl>$smarty.section.list.rownum</tpl></td>
+            <td><tpl>$ask_cate_array[list].cate_name</tpl></td>
+            <td><tpl>if $ask_cate_array[list].if_issue == 1</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_1.gif" /><tpl>else</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_0.gif" /><tpl>/if</tpl></td>
+            <td><tpl>if $ask_cate_array[list].if_marked == 1</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_1.gif" /><tpl>else</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_0.gif" /><tpl>/if</tpl></td>
+			<td><a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=add_ask_cate&ac_id=<tpl>$ask_cate_array[list].ac_id</tpl>" title="<tpl>$admin_ask_cate_edit</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" /></a><!-- 编辑 -->
+			<a href="admin_ask.php?action=del_ask_cate&co_id=<tpl>$ask_cate_array[list].ac_id</tpl>" onclick="return confirm('<tpl>$admin_ask_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_ask_list_del</tpl>" /></a><!-- 删除 -->
+			</td>
+          </tr>
+           <tpl>/section</tpl>
+          <tr>
+            <td colspan="6" class="searchbar">
+            	<div class="alignRight">
+                	<tpl>$showpage</tpl>
+                </div>
+              <input type="submit" value="<tpl>$admin_ask_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

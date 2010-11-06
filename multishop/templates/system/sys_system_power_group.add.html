@@ -1,0 +1,116 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSystemPGroupManage </tpl> &gt;&gt; <tpl> $langSystemPAddGroup </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="system_power.manage.php?action=save_group" method="post" id="form1" name="form1" >
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSystemPGroupName </tpl>:</th>
+									<td>
+									<input class="fct-input" name="sys_group_name" id="sys_group_name" type="text" maxlength="80"/></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSystemPGroupArea </tpl>:</th>
+									<td>
+										<input type="hidden" name="area_id" id="area_id" />
+										<div id="adddiv"></div>
+									</td>
+								</tr>
+								<tr>
+									<th></th>
+									<td><tpl> $langSystemPThisGroupManageArea </tpl></td>
+								</tr>
+								<tpl> foreach item=menu from=$navers_all key=menu_key </tpl>
+								<tr>
+									<th>
+										<input name="sys_group_power[]" type="checkbox" onclick="check_body_all('<tpl> $menu_key </tpl>');" id="menu_<tpl> $menu_key </tpl>" value="<tpl> $menu.power </tpl>" class="input_radio" /><label for="menu_<tpl> $menu_key </tpl>"><tpl> $menu.name </tpl></label>
+									</th>
+									<td>
+										<tpl> foreach item=menu_baby key=key from=$menu.body </tpl>
+											<input name="sys_group_power[]" type="checkbox" id="menu_body_<tpl> $menu_key </tpl>_<tpl> $key </tpl>" value="<tpl> $menu_baby.power </tpl>" class="input_radio" /><label for="menu_body_<tpl> $menu_key </tpl>_<tpl> $key </tpl>"><tpl> $menu_baby.name </tpl></label>
+											<tpl> if $key%7 eq 0 && $key neq 0 </tpl>
+											<br />
+											<tpl> /if </tpl>
+										<tpl> /foreach </tpl>
+									</td>
+								</tr>
+								<tpl> /foreach </tpl>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSystemPSubmit </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSystemPReturnList </tpl>" onclick='history.back();'/>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'area_id'
+				});
+
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			sys_group_name: {required:true}
+		},
+		messages: {
+			sys_group_name: {required: "<tpl> $langSystemPFillInGroupName </tpl>"}
+		}
+	});
+
+	$('input[type=checkbox]').click(function(){
+		if(this.id.indexOf('menu_body_') > -1){
+			line = this.id.split('_');
+			//If you do not select a big part,Then select
+			if($('#menu_'+line[2]).attr('checked') == false){
+				$('#menu_'+line[2]).attr('checked',true);
+			}
+			//To determine their respective sections in the choice of content there is not,
+			//If there is no,Then put the large part of the check box on
+			check_sign = false;
+			$("input[type=checkbox]").each(function(){
+				if(this.id.indexOf('menu_body_'+line[2]) > -1 && $(this).attr('checked') == true){
+					check_sign = true;
+				}
+			});
+			if(check_sign == false){
+				$('#menu_'+line[2]).attr('checked',false);
+			}
+		}
+	});
+});
+function check_body_all(num){
+	$("input[type=checkbox]").each(function(){
+		menu = 'menu_body_'+num;
+		if(this.id.indexOf(menu) > -1){
+			if($('#menu_'+num).attr('checked') == true){
+				$(this).attr('checked',true);
+			}else{
+				$(this).attr('checked',false);
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>

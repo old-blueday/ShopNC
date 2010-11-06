@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+<script language='javascript'>
+// JavaScript Document
+$(function(){
+	$("#form1").validate({
+//		debug :true,
+		errorClass: "wrong",
+		rules: {
+			txtemail: {required:true}
+		}
+	});
+
+
+})
+</script>
+</head>
+<body><tpl>include file ='../header.html'</tpl>
+<div id="wrapper" class="m"> 
+
+<div  id="sitenav"><span> <tpl>$langIndexPage</tpl> > <tpl>$langGetBackPwd</tpl></span></div>
+ <form action="member.php?action=forget" method="post" name="form1" class="homeform_middle" >
+      <label class="label_focus"><tpl>$langMTwo</tpl></label>
+      <tpl>$langMemail</tpl>：
+      <input  type="text" name="txtemail" class="searchforminput" />
+      <input  type="submit" name="Submit" class="button"  value="<tpl>$langCNext</tpl>" />
+      <input name="step" type="hidden" id="step" value="2" />
+      <input name="txtloginname" type="hidden" id="txtloginname" value="<tpl>$forget_login_name</tpl>" />
+    </form>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

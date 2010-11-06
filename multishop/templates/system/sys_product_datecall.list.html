@@ -1,0 +1,63 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPDatecall </tpl> &gt;&gt; <tpl> $langSysPDatecallManage </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='product_datecall.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysPDatecallAddButtion </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="product_datecall.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-1"><tpl> $langSysPDatecallSelect </tpl></td>
+						<td class="es-3"><tpl> $langSysPDatecallDescription </tpl></td>
+						<td class="es-4"><tpl> $langSysPDatecallCode </tpl></td>
+						<td class="es-6"><tpl> $langSysPDatecallOperation </tpl></td>
+					</tr>
+					<tpl> if $datecall_list[0].pd_id neq '' </tpl>
+		  				<tpl> section name=loop loop=$datecall_list </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="pd_id[]" type="checkbox" value="<tpl> $datecall_list[loop].pd_id </tpl>"/></td>
+						<td><tpl> $datecall_list[loop].description </tpl></td>
+						
+						<td>&lt;script type=&quot;text/javascript&quot; src=&quot;<tpl> $site_url </tpl>/home/datecall.php?pd_id=<tpl>$datecall_list[loop].pd_id</tpl>&quot;&gt;&lt;/script&gt;</td>
+						<td><a href="product_datecall.manage.php?action=modi&id=<tpl> $datecall_list[loop].pd_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langSysPDatecallEdit </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $datecall_list[0].pd_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $datecall_list[0].pd_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

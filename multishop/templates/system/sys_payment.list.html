@@ -1,0 +1,79 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPaymentInterfaceManage </tpl> &gt;&gt; <tpl> $langSysPaymentInterfaceList </tpl></div>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysPaymentName </tpl></td>
+						<td class="es-2"><tpl> $langSysPaymentType </tpl></td>
+						<td class="es-2"><tpl> $langSysPaymentEstate </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> section name=i loop=$dir_array </tpl>
+					<tpl> if $dir_array[i].is_module neq '' </tpl>
+					<tr class="es-td">
+						<td>
+							<tpl> if $dir_array[i].is_module neq '' </tpl>
+								<tpl> $dir_array[i].module_array.name </tpl>
+							<tpl> else </tpl>
+								<tpl> $dir_array[i].dir_name </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $dir_array[i].module_array.field eq 'alipay' </tpl>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.alipay.com/himalayas/practicality_customer.htm?customer_external_id=C4335302344586475118&market_type=from_agent_contract&pro_codes=9951DA19E303A141"><tpl> $langSysPaymentAlipayRegist </tpl></a>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<tpl> if module_arraytype eq 'vouch' </tpl>
+								<tpl> $langSysPaymentSurety </tpl>
+							<tpl> elseif $dir_array[i].module_array.type eq 'instant' </tpl>
+								<tpl> $langSysPaymentPrompt </tpl>
+							<tpl> elseif $dir_array[i].module_array.type eq 'offline' </tpl>
+								<tpl> $langSysPaymentDown </tpl>
+							<tpl> else </tpl>
+								<tpl> $langCNot </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<tpl> if $dir_array[i].is_module neq '' </tpl>
+								<tpl> if $dir_array[i].is_setup neq '' </tpl>
+									<tpl> if $dir_array[i].is_open neq '' </tpl>
+										<tpl> $langCOpen </tpl>
+									<tpl> else </tpl>
+										<tpl> $langCClose </tpl>
+									<tpl> /if </tpl>
+								<tpl> else </tpl>
+									<tpl> $langSysPaymentNoSetup </tpl>
+								<tpl> /if </tpl>
+							<tpl> else </tpl>
+								<tpl> $langSysPaymentCannotIdentify </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<tpl> if $dir_array[i].is_module neq '' </tpl>
+								<tpl> if $dir_array[i].is_setup neq '' </tpl>
+									<a href="payment.manage.php?action=modi&dir_name=<tpl> $dir_array[i].module_array.dir </tpl>"><tpl> $langSysPaymentM </tpl></a>
+									<a href="payment.manage.php?action=unsetup&dir_name=<tpl> $dir_array[i].module_array.dir </tpl>" onclick="return confirm_alert('<tpl> $langSysPaymentUnsetup </tpl>');"><tpl> $langSysPaymentUninstall </tpl></a>
+								<tpl> else </tpl>
+									<a href="payment.manage.php?action=setup&dir_name=<tpl> $dir_array[i].module_array.dir </tpl>"><tpl> $langSysPaymentSetup </tpl></a>
+								<tpl> /if </tpl>
+							<tpl> else </tpl>
+								<tpl> $langSysPaymentCannotIdentify </tpl>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+					<tpl> /if </tpl>
+					<tpl> /section </tpl>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

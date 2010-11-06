@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_currencies_list</tpl><!-- 模块管理 - 货币列表 --></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_module_currencies.php?action=add_currencies" target="_self" class="btnInput"><tpl>$admin_module_currencies_add</tpl><!-- 添加货币 --></a></span>
+	<tpl>$admin_header_module_manage</tpl> >> <tpl>$admin_module_currencies_list</tpl><!-- 模块管理 >> 货币列表 -->
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+    <div class="entry-body" id="p-list-div">
+      <form id="form1" name="form1" method="post" action="admin_module_currencies.php?action=del_currencies">
+	  <h5><div class="floatRight2">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_currencies_edit</tpl>" /><span>:<tpl>$admin_module_currencies_edit</tpl><!-- 编辑 --></span>
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_currencies_del</tpl>" /><span>:<tpl>$admin_module_currencies_del</tpl><!-- 删除 --></span>
+                </div>
+              <input type="submit" value="<tpl>$admin_module_currencies_del</tpl>" class="delBtnInput" /><!-- 删除 --></h5>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl>$admin_module_currencies_name</tpl><!-- 货币名称 --></th>
+            <th><tpl>$admin_module_currencies_code</tpl><!-- 货币代码 --></th>
+            <th><tpl>$admin_module_currencies_unit</tpl><!-- 货币单位 --></th>
+            <th><tpl>$admin_module_currencies_rate</tpl><!-- 货币汇率 --></th>
+			 <th><tpl>$admin_module_currencies_language</tpl><!-- 对应语言 --></th>
+            <th><tpl>$admin_module_currencies_state</tpl><!-- 当前状态 --></th>
+            <th><tpl>$admin_module_currencies_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$currencies_array</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="currencies_id[]" value="<tpl>$currencies_array[list].currencies_id</tpl>" id="checkbox2" class="cb" />
+            </label></td>
+            <td><tpl>$currencies_array[list].currencies_name</tpl></td>
+            <td><tpl>$currencies_array[list].currencies_code</tpl></td>
+            <td><tpl>$currencies_array[list].currencies_units</tpl></td>
+            <td><tpl>$currencies_array[list].currencies_rate</tpl></td>
+			<td><tpl>if $currencies_array[list].language_name!=''</tpl><tpl>$currencies_array[list].language_name</tpl><tpl>else</tpl><tpl>$admin_module_currencies_no_select</tpl><tpl>/if</tpl></td>
+            <td><tpl>if $currencies_array[list].currencies_state=='1'</tpl><tpl>$admin_module_currencies_default</tpl><tpl>else</tpl><tpl>$admin_module_currencies_nodefault</tpl><tpl>/if</tpl></td>
+            <td>
+            	<a href="admin_module_currencies.php?action=add_currencies&currencies_id=<tpl>$currencies_array[list].currencies_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_currencies_edit</tpl>" /><!-- 编辑 --></a>
+			<tpl>if $currencies_array[list].currencies_state!='1'</tpl> 
+            <a href="admin_module_currencies.php?action=del_currencies&currencies_id=<tpl>$currencies_array[list].currencies_id</tpl>"  onclick="return confirm('<tpl>$admin_module_currencies_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_currencies_del</tpl>" /><!-- 删除 --></a>
+			<tpl>/if</tpl>
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+        </table>
+		<h5 class="h5_down">
+		<div class="floatRight2">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_currencies_edit</tpl>" /><span>:<tpl>$admin_module_currencies_edit</tpl><!-- 编辑 --> </span>
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_currencies_del</tpl>" /><span>:<tpl>$admin_module_currencies_del</tpl><!-- 删除 --></span>
+                </div>
+              <input type="submit" value="<tpl>$admin_module_currencies_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+		</h5>
+      </form>
+    </div>
+	</div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,92 @@
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/mask.js"></script>
+<script language="javascript">
+//doBid
+function doBid() {
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/home/tohtml.php",
+		data: 'action=check_login',
+		type:'post',
+		dataType:"html",
+		success: function(msg){
+			if(msg == '1'){//login
+				bid_submit();
+			}else{//not login
+				//show_block();
+				location.href = "<tpl> $site_url </tpl>/home/member.php?action=login&forward="+encodeURIComponent("<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_row.p_code </tpl>");
+			}
+		},
+		error: function(){
+			//show_block();
+			location.href = "<tpl> $site_url </tpl>/home/member.php?action=login&forward="+encodeURIComponent("<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $product_row.p_code </tpl>");
+		}
+	})
+	//close_block();
+}
+var block_id = 'login_div';
+//show blockUI
+function show_block(){
+	showWin('login_div');
+}
+//close block
+function close_block(){
+	closeWin(block_id);
+	//$.unblockUI();
+}
+function bid_submit(){
+	var form = document.getElementById('bidForm');
+	if (form) {
+		try {
+			form.submit();
+		}catch (e) {
+		}
+	}
+}
+
+function ajax_login(){
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/home/member.php",
+		data: 'action=loginsave&login_ajax=1&txtloginname='+escape($('#txtloginname').val())+'&txtPassword='+$('#txtPassword').val(),
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '1'){
+				bid_submit();
+			}else{
+				alert(msg.message);
+			}
+		},
+		error: function(){
+			show_block();
+		}
+	})
+}
+//login_save
+$(document).ready(function() {
+	/*var options_add = {
+		success: function(msg){
+			if(msg.type == '1'){
+				bid_submit();
+			}else{
+				alert(msg.message);
+			}
+		},
+		type:      'post',
+		dataType:  'json'
+	};
+	
+	$("#form_login").validate({
+		rules: {
+			txtloginname: {required:true},
+			txtPassword: {required:true}
+		},
+		messages: {
+			txtloginname: {required:"<tpl> $errPLoginNameIsEmpty </tpl>"},
+			txtPassword: {required:"<tpl> $errPLoginPassWordIsEmpty </tpl>"}
+		},
+		submitHandler: function() {
+			$('#form_login').ajaxSubmit(options_add);
+		}
+	});*/
+});
+</script>

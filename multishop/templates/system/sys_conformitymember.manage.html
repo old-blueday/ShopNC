@@ -1,0 +1,164 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langConMemberConformity </tpl> &gt;&gt; <tpl> $langConSystemMember </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form1" name="form1" method="post" action="conformitymember.manage.php">
+						<input type="hidden" name="action" id="action" value="conformity" />
+						<input type="hidden" name="if_have_err" id="if_have_err" value="" /><!-- error sign -->
+						<input type="hidden" name="loop_num" id="loop_num" value="0" /><!-- loop number -->
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langConBySystem </tpl>:</th>
+									<td>
+										<select name="intergration" id="intergration">
+											<option value="phpwind" <tpl> if $config_api.open_phpwind eq '1' </tpl> selected <tpl> /if </tpl> >PHPwind</option>
+											<option value="dedecms" <tpl> if $config_api.open_dedecms eq '1' </tpl> selected <tpl> /if </tpl> >DEDECMS</option>
+											<option value="phpcms" <tpl> if $config_api.open_phpcms eq '1' </tpl> selected <tpl> /if </tpl> >PHPCMS</option>
+											<option value="ecms" <tpl> if $config_api.open_ecms eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langConEmpireCMS </tpl></option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langConCharset </tpl>:</th>
+									<td>
+										<select name="charset">
+											<option value="gbk" <tpl> if $config_api.api_charset eq 'gbk' </tpl> selected <tpl> /if </tpl> >gbk</option>
+											<option value="utf-8" <tpl> if $config_api.api_charset eq 'utf-8' </tpl> selected <tpl> /if </tpl> >utf-8</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langConDataTableServerName </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langConDataTableServerNameRemark </tpl></span>
+										<input name="inte_db_server_name" type="text" id="inte_db_server_name" class="fct-input" value="localhost" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langConDataTableAccount </tpl>:</th>
+									<td>
+										<input name="inte_db_account" type="text" id="inte_db_account" class="fct-input" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langConDataTablePassword </tpl>:</th>
+									<td>
+										<input name="inte_db_password" type="text" id="inte_db_password" class="fct-input" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langConDatabaseName </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langConFillInNeedSystemDatabaseName </tpl></span>
+										<input name="inte_db_name" type="text" id="inte_db_name" class="fct-input" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langConDataTablePrefix </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langConFillInNeedSystemDataTablePrefix </tpl></span>
+										<input name="inte_prefix" type="text" id="inte_prefix" class="fct-input" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langConBegin </tpl>" type="button" onclick="start_operation();" />
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="question" class="loding-1" style="display:none;">
+	
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.blockUI.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.form.js"></script>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script>
+
+var question = $('#question')[0];
+
+//show blockUI
+function show_block(){
+	$.blockUI(question, { width: '273px',height: '120px' });
+}
+
+//close block
+function close_block(){
+	$.unblockUI();
+}
+
+//integration start
+function start_operation(){
+	show_block();
+	$('#question').html('<h3><tpl> $langConPleaseWait </tpl></h3><br />');
+	conformity_operation();
+}
+function conformity_operation(){
+	
+	var query_str = $("#form1").formSerialize();
+	
+	$.ajax({
+		url: 'conformitymember.manage.php',
+		data: query_str,
+		type: 'post',
+		dataType: 'json',
+		success: function(msg){
+			switch(msg.type){
+				case 0: //conformity error
+					$('#if_have_err').val(1);
+				case 1: //normal
+					$('#loop_num').val(parseInt($('#loop_num').val())+1);
+					$('#action').val('copymember');
+					$('#question').html('<h3><tpl> $langConPleaseWait </tpl></h3><br />'+msg.message);
+					conformity_operation();
+					break;
+				case 2: //Operation is complete, but there are errors
+					$('#question').html('<h3><tpl> $langConPleaseWait </tpl></h3><br />'+msg.message+"<br /><br /><input type='button' value='<tpl> $langConSeeErr </tpl>' class='bthl' onclick='view_error_operation();' />&nbsp;&nbsp;<input type='button' value='<tpl> $langConResert </tpl>' onclick=\"location.href='conformitymember.manage.php'\" class='bthl' />");
+					break;
+				case 3: //Operation is complete
+					$('#question').html('<h3><tpl> $langConPleaseWait </tpl></h3><br />'+msg.message);
+				case 4: //connect error
+					setFromDate();
+					alert(msg.message);
+					close_block();
+					break;
+			}
+		},
+		error :function(){
+			alert('<tpl> $langConConnectDatabaseLost </tpl>');
+			close_block();
+		}
+	});
+	return false;
+}
+
+//view error
+function view_error_operation(){
+	window.open('conformitymember_err.txt');
+}
+
+//initialization set
+function setFromDate(){
+	$('#action').val('conformity');
+	$('#if_have_err').val();
+	$('#loop_num').val(0);
+}
+</script>
+</body>
+</html>

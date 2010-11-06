@@ -1,0 +1,20 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langSIntroBasic </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_1">
+		<ul>
+<li><tpl> $frame_shop_info.shop_intro </tpl></li>
+<li style=" text-align:center; font-weight:bold;"><tpl> $frame_shop_info.login_name </tpl></li>
+
+<li><tpl> $langSIntroBaby </tpl>:<a href="<tpl> $site_url </tpl>/home/product.php?action=textlist&member=<tpl> $frame_shop_info.member_id </tpl>"><tpl> $langSIntroSaleBaby </tpl></a></li>
+<li><tpl> $langSIntroPlace </tpl>:
+<tpl> section name=loop loop=$sel_area </tpl>
+	<tpl> $sel_area[loop].area_name </tpl>
+<tpl> /section </tpl>
+</li>
+<li><tpl> $langSIntroRegTime </tpl>:<tpl> $frame_shop_info.regist_time </tpl></li>
+<li><tpl> $langSIntroAffiliation </tpl><tpl> $langSIntroCorrespondence </tpl>:<a href="<tpl> $site_url </tpl>/member/own_message.php?action=add&username=<tpl>$frame_shop_info.sms_username</tpl>" target="_blank"><tpl> $langSIntroSendCorrespondence </tpl></a></li>
+</ul>
+</div>

@@ -1,0 +1,8 @@
+<tr>
+	<td><tpl> $shop_array.shop_name </tpl></td>
+	<td>
+		<input type="text" size="4" name="shop_sort[<tpl> $shop_array.shop_id </tpl>]" id="shop_sort_<tpl> $shop_array.shop_id </tpl>" value="0" class="fct-input-2" />
+		<input type="hidden" name="shop_id[<tpl> $shop_array.shop_id </tpl>]" id="shop_id_<tpl> $shop_array.shop_id </tpl>" value="<tpl> $shop_array.shop_id </tpl>" />
+	</td>
+	<td><a href="javascript:;" onclick="var row=jquery(this).parent().parent();row.fadeOut('normal', function() {row.remove();});"><tpl> $langCdele </tpl></a></td>
+</tr>

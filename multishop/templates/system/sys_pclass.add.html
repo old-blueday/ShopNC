@@ -1,0 +1,105 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPClass </tpl> &gt;&gt; <tpl> $langSysNewAddClass </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form1" name="form1" method="post" action="pclass.manage.php" >
+						<input type="hidden" name="action" value="save" />
+						<input type="hidden" name="show_sign" id="show_sign" value="0" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysPClass </tpl>:</th>
+									<td><input class="fct-input" name="txtPCName" id="txtPCName" type="text" maxlength="80" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPUpClass </tpl>:</th>
+									<td><tpl> $slPCUId </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langCSort </tpl>:</th>
+									<td><input class="fct-input" name="txtSort" id="txtSort" type="text" maxlength="9" value="0" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPCKeywords </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysPCKeywordsRemark </tpl></span>
+										<input class="fct-input" name="txtKeywords" id="txtKeywords" type="text" maxlength="80" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPCIntro </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysPCDescription </tpl></span>
+										<textarea name="txtPCIntro" class="fct-input" id="txtPCIntro"></textarea>
+									</td>
+								</tr>
+								<tpl> if $brand_list[0][0] neq '' </tpl>
+								<tr>
+									<th><tpl> $langSysPCBrand </tpl>:</th>
+									<td>
+										<tpl> foreach item=brand from=$brand_list </tpl>
+											<tpl> $brand[2] </tpl>
+										<tpl> /foreach </tpl>
+									</td>
+								</tr>
+								<tpl> /if </tpl>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysPCSave </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysPClassReturnToList </tpl>" onclick='history.back();'/>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txtPCName: {required:true},
+			txtSort: {required:true,number:true,min:0}
+		},
+		messages: {
+			txtPCName: {required: "<tpl> $langSysPleaseFillInPClass </tpl>"},
+			txtSort: {required:"<tpl> $langSysPleaseFillInSort </tpl>",number:"<tpl> $langSysSortIsNumber </tpl>",min:"<tpl> $langSysPCSortErr </tpl>"}
+		}
+	});
+});
+
+function checked_change(id,type){
+	$('#span_child_'+id+' input[type=checkbox]').each(function(){
+		if(type == '1'){
+			$(this).attr('checked',true);
+		}else{
+			$(this).attr('checked',false);
+		}
+	})
+}
+
+function display_change(id){
+	sign = $('#show_change_'+id).html();
+	if(sign == '+'){
+		$('#show_change_'+id).html('-');
+		$('#span_child_'+id).show();
+	}else{
+		$('#show_change_'+id).html('+');
+		$('#span_child_'+id).hide();
+	}
+}
+</script>
+</body>
+</html>

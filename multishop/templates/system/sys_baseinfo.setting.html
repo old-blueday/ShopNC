@@ -1,0 +1,131 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCBasicSet </tpl> &gt;&gt; <tpl> $langBInfoSetup </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="baseinfo.manage.php?action=save" method="post" name="form1" id="form1">
+						<input type="hidden" name="genre" value="setting" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+									<tr>
+										<th><tpl> $langBWebName </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.site_name </tpl>" name="txtsitename" id="txtsitename" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBWebAddress </tpl>:</th>
+										<td><tpl> $setting_array_out.site_url </tpl></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBCoName </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.companyname </tpl>" name="txtcompany" id="txtcompany" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBLinkMan </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.contactman </tpl>" name="txtcontactman" id="txtcontactman" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBSex </tpl>:</th>
+										<td>
+											<input type="radio" class="input_radio" name="rdogenre" id="rdogenre_0" value="0" <tpl> if $setting_array_out.genre eq "0" </tpl> checked <tpl> /if </tpl> /><label for="rdogenre_0"><tpl> $langBMan </tpl></label>
+											<input type="radio" class="input_radio" name="rdogenre" id="rdogenre_1" value="1" <tpl> if $setting_array_out.genre eq "1" </tpl> checked <tpl> /if </tpl> /><label for="rdogenre_1"><tpl> $langBWoman </tpl></label>
+										</td>
+									</tr>
+									<tr>
+										<th>E-mail:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.email </tpl>" name="txtemail" id="txtemail" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBLiaisonAddress </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.address </tpl>" name="txtaddress" id="txtaddress" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBFaxes </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.fax </tpl>" name="txtfax" id="txtfax" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBMobileTelephone </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.mobilephone </tpl>" name="txtmobilephone" id="txtmobilephone" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBPostalcode </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.zip </tpl>" name="txtzip" id="txtzip" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBLiaisonPhone </tpl>:</th>
+										<td><input class="fct-input" value="<tpl> $setting_array_out.contactphone </tpl>" name="txtphone" id="txtphone" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBLogoUrl </tpl>:</th>
+										<td>
+										<tpl> if $baseinfo_websit_array.logo_url neq '' </tpl>
+										<p class="dptnp"><img src='<tpl> $setting_array_out.logo_url|default:"$site_url/templates/system/images/logo.png" </tpl>' /></p><br />
+										<tpl> /if </tpl>
+										<span class="dptn"><tpl> $langBLogoDescription </tpl></span><input class="fct-input" value="<tpl> $setting_array_out.logo_url </tpl>" name="txtlogourl" id="txtlogourl" type="text" /></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBWebTitle </tpl>:</th>
+										<td>
+										<span class="dptn">META_TITLE</span>
+										<input class="fct-input" value="<tpl> $setting_array_out.site_title </tpl>" name="txtsitetitle" id="txtsitetitle" type="text" /></td>
+									</tr>
+									<tr>
+										<th>meta<tpl> $langBKeyWord </tpl>:</th>
+										<td>
+										<span class="dptn">META_KEYWORDS</span>
+										<textarea class="fct-input" name="txtmetakey" id="txtmetakey" cols="" rows=""><tpl> $setting_array_out.meta_keyword </tpl></textarea></td>
+									</tr>
+									<tr>
+										<th>meta<tpl> $langBBewrite </tpl>:</th>
+										<td>
+										<span class="dptn">META_DESCRIPTION</span>
+										<textarea class="fct-input" name="txtmetades" id="txtmetades" cols="" rows=""><tpl> $setting_array_out.meta_desc </tpl></textarea></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBCopyrightHaving </tpl>:</th>
+										<td><textarea class="fct-input" name="txtpoweredby" id="txtpoweredby" cols="" rows=""><tpl> $setting_array_out.poweredby </tpl></textarea></td>
+									</tr>
+									<tr>
+										<th><tpl> $langBICPBack </tpl>:</th>
+										<td><textarea class="fct-input" name="txticprecord" id="txticprecord" cols="" rows=""><tpl> $setting_array_out.icprecord </tpl></textarea></td>
+									</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langBSubmit </tpl>" type="submit" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$("#form1").validate({
+	errorClass: "wrong",
+	rules: {
+		txtsitename: {required:true},
+		txtemail: {required:true,email:true},
+		txtwebsite: {required:true},
+		txtsitetitle: {required:true},
+		txtcompany: {required:true}
+	},
+	messages: {
+		txtsitename: {required: "<tpl> $langBFillInWebName </tpl>"},
+		txtemail: {required:"<tpl> $langBEmailIsEmpty </tpl>",email:"<tpl> $langBEmailWrong </tpl>"},
+		txtwebsite: {required: "<tpl> $langBFillInWeb </tpl>"},
+		txtsitetitle: {required: "<tpl> $langBFillInWebTitle </tpl>"},
+		txtcompany: {required: "<tpl> $langBFillInCoName </tpl>"}
+	}
+});
+</script>
+</body>
+</html>

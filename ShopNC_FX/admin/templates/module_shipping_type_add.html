@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_send_buy_area</tpl></title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_buy_area_name	: {required:true}
+		},
+		messages: {
+			txt_buy_area_name	: {required: "<tpl>$admin_module_send_buy_area_name_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var	area_value	= 0;	/* 添加时，获取的id值 */
+	var area_text	= 0;	/* 添加时，获取的文本，比如天津 */
+	var old_value	= 0;	/* 添加时，记录的id，为了之后的判断 */
+	var	add_array	= new Array(<tpl>$area_str</tpl>);
+	var	i			= <tpl>if $area_count!=''</tpl><tpl>$area_count</tpl><tpl>else</tpl>0<tpl>/if</tpl>;
+	/*
+	* 下拉菜单点击事件
+	* select_top_name	为点击菜单
+	* select_name		为子菜单
+	*/
+	var	area_change=function(select_top_name,select_name){
+	$('#'+select_top_name).change(function(){
+			var item_value	= $("select[@name="+select_top_name+"] option[@selected]").val();
+			var item_text	= $("select[@name="+select_top_name+"] option[@selected]").text();
+			var	option_top	= "<option value=\"0\" selected=\"selected\"><tpl>$admin_module_send_buy_select</tpl></option>";
+			/* ajax传值 */
+			$.post('admin_module_region.php',{'action':'ajax_area','area_id':item_value},function(data) {
+			/* 当选择为第一或是第二菜单的时候，情况第三，第四菜单 */
+			if(select_top_name == 'select0') {
+				$("#select2,#select3").empty();
+				$("#select2,#select3").append(option_top);
+			} else if (select_top_name == 'select1') {
+				$("#select3").empty();
+				$("#select3").append(option_top);
+			}
+			if(select_name != 0) {
+			/* 如果下级菜单有值，显示下级菜单内容 */
+			$("#"+select_name).empty();
+			$("#"+select_name).append(option_top+data);
+			}
+			/* 赋值给获取值 */
+			if(item_value !=0) {
+					area_value	= item_value;
+					area_text	= item_text;
+				}
+			});
+		});
+	};
+	/*
+	* 添加选择地区
+	* 
+	*/
+	$('#add_area_nc').click(function(){
+		if(area_value != 0 && old_value != area_value) {
+			if(i>0) {
+				for(j=0;j<add_array.length;j++) {
+					if(add_array[j] == area_text) return '';
+				}
+			}
+			$("#xz").append("<input type=\"checkbox\" name=\"checked_area[]\" value=\""+area_text+"\" checked=\"checked\" />"+area_text+"&nbsp;");
+			old_value	= area_text;
+			add_array[i]= area_text;
+			area_value	= 0;
+			area_text	= 0;
+			i++;
+
+		}
+	});
+	/* 调用下拉点击函数 */
+	area_change('select0','select1');
+	area_change('select1','select2');
+	area_change('select2','select3');
+	area_change('select3',0);
+});
+</script>
+</head>
+
+<body id="sql">
+<div id="content">
+  <form id="form1" name="form1" method="post" action="admin_module_send.php?action=add_buy_area">
+  <input type="hidden" name="txt_send_id"	value="<tpl>$send_info.send_id</tpl>" />  
+  <input type="hidden" name="txt_buy_area_id" value="<tpl>$buy_area_info.buy_area_id</tpl>" />
+  <h2><span class="alignRight"><a href="admin_module_send.php?action=send_buy_area&send_id=<tpl>$smarty.get.send_id</tpl>" target="_self">{<tpl>$admin_module_buy_send</tpl>}</a></span><!-- 配送方式定位地区 -->  <tpl>$admin_header_module_manage</tpl> >><tpl>$admin_module_buy_send_area</tpl><!-- 配送地区 -->
+    	
+  </h2>
+	<div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="optionTab">
+			<tr>
+				<td width="33%" align="right"><tpl>$admin_module_send_buy_area_name</tpl><!-- 配送区域名称 -->:</td>
+				<td width="67%"><label>
+					<input type="text" name="txt_buy_area_name" id="txt_buy_area_name" value="<tpl>$buy_area_info.buy_area_name</tpl>" />
+		      </label><span class="red">*</span>
+			  <div class="check-error"><label style="display:none" for="txt_buy_area_name" class="wrong" metaDone="true" generated="true"></label></div>
+			  </td>
+			</tr>
+		<tpl>section name=list loop=$transport_config</tpl>
+			<tr>
+				<td align="right"><tpl>$transport_config[list].name</tpl>:</td>
+				<td><label>
+				  <tpl>$transport_config[list].input</tpl><tpl>$transport_config[list].hidden_input</tpl><tpl>$transport_config[list].input_type</tpl>
+			    </label><span class="red">*</span></td>
+			</tr>
+		<tpl>/section</tpl>
+		</table>
+		<div class="border">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="stripeMe" id="all_sql">
+				<tr>
+					<th colspan="3" id="region-th"><tpl>$admin_module_send_buy_add_area</tpl><!-- 所辖地区 -->:</th>
+				</tr>
+				<tr>
+					<td valign="top" style="padding:20px 0;">
+					<div id="xz"><tpl>foreach from=$buy_area_array item=area</tpl><input type="checkbox" name="checked_area[]" value="<tpl>$area</tpl>" checked="checked" ><tpl>$area</tpl>&nbsp;</option><tpl>/foreach</tpl></div>
+					<div id="ld">
+						<span style="vertical-align:top; font-weight:normal; margin-left:10px;"><tpl>$admin_module_send_buy_country</tpl><!-- 国家 -->:</span>
+						  <label>
+						  <select name="select0" size="12" id="select0">
+						  <option value="0" selected="selected"><tpl>$admin_module_send_buy_select</tpl><!-- 请选择... --></option>
+						  <tpl>section name=list loop=$top_region</tpl>
+							<option value="<tpl>$top_region[list].area_id</tpl>"><tpl>$top_region[list].area_name</tpl></option>
+							<tpl>/section</tpl>
+						  </select>
+						</label>
+						<span style="vertical-align:top; font-weight:normal; margin-left:10px;"><tpl>$admin_module_send_buy_province</tpl><!-- 省份 -->:</span>
+						  <label>
+						  <select name="select1" size="12" id="select1">
+							<option value="0" selected="selected"><tpl>$admin_module_send_buy_select</tpl><!-- 请选择... --></option>
+						  </select>
+						</label>
+						<span style="vertical-align:top; font-weight:normal; margin-left:10px;"><tpl>$admin_module_send_buy_city</tpl><!-- 城市 -->:</span>
+						  <label>
+						  <select name="select2" size="12" id="select2">
+							<option value="0" selected="selected"><tpl>$admin_module_send_buy_select</tpl><!-- 请选择... --></option>
+						  </select>
+						</label>
+						<span style="vertical-align:top; font-weight:normal; margin-left:10px;"><tpl>$admin_module_send_buy_address</tpl><!-- 区/县 -->:</span>
+						  <label>
+						  <select name="select3" size="12" id="select3">
+							<option value="0" selected="selected"><tpl>$admin_module_send_buy_select</tpl><!-- 请选择... --></option>
+						  </select>
+						</label>
+						<span id="add_area_nc" class="btnInput">+</span>
+					</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					  <label>
+					  <input type="submit" name="Submit" value="<tpl>$admin_module_send_region_submit</tpl>" class="btnInput" />
+					  </label>
+					  <label>
+					  <input type="reset" name="Submit2" value="<tpl>$admin_module_send_region_reset</tpl>" class="btnInput" />
+					  </label>
+					</td>
+				</tr>
+			</table>
+		</div>
+    </div><!--  end of entry2  -->
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

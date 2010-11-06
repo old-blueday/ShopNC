@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.metadata.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.form.js"></script>
+<script type="text/javascript" src="../js/calendar/Calendar.js"></script>
+<link type="text/css" href="../js/calendar/blue/blue.css" rel="Stylesheet" id="calCss" />
+<script type="text/javascript" language="javascript"> 
+//普通日历
+$(function(){
+	//datepicker
+	$("#txtBirthday").datepicker();
+})
+</script>
+<tpl>include file ='../../../js/validate/reg.html'</tpl>
+</head>
+<body>
+<div id="wrapper" class="m">
+  <!-- Header -->
+       <tpl> include file ='header_new.html' </tpl>
+  <!-- End Header -->
+  <div class="clear">&nbsp;</div>
+  <!-- 位置导航 -->
+  <div id="sitenav"><span><a href="<tpl> $site_url </tpl>"><tpl> $langCIndex </tpl></a> > <tpl> $langCRegist </tpl></span></div>
+  <!-- End位置导航 -->
+  <div class="clear" style="height:48px;"></div>
+  <div id="regist" >
+    <div class="title1">(<tpl> $langMMustEnter </tpl>)</div>
+    <form action="member.php?action=registsave" method="post" name="form1" id="form_regist">
+     <tpl> $seride_form </tpl>   
+       <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+        <tr>
+          <th><div><tpl> $langMloginname </tpl>：</div></th>
+          <td><input name="txtloginname" class="textinput" type="text" onkeyup="$('#loginname_sign').css('display','none');" onblur="sub_name();" id="txtloginname" />
+            <label style="display:none" id="loginname_exists" for="txtloginname" class="wrong" metaDone="true" generated="true"></label>
+            <label id="loginname_sign" style="display:none" class="gongxi" metaDone="true" generated="true"></label>
+            <!-- 查看会员名是否可用 -->
+          </td>
+          <td><div><tpl> $alertEnterUserName </tpl></div></td>
+        </tr>
+        <tr>
+          <th><div><tpl> $langMpassword </tpl>：</div></th>
+          <td><input name="txtPassword" class="textinput"  type="password" id="txtPassword" onkeyup="checkPassword(this.value);" />
+            <label style="display:none" for="txtPassword" class="wrong" metaDone="true" generated="true"></label>
+          </td>
+          <td><div id="securitylevel">
+              <ul>
+                <li class="pwd-strength-box" id="pwdLow" > <tpl> $langPasswordLow </tpl> </li>
+                <li class="pwd-strength-box" id="pwdMed" > <tpl> $langPasswordMiddle </tpl> </li>
+                <li class="pwd-strength-box" id="pwdHi"> <tpl> $langPasswordHigh </tpl> </li>
+              </ul>
+            </div>
+            <div><tpl> $alertEnterPassword </tpl></div></td>
+        </tr>
+        <tr>
+          <th><div><tpl> $langMrepassword </tpl>：</div></th>
+          <td><input name="txtcheckpassword" class="textinput"  type="password" id="txtcheckpassword" />
+            <label style="display:none" for="txtcheckpassword" class="wrong" metaDone="true" generated="true"></label>
+          </td>
+          <td><div><tpl> $alertEnterRePassword </tpl></div></td>
+        </tr>
+      </table>
+      <div class="title2" style="margin-top:10px;"><tpl> $langEnterEmailInfo </tpl> </div>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" >
+        <tr>
+          <th><div><tpl> $langMemail </tpl>：</div></th>
+          <td width="100"><input name="txtemail" type="text" id="txtemail" class="textinput" />
+          <label style="display:none" for="txtemail" class="wrong" metadone="true" generated="true"></label></td>
+          <td><div><tpl> $alertEnterEmail </tpl></div></td>
+        </tr>
+        <tr>
+          <th><div><tpl> $langMRemail </tpl>：</div></th>
+          <td width="100"><input name="txtecheckmail" class="textinput"  type="text" id="txtecheckmail" />
+            <label style="display:none" for="txtecheckmail" class="wrong" metaDone="true" generated="true"></label>
+          </td>
+          <td><div><tpl> $alertEnterReEmail </tpl></div></td>
+        </tr>
+        <tr>
+          <th><div><tpl> $langMCode </tpl>：</div></th>
+          <td width="100"><input name="code" type="text" id="code" class="textinput" />
+            <label style="display:none" for="code" class="wrong" metaDone="true" generated="true"></label>
+          </td>
+          <td><div><a href="javascript:;" onclick="javascript:document.getElementById('codeimage').src='../classes/libraries/code.php?' + Math.random();"> <img src="../classes/libraries/code.php" title="<tpl> $langMClickReplacingCode </tpl>" name="codeimage" border="0" id="codeimage"  width="60" height="20" onclick="this.src='../classes/libraries/code.php?' + Math.random()" /> <tpl> $langMReplacingCode </tpl></a></div></td>
+        </tr>
+      </table>
+      <div><input type="checkbox" name="more_info" id="more_info" onclick="if(this.checked == true){$('#more_table').css('display','');}else{$('#more_table').css('display','none');}" value="1" /><label style="padding-left:3px; padding-left:1px\9; vertical-align:2px; color:#537C0F;" for="more_info"><b><tpl> $langMMoreInfo </tpl></b></label></div>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" style="display:none;" id="more_table">
+	      <tr>
+	      	<th><div><tpl> $langMtruename </tpl>：</div></th>
+	      	<td colspan="2"><input name="txtTruename" class="textinput" type="text" id="txtTruename" /></td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMbirthday </tpl>：</div></th>
+	      	<td colspan="2"><input name="txtBirthday" class="textinput" type="text" id="txtBirthday" /></td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMgender </tpl>：</div></th>
+	      	<td colspan="2">
+	      		<input id="gender_m" type="radio" value="m" name="gender" checked/>
+	      		<label style="padding-left:3px;padding-left:1px\9; vertical-align:2px;" for="gender_m"><tpl> $langMmale </tpl></label>
+	      		<input id="gender_f" type="radio" value="f" name="gender" />
+	      		<label style="padding-left:3px;padding-left:1px\9; vertical-align:2px;" for="gender_f"><tpl> $langMfemale </tpl></label>
+	      	</td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMzip </tpl>：</div></th>
+	      	<td colspan="2">
+		      	<input name="txtZip" class="textinput" type="text" id="txtZip" maxlength="6" size="6" />
+		      	<label style="display:none;color:#FF0000;" for="txtZip" class="error" metaDone="true" generated="true"></label>
+	      	</td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMmobilephone </tpl>：</div></th>
+	      	<td colspan="2">
+		      	<input name="txtMobilephone" class="textinput" type="text" id="txtMobilephone" maxlength="11" />
+		      	<label style="display:none;color:#FF0000;" for="txtMobilephone" class="error" metaDone="true" generated="true"></label>
+	      	</td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMphone </tpl>：</div></th>
+	      	<td colspan="2">
+	      		<input name="txtPhone" class="textinput" type="text" id="txtPhone" />
+	      		<label style="display:none;color:#FF0000;" for="txtPhone" class="error" metaDone="true" generated="true"></label></td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMotherphone </tpl>：</div></th>
+	      	<td colspan="2">
+		      	<input name="txtOtherphone" class="textinput" type="text" id="txtOtherphone" />
+		      	<label style="display:none;color:#FF0000;" for="txtOtherphone" class="error" metaDone="true" generated="true"></label>
+	      	</td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langMaddress </tpl>：</div></th>
+	      	<td colspan="2">
+	      	<input type="hidden" name="area_id" id="area_id" value="" />
+			<div id="adddiv"></div>
+	      	</td>
+	      </tr>
+	      <tr>
+	      	<th><div><tpl> $langParticularMaddress </tpl>：</div></th>
+	      	<td colspan="2"><input name="txtAddress" class="textinput" type="text" id="txtAddress" /></td>
+	      </tr>
+	      <tr>
+	      	<th><div>QQ：</div></th>
+	      	<td colspan="2"><input name="txtQQ" class="textinput" type="text" id="txtQQ" /></td>
+	      </tr>
+	      <tr>
+	      	<th><div>MSN：</div></th>
+	      	<td colspan="2"><input name="txtMSN" class="textinput" type="text" id="txtMSN" /></td>
+	      </tr>
+	      <tr>
+	      	<th><div>SKYPE：</div></th>
+	      	<td colspan="2"><input name="txtSKYPE" class="textinput" type="text" id="txtSKYPE" /></td>
+	      </tr>
+	      <tr>
+	      	<th><div>TAOBAO：</div></th>
+	      	<td colspan="2"><input name="txtTAOBAO" class="textinput" type="text" id="txtTAOBAO" /></td>
+	      </tr>
+      </table>
+      <div class="imgbuttom">
+        <input name="" type="image" src="<tpl> $site_url </tpl>/templates/orange/home/images/regist2_btn.gif" />
+      </div>
+      <div class="title3"><tpl> $langMRegistAgreement </tpl></div>
+      <div class="ContractContent"> <!-- 本商城中的商店商品皆网友发布，不代表官方商城（http://www.shopnc.net，以下简称官方商城）的行为。任何透过官方商城链接进入而得到的资讯、产品及服务，其所有权归相应的所有者。与官方商城之间，除了提供符合国家法律法规的技术信息交流媒介以外，无任何关系。天津市网城创想科技有限责任公司不声明或保证上述内容或网站的正确性和可靠性，亦不为此承担法律责任。
+        
+        用户基于自愿的原则使用ShopNC软件产品，天津市网城创想科技有限责任公司仅负责解答软件用户的技术问题，及提供用户间技术交流的媒介，不对软件用户及其所拥有网站或商城上发布的内容负责。
+        
+        用户应主动了解并自觉遵守所在国家或地区的法律法规。
+        
+        本网站使用者因为违反当地法律法规的，一切后果自负，本公司不承担任何法律责任。
+        本声明未涉及的问题参见国家有关法律法规，当本声明与国家法律法规冲突时，以国家法律法规为准。
+        本网站之声明以及其修改权、更新权及最终解释权均属ShopNC官方所有。
+        本网站所有者天津市网城创想科技有限责任公司，经国家通信管理局审批，获准向用户提供因特网信息服务（津ICP备08000171）。
+        本商城定位于本地及行业商品交流贸易及讨论，符合本网站所在地中华人民共和国的法律法规。
+        
+        所有用户，只要进入官方商城注册、发布产品及发表言论，即被视为已经阅读、理解并同意本协议的各项条款。 -->
+      <tpl> include file='../../../html/agreement.html' </tpl>
+      </div>
+    </form>
+  </div>
+  <div class="clear" style="height:48px;"></div>
+</div>
+     <tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$().ready(function() {
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'area_id'
+				});
+});
+</script>

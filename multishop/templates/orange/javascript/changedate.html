@@ -1,0 +1,191 @@
+<script type="text/javascript">
+//<![CDATA[
+		var item_form = document.forms['ownaddproduct'];   //获取表单对象
+		var _hourObject = item_form.elements['_hour'];     //获取小时
+		var _dateObject = item_form.elements['_date'];     //获取日期
+		var _minuteObject = item_form.elements['_minute']; //获取分钟
+		
+		var serverTime = "<tpl> $nowtime </tpl>";          //服务器时间
+		var clientTime = new Date();                       //客户端时间
+		var offset = 0;                                    //偏移量
+		if (serverTime != '') {
+			offset = serverTime - clientTime.getTime();
+		}                                                  //如果服务器时间非空，则偏移为服务器时间减去客户端时间
+		var maxDate = 14;                                  //最大天数为14天
+		try {
+			var now = new Date();                          //获取当前日期(客户端时间)
+			now.setTime(now.getTime() + offset);           //现在客户端时间加偏移即为服务器时间
+			var date = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();   //日期YYYY-MM-DD
+			var hour = now.getHours();                                               //小时
+			var minute = now.getMinutes();                                           //分
+			//get last time
+			var dateTime = item_form.elements["_fma.publi._0.s"].value;              //取得了另外一个时间，具体还不明确
+			dateTime = dateTime.replace('-0', '-');                                  //做了替换
+			var dateTimeArray = dateTime.split(' ');                                 //切分
+			if (dateTimeArray[0]) {
+				date = dateTimeArray[0];                                             //日期又重新取值了
+			}
+			if (dateTimeArray[1]) {
+				var timeArray = dateTimeArray[1].split(':');
+				if (timeArray[0]) {
+					hour = timeArray[0];
+				}
+				if (timeArray[1]) {
+					minute = timeArray[1];
+				}
+			}
+			//format date
+			date = date.replace('-0', '-');
+			//delete old options
+			for (var i = _dateObject.length - 1; i >= 0; --i) {
+				_dateObject.remove(i);
+			}
+			//add new options
+			var selected = 0;
+			for (var i = 0; i <= maxDate; ++i) {
+				var _now = new Date();
+				_now.setTime(_now.getTime() + offset);//服务器时间
+				_now.setDate(now.getDate() + i);
+				var displayDate = _now.getFullYear()+'<tpl> $langCYear </tpl>'+(_now.getMonth()+1)+'<tpl> $langCMouth </tpl>'+_now.getDate()+'<tpl> $langCDay </tpl>';
+				var dateValue = _now.getFullYear()+'-'+(_now.getMonth()+1)+'-'+_now.getDate();
+				_dateObject.options[i] = new Option(displayDate, dateValue);
+				if (date == dateValue) {
+					selected = i;
+				}
+			}
+			if (_dateObject.options[selected]) {
+				_dateObject.options[selected].selected = 'selected';
+			}
+			changeDate();
+			//set now or set设定修改与发布两种情况的选取状态
+			if (!dateTime || dateTime.length <= 2) {
+				item_form.elements['_now'][0].checked = true;
+				item_form.elements['_date'].disabled = true;
+				item_form.elements['_hour'].disabled = true;
+				item_form.elements['_minute'].disabled = true;
+			}else {
+				item_form.elements['_now'][1].checked = true;
+				item_form.elements['_date'].disabled = false;
+				item_form.elements['_hour'].disabled = false;
+				item_form.elements['_minute'].disabled = false;
+			}
+									}catch (e) {
+			alert(e.message + e.number);
+		}
+		//不明白
+		function setStartTimeEnable(flag) {
+			_dateObject.disabled = !flag;
+			_hourObject.disabled = !flag;
+			_minuteObject.disabled = !flag;
+		}
+
+		function changeDate() {
+			try {
+				//delete old hour
+				for (var i = _hourObject.length - 1; i >= 0; --i) {
+					_hourObject.remove(i);
+				}
+				var startDate = new Date();
+				startDate.setTime(startDate.getTime() + offset);
+				var endDate = new Date();
+				endDate.setTime(endDate.getTime() + offset);
+				endDate.setDate(endDate.getDate() + maxDate);
+				var currDate = new Date();
+				currDate.setTime(currDate.getTime() + offset);
+				var currDateStr = _dateObject.options[_dateObject.selectedIndex].value;
+				var dateArray = currDateStr.split('-');
+				currDate.setFullYear(dateArray[0], dateArray[1] - 1, dateArray[2]);
+				currDate.setSeconds(0);
+
+				var startHour = 0;
+				var endHour = 24;
+				var key = 0;
+				var selected = 0;
+				for (var i = startHour; i < endHour; ++i) {
+					currDate.setHours(i);
+					currDate.setMinutes(59);
+					if (startDate.getTime() > currDate.getTime()) {
+						continue;
+					}
+					currDate.setMinutes(0);
+					if (currDate.getTime() > endDate.getTime()) {
+						break;
+					}
+					_hourObject.options[key] = new Option(i, i);
+					if (hour == i) {
+						selected = key;
+					}
+					key++;
+				}
+				if (_hourObject.options[selected]) {
+					_hourObject.options[selected].selected = 'selected';
+				}
+				changeHour();
+			}catch (e) {
+				alert(e.message + e.number);
+			}
+		}
+		
+		function changeHour() {
+			try {
+				//delete old minute
+				for (var i = _minuteObject.length - 1; i >= 0; --i) {
+					_minuteObject.remove(i);
+				}
+				
+				var startDate = new Date();
+				startDate.setTime(startDate.getTime() + offset);
+				var endDate = new Date();
+				endDate.setTime(endDate.getTime() + offset);
+				endDate.setDate(endDate.getDate() + maxDate);
+				var currDate = new Date();
+				currDate.setTime(currDate.getTime() + offset);
+				var currDateStr = _dateObject.options[_dateObject.selectedIndex].value;
+				var dateArray = currDateStr.split('-');
+				currDate.setFullYear(dateArray[0], dateArray[1] - 1, dateArray[2]);
+				currDate.setHours(_hourObject.options[_hourObject.selectedIndex].value);
+				currDate.setSeconds(0);
+				hour = currDate.getHours();
+
+				var startMinute = 0;
+				var endMinute = 60;
+				var step = 5;
+				var key = 0;
+				var selected = 0;
+				for (var i = startMinute; i < endMinute; i+=5) {
+					currDate.setMinutes(i);
+					if (startDate.getTime() > currDate.getTime()) {
+						continue;
+					}
+					if (currDate.getTime() > endDate.getTime()) {
+						break;
+					}
+					_minuteObject.options[key] = new Option(i, i);
+					if (Math.abs(minute - i) < step) {
+						selected = key;
+					}
+					key++;
+				}
+				if (_minuteObject.options[selected]) {
+					_minuteObject.options[selected].selected = 'selected';
+				}
+			}catch (e) {
+				alert(e.message + e.number);
+			}
+		}
+		
+		function setMinute() {
+			minute = _minuteObject.value;
+		}
+		
+		function setTimeEnableAndInStock(bTime, bInStock){
+			setStartTimeEnable(bTime);
+			if (bInStock && bInStock == true){
+				document.forms['ownaddproduct'].elements['_fma.publi._0.ap'].value="-2";
+			}
+			else{
+				document.forms['ownaddproduct'].elements['_fma.publi._0.ap'].value="0";
+			}
+		}
+//]]>
+</script>

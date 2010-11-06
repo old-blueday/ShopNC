@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><tpl> $search_result </tpl> - <tpl> $shops_name </tpl></title>
+<meta http-equiv="keywords" content="<tpl> $shops_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $shops_description </tpl>" />
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css" />
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.cookie.js"></script>
+<script language="javascript" src="<tpl>$site_url</tpl>/js/select_area_zh-cn.js"></script>
+<script type="text/javascript">
+$(document).ready(function() { 
+
+	if ($.cookie('list_box_type')==1){
+			$('#product_list_tab').addClass('s_typelist');
+			$('#product_list_tab_bottom').addClass('s_typelist');
+			$('#product_list_content').addClass('s_piclist');
+	}else{
+			$('#product_list_tab').removeClass('s_typelist');
+			$('#product_list_tab_bottom').removeClass('s_typelist');
+			$('#product_list_content').removeClass('s_piclist');
+	}
+	$("#product_list_tab,#product_list_tab_bottom").click(function(){
+		if ($.cookie('list_box_type')==1){
+			$.cookie('list_box_type', 2, { expires: 7 });
+		}else{
+			$.cookie('list_box_type', 1, { expires: 7 });
+		}
+		if ($('#product_list_tab')[0].className== 's_typesel')
+		{
+			$('#product_list_tab').addClass('s_typelist');
+			$('#product_list_tab_bottom').addClass('s_typelist');
+			$('#product_list_content').addClass('s_piclist');
+		}else{
+			$('#product_list_tab').removeClass('s_typelist');
+			$('#product_list_tab_bottom').removeClass('s_typelist');
+			$('#product_list_content').removeClass('s_piclist');
+		}
+	});
+	iniProvince(document.getElementById('txtProvince_left'));
+	document.getElementById('txt_class_top_id_left').value='<tpl> $smarty.get.txt_class_top_id </tpl>';
+	document.getElementById('txtProvince_left').value='<tpl> $smarty.get.txtProvince </tpl>';
+}); 
+</script>
+</head>
+<body>
+<div id="container">
+<tpl>include_php file ='shop_header.php'</tpl><!-- 头部信息header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft s_conright">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><span><tpl> $search_result </tpl></a></span><tpl> $keywords </tpl>
+				</div>
+			</div>
+			<div class="con">
+				<div class="s_listhline">
+					<div class="s_listtitle">
+						<table width="0" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td><tpl> $show_type </tpl>：</td>
+								<td width="90">
+									<div id="product_list_tab" class="s_typesel s_typelist">
+										<!--  切换追加s_typelist 反之删除   -->
+										<div class="s_typel"></div>
+										<div class="s_typer"></div>
+									</div>
+								</td>
+								<td><tpl> $sort_type </tpl>：</td>
+								<td width="100"><select name="sort" onchange="javascript:location.href='<tpl> $Site_Url </tpl>/shop_search.php?<tpl> $query_string </tpl>&num=<tpl> $num </tpl>&sort='+this.value">
+				  	<option value="new" <tpl> if $sort=='new'</tpl>selected<tpl> /if </tpl>><tpl> $show_new_goods </tpl></option>
+				  	<option value="pricedesc" <tpl> if $sort=='pricedesc'</tpl>selected<tpl> /if </tpl>><tpl> $show_price_desc </tpl></option>
+				  	<option value="price" <tpl> if $sort=='price'</tpl>selected<tpl> /if </tpl>><tpl> $show_price </tpl></option>
+			      </select></td>
+								<!-- <td><tpl> $show_num </tpl>：</td>
+								<td width="100"><select name="num" onchange="javascript:location.href='<tpl> $Site_Url </tpl>/shop_search.php?<tpl> $query_string </tpl>&sort=<tpl> $sort </tpl>&num='+this.value">
+				  	<option value="12" <tpl> if $num=='12'</tpl>selected<tpl> /if </tpl>><tpl> $perpage_show </tpl> 12 <tpl> $item </tpl></option>
+				  	<option value="24" <tpl> if $num=='24'</tpl>selected<tpl> /if </tpl>><tpl> $perpage_show </tpl> 24 <tpl> $item </tpl></option>
+				  	<option value="36" <tpl> if $num=='36'</tpl>selected<tpl> /if </tpl>><tpl> $perpage_show </tpl> 36 <tpl> $item </tpl></option>
+			      </select></td> -->
+							</tr>
+						</table>
+
+					</div>
+					<div class="pages">
+					<tpl> $product_class_page </tpl>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+				<ul id="product_list_content" class="w_list"><!--  去掉s_piclist为列表显示  加上s_piclist则为图片显示  -->
+					
+					<tpl> section name=i loop=$product_array</tpl>
+					
+					<li>
+						<div class="div_h10px"></div>
+						<div class="s_listimg"><a href="http://<tpl>$product_array[i].domainname</tpl><tpl> $domainname </tpl>/product.php?id=<tpl> $product_array[i].goods_id </tpl>"><img src="<tpl> if $product_array[i].goods_small_image neq '' and $product_array[i].goods_small_image neq 'default.jpg'</tpl> http://<tpl>$product_array[i].domainname</tpl><tpl> $domainname </tpl>/<tpl>$product_array[i].goods_small_image </tpl><tpl>else</tpl><tpl> $templates_subpath </tpl>/img/default_product.jpg<tpl>/if</tpl>" width="96" height="96" /></a></div>
+						<div class="s_listcon">
+							<p><a href="http://<tpl>$product_array[i].domainname</tpl><tpl> $domainname </tpl>/product.php?id=<tpl> $product_array[i].goods_id </tpl>"><tpl> $product_array[i].goods_name </tpl></a></p>
+							<strong><tpl> $product_array[i].goods_pricedesc </tpl></strong>
+							<b><tpl> $price </tpl>:￥<em><tpl> $product_array[i].goods_price </tpl></em></b>
+						</div>
+						<div class="s_listright">
+							<div class="s_shopabout">
+								<b><tpl> $from_shop </tpl></b>
+								<strong><a href="http://<tpl>$product_array[i].domainname</tpl><tpl> $domainname </tpl>"><tpl> $product_array[i].shopname </tpl></a></strong>
+							</div>
+							<div class="s_itemgo"><a href="http://<tpl>$product_array[i].domainname</tpl><tpl> $domainname </tpl>/shopping.php?goods_id=<tpl> $product_array[i].goods_id </tpl>&goods_num=1"><tpl>$shop_click_buy</tpl><!--点击查看或购买--></a></div>
+						</div>
+						<div class="div_h10px"></div>
+					</li>
+					
+					<tpl> /section </tpl>
+					
+				</ul>
+				<div class="clear"></div>
+				<div class="s_listhline bottom">
+					<div class="s_listtitle">
+						<table width="0" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td><tpl> $show_type </tpl>：</td>
+								<td width="90">
+									<div id="product_list_tab_bottom" class="s_typesel">
+										<!--  切换追加s_typelist 反之删除   -->
+										<div class="s_typel"></div>
+										<div class="s_typer"></div>
+									</div>
+								</td>
+								<td><tpl> $sort_type </tpl>：</td>
+								<td width="100"><select name="sort" onchange="javascript:location.href='<tpl> $Site_Url </tpl>/shop_search.php?<tpl> $query_string </tpl>&num=<tpl> $num </tpl>&sort='+this.value">
+				  	<option value="new" <tpl> if $sort=='new'</tpl>selected<tpl> /if </tpl>><tpl> $show_new_goods </tpl></option>
+				  	<option value="pricedesc" <tpl> if $sort=='pricedesc'</tpl>selected<tpl> /if </tpl>><tpl> $show_price_desc </tpl></option>
+				  	<option value="price" <tpl> if $sort=='price'</tpl>selected<tpl> /if </tpl>><tpl> $show_price </tpl></option>
+			      </select></td>
+								<!-- <td><tpl> $show_num </tpl>：</td>
+								<td width="100"><select name="num" onchange="javascript:location.href='<tpl> $Site_Url </tpl>/shop_search.php?<tpl> $query_string </tpl>&sort=<tpl> $sort </tpl>&num='+this.value">
+				  	<option value="12" <tpl> if $num=='12'</tpl>selected<tpl> /if </tpl>><tpl> $perpage_show </tpl> 12 <tpl> $item </tpl></option>
+				  	<option value="24" <tpl> if $num=='24'</tpl>selected<tpl> /if </tpl>><tpl> $perpage_show </tpl> 24 <tpl> $item </tpl></option>
+				  	<option value="36" <tpl> if $num=='36'</tpl>selected<tpl> /if </tpl>><tpl> $perpage_show </tpl> 36 <tpl> $item </tpl></option>
+			      </select></td> -->
+							</tr>
+						</table>
+
+					</div>
+					<div class="pages">
+					<tpl> $product_class_page </tpl>
+				</div>
+					<div class="clear"></div>
+				</div>
+				
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		<div class="w_conright s_conleft">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead w_wlist">
+				<strong><tpl>$shop_select_area</tpl><!--筛选缩小范围--></strong>
+				</div>
+			</div>
+			<div class="con">
+				<div class="w_crcon">
+					<div class="div_h10px"></div>
+					<form action="" method="get" name="form_search_left" id="form_search_left">
+					<input type="hidden" name="action" value="search" />
+					<table class="s_selclass" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="50"><tpl>$shop_keywords</tpl><!--关键字--></td>
+							<td width="130"><input type="text" id="txt_keywords_left" value="<tpl> $smarty.get.txt_keywords</tpl>" name="txt_keywords" class="inputbg" size="17" /></td>
+						</tr>
+						<tr>
+							<td><tpl>$shop_class_select</tpl><!--分类选择--></td>
+							<td><select name="txt_class_top_id" id="txt_class_top_id_left">
+							<option value=""><tpl>$shop_all_class</tpl><!--所有分类--></option>
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option value="<tpl> $node_array[i].sub_array[j].id </tpl>">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></option>
+						<tpl> /section </tpl>
+					<tpl> /section </tpl>	
+                    </select></td>
+						</tr>
+						<tr>
+							<td><tpl>$shop_price_area</tpl><!--价格范围--></td>
+							<td><input type="text" name="txt_start_price" id="txt_start_price" class="inputbg shortinput" size="6" /> <tpl>$shop_to</tpl><!--到--> <input type="text" name="txt_end_price" id="txt_end_price" class="inputbg shortinput" size="6" /></td>
+						</tr>
+						<tr>
+							<td><tpl>$shop_area</tpl><!--所在地--></td>
+							<td><select name="txtProvince" id="txtProvince_left">
+					</select></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td><div class="sel_but" onclick="$('#form_search_left').submit();"></div></td>
+						</tr>
+					</table></form>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+			
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead w_shop">
+				<strong><tpl>$hot_shop</tpl><!--热门店铺--></strong>
+				</div>
+			</div>
+			<div class="con">
+				<div class="w_crcon">
+					<ul class="w_cr_hotshop">
+					<tpl> section name=list loop=$hot_shops_array </tpl> <!--热门商店-->
+						<li><a href="http://<tpl> $hot_shops_array[list].domainname </tpl><tpl> $domainname </tpl>" target="_blank" title="<tpl> $hot_shops_array[list].shopname </tpl>"><tpl> $hot_shops_array[list].shopname </tpl></a></li>
+					<tpl> /section </tpl>
+					</ul>
+				</div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+<tpl> include_php file='shop_footer.php' </tpl><!-- end of footer -->	
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_admin_header_shop_manage</tpl> - <tpl>$shop_admin_shop_list</tpl></title><!-- 会员管理 - 会员列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body>
+<div id="content">
+	<h2><tpl>$shop_admin_header_shop_manage</tpl><!-- 网店管理 --> &gt;&gt; <tpl>$shop_admin_shop_defrayal_list</tpl><!-- 缴费管理 -->
+    	
+    </h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="8" class="searchbar">
+            	<div class="alignRight">
+                	<form id="form2" name="form2" method="get">
+					<input type="hidden" name="action" value="shop_defrayal_list" />
+					<tpl>$shop_admin_shop_defrayal_search</tpl>
+					<select name="order_state">
+					<option value=""><tpl>$shop_admin_shop_defrayal_search_all</tpl><!-- 查找所有 --></option>
+					<option value="1"><tpl>$auditing</tpl></option>
+					<option value="2"><tpl>$pass_auditing</tpl></option>
+					<option value="3"><tpl>$fall_auditing</tpl></option>
+					</select>
+					<tpl>$shop_admin_shop_defrayal_serial</tpl>:
+                          <input type="text" name="keywords" id="keywords" value="<tpl>$smarty.get.keywords</tpl>" />
+                          <input type="submit" name="button" id="button" value="<tpl>$shop_admin_shop_list_submit</tpl>" class="btnInput" /><!-- 提交 -->
+                    </form>
+                </div>
+      <form id="form1" name="form1" method="post" action="admin_shop.php">
+              <input type="hidden" name="action" id="action" value="state" />
+              <select name="txt_defrayal" id="txt_defrayal" class="delBtnInput">
+                <option value=""><tpl>$shop_admin_shop_defrayal_select</tpl><!-- 选择操作 --></option>
+                <option value="2"><tpl>$shop_admin_shop_defrayal_check</tpl><!-- 审核 --></option>
+                <option value="3"><tpl>$shop_admin_shop_defrayal_no_check</tpl><!-- 不审核 --></option>
+              </select>
+              <input type="submit" value="<tpl>$shop_admin_shop_defrayal_enter</tpl>" class="delBtnInput" /><!-- 确定 -->
+            </td>
+          </tr>
+          <tr>
+            <th><label>
+            <input type="checkbox" name="singlecheck_all" id="all" />
+            </label></th>
+            <th><tpl> $shop_admin_shop_defrayal_serial</tpl><!--单据号--></th>
+            <th><tpl> $shop_admin_shop_defrayal_timetype</tpl><!--缴费规格--></th>
+            <th><tpl> $shop_admin_shop_defrayal_paytype</tpl><!--缴费方式--></th>
+            <th><tpl> $shop_admin_shop_defrayal_address</tpl><!--支付地点--></th>
+			<th><tpl> $shop_admin_shop_defrayal_time</tpl><!--状态--></th>
+            <th><tpl> $shop_admin_shop_defrayal_state</tpl><!--支付时间--></th>
+          </tr>
+		  <tpl> section name=i loop=$defrayal_array </tpl>
+          <tr id="line<tpl> $defrayal_array[i].d_id </tpl>">
+            <td><label>
+              <input type="checkbox" name="d_id[]" id="checkbox2" value="<tpl> $defrayal_array[i].d_id </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $defrayal_array[i].order_num </tpl></td>
+            <td><tpl> $defrayal_array[i].d_time </tpl><tpl> $month </tpl>(<tpl> $defrayal_array[i].d_time*30 </tpl><tpl> $RMB </tpl>)</td>
+            <td><tpl> if $defrayal_array[i].defrayal_type=='1' </tpl><tpl>$shop_admin_shop_defrayal_online_payment</tpl><tpl>else</tpl><tpl>$shop_admin_shop_defrayal_lintout_payment</tpl><tpl>/if</tpl></td>
+			<td><tpl> $defrayal_array[i].type_name </tpl></td>
+			<td><tpl> $defrayal_array[i].create_time|date_format:"%Y-%m-%d %H:%M:%S" </tpl></td>
+			<td>
+				<tpl> if $defrayal_array[i].state==1 </tpl><tpl> $auditing </tpl><tpl> /if </tpl>
+				<tpl> if $defrayal_array[i].state==2 </tpl><tpl> $pass_auditing </tpl><tpl> /if </tpl>
+				<tpl> if $defrayal_array[i].state==3 </tpl><tpl> $fall_auditing </tpl><tpl> /if </tpl>
+			</td>
+          </tr>
+		  <tpl> /section </tpl>
+          <tr>
+            <td colspan="8" class="searchbar">
+              <input type="submit" value="<tpl>$shop_admin_shop_defrayal_check</tpl>" class="delBtnInput" /><!-- 审核 -->
+              <div class="pagebar"><tpl> $show_page </tpl></div></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_article_class_list </tpl></title><!-- 文章分类列表 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_article.php?action=article_class_add" target="_self" class="btnInput"><tpl> $shop_admin_article_class_add </tpl><!-- 添加文章分类 --></a></span>
+<tpl> $shop_admin_header_article_manage </tpl><!-- 文章管理 --> &gt;&gt; <tpl> $shop_admin_article_class_list </tpl><!-- 文章分类列表 -->    
+    </b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+				<h5><tpl> $shop_admin_article_class_list </tpl><!-- 文章分类列表 --></h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><tpl> $shop_admin_article_class_list_classname </tpl><!-- 分类名称 --></th>
+            <th><tpl> $shop_admin_article_class_list_if_pub </tpl><!-- 是否发布 --></th>
+			<th><tpl> $shop_admin_article_class_list_nav_show </tpl><!-- 导航显示 --></th>
+            <th><tpl> $shop_admin_article_class_list_class_order </tpl><!-- 排序 --></th>
+            <th class="ao"><tpl> $shop_admin_article_class_list_operation </tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$article_class </tpl>
+          <tr>
+            <td class="ac"><span><tpl>if $article_class[list].ctopid!=0</tpl>&nbsp;|--<tpl>/if</tpl><a href="admin_article.php?action=article_class_add&cid=<tpl> $article_class[list].cid </tpl>"><tpl> $article_class[list].cname </tpl></a></span></td>
+            <td>
+			<span id="state_<tpl> $article_class[list].cid</tpl>"><a onclick="nc_state_update('<tpl> $article_class[list].cid</tpl>','cstate','<tpl> $article_class[list].cstate </tpl>','state_<tpl> $article_class[list].cid</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $article_class[list].cstate </tpl>.gif" alt="<tpl>$shop_admin_article_class_list_edit_state</tpl>" /></a></span></td>
+            <td>
+			<span id="article_class_menu<tpl> $article_class[list].cid</tpl>"><a onclick="nc_state_update('<tpl> $article_class[list].cid</tpl>','menu','<tpl> $article_class[list].menu </tpl>','article_class_menu<tpl> $article_class[list].cid</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $article_class[list].menu </tpl>.gif" alt="<tpl>$shop_admin_article_class_list_edit_state</tpl>" /></a></span></td>
+            <td><tpl> $article_class[list].csort </tpl></td>
+            <td class="ao">
+            	<a href="admin_article.php?action=article_class_add&cid=<tpl> $article_class[list].cid </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl> $shop_admin_article_class_list_edit </tpl>" /><!-- 编辑 --></a> 						
+				<tpl>if  $article_class[list].cid!=1 && $article_class[list].cid!=2 && $article_class[list].cid!=3  && $article_class[list].cid!=4 && $article_class[list].cid!=5 && $article_class[list].cid!=6  </tpl>
+              <a href="admin_article.php?action=del_article_class&cid=<tpl> $article_class[list].cid </tpl>" onclick="return confirm('<tpl>$shop_admin_article_class_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl> $shop_admin_article_class_list_del </tpl>" /><!-- 删除 --></a><tpl>/if</tpl></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+    </div>
+    <!--  end of entry-body  -->
+	<h5 class="h5_down"><div class="pagebar">&nbsp;</div><!-- 分页 --></h5>
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+<!--
+/* ajax修改状态 */
+function nc_state_update(article_class_id,ajax_type,old_state,id) {
+	$.get('admin_article.php',{'action':'article_class_ajax','ajax_type':ajax_type,'old_state':old_state,'cid':article_class_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+//-->
+</script>
+</body>
+</html>

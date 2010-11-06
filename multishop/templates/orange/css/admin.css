@@ -1,0 +1,28 @@
+@charset "utf-8";
+@import url("orange/navtop_orange.css");
+@import url("table.css");
+@import url("input.css");
+@import url("orange/border_orange.css");
+/*  CSS Document  */body {
+	margin: 0px;
+	padding: 10px;
+	font-size: 12px;
+	background-color: #CEFCFF;
+}td,body {
+	font:12px/1.6em Trebuchet MS,Helvetica,Arial,sans-serif
+}
+
+a {
+	color:#666
+}.topmenu li {
+	display: inline;
+}
+.topmenu ul {
+	text-align: right;
+	padding: 10px;
+}
+h1,h2,h3,h4,h5 {font-size:12px}
+hr {
+	height: 0px;
+	border-top-width: 1px dotted #CC3300;
+}

@@ -1,0 +1,420 @@
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.ajaxfileupload.js"></script>
+<script language="javascript">
+$(function(){
+	$("#ownaddproduct").validate({
+		errorClass: "wrong",
+		rules: {
+			txtPname: {required:true},
+			txtPstorage: {
+				required:true,
+				number:true,
+				min: function(){
+						if($("#radioSelltype2").attr('checked')==true){
+							return 5;
+						}else{
+							return 1;
+						}
+					}
+			},
+			minimumBid: {
+				required: "#radioSelltype0:checked",
+				number: true,
+				min: function(){
+						if($("#radioSelltype0").attr('checked')==true){
+							return 0.01;
+						}else{
+							return 0;
+						}
+					}
+			},
+			price_step: {
+				required: "#radioSelltype0:checked",
+				number: true,
+				min: function(){
+					if($("#radioSelltype0").attr('checked')==true && $("#inc2").attr('checked')==true){
+						return 1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			txtPprice: {required: "#radioSelltype1:checked",number: true,min: 0.01},
+			txtGroupprice: {required:"#radioSelltype2:checked",number:true,min: function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						return 0.1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			txtPoldprice: {required: "#radioSelltype2:checked",number: true,min: function(){return $("#txtGroupprice").val();}},
+			txtGroupmincount: {
+				required: "#radioSelltype2:checked",
+				number: true,
+				min: function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						return 5;
+					}else{
+						return 0;
+					}
+				},
+				max:function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						if($("#txtPstorage").val() >= 100){
+							return 100;
+						}else{
+							return $("#txtPstorage").val();
+						}
+					}else{
+						return 10000000;
+					}
+				}
+			},
+			area_id: {required: true},
+			/*pyTF: {
+				required: "#whopsBuyer:checked",
+				number: true,
+				min: function(){
+					if($("#whopsBuyer").attr('checked')==true){
+						return 1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			kdTF: {
+				required: "#whopsBuyer:checked",
+				number: true,
+				min: function(){
+					if($("#whopsBuyer").attr('checked')==true){
+						return 1;
+					}else{
+						return 0;
+					}
+				}
+			},
+			emsTF: {
+				required: "#whopsBuyer:checked",
+				number: true,
+				min: function(){
+					if($("#whopsBuyer").attr('checked')==true){
+						return 1;
+					}else{
+						return 0;
+					}
+				}
+			},*/
+			slValiddays: {
+				required: true,
+				number: true,
+				min: 1,
+				max: 30
+			}
+		},
+		messages: {
+			txtPname: {required: "<tpl> $errProductNameEmpty </tpl>"},
+			txtPstorage: {
+				required: "<tpl> $errPstorage </tpl>",
+				number: "<tpl> $errPstorage </tpl>",
+				min: function(){
+					if($("#radioSelltype2").attr('checked')==true){
+						return "<tpl> $errPstorageByGroup </tpl>";
+					}else{
+						return "<tpl> $errPstorage </tpl>";
+					}
+				}
+			},
+			minimumBid: {required: "<tpl> $errMinimumbidWrong </tpl>",number: "<tpl> $errMinimumbidWrong </tpl>",min: "<tpl> $errMinimumbidWrong </tpl>"},
+			price_step: {required: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",number: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",min: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>"},
+			txtPprice: {required: "<tpl> $errPprice </tpl>",number: "<tpl> $errPprice </tpl>",min: "<tpl> $errPprice </tpl>"},
+			txtGroupprice: {required: "<tpl> $errGroupprice </tpl>",number: "<tpl> $errGroupprice </tpl>",min: "<tpl> $errGroupprice </tpl>"},
+			txtPoldprice: {required: "<tpl> $errPoldprice </tpl>",number: "<tpl> $errPoldprice </tpl>",min: "<tpl> $errPoldprice </tpl>"},
+			txtGroupmincount: {required: "<tpl> $errGroupmincount </tpl>",number: "<tpl> $errGroupmincount </tpl>",min:"<tpl> $errGroupmincount </tpl>",max:"<tpl> $errGroupmincount </tpl>"},
+			area_id: {required:"<tpl> $errProvince </tpl>"},
+			/*pyTF: {required: "<tpl> $langProductPyTFIsEmpty </tpl>",number: "<tpl> $langProductPyTFIsEmpty </tpl>",min: "<tpl> $langProductPyTFIsEmpty </tpl>"},
+			kdTF: {required: "<tpl> $langProductKdTFIsEmpty </tpl>",number: "<tpl> $langProductKdTFIsEmpty </tpl>",min: "<tpl> $langProductKdTFIsEmpty </tpl>"},
+			emsTF: {required: "<tpl> $langProductEMSTFIsEmpty </tpl>",number: "<tpl> $langProductEMSTFIsEmpty </tpl>",min: "<tpl> $langProductEMSTFIsEmpty </tpl>"},*/
+			slValiddays: {required: "<tpl> $errPSValiddays </tpl>",number: "<tpl> $errPSValiddays </tpl>",min: "<tpl> $errPSValiddays </tpl>",max: "<tpl> $errPSValiddays </tpl>"}
+		},
+		submitHandler: function() {
+			var check_sign = false;//货币选择状态标识
+			var payment_check = false;//支付方式选择状态标识
+			var predeposit_check = false;//预存款选择状态标识
+			var payment_alert_sign = false;//支付方式是否抛出错误信息标识
+			
+			//判断预存款选择状态
+			if($('#pay_predeposit').attr('checked') == true){
+				predeposit_check = true;
+			}
+			//验证支付方式的复选验证，是否全选，选中的支付方式是否选择了支付货币种类
+			$("#ownaddproduct input[@type=hidden]").each(function(){
+				if(this.name.indexOf('payment_cur_') == 0){
+					//判断支付方式是否被选择
+					str = this.name.split('payment_cur_');//取支付方式名称 str[1]
+					if($('#txtPayment_'+str[1]).attr('checked') == true){
+						//取该支付方式的货币种类字符串
+						str2 = $('#payment_cur_'+str[1]).val().split('|');
+						payment_check = true;//标识有选择的支付方式
+						//判断该选中的支付方式起码有一个支持的货币种类被选择
+						for(i=0;i<str2.length;i++){
+							if($('#currency_'+str2[i]).attr('checked') == true){
+								check_sign = true;
+								break;
+							}
+						}
+						if(check_sign == false){//没有选择货币
+							payment_alert_sign = true;
+						}
+					}
+				}
+				check_sign = false;
+			});
+			if(predeposit_check == true){//选择预付款
+				if(payment_alert_sign == false){//判断是否有错误抛出:没有
+					document.getElementById('ownaddproduct').submit();
+					/*var oEditor = FCKeditorAPI.GetInstance('txtPinfo');
+					$('#txtPinfo').val(oEditor.GetXHTML(true));
+					if($('#txtPinfo').val() != ''){
+						document.getElementById('ownaddproduct').submit();
+					}else{
+						alert('<tpl> $errPSInfoEmpty </tpl>');
+						return false;
+					}*/
+				}else{
+					alert('<tpl> $errPaymentSelCur </tpl>');
+					return false;
+				}
+			}else{//没有选择预存款
+				if(payment_alert_sign == false && payment_check == true){//判断是否有错误抛出并且选择了起码一种支付方式:没有
+					document.getElementById('ownaddproduct').submit();
+					/*var oEditor = FCKeditorAPI.GetInstance('txtPinfo');
+					$('#txtPinfo').val(oEditor.GetXHTML(true));
+					if($('#txtPinfo').val() != ''){
+						document.getElementById('ownaddproduct').submit();
+					}else{
+						alert('<tpl> $errPSInfoEmpty </tpl>');
+						return false;
+					}*/
+				}else{
+					alert('<tpl> $errPaymentSelCur </tpl>');
+					return false;
+				}
+			}
+		}
+	});
+});
+
+//当前是一口价商品
+//var currentIsFixPrice = false;
+
+//多图片上传操作
+/*function ajaxFileUpload()
+{
+	$("#file_pic_loading")
+	.ajaxStart(function(){
+		$(this).show();
+	})
+	.ajaxComplete(function(){
+		$(this).hide();
+	});
+	
+	//如果图片数量超过3 则返回信息，不允许添加
+	if($("#pic_num").val() >= 3){
+		alert("<tpl> $langPPicNumOne </tpl>3<tpl> $langPPicNumTwo </tpl>");
+		return false;
+	}
+	
+	$.ajaxFileUpload
+	(
+		{
+			url:'own_product.php?action=pic_add',
+			secureuri:false,
+			fileElementId:'txtPpic',
+			dataType: 'json',
+			success: function (data, status)
+			{
+				if(typeof(data.type) != 'undefined')
+				{
+					if(data.type == '0')
+					{
+						alert('<tpl> $errPProductPicUploadIsFail </tpl>');
+					}else
+					{
+						$("#previewImage").append("<li>"+"<img src=<tpl> $site_url </tpl>/"+data.message+" /><br /><a href='javascript:;' onclick=ajaxFileDel(\'"+data.message+"\',this);><tpl> $langbtnProductDel </tpl></a></li>");
+						if($('#p_pic').val() == ''){
+							$('#p_pic').val(data.message);
+						}else{
+							$('#p_pic').val($('#p_pic').val()+'|'+data.message);
+						}
+						//图片数量+1
+						$("#pic_num").val(parseInt($("#pic_num").val())+1);
+						//清空文件域中的值
+						$('#txtPpic').val('');
+					}
+				}
+			},
+			error: function (data, status, e)
+			{
+				alert('<tpl> $errPProductPicUploadIsFail </tpl>');
+			}
+		}
+	)
+	return false;
+}*/
+
+//删除图片 缩略图名称
+function ajaxFileDel(pic_url,obj){
+	$.ajax({
+		url: "own_product.php",
+		data: 'action=pic_del&pic_name='+pic_url,
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '0'){
+				alert(msg.message);
+			}else{
+				$(obj).parents("li").remove();
+				/*arr = $('#p_pic').val().split('|');
+				for(i=0;i<arr.length;i++){
+					if(arr[i] == pic_url){
+						delete(arr[i]);
+					}
+				}
+				$('#p_pic').val(arr.join('|'));*/
+				//图片数量-1
+				$("#pic_num").val(parseInt($("#pic_num").val())-1);
+			}
+		}
+	});
+	return false;
+}
+
+//地区选择
+function tonext_area(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#area_id').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../home/tohtml.php',
+					data: 'action=get_area&id='+valarray[0]+'&random_number='+Math.random(),
+					success: function(data){
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						
+					$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+					tonext_area($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+};
+
+//品牌选择
+function tonext_brand(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#brand_id').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../home/tohtml.php',
+					data: 'action=get_brand&id='+valarray[0]+'&random_number='+Math.random(),
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) {
+							att=DataArray[i].split("||");
+							id=att[0];
+							cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						}
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext_brand($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+			}
+		}
+	)
+};
+//商品类别
+function tonext_edit(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');	
+			$('#slPCId').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langPDataToLoad </tpl></option>');
+				$.ajax({
+					url: '../member/own_productcate.php',
+					data: 'action=list&id='+valarray[0]+'&random_number='+Math.random(),
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++) 
+						{
+							att=DataArray[i].split("||");
+							id=att[0];cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						};
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext_edit($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+				$('#cancel_edit_button').attr('disabled','');
+			}
+		}
+	)
+};
+
+//根据商品类别ID取商品属性
+function ajax_get_attribute(pc_id){
+	array=pc_id.split('||');
+	if(array[1] == 0){//没有下级分类
+		$.ajax({
+			url: '../home/product.php',
+			data: 'action=ajax_get_attribute&pc_id='+array[0]+'&random_number='+Math.random(),
+			success: function (data) {
+				if(data != ''){
+					$('#attribute_baby').html(data);
+				}else{
+					$('#attribute_baby').html('');
+				}
+			}
+		});
+	}else{
+		return false;
+	}
+}
+
+$(document).ready(function() {
+
+	tonext_area('#area_c1');//地区
+	
+	tonext_brand('#brand_c1');//品牌
+	
+	tonext_edit('#pc_c1');//商品类别
+	
+	fixprice();//默认载入 一口价商品 内容
+	
+	<tpl> if $action eq 'update' </tpl>/* 商品更新，选择商品交易类别 */
+		changeAuctionType('<tpl> $selltype </tpl>');
+	<tpl> /if </tpl>
+});
+</script>

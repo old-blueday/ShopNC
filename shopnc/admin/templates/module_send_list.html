@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_send_list</tpl></title><!-- 模块管理 - 配送列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="goodsList">
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_module_send.php?action=send_area" target="_self" class="btnInput"><tpl>$admin_module_send_region</tpl></a></span><!-- 配送区域 -->
+	<tpl>$admin_header_module_manage</tpl> >> <tpl>$admin_module_send_list</tpl><!-- 模块管理 >> 配送列表 -->    
+	</b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5>
+			<div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" /><span>:<tpl>$admin_module_send_list_install</tpl><!-- 安装 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" /><span>:<tpl>$admin_module_send_list_edit</tpl><!-- 编辑 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif"/><span>:<tpl>$admin_module_send_list_uninstall</tpl><!-- 卸载 --></span>
+            </div>
+			<tpl>$admin_module_send_list</tpl>
+			</h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><tpl>$admin_module_send_list_name</tpl><!-- 配送名称 --></th>
+            <th width="40%"><tpl>$admin_module_send_list_desc</tpl><!-- 配送描述 --></th>
+            <th><tpl>$admin_module_send_list_send</tpl><!-- 货到付款 --></th>
+            <th><tpl>$admin_module_send_list_sort</tpl><!-- 排序 --></th>
+            <th><tpl>$admin_module_send_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$transport_type_array</tpl>
+          <tr>
+            <td><tpl>$transport_type_array[list].name</tpl></td>
+            <td class="textLeft"><tpl>$transport_type_array[list].info</tpl></td>
+            <td class="flag"><tpl> if $transport_type_array[list].pay_type=='0'</tpl><tpl> $admin_module_send_yes</tpl><tpl>else</tpl><tpl>$admin_module_send_no</tpl><tpl>/if</tpl></td>
+            <td>1</td>
+            <td>
+				<tpl>if $transport_type_array[list].install==1</tpl><a href="admin_module_send.php?action=send_buy_area&send_id=<tpl>$transport_type_array[list].send_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" title="<tpl>$admin_module_send_list_edit</tpl>" /></a><!-- 设置区域 -->
+				<a href="admin_module_send.php?action=del_send_type&file_name=<tpl>$transport_type_array[list].file</tpl>&send_id=<tpl>$transport_type_array[list].send_id</tpl>""><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif" title="<tpl>$admin_module_send_list_uninstall</tpl>" /></a><!-- 卸载 --><tpl>else</tpl><a href="admin_module_send.php?action=add_send_type&file_name=<tpl>$transport_type_array[list].file</tpl>&transport_area_directory=<tpl>$transport_area_info.send_area_directory</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" title="<tpl>$admin_module_send_list_install</tpl>" /></a><!-- 安装 --><tpl>/if</tpl>
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+        </table>
+		<h5 class="h5_down">
+		<div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" /><span>:<tpl>$admin_module_send_list_install</tpl><!-- 安装 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" /><span>:<tpl>$admin_module_send_list_edit</tpl><!-- 编辑 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif"/><span>:<tpl>$admin_module_send_list_uninstall</tpl><!-- 卸载 --></span>
+            </div>
+		</h5>
+		</div>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+
+</body>
+</html>

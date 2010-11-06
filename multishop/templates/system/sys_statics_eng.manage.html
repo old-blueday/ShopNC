@@ -1,0 +1,90 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSSeachEng </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_eng.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<select name="time">
+										<option value=""></option>
+										<option value="1" <tpl> if $time eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSToday </tpl></option>
+										<option value="2" <tpl> if $time eq '2' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSYesterday </tpl></option>
+										<option value="3" <tpl> if $time eq '3' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSBeforeYesterday </tpl></option>
+										<option value="4" <tpl> if $time eq '4' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceWeek </tpl></option>
+										<option value="5" <tpl> if $time eq '5' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpWeek </tpl></option>
+										<option value="6" <tpl> if $time eq '6' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceMonth </tpl></option>
+										<option value="7" <tpl> if $time eq '7' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpMonth </tpl></option>
+										<option value="8" <tpl> if $time eq '8' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSLatelyThirtyDay </tpl></option>
+									</select>&nbsp;&nbsp;
+									<input class="bthl" value="<tpl> $langSysSSubmit </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="4">
+										<input type="radio" class="input_radio" id="type_one" checked /><label for="type_one"><tpl> $langSysSSeachFlux </tpl></label>
+										<input type="radio" class="input_radio" id="type_many" onclick="location.href='statics_eng.manage.php?action=trend'" /><label for="type_many"><tpl> $langSysSSeachFluxDirection </tpl></label>
+									</td>
+								</tr>
+								<tr>
+								    <td colspan="4"><tpl> $langSysSNonceTimeSegment </tpl>:<tpl> $end_time </tpl> <tpl> $langSysSTo </tpl> <tpl> $start_time </tpl></td>
+								</tr>
+								<tr>
+									<td colspan="4"><tpl> $statics_flash </tpl></td>
+								</tr>
+								<tr>
+									<th style="text-align:center;"><tpl> $langSysSSeachEng </tpl></th>
+						          	<th style="text-align:center;">PV</th>
+						         	<th style="text-align:center;"><tpl> $langSysSPercent </tpl></th>
+						          	<th style="text-align:center;"><tpl> $langSysSDirection </tpl></th>
+								</tr>
+								<tr>
+									<td><tpl> $langSysSTotalize </tpl></td>
+							        <td><tpl> $num_sum|default:'0' </tpl></td>
+							        <td>100%</td>
+							        <td>&nbsp;</td>
+								</tr>
+								<tpl> foreach from=$eng_array key=key item=one </tpl>
+									<tr>
+										<td><tpl> $key </tpl></td>
+										<td><tpl> $one </tpl></td>
+										<td>
+											<tpl> if $num_sum neq '' && $num_sum neq '0' </tpl>
+											    <tpl> $one/$num_sum*100|string_format:'%.2f' </tpl>%
+											<tpl> else </tpl>
+												0.00%
+											<tpl> /if </tpl>			
+										</td>
+										<td><a href="statics_eng.manage.php?action=trend&eng=<tpl> $key </tpl>"><tpl> $langSysSDirection </tpl></a></td>
+								  	</tr>
+							    <tpl> /foreach </tpl>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$brand_info.brand_name</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.LoadImage.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".thumb img").LoadImage(true,120,120,"<tpl> $template_dir </tpl>/images/loading.gif");
+	$(".thumb2 img").LoadImage(true,72,72,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+<SCRIPT type=text/javascript>
+$(document).ready(function(){
+	
+	//hide message_body after the first one
+	$(".class_list .class_body:gt(all)").hide();
+	
+	//hide message li after the 5th
+	$(".class_list dl:gt(all)").hide();
+
+	
+	//toggle message_body
+	$(".class_head").click(function(){
+		$(this).next(".class_body").slideToggle(500)
+		return false;
+	});
+
+	//collapse all messages
+	$(".collpase_all_class").click(function(){
+		$(".class_body").slideUp(500)
+		return false;
+	});
+
+	//show all messages
+	$(".show_all_class").click(function(){
+		$(".class_body").slideDown(500)
+		return false;
+	});
+	var page_goods_num	= function(select_name){
+		$('#'+select_name).change(function(){
+			var	item_goods_num = $("select[@name='"+select_name+"'] option[@selected]").val();
+				
+			if(select_name == 'page_goods_num1' || select_name == 'page_goods_num2') {
+				window.location.href= "<tpl> $Site_Url </tpl>/product_brand.php?<tpl>if $smarty.get.brandid != ''</tpl>brandid=<tpl>$smarty.get.brandid</tpl>&<tpl>/if</tpl>goods_nums="+item_goods_num;
+			}
+			if(select_name == 'goods_show1' || select_name == 'goods_show2') {
+				window.location.href= "<tpl> $Site_Url </tpl>/product_brand.php?<tpl>if $smarty.get.brandid != ''</tpl>brandid=<tpl>$smarty.get.brandid</tpl>&<tpl>/if</tpl>goods_show="+item_goods_num;
+			}
+		});
+	}
+	
+	page_goods_num('goods_show1');
+	page_goods_num('goods_show2');	
+});
+</script>
+</head>
+<body>
+<!--头部:START-->
+<tpl>include_php file ='header.php'</tpl>
+<!--头部:END-->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!--页面:START-->
+<div id="container" class="width-all" >
+  <!--左侧边拦:START-->
+  <div class="sidebar">
+    <!--商品分类:START-->
+    <div class="box" id="brand">
+      <div class="top">
+        <h3 class="title"><tpl>$brand_info.brand_name</tpl></h3>
+      </div>
+      <div class="content" ><p class="img"><tpl>if $brand_info.brand_image!=''</tpl><img src="<tpl>$Site_Url</tpl>/<tpl>$brand_info.brand_image</tpl>" width="180" height="42" /><tpl>else</tpl><img src="<tpl> $template_dir </tpl>/images/nobrand.gif" width="180" height="42" /><tpl>/if</tpl></p>
+        <p class="text"><tpl>$brand_info.brand_description</tpl></p>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <!--商品分类:END-->
+    <!--品牌分类:START-->
+    <div class="box" id="brand">
+      <div class="top">
+        <h3 class="title"><tpl>$brand_list_commend_brand</tpl><!-- 推荐品牌 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		<tpl>section name=list loop=$brand_commend</tpl>
+          <li><a href="<tpl>if $brand_commend[list].brand_url == ''</tpl>product_brand.php?brandid=<tpl>$brand_commend[list].brand_id</tpl><tpl>else</tpl><tpl>$brand_commend[list].brand_url</tpl><tpl>/if</tpl>" title="<tpl>$brand_commend[list].brand_name</tpl>"><tpl>$brand_commend[list].brand_name</tpl></a></li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!--品牌分类:END-->
+    <!--热销商品:START-->
+    <div class="box" id="hotsale">
+      <div class="top">
+        <h3 class="title"><tpl>$brand_list_hot_brand</tpl><!-- 该品牌热门商品 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		<tpl>section name=list loop=$brand_hot</tpl>
+          <li><a href="product.php?id=<tpl>$brand_hot[list].goods_id</tpl>" title="<tpl>$brand_hot[list].goods_name</tpl>"><tpl>$brand_hot[list].goods_name</tpl></a></li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!--热销商品:END-->
+  </div>
+  <!--左侧边拦:END-->
+  <!--右侧主体:START-->
+  <div class="main">
+    <div class="sitenav"><span>
+      <h4><tpl>$brand_list_position</tpl><!-- 当前位置 -->:<a href="<tpl> $Site_Url </tpl>"><tpl>$brand_list_home</tpl><!-- 首页 --></a> >> <a href="product_brand.php?action=index"><tpl>$brand_list_brand</tpl><!-- 品牌列表 --></a> >> <tpl>$brand_info.brand_name</tpl></h4>
+      </span></div>
+    <div class="clear"></div>
+    <!-- 最新商品:START -->
+    <div id="newgoods" class="fullbox">
+      <div class="top"> </div>
+      <div class="content">
+        <div class="control">
+          <dl class="display">
+            <dt><tpl>$brand_list_view_type</tpl><!-- 显示方式 -->:</dt>
+            <dd id="list" <tpl>if $smarty.get.list_type=='' or $smarty.get.list_type=='class_list'</tpl>class="current"<tpl>/if</tpl>>
+			<a href="?action=<tpl>$smarty.get.action</tpl>&brandid=<tpl>$smarty.get.brandid</tpl>&goods_nums=<tpl>$smarty.get.goods_nums</tpl>&goods_show=<tpl>$smarty.get.goods_show</tpl>&list_type=class_list&type=<tpl>$smarty.get.type</tpl>&curpage=<tpl>$smarty.get.curpage</tpl>"><tpl>$product_class_by_row</tpl><!-- 列表视图 --></a>
+			</dd>
+            <dd id="pic" <tpl>if $smarty.get.list_type=='pic_list'</tpl>class="current"<tpl>/if</tpl>>
+			<a href="?action=<tpl>$smarty.get.action</tpl>&brandid=<tpl>$smarty.get.brandid</tpl>&goods_nums=<tpl>$smarty.get.goods_nums</tpl>&goods_show=<tpl>$smarty.get.goods_show</tpl>&list_type=pic_list&type=<tpl>$smarty.get.type</tpl>&curpage=<tpl>$smarty.get.curpage</tpl>"><tpl>$product_class_by_grid</tpl><!-- 网格视图 --></a>
+			</dd>
+            <dd id="text" <tpl>if $smarty.get.list_type=='text_list'</tpl>class="current"<tpl>/if</tpl>>
+			<a href="?action=<tpl>$smarty.get.action</tpl>&brandid=<tpl>$smarty.get.brandid</tpl>&goods_nums=<tpl>$smarty.get.goods_nums</tpl>&goods_show=<tpl>$smarty.get.goods_show</tpl>&list_type=text_list&type=<tpl>$smarty.get.type</tpl>&curpage=<tpl>$smarty.get.curpage</tpl>"><tpl>$product_class_by_text</tpl><!-- 无图 --></a>
+			</dd>
+          </dl>
+          <div class="seriation"> <span><tpl>$brand_list_sort_type</tpl><!-- 排序方式 -->:</span>
+                	<select name="goods_show1" id="goods_show1">
+                    	<option value="new" <tpl>if $smarty.get.goods_show == 'new' </tpl>selected="selected"<tpl>/if</tpl>><tpl>$brand_list_sort_new</tpl><!-- 最新商品 --></option>
+                    	<option value="down" <tpl>if $smarty.get.goods_show == 'down' </tpl>selected="selected"<tpl>/if</tpl>><tpl>$brand_list_sort_dear</tpl><!-- 价格由高到低 --></option>
+                    	<option value="up" <tpl>if $smarty.get.goods_show == 'up' </tpl>selected="selected"<tpl>/if</tpl>><tpl>$brand_list_sort_cheap</tpl><!-- 价格由低到高 --></option>
+                    </select>
+          </div>
+          <div class="pages"><tpl>$product_brand_page</tpl></div>
+          <div class="clear">&nbsp;</div>
+        </div>
+		<!-- start列表图示 -->
+		<tpl>if $smarty.get.list_type=='' or $smarty.get.list_type=='class_list'</tpl>
+        <div class="listmode">
+          <ul>
+		  <tpl>section name=list loop=$brand_product</tpl>
+            <li>
+              <div class="thumb"><span><a href="product.php?id=<tpl>$brand_product[list].goods_id</tpl>" title="<tpl>$brand_product[list].goods_name</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$brand_product[list].goods_small_image</tpl>" alt="<tpl>$brand_product[list].goods_name</tpl>" /></a></span></div>
+              <dl class="goodsintro">
+                <dt class="name"><a href="product.php?id=<tpl>$brand_product[list].goods_id</tpl>" title="<tpl>$brand_product[list].goods_name</tpl>"><tpl>$brand_product[list].goods_name</tpl></a><!-- 商品名称 --></dt>
+                <dd class="info">
+                  <p><tpl>$brand_list_goods_storage</tpl><!-- 库存状况 -->:<tpl>if  $brand_product[list].goods_storage>0</tpl><tpl>$brand_list_goods_more</tpl><!-- 有货 --><tpl>else</tpl><font color="#FF0000"><tpl>$brand_list_goods_less</tpl><!-- 缺货 --></font><tpl>/if</tpl></p>
+                  <p><tpl>$brand_list_goods_show</tpl><!-- 浏览人次 -->:<tpl>$brand_product[list].goods_click</tpl></p>
+				  <p><tpl>$brand_list_goods_info</tpl><!-- 商品描述 -->:<tpl>$brand_product[list].goods_description</tpl></p>
+                </dd>
+                <dd class="btns">
+                  <div class="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$product_array[list].goods_id</tpl>"><span><tpl>$brand_list_add_fav</tpl><!-- 收藏 --></span></a></div>
+                  <div class="intocate"><a href="shopping.php?goods_id=<tpl>$product_array[list].goods_id</tpl>&goods_num=1"><span><tpl>$brand_list_buy</tpl><!-- 购买 --></span></a></div>
+                </dd>
+                <dd class="prix">
+                  <div class="prix_0"><tpl>$brand_list_price_dear</tpl><!-- 市场价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$brand_product[list].goods_price*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 -->&nbsp;</div>
+                  <div class="prix_1"><tpl>$brand_list_price_cheap</tpl><!-- 网店价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$brand_product[list].goods_pricedesc*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></div>
+                  <div class="clear">&nbsp;</div>
+                </dd>
+              </dl>
+            </li>
+		<tpl>/section</tpl>
+          </ul>
+        </div>
+		<tpl>/if</tpl>
+		<!-- end列表图示 -->
+		
+		<!-- start pic列表图示 -->
+		<tpl>if $smarty.get.list_type=='pic_list'</tpl>
+		<div class="picmode">
+          <ul>
+		  <tpl>section name=list loop=$brand_product</tpl>
+            <li>
+              <p class="thumb"><span><a href="product.php?id=<tpl>$brand_product[list].goods_id</tpl>" title="<tpl>$brand_product[list].goods_name</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$brand_product[list].goods_small_image</tpl>" alt="<tpl>$brand_product[list].goods_name</tpl>" /></a></span></p>
+              <p class="name"><a href="product.php?id=<tpl>$brand_product[list].goods_id</tpl>" title="<tpl>$brand_product[list].goods_name</tpl>"><tpl>$brand_product[list].goods_name</tpl></a></p>
+                  <div class="prix_0"><tpl>$brand_list_price_dear</tpl><!-- 市场价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$brand_product[list].goods_price*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 -->&nbsp;</div>
+                  <div class="prix_1"><tpl>$brand_list_price_cheap</tpl><!-- 网店价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$brand_product[list].goods_pricedesc*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></div>
+              <!-- <p class="prix_2">会员价:<span><tpl>$currencys_set.currencies_symbol</tpl>180</span></p> -->
+              <p>
+                  <div class="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$product_array[list].goods_id</tpl>"><span><tpl>$brand_list_add_fav</tpl><!-- 收藏 --></span></a></div>
+                  <div class="intocate"><a href="shopping.php?goods_id=<tpl>$product_array[list].goods_id</tpl>&goods_num=1"><span><tpl>$brand_list_buy</tpl><!-- 购买 --></span></a></div>
+              </p>
+            </li>
+			<tpl>/section</tpl>
+          </ul>
+        </div>
+		<tpl>/if</tpl>
+		<!-- end pic列表图示 -->
+		
+		<!-- start text列表图示 -->
+		<tpl>if $smarty.get.list_type=='text_list'</tpl>
+		<div class="textmode">
+          <ul>
+		  <tpl>section name=list loop=$brand_product</tpl>
+            <li>
+              <dl class="goodsintro">
+                <dt class="name"><a href="product.php?id=<tpl>$brand_product[list].goods_id</tpl>" title="<tpl>$brand_product[list].goods_name</tpl>"><tpl>$brand_product[list].goods_name</tpl></a></dt>
+                <dd class="prix">
+              <p class="prix_0"><tpl>$brand_list_price_dear</tpl><!-- 市场价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$brand_product[list].goods_price*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></p>
+              <p class="prix_1"><tpl>$brand_list_price_cheap</tpl><!-- 网店价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$brand_product[list].goods_pricedesc*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></p>
+                  <div class="clear">&nbsp;</div>
+                </dd>
+                <dd class="btns">
+                  <div class="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$product_array[list].goods_id</tpl>"><span><tpl>$brand_list_add_fav</tpl><!-- 收藏 --></span></a></div>
+                  <div class="intocate"><a href="shopping.php?goods_id=<tpl>$product_array[list].goods_id</tpl>&goods_num=1"><span><tpl>$brand_list_buy</tpl><!-- 购买 --></span></a></div>
+                </dd>
+              </dl>
+              <div class="clear">&nbsp;</div>
+            </li>
+			<tpl>/section</tpl>
+          </ul>
+        </div>
+		<tpl>/if</tpl>
+		<!-- end text列表图示 -->
+		
+        <div class="pages" style="margin-top:10px; margin-bottom:10px; margin-right:10px;" ><tpl>$product_brand_page</tpl></div>
+        <div class="clear"></div>
+      </div>
+      <div class="bottom">&nbsp;</div>
+    </div>
+    <!-- 最新商品:END -->
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  </div>
+  <!--右侧主体:END-->
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='footer.php'</tpl>
+<!--底部内容:END-->
+</body>
+</html>

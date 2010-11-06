@@ -1,0 +1,56 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langPriceAutoAddManage </tpl> &gt;&gt; <tpl> $langPriceList </tpl></div>
+				</div>
+			</div>
+			<form action="up_price.manage.php?action=update" id="form_del" name="form_del" method="post">
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysCSubmit </tpl></td>
+						<td class="es-4"><tpl> $langPriceAreaLowerLimit </tpl>~<tpl> $langPriceAreaUpperLimit </tpl></td>
+						<td class="es-2"><tpl> $langPriceAddExtent </tpl></td>
+					</tr>
+					<tpl> if $price_list[0].i_id neq '' </tpl>
+						<tpl> section name=loop loop=$price_list </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+						<input name="i_id[]" type="hidden" value="<tpl> $price_list[loop].i_id </tpl>"/>
+						<input name="del_id[]" type="checkbox" value="<tpl> $price_list[loop].i_id </tpl>"/></td>
+						<td>
+							<input class="fct-input" name="i_low[<tpl> $price_list[loop].i_id </tpl>]" value="<tpl> $price_list[loop].i_low </tpl>" type="text" maxlength="30" />~<input class="rt-input pbc" readonly="readonly" type="text" value="<tpl> $price_list[loop].i_high </tpl>" maxlength="9" />
+						</td>
+						<td>
+							<input class="fct-input-2" name="increment[<tpl> $price_list[loop].i_id </tpl>]" value="<tpl> $price_list[loop].increment </tpl>" type="text" maxlength="9" />
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $price_list[0].i_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+				<input class="bthl" name="" value="<tpl> $langPriceAdd </tpl>" type="button" onclick="$('#bianse').append('<tr class=\'es-td\'><td id=\'check-1\'></td><td><input class=\'fct-input\' type=\'text\' name=\'new_low[]\' value=\'0\' />~<input class=\'rt-input pbc\' readonly=\'readonly\' type=\'text\' title=\'<tpl> $langPriceAreaUpperLimit </tpl>\' value=\'<tpl> $langPriceAreaUpperLimit </tpl>\' /></td><td><input class=\'fct-input-2\' name=\'new_increment[]\' value=\'1\' type=\'text\' maxlength=\'2\' /></td><td></td></tr>');" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tool_ad_list</tpl></title><!-- 工具管理 - 广告列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body>
+<div id="content">
+	<h2><span class="alignRight"><a href="admin_tool_ad.php?action=add_ad" target="_self">{<tpl>$admin_tool_ad_add</tpl><!-- 添加广告 -->}</a><a href="admin_tool_ad.php?action=ad_area_list">{<tpl>$admin_tool_ad_poster_list</tpl><!-- 广告位列表 -->}</a></span><tpl>$admin_header_tools_manage</tpl> >> <tpl>$admin_tool_ad_list</tpl><!-- 工具管理 >> 广告列表 -->
+    	
+    </h2>
+    <div class="entry-body" id="p-list-div">
+      <form id="form1" name="form1" method="post" action="admin_tool_ad.php?action=del_ad">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="8" class="searchbar">
+            	<div class="alignRight">
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_code.gif" title="<tpl>$admin_tool_ad_js</tpl>" />:<tpl>$admin_tool_ad_js</tpl><!-- JS调用 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" />:<tpl>$admin_tool_ad_edit</tpl><!-- 编辑 --> 
+					<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" />:<tpl>$admin_tool_ad_del</tpl><!-- 删除 -->
+                </div>
+              <input type="submit" value="<tpl>$admin_tool_ad_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+            </td>
+          </tr>
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl>$admin_tool_ad_name</tpl><!-- 广告名称 --></th>
+            <th><tpl>$admin_tool_ad_position</tpl><!-- 广告位置 --></th>
+            <th><tpl>$admin_tool_ad_type</tpl><!-- 广告类型 --></th>
+            <th><tpl>$admin_tool_ad_start</tpl><!-- 开始时间 --></th>
+            <th><tpl>$admin_tool_ad_end</tpl><!-- 结束时间 --></th>
+            <th><tpl>$admin_tool_ad_view</tpl><!-- 浏览次数 --></th>
+            <th><tpl>$admin_tool_ad_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$ad_array</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" <tpl>if $ad_array[list].ad_id == 1</tpl> disabled <tpl>/if </tpl>name="ad_id[]" id="ad_id" value="<tpl>$ad_array[list].ad_id</tpl>" class="cb" />
+            </label></td>
+            <td><tpl>$ad_array[list].ad_title</tpl></td>
+            <td><tpl>$ad_array[list].position_name</tpl></td>
+            <td><tpl>$ad_array[list].ad_type</tpl></td>
+            <td><tpl>$ad_array[list].ad_starttime</tpl></td>
+            <td><tpl>$ad_array[list].ad_endtime</tpl></td>
+            <td><tpl>$ad_array[list].ad_view</tpl></td>
+            <td>
+            	<tpl>if $ad_array[list].shop_ad_type != 1</tpl><a href="admin_tool_ad.php?action=js_ad&ad_id=<tpl>$ad_array[list].ad_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_code.gif" title="<tpl>$admin_tool_ad_js</tpl>" /><!-- JS调用 --></a><tpl>/if</tpl> 
+            	<a href="admin_tool_ad.php?action=add_ad&ad_id=<tpl>$ad_array[list].ad_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_tool_ad_edit</tpl>" /><!-- 编辑 --></a> 
+            <tpl>if $ad_array[list].shop_ad_type != 1</tpl>
+            <a href="admin_tool_ad.php?action=del_ad&ad_id=<tpl>$ad_array[list].ad_id</tpl>" onclick="return confirm('<tpl>$admin_tool_ad_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_tool_ad_del</tpl>" /><!-- 删除 --></a>            
+            <tpl>/if</tpl>
+            </td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="8" class="searchbar">
+              <input type="submit" value="<tpl>$admin_tool_ad_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              <div class="pagebar"><tpl>$showpage</tpl></div></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

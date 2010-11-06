@@ -1,0 +1,32 @@
+<div>
+<DIV class="Title" style="background-image:url(<tpl> $template_dir </tpl>/home/images/standard_side_title172.gif); background-repeat:no-repeat; margin:0px; padding:0px; background-position:left 0px; font-family:'宋体'; font-size:12x; height:20px; line-height:20px"><h2><tpl> $langPBrowseBaby </tpl></h2></DIV>
+<div  style=" width:30px; display:block;float:left; height:100%;padding-left:40px; margin-left:auto; margin-right:auto"> 
+	<tpl> if $reviewed_product[0].p_code neq '' </tpl>
+	<UL>
+	<tpl> section name=loop loop=$reviewed_product </tpl>
+	<LI style="height:80px; text-align:center; margin-top:20px">
+		<tpl> if $ifhtml eq '1' && $reviewed_product[loop].html_url neq '' </tpl>
+		<a title="<tpl> $reviewed_product[loop].p_name </tpl>" target="_blank" href="<tpl> $reviewed_product[loop].html_url </tpl>">
+		<tpl> else </tpl>
+		<A title="<tpl> $reviewed_product[loop].p_name </tpl>"
+		href="product.php?action=view&pid=<tpl> $reviewed_product[loop].p_code </tpl>" 
+		target=_blank >
+		<tpl> /if </tpl>
+	<img width="50" height="50" border="0" src="<tpl> $site_url </tpl>/<tpl> $reviewed_product[loop].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" />
+
+	<b style=" width:100px; display:block; float:left"><tpl> $reviewed_product[loop].p_price </tpl></b></A>
+	<tpl> if $smarty.section.loop.rownum%2 eq 0 </tpl>
+	</LI>
+	<tpl> /if </tpl>
+	<tpl> /section </tpl>
+	</UL>
+	<DIV class="HackBox"></DIV>
+	<DIV class="ButtonBox" style="MARGIN-BOTTOM: 10px; width:120px; margin-left:auto; margin-right:auto; padding-left:8px">
+	<b style=" width:100px; margin-top:10px;display:block; float:left"><a href="product.php?action=compare&pcode=<tpl> $reviewed_code </tpl>" target="_blank">
+	<tpl> $langReviewedCompare|default:'$langReviewedCompare' </tpl></a> &nbsp;&nbsp;<A href="product.php?action=clean_reviewed"> <tpl> $langReviewedClean|default:'$langRClean' </tpl></A></b>
+</DIV>
+	<tpl> /if </tpl>
+	<div style="clear:both"></div>
+	</div>
+<div style="clear:both"></div>
+</div>

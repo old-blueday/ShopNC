@@ -1,0 +1,13 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langShopModuleUchomeTrend </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_1">
+		<ul>
+			<tpl> section name=loop loop=$uchome_trend </tpl>
+				<li><tpl>$uchome_trend[loop].datas</tpl></li>
+			<tpl> /section </tpl>
+		</ul>
+	</div>
+</div>

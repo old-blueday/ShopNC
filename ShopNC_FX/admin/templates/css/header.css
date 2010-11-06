@@ -1,0 +1,95 @@
+/*
+Style Name: Simple Blue
+Author: CY
+Email: cyishere@gmail.com
+Despriton: The default template for ShopNC Admin Panel.
+*/
+body {
+	font-size:12px;
+	color:#333;
+}
+a {
+	text-decoration:none;
+}
+#header {
+	background:#3266b0 url(../images/banner.gif) 0 0 repeat-x;
+	width:100%;
+	color:#fff;
+}
+#header a {
+	color:#fff;
+}
+#header_fuctions  {
+	margin-top:10px;
+	margin-right:20px;
+	font-size:14px;
+}
+#header_fuctions span {
+	display:block;
+	float:left;
+	margin:0 3px;
+}
+#header_fuctions span#lang_select {
+	margin-top:-2px;
+	margin-left:-3px;
+}
+#header_fuctions span#view_site a {
+	background:url(../images/view_site.gif) 0 no-repeat;
+	padding-left:18px;
+}
+#header_fuctions span#view_shopnc a {
+	background:url(../images/icon_view01.gif) 0 no-repeat;
+	padding-left:18px;
+}
+#header_fuctions span#clear_cache a {
+	background:url(../images/clear_cache.gif) 0 no-repeat;
+	padding-left:18px;
+}
+#header_fuctions span#logout a {
+	background:url(../images/icon_logout.gif) 0 no-repeat;
+	padding-left:18px;
+}
+#header_fuctions span#line_help a {
+	background:url(../images/line_help.gif) 0 no-repeat;
+	padding-left:18px;
+}
+#header_fuctions span a:hover {
+	color:#ccc;
+}
+ul#dashmenu {
+	background:#ececec;
+	border-bottom:1px solid #cecccd;
+	padding:0px 30px;
+}
+ul#dashmenu li {
+	display:inline;
+	line-height:28px;
+}
+ul#dashmenu li a {
+	display:block;
+	height:28px;
+	padding-right:16px;
+	float:left;
+	font-size:14px;
+	font-weight:bold;
+	color:#333;
+}
+ul#dashmenu li a span {
+	display:block;
+	padding-left:16px;
+	float:left;
+	cursor:pointer;
+}
+ul#dashmenu li.select a, ul#dashmenu li a:hover {
+	background:url(../images/nav_r.gif) right no-repeat;
+	color:#78abf1;
+}
+ul#dashmenu li.select a span, ul#dashmenu li a:hover span {
+	background:url(../images/nav_l.gif) left no-repeat;
+}
+ul#dashmenu li.select a {
+	color:#333;
+}
+ul#dashmenu li.select a:hover {
+	color:#78abf1;
+}

@@ -1,0 +1,41 @@
+<link href="<tpl> $template_dir </tpl>/home/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/header.css" rel="stylesheet" type="text/css" />
+<!-- Header -->
+<div id="header" class="m">
+  <!-- TopPart -->
+  <div id="toppart">
+    <!-- LOGO -->
+    <div id="logo"><a href="<tpl> $site_url </tpl>"><img src='<tpl> $Site_LOGO|default:"$template_dir/home/images/logo_2008.gif" </tpl>' alt="<tpl> $langCCommendShopNC </tpl>" /></a></div>
+    <!-- TopBar -->
+	<div id="quick_link_html"></div>
+	<!-- End TopPart -->
+  </div>
+</div>
+<!-- END Header -->
+<script language="javascript">
+//取语言包cookie
+var lang_type = $.cookie("<tpl> $cookie_pre </tpl>commonlangType");
+$("#sel_language").attr("value",lang_type);
+
+//多语言选择
+function changeLang(langTypeValue){
+	$.cookie("<tpl> $cookie_pre </tpl>commonlangType", langTypeValue);
+	window.location.reload();
+}
+</script>
+<script>
+//取会员导航快速链接
+function get_quickL_links(){
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/home/index.php",
+		data: 'action=getQuickLinks&ajax=1',
+		type:'get',
+		dataType:"html",
+		success: function(html){
+			$('#quick_link_html').html(html);
+		}
+	})
+}
+get_quickL_links();
+</script>

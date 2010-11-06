@@ -1,0 +1,17 @@
+<script language="javascript">
+/* 验证表单 */
+$(function(){
+	$("#form_alipay").validate({
+		event: "keyup",
+		errorClass: "wrong",
+		rules: {
+			partner: {required:true,number: true, minlength: 16,maxlength: 16},
+			security_code: {required:true, minlength: 32,maxlength: 32}
+		},
+		messages: {
+			partner: {required: "合作商ID格式不正确!",number: '合作商ID格式不正确!', minlength: 'ID必须为16位!',maxlength: 'ID必须为16位!'},
+			security_code: {required: "检验码格式不正确!", minlength: '检验码必须为32位!',maxlength: '检验码必须为32位!'}
+		}
+	});
+});
+</script>

@@ -1,0 +1,121 @@
+<script language='javascript'>
+// JavaScript Document
+$(function(){
+	$("#form_regist input[type='text'],#form1 input[@type='password'],textarea").addClass('input_onFocus');
+	$("#form_regist").validate({
+		errorClass: "wrong",
+		rules: {
+			txtloginname: {
+				required:true,
+				minlength:function(){
+					if(hanZiNum($('#txtloginname').val()) > 0){//有汉字的时候
+						return 2;
+					}else{
+						return 3;
+					}
+				},
+				maxlength:function(){
+					return 15-hanZiNum($('#txtloginname').val())*3+hanZiNum($('#txtloginname').val());
+				}
+			},
+			txtPassword: {required:true,minlength:6,maxlength:16},
+			txtcheckpassword: {required:true,minlength:6,maxlength:16,equalTo:'#txtPassword'},
+			txtemail: {required:true,email:true},
+			txtecheckmail: {required:true,email:true,equalTo:'#txtemail'},
+			code: {required:true},
+			txtZip: {number: true,min:100000,max:999999},
+			txtMobilephone: {number: true,min:10000000000,max:19999999999},
+			txtPhone: {number: true},
+			txtOtherphone: {number: true},
+			txtQQ: {number: true}
+		},
+		messages: {
+			txtloginname: {required: "<tpl>$errMUserName_Blank</tpl>",minlength: "<tpl>$errMUserName_MinLength</tpl>",maxlength: "<tpl>$errMUserName_MaxLength</tpl>"},
+			txtPassword: {required: "<tpl>$errMPassword_Blank</tpl>",minlength: "<tpl>$errMPassword_MinLength</tpl>",maxlength: "<tpl>$errMPassword_MaxLength</tpl>"},
+			txtcheckpassword: {required: "<tpl>$errMRePassword_Blank</tpl>",minlength: "<tpl>$errMRePassword_MinLength</tpl>",	maxlength: "<tpl>$errMRePassword_MaxLength</tpl>",equalTo:"<tpl>$errMRePassword_Wrong</tpl>"},
+			txtemail: {required: "<tpl>$errMEmail_Blank</tpl>",email: "<tpl>$errMEmail_Wrong</tpl>"},
+			txtecheckmail: {required: "<tpl>$errMEmail_Blank</tpl>",email: "<tpl>$errMEmail_Wrong</tpl>",equalTo:"<tpl>$errMReEmail_Wrong</tpl>"},
+			code: {required: "<tpl>$errMCodeWrong</tpl>"},
+			txtZip: {number: "<tpl> $errMPostIsNum </tpl>",min:"<tpl> $errMPostFormat </tpl>",max:"<tpl> $errMPostFormat </tpl>"},
+			txtMobilephone: {number: "<tpl> $errMMobileTelephoneIsNum </tpl>",min:"<tpl> $errMMobileTelephoneFormat </tpl>",max:"<tpl> $errMMobileTelephoneFormat </tpl>"},
+			txtPhone: {number: "<tpl> $errMPhoneIsNum </tpl>"},
+			txtOtherphone: {number: "<tpl> $errMPhoneIsNum </tpl>"},
+			txtQQ: {number: "<tpl> $errMQQIsNum </tpl>"}
+		}
+	});
+})
+
+//检测用户名是否可用
+function sub_name(){
+	var str_length = hanZiNum($('#txtloginname').val())*3+$('#txtloginname').val().length-hanZiNum($('#txtloginname').val());
+	if(str_length >= 3 && str_length <= 15){
+		$.ajax({
+			url: "member.php",
+			data: 'action=check&username='+escape($('#txtloginname').val()),
+			type:'post',
+			dataType:"html",
+			success: function(data){
+				if ('0'==data) {/* 没有被注册 */
+					$("#loginname_sign").html("<tpl>$altMUsernameVerified</tpl>");
+					$("#loginname_sign").css('display',"");
+				}else if ('1'==data) {/* 已经被注册 */
+					$("#loginname_exists").html("<tpl>$altMUsernameBeenRegistered</tpl>");
+					$("#loginname_exists").css('display',"");
+				}else {/* 条件不对 */
+					$("#loginname_exists").html(data);
+					$("#loginname_exists").css('display',"");
+				}
+			}
+		});
+	}
+}
+
+// 汉字数目
+function hanZiNum(str){
+	var arr = str.match(/[^\x00-\xff]/ig);
+	return arr == null ? 0 : arr.length;
+}
+
+
+//检测密码安全等级
+function checkPassword(pwd){
+
+	/*$('#pwdLow').addClass('pwd-strength-box');
+	$('#pwdMed').addClass('pwd-strength-box');
+	$('#pwdHi').addClass('pwd-strength-box');*/
+
+
+	var sRe=[/[a-zA-Z]/g,/\d/g,/[^a-zA-Z0-9]/g];
+	var sLe=[1,2,5];
+	var sFa=[0,0,10,20];
+	var iKn=0;
+	var iSt=0;
+	for(i=0;i<sRe.length;i++) {
+		var cMa=pwd.match(sRe[i]);
+		if(cMa!=null) {
+			iSt+=cMa.length*sLe[i];
+			iKn++;
+		}
+	}
+	iSt+=sFa[iKn];
+
+	if(iSt == 0){
+		$('#pwdLow').removeClass('pwd-strength-box-low');
+		$('#pwdMed').removeClass('pwd-strength-box-med');
+		$('#pwdHi').removeClass('pwd-strength-box-hi');
+	}else if(iSt>=20 && iSt<30){
+		$('#pwdLow').addClass('pwd-strength-box-low');
+		$('#pwdMed').addClass('pwd-strength-box-med');
+		$('#pwdHi').removeClass('pwd-strength-box-hi');
+	}else if(iSt>=30){
+		$('#pwdLow').addClass('pwd-strength-box-low');
+		$('#pwdMed').addClass('pwd-strength-box-med');
+		$('#pwdHi').addClass('pwd-strength-box-hi');
+	}else{
+		$('#pwdLow').addClass('pwd-strength-box-low');
+		$('#pwdMed').removeClass('pwd-strength-box-med');
+		$('#pwdHi').removeClass('pwd-strength-box-hi');
+	}
+
+}
+</script>

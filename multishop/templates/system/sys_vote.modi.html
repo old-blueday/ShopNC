@@ -1,0 +1,116 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langVoteInvestigateManage </tpl> &gt;&gt; <tpl> $langVoteModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form_add" name="form_add" method="post" action="vote.manage.php">
+						<input type="hidden" name="action" value="update" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langVoteLTitle </tpl>:</th>
+									<td><input name="txttitle" type="text" id="txttitle" class="fct-input" size="50" value="<tpl> $vote_array.vote_title </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteOption </tpl>:</th>
+									<td>
+										<table border="0" cellpadding="0" cellspacing="0">
+										  	<tr>
+										  	  <td></td>
+											  <td><tpl> $langVoteNum </tpl></td>
+											  <td><tpl> $langVoteDisGradation </tpl></td>
+											  <td>&nbsp;</td>
+											</tr>
+										  <tbody id="aaaa">
+										  	<tpl> foreach from=$vote_array.content key=key item=one </tpl>
+										  		<tr>
+										  			<td><input type="text" class="fct-input" size="30" name="vote_content[]" value="<tpl> $one.option </tpl>" /></td>
+													<td><input type="text" class="fct-input-2" size="10" name="vote_content_num[]" value="<tpl> $one.num </tpl>" /></td>
+													<td><input type="text" class="fct-input-2" size="10" name="vote_order[]" value="<tpl> $key </tpl>" /></td>
+													<td><input type="button" class="bthl" value="<tpl> $langVoteLDelete </tpl>" onclick="deleteRow(this)" /></td>
+												</tr>
+											<tpl> /foreach </tpl>
+										  </tbody>
+										  <tr><td colspan="4"><input type="button" value="<tpl> $langVoteNewAddRow </tpl>" id="add_button" class="bthl" onclick="$('#aaaa').append('<tr><td><input class=\'fct-input\' type=\'text\' name=\'vote_content[]\' size=\'30\' /></td><td><input class=\'fct-input-2\' type=\'text\' name=\'vote_content_num[]\' size=\'10\' value=\'0\' /></td><td><input class=\'fct-input-2\' name=\'vote_order[]\' type=\'text\' size=\'10\' /></td></tr>');numRow();"/></td></tr>
+								  		</table>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteLIfRepeat </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtrefresh" id="txtrefresh_1" value="1" <tpl> if $vote_array.vote_refresh eq '1' </tpl> checked="checked" <tpl> /if </tpl> /><label for="txtrefresh_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtrefresh" id="txtrefresh_0" value="0" <tpl> if $vote_array.vote_refresh eq '0' </tpl> checked="checked" <tpl> /if </tpl> /><label for="txtrefresh_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteLIfMemberCan </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtmember" id="txtmember_1" value="1" <tpl> if $vote_array.vote_member eq '1' </tpl> checked="checked" <tpl> /if </tpl> /><label for="txtmember_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtmember" id="txtmember_0" value="0" <tpl> if $vote_array.vote_member eq '0' </tpl> checked="checked" <tpl> /if </tpl> /><label for="txtmember_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteLIfManySelect </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtcheck" id="txtcheck_1" value="1" <tpl> if $vote_array.vote_check eq '1' </tpl> checked="checked" <tpl> /if </tpl> /><label for="txtcheck_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtcheck" id="txtcheck_0" value="0" <tpl> if $vote_array.vote_check eq '0' </tpl> checked="checked" <tpl> /if </tpl> /><label for="txtcheck_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteDisGradation </tpl>:</th>
+									<td><input type="text" name="txtsort" id="txtsort" maxlength="9" class="fct-input" value="<tpl> $vote_array.vote_sort </tpl>" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='vote.manage.php?action=list&curpage=<tpl> $curpage </tpl>'" />
+							<input type="hidden" name="vote_num" id="vote_num"/>
+			 				<input type="hidden" name="vote_id" value="<tpl> $vote_array.vote_id </tpl>" />
+			 				<input type="hidden" name="curpage" value="<tpl> $curpage </tpl>" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txttitle: {required:true}
+		},
+		messages: {
+			txttitle: {required:"<tpl> $langVoteLTopicNotNull </tpl>"}
+		}
+	});
+})
+//del
+function deleteRow(elem) {
+  // Which one first caught 'tr'
+  var row = $(elem).parent().parent();
+  // Remove it
+  row.fadeOut('normal', function() {
+    row.remove();
+  });
+}
+//Calculate the number of columns of information
+function numRow(){
+	var num = $('#aaaa').children('tr').length;
+	$('#vote_num').val(num);
+}
+numRow();
+</script>

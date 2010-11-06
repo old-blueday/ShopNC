@@ -1,0 +1,138 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langPreManage </tpl> &gt;&gt; <tpl> $langPreBaseInfo </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th colspan="4"><tpl> $langPreBaseInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langPreDetailType </tpl>:</th>
+									<td>
+										<tpl> assign var=one value=$detail_array.predeposit_type </tpl>
+										<tpl> $detail_type[$one] </tpl>
+									</td>
+									<th><tpl> $langPreState </tpl>:</th>
+									<td>
+										<tpl> assign var=one value=$detail_array.predeposit_state </tpl>
+										<tpl> $detail_state[$one] </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreSearchMemberName </tpl>:</th>
+									<td><tpl> $member_array.login_name </tpl></td>
+									<th><tpl> $langPreAvailableUpdate </tpl>:</th>
+									<td><tpl> if $detail_array.available_amount > 0 </tpl>+<tpl> /if </tpl><tpl> $detail_array.available_amount </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreFreezeUpdate </tpl>:</th>
+									<td><tpl> if $detail_array.freeze_amount > 0 </tpl>+<tpl> /if </tpl><tpl> $detail_array.freeze_amount </tpl></td>
+									<th><tpl> $langPreMemberRemark </tpl>:</th>
+									<td><tpl> $detail_array.member_remark|default:$langPreNothing </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPrePayment </tpl>:</th>
+									<td>
+										<tpl> if $detail_array.payment eq 'offline' </tpl><!-- Line Down -->
+											<tpl> $langPreCashTypeOffline </tpl>
+										<tpl> else </tpl>
+											<tpl> if $detail_array.payment eq 'alipay' </tpl>
+												<tpl> $langPreCashTypeAlipay </tpl>
+											<tpl> /if </tpl>
+											<tpl> if $detail_array.payment eq 'tenpay' </tpl>
+												<tpl> $langPreCashTypeTenpay </tpl>
+											<tpl> /if </tpl>
+											<tpl> if $detail_array.payment eq '99bill' </tpl>
+												<tpl> $langPreCashTypeKqpay </tpl>
+											<tpl> /if </tpl>
+											<tpl> if $detail_array.payment eq '' </tpl>
+												<tpl> $langPreNothing </tpl>
+											<tpl> /if </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langPreCashSystemRemark </tpl>:</th>
+									<td><tpl> $detail_array.system_remark </tpl></td>
+								</tr>
+								<tpl> if $detail_array.to_member_id neq '' </tpl>
+								<tr>
+									<th colspan="4"><tpl> $langPreBusinessInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langPreDetailToMemberName </tpl>:</th>
+									<td><tpl> $to_member_array.login_name </tpl></td>
+									<th><tpl> $langPreDetailSpcode </tpl>:</th>
+									<td><tpl> $detail_array.sp_code </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tpl> if $detail_array.predeposit_r_id neq '' </tpl>
+								<tr>
+									<th colspan="4"><tpl> $langPrePayInfo </tpl></th>
+								</tr>
+								<tr>
+									<th><tpl> $langPrePayment </tpl>:</th>
+									<td>
+										<tpl> if $record_array.payment eq '99bill' </tpl>
+											<tpl> $langPreCashTypeKqpay </tpl>
+										<tpl> else </tpl>
+											<tpl> $record_array.payment </tpl>
+										<tpl> /if </tpl>
+									</td>
+									<th><tpl> $langPreCashCreateTime </tpl>:</th>
+									<td><tpl> $record_array.create_time </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreState </tpl>:</th>
+									<td colspan="3">
+									<tpl> assign var=one value=$record_array.record_state </tpl>
+									<tpl> $predeposit_record_state[$one] </tpl></td>
+								</tr>
+								<tpl> if $record_array.payment_type eq '1' </tpl>
+								<tr>
+									<th><tpl> $langPreReceptPayName </tpl>:</th>
+									<td><tpl> $record_array.pay_name </tpl></td>
+									<th><tpl> $langPreReceptPayAccount </tpl>:</th>
+									<td><tpl> $record_array.pay_account </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreReceptPayConsignee </tpl>:</th>
+									<td><tpl> $record_array.pay_consignee </tpl></td>
+									<th><tpl> $langPreSenderName </tpl>:</th>
+									<td><tpl> $record_array.sender_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreSenderBank </tpl>:</th>
+									<td><tpl> $record_array.sender_bank </tpl></td>
+									<th><tpl> $langPreSenderAmount </tpl>:</th>
+									<td><tpl> $record_array.sender_amount </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPreSenderDate </tpl>:</th>
+									<td><tpl> $record_array.sender_date </tpl></td>
+									<th><tpl> $langPreSenderDate </tpl>:</th>
+									<td><tpl> $record_array.sender_remark </tpl></td>
+								</tr>
+								<tpl> /if </tpl>
+								<tpl> /if </tpl>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

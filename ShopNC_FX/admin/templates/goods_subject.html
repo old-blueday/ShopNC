@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_goods_subject_list </tpl></title><!-- 商品主题分类列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script language="javascript">
+/* 展开/关闭移动 */
+function showMove(id){
+	if($("#move_open_state"+id).val() == '0') {
+		$("#move"+id).css("display","");
+		$("#move_open_state"+id).attr("value",'1');
+	} else {
+		$("#move"+id).css("display","none");
+		$("#move_open_state"+id).attr("value",'0');
+	}
+}
+/* 移动操作提交处理 */
+function moveSubmit(id){
+	$("#action").attr("value",'goods_subject_move');
+	$("#old_subject_id").attr("value",id);
+	$("#form").submit();
+}
+
+/* 对删除打开有，里面的下拉分类进行反灰显示与正常显示间的切换 */
+function select_class_display(select_id,select_state) {
+	if(select_state == 0) {
+		$("#del_goods_subject"+select_id).attr('disabled','disabled');
+	} else{
+		$("#del_goods_subject"+select_id).attr('disabled','');
+	}
+}
+
+/* 显示/关闭删除菜单 */
+function showDel(id){
+	if($("#open_state"+id).val() == '0') {
+		$("#del"+id).css("display","");
+		$("#open_state"+id).attr("value",'1');
+		$("#del_goods_subject"+id).attr('disabled','disabled');
+		$("input[@type=radio][@value=1]").attr("checked",'checked'); 
+	} else {
+		$("#del"+id).css("display","none");
+		$("#open_state"+id).attr("value",'0');
+	}
+}
+/* 删除操作执行 */
+function selectDel(id){
+	var value = $("input[@name=delsubject"+id+"][@checked]").val();
+	$("#action").attr("value",'goods_subject_del');
+	$("#old_subject_id").attr("value",id);
+	$("#select").attr("value",value);
+	$("#form").submit();
+}	
+
+/* 修改品牌状态 */
+function nc_state_update(subject_id,ajax_type,old_state,id) {
+	$.get('admin_goods_subject.php',{'action':'subject_ajax','ajax_type':ajax_type,'old_state':old_state,'subject_id':subject_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+</script>
+<style type="text/css">
+body {
+	font-size:12px;
+}
+</style>
+</head>
+
+<body>
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_goods_subject.php?action=add_goods_subject" target="_self">{<tpl> $admin_goods_subject_add </tpl>}</a></span><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --> >><tpl> $admin_goods_subject_list </tpl></h2> <!-- 商品主题列表 -->
+    	
+    <div class="entry-body" id="p-list-div">
+    <form id="form" name="form" action="admin_goods_subject.php" method="post">
+	    <input type="hidden" name="action" id="action" value="goods_subject_del"/>
+        <input type="hidden" name="old_subject_id" id="old_subject_id"/>
+		<input type="hidden" name="select" id="select" />
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+		  <td  colspan="7" class="searchbar">
+		  <div class="alignRight">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_switch.gif" />:<tpl>$admin_goods_class_list_move_goods</tpl><!--  转移商品  -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/>:<tpl>$admin_goods_class_list_deit</tpl><!--  编辑  -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" />:<tpl>$admin_goods_class_list_del</tpl><!--  删除  -->   
+			 </div>
+			 <input type="submit" value="<tpl> $admin_goods_subject_list_del </tpl>" class="delBtnInput" />
+			 </td>
+          </tr>
+          <tr>
+            <th class="textLeft"><input type="checkbox" name="all" id="all" /></th>
+            <th class="textLeft"><tpl> $admin_goods_subject_list_name </tpl><!-- 主题名称 --></th>
+            <th><tpl> $admin_goods_subject_list_ifput </tpl><!-- 是否发布 --></th>
+            <th><tpl> $admin_goods_subject_list_order </tpl><!-- 主题排序 --></th>
+            <th><tpl> $admin_goods_subject_list_logo </tpl><!-- 主题图片 --></th>
+            <th><tpl> $admin_goods_subject_list_goods </tpl><!-- 商品数量 --></th>
+            <th><tpl> $admin_goods_subject_list_oper </tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=i loop=$subject_array </tpl>
+          <tr>
+            <td class="textLeft"><label>
+            <input type="checkbox" name="sid[]" id="sid[]" value="<tpl> $subject_array[i].subject_id </tpl>" class="cb" />
+            </label></td>
+            <td width="25%" class="textLeft"><tpl> $subject_array[i].subject_name </tpl></td>
+            <td width="15%"><span id="state_<tpl> $subject_array[i].subject_id </tpl>"><a onclick="nc_state_update('<tpl> $subject_array[i].subject_id </tpl>','subject_state','<tpl> $subject_array[i].subject_state </tpl>','state_<tpl> $subject_array[i].subject_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $subject_array[i].subject_state </tpl>.gif" alt='<tpl>$admin_goods_subject_click_update</tpl>' title='<tpl>$admin_goods_subject_click_update</tpl>' /></a></span></td>
+            <td width="15%"><tpl> $subject_array[i].subject_sort </tpl></td>
+            <td><tpl> if $subject_array[i].subject_image!='' </tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $subject_array[i].subject_image </tpl>" width='80' height='30' /><tpl> else </tpl>  <tpl> $admin_goods_subject_image_null </tpl> <tpl> /if </tpl></td>
+            <td width="20%"><tpl>$subject_array[i].goods_count</tpl></td>
+            <td width="15%"><a href="#" onclick="showMove(<tpl>$subject_array[i].subject_id</tpl>)"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_switch.gif" alt="<tpl> $admin_goods_class_list_move_goods </tpl>" title="<tpl> $admin_goods_class_list_move_goods </tpl>" /></a>&nbsp;
+            	<a href="admin_goods_subject.php?action=add_goods_subject&subject_id=<tpl> $subject_array[i].subject_id </tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" alt="<tpl> $admin_goods_subject_list_eidt </tpl>" title="<tpl> $admin_goods_subject_list_eidt </tpl>" /></a>&nbsp;
+            	<a href="#" onclick="showDel(<tpl>$subject_array[i].subject_id</tpl>)"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" alt="<tpl> $admin_goods_subject_list_del </tpl>" title="<tpl> $admin_goods_subject_list_del </tpl>" /></a></td>
+          </tr>
+          <tr id="move<tpl>$subject_array[i].subject_id</tpl>" class="mfunctions" style="display:none">
+          	<td colspan="7"><tpl>$admin_goods_class_list_shall</tpl><!-- 将 --><font color="red"><tpl>$subject_array[i].subject_name</tpl></font><tpl>$admin_goods_subject_list_move</tpl><!-- 转移到 -->
+          	  <tpl>$subject_array[i].move_subject</tpl>
+          	  <input type="button" name="button2" id="button2" class="btnInput" value="<tpl>$admin_goods_subject_move_submit</tpl>" onclick="moveSubmit(<tpl>$subject_array[i].subject_id</tpl>)" /><!-- 确定 -->&nbsp;&nbsp;&nbsp;
+          	  <input type="button" name="button3" id="button3" class="btnInput" value="<tpl>$admin_goods_subject_close</tpl>" onclick="showMove(<tpl>$subject_array[i].subject_id</tpl>)" /><!-- 取消 -->
+			  <input type="hidden" name="move_open_state<tpl>$subject_array[i].subject_id</tpl>" id="move_open_state<tpl>$subject_array[i].subject_id</tpl>" value="0" /></td>
+          </tr>
+			<tr id="del<tpl>$subject_array[i].subject_id</tpl>" class="mfunctions" style="display:none">
+          	<td colspan="5">&nbsp;</td>
+			<td colspan="2" class="mfunctions" style="text-align:left">
+                  <input type="radio" name="delsubject<tpl>$subject_array[i].subject_id</tpl>" id="delclass<tpl>$subject_array[i].subject_id</tpl>" value="1" onclick="select_class_display('<tpl>$subject_array[i].subject_id</tpl>',0)" checked /> <tpl>$admin_goods_class_list_del</tpl><!-- 删除 --><font color="red"><tpl>$subject_array[i].subject_name</tpl></font><tpl>$admin_goods_subject_list_del1</tpl><!-- 包括 -->
+                	<br /><input type="radio" name="delsubject<tpl>$subject_array[i].subject_id</tpl>" id="delclass<tpl>$subject_array[i].subject_id</tpl>" value="2" onclick="select_class_display('<tpl>$subject_array[i].subject_id</tpl>',1)" />
+               	     <tpl>$admin_goods_brand_list_del</tpl><!-- 删除 --><font color="red"><tpl>$subject_array[i].subject_name</tpl></font><tpl>$admin_goods_subject_list_del2</tpl>
+					 <br /><tpl>$subject_array[i].del_subject</tpl>
+                    <input type="button" name="button" id="button" class="btnInput" value="<tpl>$admin_goods_subject_del_submit</tpl>" onclick="selectDel(<tpl>$subject_array[i].subject_id</tpl>)" /><!-- 确定 -->&nbsp;&nbsp;&nbsp;
+                      <input type="button" name="button4" id="button4" class="btnInput" value="<tpl>$admin_goods_subject_close</tpl>" onclick="showDel(<tpl>$subject_array[i].subject_id</tpl>)" /><!-- 取消 -->
+                   <input type="hidden" name="open_state<tpl>$subject_array[i].subject_id</tpl>" id="open_state<tpl>$subject_array[i].subject_id</tpl>" value="0" />
+            </td>
+          </tr>
+		  <tpl> /section </tpl>
+          <tr>
+		  <td  colspan="7" class="searchbar">
+		  <div class="alignRight">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_switch.gif" />:<tpl>$admin_goods_class_list_move_goods</tpl><!--  转移商品  -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif"/>:<tpl>$admin_goods_class_list_deit</tpl><!--  编辑  -->
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" />:<tpl>$admin_goods_class_list_del</tpl><!--  删除  -->   
+			 </div>
+			 <input type="submit" value="<tpl> $admin_goods_subject_list_del </tpl>" class="delBtnInput" />
+			 </td>
+          </tr>
+        </table>
+    </form>
+    	<div class="clear"></div>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

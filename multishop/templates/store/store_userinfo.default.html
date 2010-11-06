@@ -1,0 +1,11 @@
+<tpl> $shop_info.shop_intro </tpl>
+<tpl> $shop_info.login_name </tpl>
+<tpl> $langSIntroBasic </tpl>
+<tpl> $langSIntroBaby </tpl>:<a href="<tpl> $site_url </tpl>/home/product.php?action=textlist&member=<tpl> $shop_info.member_id </tpl>"><tpl> $langSIntroSaleBaby </tpl></a>
+<tpl> $langSIntroPlace </tpl>:
+	<tpl> section name=loop loop=$sel_area </tpl>
+		<tpl> $sel_area[loop].area_name </tpl>
+	<tpl> /section </tpl>
+<tpl> $langSIntroRegTime </tpl>:<tpl> $shop_info.regist_time </tpl>
+<tpl> $langSIntroAffiliation </tpl>
+<tpl> $langSIntroCorrespondence </tpl>:<a href="<tpl> $site_url </tpl>/member/own_message.php?action=add&username=<tpl>$frame_shop_info.login_name</tpl>" target="_blank"><tpl> $langSIntroSendCorrespondence </tpl></a>

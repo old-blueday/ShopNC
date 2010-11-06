@@ -1,0 +1,26 @@
+<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+	<tr>
+		<th><tpl> $langSysShopPaySelOperate </tpl>:</th>
+		<td>
+			<input type="radio" class="input_radio" name="sel_operate" id="sel_operate_0" value="0" checked="checked" onclick="$('#tr_second_art').css('display','');$('#tr_second_mode').css('display','none');$('#tr_second_label').css('display','');" /><label for="sel_operate_0"><tpl> $langSysShopPaySelOperateArt </tpl></label>
+			<input type="radio" class="input_radio" name="sel_operate" id="sel_operate_1" value="1" onclick="$('#tr_second_art').css('display','none');$('#tr_second_mode').css('display','');$('#tr_second_label').css('display','none');" /><label for="sel_operate_1"><tpl> $langSysShopPaySelOperateMode </tpl></label>
+		</td>
+	</tr>
+	<tr id="tr_second_art">
+		<th></th>
+		<td>
+			<tpl> $langSysShopPayProductNumberAdd </tpl>(<tpl> $langSysShopPayModeUnitGe </tpl>):<input type="text" name="product_number" id="product_number" class="fct-input" maxlength="9" /><br />
+			<tpl> $langSysShopPayShopUseTimeAdd </tpl>(<tpl> $langSysShopPayModeUnitDay </tpl>):<input type="text" name="shop_time" id="shop_time" class="fct-input" maxlength="9" />
+		</td>
+	</tr>
+	<tr id="tr_second_mode" style="display:none">
+		<th></th>
+		<td>
+			<select name="mode_id" id="mode_id">
+				<tpl> section name=loop loop=$mode_array </tpl>
+					<option value="<tpl> $mode_array[loop].mode_id </tpl>"><tpl> $mode_array[loop].mode_name </tpl></option>
+				<tpl> /section </tpl>
+			</select>
+		</td>
+	</tr>
+</table>

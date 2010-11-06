@@ -1,0 +1,127 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langPreManage </tpl> &gt;&gt; <tpl> $langPreList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="predeposit.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" id="action" value="detail_list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langPreSearchMemberName </tpl>:</th>
+								<td class="it-1">
+									<input class="fct-input" value="<tpl> $condition.search_member_name </tpl>" name="search_member_name" type="text" />
+								</td>
+								<th class="wd"><tpl> $langPreDetailType </tpl>:</th>
+								<td class="it-2" colspan="2">
+									<select name="search_detail_type">
+										<option value=""></option>
+										<option <tpl> if $condition.search_record_type eq '0' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeZero </tpl></option>
+										<option <tpl> if $condition.search_record_type eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeOne </tpl></option>
+										<option <tpl> if $condition.search_record_type eq '2' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeTwo </tpl></option>
+										<option <tpl> if $condition.search_record_type eq '3' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeThree </tpl></option>
+										<option <tpl> if $condition.search_record_type eq '4' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeFour </tpl></option>
+										<option <tpl> if $condition.search_record_type eq '5' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeFive </tpl></option>
+										<option <tpl> if $condition.search_record_type eq '6' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langPreDetailTypeSix </tpl></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langPreDetailCreateTime </tpl>:</th>
+								<td class="it-5" colspan="3">
+									<input class="fct-input" readonly="readonly" value="<tpl> $condition.search_start_date </tpl>" name="search_start_date" id="search_start_date" type="text" />
+									<tpl> $langPreSearchTo </tpl>
+									<input class="fct-input" readonly="readonly" value="<tpl> $condition.search_end_date </tpl>" name="search_end_date" id="search_end_date" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langPreState </tpl>:</th>
+								<td class="it-2" colspan="3">
+									<select name="search_detail_state">
+										<option value=""></option>
+										<option <tpl> if $condition.search_detail_state eq '0' </tpl>selected="selected"<tpl> /if </tpl> value="0"><tpl> $langPreDetailStateZero </tpl></option>
+										<option <tpl> if $condition.search_detail_state eq '1' </tpl>selected="selected"<tpl> /if </tpl> value="1"><tpl> $langPreDetailStateOne </tpl></option>
+										<option <tpl> if $condition.search_detail_state eq '2' </tpl>selected="selected"<tpl> /if </tpl> value="2"><tpl> $langPreDetailStateTwo </tpl></option>
+									</select>
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-2"><tpl> $langPreDetailCreateTime </tpl></td>
+						<td class="es-4"><tpl> $langPreDetailUpdateTime </tpl></td>
+						<td class="es-5"><tpl> $langPreMemberAvailable </tpl></td>
+						<td class="es-2"><tpl> $langPreMemberFreeze </tpl></td>
+						<td class="es-5"><tpl> $langPreState </tpl></td>
+						<td class="es-2"><tpl> $langPreAction </tpl></td>
+					</tr>
+					<tpl> if $detail_array[0].predeposit_id neq '' </tpl>
+						<tpl> section name=loop loop=$detail_array </tpl>
+					<tr class="es-td">
+						<td><tpl> $detail_array[loop].create_time </tpl></td>
+						<td><tpl> $detail_array[loop].update_time </tpl></td>
+						<td>
+							<tpl> if $detail_array[loop].available_amount > 0 </tpl>+<tpl> /if </tpl>
+							<tpl> $detail_array[loop].available_amount </tpl>
+						</td>
+						<td>
+							<tpl> if $detail_array[loop].freeze_amount > 0 </tpl>+<tpl> /if </tpl>
+							<tpl> $detail_array[loop].freeze_amount </tpl>
+						</td>
+						<td>
+							<tpl> assign var=one value=$detail_array[loop].predeposit_state </tpl>
+							<tpl> $detail_state[$one] </tpl>
+						</td>
+						<td><a href="predeposit.manage.php?action=detail_view&id=<tpl> $detail_array[loop].predeposit_id </tpl>"><tpl> $langPreView </tpl></a></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $detail_array[0].predeposit_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $detail_array[0].predeposit_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	$('#search_start_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	$('#search_end_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+</script>
+</body>
+</html>

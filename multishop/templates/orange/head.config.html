@@ -1,0 +1,29 @@
+<!-- 以下版权信息不能去除，否则程序无法运行 -->
+<title><tpl> $title_message </tpl><tpl>$HtmlTitle</tpl></title>
+<meta name="KEYWords" content="<tpl> $Meta_keyword </tpl><tpl> $keyword_message </tpl>" />
+<meta name="DEscription" content="<tpl> $Meta_desc </tpl><tpl> $desc_message </tpl>" />
+<meta name="author" content="Shopnc UI Team" />
+<meta name="Robots" content= "all" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link href="<tpl> $site_url </tpl><tpl> $templatepath </tpl>/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.cookie.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/index.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.pngFix.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.scroll1.js"></script>
+<script type=text/javascript>
+	$(function(){$('#logo').pngFix();});
+</script>
+<script>
+//搜索编码
+function makeEscape(str){
+	var str=escape(str);
+	window.open('product.php?action=list&lang=zh&keyword='+str);
+}
+//判断统计路径的标识，1为非静态页面
+var js_statics_sign=1;
+</script>
+<!-- 统计代码 -->
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/statics.js?url=<tpl> $site_url </tpl>"></script>
+<!-- 以上版权信息不能去除，否则程序无法运行 -->

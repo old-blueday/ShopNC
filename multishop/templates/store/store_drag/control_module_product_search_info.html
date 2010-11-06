@@ -1,0 +1,11 @@
+<tpl> section name=loop loop=$product_array </tpl>
+<tr id="product_search_info_tr">
+	<td align="left"><tpl> $product_array[loop].p_name </tpl></td>
+	<td align="left">
+		<input type="text" size="4" name="p_sort[<tpl> $product_array[loop].p_id </tpl>]" id="p_sort_<tpl> $product_array[loop].p_id </tpl>" value="<tpl> $product_array[loop].p_order </tpl>" class="fct-input-2" />
+		<input type="hidden" name="p_id[<tpl> $product_array[loop].p_id </tpl>]" id="p_id_<tpl> $product_array[loop].p_id </tpl>" value="<tpl> $product_array[loop].p_id </tpl>" />
+	</td>
+	<td align="left">
+		<a href="javascript:;" onclick="var row=jquery(this).parent().parent();row.fadeOut('normal', function() {row.remove();});" title="<tpl> $langCdele </tpl>"><tpl> $langCdele </tpl></a>
+	</td>
+</tr>	<tpl> /section </tpl>

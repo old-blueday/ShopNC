@@ -1,0 +1,560 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc-3">
+    <div id="yui-main">
+        <div id="yui-g">
+            <div id="divinbox">
+                <!-- 导航容器 -->
+                <div class="gtlbar">
+                    <!-- 顶部面包屑导航 -->
+                    <div class="gtlbar-left"><tpl> $langSysAllManage </tpl> &gt;&gt; <tpl> $langSysProductEdit </tpl></div>
+                </div>
+
+                <div class="ctge">
+                    <!-- 淡蓝色背景 -->
+                    <div class="ctge-1">
+                        <!-- 表单 -->
+                        <form action="product_countdown.manage.php" method="post"  enctype="multipart/form-data" name="ownaddproduct" id="ownaddproduct">
+
+                        <input type="hidden" name="action" value="update_test" />
+                        <input type="hidden" name="p_code" value="<tpl>$product_array.p_code</tpl>" />
+                        <!-- 发布这件商品的会员id -->
+                        <input type="hidden" name="member_id" value="<tpl>$product_array.member_id</tpl>" />
+                        <!-- 这件商品上传了几张图片 -->
+                        <input type="hidden" name="pic_num" value="<tpl>$pic_num|default:0</tpl>" />
+                        <!-- 商品分类Id -->
+                        <input type="hidden" name="slPCId" value="<tpl>$slPCId</tpl>" />
+
+                        <div class="ctge-1-1">
+                            <table cellSpacing="0" cellPadding="0" class="fct" border="0">
+                                <!-- 交易类型 -->
+                                <tr>
+									<th><tpl> $langSysBuyType </tpl>:</th>
+									<td>
+										<input type="radio" disabled="disabled" checked="checked" /><label><tpl> $langSysMenuPromotionsCountDown </tpl></label>
+									</td>
+								</tr>
+                                <!-- 宝贝分类 -->
+                                <tr>
+									<th><tpl> $langSysProductCate </tpl>:</th>
+									<td>
+										<div id="pc_id_originality" style="display:''">&nbsp;
+									     	<tpl> foreach item = cate_path from = $cate_path </tpl>
+									     		<tpl>$cate_path.name|replace:'&nbsp;':''</tpl> >
+									     	<tpl>/foreach</tpl>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<input type="button" id="edit_button" class="bthl" value="<tpl> $langSysEdit </tpl>" onclick="javascript:editstate();"/>
+								    	</div>
+								    	<div id="pc_id_edit" style="display:none">
+									        <select name="pc_c1" id="pc_c1" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);">
+										        <option value=""></option>
+										        <tpl> foreach item = parent from = $ProductCateArray </tpl>
+										        <option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>" ><tpl>$parent.name</tpl></option>
+										        <tpl> /foreach </tpl>     
+									        </select>
+									        <select name="pc_c2" id="pc_c2" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);"></select>
+									        <select name="pc_c3" id="pc_c3" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);"></select>
+									        <select name="pc_c4" id="pc_c4" style="WIDTH: 110px" onchange="ajax_get_attribute(this.value);"></select>
+									        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									        <input type="button" class="bthl" id="cancel_edit_button" value="<tpl> $langSysCancelEdit </tpl>" onclick="canceledit()" />
+								        </div>
+									</td>
+								</tr>
+                                <!-- 宝贝类型 -->
+                                <tr>
+									<th><tpl> $langSysProductType </tpl>:</th>
+									<td>
+										<input type="radio" value="0" id="on1" name="radioType" <tpl> if $product_array.p_type == 0 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="on1"><tpl> $langPnew </tpl></label>
+										<input type="radio" value="1" id="on6" name="radioType" <tpl> if $product_array.p_type == 1 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="on6"><tpl> $langPold </tpl></label>
+						                <span id="restOn8"><input type="radio" value="2" name="radioType" id="on8" <tpl> if $product_array.p_type == 2 </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="on8"><tpl> $langPnouse </tpl></label></span>
+									</td>
+								</tr>
+                                <!-- 宝贝其他属性 -->
+                                <tpl> if $have_attribute == 1 </tpl>
+								<tr id="baby">
+									<th><tpl> $langSysProductAttribute </tpl>:</th>
+									<td>
+										<table cellSpacing="0" cellPadding="0" border="0">
+										<tpl> foreach from=$product_attribute item=one </tpl>
+											<tr>
+												<td><tpl> $one.a_name </tpl>:
+													<tpl> if $one.a_type == 0 </tpl>
+														<select name="attribute_content[]">
+															<option value=""></option>
+															<tpl> foreach from=$one.content item=two </tpl>
+																<option value="<tpl> $two.ac_id </tpl>|<tpl> $two.a_id </tpl>" <tpl> if $two.ischecked eq 1 </tpl> selected <tpl> /if </tpl> ><tpl> $two.ac_content </tpl></option>
+															<tpl> /foreach </tpl>
+														</select>
+													<tpl> /if </tpl>
+													<tpl> if $one.a_type == 1 </tpl>
+														<tpl> foreach from=$one.content item=two </tpl>
+															<input name="attribute_content[]" id="attribute_content_<tpl> $two.ac_id </tpl>" class="input_radio" type="checkbox" value="<tpl> $two.ac_id </tpl>|<tpl> $two.a_id </tpl>" <tpl> if $two.ischecked eq 1 </tpl> checked <tpl> /if </tpl> ><label for="attribute_content_<tpl> $two.ac_id </tpl>"><tpl> $two.ac_content </tpl></label>
+														<tpl> /foreach </tpl>
+													<tpl> /if </tpl>
+												</td>
+											</tr>
+										<tpl> /foreach </tpl>
+										</table>
+									</td>
+								</tr>
+								<tpl> /if </tpl>
+                                <!-- 宝贝品牌 -->
+                                <tr>
+									<th><label for='txtPname'><tpl> $langSysPBrand </tpl>:</label></th>
+									<td>
+										<input type="hidden" name="brand_id" id="brand_id" value="<tpl> $product_array.p_brand_id </tpl>" />
+							        	<select id="brand_c1" name="brand_c1" style="width: 120px">
+											<option valus="" selected></option>
+											<tpl> foreach item = parent from = $brand_list </tpl>
+												<option <tpl> if $sel_brand[0].pb_id eq $parent.pb_id </tpl> selected <tpl> /if  </tpl> value="<tpl>$parent.pb_id</tpl>||<tpl>$parent.is_parent</tpl>"><tpl> $parent.pb_name </tpl></option>
+											<tpl> /foreach </tpl>
+										</select>
+										<select id="brand_c2" name="brand_c2" style="width: 120px">
+											<option valus="<tpl> $sel_brand[1].pb_id </tpl>" selected><tpl> $sel_brand[1].pb_name </tpl></option>
+										</select>
+										<select id="brand_c3" name="brand_c3" style="width: 120px">
+											<option valus="<tpl> $sel_brand[2].pb_id </tpl>" selected><tpl> $sel_brand[2].pb_name </tpl></option>
+										</select>
+									</td>
+								</tr>
+                                <!-- 宝贝标题 -->
+                                <tr>
+									<th><label for='txtPname'><tpl> $langSysProductBabyName </tpl>:</label></th>
+									<td>
+										<input id="txtPname" name="txtPname" class="fct-input" maxlength="60" value="<tpl> $product_array.p_name </tpl>" />
+									</td>
+								</tr>
+                                <!-- 商品图片 -->
+                                <tr>
+									<th><tpl> $langUploadPic </tpl>:</th>
+									<td>
+                                        商品图片
+									</td>
+								</tr>
+                                <!-- 商品详细内容 -->
+                                <tr>
+									<th><label for='txtPintro'><tpl> $langProductInfo </tpl>:</label></th>
+									<td>
+										<div id="fcks">
+										<tpl>php</tpl>
+											include_once('../classes/resource/editor/editor.class.php');
+											$editor=new editor('txtPinfo');
+											$editor->Value=$this->_tpl_vars['product_array']['p_intro'];
+											$editor->BasePath='../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=621;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+										</div>
+									</td>
+								</tr>
+                                <!-- 商品数量，固定为1 -->
+                                <tr>
+									<th><label for='txtPstorage'><tpl> $langSysProductStorage </tpl>:</label></th>
+									<td>
+										<input readonly="readonly" size="1" class="fct-input" name="txtPstorage" id="txtPstorage" value="1" />&nbsp;<tpl> $langSysProductAPiece </tpl>
+									</td>
+								</tr>
+                                <!-- 如果系统设置开启了预付款支付，则判断宝贝是否支持预付款支付 -->
+                                <tpl> if $config_predeposit eq '1' </tpl>								
+								<tr>
+									<th><label for='txtPstorage'><tpl> $langPPredeposit </tpl>:</label></th>
+									<td>
+										<input type="checkbox" class="input_radio" name="pay_predeposit" id="pay_predeposit" <tpl> if $product_array.p_predeposit_state eq '0' </tpl> checked <tpl> /if </tpl> value="0" /><label for="pay_predeposit"><tpl> $langPPredeposit </tpl></label>
+									</td>
+								</tr>
+								<tpl> /if </tpl>
+                                <!-- 支付方式 -->
+                                <tr>
+									<th><label for='txtPayment'><tpl> $langSysProductPayment </tpl>:</label></th>
+									<td>
+										<tpl> foreach from=$payment_array item=one key=key  </tpl>
+											<input onclick="if(this.checked == true){select_cur('<tpl> $one.currency_line </tpl>');}else{select_no_cur('<tpl> $one.currency_line </tpl>','<tpl> $key </tpl>');}" type="checkbox" <tpl> if $one.check eq '1' </tpl> checked <tpl> /if </tpl> value="<tpl> $key </tpl>" name="txtPayment[<tpl> $key </tpl>]" id="txtPayment_<tpl> $key </tpl>" class="input_radio" /><label for="txtPayment_<tpl> $key </tpl>"><tpl> $one.name </tpl></label>
+											<input type="hidden" name="payment_cur_<tpl> $key </tpl>" id="payment_cur_<tpl> $key </tpl>" value="<tpl> $one.currency_line </tpl>" />
+											
+										<tpl> /foreach </tpl>
+									</td>
+								</tr>
+                                <!-- 货币选择 -->
+                                <tr id="tr_product_currency">
+									<th><tpl> $langProductCurrency </tpl>:</th>
+									<td>
+										<tpl> foreach from=$exchange_array item=one key=key  </tpl>
+											<input type="hidden" name="exchange_rate_<tpl> $one.exchange_name </tpl>" id="exchange_rate_<tpl> $one.exchange_name </tpl>" value="<tpl> $one.exchange_rate </tpl>" /><!--  -->
+											<div style="display:<tpl> $one.display </tpl>" id="div_cur_<tpl> $one.exchange_name </tpl>">
+												<input type="checkbox" 
+												<tpl> foreach item=two from=$product_currency </tpl>
+													<tpl> if $two eq $one.exchange_name </tpl>
+													checked
+													<tpl> /if </tpl>
+												<tpl> /foreach </tpl>
+												name="currency[<tpl> $one.exchange_name </tpl>]" id="currency_<tpl> $one.exchange_name </tpl>" value="<tpl> $one.exchange_name </tpl>" class="input_radio" /><label for="currency_<tpl> $one.exchange_name </tpl>"><tpl> $one.exchange_remark </tpl>(<tpl> $one.exchange_name </tpl>)</label>&nbsp;&nbsp;&nbsp;
+												<div id="price_rate_<tpl> $one.exchange_name </tpl>">
+													<tpl> if $product_array.p_price neq '' </tpl>
+														<tpl> if $product_array.p_price/$one.exchange_rate*100|string_format:"%.2f" < 0.01 </tpl>
+															0.01
+														<tpl> else </tpl>
+															<tpl> $product_array.p_price/$one.exchange_rate*100|string_format:"%.2f" </tpl>
+														<tpl> /if </tpl>
+													<tpl> /if </tpl>
+												</div>
+											</div>
+										<tpl> /foreach </tpl>
+									</td>
+								</tr>
+                                
+								<script>
+								function select_cur(str){
+									if(str.indexOf('|') >= 0){
+										line = str.split('|');
+										for(i=0;i<line.length;i++){
+											$("#div_cur_"+line[i]).css("display",'');
+										}
+									}else{
+										$("#div_cur_"+str).css("display",'');
+									}
+								}
+								function select_no_cur(str,payment_name){
+
+									cur_array = str.split('|');
+									for(i=0;i<cur_array.length;i++){
+										cur_sign = false;
+										$('#ownaddproduct input[type=hidden]').each(function(){
+
+											if('payment_cur_'+payment_name != this.name && this.name.indexOf('payment_cur_') >= 0){
+												other_cur_array = this.value.split('|');
+												payment_pro_name = this.name.replace('payment_cur_','txtPayment_');
+												for(j=0;j<other_cur_array.length;j++){
+													if(cur_array[i] == other_cur_array[j] && $('#'+payment_pro_name).attr('checked') == true){
+														//
+														cur_sign = true;
+													}
+												}
+												payment_pro_name = '';
+											}
+
+										})
+										if(cur_sign == false){
+											$("#div_cur_"+cur_array[i]).css("display",'none');
+											$("#currency_"+cur_array[i]).attr("checked",false);
+										}
+									}
+								}
+								function price_to_exchange(price){
+									if(price == ''){
+										price = 0;
+									}else{
+										price = price*1;
+									}
+									$('#ownaddproduct input[type=hidden]').each(function(){
+										if(this.name.indexOf('exchange_rate_') >= 0){
+											var line = this.name.split('exchange_rate_');
+											value = $("#exchange_rate_"+line[line.length-1]).val();
+											one = accDiv(price,value);
+											if(Math.round(one*10000)/100 < 0.01){
+												$("#price_rate_"+line[line.length-1]).html(0.01);//Math.round(one*100)/100
+											}else{
+												$("#price_rate_"+line[line.length-1]).html(Math.round(one*10000)/100);
+											}
+										}
+									});
+								}
+								function accMul(arg1,arg2)
+								{
+									var m=0,s1=arg1.toString(),s2=arg2.toString();
+									try{m+=s1.split(".")[1].length}catch(e){}
+									try{m+=s2.split(".")[1].length}catch(e){}
+									return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
+								}
+								function accDiv(arg1,arg2){
+									var t1=0,t2=0,r1,r2;
+									try{t1=arg1.toString().split(".")[1].length}catch(e){}
+									try{t2=arg2.toString().split(".")[1].length}catch(e){}
+									with(Math){
+										r1=Number(arg1.toString().replace(".",""));
+										r2=Number(arg2.toString().replace(".",""));
+										return (r1/r2)*pow(10,t2-t1);
+									}
+								}
+								</script>
+                                <!-- 起拍价 -->
+                                <tr>
+									<th><tpl> $langSysInceptPrice </tpl>:</th>
+									<td>
+										<span class="dptn-1"><tpl> $langSysInceptPriceSet </tpl>
+								        	<div id="catePriceLimita"></div>
+								        </span> 
+										<input maxlength="<tpl> $price_maxlength </tpl>" class="fct-input" id="minimumBid" name="minimumBid" value="<tpl> $product_array.p_price </tpl>" onkeyup="price_to_exchange(this.value);" />&nbsp;<tpl> $langCYuan </tpl>
+									</td>
+								</tr>
+                                <!-- 加价幅度 -->
+                                <tr>
+							        <th><tpl> $langProductAPriceAddScope </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductAddPriceSelect </tpl><a href="http://www.shopnc.net/document/multishop_help_v26/html/xitong_houtaishuoming_shangpinguanli/jingpaizidongjiajia/index.html" target=_blank><tpl> $langSysProductASystemAutoAdd </tpl></a></span>
+							        	<input type="radio" <tpl>if $pcar.cp_system_step eq 1</tpl>checked="checked"<tpl>/if</tpl> class="input_radio" checked="checked" name="system_step" value="1" id="inc1" onclick="systemStep();" /><label for="inc1"><tpl> $langSysProductASystemAuto </tpl></label><br />
+							        	<input <tpl>if $pcar.cp_system_step eq 0</tpl>checked="checked"<tpl>/if</tpl> type="radio" class="input_radio" name="system_step" value="0" id="inc2" onclick="" /><label for="inc2"><tpl> $langSysProductAUserDefined </tpl></label>
+							            <input maxlength="<tpl> $price_maxlength </tpl>" name="price_step" id="price_step" value="<tpl> $pcar.cp_price_step </tpl>" class="fct-input" />&nbsp;<tpl> $langCYuan </tpl>
+									    <script type="text/javascript">
+									    function systemStep(){
+                                            if (document.getElementById('inc1').checked) {
+                                                document.getElementById('price_step').readOnley=true;
+                                                document.getElementById('price_step').className='disabled';
+                                                document.getElementById('price_step').value = 0;
+                                            }
+                                        }
+                                        <tpl>if $pcar.cp_system_step eq 1</tpl>systemStep();<tpl>/if</tpl>
+										</script>
+							        </td>
+						        </tr>
+                                <!-- 地区 -->
+                                <tr>
+							        <th><tpl> $langProductArea </tpl>:</th>
+							        <td>
+							        	<input type="hidden" name="area_id" id="area_id" value="<tpl> $product_array.p_area_id </tpl>" />
+										<div id="adddiv"></div>
+							        </td>
+						        </tr>
+                                <!-- 运费(只能选择卖家承担运费) -->
+                                <tr>
+							        <th><tpl> $langSysTranFee </tpl>:</th>
+							        <td>
+							        	<div class="dptn-1" id="whenNotAuction">
+							        		<tpl> $langSysProductATranFeeKilter </tpl>
+							        	</div>
+							        	<div class="dptn-1" id="whenAuction" style="display:none;">
+							        		<tpl> $langSysProductASaleBabyIssue </tpl>
+							        	</div>
+							        	<ul style="list-style:none">
+											<li>
+												<input name="radioTransfee" type="radio" id="whopsSeller" checked="checked" onclick="" value="0" class="input_radio" /><label for="whopsSeller"><tpl> $langSelaTranFee </tpl></label>
+											</li>
+											<li>
+												<input disabled="disabled" name="radioTransfee" type="radio" id="whopsBuyer" class="input_radio" value="1" /><label for="whopsBuyer"><tpl> $langProductAListBear </tpl></label>
+											</li>
+							            </ul>
+							        </td>
+						        </tr>
+                                <!-- 发票 -->
+                                <tr>
+							        <th><tpl> $langInvoices </tpl>:</th>
+							        <td>
+							        	<input type="radio" class="input_radio" id="invoiceN" value="0" name="radioInvoices" id="radioInvoices" <tpl> if $product_array.p_have_invoices eq 0 </tpl> checked <tpl> /if </tpl> /><label for="invoiceN"><tpl> $langCNot </tpl></label>
+          								<input type="radio" class="input_radio" id="invoiceY" value="1" name="radioInvoices" id="radioInvoices2" <tpl> if $product_array.p_have_invoices eq 1 </tpl> checked <tpl> /if </tpl> /><label for="invoiceY"><tpl> $langCHave </tpl></label>
+							        </td>
+						        </tr>
+                                <!-- 保修 -->
+						        <tr>
+							        <th><tpl> $langWarranty </tpl>:</th>
+							        <td>
+							        	<input type="radio" class="input_radio" id="warrantyN" value="0" name="radioWarranty" <tpl> if $product_array.p_have_warranty eq 0 </tpl> checked <tpl> /if </tpl> /><label for="warrantyN"><tpl> $langCNot </tpl></label>
+          								<input type="radio" class="input_radio" id="warrantyY" value="1" name="radioWarranty" <tpl> if $product_array.p_have_warranty eq 1 </tpl> checked <tpl> /if </tpl> /><label for="warrantyY"><tpl> $langCHave </tpl></label>
+							        </td>
+						        </tr>
+                                <!-- 商品认证 -->
+						        <tr>
+							        <th><tpl> $langPattestation </tpl>:</th>
+							        <td>
+							        	<label for="txtPgenuine"><input type="checkbox" name="txtPgenuine" id="txtPgenuine" value="1" <tpl> if $product_array.p_genuine eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><img src="<tpl> $site_url </tpl>/templates/system/images/pic_zp.gif" align="absmiddle" alt="<tpl> $langPgenuine </tpl>" /><tpl> $langPgenuine </tpl></label>
+        								<label for="txtP7day"><input type="checkbox" name="txtP7day" id="txtP7day" value="1" <tpl> if $product_array.p_7day_return eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><img src="<tpl> $site_url </tpl>/templates/system/images/pic_7day.gif" align="absmiddle" alt="<tpl> $langP7dayreturn </tpl>" /><tpl> $langP7dayreturn </tpl></label>
+							        </td>
+						        </tr>
+                                <!-- 自动重发 -->
+                                <tr>
+							        <th><tpl> $langProductAAutoPublish </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langSysProductASystemHelpYouAuto </tpl></span>
+							        	<input type="checkbox" value="1" name="chxAutopublish" id="chxAutopublish" <tpl> if $product_array.p_auto_publish == "1" </tpl> checked <tpl> /if </tpl><tpl> if $product_array.p_auto_publish == "" </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="chxAutopublish"><tpl> $langCYes </tpl></label>
+							        </td>
+						        </tr>
+                                <!-- 橱窗推荐 -->
+                                <tr>
+							        <th><tpl> $langRecommended </tpl>:</th>
+							        <td>
+							        	<input type="checkbox" class="input_radio" value="1" name="chxRecommended" id="chxRecommended" <tpl> if $product_array.p_recommended == "1" </tpl> checked <tpl> /if </tpl> /><label for="chxRecommended"><tpl> $langCYes </tpl></label>
+							        </td>
+						        </tr>
+                                <tr>
+							        <th><tpl> $langProductARemark </tpl>:</th>
+							        <td>
+	    								<textarea class="fct-input-5" id="txtRemark" name="txtRemark"><tpl> $product_array.p_remark </tpl></textarea>
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langPKeywords </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langPKeywordsRemark </tpl></span>
+	    								<input type="text" name="txtKeywords" id="txtKeywords" maxlength="80" value="<tpl> $product_array.p_keywords </tpl>" class="fct-input" />
+							        </td>
+						        </tr>
+						        <tr>
+							        <th><tpl> $langPDescription </tpl>:</th>
+							        <td>
+							        	<span class="dptn-1"><tpl> $langPDescriptionRemark </tpl></span>
+	    								<textarea class="fct-input-5" id="txtDescription" name="txtDescription"><tpl> $product_array.p_description </tpl></textarea>
+							        </td>
+						        </tr>
+                            </table>
+                        </div>
+                        <!-- 表单底部 按钮 -->
+                        <div class="bth-ct">
+							<div class="bth-pl">
+								<input type="submit" class="bthl" value="<tpl> $langCsubmit </tpl>" />
+								<input type="hidden" name="curpage" value="<tpl>$curpage</tpl>" />
+								<input type="button" class="bthl" value="<tpl> $langCReturn </tpl>" onclick="location.href='product_countdown.manage.php?action=ajax_list&curpage=<tpl>$curpage</tpl>'" />
+							</div>
+						</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+//获得宝贝类目
+function tonext_edit(whos) {
+	$(whos).change(
+		function(){
+			var valarray=$(this).val().split('||');
+			$('#slPCId').val(valarray[0]);
+			if (valarray[1]=='1') {
+				$(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langCDataToLoading </tpl></option>');
+				$.ajax({
+					url: '../member/own_productcate.php',
+					data: 'action=list&id='+valarray[0],
+					success: function (data) {
+						DataArray = data.split("|||");
+						var a='';
+						for (var i = 0; i<DataArray.length-1; i++)
+						{
+							att=DataArray[i].split("||");
+							id=att[0];cla=att[2];
+							a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';
+						};
+						$(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+						tonext_edit($(whos).next());
+					}
+				});
+			} else {
+				$(whos).nextAll().html('').attr('disabled','true');
+				$('#cancel_edit_button').attr('disabled','');
+			}
+		}
+	)
+}
+
+function editstate(){
+	$("#pc_id_originality").css("display","none");
+	$("#pc_id_edit").css("display","");
+}
+
+function canceledit(){
+	$("#pc_id_originality").css("display","");
+	$("#pc_id_edit").css("display","none");
+	var str = $("#slPCId_save").val();
+	$("#slPCId").val(str);
+
+	$("#pc_c1").val("");
+	$("#pc_c2").val("");
+	$("#pc_c3").val("");
+	$("#pc_c4").val("");
+}
+//获得宝贝属性类目
+function ajax_get_attribute(pc_id){
+	array=pc_id.split('||');
+	$.ajax({
+		url: 'product.manage.php',
+		data: 'action=ajax_get_attribute&pc_id='+array[0],
+		success: function(data){
+			if(data != ''){
+				$('#baby').html(data);
+			}else{
+				$('#baby').html('');
+			}
+		}
+	});
+}
+
+$(document).ready(function(){
+    
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					type:'modi',
+					modi_id:'<tpl> $product_array.p_area_id </tpl>',
+					hiddenId:'area_id'
+				});
+
+    <tpl> if $list_class_error != '' </tpl>
+    // 报错
+	alert(<tpl> $list_class_error </tpl>);
+	<tpl> /if </tpl>
+
+    // 提交表单
+    $('#ownaddproduct').validate({
+        errorClass:"wrong",
+        rules:{
+            // 商品分类id
+            slPCId:{required:true},
+            // 商品名称
+            txtPname:{required:true},
+            // 商品数量
+            txtPstorage:{
+                required:true,
+                number:true,
+                min:1,
+                max:1
+            },
+
+            // 起拍价
+            minimumBid:{
+                required: true,
+                number: true,
+                min: 1
+            },
+
+            // 加价幅度
+            price_step:{
+            },
+
+            // 地区id
+            area_id:{required:true},
+        },
+        // 错误提示信息
+        messages:{
+            // 商品名称
+            txtPname: {required: "<tpl> $errProductNameEmpty </tpl>"},
+            // 商品数量
+            txtPstorage:{
+                required: "<tpl> $errPstorage </tpl>",
+                number: "<tpl> $errPstorage </tpl>",
+                min:"<tpl> $errPstorage </tpl>",
+                max:"<tpl> $errPstorage </tpl>",
+            },
+            // 起拍价
+            minimumBid:{
+                required: "<tpl> $errMinimumbidWrong </tpl>",
+                number: "<tpl> $errMinimumbidWrong </tpl>",
+                min:"<tpl> $errMinimumbidWrong </tpl>",
+            },            
+            // 加价幅度
+            price_step:{
+                required: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",
+                number: "<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",
+                min:"<tpl> $langProductAUserDefinedUppriceIsEmpty </tpl>",
+            },
+            
+            // 地区ID
+            area_id:{required:"<tpl> $errProvince </tpl>"}
+        },
+        // 提交按钮点击事件
+        submitHandler:{
+        }
+    });
+});
+</script>

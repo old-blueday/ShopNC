@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<link href="../css/layout.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/css.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/product_layout.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/member.login.css" rel="stylesheet" type="text/css" />
+<script>
+$(document).ready(function () {
+	$("#recommend").validate({
+		errorClass: "wrong",
+		rules: {
+			reciname1: {required:true},
+			reciemail1: {required:true,email:true},
+			reciemail2: {email:true},
+			reciemail3: {email:true},
+			title: {required:true},
+			content: {required:true},
+			useremail: {required:true,email:true},
+			username: {required:true}
+		},
+		messages: {
+			reciname1: {required: "<tpl> $errAddresseeNotNull </tpl>"},
+			reciemail1: {required: "<tpl> $errEmailNotNull </tpl>",email: "<tpl> $errEmailNotFormat </tpl>"},
+			reciemail2: {email: "<tpl> $errEmailNotFormat </tpl>"},
+			reciemail3: {email: "<tpl> $errEmailNotFormat </tpl>"},
+			title: {required: "<tpl> $errThemeNotNull </tpl>"},
+			content: {required: "<tpl> $errSayNotNull </tpl>"},
+			useremail: {required: "<tpl> $errEmailNotNull </tpl>",email: "<tpl> $errEmailNotFormat </tpl>"},
+			username: {required: "<tpl> $errMyNameNotNull </tpl>"}
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div id="container">
+<div style=" height:120px"><!-- 调用头文件 -->
+ <tpl>include file ='../header.html'</tpl>
+ </div>
+  <div id="title1"><!-- 蓝色背景条商品名称 -->
+    <h1><tpl> $product_row.p_name </tpl></h1>
+  </div>
+  <div id="Content" style=" width:680px; margin-left:auto; clear:both; margin-right:auto"><!-- 整体内容 -->
+    <div class="HackBox"></div>
+    <div id="Content">
+      <div class="TopBarStyle1"></div>
+      <div id="NoResultMsg" class="PostCardStyle1">
+        <div class="Icon"><!-- 宝贝图片显示及名称及价格 --> <img src="../<tpl> $product_info.p_pic|default:'templates/orange/images/noimgs.gif' </tpl>" border="0" alt="<tpl> $product_info.p_name </tpl>" width="100" style=" margin-bottom:10px">
+          <p style="margin-bottom:3px"><a href="product.php?action=view&pid=<tpl> $product_info.p_code </tpl>" target="_blank"><tpl> $product_info.p_name </tpl></a></p>
+          <p><span class="H CB EN"><tpl> $product_info.p_price </tpl></span><tpl> $langCYuan </tpl></p>
+        </div>
+        <div class="Paragraph" ><!-- 收发详细信息 -->
+          <h1 style="color:#FF0000"><tpl> $langPBabyCommendFriend </tpl>：</h1>
+          <form name="recommend" id="recommend" action="recommend.php?action=send" method="post">
+            <input type="hidden" name="pcode" value="<tpl> $product_info.p_code </tpl>">
+            <div style="margin-top:10px">
+              <h3><tpl>$langPAddressee</tpl>：</h3>
+              <div style="margin:10px 0 0 10px;">
+                <label for="reciname1"><span class="H">*</span><tpl> $langPAddresseeName </tpl>：</label>
+                <input name="reciname1" value="" type="value" size="10">
+                <label for="reciemail1"><span class="H">*</span><tpl> $langPEmailAddressee </tpl>：</label>
+                <input name="reciemail1" value="" type="value" size="20">
+              </div>
+              <div style="margin:10px 0 0 10px;">
+                <label for="reciname2">&nbsp;<tpl> $langPAddresseeName </tpl>：</label>
+                <input name="reciname2" value="" type="value" size="10">
+                <label for="reciemail2">&nbsp;<tpl> $langPEmailAddressee </tpl>：</label>
+                <input name="reciemail2" value="" type="value" size="20">
+              </div>
+              <div style="margin:10px 0 0 10px;">
+                <label for="reciname3">&nbsp;<tpl> $langPAddresseeName </tpl>：</label>
+                <input name="reciname3" value="" type="value" size="10">
+                <label for="reciemail3">&nbsp;<tpl> $langPEmailAddressee </tpl>：</label>
+                <input name="reciemail3" value="" type="value" size="20">
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <h3><tpl>$langPAddresser</tpl>：</h3>
+              <div style="margin:10px 0 0 10px;">
+                <label for="username">&nbsp;　<tpl> $langPMyNameIs </tpl>：</label>
+                <input name="username" id="username" value="<tpl> $member_info.login_name </tpl>" type="value" size="10">
+                <label for="useremail">&nbsp;<tpl> $langPEmailAddressee </tpl>：</label>
+                <input name="useremail" id="useremail" value="<tpl> $member_info.email </tpl>" type="value" size="20"><br/>
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <h3><tpl> $langPContent </tpl>：</h3>
+              <div style="margin:10px 0 0 10px;">
+                <label for="title">&nbsp;<tpl> $langPTheme </tpl>：</label>
+                <input name="title" value="<tpl> $langPMyFirend </tpl><tpl> $member_info.login_name </tpl><tpl> $langPCommendMyThing </tpl>" type="value" size="60">
+              </div>
+              <div style="margin:10px 0 0 10px;">
+                <label for="content" style="vertical-align:top;">&nbsp;<tpl> $langPMissSay </tpl>：</label>
+                <textarea name="content" cols="60" rows="8" style="height:80px"><tpl> $langPMyIs </tpl><tpl> $member_info.login_name </tpl><tpl> $langPSuitYou </tpl></textarea>
+              </div>
+            </div>
+            <div style="margin:10px 0 25px 0;text-align:center;">
+              <input style="height:24px" type="submit" name="btnSubmit" value="　<tpl> $langProductSend </tpl> &gt;&gt;　">
+              <input style="height:24px" type="reset" name="btnReset" value="<tpl> $langProductReset </tpl>">
+            </div>
+          </form>
+        </div>
+        <div class="HackBox"></div>
+      </div>
+    </div>
+    <div class="HackBox"></div>
+  </div>
+  <tpl> include file ='../../../html/footer.html' </tpl> </div>
+</body>
+</html>

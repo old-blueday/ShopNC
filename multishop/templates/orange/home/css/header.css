@@ -1,0 +1,202 @@
+﻿#top { display: block; text-align: left; height:165px;  position: relative; z-index: 0;}
+#header { display: block; text-align: left; height:75px; position: relative; z-index: 0; }
+
+#toppart { display: block; margin:0 auto; width: 100%; position: absolute; top: 0; left: 0px; height: 60px; z-index: 1; background-color:#fff;}
+#logo { display: block; float: left; margin:0;}
+
+#topbar { background: url(../images/topbar_bg.gif) repeat-x center top; height: 27px; float: right; width:490px;}
+	#topbar .sideleft { background: url(../images/topbar_bg.gif) no-repeat left bottom; height: 27px; width: 8px; float: left; }
+	#topbar .sideright { background: url(../images/topbar_bg.gif) no-repeat right bottom; float: right; height: 27px; width: 8px; }
+#topbar .tabs { float: right; margin: 4px 0px 7px 4px ;	padding: 0}
+		#topbar .tabs li { position: relative; z-index: 0; background: url(../images/topbar_itemline.gif) no-repeat left center; display: block; padding: 0 10px 0 12px; margin: 0; float: left; line-height: 16px; height: 16px; width: auto; cursor: pointer}
+			#topbar .tabs .noline {	background-image: none}
+		#topbar .tabmenu { position: absolute; z-index: 4; width: 98px; left: 10px; float: left; margin: 0; padding:0}
+		
+			#topbar .tabmenu a:hover {color: #000; text-decoration: none;}
+				#topbar .tabmenu .myshop { float: left; padding-left: 19px; display: block; background: url(../images/topbar_spic.gif) no-repeat 0 1px}
+				#topbar .tabs .help { float: left; padding-left: 19px; display: block; background: url(../images/topbar_spic.gif) no-repeat 0 -29px}
+				#topbar .tabmenu .lang { float: left; padding-left: 19px; display: block; background: url(../images/topbar_spic.gif) no-repeat 0 -59px}
+				#topbar .tabmenu .arrow_down  { background: url(../images/topbar_arrow_down.gif) no-repeat left top; float: left; height: 7px; width: 11px; display: inline; margin: 5px 4px 4px 5px}
+			#topbar .downmenu { position:absolute; z-index: 2; display: none; left: 2px; top: -4px; background-color: #FFF; width: 92px; border: solid 1px #F90; float: left; padding-top: 25px; filter:alpha(opacity=90); -moz-opacity:0.9;/opacity:0.9; }
+			#topbar .downmenu { border-top:none}
+				#topbar .downmenu li { float: left; display:block; background-image: none; width: 92px; margin: 0px; padding: 0px; line-height: 24px; height: 24px; font-family: tahoma}
+					#topbar .downmenu li a { float: left; display:block; background-image: none; width: 68px; height: 24px; margin: 0px; padding:0 0 0 24px; line-height: 24px}
+					#topbar .downmenu li a:hover {background-color: #FEF2D4; display:block; width:67px\9;
+					height:24px; text-decoration: none}
+#quick_link { float: right; height: 18px; width: 500px;}
+		#quick_link ul { float: right; display: block; margin: 8px auto 9px auto; }
+			#quick_link li { float: left; line-height: 18px;  padding:0 11px 0 9px; background: url(../images/topbar_itemline.gif) no-repeat right center; height: 16px}
+			#quick_link span { color: #999; margin: 0 5px 0 0; cursor:pointer; padding: 0 9px 0 18px; float: left;  display: inline; background: url(../images/quicklink_spic.gif) no-repeat left center}
+			#quick_link .noline { background-image: none }
+		#quick_link .search { float: left; background-image: none; padding-right: 0}
+				#quick_link .search label { background: url(../images/quicklink_searchpic.gif) no-repeat left top; float: left; height: 18px; padding-left:24px}
+				#quick_link .searchinput { line-height: 16px; height: 16px; float: left; width: 80px; font-size: 12px; border-top: solid 1px #CCC; border-bottom: solid 1px #CCC; border-right: none; border-left: none; margin:0; padding:0}
+				#quick_link .searchbtn { background: url(../images/quicklink_searchbtn.gif) no-repeat left top; height: 18px; width: 40px; border:none; line-height: 18px; text-align: center; color: #666; float: left; cursor: pointer}
+				
+
+#navpart { background: url(../images/navpartbg.gif) repeat-x center top; height: 105px; width:100%; clear:both; z-index: 0; position: absolute; top: 60px}
+	#navpart .sideleft { background: url(../images/navpartbg.gif) no-repeat left bottom; float: left; height: 105px; width: 6px;}
+	#navpart .sideright { background: url(../images/navpartbg.gif) no-repeat right bottom; float: right; height:105px; width: 6px}
+		#navmenubar { height: 32px; float: left; display: inline; margin: 0 -6px; width: 100%; position: relative; z-index: 3; top:0}
+		.ft_lefticon #navmenubar { float: none; margin: 0; padding:0; width: 735px; display:block;}
+			#hot { background: url(../images/sign_hot.gif) no-repeat left top; height: 21px; width: 19px; position: absolute; top: -5px; right: 2px; z-index: 666}
+			#navmenubar .sideleft { background: url(../images/navmenubg.gif) no-repeat left bottom; float: left; height: 32px; width: 6px; display: inline; margin: 0 0 0 8px}
+			#navmenubar .sideright { background: url(../images/navmenubg.gif) no-repeat right bottom; float: left; height: 32px; width: 6px; display: inline; margin: 0 4px 0 -2px}
+			.ft_lefticon #navmenubar .sideleft {background: url(../images/navmenubg2.gif) no-repeat left bottom;margin: 0; width:8px;}
+			.ft_lefticon #navmenubar .sideright {background: url(../images/navmenubg2.gif) no-repeat right bottom;margin: 0;}
+		#navmenubar .navmenu { background: url(../images/navmenubg.gif) repeat-x center top; height: 32px; padding: 0; margin: 0; float: left; display: inline}
+		.ft_lefticon #navmenubar .navmenu { width:721px; }
+				#navmenubar .navmenu li { float: left; white-space: nowrap; margin: 0px; padding: 0px; display: inline}
+					#navmenubar .navmenu li a { background: url(../images/navmenutabbg2.gif) no-repeat 0 0; width: 80px; padding: 7px 2px 5px 0; float: left; line-height: 20px; height: 20px; text-align: center}
+					.ft_lefticon #navmenubar .navmenu li a { width:auto; padding:7px 12px 5px 10px; background-position: right top; }
+					
+					#navmenubar .navmenu li a:hover { background-position: 0 -32px; color: #602800; text-decoration: none; padding: 8px 2px 4px 0}
+					.ft_lefticon  #navmenubar .navmenu li a:hover { background-position: right -32px; color: #602800; text-decoration: none; padding:8px 12px 4px 10px;}
+					.ft_lefticon #navmenubar .navmenu li a.selected { background-position: right bottom; font-weight:bold; color:#fff; padding:7px 12px 5px 10px;}
+					#navmenubar .navmenu .current a , #navmenubar .navmenu .current a:hover { background: url(../images/navmenutabbg.gif) no-repeat 0 -64px; font-weight: 600; color: #FFF; font-size: 14px; padding:7px 2px 5px 0; margin-left:8px;}
+					#navmenubar .navmenu li.index-home a{ background:url(../images/index_home.gif) 0 2px no-repeat; width:42px; height:25px; display:block; float:left; text-align:left; color:#FFF; font-weight:bold; padding-left:28px; font-size:13px; padding-top:4px;padding-top:6px\9; *padding-top:6px; _padding-top:5px; padding-bottom:0px; padding-right:0px;}
+					#navmenubar .navmenu li.index-home a:hover{ background:url(../images/index_home.gif) 0 2px no-repeat; width:42px; height:25px; display:block; float:left; text-align:left; color:#FFF; font-weight:bold; padding-left:28px; font-size:13px; padding-top:4px;padding-top:6px\9; *padding-top:6px; _padding-top:5px; padding-bottom:0px; padding-right:0px; text-decoration:underline;}
+			
+
+#navsearchbar {	background: url(../images/navsearchbarbg.gif) repeat-x center top; margin: 6px 0 0 24px; float: left; width: 700px; padding: 0; height: 36px; display: inline}
+	#navsearchbar .side_left { background: url(../images/navsearchbarbg.gif) no-repeat left bottom; float: left; height: 36px; width: 5px}
+	#navsearchbar .side_right { background: url(../images/navsearchbarbg.gif) no-repeat right bottom; float: right; height: 36px; width: 6px}
+#navsearchform { display: inline; float: left; width: 688px; margin:6px auto; height: 24px; overflow: hidden;
+}
+		#navsearchform a { color: #FEDEAF; text-decoration: none; }
+		#navsearchform a:hover { color: #FFF; text-decoration: none; }
+		#navsearchform option { background-color: #FFFBF2; color: #333;}
+		#navsearchform .clip_selectname { background-color: #FFAD41; border-bottom: solid 1px #FFA639; border-left: solid 1px #EA5200; border-right: solid 1px #FFA639; border-top: solid 1px #EA5200; clip: rect(0px,16px,22px,0px); display: inline; float: left; height: 22px; left: 2px; line-height: 22px; margin-left: 3px; margin-right: 6px; overflow: hidden; width: 92px; }
+			#navsearchform .selectname { font-size:12px; width:90px; height:26px; padding-bottom:5px; padding-bottom:7px\9; *padding-bottom:5px; padding-top:3px; padding-top:2px\9; *padding-top:3px; border:none; }
+		#navsearchform .inputtext { background-color: #FFFBF2; border-bottom : solid 2px #FFA639; border-left: solid 2px #E87002; border-right: solid 2px #FFA639; border-top: solid 2px #E87002; color: #333; float: left; font-family: Arial; font-size: 13px; height: 18px; line-height: 18px; padding-left: 5px; width: 255px; }
+		#navsearchform .clip_selectcate { background-color: #FFAD41; border-bottom: solid 1px #FFA639; border-left: solid 1px #EA5200; border-right: solid 1px #FFA639; border-top: solid 1px #EA5200; clip: rect(0px,16px,22px,0px); float: left; height: 22px; left: 368px; line-height: 22px; margin-left: 6px; margin-right: 6px; overflow: hidden; width: 182px; }
+			#navsearchform .selectcate {  font-size:12px; width:180px; height:26px; padding-bottom:5px; padding-bottom:7px\9; *padding-bottom:5px; padding-top:3px; padding-top:2px\9; *padding-top:3px; border:none; }
+		#navsearchform .inputbutton { background: url(../images/navsearchbutton.gif) no-repeat; border: none;  height: 24px; line-height: 24px; text-align: center; width: 52px; cursor: pointer;}
+#navkeywords { line-height: 24px; margin:0 0 0 32px; width: 650px; overflow: hidden; height: 24px; display: inline; float: left; clear: left;}
+		#navkeywords h3 { float: left; font-weight: 600; color: #FEDEAF;}
+		#navkeywords span { display: block; float: left; padding-left: 5px; padding-right: 5px; cursor: pointer; }
+			#navkeywords a { color: #FEDEAF; text-decoration: none;}
+			#navkeywords a:hover { color: #FFF;}
+	#navscrollpic { float: right; width: 202px; display: block; height: 68px;}
+	#navscrollpic .scrolldiv { width:170px; height:68px; min-height:25px; line-height:68px; overflow:hidden; background: url(../images/navscrollbg.gif) no-repeat left top; float: left}
+		#navscrollpic .scrolldiv li { height: 68px; width: 170px;}
+	#navscrollpic .btnleft { float: left; background: url(../images/navscrollbtn.gif) no-repeat left top; height: 16px; width: 16px; margin:26px 0}
+	#navscrollpic .btnright { float: right; background: url(../images/navscrollbtn.gif) no-repeat right top; display: block; height: 16px; width: 16px; margin:26px 0}
+.footlink { margin-right: auto; margin-left: auto; text-align: center; width: 100%; font-size: 12px; line-height: 36px; height: 36px;}
+.copyright { text-align: center; width: 100%; margin-right: auto; margin-left: auto; padding-right: 0px; padding-left: 0px; float:left;display:block; white-space: nowrap; line-height: 18px; }
+.footlink li { text-align: center; display: inline; margin-right: 8px; margin-left: 8px}
+#layout_foot {
+	display:block;
+	float:left;
+	*float:left; _float:none;
+	width: 100%;
+	background: url(../images/foot_bg.jpg) repeat-x center top;
+	height: 104px
+}
+
+
+.bangzhu-n{
+	padding-top:10px;
+	padding-bottom:10px;
+	float:left;
+	width:950px;
+	background:url(../images/bottom-1.gif) repeat-x;
+	border-bottom:#ededed 1px solid;
+}
+	
+.bangzhu-n h3.help-1{
+	font-size:12px;
+	color:#a12324;
+	font-size:16px;
+	font-weight:bold;
+	background:url(../images/bottom-2.gif) no-repeat;
+	padding-left:20px;
+	}
+.bangzhu-n h3.help-2{
+	font-size:12px;
+	color:#a12324;
+	font-size:16px;
+	font-weight:bold;
+	background:url(../images/bottom-3.gif) no-repeat;
+	padding-left:25px;
+	}
+.bangzhu-n h3.help-3{
+	font-size:12px;
+	color:#a12324;
+	font-size:16px;
+	font-weight:bold;
+	background:url(../images/bottom-4.gif) no-repeat;
+	padding-left:20px;
+	}
+.bangzhu-n h3.help-4{
+	font-size:12px;
+	color:#a12324;
+	font-size:16px;
+	font-weight:bold;
+	background:url(../images/bottom-5.gif) no-repeat;
+	padding-left:20px;
+	}
+.bangzhu-n h3.help-5{
+	font-size:12px;
+	color:#a12324;
+	font-size:16px;
+	font-weight:bold;
+	background:url(../images/bottom-6.gif) no-repeat;
+	padding-left:20px;
+	}
+.bangzhu-n h3.help-6{
+	font-size:12px;
+	color:#a12324;
+	font-size:16px;
+	font-weight:bold;
+	background:url(../images/bottom-7.gif) no-repeat;
+	padding-left:20px;
+	}
+.bangzhu-n ul{
+	float:left;
+	
+	} 
+.bangzhu-n li{
+	line-height:22px;
+	word-spacing:3px;
+	padding-left:20px;
+	}
+.bangzhu-n li a{
+	
+	}
+
+.bangzhu-n ul.bangzhu-1{
+	background:url(../images/bottom-8.gif) right top no-repeat;
+	width:105px;
+	text-align:left;
+	height:120px;
+	padding-left:23px;
+	padding-right:30px;
+	} html>body .bangzhu-n ul.bangzhu-1{ height:auto; min-height:120px;}
+.bangzhu-n ul.bangzhu-2{
+	width:120px;
+	text-align:left;
+	padding-left:20px;
+	} html>body .bangzhu-n ul.bangzhu-2{ height:auto; min-height:120px;}
+.nc-bottom{
+	width:950px;
+	margin-left:auto;
+	margin-right:auto;
+	clear:both;
+	}
+.nc-bottom-1{
+	float:left;
+	width:980px;
+	background:url(../images/bottom-lego-1.gif) repeat-x;
+	border-bottom:#ededed 1px solid;
+	
+	}
+.clear-10{
+	width:100%;
+	clear:both;
+	height:10px;
+	font-size:0px;
+	}
+.nc-bottom-1 ul{
+	float:left;
+	}

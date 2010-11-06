@@ -1,0 +1,89 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopMerchandiseClass </tpl> &gt;&gt; <tpl> $langSysShopProCateListCate </tpl></div>
+				</div>
+			</div>
+            <form action="shopproductcate.manage.php" id="form_del" name="form_del" method="post">
+            <input type="hidden" name="action" id="action" value="update" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+                    	<td class="es-6"><tpl> $langSysShopSelect </tpl></td>
+						<td class="es-4"><tpl> $langSysBabyClassName </tpl></td>
+						<td class="es-7"><tpl> $langSysShopProCatePic </tpl></td>
+                        <td class="es-6"></td>
+                        <td class="es-5"><tpl> $langSysShopProCateOpen </tpl></td>
+                        <td class="es-2"><tpl> $langSysShopProCateSort </tpl></td>
+					</tr>
+					<tpl> if $category_array[0].shop_id neq '' </tpl>
+						<tpl> section name=loop loop=$category_array </tpl>
+                        <input type="hidden" name="class_id[<tpl> $category_array[loop].class_id </tpl>]" value="<tpl> $category_array[loop].class_id </tpl>" />
+					<tr class="es-td">
+                    	<td id="check-1"><input name="del_id[<tpl> $category_array[loop].class_id </tpl>]" type="checkbox" value="<tpl> $category_array[loop].class_id </tpl>"/></td>
+						<td><input class="fct-input" value="<tpl> $category_array[loop].class_name </tpl>" name="class_name[<tpl> $category_array[loop].class_id </tpl>]" type="text" /></td>
+						<td><input class="fct-input" value="<tpl> $category_array[loop].class_pic </tpl>" name="class_pic[<tpl> $category_array[loop].class_id </tpl>]" type="text" /></td>
+                        <td>
+                        <tpl> if $category_array[loop].class_pic neq '' </tpl>
+                        	<a target="_blank" href="<tpl> $category_array[loop].class_pic </tpl>"><tpl> $langSysShopProCateViewPic </tpl></a>
+                        <tpl> /if </tpl>
+                        </td>
+						<td><input type="checkbox" name="class_if_open[<tpl> $category_array[loop].class_id </tpl>]" value="0" <tpl> if $category_array[loop].class_if_open eq '0' </tpl>checked="checked"<tpl> /if </tpl> /></td>
+                        <td><input class="fct-input" value="<tpl> $category_array[loop].class_sort </tpl>" name="class_sort[<tpl> $category_array[loop].class_id </tpl>]" type="text" /></td>
+					</tr>
+                    <!--2 Classification -->
+                    <tpl> if $category_array[loop].child neq '' </tpl>
+                    <tpl> foreach from=$category_array[loop].child item=one </tpl>
+                    <input type="hidden" name="class_id[<tpl> $one.class_id </tpl>]" value="<tpl> $one.class_id </tpl>" />
+                    <tr class="es-td">
+                    	<td id="check-1"><input name="del_id[<tpl> $one.class_id </tpl>]" type="checkbox" value="<tpl> $one.class_id </tpl>"/></td>
+						<td>|--<input class="fct-input" value="<tpl> $one.class_name </tpl>" name="class_name[<tpl> $one.class_id </tpl>]" type="text" /></td>
+						<td><input class="fct-input" value="<tpl> $one.class_pic </tpl>" name="class_pic[<tpl> $one.class_id </tpl>]" type="text" /></td>
+                        <td>
+                        <tpl> if $one.class_pic neq '' </tpl>
+                        	<a target="_blank" href="<tpl> $one.class_pic </tpl>"><tpl> $langSysShopProCateViewPic </tpl></a>
+                        <tpl> /if </tpl>
+                        </td>
+						<td></td>
+                        <td><input class="fct-input" value="<tpl> $one.class_sort </tpl>" name="class_sort[<tpl> $one.class_id </tpl>]" type="text" /></td>
+					</tr>
+                    <tpl> /foreach </tpl>
+                    <tpl> /if </tpl>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $category_array[0].shop_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+                <input class="bthl" name="" value="<tpl> $langSysCReturn </tpl>" type="button" onclick="location.href='shopproductcate.manage.php?action=list'" />
+				<select name="move_class_id" id="move_class">
+					<option value=""><tpl> $langSysCMoveTo </tpl></option>
+                    <option value="0"><tpl> $langSysShopProCateZeroClass </tpl></option>
+					<tpl> foreach from=$category_array item=one </tpl>
+                    <option value="<tpl> $one.class_id </tpl>"><tpl> $one.class_name </tpl></option>
+                    <tpl> /foreach </tpl>
+				</select>	 					
+			</div>
+            </form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

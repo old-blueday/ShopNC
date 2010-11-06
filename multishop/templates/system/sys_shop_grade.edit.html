@@ -1,0 +1,80 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCShopGrade </tpl> &gt;&gt; <tpl> $langGradeModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="shop_grade.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="grade_save" />
+						<input type="hidden" name="grade_id" value="<tpl>$grade_array.grade_id</tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl>$langGradeName</tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_grade_name" id="txt_grade_name" value="<tpl>$grade_array.grade_name</tpl>" type="text" maxlength="30" /></td>
+								</tr>
+								<tr>
+									<th><tpl>$langGradeGoodsNum</tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_grade_goods_num" id="txt_grade_goods_num" value="<tpl>$grade_array.goods_num</tpl>" type="text" maxlength="30" />&nbsp;&nbsp;<tpl>$langGradeGoodsNumInfo</tpl></td>
+								</tr>
+								<tr>
+									<th><tpl>$langGradeCost</tpl>:</th>
+									<td><input class="fct-input" name="txt_grade_cost" id="txt_grade_cost" value="<tpl>$grade_array.cost</tpl>" type="text" maxlength="30" /></td>
+								</tr>
+								<tr>
+									<th><tpl>$langGradeConfirm</tpl>:</th>
+									<td>
+									<input name="txt_grade_confirm" id="txt_grade_confirm_1" class="input_radio" type="radio" value="0" <tpl> if $grade_array.shop_confirm == 0</tpl>checked="checked"<tpl>/if</tpl> /><tpl>$langGradeNo</tpl>&nbsp;
+									<input name="txt_grade_confirm" id="txt_grade_confirm_0" class="input_radio" type="radio" value="1" <tpl> if $grade_array.shop_confirm == 1</tpl>checked="checked"<tpl>/if</tpl> /><tpl>$langGradeYes</tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl>$langGradeDescription</tpl>:</th>
+									<td><label>
+									  <textarea class="fct-input" name="txt_grade_description" rows="5"><tpl>$grade_array.grade_description </tpl></textarea>
+									</label>									</td>
+								</tr>
+								<tr>
+									<th><tpl>$langGradeSort</tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_grade_sort" id="txt_grade_sort" value="<tpl>$grade_array.grade_sort</tpl>" type="text" maxlength="9" value="0" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_grade_name: {required:true},
+			txt_grade_goods_num: {required:true,number:true,min:0}
+		},
+		messages: {
+			txt_grade_name: {required:"<tpl> $langGradeNameNotNull </tpl>"},
+			txt_grade_goods_num: {required:"<tpl>$langGradeGoodsNum1</tpl>",number:"<tpl>$langGradeGoodsNum2</tpl>",min:"<tpl>$langGradeGoodsNum3</tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

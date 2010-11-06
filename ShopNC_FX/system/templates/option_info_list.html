@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_article_list </tpl></title><!-- 文章列表 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+    <h4 id="rightcon_h"><b><tpl>$shop_admin_header_system_manage</tpl> &gt;&gt; <tpl>$system_system_info</tpl><!-- 网店管理 >> 系统信息 --></b></h4>
+	<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$system_system_info</tpl></h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><tpl> $admin_system_info_title </tpl><!-- 文章标题 --></th>
+            <th><tpl> $admin_system_info_url </tpl><!-- 是否外联 --></th>
+            <th>&nbsp;</th>
+			<th><tpl> $admin_system_info_oper </tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$info_array </tpl>
+          <tr>
+            <td><a href="admin_system.php?action=edit_system_info&id=<tpl>$info_array[list].info_id</tpl>"><tpl> $info_array[list].info_title  </tpl></a></td>
+            <td><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>if $info_array[list].info_url =='' </tpl>0<tpl>else</tpl>1<tpl>/if</tpl>.gif" /></td>
+            <td>&nbsp;</td>
+            <td>
+            	<a href="admin_system.php?action=edit_system_info&id=<tpl>$info_array[list].info_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl> $admin_system_info_edit </tpl>" /><!-- 编辑 --></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+    </div>
+	</div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/member.regist.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/css.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/member.login.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- 投票列表页面 -->
+<div id="ceng">
+ <tpl>include file ='../top.html'</tpl>
+<div id="ceng2">
+  <div class="border_circular_b">
+    <div id="InfoSelectorTarget"> <tpl>include file ='../InfoSelectorTarget.html'</tpl></div>
+    <div  class="ind_prduct" id="CategoryList"> <tpl>include file ='category_array_list.html'</tpl> 
+    <div style="clear:both"></div></div>
+		<div id="vote_list_main"><!-- 投票列表 -->
+		<ol>
+	<tpl> section name=loop loop=$vote_array </tpl>
+			<li><a href="vote.php?action=show&vote_id=<tpl> $vote_array[loop].vote_id </tpl>&type=1" > 
+			<tpl> $vote_array[loop].vote_title </tpl></a></li>
+	<tpl> /section </tpl>	
+	
+	</ol>
+	
+	</div>
+  </div>
+  <div id="main2-right"><!-- 右侧相关信息 -->
+ <div id="reviewed_buyedproduct">
+	<tpl> include file ='product.reviewed.html' </tpl>
+	<tpl> include file ='product.bought.html' </tpl>
+</div>
+</div>
+  <tpl> include file ='../../../html/footer.html' </tpl> 
+</div>
+  </div>
+</body>
+<script>
+function vote_show(id){
+	$.ajax({
+		url: 'vote.php?action=show&vote_id='+id,
+		dataType:'html',
+		success: function(msg){
+			$("#show_" + id).html(msg);
+		}
+	});
+}
+</script>
+</html>

@@ -1,0 +1,13 @@
+ body,td{font:normal 12px Verdana;color:#333}
+ input,textarea,select,td{font:normal 12px Verdana;color:#333;border:1px solid #999;background:#fff}
+ table{border-collapse:collapse;width:100%}
+ td{padding:3px}
+ th{height:25px}
+ input{height:20px;}
+ textarea{width:300px;height:100px;overflow:auto;}
+ form{display:inline}
+ img {border:0}
+ .Validator_MessagePanel_Warn {padding:3px;padding-left:20px;margin-left:3px;font:bold 12px Tahoma;color:#666;border:1px solid #FF6600;background:#FFF2E9 url(./images/msg_error.gif) no-repeat 2px center;}
+ .Validator_MessagePanel_Tips {font:bold 12px Tahoma;color:#666;border-top: 1px solid #00B800; background: url(./images/tips_icon.gif) no-repeat bottom; margin: 0; padding: 5px 5px 15px; width: 300px;}
+ .Validator_Summary {padding:3px;margin-left:3px;height:20px;font:12px Tahoma;color:#666;border:1px solid #0099cc;background:#ddedfb;}
+  .Validator_Summary .title{font:bold 12px Tahoma;}

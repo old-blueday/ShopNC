@@ -1,0 +1,150 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPDatecall </tpl> &gt;&gt; <tpl> $langSysPDatecallAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form1" name="form1" method="post" action="product_datecall.manage.php">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="pd_id" value="<tpl> $datecall_arr.pd_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysPDatecallCode </tpl>:</th>
+									<td>&lt;script type=&quot;text/javascript&quot; src=&quot;<tpl> $site_url </tpl>/home/datecall.php?pd_id=<tpl>$datecall_arr.pd_id</tpl>&quot;&gt;&lt;/script&gt;
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallDescription </tpl>:</th>
+									<td><input class="fct-input" name="txtDescription" id="txtDescription" type="text" maxlength="18" value="<tpl> $datecall_arr.description </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallChar </tpl>:</th>
+									<td>
+										<select name="txtChar" id="txtChar">
+											<option value="0" <tpl> if $datecall_arr.charset eq '0' </tpl> selected <tpl> /if </tpl> >UTF-8</option>
+											<option value="1" <tpl> if $datecall_arr.charset eq '1' </tpl> selected <tpl> /if </tpl> >GBK</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallNum </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtDatecallNum" id="txtDatecallNum" type="text" maxlength="6" value="<tpl> $datecall_arr.datecall_num </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallNameSize </tpl>:</th>
+									<td><input class="fct-input" name="txtNameSize" id="txtNameSize" type="text" maxlength="6" value="<tpl> $datecall_arr.p_name_size </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallConditions </tpl>:</th>
+									<td>
+										<div class="c-s-1">
+											<ul>
+												<li class="wo-1"><tpl> $langSysPDatecallCate </tpl>:</li>
+												<li>
+													<select name="pc_id" id="pc_id">
+														<option value="0"><tpl> $langSysPDatecallPSel </tpl></option>
+													<tpl> if $cate_array[0].id neq '' </tpl>
+													<tpl> foreach item=cate from=$cate_array </tpl>
+														<option value="<tpl> $cate.id </tpl>" <tpl> if $datecall_arr.condition_p_cate eq $cate.id </tpl> selected <tpl> /if </tpl> ><tpl> $cate.name </tpl></option>
+													<tpl> /foreach </tpl>
+													<tpl> /if </tpl>
+													</select>
+												</li>
+											</ul>
+											<ul>
+												<li class="wo-1"><tpl> $langSysPDatecallRange </tpl>:</li>
+												<li>
+													<input class="fct-input-2" name="txtPrice_a" id="txtPrice_a" type="text" maxlength="9" value="<tpl> $datecall_arr.condition_price_left </tpl>" /> - 
+													<input class="fct-input-2" name="txtPrice_b" id="txtPrice_b" type="text" maxlength="9" value="<tpl> $datecall_arr.condition_price_right </tpl>" />
+												</li>
+											</ul>
+											<ul>
+												<li class="wo-1"><tpl> $langSysPDatecallKeyword </tpl>:</li>
+												<li><input class="fct-input" name="txtKeyword" id="txtKeyword" type="text" maxlength="36" value="<tpl> $datecall_arr.condition_keyword </tpl>" /></li>
+											</ul>
+											<ul>
+												<li class="wo-1"><tpl> $langSysPDatecallSort </tpl>:</li>
+												<li>
+													<select name="selSort">
+														<option value="0" <tpl> if $datecall_arr.condition_sort eq '0' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysPDatecallDesc </tpl></option>
+														<option value="1" <tpl> if $datecall_arr.condition_sort eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysPDatecallAsc </tpl></option>
+													</select>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallHead </tpl>:</th>
+									<td>
+										<textarea class="fct-input" name="txtTemplateHead"><tpl> $datecall_arr.templates_head </tpl></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallConnect </tpl>:</th>
+									<td>
+										<span class="dptn">
+										<tpl> $langSysPDatecallVariable </tpl><br />
+										{product_name} <tpl> $langSysPDatecallThat </tpl> <tpl> $langSysPDatecallCurName </tpl><br />
+										{product_full_name} <tpl> $langSysPDatecallThat </tpl> <tpl> $langSysPDatecallPName </tpl><br />
+										{product_price} <tpl> $langSysPDatecallThat </tpl> <tpl> $langSysPDatecallPPrice </tpl><br />
+										{product_pic_url} <tpl> $langSysPDatecallThat </tpl> <tpl> $langSysPDatecallPPicUrl </tpl><br />
+										{product_url} <tpl> $langSysPDatecallThat </tpl> <tpl> $langSysPDatecallPUrl </tpl><br />
+										{img_url} <tpl> $langSysPDatecallThat </tpl> <tpl> $langSysPDatecallImgUrl </tpl>
+										</span>
+										<textarea class="fct-input-5" name="txtTemplateConnect"><tpl> $datecall_arr.templates_connect </tpl></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysPDatecallFooter </tpl>:</th>
+									<td>
+										<textarea class="fct-input" name="txtTemplateFooter"><tpl> $datecall_arr.templates_footer </tpl></textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input type="hidden" value="<tpl> $curpage </tpl>" name="curpage" />
+								<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='product_datecall.manage.php?action=list&curpage=<tpl> $curpage </tpl>'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txtDescription: {required:true},
+			txtDatecallNum: {required:true, number:true, min:1},
+			txtNameSize: {required:true, number:true, min:1},
+			txtPrice_a: {number:true},
+			txtPrice_b: {number:true}
+		},
+		messages: {
+			txtDescription: {required: "<tpl> $langSysPDatecallDescriptionNull </tpl>"},
+			txtDatecallNum: {required: "<tpl> $langSysPDatecallinPNumber </tpl>",number: "<tpl> $langSysPDatecallinNumber </tpl>",min: "<tpl> $langSysPDatecallinNumber </tpl>"},
+			txtNameSize: {required: "<tpl> $langSysPDatecallinPName </tpl>",number: "<tpl> $langSysPDatecallinNumber </tpl>",min: "<tpl> $langSysPDatecallinNumber </tpl>"},
+			txtPrice_a: {number: "<tpl> $langSysPDatecallinNumber </tpl>"},
+			txtPrice_b: {number: "<tpl> $langSysPDatecallinNumber </tpl>"}
+		}
+	});
+});
+</script>

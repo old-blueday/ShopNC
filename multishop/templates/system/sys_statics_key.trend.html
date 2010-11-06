@@ -1,0 +1,88 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSKeyword </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_key.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="trend" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSKeyword </tpl>:</th>
+								<td><input name="key" id="key" class="fct-input" type="text" size="10" value="<tpl> $key </tpl>" /></td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<select name="time">
+										<option value=""></option>
+										<option value="4" <tpl> if $time eq '4' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceWeek </tpl></option>
+										<option value="5" <tpl> if $time eq '5' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpWeek </tpl></option>
+										<option value="6" <tpl> if $time eq '6' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceMonth </tpl></option>
+										<option value="7" <tpl> if $time eq '7' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpMonth </tpl></option>
+										<option value="8" <tpl> if $time eq '8' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSLatelyThirtyDay </tpl></option>
+									</select>&nbsp;&nbsp;
+									<input class="bthl" value="<tpl> $langSysSSubmit </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="3">
+										<input type="radio" class="input_radio" id="type_one" onclick="location.href='statics_key.manage.php?action=list'"  /><label for="type_one"><tpl> $langSysSKeywordFlux </tpl></label>
+										<input type="radio" class="input_radio" id="type_many" checked /><label for="type_many"><tpl> $langSysSKeywordFluxDirection </tpl></label>
+									</td>
+								</tr>
+								<tr>
+								    <td colspan="3"><tpl> $langSysSNonceTimeSegment </tpl>:<tpl> $start_time </tpl> <tpl> $langSysSTo </tpl> <tpl> $end_time </tpl></td>
+								</tr>
+								<tr>
+									<td colspan="3"><tpl> $statics_flash </tpl></td>
+								</tr>
+								<tr>
+								 	<th class="pd-left" width="200"><tpl> $langSysSKeyword </tpl></th>
+								    <th width="200">PV</th>
+									<th width="200"><tpl> $langSysSPercent </tpl></th>
+								</tr>
+								<tr>
+									<td><tpl> $langSysSTotalize </tpl></td>
+							        <td><tpl> $num_sum|default:'0' </tpl></td>
+								    <td>100%</td>
+								</tr>
+								<tpl> foreach from=$key_array item=one key=key </tpl>
+									<tr>
+										<td><tpl> $one.time </tpl></td>
+										<td><tpl> $one.pv </tpl></td>
+										<td>
+											<tpl> if $num_sum neq '' && $num_sum neq '0' </tpl>
+												<tpl> $one.pv/$num_sum*100|string_format:'%.2f' </tpl>%
+											<tpl> else </tpl>
+												0.00%
+											<tpl> /if </tpl>
+										</td>
+								  	</tr>	  
+								<tpl> /foreach </tpl>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

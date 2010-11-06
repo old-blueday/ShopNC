@@ -1,0 +1,13 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreStyleBlockLink </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_1">
+		<ul>
+			<tpl> section name=loop loop=$shop_link </tpl>
+				<li><span class="f-1"></span><span class="f-2"><a href="<tpl> $shop_link[loop].url </tpl>" target="_blank"><tpl> $shop_link[loop].shop_name </tpl></a></span></li>
+			<tpl> /section </tpl>
+		</ul>
+	</div>
+</div>

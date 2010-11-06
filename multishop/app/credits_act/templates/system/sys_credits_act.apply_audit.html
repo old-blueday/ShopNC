@@ -1,0 +1,70 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAppManage </tpl> &gt;&gt; <tpl> $langCACreditsAction </tpl> &gt;&gt; <tpl> $langSysCAConvertManage </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="../<tpl> $app_module.app_module_sign </tpl>/system.php" method="post" id="form_add" name="form_add">
+						<input type="hidden" name="action" value="apply_audit_update" />
+						<input type="hidden" name="caa_id" id="caa_id" value="<tpl> $act_apply_row.caa_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysCAGoodsName </tpl>:</th>
+									<td><tpl> $act_apply_row.cag_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCAGoodsPic </tpl>:</th>
+									<td><img src="<tpl> $site_url </tpl>/<tpl> $act_apply_row.cag_pic </tpl>" width="100px;" height="100px;" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCAApplyNum </tpl>:</th>
+									<td><tpl> $act_apply_row.caa_num </tpl></td>
+								</tr>
+								<tr>
+								  <th><tpl> $langSysCAApplyCredits </tpl>:</th>
+									<td><tpl> $act_apply_row.caa_credits </tpl></td>
+								</tr>
+								<tr>
+								    <th><tpl> $langSysCAApplyTotalCredits </tpl>:</th>
+									<td><tpl> $act_apply_row.total_credits </tpl></td>
+								</tr>
+								<tr>
+								    <th><tpl> $langSysCAState </tpl>:</th>
+									<td>
+										<tpl> if $act_apply_row.caa_state eq '0' </tpl>
+										<input class="input_radio" type="radio" name="caa_state" id="caa_state_one" value="1" checked="checked" /><label for="caa_state_one"><tpl> $langSysCAApplyAllow </tpl></label>
+										<input class="input_radio" type="radio" name="caa_state" id="caa_state_two" value="2" /><label for="caa_state_two"><tpl> $langSysCAApplyDeny </tpl></label>
+										<tpl> /if </tpl>
+										<tpl> if $act_apply_row.caa_state eq '1' </tpl>
+											<tpl> $langSysCAApplyPassed </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $act_apply_row.caa_state eq '2' </tpl>
+											<tpl> $langSysCAApplyDenyed </tpl>
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<tpl> if $act_apply_row.caa_state eq '0' </tpl>
+								<input class="bthl" type="submit" value="<tpl> $langSysCAApplySet </tpl>" />
+							<tpl> /if </tpl>
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='../<tpl> $app_module.app_module_sign </tpl>/system.php?action=apply_list&id=<tpl> $act_apply_row.caa_id </tpl>'" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

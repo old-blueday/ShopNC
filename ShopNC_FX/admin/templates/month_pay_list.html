@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_order_manage</tpl> - <tpl>$admin_order_list</tpl></title><!-- 订单管理 - 订单列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+	function change_state(value){
+		document.getElementById("action_type").value = value;
+	}
+</script>
+</head>
+
+<body>
+<div id="content">
+	<h2><tpl>$admin_header_order_manage</tpl> >> <tpl>$admin_order_list_month_pay</tpl><!-- 订单管理 >> 利润结算 -->
+    </h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="5" class="searchbar">
+            </td>
+          </tr>
+		  <form method="post" action="?action=order_del">
+          <tr>
+            <th><tpl>$admin_order_month_pay_month</tpl><!-- 月份 --></th>
+			 <th><tpl>$admin_order_month_pay_ben</tpl><!-- 成本 --></th>
+            <th><tpl>$admin_order_month_pay_sell</tpl><!-- 销售额 --></th>
+            <th><tpl>$admin_order_month_pay_cha</tpl><!-- 利润 --></th>
+            <th><tpl>$admin_order_month_pay_state</tpl><!-- 利润分红结算状态 --></th>
+            <th><tpl>$admin_order_month_pay_view</tpl><!--查看--></th>
+          </tr>
+		  <tpl>section name=list loop=$order_array</tpl>
+          <tr>
+            <td><tpl>$order_array[list].pay_month</tpl></td>
+            <td><tpl>$order_array[list].main_total_sell|default:0</tpl></td>
+			<td><tpl>$order_array[list].sub_total_sell|default:0</tpl></td>
+           	<td><tpl>$order_array[list].sub_total_sell-$order_array[list].main_total_sell</tpl></td>
+            <td>
+		<tpl> if $order_array[list].pay_state eq 0</tpl>
+			<tpl>$admin_order_month_pay_no</tpl><!--否-->
+		<tpl> /if</tpl>	
+		<tpl> if $order_array[list].pay_state eq 1</tpl>
+			<tpl>$admin_order_month_pay_payed</tpl><!--主店已支付，等待子店确认收款-->
+			<a href="admin_order.php?action=month_pay_state&pay_id=<tpl> $order_array[list].pay_id</tpl>"><u><tpl>$admin_order_month_pay_conf_payed</tpl><!--确认收款--></u></a> 
+		<tpl> /if</tpl>
+		<tpl> if $order_array[list].pay_state eq 2</tpl>
+			<tpl>$admin_order_month_pay_trade_ok</tpl><!--已结款--> 
+		<tpl> /if</tpl>	
+			</td>
+			<td><a href="admin_order.php?action=order_list&order_state=trade_ok&create_time=<tpl>$order_array[list].pay_month</tpl>"><tpl>$admin_order_month_pay_view</tpl><!--查看--></a></td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="10" class="searchbar" height="25">
+			<label>
+                <input type="submit" name="submit" value="<tpl>$admin_order_delete</tpl>" class="delBtnInput" />
+			</label>
+              <div class="pagebar">
+                  <tpl>$order_page</tpl>
+              </div>
+            </td>
+          </tr>
+		   </form>
+        </table>
+    </div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

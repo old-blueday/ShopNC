@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$subject_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title><!-- 商品主题馆 -->
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.LoadImage.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".thumb img").LoadImage(true,120,120,"<tpl> $template_dir </tpl>/images/loading.gif");
+	$(".thumb2 img").LoadImage(true,72,72,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+</head>
+<body>
+<!--头部:START-->
+<tpl>include_php file ='header.php'</tpl>
+<!--头部:END-->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!--页面:START-->
+<div id="container" class="width-all" >
+  <!--左侧边拦:START-->
+  <div class="sidebar">
+    <!--商品分类:START-->
+    <div class="box" id="menu">
+      <div class="top">
+        <h3 class="title"><tpl>$subject_category</tpl><!-- 商品分类 --></h3>
+      </div>
+      <div class="content" >
+        <div class="class_list" >
+          <dl>
+            <dd class="class_body">
+			<tpl>section name=list loop=$goods_class_array</tpl>
+              <li><a href="product_class.php?classid=<tpl>$goods_class_array[list].class_id</tpl>"><tpl>$goods_class_array[list].class_name</tpl></a></li>
+			  <tpl>/section</tpl>
+            </dd>
+          </dl>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <!--商品分类:END-->
+    <!--品牌分类:START-->
+    <div class="box" id="brand">
+      <div class="top">
+        <h3 class="title"><tpl>$subject_brand</tpl><!-- 商品品牌 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		<tpl>section name=list loop=$brand_array</tpl>
+          <li><a href="<tpl>if $brand_array[list].brand_url == ''</tpl>product_brand.php?brandid=<tpl>$brand_array[list].brand_id</tpl><tpl>else</tpl><tpl>$brand_array[list].brand_url</tpl><tpl>/if</tpl>"><tpl>$brand_array[list].brand_name</tpl></a></li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!--品牌分类:END-->
+  </div>
+  <!--左侧边拦:END-->
+  <!--右侧主体:START-->
+  <div class="main">
+    <div class="sitenav"><span>
+      <h4><tpl>$subject_txt</tpl><!-- 当前位置 -->:<a href="<tpl>$Site_Url</tpl>"><tpl>$subject_home</tpl><!-- 首页 --></a> -><tpl>$subject_title</tpl><!-- 商品主题馆 --></h4>
+      </span></div>
+    <div class="clear"></div>
+    <!--最新商品:START-->
+    <div id="newgoods" class="fullbox">
+      <div class="top"> </div>
+      <div class="content">
+        <div class="sublist">
+          <ul>
+		  <tpl>section name=list loop=$subject_array</tpl>
+            <li>
+              <h3><tpl>$subject_array[list].subject_name</tpl></h3>
+              </p>
+              <a href="<tpl>if $subject_array[list].subject_url==''</tpl>product_subject.php?action=list&subject_id=<tpl>$subject_array[list].subject_id</tpl><tpl>else</tpl><tpl>$subject_array[list].subject_url</tpl><tpl>/if</tpl>" title="<tpl>$subject_array[list].subject_name</tpl>"><img src="<tpl>$Site_Url</tpl>/<tpl>$subject_array[list].subject_image</tpl>" width="640" height="132" /></a>
+              </p>
+            </li>
+		  <tpl>/section</tpl>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom">&nbsp;</div>
+    </div>
+    <!--最新商品:END-->
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  </div>
+  <!--右侧主体:END-->
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='footer.php'</tpl>
+<!--底部内容:END-->
+</body>
+</html>

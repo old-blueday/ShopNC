@@ -1,0 +1,46 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreStyleBlockRecommendProduct </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_5">
+		<div class="picture0">
+			<ul>
+				<tpl> section name=loop loop=$recommended_product </tpl>
+					<li>
+						<div class="shop_middle">
+							<p><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $recommended_product[loop].p_code </tpl>" title="<tpl> $recommended_product[loop].p_name </tpl>">
+								<tpl> if $recommended_product[loop].small_pic neq '' </tpl>
+									<img src="<tpl> $site_url </tpl>/<tpl> $recommended_product[loop].small_pic </tpl>" border="0" />
+								<tpl> else </tpl>
+									<img src="<tpl> $template_dir </tpl>/images/noimgs.gif" border="0" />
+								<tpl> /if </tpl>
+							</a></p>
+						</div>
+						<p>
+							<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $recommended_product[loop].p_code </tpl>" title="<tpl> $recommended_product[loop].p_name </tpl>"><tpl> $recommended_product[loop].p_short_name </tpl></a>
+						</p>
+						<p>
+							<tpl> if $recommended_product[loop].p_sell_type eq '0' </tpl><!--  拍卖  -->
+								<tpl> $langStoreProductSellAuction </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $recommended_product[loop].p_sell_type eq '1' </tpl><!--  一口价  -->
+								<tpl> $langCfixprice </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $recommended_product[loop].p_sell_type eq '2' </tpl><!--  团购  -->
+								<tpl> $langStoreProductSellGroup </tpl>
+							<tpl> /if </tpl>
+						</p>
+						<p><strong><img src="<tpl> $template_dir </tpl>/images/y.gif" /><font style="color:#FF0000;">
+							<tpl> if $recommended_product[loop].p_sell_type eq '2' </tpl><!-- 团购 -->
+								<tpl> $recommended_product[loop].p_group_price </tpl> 
+							<tpl> else </tpl>
+								<tpl> $recommended_product[loop].p_price </tpl>
+							<tpl> /if </tpl>
+						</font> </strong></p>
+					</li>
+				<tpl> /section </tpl>
+			</ul>
+		</div>
+	</div>
+</div>

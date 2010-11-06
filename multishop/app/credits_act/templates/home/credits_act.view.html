@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/home/css/ploy-list.css" rel="stylesheet" type="text/css" />
+<tpl>
+ include file ='../head.config.html' </tpl>
+<script>
+function ajax_code(){
+	var  myForm=document.forms['form_message'];
+	var  num = Math.round(Math.random()*10000);
+	$.ajax({
+		url: "index.php",
+		data: "action=check_code&checkcode="+$('#code').val()+"&randow_num="+num,
+		success: function(data){
+			$("#c_code").val(data);
+			if ($("#c_code").val() == '2') {	
+				alert('<tpl> $errCACodeIsWrong </tpl>');
+				return false;
+			}else{
+				if (document.getElementById('cam_content').value == '') {
+					alert('<tpl> $errSysCAMsgReContentIsEmpty </tpl>');
+					return false;
+				}else{
+					$("#form_message").submit();
+				}
+			}
+		}
+	});
+}
+function checkForm(){
+	return false;
+}
+</script>
+</head>
+</head>
+<body>
+<div class="list-1">
+<div class="bg-bg">
+	<div class="list-1-left"></div>
+	<div class="list-1-center">
+		<div class="center-top"><img src="<tpl> $template_dir </tpl>/home/images/center-1.jpg"  /></div>
+		<div class="center-login">		
+			<tpl> if $ses_member_id neq '' </tpl>
+				<ul>
+					<li class="line-ziti"><tpl> $langCAHello </tpl>,</li>
+					<li class="line-ziti"><tpl> $ses_login_name </tpl></li>
+					<li><a href="<tpl> $site_url </tpl>/member/own_main.php"><img src="<tpl> $template_dir </tpl>/home/images/center-3-1.jpg"  /></a></li>
+					<li><a href="<tpl>$site_url</tpl>/home/member.php?action=logout"><img src="<tpl> $template_dir </tpl>/home/images/center-5-1.jpg"  /></a></li>
+				</ul>		
+			<tpl> else </tpl>
+				<ul>
+					<li><a href="<tpl> $site_url </tpl>/home/member.php?action=login"><img src="<tpl> $template_dir </tpl>/home/images/center-3.jpg"  /></a></li>
+					<li><a href="<tpl> $site_url </tpl>/home/member.php?action=regist"><img src="<tpl> $template_dir </tpl>/home/images/center-5.jpg"  /></a></li>
+				</ul>
+			<tpl> /if </tpl>
+			<ul class="dh-1">
+				<li><a href="<tpl> $site_url </tpl>/"><tpl> $langCAIndex </tpl></a> &gt;&gt; <a href="<tpl> $site_url </tpl>/app/credits_act/"><tpl> $langCACreditsAction </tpl></a> &gt;&gt; <a href="<tpl> $site_url </tpl>/app/credits_act/index.php?action=list"><tpl> $langCAList </tpl></a> &gt;&gt; <span title="<tpl> $act_row.ca_title </tpl>"><tpl> $act_row.ca_title_small </tpl></span> </li>
+			</ul>			
+		</div>
+		<div class="center-nr">
+			<div class="wenzi">
+				<h3><tpl> $act_row.ca_title </tpl></h3>
+				<dl>
+					<dd class="left-1"><strong><font style="color:#666666"><tpl> $langSysCAAddDate </tpl>：</font><font style="color:#f94926"><tpl> $act_row.ca_add_time </tpl></font></strong></dd>
+					<dd><strong><font style="color:#666666"><tpl> $langSysCAEndDate </tpl>：</font><font style="color:#f94926"><tpl> $act_row.ca_end_time </tpl></font></strong></dd>
+				</dl>
+				<ul>
+					<li><tpl> $act_row.ca_content </tpl></li>
+				</ul>
+			</div>
+			<div class="center-list">
+				<ul>
+					<tpl> section name=i loop=$act_goods_list </tpl>
+						<li>
+							<div class="box">
+								<tpl> if $act_goods_list[i].cag_pic neq '' </tpl>
+									<a href="index.php?action=convert_goods&cag_id=<tpl> $act_goods_list[i].cag_id </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $act_goods_list[i].cag_pic </tpl>" alt="<tpl> $act_goods_list[i].cag_name </tpl>" /></a>
+								<tpl> else </tpl>
+									<a href="index.php?action=convert_goods&cag_id=<tpl> $act_goods_list[i].cag_id </tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/images/noimgm.gif" alt="<tpl> $act_goods_list[i].cag_name </tpl>" /></a>
+								<tpl> /if </tpl>
+							</div>
+							<p class="title"><a href="index.php?action=convert_goods&cag_id=<tpl> $act_goods_list[i].cag_id </tpl>" target="_blank"><tpl> $act_goods_list[i].cag_name </tpl></a></p>
+							<p  class="letter"><tpl> $langSysCAGoodsNum </tpl>:<tpl> $act_goods_list[i].cag_num </tpl></p>
+							<p  class="letter"><tpl> $langSysCACredits </tpl>:<tpl> $act_goods_list[i].cag_credits </tpl></p>
+							<p  class="letter"><a href="index.php?action=convert_goods&cag_id=<tpl> $act_goods_list[i].cag_id </tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/home/images/center-8.jpg" border="0"  /></a></p>
+						</li>
+					<tpl> /section </tpl>
+				</ul>
+				<ul class="page">
+					<dl><tpl> $page_list </tpl></dl>
+				</ul>
+			</div>
+			<tpl> if $msg_list[0].cam_id neq'' </tpl>
+			<div class="leave">
+				<tpl> section name=i loop=$msg_list </tpl>
+					<div class="leave-1">
+						<dl>
+							<dd class="member"><b><tpl> $langSysCAMember </tpl>：<tpl> $msg_list[i].login_name </tpl></b>  <tpl> $langSysCAPub </tpl> <tpl> $msg_list[i].cam_time </tpl> </dd>
+							<dd class="theme"><tpl> $msg_list[i].cam_content </tpl></dd>
+							<dd class="member"><b><tpl> $langSysCASystemReply </tpl>：<tpl> $msg_list[i].cam_re </tpl></b></dd>
+						</dl>
+					</div>
+				<tpl> /section </tpl>
+			</div>
+			<div class="page-2">
+				<ul class="page">
+					<dl><tpl> $msg_page_list </tpl></dl>
+				</ul>
+			</div>
+			<tpl> /if </tpl>
+			<form name="form_message" id="form_message" action="index.php?action=msg_save" method="post">	
+			<input type="hidden" name="c_code" id="c_code" value="2" />
+			<input type="hidden" name="ca_id" value="<tpl> $act_row.ca_id </tpl>" />		
+			<div class="message">
+				<div class="liuyan_tex">
+					<textarea class="liuyan_tx" id="cam_content" name="cam_content"></textarea>
+				</div>
+				<div class="txtmessage">
+				<ul>
+				  <li style=" vertical-align:-2px; *vertical-align:0px;"><tpl> $langCACode </tpl>
+					    <strong>:</strong></li> 
+						<li><input class="searchinput" id="code" style="vertical-align: middle; width: 40px" name="checkcode" /></li><li><label style="display:none" for="code" class="wrong" metaDone="true" generated="true"></label><a href="javascript:;" onclick="javascript:document.getElementById('codeimage').src='<tpl>$site_url</tpl>/classes/libraries/code.php?' + Math.random();"> <span style=" vertical-align:-7px; *vertical-align:-5px; padding-right:5px;"><img src="<tpl>$site_url</tpl>/classes/libraries/code.php" title="<tpl> $langSysCACodeChange </tpl>" name="codeimage" border="0" id="codeimage"  width="60" height="20" onclick="this.src='<tpl>$site_url</tpl>/classes/libraries/code.php?' + Math.random()" /></span><span style=" vertical-align:-2px; *vertical-align:0px;"><tpl> $langSysCACodeImgChange </tpl></span></a></li>
+				  </ul>
+				</div>
+				<div class="txtmessage1">
+					<input class="input_submit" type="button" name="button" value="<tpl> $langSysCAMsgSubmit </tpl>" onclick="ajax_code();" /> 
+					&nbsp;
+					<input class="input_submit" type="reset" value="<tpl> $langSysCAReset </tpl>" /> 
+					
+					<input id="userid" type="hidden" name="userid" value="1" />
+				</div>
+		</div>
+		</form>
+		</div>
+		<div class="clear-10"></div>
+		<tpl> include file ='../../../../html/footer.html' </tpl>
+	</div>
+	<div class="list-1-right">
+	</div>
+</div>
+</div>
+</body>
+</html>

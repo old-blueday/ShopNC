@@ -1,0 +1,65 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMgManage </tpl> &gt;&gt; <tpl> $langSysMgList </tpl></div>
+				</div>
+			</div>
+			<form action="member_group.manage.php" id="form_del" name="form_del" method="post">
+			<input type="hidden" name="action" id="action" value="update" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysMgDel </tpl></td>
+						<td class="es-7"><tpl> $langSysMgName </tpl></td>
+						<td class="es-4"><tpl> $langSysMgExpInterval </tpl></td>
+						<td class="es-2"><tpl> $langSysMgStarsNum </tpl></td>
+						<td class="es-6"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $group_array[0].mg_id neq'' </tpl>
+						<tpl> section name=loop loop=$group_array </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+						<input type="hidden" name="mg_id[<tpl> $group_array[loop].mg_id </tpl>]" value="<tpl> $group_array[loop].mg_id </tpl>" />
+						<input type="checkbox" name="del_id[<tpl> $group_array[loop].mg_id </tpl>]" value="<tpl> $group_array[loop].mg_id </tpl>" /></td>
+						<td>
+							<input class="fct-input" name="group_name[<tpl> $group_array[loop].mg_id </tpl>]" value="<tpl> $group_array[loop].mg_name </tpl>" type="text" maxlength="30" />
+						</td>
+						<td>
+							<input class="ct-input pbc" name="group_lower[<tpl> $group_array[loop].mg_id </tpl>]" value="<tpl> $group_array[loop].mg_score_lower </tpl>" type="text" maxlength="9" />~<input class="rt-input pbc" readonly="readonly" type="text" name="group_higher[<tpl> $group_array[loop].mg_id </tpl>]" value="<tpl> $group_array[loop].mg_score_higher </tpl>" maxlength="9" />
+						</td>
+						<td>
+							<input class="fct-input-2" name="group_stars[<tpl> $group_array[loop].mg_id </tpl>]" value="<tpl> $group_array[loop].mg_stars </tpl>" type="text" maxlength="2" />
+						</td>
+						<td>
+							<a href="member_group.manage.php?action=set&id=<tpl> $group_array[loop].mg_id </tpl>"><tpl> $langSysMgInfo </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $group_array[0].mg_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+				<input class="bthl" name="" value="<tpl> $langSysMgAddNewGroup </tpl>" type="button" onclick="$('#bianse').append('<tr class=\'es-td\'><td id=\'check-1\'></td><td><input class=\'fct-input\' type=\'text\' name=\'new_name[]\' maxlength=\'30\' /></td><td><input class=\'fct-input\' type=\'text\' name=\'new_lower[]\' value=\'0\' />~<input class=\'rt-input pbc\' readonly=\'readonly\' type=\'text\' title=\'<tpl> $langSysMgIntervalTop </tpl>\' value=\'<tpl> $langSysMgIntervalTop </tpl>\' /></td><td><input class=\'fct-input-2\' name=\'new_stars[]\' value=\'0\' type=\'text\' maxlength=\'2\' /></td><td></td></tr>');" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

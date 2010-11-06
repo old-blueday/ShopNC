@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_title</tpl></title><!--  后台管理  -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/header.css" />
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#select_language").change(function(){
+		var language_val =  $("select[@name='select_language'] option[@selected]").val();
+		$("#langauge_select").val(language_val);
+		$("#language_post").submit();
+	});
+});
+function fixPNG(myImage)
+{    
+	var arVersion = navigator.appVersion.split("MSIE");    
+	var version = parseFloat(arVersion[1]);    
+	
+	if ((version >= 5.5) && (version < 7) && (document.body.filters)) {        
+		var imgID = (myImage.id) ? "id='" + myImage.id + "' " : "";        
+		var imgClass = (myImage.className) ? "class='" + myImage.className + "' " : "";         
+		var imgTitle = (myImage.title) ? "title='" + myImage.title   + "' " : "title='" + myImage.alt + "' ";        
+		var imgStyle = "display:inline-block;" + myImage.style.cssText;        
+		var strNewHTML = "<span " + imgID + imgClass + imgTitle            
+						+ " style=\"" + "width:" + myImage.width            
+						+ "px; height:" + myImage.height            
+						+ "px;" + imgStyle + ";" + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"            
+						+ "(src=\'" + myImage.src + "\', sizingMethod='scale');\"></span>";         
+		myImage.outerHTML = strNewHTML;     
+	}
+}
+function $Nav(){
+	if(window.navigator.userAgent.indexOf("MSIE")>=1) return 'IE';
+  else if(window.navigator.userAgent.indexOf("Firefox")>=1) return 'FF';
+  else return "OT";
+}
+var preFrameW = '180,*';
+var FrameHide = 0;
+function ChangeMenu(way){
+	var addwidth = 10;
+	var fcol = top.document.all.bodyFrame.cols;
+	if(way==1) addwidth = 10;
+	else if(way==-1) addwidth = -10;
+	else if(way==0){
+		if(FrameHide == 0){
+			preFrameW = top.document.all.bodyFrame.cols;
+			top.document.all.bodyFrame.cols = '0,*';
+			FrameHide = 1;
+			return;
+		}else{
+			top.document.all.bodyFrame.cols = preFrameW;
+			FrameHide = 0;
+			return;
+		}
+	}
+	fcols = fcol.split(',');
+	fcols[0] = parseInt(fcols[0]) + addwidth;
+	top.document.all.bodyFrame.cols = fcols[0]+',*';
+}
+/* Miss Chen 的切换方法 */
+function cyjs(num){
+	var nav = document.getElementById("dashmenu");
+	var links = nav.getElementsByTagName("li");
+	for (var id = 1; id <= links.length; id++)
+	{
+		var MissChen="clickurl"+id;
+		var CY="menuli"+id;
+		if(id == num){
+			document.getElementById(CY).className="select";
+		}
+		else{
+			document.getElementById(CY).className="";
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="header">
+<div id="header_fuctions" class="alignRight"><span id="changes_lang"><tpl>$admin_header_helo</tpl><tpl>$smarty.session.admin_name</tpl>&nbsp;&nbsp;&nbsp;<tpl>$admin_header_select_language</tpl><!--  语言选择  -->:</span>
+            <span id="lang_select">
+				  <select name="select_language" id="select_language">
+				  <tpl>section name=list loop=$language_array</tpl>
+                <option value="<tpl>$language_array[list].language_directory</tpl>" <tpl>if $language_array[list].language_directory ==$language_ver</tpl> selected="selected"<tpl>/if</tpl> ><tpl>$language_array[list].language_name</tpl></option>
+				<tpl>/section</tpl>
+			      </select>
+            </span>
+		<span id="view_site"><a href="index.php?action=main" target="main-frame"><tpl>$admin_index_main_index</tpl><!--  后台首页  --></a></span>
+		<span id="view_shopnc"><a href="<tpl>$Site_Url</tpl>" target="_blank"><tpl>$admin_header_view_shop</tpl><!--  查看网店  --></a></span>
+		<span id="clear_cache"><a href="index.php?action=clear_cache" target="_parent"><tpl>$admin_index_clear_cache</tpl><!-- 更新缓存 --></a></span>
+		<span id="line_help"><a href="http://www.shopnc.net/document/shopnc6_help/" target="_blank"><tpl>$admin_nc_line_help</tpl><!--  在线帮助  --></a></span>
+		<span id="logout"><a href="login.php?action=login_out" target="_parent"><tpl>$admin_header_exit</tpl><!--  退出  --></a></span>
+		</div>
+	<div id="banner">
+        <img src="<tpl>$Site_Url</tpl>/admin/templates/images/logo.png" onload="fixPNG(this)" />       
+    </div><!--   end of banner   -->
+    <ul id="dashmenu">
+        <li id="menuli1"><a  onclick="javascript:cyjs(1)" href="?action=left&left_show=system" target="menu-frame" id="clickurl1"><span><tpl>$admin_header_shop_manage</tpl><!--  网店管理  --></span></a></li>
+        <li id="menuli2"><a  onclick="javascript:cyjs(2)" href="?action=left&left_show=product" target="menu-frame" id="clickurl2"><span><tpl>$admin_header_goods_manage</tpl><!--  商品管理  --></span></a></li>
+        <li id="menuli3"><a onclick="javascript:cyjs(3)" href="?action=left&left_show=order" target="menu-frame" id="clickurl3"><span><tpl>$admin_header_order_manage</tpl><!--  订单管理  --></span></a></li>
+        <li id="menuli4"><a  onclick="javascript:cyjs(4)" href="?action=left&left_show=member" target="menu-frame" id="clickurl4"><span><tpl>$admin_header_user_manage</tpl><!--  会员管理  --></span></a></li>
+        <li id="menuli5"><a  onclick="javascript:cyjs(5)" href="?action=left&left_show=article" target="menu-frame" id="clickurl5"><span><tpl>$admin_header_article_manage</tpl><!--  文章管理  --></span></a></li>
+        <li id="menuli6"><a  onclick="javascript:cyjs(6)" href="?action=left&left_show=tools" target="menu-frame" id="clickurl6"><span><tpl>$admin_header_tools_manage</tpl><!--  工具管理  --></span></a></li>
+        <li id="menuli7"><a  onclick="javascript:cyjs(7)" href="?action=left&left_show=module" target="menu-frame" id="clickurl7"><span><tpl>$admin_header_module_manage</tpl><!--  模块管理  --></span></a></li>
+        <li id="menuli8"><a  onclick="javascript:cyjs(8)" href="?action=left&left_show=analysis" target="menu-frame" id="clickurl8"><span><tpl>$admin_header_system_manage</tpl><!--  系统分析  --></span></a></li>
+		<li id="menuli9" class="select"><a  onclick="javascript:cyjs(9)" href="?action=left" target="menu-frame" id="clickurl9"><span><tpl>$admin_header_all</tpl><!--  {全部}  --></span></a></li>
+		<div class="clear"></div>
+    </ul>
+    <div class="clear"></div>
+</div><!--   end of header   -->
+<form action="index.php" method="post" name="langauge_post" target="_parent" id="language_post" >
+<input type="hidden" name="language_select" id="langauge_select" value="" />
+</form>
+</body>
+</html>

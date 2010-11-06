@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/home/css/default.css" rel="stylesheet" type="text/css" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<tpl>include file ='header_new.html'</tpl>
+<table width="950" border="0" align="center" cellpadding="0" class="q-jian">
+<tpl> if $price_list[0].i_id neq '' </tpl>
+	<tr>
+		<td class="jan-1"><tpl> $langPriceAreaLowerLimit </tpl></td>
+		<td class="jan-1"><tpl> $langPriceAreaUpperLimit </tpl></td>
+		<td class="jan-1"><tpl> $langPriceAddExtent </tpl></td>
+	</tr>
+	<tpl> section name=loop loop=$price_list </tpl>
+	<tr>
+		<td><tpl> $price_list[loop].i_low </tpl></td>
+		<td><tpl> $price_list[loop].i_high </tpl></td>
+		<td><tpl> $price_list[loop].increment </tpl></td>
+	</tr>
+	<tpl> /section </tpl>
+<tpl> else </tpl>
+	<tpl> $langCNull </tpl>
+<tpl> /if </tpl>
+</table>
+<div class="clear-0"></div>
+<tpl> include file ='../../../html/footer.html' </tpl> 
+</body>
+</html>

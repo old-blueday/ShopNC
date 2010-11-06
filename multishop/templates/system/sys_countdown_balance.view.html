@@ -1,0 +1,68 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left">订单管理 &gt;&gt; 订单列表 &gt;&gt; 订单结算</div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="order_countdown.manage.php" method="post" id="form_modi">
+						<input type="hidden" name="action" value="save_balance" />
+						<input type="hidden" name="seller_margin" value="<tpl> $margin_seller_array.cm_margin </tpl>" />
+						<input type="hidden" name="buyer_margin" value="<tpl> $margin_buyer_array.cm_margin </tpl>" />
+						<input type="hidden" name="seller_id" value="<tpl> $order_array.seller_id </tpl>" />
+						<input type="hidden" name="buyer_id" value="<tpl> $order_array.buyer_id </tpl>" />
+						<input type="hidden" name="p_code" value="<tpl> $order_array.p_code </tpl>" />
+						<input type="hidden" name="sp_code" value="<tpl> $order_array.sp_code </tpl>" />
+						<input type="hidden" name="cm_id[]" value="<tpl> $margin_seller_array.cm_id </tpl>" />
+						<input type="hidden" name="cm_id[]" value="<tpl> $margin_buyer_array.cm_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th>订单编号:</th>
+									<td><tpl> $order_array.sp_code </tpl></td>
+								</tr>
+								<tr>
+									<th>商品信息:</th>
+									<td><tpl> $order_array.p_name </tpl> [<a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl> $order_array.p_code </tpl>" target="_blank">详情</a>]</td>
+								</tr>
+								<tr>
+									<th>商品编号:</th>
+									<td><tpl> $order_array.p_code </tpl></td>
+								</tr>
+								<tr>
+									<th>卖家名称:</th>
+									<td><tpl> $order_array.seller_name </tpl></td>
+								</tr>
+								<tr>
+									<th>买家名称:</th>
+									<td><tpl> $order_array.buyer_name </tpl></td>
+								</tr>							
+								<tr>
+									<th>卖家保证金:</th>
+									<td><tpl> $margin_seller_array.cm_margin|cat:'.00' </tpl> 元</td>
+								</tr>
+								<tr>
+									<th>买家保证金:</th>
+									<td><tpl> $margin_buyer_array.cm_margin|cat:'.00' </tpl> 元</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="结算" type="submit" />
+								<input type="button" class="bthl" value="取消" onclick='history.back();'/>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

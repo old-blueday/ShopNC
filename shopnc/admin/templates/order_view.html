@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_order_manage</tpl> - <tpl>$admin_order_list</tpl></title><!-- 订单管理 - 订单列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script language="javascript">
+<!-- 
+function action_order_change(str) {
+	$("#action_type").val(str); 
+	$("#form_order").submit(); 
+}
+ -->
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b>
+	<span class="alignRight"><a href="admin_order.php?action=order_list" target="_self" class="btnInput"><tpl>$admin_order_list</tpl><!-- 订单列表 --></a></span>
+	<tpl>$admin_header_order_manage</tpl> >> <tpl>$admin_order_view</tpl><!-- 订单查看 --><!-- 订单管理 >>订单查看 -->
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5>
+			<tpl>$admin_order_view</tpl>
+			</h5>
+    <div class="textRight btnDiv" style="left:55%;">
+	<tpl>if $order_array.order_state3!='1'</tpl>
+<input type="button" name="button1" id="button1" onclick="action_order_change('conf_ok')" value="<tpl>$admin_order_ok</tpl>" class="btnInput" /><!-- 确定 -->
+      <input type="button" name="button2" id="button2" onclick="action_order_change('conf_no')" value="<tpl>$admin_order_cancel</tpl>" class="btnInput" /><!-- 取消 -->
+      <input type="button" name="button3" id="button3"  onclick="action_order_change('pay_ok')"  value="<tpl>$admin_order_pay_for_it</tpl>" class="btnInput" /><!-- 到款 -->
+      <input type="button" name="button4" id="button4"  onclick="action_order_change('send_ok')" value="<tpl>$admin_order_send</tpl>" class="btnInput" /><!-- 出货 -->
+      <input type="button" name="button5" id="button5"  onclick="action_order_change('fill_ok')" value="<tpl>$admin_order_fill</tpl>" class="btnInput" /><!-- 归档 -->
+	  <tpl>/if</tpl>
+    </div>
+      <h3><tpl>$order_array.user_name</tpl> > <tpl>$admin_order_goods</tpl><!-- 所购商品 --></h3>
+<div class="entry-body" id="p-list-div" style="margin-top:0;">
+      <form id="form1" name="form1" method="post" action="">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <td colspan="8" class="searchbar">&nbsp;
+              
+            </td>
+          </tr>
+          <tr>
+            <th>&nbsp;</th>
+            <th><tpl>$admin_order_goods_name</tpl><!-- 商品名称 --></th>
+            <th><tpl>$admin_order_goods_price</tpl><!-- 商品单价 --></th>
+            <th><tpl>$admin_order_goods_color</tpl>/<tpl>$admin_order_goods_Spec</tpl><!-- 颜色/规格 --></th>
+            <!-- <th><tpl>$admin_order_goods_sale_num</tpl>已出货数量 --><!-- </th> -->
+			<th><tpl>$admin_order_goods_num</tpl><!-- 需出货数量 --></th>
+            <th><tpl>$admin_order_goods_price_count</tpl><!-- 小计 --></th>
+            <th><tpl>$admin_order_state</tpl><!-- 订单状态 --></th>
+          </tr>
+		  <tpl>section name=list loop=$order_goods</tpl>
+          <tr>
+            <td>&nbsp;</td>
+            <td><tpl>$order_goods[list].goods_name</tpl></td>
+            <td><tpl>$order_goods[list].goods_pricedesc</tpl></td>
+            <td><tpl>$order_goods[list].goods_color</tpl>/<tpl>$order_goods[list].goods_size</tpl></td>
+            <!-- <td><tpl>$order_goods[list].sale_count</tpl></td> -->
+			<td><tpl>$order_goods[list].goods_count</tpl></td>
+            <td><tpl>$order_goods[list].goods_pricedesc*$order_goods[list].goods_count</tpl></td>
+            <td><tpl>$order_array.order_state_txt</tpl>,<tpl>$order_array.order_state1_txt</tpl>,<tpl>$order_array.order_state2_txt</tpl>,<tpl>$order_array.order_state3_txt</tpl></td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+          	<td colspan="8" style="text-align:left; border-top:1px solid #e8e8e8;">
+            	<h4><tpl>$admin_order_manage_info</tpl>:</h4>
+                <tpl>$admin_order_manage_body</tpl>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div><!--  end of entry-body  -->
+    <h3>> <tpl>$admin_order_info</tpl><!-- 订单信息 --></h3>
+    <div class="needborder entry-body">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="infoTab">
+        <tr>
+          <th width="100"><tpl>$admin_order_number</tpl><!-- 订单编号 -->:</th>
+          <td width="300"><tpl>$order_array.order_serial</tpl></td>
+          <th width="100"><tpl>$admin_order_create_time</tpl><!-- 下单日期 -->:</th>
+          <td width="300"><tpl>$order_array.create_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_state</tpl><!-- 订单状态 -->:</th>
+          <td><tpl>$order_array.order_state_txt</tpl>,<tpl>$order_array.order_state1_txt</tpl>,<tpl>$order_array.order_state2_txt</tpl>,<tpl>$order_array.order_state3_txt</tpl></td>
+          <th><tpl>$admin_order_goods_price</tpl><!-- 商品总金额 -->:</th>
+          <td><tpl>math equation="x-y-z" x=$order_array.order_price y=$order_array.transport_price z=$order_array.pay_price format="%.2f"</tpl><tpl>$currencys_set.currencies_units</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_send_type</tpl><!-- 配送方式 -->:</th>
+          <td><tpl>$order_array.transport_name</tpl></td>
+          <th><tpl>$admin_order_send_price</tpl><!-- 配送金额 -->:</th>
+          <td><tpl>$order_array.transport_price</tpl><tpl>$currencys_set.currencies_units</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_pay_type</tpl><!-- 付款方式 -->:</th>
+          <td><tpl>$order_array.pay_name</tpl></td>
+          <th><tpl>$admin_order_pay_price</tpl><!-- 支付手续费 -->:</th>
+          <td><tpl>$order_array.pay_price</tpl><tpl>$currencys_set.currencies_units</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_invoice</tpl><!-- 发票信息 -->:</th>
+          <td><tpl>if $order_array.order_invoice == '1'</tpl><tpl>$order_array.order_invoice_top</tpl><tpl>else</tpl><tpl>$admin_order_invoice_null</tpl><tpl>/if</tpl></td>
+          <th><tpl>$admin_order_count_price</tpl><!-- 订单总金额 -->:</th>
+          <td><tpl>$order_array.order_price</tpl><tpl>$currencys_set.currencies_units</tpl></td>
+        </tr>
+      </table>
+    </div><!--  end of needborder  -->
+    <h3>> <tpl>$admin_order_receiver_ino</tpl><!-- 收货人信息 --></h3>
+    <div class="needborder entry-body">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="infoTab">
+        <tr>
+          <th width="100"><tpl>$admin_order_receiver_user</tpl><!-- 收货人姓名 -->:</th>
+          <td width="300"><tpl>$order_array.receiver_name</tpl></td>
+          <th width="100"><tpl>$admin_order_receiver_mobile</tpl><!-- 联络手机 -->:</th>
+          <td width="300"><tpl>$order_array.receiver_mobile</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_receiver_tele</tpl><!-- 联络电话 -->:</th>
+          <td><tpl>$order_array.receiver_tele</tpl></td>
+          <th><tpl>$admin_order_receiver_email</tpl><!-- 电子邮箱 -->:</th>
+          <td><tpl>$order_array.receiver_email</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_receiver_zip</tpl><!-- 邮政编码 -->:</th>
+          <td><tpl>$order_array.receiver_post</tpl></td>
+          <th>&nbsp;</th>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_receiver_address</tpl><!-- 收货地址 -->:</th>
+          <td colspan="3"><tpl>$order_array.receiver_address</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_order_receiver_remarks</tpl><!-- /*备注*/ -->:</th>
+          <td colspan="3"><tpl>$order_array.transport_content</tpl></td>
+        </tr>
+      </table>
+    </div><!--  end of needborder  -->
+</div><!--  end of content  -->
+	<div align="center">
+	<tpl>if $order_array.order_state3!='1'</tpl>
+      <input type="button" name="button1" id="button1" onclick="action_order_change('conf_ok')" value="<tpl>$admin_order_ok</tpl>" class="btnInput" /><!-- 确定 -->
+      <input type="button" name="button2" id="button2" onclick="action_order_change('conf_no')" value="<tpl>$admin_order_cancel</tpl>" class="btnInput" /><!-- 取消 -->
+      <input type="button" name="button3" id="button3"  onclick="action_order_change('pay_ok')"  value="<tpl>$admin_order_pay_for_it</tpl>" class="btnInput" /><!-- 到款 -->
+      <input type="button" name="button4" id="button4"  onclick="action_order_change('send_ok')" value="<tpl>$admin_order_send</tpl>" class="btnInput" /><!-- 出货 -->
+      <input type="button" name="button5" id="button5"  onclick="action_order_change('fill_ok')" value="<tpl>$admin_order_fill</tpl>" class="btnInput" /><!-- 归档 -->
+	  
+<form action="admin_order.php" method="post" name="form_order" id="form_order">
+<input type="hidden" name="action" id="action" value="order_state" />
+<input type="hidden" name="order_id" id="order_id" value="<tpl>$order_array.order_id</tpl>" />
+<input type="hidden" name="order_state" id="order_state" value="<tpl>$order_array.order_state</tpl>" />
+<input type="hidden" name="order_state1" id="order_state1" value="<tpl>$order_array.order_state1</tpl>" />
+<input type="hidden" name="order_state2" id="order_state2" value="<tpl>$order_array.order_state2</tpl>" />
+<input type="hidden" name="order_state3" id="order_state3" value="<tpl>$order_array.order_state3</tpl>" />
+<input type="hidden" name="action_type" id="action_type" value="" />
+</form>
+<tpl>/if</tpl>
+</div>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+    </div>
+</body>
+</html>

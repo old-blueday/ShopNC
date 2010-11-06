@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_title </tpl></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("my_menu").style.height = (wh-96)+"px";
+//document.getElementById("sidbar").style.height = (wh-82)+"px";
+document.getElementById("my_menu").style.height = (wh-16)+"px";
+//document.getElementById("sidbar").style.height = (wh-10)+"px";
+}
+
+$(document).ready(function(){
+	
+	//hide message_body after the first one
+	<tpl>if $show_state == 'all'</tpl>
+	$(".menu_con").hide();
+	<tpl>/if</tpl>
+	//toggle message_body
+	$(".menu_head").click(function(){
+		$(this).next(".menu_con").slideToggle(500)
+		.siblings(".menu_con").hide(500);
+		$(this).toggleClass("active");
+		$(this).siblings(".menu_head").removeClass("active");
+		$(".menu_con a").removeClass("active");
+		return false;
+	});
+	
+	$(".menu_con a").click(function(){
+		$(this).addClass("active");
+		$(this).siblings("a").removeClass("active");
+		return true;
+	});
+});
+</script>
+</head>
+
+<body>
+<div id="leftcon">
+	<div id="my_menu" class="my_menu">
+	<tpl> if $show_state=='product' or $show_state=='all' </tpl>
+        	<h4 class="menu_head"><tpl> $admin_header_goods_manage </tpl><!-- 商品管理 --></h4>
+			<div class="menu_con">
+            <a href="admin_provider_goods.php?action=goods_page" target="main-frame"><b class="setting01"></b><tpl> $admin_goods_add </tpl><!-- 新增商品 --></a>
+            <a href="admin_provider_goods.php?action=list" target="main-frame"><b class="setting02"></b><tpl> $admin_goods_list </tpl><!-- 商品列表 --></a>
+            <a href="admin_provider_goods.php?action=recycle"  target="main-frame"><b class="setting03"></b><tpl> $admin_goods_recycle </tpl><!-- 商品回收站 --></a>
+        </div><!--  end of adminmenu  -->
+		<tpl> /if </tpl>
+		<tpl> if $show_state=='article' or $show_state=='all' </tpl>
+        	<h4 class="menu_head"><tpl> $admin_header_article_manage </tpl><!-- 文章管理 --></h4>
+			<div class="menu_con">
+            <a href="admin_provider_article.php?action=add_article" target="main-frame"><b class="setting04"></b><tpl> $admin_article_add </tpl><!-- 添加文章 --></a>
+            <a href="admin_provider_article.php?action=article_list" target="main-frame"><b class="setting05"></b><tpl> $admin_article_list </tpl><!-- 文章列表 --></a>
+        </div><!--  end of adminmenu  -->
+		<tpl> /if </tpl>
+		<tpl> if $show_state=='provider_info' or $show_state=='all' </tpl>
+        	<h4 class="menu_head"><tpl> $admin_header_provider_info </tpl><!-- 账户管理 --></h4>
+			<div class="menu_con">
+            <a href="admin_provider_info.php?action=add_provider&provider_id=<tpl>$smarty.session.provider_id</tpl>" target="main-frame"><b class="setting06"></b><tpl> $admin_header_provider_edit </tpl><!-- 修改账户信息 --></a>
+        </div><!--  end of adminmenu  -->
+		<tpl> /if </tpl>
+		<tpl> if $show_state=='analysis' or $show_state=='all' </tpl>
+        	<h4 class="menu_head"><tpl> $admin_header_system_manage </tpl><!-- 系统分析 --></h4>
+			<div class="menu_con">
+            <a href="admin_provider_stat_products.php?action=index" target="main-frame"><b class="setting07"></b><tpl> $admin_statis_goods </tpl><!-- 商品统计 --></a>
+        </div><!--  end of adminmenu  -->
+		<tpl> /if </tpl>
+    </div><!--  end of my_menu  -->
+</div><!--  end of sidebar  -->
+</body>
+</html>

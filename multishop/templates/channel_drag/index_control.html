@@ -1,0 +1,1161 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=<tpl> $NCharset </tpl>">
+<title><tpl> $langChannelIndexSet </tpl></title>
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<script>
+var assetDir = '<tpl> $template_dir </tpl>';
+var charSet = '<tpl> $NCharset </tpl>';
+var spaceCommon = [];
+spaceCommon['add'] = '<tpl> $langCadd </tpl>';
+spaceCommon['newWindowShowOriginal'] = '<tpl> $langStoreStyleNewWindowShowOriginal </tpl>';
+spaceCommon['webSite'] = '<tpl> $langStoreStyleWebSite </tpl>';
+spaceCommon['copyToParse'] = '<tpl> $langStoreStyleCopyToParse </tpl>';
+spaceCommon['pleaseCopyTo'] = '<tpl> $langStoreStylePleaseCopyTo </tpl>';
+spaceCommon['confirm'] = '<tpl> $langStoreStyleConfirm </tpl>';
+spaceCommon['pleaseSel'] = '<tpl> $langStoreStylePleaseSel </tpl>';
+spaceCommon['picUrlWrong'] = '<tpl> $langStoreStylePicUrlWrong </tpl>';
+spaceCommon['del'] = '<tpl> $langCdele </tpl>';
+spaceCommon['create'] = '<tpl> $langStoreStyleCreate </tpl>';
+spaceCommon['name'] = '<tpl> $langStoreStyleSortName </tpl>';
+var spaceTips = [];
+spaceTips['loading'] = '<tpl> $langStoreStyleDoing </tpl>';
+spaceTips['noSelectBox'] = '<tpl> $langStoreStyleNoSelectBox </tpl>';
+spaceTips['shareCheck'] = '<tpl> $langStoreStyleShareCheck </tpl>';
+spaceTips['deleteCheck'] = '<tpl> $langStoreStyleDeleteCheck </tpl>';
+spaceTips['diyError'] = '<tpl> $langStoreStyleDiyError </tpl>';
+var spaceLangs = [];
+spaceLangs['menuPic'] = '<tpl> $langStoreStyleMenuPic </tpl>';
+spaceLangs['footerPic'] = '<tpl> $langStoreStyleFootPic </tpl>';
+spaceLangs['bannerPic'] = '<tpl> $langStoreStyleHeadPic </tpl>';
+spaceLangs['bodyBackgroundPic'] = '<tpl> $langStoreStyleBigBackgroundPic </tpl>';
+spaceLangs['musicList'] = '<tpl> $langStoreStyleMusicList </tpl>';
+spaceLangs['clear'] = '<tpl> $langStoreStyleClear </tpl>';
+spaceLangs['tplNumMaxLimit'] = "<tpl> $langStoreStyleTplNumMaxLimit </tpl>";
+spaceLangs['selectColor'] = '<tpl> $langStoreStyleSelectColor </tpl>';
+spaceLangs['inputThemeName'] = '<tpl> $langStoreStyleInputThemeName </tpl>';
+spaceLangs['selectThemeOfColor'] = '<tpl> $langStoreStyleSelectThemeOfColor </tpl>';
+spaceLangs['inputThemeOfClass'] = '<tpl> $langStoreStyleInputThemeOfClass </tpl>';
+spaceLangs['noSelectTheme'] = '<tpl> $langStoreStyleNoSelectTheme </tpl>';
+spaceLangs['contentBackground'] = '<tpl> $langStoreStyleContentBackground </tpl>';
+spaceLangs['blockTitleBackground'] = '<tpl> $langStoreStyleBlockTitleBackground </tpl>';
+spaceLangs['blockError'] = '<tpl> $langStoreStyleBlockError </tpl>';
+spaceLangs['setAllBlockCheck'] = '<tpl> $langStoreStyleSetAllBlockCheck </tpl>';
+spaceLangs['styleBack'] = '<tpl> $langStoreStyleStyleBack </tpl>';
+</script>
+<script type="text/javascript" src="../js/jquery1.4/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery1.4/jquery.form.js"></script>
+<script type="text/javascript"  src="../js/jquery1.4/jquery.validate.js"></script>
+<script type="text/javascript">
+var jquery=$;
+</script>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/script_common.js"></script>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/script_menu.js"></script>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/script_ajax.js"></script>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/script_manage.js"></script>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/script_face.js"></script>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/spacePackerCommon.js"></script>
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/comm.css">
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/template.css">
+</head>
+<body>
+<style type="text/css">
+<tpl> $block_css </tpl>
+</style>
+<style type="text/css">
+#wrap{margin:65px auto 0 !important;}
+#wraptwo{margin:65px auto 0 !important;}
+.banner .title{border:2px dashed red;cursor:move;}
+
+.toolbar{background:url(<tpl> $template_dir </tpl>/default/images/bg_toolbar.jpg) repeat-x;height:64px;}
+
+#diy_content {color:#fff; font-size:14px; padding:2px; text-align:center; width:100%; height:120px; background-color:#342}
+#diy_header {margin:0 auto; height:30px; background-color:#456}
+#diy_main {margin:0 auto; height:90px;background-color:#789;}
+#selectblock {margin:0 auto;}
+
+.transfer {border:1px dashed red;margin:0px auto;cursor:move;background: url(<tpl> $template_dir </tpl>/default/images/bg_transfer.png) !important;background:none;filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src='<tpl> $template_dir </tpl>/default/images/bg_transfer.png');}
+
+.transfer .transferbody{overflow:hidden;}
+.transfer .transferbody a{display:block; width:21px; height:21px; overflow:hidden; float:right;margin-right:6px; text-indent: -99999px;}
+.transfer .transferbody a.editBlock{background:url(<tpl> $template_dir </tpl>/default/images/floatbtn_editblock.gif) no-repeat 0 0; }
+.transfer .transferbody a.editBlock:hover{background:url(<tpl> $template_dir </tpl>/default/images/floatbtn_editblock.gif) no-repeat 0 -21px; }
+.transfer .transferbody a.delblock{background:url(<tpl> $template_dir </tpl>/default/images/floatbtn_delblock.gif) no-repeat 0 0; }
+.transfer .transferbody a.delblock:hover{background:url(<tpl> $template_dir </tpl>/default/images/floatbtn_delblock.gif) no-repeat 0 -21px; }
+
+.transfer h1{background:#ECF9FF;height:18px;margin:1px;padding:3px;text-align:right;}
+.transfer h1 a{background-color:#F00;padding:4px;}
+
+
+#clrMain {background-color:#FFF;height:255px;width:254px;border:1px solid #000;position:absolute;left:80px;top:100px;}
+#clrMain input {width:70px;left:80px;top:225px;padding:4px;position:absolute;}
+#clrColor {background-repeat:no-repeat;height:200px;left:3px;top:3px;width:200px;padding:7px;position:absolute;}
+#clrBGColor {background-repeat:no-repeat;height:200px;width:200px;}
+#clrHue {height:200px;width:24px;left:220px;top:7px;padding:4px 0px 4px 0px;position:absolute;}
+#clrSv {width:200px;height:200px;}
+#clrCrosshairs {position:absolute;}
+#clrH {height:200px;width:24px;}
+#clrRangeArrows {height:9px;width:40px;position:absolute;}
+#clrPreview {border:1px solid #000;background-color:#999;height:22px;width:60px;position:absolute;top:225px;left:9px;}
+
+#mytest .blocktitle{background:url(images/bg_blocktitle.jpg) repeat-x;height:26px;line-height:26px;border-bottom:1px solid red;}
+#mytest .blocktitle h2{color:#1D1B1C;font-size:14px;font-weight:bold;}
+#mytest .blocktitle em a{color:#006697;}
+#mytest .blockcontent{color:#fff;background: #FFF url(images/1.jpg) no-repeat left left;}
+#mytest .blockcontent a{color:#006697;}
+</style>
+<script language="javascript" type="text/javascript" src="<tpl> $template_dir </tpl>/js/spacePackerDiyFunc.js"></script>
+<script language="javascript" reload="1">
+var tempStyle = '<tpl> $channel_style </tpl>';
+if('' != tempStyle) {
+diyStyle = phpserialize.unserialize(tempStyle);
+
+}
+
+var defaultFrame = '<tpl> $style_list.frame </tpl>';;
+defaultFrame = defaultFrame.toUpperCase();
+
+var styleNum = '';
+
+var blockList = [];
+<tpl> foreach from=$block_list key=key item=block </tpl>
+blockList['<tpl> $key </tpl>'] = '<tpl> $block.module_new_name </tpl>';
+<tpl> /foreach </tpl>
+
+var tmpStyle = [];
+</script>
+<tpl> include file ='top.html' </tpl>
+<div id="setMenu" class="floatwin" style="display: none;">
+	<div class="floattitle" id="setMenuHeader">
+	<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiy('setMenu');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+	<h2><tpl> $langStoreStyleSetNavigation </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain">
+			<div class="floatbody">
+				<ul class="formlist">
+					<li>
+						<label for=""><tpl> $langStoreStyleSetNavigationBgImg </tpl>:</label>
+						<a href="javascript:;" class="fbtn_select" id="setMenuBgImg"><tpl> $langStoreStyleSelPic </tpl></a>
+						<a href="javascript:;" class="fbtn_cancel" id="setMenuBgTransparent"><tpl> $langStoreStyleNoSelPic </tpl></a>
+						<input value="" id="menuOldBgImg" type="hidden">
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleContentBgRepeat </tpl>:</label>
+						<select id="menuBgRepeat">
+						<option selected="selected" value="no-repeat"><tpl> $langStoreStyleRepeatNo </tpl></option>
+						<option value="repeat"><tpl> $langStoreStyleRepeat </tpl></option>
+						<option value="repeat-x"><tpl> $langStoreStyleRepeatToX </tpl></option>
+						<option value="repeat-y"><tpl> $langStoreStyleRepeatToY </tpl></option>
+						</select>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleContentBgPlace </tpl>:</label>
+						<div class="wc-o az">
+							<table id="setMenuPlace" class="wc"><tbody>
+							<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0 selected"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td></tr>
+							<tr class="wcr1"><td colspan="5"></td></tr>
+							<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td></tr>
+							<tr class="wcr1"><td colspan="5"></td></tr>
+							<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td></tr>
+							</tbody></table>
+						</div>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleContentBgColor </tpl>:</label>
+						<input id="menuBgColor" class="txt" type="text">
+						<span class="control_color" id="menuBgColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleDistanceLeft </tpl>:</label>
+						<div class="hxdiv">
+							<div class="hxmoverange" id="hxMoveRangeNavLeft">
+								<div class="hxmovebg"></div>
+								<div class="hxmove" id="sliderHNavLeft"></div>
+							</div>
+						</div>
+						<input class="txtnum" id="navLeft" type="text">px
+					</li>
+				</ul>
+				<ul class="formlist">
+					<li>
+						<label for=""><tpl> $langStoreStyleContentSize </tpl>:</label>
+						<select id="menuSize" name="text">
+						<option selected="selected" value="12">12px</option>
+						<option value="14">14px</option>
+						<option value="16">16px</option>
+						</select>
+						<input value="" name="menu_weight" id="menuWeight" type="checkbox"><tpl> $langStoreStyleContentBold </tpl>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleContentHrefColor </tpl>:</label>
+						<input id="menuHrefColor" class="txt" type="text">
+						<span class="control_color" id="menuHrefColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleContentHoverColor </tpl>:</label>
+						<input id="menuHoverColor" class="txt" type="text">
+						<span class="control_color" id="menuHoverColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleNowUrl </tpl>:</label>
+						<input id="menuAActiveColor" class="txt" type="text">
+						<span class="control_color" id="menuAActiveColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleNavigationBorder </tpl>:</label>
+						<select name="text" id="menuBorderStyle">
+						<option selected="selected" value=""></option>
+						<option value="solid"><tpl> $langStoreStyleSolid </tpl></option>
+						<option value="dashed"><tpl> $langStoreStyleDashed </tpl></option>
+						<option value="dotted"><tpl> $langStoreStyleDotted </tpl></option>
+						</select>
+						<select name="size" id="menuBorderWidth">
+						<option selected="selected" value="0"><tpl> $langStoreStyleNoBorder </tpl></option>
+						<option value="1">1px</option>
+						<option value="2">2px</option>
+						<option value="3">3px</option>
+						</select>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleContentBorderColor </tpl>:</label>
+						<input id="menuBorderColor" class="txt" type="text">
+						<span class="control_color" id="menuBorderColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleNavigationHeight </tpl>:</label>
+						<div class="hxdiv">
+							<div class="hxmoverange" id="hxMoveRangeNav">
+								<div class="hxmovebg"></div>
+								<div class="hxmove" id="sliderHNav"></div>
+							</div>
+						</div>
+						<input class="txtnum" id="navHeight" type="text">px
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleUrlLocation </tpl>:</label>
+						<div class="hxdiv">
+							<div class="hxmoverange" id="hxMoveRangeA">
+								<div class="hxmovebg"></div>
+								<div class="hxmove" id="sliderHA"></div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="floatfun">
+			<a href="javascript:;" class="cancel" onclick="javascript:closeDiy('setMenu');"><tpl> $langStoreStyleCancel </tpl></a>
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+<div id="setHeadTitle" class="floatwin" style="display: none;">
+	<div class="floattitle" id="setHeadTitleHeader">
+		<div class="rcon">
+			<a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiy('setHeadTitle');"><tpl> $langStoreStyleClose </tpl></a>
+			<a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a>
+		</div>
+		<h2><tpl> $langStoreStyleSetHeadTitle </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain">
+			<div class="floatbody">
+			<ul class="formlist">
+				<li>
+					<label for=""><tpl> $langStoreStyleTitleColor </tpl>:</label>
+					<input id="titleColor" class="txt" type="text">
+					<span class="control_color" id="titleColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+				</li>
+			</ul>
+			</div>
+		</div>
+		<div class="floatfun">
+			<a href="javascript:;" class="cancel" onclick="javascript:closeDiy('setHeadTitle');"><tpl> $langStoreStyleCancel </tpl></a>
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+<div class="floatwin" id="selectBgDiv" style="z-index: 3000; display: none;">
+	<div class="floattitle" id="selectBgHeader">
+		<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiyBackground('selectBgDiv');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+		<h2 id="selectBgTitle"><tpl> $langStoreStyleSelBgTitle </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu">
+			<ul>
+				<li id="sysPicLi" class="on"><a href="javascript:;"><tpl> $langStoreStyleSystemRecommend </tpl></a></li>
+				
+				<li id="albumPicLi" style="display:none"><a href="javascript:;"><tpl> $langStoreStylePicInAlbum </tpl></a></li>
+				<li id="uploadPicLi" style="display:none"><a href="javascript:;"><tpl> $langStoreStyleUpload </tpl></a></li>
+				
+				<li id="urlPicLi"><a href="javascript:;"><tpl> $langStoreStyleWebPic </tpl></a></li>
+			</ul>
+		</div>
+	
+		<div class="floatmain" id="sysPic">
+			<div class="floatnav" id="sysPicNav">
+				<ul class="navcolor">
+					<li onclick="changeSysBackground(this, '&amp;color=1');"><a href="javascript:;"><tpl> $langStoreStyleBlack </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;color=2');"><a href="javascript:;"><tpl> $langStoreStyleWrite </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;color=3');"><a href="javascript:;"><tpl> $langStoreStylePink </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;color=4');"><a href="javascript:;"><tpl> $langStoreStyleYellow </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;color=5');"><a href="javascript:;"><tpl> $langStoreStyleGreen </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;color=6');"><a href="javascript:;"><tpl> $langStoreStyleBlue </tpl></a></li>
+				</ul>
+				<ul>
+					<li class="on" onclick="changeSysBackground(this, '');"><a href="javascript:;"><tpl> $langStoreStyleAll </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;category=1');"><a href="javascript:;"><tpl> $langStoreStyleSimple </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;category=2');"><a href="javascript:;"><tpl> $langStoreStyleLovely </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;category=3');"><a href="javascript:;"><tpl> $langStoreStyleCool </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;category=4');"><a href="javascript:;"><tpl> $langStoreStyleRomantic </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;category=5');"><a href="javascript:;"><tpl> $langStoreStyleOther </tpl></a></li>
+				</ul>
+			</div>
+			<div class="floatbody imgheight" id="sysPicList">
+				<img src="<tpl> $template_dir </tpl>/images/loading.gif" class="imgloading">
+				<div class="floatpage"></div>
+			</div>
+		</div>
+	
+		<div class="floatmain" id="albumPic" style="display: none;">
+			<div class="floatnav">
+				<label><tpl> $langStoreStyleSelAlbumPic </tpl></label>
+				<select name="photo" id="albumLists">
+				<option selected="selected" value=""><tpl> $langStoreStyleSelAlbum </tpl></option>
+				<option value="-1"><tpl> $langStoreStyleDefaultAlbum </tpl></option>
+				</select>
+			</div>
+			<div class="floatbody imgheight" id="albumPicList">
+				<img src="" class="imgloading"><p align="center"><tpl> $langStoreStylePleaseSelAlbum </tpl></p>
+			</div>
+		</div>
+	
+		<div class="floatmain" id="uploadPic" style="display: none;">
+			<form method="post" id="uploadPicForm" action="cp.php?ac=uploadbg" class="global_wide" enctype="multipart/form-data">
+				<div class="floatbody">
+					<ul class="formupload">
+						<li>
+							<label for=""><tpl> $langStoreStyleSelUploadPic </tpl>:</label>
+							<input name="attach" id="attach" class="uploadtxt" type="file">
+							<input name="uploadsubmit" id="btnUpload" value="<tpl> $langStoreStyleUpload </tpl>" class="btnupload" onclick="javascript:ajaxpost('uploadPicForm', 'uploadResult', 'uploadLocalImg');" type="submit">
+							<input name="albumsubmit" id="albumsubmit" value="true" type="hidden">
+							<input name="pic_title" id="pic_title" value="" type="hidden">
+							<p><tpl> $langStoreStyleUploadRemark </tpl></p>
+						</li>
+						<li>
+							<label for=""><tpl> $langStoreStyleUploadSaveTo </tpl>:</label>
+							<select name="albumid">
+							<option selected="selected" value="0"><tpl> $langStoreStyleDefaultAlbum </tpl></option>
+							</select>
+						</li>
+					</ul>
+					<dl class="loadpic" id="uploadResult"></dl>
+				</div>
+			</form>
+		</div>
+	
+		<div class="floatmain" id="urlPic" style="display: none;">
+			<div class="floatbody">
+				<ul class="formupload uploadurl">
+					<li><label for=""><tpl> $langStoreStyleInputPicUrl </tpl>:</label></li>
+					<li>
+					<input name="newurlpic" id="urlPicPath" class="txt" type="text">
+					<input class="btnupload" name="" id="btnUrlPicPath" value="<tpl> $langStoreStyleUse </tpl>" type="button">
+					</li>
+					</ul>
+				<div class="uploadurlmes"></div>
+			</div>
+		</div>
+		<div class="floatsub" id="selectBgSub" style="display: none;">
+			<div class="floatbody">
+				<ul class="formlist">
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgRepeat </tpl>:</label>
+					<select id="otherBgRepeat">
+					<option selected="selected" value="repeat"><tpl> $langStoreStyleRepeat </tpl></option>
+					<option value="repeat-x"><tpl> $langStoreStyleRepeatToX </tpl></option>
+					<option value="repeat-y"><tpl> $langStoreStyleRepeatToY </tpl></option>
+					<option value="no-repeat"><tpl> $langStoreStyleRepeatNo </tpl></option>
+					</select>
+					</li>
+					<li id="setBodyBgState" style="display: none;">
+					<label for=""><tpl> $langStoreStyleBgState </tpl>:</label>
+					<select id="bodyBgState">
+					<option selected="selected" value="scroll"><tpl> $langStoreStyleScroll </tpl></option>
+					<option value="fixed"><tpl> $langStoreStyleFixed </tpl></option>
+					</select>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgColor </tpl>:</label>
+					<input class="txt" id="otherOldBgImg" type="hidden">
+					<input class="txt" id="otherBgColor" type="text">
+					<span class="control_color" id="otherBgColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+				</ul>
+				<ul class="formlist" id="setBannerHeight" style="display: none;">
+					<li>
+						<label for=""><tpl> $langStoreStyleHeadHeight </tpl>:</label>
+						<div class="hxdiv">
+							<div class="hxmoverange" id="hxMoveRangeBanner">
+								<div class="hxmovebg"></div>
+								<div class="hxmove" id="sliderHBanner"></div>
+							</div>
+						</div>
+						<input class="txtnum" id="bannerHeight" type="text">px
+					</li>
+				</ul>
+				<ul class="formlist" id="setFooter" style="display: none;">
+					<li>
+						<label for=""><tpl> $langStoreStyleContentColor </tpl>:</label>
+						<input class="txt" name="footerFontColor" id="footerFontColor" type="text">
+						<span class="control_color" id="footerFontColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+						<label for=""><tpl> $langStoreStyleFooterHeight </tpl>:</label>
+						<div class="hxdiv">
+							<div class="hxmoverange" id="hxMoveRangeFooter">
+								<div class="hxmovebg"></div>
+								<div class="hxmove" id="sliderHFooter"></div>
+							</div>
+						</div>
+						<input class="txtnum" id="footerHeight" type="text">px
+					</li>
+				</ul>
+				<ul class="formlist" id="setBgPlace">
+					<li>
+						<label for=""><tpl> $langStoreStyleContentBgPlace </tpl>:</label>
+						<div class="wc-o az">
+							<table id="selectBgDivPlace" class="wc"><tbody>
+							<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0 selected"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td></tr>
+							<tr class="wcr1"><td colspan="5"></td></tr>
+							<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td></tr>
+							<tr class="wcr1"><td colspan="5"></td></tr>
+							<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td><td class="wcc1"></td><td class="wcc0 iw0"> </td></tr>
+							</tbody></table>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="floatfun">
+			<a id="cancelBg" href="javascript:void(0);" class="cancel" style="display: none;" onclick="javascript:closeDiyBackground('selectBgDiv');"><tpl> $langStoreStyleCancel </tpl></a>
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+<div id="setCursor" class="floatwin" style="z-index: 3000; display: none;">
+	<div class="floattitle" id="cursorHeader">
+		<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiy('setCursor');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+		<h2><tpl> $langStoreStyleSetCursor </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain" id="cursorpic">
+			<div class="floatnav" id="cursorPicNav">
+				<ul class="navcolor">
+					<li onclick="changeSysBackground(this, '&amp;colorid=1', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleBlack </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;colorid=2', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleWrite </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;colorid=3', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStylePink </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;colorid=4', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleYellow </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;colorid=5', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleGreen </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;colorid=6', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleBlue </tpl></a></li>
+				</ul>
+				<ul>
+					<li class="on" onclick="changeSysBackground(this, '', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleAll </tpl></a></li>					
+					<li onclick="changeSysBackground(this, '&amp;categoryid=1', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleSimple </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;categoryid=2', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleLovely </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;categoryid=3', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleCool </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;categoryid=4', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleRomantic </tpl></a></li>
+					<li onclick="changeSysBackground(this, '&amp;categoryid=5', 'cursorPicNav');"><a href="javascript:;"><tpl> $langStoreStyleOther </tpl></a></li>
+				</ul>
+			</div>
+			<div class="floatbody imgheight" id="cursorList"></div>
+		</div>	
+		<div class="floatfun">
+			<a href="javascript:;" class="cancel" style="display: none;" onclick="javascript:closeDiy('setCursor');"><tpl> $langStoreStyleCancel </tpl></a>
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+<div id="diyFrame" class="floatwin" style="display: none;">
+	<div class="floattitle" id="diyFrameHeader">
+		<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiy('diyFrame');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+		<h2><tpl> $langStoreStyleSelFrame </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain">
+			<ul class="webframe" id="selectFrameContent">
+				<li>
+				<a href="javascript:;" id="LC_F" class="frame13 onframe13" title="1:3" onclick="changeFrame('LC');">1:3</a>
+				</li>
+				<li>
+				<a href="javascript:;" id="CL_F" class="frame31" title="3:1" onclick="changeFrame('CL');">3:1</a>
+				</li>
+				<li>
+				<a href="javascript:;" id="LCR_F" class="frame121" title="1:2:1" onclick="changeFrame('LCR');">1:2:1</a>
+				</li>
+				<li>
+				<a href="javascript:;" id="LRC_F" class="frame112" title="1:1:2" onclick="changeFrame('LRC');">1:1:2</a>
+				</li>
+				<li>
+				<a href="javascript:;" id="CLR_F" class="frame211" title="2:1:1" onclick="changeFrame('CLR');">2:1:1</a>
+				</li>
+			</ul>
+		</div>
+		<div class="floatfun">
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+<div id="selectBlock" class="floatwin" style="display: none;">
+	<div class="floattitle" id="selectBlockHeader">
+		<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiy('selectBlock');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+		<h2><tpl> $langStoreStyleSelBlock </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain">
+			<div class="floatbody">
+				<ul class="floatmodule">					
+					
+					<tpl> foreach from=$block_list item=block key=key </tpl>
+						<li><input id="set<tpl> $key </tpl>" onclick="javascript:diySetBlock(this, '<tpl> $key </tpl>');" 
+						<tpl> if $block.show eq '1' </tpl>
+							checked="checked" 
+						<tpl> /if </tpl>
+						type="checkbox"><tpl> $block.module_new_name </tpl></li>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<div class="floatfun">
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+<div id="setBlock" class="floatwin" style="display: none;">
+	<div class="floattitle" id="setBlockHeader">
+		<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onclick="javascript:closeDiy('setBlock');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+		<h2><tpl> $langStoreStyleSetBlockStyle </tpl> -- <a id="blockName"></a></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu">
+			<ul>
+				<li id="menuTitle"><a href="javascript:;" onclick="javascript:showBlockTitle();"><tpl> $langStoreStyleTitleSet </tpl></a></li>
+				<li id="menuContent"><a href="javascript:;" onclick="javascript:showBlockContent();"><tpl> $langStoreStyleMainSet </tpl></a></li>
+			</ul>
+		</div>
+		<div class="floatmain">
+			<div class="floatbody" id="setTitle">
+				<ul class="formlist">
+					<li>
+					<label for=""><tpl> $langStoreStyleTitleBg </tpl>:</label>
+					<a href="javascript:;" class="fbtn_select" id="selectTitleBg"><tpl> $langStoreStyleSelPic </tpl></a>
+					<a href="javascript:;" class="fbtn_cancel" onclick="javascript:setBlockStyle('background-image', '', '.blocktitle');"><tpl> $langStoreStyleNoSelPic </tpl></a>
+					<input value="" id="oldTitleBgImg" type="hidden">
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgRepeat </tpl>:</label>
+					<select id="titleBgRepeat">
+					<option selected="selected" value="repeat"><tpl> $langStoreStyleRepeat </tpl></option>
+					<option value="repeat-x"><tpl> $langStoreStyleRepeatToX </tpl></option>
+					<option value="repeat-y"><tpl> $langStoreStyleRepeatToY </tpl></option>
+					<option value="no-repeat"><tpl> $langStoreStyleRepeatNo </tpl></option>
+					</select>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgPlace </tpl>:</label>
+					<div class="wc-o az">
+					<table id="selectTitlePlace" class="wc"><tbody>
+					<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0 selected"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td></tr>
+					<tr class="wcr1"><td colspan="5"> </td></tr>
+					<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td></tr>
+					<tr class="wcr1"><td colspan="5"> </td></tr>
+					<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td></tr>
+					</tbody></table>
+					</div>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgColor </tpl>:</label>
+					<input class="txt" id="titleBgColor" type="text">
+					<span class="control_color" id="titleBgColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+				</ul>
+				<ul class="formlist">
+					<li>
+					<label for=""><tpl> $langStoreStyleTitleFontSize </tpl>:</label>
+					<select name="text" id="titleFontsize">
+					<option selected="selected" value="12">12px</option>
+					<option value="14">14px</option>
+					<option value="16">16px</option>
+					</select>
+					<input id="titleWeight" name="titleWeight" value="" type="checkbox"><tpl> $langStoreStyleContentBold </tpl>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentColor </tpl>:</label>
+					<input class="txt" name="titleFontcolor" id="titleFontcolor" type="text">
+					<span class="control_color" id="titleFontcolorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleTitleHeight </tpl>:</label>
+					<div class="hxdiv">
+					<div class="hxmoverange" id="hxMoveRange">
+					<div class="hxmovebg"></div>
+					<div class="hxmove" id="sliderH"></div>
+					</div>
+					</div>
+					<input class="txtnum" id="titleHeight" type="text">px
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleTitleLeft </tpl>:</label>
+					<div class="hxdiv">
+					<div class="hxmoverange" id="hxMoveRangeLeft">
+					<div class="hxmovebg"></div>
+					<div class="hxmove" id="sliderHLeft"></div>
+					</div>
+					</div>
+					<input class="txtnum" id="titleLeft" type="text">px
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleSplitLine </tpl>:</label>
+					<select id="titleBorderStyle" name="text">
+					<option selected="selected" value=""></option>
+					<option value="solid"><tpl> $langStoreStyleSolid </tpl></option>
+					<option value="dashed"><tpl> $langStoreStyleDashed </tpl></option>
+					<option value="dotted"><tpl> $langStoreStyleDotted </tpl></option>
+					</select>
+					<select id="titleBorderWidth" name="size">
+					<option selected="selected" value="0"><tpl> $langStoreStyleNoSplitLine </tpl></option>
+					<option value="1">1px</option>
+					<option value="2">2px</option>
+					<option value="3">3px</option>
+					</select>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleBorderColor </tpl>:</label>
+					<input class="txt" id="titleBorderColor" type="text">
+					<span class="control_color" id="titleBorderColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+				</ul>
+			</div>
+			<div class="floatbody" id="setContent" style="display: none;">
+				<ul class="formlist">
+					<li>
+					<label for=""><tpl> $langStoreStyleMainBg </tpl>:</label>						
+					<a href="javascript:;" class="fbtn_select" id="selectContentBg"><tpl> $langStoreStyleSelPic </tpl></a>
+					<a href="javascript:;" class="fbtn_cancel" onclick="javascript:setBlockStyle('background-image', '', '.blockcontent');"><tpl> $langStoreStyleNoSelPic </tpl></a>
+					<input value="" id="oldContentBgImg" type="hidden">
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgRepeat </tpl>:</label>
+					<select id="blockContentBgRepeat">
+					<option selected="selected" value="repeat"><tpl> $langStoreStyleRepeat </tpl></option>
+					<option value="repeat-x"><tpl> $langStoreStyleRepeatToX </tpl></option>
+					<option value="repeat-y"><tpl> $langStoreStyleRepeatToY </tpl></option>
+					<option value="no-repeat"><tpl> $langStoreStyleRepeatNo </tpl></option>
+					</select>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgPlace </tpl>:</label>
+					<div class="wc-o az">
+					<table id="selectContentPlace" class="wc"><tbody>
+					<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0 selected"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td></tr>
+					<tr class="wcr1"><td colspan="5"> </td></tr>
+					<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td></tr>
+					<tr class="wcr1"><td colspan="5"> </td></tr>
+					<tr class="wcr0"><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td><td class="wcc1"> </td><td class="wcc0 iw0"> </td></tr>
+					</tbody></table>
+					</div>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBgColor </tpl>:</label>
+					<input class="txt" id="blockContentBgColor" type="text">
+					<span class="control_color" id="blockContentBgColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+				</ul>
+				<ul class="formlist">
+					<li>
+					<label for=""><tpl> $langStoreStyleContentSize </tpl>:</label>
+					<select name="text" id="blockContentSize">
+					<option selected="selected" value="12">12px</option>
+					<option value="14">14px</option>
+					<option value="16">16px</option>
+					</select>
+					<input id="blockContentWeight" name="blockContentWeight" value="" type="checkbox"><tpl> $langStoreStyleContentBold </tpl>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentColor </tpl>:</label>
+					<input class="txt" id="blockContentColor" type="text">
+					<span class="control_color" id="blockContentColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentHrefColor </tpl>:</label>
+					<input class="txt" id="blockContentHrefColor" type="text">
+					<span class="control_color" id="blockContentHrefColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentHoverColor </tpl>:</label>
+					<input class="txt" id="blockContentHoverColor" type="text">
+					<span class="control_color" id="blockContentHoverColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBorderStyle </tpl>:</label>
+					<select id="blockContentBorderStyle" name="text">
+					<option selected="selected" value=""></option>
+					<option value="solid"><tpl> $langStoreStyleSolid </tpl></option>
+					<option value="dashed"><tpl> $langStoreStyleDashed </tpl></option>
+					<option value="dotted"><tpl> $langStoreStyleDotted </tpl></option>
+					</select>
+					<select id="blockContentBorderWidth" name="size">
+					<option selected="selected" value="0"><tpl> $langStoreStyleNoBorder </tpl></option>
+					<option value="1">1px</option>
+					<option value="2">2px</option>
+					<option value="3">3px</option>
+					</select>
+					</li>
+					<li>
+					<label for=""><tpl> $langStoreStyleContentBorderColor </tpl>:</label>
+					<input class="txt" id="blockContentBorderColor" type="text">
+					<span class="control_color" id="blockContentBorderColorCtrl" style="background-color: rgb(0, 0, 0);"></span>
+					</li>
+					<li id="playerTop" style="display: none;">
+					<label for=""><tpl> $langStoreStyleLocation </tpl>:</label>
+					<div class="hxdiv">
+					<div class="hxmoverange" id="hxMoveRangePlayer">
+					<div class="hxmovebg"></div>
+					<div class="hxmove" id="sliderHPlayer"></div>
+					</div>
+					</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="floatfun">
+			<a href="javascript:;" class="cancel" onclick="javascript:closeDiy('setBlock');"><tpl> $langStoreStyleCancel </tpl></a>
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+			<p>
+			<tpl> $langStoreStyleSetUseTo </tpl>:
+			<input name="blockRadio" id="onlyCurrentBlock" value="1" checked="checked" type="radio"><label><tpl> $langStoreStyleOnlyThisBlock </tpl></label>
+			<input name="blockRadio" id="setAllBlock" value="2" type="radio"><label><tpl> $langStoreStyleAllBlock </tpl></label>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div id="transferReady" class="transfer" style="z-index: 200; position: absolute; left: 66px; top: 524px; width: 238px; height: 91px; display: none;">
+	<div class="transferbody"><a style="" href="javascript:;" id="delblock" onmousedown="closeBlock(event);" class="delblock"><tpl> $langStoreStyleDelete </tpl></a><a href="javascript:;" id="editBlock" class="editBlock"><tpl> $langStoreStyleEdit </tpl></a></div>
+</div>
+
+
+<div id="clrMain" style="display: none; z-index: 99999;">
+	<iframe style="background-color: transparent; position: absolute; width: 252px; height: 253px;" frameborder="0" scrolling="no"></iframe>
+	<div id="clrColor"><div id="clrBGColor"><img id="clrCrosshairs" galleryimg="false" src="<tpl> $template_dir </tpl>/images/mappoint.gif" style="display: none;"></div></div>
+	<div id="clrHue"><img id="clrRangeArrows" galleryimg="false" src="<tpl> $template_dir </tpl>/images/rangearrows.gif" style="display: none;"></div>
+	<div id="clrPreview"></div>
+	<input name="clrColorValue" id="clrColorValue" type="text">
+	<img src="<tpl> $template_dir </tpl>/images/btn_nocolor.gif" style="left: 165px; position: absolute; top: 225px;" onclick="getColor('transparent');">
+	<a href="javascript:;" class="fbtn_cancel" onclick="$('clrMain').style.display='none';" style="width: 50px; left: 190px; position: absolute; top: 225px;"><tpl> $langStoreStyleDetermine </tpl></a>
+</div>
+<div id="dstdiv" style="border: 1px solid rgb(18, 52, 86); width: 400px; height: 250px; background-color: rgb(153, 153, 153); display: none;">
+	cccc<a href="javascript:;" class="closeDiv">close</a>
+</div>
+<div id="showData"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div id="<tpl> $control.wrap </tpl>">
+	<div id="banner" class="banner" style="display:none;">
+		<div style="cursor: move;" class="title" id="title">
+			<a href="javascript:;" id="editTitle" class="editBlock"><tpl> $langStoreStyleEdit </tpl></a>
+			<h1 id="myblogname"> <tpl> $shop_info.shop_name </tpl><em></em></h1>
+			<p id="divMySign"><a href="javascript:;" onclick="javascript:setCopy('<tpl> $shop_info.url </tpl>');return false;"><tpl> $shop_info.url </tpl></a></p>
+		</div>
+	</div>
+	<div class="menubody">
+		<div id="menu" class="menu">
+			<a href="javascript:;" id="editMenu" class="editBlock"><tpl> $langStoreStyleEdit </tpl></a>
+			<ul>
+				<li><tpl> $langCIndex </tpl></li>
+				<tpl> section name=loop loop=$channel_all </tpl>
+					<li><tpl> $channel_all[loop].channel_name </tpl></li>
+				<tpl> /section </tpl>
+			</ul>
+		</div>
+	</div>
+	<tpl> foreach from=$control.allFrame item=control_content key=key </tpl>
+	<div id="<tpl> $key </tpl>" class="<tpl> if $key eq 'dcontent' </tpl><tpl> if $frame_length eq '3' </tpl>frame_2<tpl> else </tpl>frame_3<tpl> /if </tpl><tpl> else </tpl>frame_1<tpl> /if </tpl> wowoFrameTd">
+		<tpl> foreach from=$control_content item=block_content key=key_content </tpl>
+		<div style="cursor: move;" id="<tpl> $block_content </tpl>" class="block">
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $key_block eq $block_content </tpl>
+					<!-- assign -->
+					<tpl> assign var=block_output value=$block.temp_name </tpl>
+					<tpl> include file=$block.html </tpl>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		</div>
+		<tpl> /foreach </tpl>
+
+		<tpl> if $key eq 'dleft' </tpl>
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $block.show neq '1' </tpl>
+					<div style="cursor: move;display:none" id="<tpl> $key_block </tpl>" class="block">
+						<!-- assign -->
+						<tpl> assign var=block_output value=$block.temp_name </tpl>
+						<tpl> include file=$block.html </tpl>
+					</div>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		<tpl> /if </tpl>
+	</div>
+	<tpl> /foreach </tpl>
+	<div id="footer"></div>
+</div>
+
+<div class="toolbar" id="toolbar">
+	<form id="diyForm" method="post" onsubmit="diyformsubmit();" action="channel.php">
+	<input id="indextype" name="indextype" value="0" type="hidden">
+	<input id="diyStyle" name="diyStyle" value="" type="hidden">
+	<input id="getBack" name="getBack" value="0" type="hidden">
+	<input type="hidden" name="action" value="save" />
+	<input type="hidden" name="channel_id" value="<tpl> $channel_id </tpl>" />
+	<div class="toolbarbox">
+		<div class="toolbarmymenu">
+			<ul>
+				<li class="m10"><a onclick="if(confirm('<tpl> $langStoreStyleConfirmCloseDiy </tpl>')){window.close();}else{return false;}" href="#"><tpl> $langStoreStyleCloseDiy </tpl></a></li>
+				<li class="m11"><a onclick="if(confirm('<tpl> $langStoreStyleConfirmDefaultDiy </tpl>')){location.href='channel.php?action=set_default&channel_id=<tpl> $channel_id </tpl>'}else{return false;}" href="#"><tpl> $langStoreStyleDefault </tpl></a></li>
+				<li class="m8"><a onclick="javascript:styleBacks();" href="#"><tpl> $langStoreStyleBack </tpl></a></li>
+				<li class="m9"><a onclick="javascript:styleSave();" href="#"><tpl> $langStoreStyleSave </tpl></a></li>
+			</ul>
+		</div>
+		<div class="toolbarmenu">
+			<ul>
+				<li class="m1"><a href="javascript:;" id="openSetFrame"><tpl> $langStoreStyleLayout </tpl></a></li>
+				<li class="m2"><a href="javascript:;" id="bodyBg"><tpl> $langStoreStyleBigBackgroundPic </tpl></a></li>
+				<li class="m3" style="display:none;"><a href="javascript:;" id="bannerBg"><tpl> $langStoreStyleHeadPic </tpl></a></li>
+				<li class="m4" style="display:none;"><a href="javascript:;" id="footerBg"><tpl> $langStoreStyleFootPic </tpl></a></li>
+				<li class="m5"><a href="javascript:;" id="openSetBlock"><tpl> $langStoreStyleOpenSetBlock </tpl></a></li>
+				<li class="m13"><a href="javascript:;" id="moduleopen"><tpl> $langStoreStyleOpenSetBlock </tpl></a></li>
+			</ul>
+		</div>
+
+	</div>
+	</form>
+	<div class="toolshadow">&nbsp;</div>
+</div>
+
+
+
+
+<!--ģ -->
+
+<div style="display: none; " class="floatwin" id="modulelist">
+	<div  class="floattitle" id="moduleaddHeader">
+		<div class="rcon"><a title="<tpl> $langStoreStyleClose </tpl>" class="btnclose" href="javascript:closeDiy('modulelist');"><tpl> $langStoreStyleClose </tpl></a></div>
+		<h2><tpl>$langStoreStyleNewModList</tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain">
+			<div class="floatbody" id="modulelistdiv">
+				
+			</div>
+		</div>
+		<div class="floatfun">
+		
+		<a href="javascript:;" class="cancel"  id="closemodulelist"><tpl> $langStoreStyleClose </tpl></a>
+			<a href="javascript:;" class="add" id="add_module"><tpl>$langStoreStyleNewModAdd</tpl></a>
+			<a href="javascript:;" onclick="form_add_submit();" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+</div>
+
+
+<div style="display:none; width:800px" class="floatwin" id="moduleadd">
+	<div id="moduleaddButtonHeader" class="floattitle">
+		<div class="rcon"><a  id="closeaddmodule" title="<tpl> $langStoreStyleClose </tpl>" class="btnclose" href="javascript:closeDiy('moduleadd');"><tpl> $langStoreStyleClose </tpl></a></div>
+		<h2><tpl>$langStoreStyleNewModAdd</tpl></h2>
+	</div>
+	<div class="floatcontent-8">
+		<div class="floatmenu-8"></div>
+		<div class="floatmain">
+			<div class="floatbody">
+			<div id="module_block" style=" width:800px; height:460px; margin:0; padding:0;"></div>
+						</div>
+		</div>
+		<div class="floatfun-8">
+			<a href="javascript:;" onclick="submit_module_block()" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+
+</div>
+
+<div style="display:none; width:800px;height:400px" class="floatwin" id="moduleupdate">
+	<div id="moduleaddButtonHeader" class="floattitle">
+		<div class="rcon"></div>
+		<h2><tpl>$langStoreStyleNewModAdd</tpl></h2>
+	</div>
+	<div class="floatcontent-8">
+		<div class="floatmenu-8"></div>
+		<div class="floatmain">
+			<div class="floatbody">
+			<div id="module_block_moduleupdate"></div>
+						</div>
+		</div>
+		<div class="floatfun-8">
+			<a href="javascript:" onclick="submit_module_block_update()" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+
+</div>
+
+<div id="abc" style="display:none"></div>
+<script language="javascript" src="../js/jquery1.4/jquery.blockUI.js"></script>
+<script language="javascript" type="text/javascript">
+
+var url=location.search;
+var dcontentdiv=jquery("#dcontent").children("div");
+	var dleftdiv=jquery("#dleft").children("div");
+	var drightdiv=jquery("#dright").children("div");
+	jquery.each(dcontentdiv,function(i){
+	
+		if(jquery(this).children("div").html()==null)
+		{
+		
+			jquery(this).remove();
+		}
+	});
+	jquery.each(dleftdiv,function(i){
+		if(jquery(this).children("div").html()==null)
+		{
+			jquery(this).remove();
+		}
+	});
+	jquery.each(drightdiv,function(i){
+		if(jquery(this).children("div").html()==null)
+		{
+			jquery(this).remove();
+		}
+	});
+function styleBacks(){
+ if (confirm(spaceLangs.styleBack) == false) {
+        return false;
+    }
+	window.location.href=url;
+}
+	
+function diyformsubmit()
+{
+	
+}
+
+function submit_module_block_update()
+{
+	var sub_key=jquery("#module_block_moduleupdate").children("div").children("div").children("form").trigger("onsubmit");
+	closeDiy('moduleupdate');
+}
+
+
+function submit_module_block(){
+	jquery("#module_block").children("div").children("div").children("form").trigger("onsubmit");
+	closeDiy('moduleadd');
+}
+
+
+function form_add_submit(){
+	
+	jquery('#form_add').submit();
+	closeDiy('modulelist');
+	
+	 diyStyle.frame = defaultFrame;
+    var leftDivs = contentDivs = [];
+    diyStyle.allFrame = [];
+    diyStyle.allFrame.dleft = [];
+    divClass = P("className", "block", $("dleft"));
+    for (var i in divClass) {
+        if ("none" != divClass[i].style.display) {
+            diyStyle.allFrame.dleft[i] = divClass[i].id;
+        }
+    }
+    diyStyle.allFrame.dcontent = [];
+    divClass = P("className", "block", $("dcontent"));
+    for (var i in divClass) {
+        if ("none" != divClass[i].style.display) {
+            diyStyle.allFrame.dcontent[i] = divClass[i].id;
+        }
+    }
+    if (in_array(defaultFrame, threeMod)) {
+        diyStyle.allFrame.dright = [];
+        divClass = P("className", "block", $("dright"));
+        for (var i in divClass) {
+            if ("none" != divClass[i].style.display) {
+                diyStyle.allFrame.dright[i] = divClass[i].id;
+            }
+        }
+    }
+    $("diyStyle").value = phpserialize.serialize(diyStyle);
+	
+	jquery("#diyForm").ajaxSubmit(function(){
+	
+			jquery.post("channel.php","action=control_ajax&id=<tpl> $channel_id </tpl>",function(data){
+	
+			var list=Array();
+			lists=data.split("|||||||||||||||");
+			jquery("#wrap").html(lists[0]);
+			jquery("#wraptwo").html(lists[0]);
+			jquery("#selectBlock").html(lists[1]);
+			var dcontentdiv=jquery("#dcontent").children("div");
+			var dleftdiv=jquery("#dleft").children("div");
+			var drightdiv=jquery("#dright").children("div");
+			jquery.each(dcontentdiv,function(i){
+			
+				if(jquery(this).children("div").html()==null)
+				{
+				
+					jquery(this).remove();
+				}
+			});
+			jquery.each(dleftdiv,function(i){
+				if(jquery(this).children("div").html()==null)
+				{
+					jquery(this).remove();
+				}
+			});
+			jquery.each(drightdiv,function(i){
+				if(jquery(this).children("div").html()==null)
+				{
+					jquery(this).remove();
+				}
+			});
+			
+			var sort = new sortDrag('block', 'blocktitle', 'blockcontent');
+			var selectBlock = new transfer('openSetBlock', 'oksubmit', 'selectBlock', '', callbackSelectBlock, 'selectBlockHeader');
+			
+		},'html');
+		
+	});
+
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+var moduleupdate = new transfer('abc','abc', 'moduleupdate', '', callbackmoduleaddButtonupdate, 'selectBlockHeader');
+function callbackmoduleaddButtonupdate(){}
+callbackmoduleaddButtonupdate.prototype.ready = function(obj) {
+    transferDrag(obj);
+    currentTransferDiv = 'moduleupdate';
+	
+};
+callbackmoduleaddButtonupdate.prototype.complete = function(obj) {};
+callbackmoduleaddButtonupdate.prototype.close = function(obj) {
+    tmpStyle = [];
+    $('qwert').style.display = 'none'
+};
+var moduleaddButton = new transfer('add_module', 'closeaddmodule', 'moduleadd', '',callbackmoduleaddButton,'moduleaddButtonHeader');//
+
+//var moduleaddButton = new transfer('moduleaddButton', 'closeaddmodule', 'moduleadd', '',callbackmoduleaddButton,'moduleaddButtonHeader');//
+
+var moduleopen = new transfer('moduleopen','closemodulelist', 'modulelist', '',callbackmoduleopen, 'moduleaddHeader');
+function callbackmoduleaddButton(){}
+callbackmoduleaddButton.prototype.ready = function(obj) {
+    transferDrag(obj);
+    currentTransferDiv = 'moduleaddButton';
+	
+};
+callbackmoduleaddButton.prototype.complete = function(obj) {addmodule();};
+callbackmoduleaddButton.prototype.close = function(obj) {
+set_module_style("no_disabled");
+jquery("#add_module").attr("disabled",false);
+    tmpStyle = [];
+    $('qwert').style.display = 'none'
+};
+function callbackmoduleopen() {
+
+}
+callbackmoduleopen.prototype.ready = function(obj) {
+    transferDrag(obj);
+    currentTransferDiv = 'moduleopen';
+	
+	
+	
+	jquery.post("../system/channel.manage.php?action=modi_page&id=<tpl> $channel_id </tpl>&inajax=1",null,function(data){
+		jquery("#modulelistdiv").html(data);
+	});//ajax
+};
+callbackmoduleopen.prototype.complete = function(obj) {
+
+
+};
+callbackmoduleopen.prototype.close = function(obj) {
+    tmpStyle = [];
+    $('qwert').style.display = 'none'
+};
+
+
+
+
+
+
+
+
+
+/**********************************************************/
+var setFrameTransfer = new transfer('openSetFrame', 'oksubmit', 'diyFrame', '', callbackSetFrame, 'diyFrameHeader');
+var selectBlock = new transfer('openSetBlock', 'oksubmit', 'selectBlock', '', callbackSelectBlock, 'selectBlockHeader');
+
+var setBlock = new transfer('editBlock', 'oksubmit', 'setBlock', '', callbackSetBlock, 'setBlockHeader');
+
+var selectTitleBg = new transfer('selectTitleBg', 'oksubmit', 'selectBgDiv', '', callbackTitleBgImg, 'selectBgHeader');
+var selectContentBg = new transfer('selectContentBg', 'oksubmit', 'selectBgDiv', '', callbackContentBgImg, 'selectBgHeader');
+
+$('bodyBg').onmouseover = function() {
+var bodyBg = new transfer('bodyBg', 'oksubmit', 'selectBgDiv', '', callbackBodyBgImg, 'selectBgHeader');
+}
+$('bannerBg').onmouseover = function() {
+var bannerBg = new transfer('bannerBg', 'oksubmit', 'selectBgDiv', '', callbackBannerBgImg, 'selectBgHeader');
+}
+$('footerBg').onmouseover = function() {
+var footerBg = new transfer('footerBg', 'oksubmit', 'selectBgDiv', '', callbackFooterBgImg, 'selectBgHeader');
+}
+$('setMenuBgImg').onmouseover = function() {
+var setMenuBgImg = new transfer('setMenuBgImg', 'oksubmit', 'selectBgDiv', '', callbackMenuBgImg, 'selectBgHeader');
+}
+
+var setMenu = new transfer('editMenu', 'oksubmit', 'setMenu', '', callbackMenu, 'setMenuHeader');
+
+var setTitle = new transfer('editTitle', 'oksubmit', 'setHeadTitle', '', callbackTitle, 'setHeadTitleHeader');
+
+var sort = new sortDrag('block', 'blocktitle', 'blockcontent');
+
+var rangeTitle = new drag('title', '', 'banner', '', function(obj) {
+
+	var top = parseInt(obj.body.style.top);
+	var left = parseInt(obj.body.style.left);
+	if(false == isNaN(top) && false == isNaN(left)) {
+		currentBlock = 'title';
+		setBlockStyle('top', top, '');
+		setBlockStyle('left', left, '');
+	}
+}, 0);
+changeSelectFrame(defaultFrame);
+</script>
+</body>
+</html>

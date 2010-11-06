@@ -1,0 +1,7 @@
+<tpl> section name=i loop=$adv_list </tpl>
+	<li>
+		<a class="open" title="" href="<tpl> $adv_list[i].adv_url </tpl>" target="_blank" >
+			<img class="full" alt="" src="<tpl> $site_url </tpl>/<tpl> $adv_list[i].adv_pic </tpl>" width="<tpl> $adv_list[i].adv_width </tpl>px" height="<tpl> $adv_list[i].adv_heigth </tpl>px"/>
+		</a>
+     </li>
+<tpl> /section </tpl>

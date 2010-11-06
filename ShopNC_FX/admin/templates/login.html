@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/login.css" />
+<title><tpl>$admin_manage</tpl> - <tpl>$admin_login</tpl></title><!--  鍚庡彴绠＄悊 鐧诲綍  -->
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#login-form').validate({
+		errorClass: "wrong",
+		rules: {
+			admin_user		: {required:true},
+			admin_passwd	: {required:true}
+			<tpl>if $view_config.view_admin_login_validate=='1'</tpl>
+			,admin_code		: {required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			admin_user		: {required:"<tpl>$admin_user_name_null</tpl>"},
+			admin_passwd	: {required:"<tpl>$admin_user_pw_null</tpl>"}
+			<tpl>if $view_config.view_admin_login_validate=='1'</tpl>
+			,admin_code		: {required:"<tpl>$admin_user_code_null</tpl>"}
+			<tpl>/if</tpl>		
+		}
+	});
+});
+//-->
+</script>
+</head>
+
+<body>
+<div id="logintop">
+	<a href="../"><tpl>$admin_back</tpl><!--  杩斿洖ShopNC  --></a>
+</div>
+<div id="loginwrapper">
+	<div id="loginheader">
+		<h1><a href="<tpl>$Site_Url</tpl>">ShopNC</a></h1>
+	</div>
+	<h3 id="loginh3"><tpl>$admin_login</tpl><!--  鐧诲綍  --></h3>
+  <form id="login-form" name="login-form" method="post" action="login.php?action=login">
+  <tpl>$seride_form</tpl>
+	<div id="logindiv">
+        <ul class="roleList">
+          <li><label>
+            <input type="hidden" name="admin_type" value="1" class="checkBtn" checked="checked" />
+          </label>
+          </li>
+          <div class="clear"></div>
+        </ul>
+	    <table width="100%" border="0" cellpadding="0" cellspacing="5">
+          <tr>
+            <td align="right"><tpl>$admin_login_name</tpl><!--  鐢ㄦ埛鍚? -->:</td>
+            <td>
+              <input type="text" name="admin_user" id="admin_user" style="width:150px" />
+			  <div class="check-error"><label style="display:none" for="admin_user" class="wrong" metaDone="true" generated="true"></label></div>
+            </td>
+          </tr>
+          <tr>
+            <td align="right"><tpl>$admin_passwd</tpl><!--  瀵嗙爜  -->:</td>
+            <td>
+              <input type="password" name="admin_passwd" id="admin_passwd" style="width:150px" />
+            <div class="check-error"><label style="display:none" for="admin_passwd" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tpl>if $view_config.view_admin_login_validate=='1'</tpl>
+          <tr>
+            <td align="right"><tpl>$admin_code</tpl><!--  楠岃瘉鐮? -->:</td>
+            <td><input type="text" name="admin_code" style="text-transform:uppercase" id="admin_code" size="5" />&nbsp;&nbsp;<img src="../classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;cursor:pointer;" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='<tpl> $Site_Url </tpl>/classes/libraries/code.php?' + Math.random()" />
+			            <div class="check-error"><label style="display:none" for="admin_code" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tpl>/if</tpl>
+		  <tr>
+		  	<td colspan="2">
+			<label>
+		  	  <input type="submit" name="Submit" value="<tpl>$admin_login_submit</tpl>" class="btnInput" /><!--  鐧?闄?鍚?鍙? -->
+		  	</label></td>
+		  </tr>
+        </table>
+	</div>
+	<div id="loginfooter">
+    	<p> >> <a href="login.php?action=forget_passwd"><tpl>$admin_forget_passwd</tpl><!--  蹇樿瀵嗙爜浜? -->?</a></p>
+	</div>
+  </form>
+</div>
+</body>
+</html>

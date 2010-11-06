@@ -1,0 +1,16 @@
+<tpl> section name=loop loop=$channel_list </tpl>
+					<li <tpl> if $channel_id eq $channel_list[loop].channel_id </tpl>class=""<tpl> /if </tpl>>
+						<tpl> if $channel_list[loop].channel_type eq '0' </tpl>
+							<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_list[loop].channel_id </tpl>"><span><tpl> $channel_list[loop].channel_name </tpl></span></a>
+						<tpl> elseif $channel_list[loop].channel_type eq '3' </tpl>
+							<!-- ÆµµÀÒ³¾²Ì¬¿ª¹Ø -->
+							<tpl> if $config_channel_html eq '1' </tpl>				
+								<a href="<tpl> $site_url </tpl>/html/<tpl> $channel_list[loop].channel_sign </tpl>/"><span><tpl> $channel_list[loop].channel_name </tpl></span></a>	
+							<tpl> else </tpl>
+								<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_list[loop].channel_id </tpl>"><span><tpl> $channel_list[loop].channel_name </tpl></span></a>
+							<tpl> /if </tpl>										
+						<tpl> else </tpl>
+							<a href="<tpl> $channel_list[loop].channel_url </tpl>" target="_blank"><span><tpl> $channel_list[loop].channel_name </tpl></span></a>
+						<tpl> /if </tpl>
+					</li>
+				<tpl> /section </tpl>

@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_user_manage</tpl> - <tpl>$admin_ask_reply</tpl></title><!-- 会员管理 - 客服回复 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<style type="text/css">
+th {
+	padding:5px 10px;
+	text-align:left;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_replay").validate({
+		errorClass: "wrong",
+		rules: {
+			ask_reply	: {required:true}
+		},
+		messages: {
+			ask_reply	: {required: "<tpl>$admin_ask_reply_no_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+<body id="noulmenu">
+<div id="content">
+    <h2><span class="alignRight"><a href="<tpl>$Site_Url</tpl>/admin/admin_ask.php?action=ask_list" target="_self">{<tpl>$admin_ask_list</tpl><!-- 客服管理列表 -->}</a></span><tpl>$admin_header_user_manage</tpl><!-- 会员管理 --> >> <tpl>$admin_ask_reply</tpl><!-- 客服回复 -->
+		
+	</h2>
+  <div class="entry-body" id="entry1">
+	  <table width="100%" border="0">
+        <tr>
+          <td width="100"><strong><tpl>$admin_ask_list_subject</tpl><!-- 主题 -->:</strong></td>
+          <td><strong><tpl>$ask_array.ask_subject</tpl></strong></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_list_time</tpl><!-- 发表时间 -->:</td>
+          <td><tpl>$ask_array.ask_time|date_format:"%Y-%m-%d %H:%M"</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_reply_user_name</tpl><!-- 会员名 -->:</td>
+          <td><tpl>$ask_array.user_name</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_reply_true_name</tpl><!-- 真实姓名 -->:</td>
+          <td><tpl>$ask_array.user_true_name</tpl></td>
+        </tr>
+        <tr>
+          <td>E-mail:</td>
+          <td><tpl>$ask_array.user_email</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_reply_num</tpl><!-- 查询问题编号 -->:</td>
+          <td><tpl>$ask_array.ask_num</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_list_cate</tpl><!-- 问题类别 -->:</td>
+          <td><tpl>$ask_array.cate_name</tpl></td>
+        </tr>
+        <tr>
+          <td><tpl>$admin_ask_reply_body</tpl><!-- 内容 -->:</td>
+          <td><tpl>$ask_array.ask_body</tpl></td>
+        </tr>
+        <tr>
+          <td style="border-top:1px solid #E8E8E8; padding-top:8px;"><strong><tpl>$admin_ask_reply_replay</tpl><!-- 回复 -->:</strong></td>
+          <td style="border-top:1px solid #E8E8E8; padding-top:8px;"><tpl>if $ask_array.if_reply eq 1</tpl><tpl>$ask_array.ask_reply</tpl><tpl>else</tpl><tpl>$admin_ask_reply_no_reply</tpl><!-- 没有回复 --><tpl>/if</tpl></td>
+        </tr>
+      </table>
+	  <form action="admin_ask.php?action=add_reply" method="POST" name="add_replay" id="add_replay">
+	  <input type="hidden" name="ask_id" value="<tpl>$ask_array.ask_id</tpl>"/>
+      <table width="100%" border="0" style="border-top:1px solid #E8E8E8; margin-top:10px;">
+        <tr>
+          <th colspan="2"><tpl>$admin_ask_reply_add_reply</tpl><!-- 添加回复 -->:</th>
+        </tr>
+        <!-- <tr>
+          <td>问题类别 - 处理情况:</td>
+          <td><label>
+            <select name="select">
+				<option>问题类别 - 处理情况</option>
+            </select>
+          </label></td>
+        </tr>
+        <tr>
+          <td>样板使用:</td>
+          <td><label>
+            <select name="select2">
+				<option>回复样板名称</option>
+            </select>
+          </label>
+		  <span class="btnInput">插入</span>
+		  </td>
+        </tr>
+        <tr>
+          <td>查看回复的情况设定:</td>
+          <td><label>
+            <select name="select3">
+				<option>客户 - 需登录才可查看此主题</option>
+            </select>
+          </label></td>
+        </tr> -->
+        <tr>
+          <td><tpl>$admin_ask_reply_reply_body</tpl><!-- 回复内容 -->:</td>
+          <td><label>
+            <textarea name="ask_reply" cols="50" rows="6"></textarea>
+          </label>
+		  <div class="check-error"><label style="display:none" for="ask_reply" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td><label>
+            <input type="submit" name="Submit" value="<tpl>$admin_ask_reply_submit</tpl>" class="btnInput" /><!-- 点此提交 -->
+            <input type="reset" name="Submit2" value="<tpl>$admin_ask_reply_reset</tpl>" class="btnInput" /><!-- 重置 -->
+          </label></td>
+        </tr>
+      </table>
+	  </form>
+  </div>
+    <!--  end of entry1  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

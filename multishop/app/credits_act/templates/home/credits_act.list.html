@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/home/css/ploy-list.css" rel="stylesheet" type="text/css" />
+<tpl> include file ='../head.config.html' </tpl>
+
+</head>
+<body>
+<div class="list-1">
+<div class="bg-bg">
+	<div class="list-1-left"></div>
+	<div class="list-1-center">
+		<div class="list-1-center-1">
+			<img src="<tpl> $template_dir </tpl>/home/images/list-4.jpg"  />
+			<div class="list-hype">
+			<h3></h3>
+			<span>
+				<tpl> $langCAInfo </tpl>
+			</span>
+			</div>
+		</div>
+		<div class="list-1-center-2">
+			<div class="login">
+				
+				<tpl> if $ses_member_id neq '' </tpl>
+					<ul class="right-logi">
+						<li class="ziti"><tpl> $langCAHello </tpl>,</li>
+						<li class="ziti"><tpl> $ses_login_name </tpl></li>
+						<li class="bg-2"><a href="<tpl> $site_url </tpl>/member/own_main.php"><tpl> $langCAMemberInter </tpl></a></li>
+						<li class="bg-2"><a href="<tpl>$site_url</tpl>/home/member.php?action=logout"><tpl> $langCAMemberLogout </tpl></a></li>
+					</ul>				
+				<tpl> else </tpl>
+					<ul>
+						<li class="bg-1"><a href="<tpl> $site_url </tpl>/home/member.php?action=login"><tpl> $langCALogin </tpl></a></li>
+						<li class="bg-1"><a href="<tpl> $site_url </tpl>/home/member.php?action=regist"><tpl> $langCRegist </tpl></a></li>
+					</ul>
+				<tpl> /if </tpl>
+				<ul class="dh-1">
+					<li><a href="<tpl> $site_url </tpl>/"><tpl> $langCAIndex </tpl></a> &gt;&gt; <a href="<tpl> $site_url </tpl>/app/credits_act/"><tpl> $langCACreditsAction </tpl></a> &gt;&gt; </a> <tpl> $langCAList </tpl></li>
+				</ul>
+			</div>
+			<div class="list-letter">
+				<tpl> if $act_list </tpl>
+					<dl>
+						<tpl> section name=i loop=$act_list </tpl>
+							<dd><a href="index.php?action=view&ca_id=<tpl> $act_list[i].ca_id </tpl>"><tpl> $act_list[i].ca_title </tpl></a></dd>
+						<tpl> /section </tpl>
+					</dl>
+				<tpl> else </tpl>
+					<dl>
+						<dd><tpl> $langCANothing </tpl></dd>
+					</dl>				
+				<tpl> /if </tpl>
+			</div>
+			<tpl> if $act_list|@count neq 0 </tpl>
+			<div class="fenye">
+				<ul>
+					<li><tpl> $page_list </tpl></li>
+				</ul>
+			</div>
+			<tpl> /if </tpl>
+		</div>
+		<tpl> include file ='../../../../html/footer.html' </tpl>
+	</div>
+	<div class="list-1-right"></div>
+</div>
+</div>
+
+</body>
+</html>

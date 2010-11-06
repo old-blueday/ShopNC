@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=<tpl> $NCharset </tpl>">
+<title><tpl> $channel_name </tpl> <tpl>$HtmlTitle</tpl></title>
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<meta name="KEYWords" content="<tpl> $channel_name </tpl> <tpl>$HtmlTitle</tpl>" />
+<meta name="DEscription" content="<tpl> $channel_name </tpl> <tpl>$HtmlTitle</tpl>" />
+<meta name="author" content="Shopnc UI Team" />
+<meta name="Robots" content= "all" /> 
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/comm.css">
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/template.css">
+<script language="JavaScript" type="text/javascript" src="../js/jquery/jquery.js"></script>
+</head>
+<body>
+<style type="text/css">
+<tpl> $block_css </tpl>
+#wrap{margin:-22px auto 0 !important;}
+#wraptwo{margin:-22px auto 0 !important;}
+</style>
+<div class="top-bg"></div>
+<div id="<tpl> $control.wrap </tpl>">
+<div class="top-ap">
+	<div class="top-left">
+		<font style="color:#666; font-size:12px;"><tpl> $langCHello </tpl><tpl> $langCWelcom </tpl></font> 
+		<tpl> if $login_sign eq '1' </tpl>
+			<tpl> $login_name </tpl>
+			<a href="<tpl> $site_url </tpl>/home/member.php?action=logout"><tpl> $langCMenuLogout </tpl></a>
+		<tpl> else </tpl>
+			<a href="<tpl> $site_url </tpl>/home/member.php?action=login&forward=<tpl> $forward_url </tpl>"><tpl> $langCMenuPleaseLogin </tpl></a>
+			<a href="<tpl> $site_url </tpl>/home/member.php?action=regist"><tpl> $langCMenuFreeRegist </tpl></a>
+		<tpl> /if </tpl>
+	</div>
+	<div class="top-right">
+		<ul>
+			<li class="img"><a href="<tpl> $site_url </tpl>/home/category.php"><tpl> $langWillBuy </tpl></a></li>
+			<li class="img"><a href="<tpl> $site_url </tpl>/member/own_product.php?action=sell"><tpl> $langWillSell </tpl></a></li>
+			<li class="img-1"><a href="<tpl> $site_url </tpl>/member/own_main.php"><tpl> $langMyStore </tpl></a></li>
+			<li class="img"><a href="<tpl> $site_url </tpl>/home/shop.php?action=list&keyword=&slcShopClass="><tpl> $langSailAboutStore </tpl></a></li>
+			<li class="img-3"><a href="http://www.shopnc.net"><tpl> $langClientHelp </tpl></a></li>
+			<li class="img-2"><a href="http://www.shopnc.net"><tpl> $langCommonMore </tpl></a></li>
+			<li class="bizhi"><p class="tabmenu"><a href="http://www.shopnc.net" target="_blank"><tpl> $langCUseHelp </tpl></a></p>
+				<dl class="downmenu">
+					<tpl> section name=loop loop=$app_list </tpl>
+						<dd><a href="<tpl> $site_url </tpl>/app/<tpl> $app_list[loop].app_module_path </tpl>/" target="_blank"><tpl> $app_list[loop].app_module_name </tpl></a></dd>
+					<tpl> /section </tpl>
+				</dl>
+			</li>
+		</ul>
+	</div>
+	<div style=" clear:both; height:10px; width:100%; font-size:0px;"></div>
+	<div class="logo-pd"><a href="<tpl> $site_url </tpl>"><img src='<tpl> $site_logo|default:"$template_dir/images/log-pd.gif" </tpl>' /></a></div>
+	<div class="search-s">
+		<div class="left-search"></div>
+		<div class="center-search">
+		<form name="form_search_nav" id="form_search_nav" action="" method="get" onsubmit="search_submit();">
+			<input type="hidden" name="recommended" id="recommended" value="0" />
+			<ul>
+				<li class="cowy">
+					<select id="search_name" onchange="changeurl(this.value)" name="search_name">
+						<option value="product" selected="selected"><tpl> $langCSearchBaby </tpl></option>
+						<option value="shop"><tpl> $langCSearchShop </tpl></option>
+					</select>
+				</li>
+				<li class="cowy-1"><input name="keyword" id="rr" type="text" /></li>
+				<li class="cowy-2">
+					<select id="span_search_cate" name="searchcate">
+						<option value='0'><tpl> $langCAllSort </tpl></option>
+						<tpl> section name=loop loop=$search_cate </tpl>
+							<option value='<tpl> $search_cate[loop][0] </tpl>'><tpl> $search_cate[loop][2] </tpl></option>
+						<tpl> /section </tpl>
+					</select>
+				</li>
+				<li class="cowy-3"><input type="button" onclick="search_submit();" name="search_button" id="search_button" value="<tpl> $langCNSearch </tpl>" /></li>
+			</ul>
+			</form>
+		</div>
+		<div class="right-search"></div>
+		<div class="goji"><a href="<tpl> $site_url </tpl>/home/product.php?action=search"><tpl> $langCAllSearch </tpl></a></div>
+	</div>
+	<div style=" clear:both; height:10px; width:100%; font-size:0px;"></div>
+</div>
+	<div class="menubody">
+		<div id="menu" class="menu">
+			<ul>
+				<li><a href="<tpl> $site_url </tpl>"><tpl> $langCIndex </tpl></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/trademark.php"><span><tpl> $langCBrandSpace </tpl></span></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/shop_group.php"><span><tpl> $langCCamel </tpl></span></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/countdown.php"><span><tpl> $langCYiyuanPai </tpl></span></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/auction.php"><span><tpl> $langCAuctionJingPai </tpl></span></a></li>
+				<tpl> section name=loop loop=$channel_list </tpl>
+					<li <tpl> if $channel_id eq $channel_list[loop].channel_id </tpl>class=""<tpl> /if </tpl>>
+						<tpl> if $channel_list[loop].channel_type eq '0' </tpl>
+							<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_list[loop].channel_id </tpl>"><tpl> $channel_list[loop].channel_name </tpl></a>
+						<tpl> elseif $channel_list[loop].channel_type eq '3' </tpl>
+							<!-- 频道页静态开关 -->
+							<tpl> if $config_channel_html eq '1' </tpl>				
+								<a href="<tpl> $site_url </tpl>/html/<tpl> $channel_list[loop].channel_sign </tpl>/"><span><tpl> $channel_list[loop].channel_name </tpl></span></a>	
+							<tpl> else </tpl>
+								<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_list[loop].channel_id </tpl>"><tpl> $channel_list[loop].channel_name </tpl></a>
+							<tpl> /if </tpl>										
+						<tpl> else </tpl>
+							<a href="<tpl> $channel_list[loop].channel_url </tpl>" target="_blank"><tpl> $channel_list[loop].channel_name </tpl></a>
+						<tpl> /if </tpl>
+					</li>
+				<tpl> /section </tpl>
+			</ul>
+		</div>
+	</div>
+	<tpl> foreach from=$control.allFrame item=control_content key=key </tpl>
+	<div id="<tpl> $key </tpl>" class="<tpl> if $key eq 'dcontent' </tpl><tpl> if $frame_length eq '3' </tpl>frame_2<tpl> else </tpl>frame_3<tpl> /if </tpl><tpl> else </tpl>frame_1<tpl> /if </tpl> wowoFrameTd">
+		<tpl> foreach from=$control_content item=block_content key=key_content </tpl>
+		<div id="<tpl> $block_content </tpl>" class="block">
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $key_block eq $block_content </tpl>
+					<!-- assign -->
+					<tpl> assign var=block_output value=$block.temp_name </tpl>
+					<tpl> include file=$block.html </tpl>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		</div>
+		<tpl> /foreach </tpl>
+	</div>
+	<tpl> /foreach </tpl>
+	<div id="footer">
+		<tpl> include file="../../html/footer.html" </tpl>
+	</div>
+</div>
+</body>
+
+<script>
+	function a_category_sign(id){
+		$('#span_category_'+id).toggle();
+		$('#a_category_'+id).removeClass();
+		if($('#span_category_'+id).css('display') == 'none'){
+			$('#a_category_'+id).addClass('splay');
+		}else{
+			$('#a_category_'+id).addClass('close');
+		}
+	}
+	//statics
+	var url = window.location;
+	//screen width
+	var screen_width = window.screen.width;
+	//screen height
+	var screen_height = window.screen.height;
+	//set request to server
+	$.ajax({
+		url: "statics.php",
+		data: "user_ad="+escape(document.referrer)+"&filename2="+url+"&screen_width="+screen_width+"&screen_height="+screen_height,
+		type:'post',
+		dataType:"json"
+	});
+</script>
+<script language="javascript">
+function changeurl(str){
+	$.ajax({
+		url: '<tpl> $site_url </tpl>/home/index.php',
+		data: 'action=aj_get_class&search_type='+str,
+		success: function (data) {
+				$('#span_search_cate').html(data);
+			}
+		});
+}
+function search_submit(){
+	if($('#search_name').val() == 'product'){
+		$('#form_search_nav').attr('action','<tpl> $site_url </tpl>/home/product.php');
+	 }else if ($('#search_name').val() == 'shop'){
+		$('#form_search_nav').attr('action','<tpl> $site_url </tpl>/home/shop.php');
+	 }else{
+	 	return false;
+	 }
+    $('#form_search_nav').submit(); 
+}
+	$(document).ready(function(){  
+		$(".tabmenu").mouseover(function(){    
+		$(this).addClass("over");}).mouseout(function(){ 
+		$(this).removeClass("over");})
+		$(".tabmenu").hover(function()
+		{$(this).next().css("display","block");},
+	function()
+		{$(this).next().css("display","none");});
+			$(".downmenu").hover(function()
+		{$(this).css("display","block");},
+	function()
+		{$(this).css("display","none");})
+		});
+    </script>
+</html>

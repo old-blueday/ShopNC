@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<title><tpl> $title_message </tpl></title>
+<meta name="KEYWords" content="<tpl> $Meta_keyword </tpl> <tpl>$HtmlTitle</tpl>" />
+<meta name="DEscription" content="<tpl> $Meta_desc </tpl> <tpl>$HtmlTitle</tpl>" />
+<meta name="author" content="Shopnc UI Team" />
+<meta name="Robots" content= "all" />  
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/layout.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $site_url </tpl>/templates/storestyle/<tpl> $shop_info.shop_style </tpl>/style.css" rel="stylesheet" type="text/css" />
+</head>
+<script src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<style>
+#container760{ width:950px; margin-left:auto; margin-right:auto; margin-top:-24px;*margin-top:-25px;}
+</style>
+<body>
+<div class="top-bg"></div>
+<div id="container760">
+<div class="top-ap"><tpl> include file='store_header.html' </tpl></div>
+<div style="clear:both; height:0px; font-size:0px; width:100%; overflow:hidden;"></div>
+	<div id="container1024" >
+		<div id="ShopFP">
+			<div id="ShopFP_top">            
+                <!-- banner pic -->
+                    <tpl> if $shop_info.shop_banner_pic neq '' </tpl>
+                        <img src="<tpl> $site_url </tpl>/<tpl> $shop_info.shop_banner_pic </tpl>" name="banner_pic" width="950" height="124"  id="banner_pic" />
+                    <tpl> /if </tpl>
+                <!-- banner pic end -->
+				<h1><tpl>$shop_info.shop_name</tpl></h1>
+				<span></span>
+				<ul id="NavBar" class="NavBar">
+					<li <tpl>$navbar_index</tpl>><div class="bg_lasuo1"><a href="index.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $shop_info.shop_name </tpl></a></div><div class="bg_lasuo"> </div></li>
+					<li <tpl>$navbar_intro</tpl>><div class="bg_lasuo1"><a href="intro.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreShopIntro </tpl></a></div><div class="bg_lasuo"> </div></li>
+					<li <tpl>$navbar_rate</tpl>><div class="bg_lasuo1"><a href="user_rate.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreCredit </tpl></a></div><div class="bg_lasuo"> </div></li>
+					<li <tpl>$navbar_map</tpl>><div class="bg_lasuo1"><a href="shop_map.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreShopMap </tpl></a></div><div class="bg_lasuo"> </div></li>
+					<tpl> section name=loop loop=$shop_tag </tpl>
+						<tpl> if $shop_tag[loop].tag_url neq '' </tpl>
+							<li class="<tpl>if $get_tag_id eq $shop_tag[loop].tag_id</tpl>select<tpl>else</tpl>jieshao<tpl>/if</tpl>"><div class="bg_lasuo1"><a href="<tpl> $shop_tag[loop].tag_url </tpl>" target="_blank"><tpl> $shop_tag[loop].tag_name </tpl></a></div><div class="bg_lasuo"> </div></li>
+						<tpl> else </tpl>
+							<li class="<tpl>if $get_tag_id eq $shop_tag[loop].tag_id</tpl>select<tpl>else</tpl>jieshao<tpl>/if</tpl>"><div class="bg_lasuo1"><a href="shop_tag.php?userid=<tpl> $shop_info.member_id </tpl>&tag=<tpl> $shop_tag[loop].tag_id </tpl>"><tpl> $shop_tag[loop].tag_name </tpl></a></div><div class="bg_lasuo"> </div></li>
+						<tpl> /if </tpl>
+					<tpl> /section </tpl> 
+					<tpl>php</tpl>if (DISCUZ_X === true) {<tpl>/php</tpl>
+                    <li class="jieshao"><a href="<tpl>$site_url</tpl>/../home.php"><tpl>$langStoreUChomeLink</tpl></a></li>
+                    <li class="jieshao"><a href="<tpl>$site_url</tpl>/../forum.php"><tpl>$langStoreBbsPage</tpl></a></li>
+                    <li class="jieshao"><a href="<tpl>$site_url</tpl>/../group.php"><tpl>$langStoreGroupPage</tpl></a></li>
+					<tpl>php</tpl>}<tpl>/php</tpl>
+				</ul>
+			</div>
+			<div id="ShopInfo">
+				<div id="PicAndFav">
+					<div id="ShopPic"><!-- logo -->
+						<img src="<tpl> $site_url </tpl>/<tpl> $shop_info.shop_pic|default:'templates/orange/home/images/images_new/storepic_default.gif' </tpl>" >
+					</div>
+					<div class="store_img">
+						<span>
+							<a id="addtofav" href="javascript:;" onclick="product_collection('<tpl> $shop_info.member_id </tpl>');"><tpl> $langStoreCollectionShop </tpl></a>
+						</span>
+						<tpl> if $shop_info.audit_state eq '2' </tpl>
+							<span><a href="shop_map.php?userid=<tpl> $shop_info.member_id </tpl>" target="_blank"><tpl> $langStoreShopPlace </tpl></a>
+						<tpl> /if </tpl>
+						</span>
+					</div>
+				</div>
+				<div id="ShopInfoList">
+					<ul>
+						<li><span class="ListHint"><tpl> $langStoreShopkeeper </tpl>:</span><tpl> $shop_info.login_name </tpl> 
+							<tpl> if $shop_info.audit_state == '2' </tpl> 
+								<img src="<tpl> $template_dir </tpl>/images/renzheng_g.gif" border="0" title="<tpl> $langStoreAlreadyEntityShop </tpl>"/>
+							<tpl> /if </tpl>
+						</li>
+						<li><span class="ListHint"><tpl> $langStoreSaleCredit </tpl>:</span>
+							<a href="user_rate.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $shop_info.sale_score.score|default:'0' </tpl></a>
+							<tpl> if $shop_info.sale_score neq '0' </tpl>
+							<tpl> foreach from=$shop_info.sale_score.median item=one </tpl>
+								<tpl> if $shop_info.sale_score.level eq '0' </tpl>
+									<img title="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.sale_score.level eq '1' </tpl>
+									<img title="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.sale_score.level eq '2' </tpl>
+									<img title="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>-<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+							<tpl> /foreach </tpl>
+							<tpl> /if </tpl>
+						</li>
+						<li><span class="ListHint"><tpl> $langStoreBuyCredit </tpl>:</span>
+							<a href="user_rate.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $shop_info.buy_score.score|default:'0' </tpl></a>
+							<tpl> if $shop_info.buy_score neq '0' </tpl>
+							<tpl> foreach from=$shop_info.buy_score.median item=one </tpl>
+								<tpl> if $shop_info.buy_score.level eq '0' </tpl>
+									<img title="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.buy_score.level eq '1' </tpl>
+									<img title="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.buy_score.level eq '2' </tpl>
+									<img title="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>-<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+							<tpl> /foreach </tpl>
+							<tpl> /if </tpl>
+						</li>
+						<li><span class="ListHint"><tpl> $langStoreBabyNum </tpl>:</span><tpl> $shop_info.product_count|default:'0' </tpl></li>
+						<li><span class="ListHint"><tpl> $langStoreCreateTime </tpl>:</span><tpl> $shop_info.regist_time </tpl></li>
+						<li><span class="ListHint"><tpl> $langStoreAddress </tpl>:</span>
+							<tpl> section name=loop loop=$shop_info.shop_area </tpl>
+								<tpl> $shop_info.shop_area[loop].area_name </tpl>
+							<tpl> /section </tpl>
+						</li>
+						<li>
+							<span class="ListHint"><tpl> $langStoreAffiliation </tpl>:</span> 
+							<a href="<tpl> $site_url </tpl>/member/own_message.php?action=add&username=<tpl> $shop_info.login_name </tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/images/zhannei.gif" alt="<tpl> $langStoreSendEpistle </tpl>"/></a>
+							<tpl> if $shop_info.TAOBAO.0 neq '' </tpl>	
+							<tpl> foreach item=item key=key from=$shop_info.TAOBAO </tpl>
+								<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=2&uid=<tpl> $item </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=2&uid=<tpl> $item </tpl>&site=cntaobao&s=2" alt="<tpl> $langStoreOnClickMyInfo </tpl>" /></a>
+							<tpl> /foreach </tpl>
+							<tpl> /if </tpl> 
+							<tpl> if $shop_info.QQ.0 neq '' </tpl>	  
+							<tpl> foreach item=item key=key from=$shop_info.QQ </tpl>
+								<a target=blank href=tencent://message/?uin=<tpl> $item </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $item </tpl>:4 alt="<tpl> $langStoreOnClickMyInfo </tpl>"></a>
+							<tpl> /foreach </tpl>
+							<tpl> /if </tpl> 
+							<tpl> if $shop_info.SKYPE.0 neq '' </tpl>
+							<tpl> foreach item=item key=key from=$shop_info.SKYPE </tpl>
+								<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+								<a href="skype:<tpl> $item </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="19" height="19" alt="Skype Me?!" /></a>
+							<tpl> /foreach </tpl>
+							<tpl> /if </tpl>
+							<tpl> if $shop_info.MSN.0 neq '' </tpl>
+							<tpl> foreach item=item key=key from=$shop_info.MSN </tpl>
+								<A href="msnim:chat?contact=<tpl> $item </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0"></A>
+							<tpl> /foreach </tpl>
+							<tpl> /if </tpl>						
+						</li>
+					</ul>
+				</div>
+				<div id="ShopAnnounceContainer">
+					<h1><tpl> $langStoreShopAffiche </tpl></h1>
+					<div id="ShopAnnounceContent">
+						<marquee style="position: relative;" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="1" scrolldelay="85" direction="up" behavior="scroll" height="100%"><tpl> $proclamation </tpl></marquee>
+					</div>
+					<div id="VipCardTitle" style="display: none;"></div>
+				</div>
+			</div>
+			<div id="RecommendedItems">
+				<table>
+					<tbody>
+						<tr> 
+							<tpl> section name=k loop=$recommended_product </tpl>
+							<td valign="top">
+								<div class="ReItem">
+									<div class="ReItemPic"> 
+										<tpl> if $ifhtml eq '1' && $recommended_product[k].html_url neq '' </tpl>
+											<a href="<tpl> $recommended_product[k].html_url </tpl>" target="_blank"> 
+										<tpl> else </tpl>
+											<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $recommended_product[k].p_code </tpl>" target="_blank"> 
+										<tpl> /if </tpl>
+										<img src="<tpl> $site_url </tpl>/<tpl> $recommended_product[k].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" width="<tpl> $recommended_product[k].width|default:'100' </tpl>" height="<tpl> $recommended_product[k].height|default:'100' </tpl>"> </a> 				
+									</div>
+									<div class="ItemName"> 
+										<tpl> if $ifhtml eq '1' && $recommended_product[k].html_url neq '' </tpl>
+											<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $recommended_product[k].p_code </tpl>" target="_blank"> 
+										<tpl> else </tpl>
+											<a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl> $recommended_product[k].p_code </tpl>" target="_blank"> 
+										<tpl> /if </tpl>
+										<tpl> $recommended_product[k].p_short_name </tpl> </a> 
+									</div>
+									<div> 
+										<tpl> if $recommended_product[k].p_sell_type eq '0' </tpl>
+											<tpl> $langStoreProductSellAuction </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $recommended_product[k].p_sell_type eq '1' </tpl>
+											<tpl> $langCfixprice </tpl>
+										<tpl> /if </tpl>
+										<tpl> if $recommended_product[k].p_sell_type eq '2' </tpl>
+											<tpl> $langStoreProductSellGroup </tpl>
+										<tpl> /if </tpl>
+										<span class="ItemPrice">
+										<tpl> if $recommended_product[k].p_sell_type eq '2' </tpl>
+											<tpl> $recommended_product[k].p_group_price </tpl>
+										<tpl> else </tpl>
+											<tpl> $recommended_product[k].p_price </tpl>
+										<tpl> /if </tpl>
+										<tpl> $langCYuan </tpl>
+										</span>
+									</div>
+								</div>
+							</td>
+						<tpl> if $smarty.section.k.rownum%6 eq 0 </tpl>
+						</tr>
+						<tr>
+						<tpl> /if </tpl>
+						<tpl> /section </tpl> </tr>
+					</tbody>
+				</table>
+				<div id="ShopMain">
+					<div id="shopmain1">
+						<div class="box_border">
+							<div class="box_inside">
+								<div class="ItemCategoriesTitle"><tpl> $langCSearchBaby </tpl></div>
+								<div class="ItemContent"> 
+									<div id="InShopSearch">
+									<form name="form1" action="index.php?userid=<tpl> $shop_info.member_id </tpl>" method="post">
+										<input name="keyword" size="20" value="" style="height: 14px;" class="searchinput" type="text">
+										<input name="Submit" value="<tpl> $langCSearchBaby </tpl>" type="submit" class="input_submit">
+										<input name="searchtype" size="20" value="1" style="height: 14px;" type="hidden">
+									</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="box_border">
+							<div class="box_inside">
+								<div class="ItemCategoriesTitle"><tpl> $langStoreShopClass </tpl></div>
+								<div class="ItemContent"> 
+									<a href="product.php?userid=<tpl> $shop_info.member_id </tpl>"><b><tpl> $langStoreAllBaby </tpl></b></a>
+									<ul>
+										<tpl> section name=i loop=$shop_category </tpl>
+										<li>
+											<tpl> if $shop_category[i].child[0].class_id neq '' </tpl>
+												<tpl> if $shop_category[i].class_if_open eq '0' </tpl>
+													<a class="close" id="a_category_<tpl> $shop_category[i].class_id </tpl>" href="javascript:;" onclick="a_category_sign(<tpl> $shop_category[i].class_id </tpl>);"></a>
+												<tpl> /if </tpl>
+												<tpl> if $shop_category[i].class_if_open eq '1' </tpl>
+													<a class="splay" id="a_category_<tpl> $shop_category[i].class_id </tpl>" href="javascript:;" onclick="a_category_sign(<tpl> $shop_category[i].class_id </tpl>);"></a>
+												<tpl> /if </tpl>
+											<tpl> else </tpl>
+												<span class="splay"></span>
+											<tpl> /if </tpl>
+											<tpl> if $shop_category[i].class_pic neq '' and $shop_category[i].class_pic neq 'http://'</tpl>
+												<a class="left-interval" href="index.php?userid=<tpl> $shop_info.member_id </tpl>&classid=<tpl> $shop_category[i].class_id </tpl>"><img  class="img_width" src="<tpl> $shop_category[i].class_pic </tpl>" title="<tpl> $shop_category[i].class_name </tpl>" /></a>
+											<tpl> else </tpl>
+												<a class="left-interval" href="index.php?userid=<tpl> $shop_info.member_id </tpl>&classid=<tpl> $shop_category[i].class_id </tpl>"><tpl> $shop_category[i].class_name </tpl></a>
+											<tpl> /if </tpl>
+										</li>
+										<span class="subroutine" id="span_category_<tpl> $shop_category[i].class_id </tpl>" <tpl> if $shop_category[i].class_if_open eq '1' </tpl>style="display:none"<tpl> /if </tpl>>
+											<tpl> foreach from=$shop_category[i].child item=one </tpl>
+												<li>
+													<tpl> if $one.class_pic neq '' and $one.class_pic neq 'http://'</tpl>
+														<a class="bg_style" href="index.php?userid=<tpl> $shop_info.member_id </tpl>&classid=<tpl> $one.class_id </tpl>"><img class="img_width" src="<tpl> $one.class_pic </tpl>" title="<tpl> $one.class_name </tpl>" /></a>
+													<tpl> else </tpl>
+														<a class="bg_style" href="index.php?userid=<tpl> $shop_info.member_id  </tpl>&classid=<tpl> $one.class_id </tpl>"><tpl> $one.class_name </tpl></a>
+													<tpl> /if </tpl>
+												</li>
+											<tpl> /foreach </tpl>
+											</span>
+										<p></p>
+										<tpl> /section </tpl>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="box_border">
+							<div class="box_inside">
+								<div class="ItemCategoriesTitle"><tpl> $langStoreFirendLink </tpl></div>
+								<div class="ItemContent">
+									<ul>
+										<tpl> section name=i loop=$shop_link </tpl>
+											<li><a href="index.php?userid=<tpl> $shop_link[i].link_shop_id </tpl>"><tpl> $shop_link[i].shop_name </tpl></a></li>
+										<tpl> /section </tpl>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<tpl>php</tpl>if (DISCUZ_X === true) {<tpl>/php</tpl>
+                        <!--掌柜动态-->
+                        <div class="box_border">
+                            <div class="box_inside">
+                                <div class="ItemCategoriesTitle"><tpl> $langStoreTrend </tpl></div>
+                                <div class="ItemContent bg-item">
+                                    <ul>
+                                        <tpl>section name=i loop=$uchome_trend</tpl>
+                                        <li><tpl>$uchome_trend[i].datas</tpl></li>
+                                        <tpl>/section</tpl>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--掌柜动态结束-->
+						<tpl>php</tpl>}<tpl>/php</tpl>
+					</div>
+				</div>
+				<div id="ItemCol">
+					<tpl> include file=$layout_page </tpl>
+					<div style="clear:both"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+	<div class="copyright">
+				Powered by <a href="http://www.shopnc.net" target="_blank" style="color:#FF6600">ShopNC</a>  &copy; v2.7 2007-2010 <a href="http://www.shopnc.net" target="_blank" style="color:#FF6600">网城创想</a> Inc.<br />
+	   版权所有 天津市网城创想科技有限责任公司
+	  <a style="color:#588CC0" href="http://www.miibeian.gov.cn/" target="_blank">津ICP备080001719号</a>
+	  <br />
+      <tpl> $langStoreWelcome </tpl> <font style="color:#000;"><tpl> $shop_info.shop_name </tpl></font>
+
+		<!--<div class="f_status"><p>Powered by <a href="http://www.shopnc.net" target="_blank">ShopNC</a></p>
+		<p><tpl> $langStoreWelcome </tpl> <tpl> $shop_info.shop_name </tpl></p></div>-->
+	</div>
+</div>
+</body>
+<script>
+function a_category_sign(id){
+	$('#span_category_'+id).toggle();
+	$('#a_category_'+id).removeClass();
+	if($('#span_category_'+id).css('display') == 'none'){
+		$('#a_category_'+id).addClass('splay');
+	}else{
+		$('#a_category_'+id).addClass('close');
+	}
+}
+//statics
+var url = window.location;
+//screen width
+var screen_width = window.screen.width;
+//screen height
+var screen_height = window.screen.height;
+//set request to server
+$.ajax({
+	url: "statics.php",
+	data: "user_ad="+escape(document.referrer)+"&filename2="+url+"&screen_width="+screen_width+"&screen_height="+screen_height,
+	type:'post',
+	dataType:"json"
+});
+</script>
+</html>

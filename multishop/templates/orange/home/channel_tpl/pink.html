@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<!-- 加载JS等配置文件----开始 -->
+<link href="<tpl> $template_dir </tpl>/home/css/pink.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/ui.tabs.css" rel="stylesheet" type="text/css" />
+<tpl> include file ='../../head.config.html' </tpl>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/ui.core.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/ui.tabs.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/common.js"></script>
+<Script type="text/javascript" src="<tpl> $site_url </tpl>/js/tabswitch.js"></Script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.scroll2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	$("#scrollnewbargain").Scroll({line:3,optHeight:38,speed:500,timer2:3000,up:"ButUp",down:"ButDown"});
+	});
+</script>
+<script type="text/javascript">
+   $(function() {
+		$('#hot_browse > ul').tabs({ fx: { opacity: 'toggle' } }).tabs('rotate', 10000);
+	});
+	$(function() {
+		$('#hot_sale > ul').tabs({ fx: { opacity: 'toggle' } }).tabs('rotate', 15000);
+	});
+</script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.pngFix.js"></script>
+<script type=text/javascript>
+	$(document).ready(function(){$('div.examples').pngFix( );});
+</script>
+
+</head>
+
+<body>
+<div>
+<tpl> include file='../../top.html' </tpl>
+</div>
+<div class="clear"></div>
+<div id="channel_layout">
+    <div class="categorylist">
+      <ul>
+        <module>pclass_module_CPclass</module>
+      </ul>
+	   <div class="clear"></div>
+    </div>
+  <div class="barbtm"></div>
+  <div class="page_left">
+    <!-- 店铺分类 -->
+    <div class="sl_leftbar">
+      <div class="title1">
+        <h3><tpl> $langCShopClass </tpl></h3>
+      </div>
+		<module>shopclass_module_CShopClass</module>
+      <div class="clear"></div>
+    </div>
+    <!-- END店铺分类 -->
+    <div class="barbtm"></div>
+    <!-- 热销排行 -->
+    <div class="sl_leftbar">
+	<div class="content2">
+  <div class="title2">
+        <h3><tpl> $langIPopCommodity </tpl></h3>
+      </div>
+      <div class="content2">
+        <div id="hot_sale">
+          <ul>
+            <li><a href="#hot_sale_01"><span><tpl> $langChannelCamera </tpl></span></a></li>
+            <li><a href="#hot_sale_02"><span><tpl> $langChannelManWomanDuds </tpl></span></a></li>
+            <li><a href="#hot_sale_03"><span><tpl> $langChannelFadFitment </tpl></span></a></li>
+          </ul>
+          <div id="hot_sale_01">
+            <ol class="bestlist">
+              	<module>product_module_CPPopList</module>
+            </ol>
+          </div>
+          <div id="hot_sale_02">
+            <ol class="bestlist">
+                <module>product_module_CPPopList1</module>
+            </ol>
+          </div>
+          <div id="hot_sale_03">
+            <ol class="bestlist">
+               <module>product_module_CPPopList2</module>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+	  </div>
+    </div>
+    <!-- END热销排行 -->
+    <div class="barbtm"></div>
+    <!-- 问题与帮助 -->
+    <div class="sl_leftbar">
+	<div class="content2">
+      <div class="title2">
+        <h3><tpl> $langCQHelp </tpl></h3>
+      </div>
+      <div class="content">
+      	<ul class="faqlist">
+          <script src="<tpl> $site_url </tpl>/html/news_javascript/c51ce410c124a10e0db5e4b97fc2af39.js"></script>
+        </ul>
+      </div>
+      <div class="clear"></div>
+	  </div>
+    </div>
+    <!-- END问题与帮助 -->
+    <div class="barbtm"></div>
+  </div>
+  <div class="page_right">
+    <!-- 中间区域 -->
+    <div class="middlebar">
+	<ul>
+      <script src="<tpl> $site_url </tpl>/html/js/index_channel.js"></script>
+	  </ul>
+      <div class="barbtm"></div>
+    </div>
+    <!-- END中间区域 -->
+    <!-- 右侧区域 -->
+    <div class="rightbar">
+      <!-- 频道按钮 -->
+      <div class="channal_but"><a href="<tpl> $site_url </tpl>/home/member.php?action=regist"><span><img src="<tpl> $template_dir </tpl>/home/images/channel_mfkd.gif" alt="<tpl> $langCIWandOpenShop </tpl>" /></span></a><a href="<tpl> $site_url </tpl>/home/member.php?action=login"><span><img src="<tpl> $template_dir </tpl>/home/images/channel_yhdl.gif" alt="<tpl> $langCUserLogin </tpl>" /></span></a> </div>
+      <!-- END频道按钮 -->
+      <!-- 新入店铺 -->
+      <div class="newshop">
+        <div class="title">
+          <h3><tpl> $langCNewAddShop </tpl></h3>
+        </div>
+        <ul>
+          <module>shop_module_CNewAddShop</module>
+        </ul>
+      </div>
+	  <div class="rightbar">
+      <div class="title">
+        <h3><tpl> $langCCommendShop </tpl></h3>
+      </div>
+      <div class="content">
+        <ul class="recommend_store">
+          <module>shop_module_CcommendShop</module>
+        </ul>
+       <script type="text/javascript">
+         function faqEffect()
+         {
+          	var faqobj=  $("ul[@class*=credit]");
+			var faqcont = faqobj.find("li:last");
+			var faqtitle = faqobj.find("li:first");
+
+			faqtitle.each(
+          	function(i)
+          	{
+          		$(this).hover(function(){faqcont.eq(i).show(800);},function(){faqcont.eq(i).hide(800);});
+			}
+          	);
+		}
+
+          $(document).ready(function(){
+          	faqEffect();
+          });
+  </script>
+      </div>
+    </div>
+      <!-- END新入店铺 -->
+    </div>
+    <!-- END右侧区域 -->
+    <!-- 中间区域(推荐商品) -->
+    <div class="middlebar">
+      <div id="sitenav1">
+        <div class="side_right"></div>
+        <div class="side_left"></div>
+        <h3><tpl> $langCCommendProduct </tpl></h3>
+      </div>
+      <div class="content">
+        <ul class="thumblist">
+          <module>product_module_CcommendProduct</module>
+        </ul>
+      </div>
+    </div>
+    <!-- END中间区域(推荐商品) -->
+    <!-- 右侧区域(推荐店铺) -->
+    
+    <!-- END右侧区域(推荐店铺) -->
+ 
+
+  </div>
+  
+</div>
+<tpl> include file ='../../../../html/footer.html' </tpl>
+</body>
+</html>

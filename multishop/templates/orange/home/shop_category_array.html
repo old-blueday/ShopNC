@@ -1,0 +1,14 @@
+<ul class="fatherul" >
+<tpl> foreach item = parent name = parentment from = $shop_category_array </tpl>
+  <tpl> if $smarty.foreach.parentment.iteration<4 or ($smarty.foreach.parentment.iteration>12 and $smarty.foreach.parentment.iteration<25) or ($smarty.foreach.parentment.iteration>33 and $smarty.foreach.parentment.iteration<46) </tpl><tpl> assign var="fathercss" value="father" </tpl><tpl> else </tpl><tpl> assign var="fathercss" value="father2" </tpl><tpl> /if </tpl>
+  <li class="<tpl> $fathercss </tpl>" ><a href="shop.php?action=list&slcShopClass=<tpl> $parent.class_id </tpl>" ><tpl> $parent.class_name </tpl></a>
+    <ul>
+      <tpl> foreach name = parentbaby item = baby from = $parent.child </tpl>
+      <tpl>  if $smarty.foreach.parentbaby.iteration < 5  </tpl>
+      <li><a href="shop.php?action=list&slcShopClass=<tpl> $baby.class_id </tpl>"><tpl> $baby.class_name </tpl></a> </li>
+      <tpl> /if </tpl>
+      <tpl> /foreach </tpl>
+    </ul>
+  </li>
+  <tpl> /foreach </tpl>
+</ul>

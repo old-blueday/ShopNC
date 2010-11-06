@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_add</tpl></title><!-- 商品管理 - 新增商品 -->
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.metadata.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/common.js"></script>
+<script type="text/javascript">
+var i=1;
+$(document).ready(function(){
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$("#tab1").click(function(){
+		$("#entry1").fadeIn(100);
+		$("#entry4").fadeIn(100);
+	});
+	$("#tab2").click(function(){
+		$("#entry2").fadeIn(100);
+	});
+	$("#tab3").click(function(){
+		$("#entry3").fadeIn(100);
+	});
+	$("#tab5").click(function(){
+		$("#entry5").fadeIn(100);
+	});
+	$("#tab6").click(function(){
+		$("#entry6").fadeIn(100);
+	});
+	$("#tab7").click(function(){
+		$("#entry7").fadeIn(100);
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+/* 对需要填写验证的信息，进行验证 */
+	$("#add_good").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_goods_name		: {required:true,maxLength:30},
+			txt_goods_num		: {required:true},
+			txt_goods_price		: {required:true,number:true,minValue:0},
+			txt_goods_pricedes	: {required:true,number:true,minValue:0},
+			sel_goods_class		: {required:true,minValue:1},
+			txt_stock_num		: {required:true,minValue:1}
+		},
+		messages: {
+			txt_goods_name		: {required: "<tpl>$admin_goods_name_is_null</tpl>",maxLength:"<tpl>$admin_goods_goods_name_long</tpl>"},
+			txt_goods_num		: {required: "<tpl>$admin_goods_bn_is_null</tpl>"},
+			txt_goods_price		: {required: "<tpl>$admin_goods_price_error</tpl>",number:"<tpl>$admin_goods_price_error</tpl>",minValue:"<tpl>$admin_goods_provider_price_min</tpl>"},
+			txt_goods_pricedes	: {required:"<tpl>$admin_goods_pricedesc_error</tpl>",number:"<tpl>$admin_goods_pricedesc_error</tpl>",minValue:"<tpl>$admin_goods_provider_price_min</tpl>"},
+			sel_goods_class		: {required:"<tpl>$admin_goods_class_null</tpl>",minValue:"<tpl>$admin_goods_class_null</tpl>"},
+			txt_stock_num		: {required:"<tpl>$admin_goods_provider_sto_min</tpl>",minValue:"<tpl>$admin_goods_provider_sto_min</tpl>"}
+		}
+	});
+	
+	/* 修改时默认直接ajax */
+	<tpl>if $goods_array.goods_id!=''</tpl>
+		/* 分类选择事件 */
+		$.post('admin_goods.php',{'action':'goods_attr','class_id':'<tpl>$goods_array.class_id</tpl>','goods_id':'<tpl>$goods_array.goods_id</tpl>'},function(data) {
+			document.getElementById('attr_table_tr').innerHTML=data;
+		});
+		/* 关联商品事件 */
+		$.post('admin_goods.php',{'action':'ajax_search','class_id':'','goods_keywords':'','goods_id':'<tpl>$goods_array.goods_link_goods</tpl>','other_action':'modify_link','old_goods_id':'<tpl>$goods_array.goods_id</tpl>'},function(data) {
+		$("#search_result").html(data);
+		});
+		/* 关联文章事件 */
+		$.post('admin_article.php',{'action':'ajax_search','article_keywords':'','article_id':'<tpl>$goods_array.goods_link_article</tpl>','other_action':'modify_link'},function(data) {
+		$("#search_article").html(data);
+		});
+	<tpl>/if</tpl>
+	
+	/* 分类选择执行事件 */
+	$("#sel_goods_class").change(function(){
+		var goods_class_vaule =$("select[@name=sel_goods_class] option[@selected]").val();
+		$.post('admin_goods.php',{'action':'goods_attr','class_id':goods_class_vaule,'goods_id':'<tpl>$goods_array.goods_id</tpl>'},function(data) {
+			document.getElementById('attr_table_tr').innerHTML=data;
+		});
+	});
+	/* 关联商品ajax操作 */
+	$('#goods_sarch').click(function(){
+		var	search_class_id	= $("select[@name=search_sel_goods_class] option[@selected]").val();
+		var	goods_keywords	= $.trim($("#goods_keywords").attr("value"));
+		$.get('admin_goods.php',{'action':'ajax_search','class_id':search_class_id,'goods_keywords':goods_keywords,'goods_id':'<tpl>$goods_array.goods_link_goods</tpl>','old_goods_id':'<tpl>$goods_array.goods_id</tpl>'},function(data) {
+		$("#search_result").html(data);
+		});
+	});
+	/* 关联文章 */
+	
+	$('#article_search').click(function(){
+		var	article_keywords	= $.trim($("#article_keywords").attr("value"));
+		$.post('admin_article.php',{'action':'ajax_search','article_keywords':article_keywords,'article_id':'<tpl>$goods_array.goods_link_article</tpl>'},function(data) {
+		$("#search_article").html(data);
+		});
+	});
+/* 商品多图显示与隐藏 */
+<tpl>if $more_image_num == 0</tpl>
+$('#gallery').css('display', 'none');
+<tpl>/if</tpl>
+	$("#more_img_js").click(function(){
+		if(this.checked){
+			$('#gallery').css('display', '');
+		} else {
+			$('#gallery').css('display', 'none');
+		}
+	});	
+});
+</script>
+<script language="javascript" type="text/javascript">
+
+var start_img_num = 1;
+function imageupload(num,imagenum_id_name) {
+var maxnum = 0;
+var uploadhtml = '';
+var imagefile	= document.getElementById('imagefile');
+var imagenum	= '';
+if(imagenum_id_name == 'imagenum') {
+	imagenum	= document.getElementById('imagenum');
+} else {
+	imagenum	= document.getElementById('imagenum1');
+}
+
+if(num == 0) {
+	maxnum = start_img_num + Number(imagenum.value);
+	} else {
+	maxnum = num;
+	}
+if(maxnum >40) maxnum = 40;
+if(start_img_num < <tpl>$more_image_num+1</tpl>) {
+	<tpl>section name=list loop=$more_image</tpl>
+	uploadhtml = "";
+	uploadhtml += "<li>";
+	uploadhtml += "<div><img src=\"<tpl>$Site_Url</tpl>/<tpl>$more_image[list].goods_image_small</tpl>\" width=\"120\" height=\"120\" id=\"im"+start_img_num+"\" name=\"im"+start_img_num+"\" /><input type=\"checkbox\" name=\"more_pic"+start_img_num+"\" value=\"<tpl>$more_image[list].goods_image_id</tpl>\"><tpl>$admin_goods_del_more_pic</tpl></div>";
+	uploadhtml += "<p><tpl>$admin_goods_pic_info</tpl>:<input name=\"image_title"+start_img_num+"\" type=\"text\" size=\"15\" value=\"<tpl>$more_image[list].goods_image_title</tpl>\" /></p>";
+	uploadhtml += "<p><tpl>$admin_goods_pic_upload</tpl>:<input id=\"imgfile"+start_img_num+"\" name=\"imgfile"+start_img_num+"\" type=\"file\" size=\"12\" onChange=\"setpic('im"+start_img_num+"','imgfile"+start_img_num+"');\" /></p>";
+	uploadhtml += "<p><input type=\"button\" value=\"<tpl>$admin_goods_pic_insert</tpl>\" onclick=\"insertHTMLToEditor('[nc_img]"+start_img_num+"[/nc_img]');\" size=\"15\" /></p>";
+	uploadhtml += "<p><input type=\"hidden\" value=\"<tpl>$more_image[list].goods_image_small</tpl>\"  name=\"old_image_small"+start_img_num+"\" /></p>";
+	uploadhtml += "<p><input type=\"hidden\" value=\"<tpl>$more_image[list].goods_image</tpl>\"  name=\"old_image"+start_img_num+"\" /></p>";
+	uploadhtml += "<p><input type=\"hidden\" value=\"<tpl>$more_image[list].goods_image_id</tpl>\"  name=\"goods_image_id"+start_img_num+"\" /></p>";
+	uploadhtml += "</li>";
+	imagefile.innerHTML += uploadhtml;
+	start_img_num = start_img_num+1;
+	<tpl>/section</tpl>
+} else {
+for(start_img_num;start_img_num < maxnum;start_img_num++){
+	uploadhtml = "";
+	uploadhtml += "<li>";
+	uploadhtml += "<div><img src=\"<tpl>$Site_Url</tpl>/admin/templates/images/default.jpg\" width=\"120\" height=\"120\" id=\"im"+start_img_num+"\" name=\"im"+start_img_num+"\" /></div>";
+	uploadhtml += "<p><tpl>$admin_goods_pic_info</tpl>:<input name=\"image_title"+start_img_num+"\" type=\"text\" size=\"15\" /></p>";
+	uploadhtml += "<p><tpl>$admin_goods_pic_upload</tpl>:<input id=\"imgfile"+start_img_num+"\" name=\"imgfile"+start_img_num+"\" type=\"file\" size=\"12\" onChange=\"setpic('im"+start_img_num+"','imgfile"+start_img_num+"');\" /></p>";
+	uploadhtml += "<p><input type=\"button\" value=\"<tpl>$admin_goods_pic_insert</tpl>\" onclick=\"insertHTMLToEditor('<br>[nc_img]"+start_img_num+"[/nc_img]');\" size=\"15\" </p>";
+	uploadhtml += "</li>";
+	imagefile.innerHTML += uploadhtml;
+	}
+}
+document.getElementById('file_num').value	= start_img_num;
+}
+
+function setpic(nc_img,nc_pic){
+   if ( document.getElementById(nc_pic).value != "" ) { 
+   document.getElementById(nc_img).src = document.getElementById(nc_pic).value;
+   
+    }
+}
+
+/* 向编辑器插入指定代码 */
+function insertHTMLToEditor(fck_str){
+   var oEditor = FCKeditorAPI.GetInstance("txt_particular_depict");
+   if (oEditor.EditMode==FCK_EDITMODE_WYSIWYG){
+   		if(fck_str != '') {
+     		oEditor.InsertHtml(fck_str);
+	 		fck_str = '';
+			}
+   }else{
+     return false;
+   }
+}
+</script>
+</head>
+
+<body id="addGoods">
+<div id="content">
+    <form action="admin_goods.php?action=save" method="post" enctype="multipart/form-data" name="add_good" id="add_good">
+    	<input type="hidden" name="txt_goods_id" value="<tpl>$goods_array.goods_id</tpl>"/>
+        <input type="hidden" name="txt_old_pic" value="<tpl>$goods_array.goods_image</tpl>"/>
+		<input type="hidden" name="txt_old_small_pic" value="<tpl>$goods_array.goods_small_image</tpl>"/>
+		<input type="hidden" name="txt_goods_type" value="1"/>
+    <h2>
+    	<span class="alignRight"><a href="admin_goods.php?action=list" target="_self">{<tpl>$admin_goods_list</tpl><!-- 商品列表 -->}</a></span>
+    	<tpl>$admin_header_goods_manage</tpl> >> <tpl>if $goods_array.goods_id!=''</tpl><tpl>$admin_goods_edit</tpl><tpl>else</tpl><tpl>$admin_goods_add</tpl><tpl>/if</tpl><!-- 商品管理 >> 新增商品 -->
+    </h2>
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_goods_basicinfo</tpl><!-- 基本信息 --></a></li>
+        <li id="tab2"><a href="#nogo"><tpl>$admin_goods_particular_depict</tpl><!-- 其他信息 --></a></li>
+        <li id="tab3"><a href="#nogo"><tpl>$admin_goods_otherinfo</tpl><!-- 详细描述 --></a></li>
+        <li id="tab6"><a href="#nogo"><tpl>$admin_goods_relating_good</tpl><!-- 关联商品 --></a></li>
+        <li id="tab7"><a href="#nogo"><tpl>$admin_goods_relating_article</tpl><!-- 关联文章 --></a></li>
+    </ul>
+    <div class="alignRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_click_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="187"><tpl>$admin_goods_name</tpl><!-- 商品名称 -->:</td>
+            <td width="177"><input type="text" name="txt_goods_name" id="txt_goods_name" size="20" value="<tpl>$goods_array.goods_name|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_goods_name" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+            <td width="580" rowspan="8" valign="top">
+			 <div id="entry4" class="entry-body">
+	  			<span id="attr_table_tr"></span></div></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_num</tpl><!-- 商品货号 -->:</td>
+            <td><input type="text" name="txt_goods_num" id="txt_goods_num" size="20" value="<tpl>$goods_array.goods_bn|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_goods_num" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class</tpl><!-- 商品分类 -->:</td>
+            <td><tpl>$sel_goods_class</tpl>&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="sel_goods_class" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_ext_class</tpl><!-- 扩展分类 -->:</td>
+            <td width="176"><input type="button" name="class_ext" onClick="addOtherClass(this.parentNode)" class="btnInput" value="<tpl>$admin_goods_ext_class_add</tpl>" />
+			<tpl>foreach from=$other_class item=class_select</tpl>
+				<tpl>$class_select</tpl>
+			<tpl>/foreach</tpl>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_brand</tpl><!-- 商品品牌 -->:</td>
+            <td><tpl> $goods_brand </tpl>            </td>
+          </tr>
+          <tr>
+
+            <td><tpl>$admin_goods_subject</tpl><!-- 主题类别 -->:</td>
+            <td><tpl> $goods_subject </tpl>            </td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_price</tpl><!-- 市场售价 -->:</td>
+            <td><input type="text" name="txt_goods_price" id="txt_goods_price" value="<tpl>$goods_array.goods_price</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_goods_price" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_pricedes</tpl><!-- 本店售价 -->:</td>
+            <td colspan="2"><input type="text" name="txt_goods_pricedes" id="txt_goods_pricedes" value="<tpl>$goods_array.goods_pricedesc</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_goods_pricedes" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_stock_num</tpl><!-- 库存数量 -->:</td>
+            <td><input type="text" name="txt_stock_num" id="txt_stock_num" size="5" value="<tpl>if $goods_array.goods_storage!=''</tpl><tpl>$goods_array.goods_storage</tpl><tpl>else</tpl>1<tpl>/if</tpl>" />
+			<div class="check-error"><label style="display:none" for="txt_stock_num" class="wrong" metaDone="true" generated="true"></label></div>
+            </td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_ifput</tpl><!-- 是否发布 -->:</td>
+            <td colspan="2"><tpl> $goods_ifput_radio </tpl></td>
+          </tr>
+          <tr>
+          	<td><tpl>$admin_goods_view_class</tpl><!-- 显示类型 -->:</td>
+            <td colspan="2">
+			<tpl> $goods_commend_checkbox </tpl>
+			<tpl> $goods_hot_checkbox </tpl>
+			<tpl> $goods_special_checkbox </tpl></td>
+          </tr> 
+          <tr>
+            <td><tpl>$admin_goods_key_word_depict</tpl><!-- 关键字描述 -->:</td>
+            <td  colspan="2"><input type="text" name="txt_key_word_depict" id="txt_key_word_depict" value="<tpl>$goods_array.goods_keywords|escape:html</tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_simpleness_depict</tpl><!-- 简单描述 -->:</td>
+            <td  colspan="2"><textarea cols="50" rows="3" name="txt_simpleness_depict" id="txt_simpleness_depict"><tpl>$goods_array.goods_description</tpl></textarea></td>
+          </tr>
+      </table>
+    </div><!--  end of entry1  -->
+    <div id="entry2" class="entry-body" style="display:none">
+    <table width="100%" border="0">
+          <tr>
+            <td><tpl>$admin_goods_upload_picture</tpl><!-- 上传商品图 -->:</td>
+            <td>
+			<tpl>if $goods_array.goods_image !="" && $goods_array.goods_image !="default.jpg"</tpl>
+            <div class="thumbimg" id="goods_pic"><img src="<tpl>$Site_Url</tpl>/<tpl>$pic</tpl>" />&nbsp;<a href="#" onclick="del_image('<tpl>$goods_array.goods_id</tpl>')"><tpl>$admin_goods_del_pic</tpl></a></div>
+        	<tpl>/if</tpl>
+            	<input type="file" name="file_upload_pricure" id="file_upload_pricure" />&nbsp;&nbsp;<input type="checkbox" name="more_img_js" id="more_img_js" <tpl>if $more_image_num != 0</tpl> checked="checked"<tpl>/if</tpl> /><tpl>$admin_goods_more_pictuce</tpl><!-- 商品多图 --></td>
+          </tr>
+          <tr>
+          	<td><tpl>$admin_goods_particular_depict</tpl><!-- 详细描述 --></td>
+            <td><tpl>$txt_fck</tpl>
+            </td>
+          </tr>
+		  <tr>
+		  	<td colspan="2"><div id="gallery">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="bg"><tpl>$admin_goods_add_pic</tpl><!-- 图片增加 -->:
+				    <input name="imagenum" id="imagenum" type="text" value="3" size="3" /><input type="hidden" id="file_num" name="file_num" value="0" />
+				    
+				    <input type="button" onClick="imageupload(0,'imagenum');" name="Submit" value="<tpl>$amdin_goods_submit</tpl>" class="btnInput" /><!-- 提交 --></td>
+				</tr>
+				<tr>
+					<td>
+						<ul>
+						<div id="imagefile"></div>
+							<div class="clear"></div>
+						</ul>
+				  </td>
+				</tr>
+				<tr>
+					<td class="bg"><tpl>$admin_goods_add_pic</tpl><!-- 图片增加 -->:
+				    <input name="imagenum" id="imagenum1" type="text" value="3" size="3" />
+				    
+				    <input type="button" onClick="imageupload(0,'imagenum1');" name="Submit" value="<tpl>$amdin_goods_submit</tpl>" class="btnInput" /><!-- 提交 --></td>
+				</tr>
+			</table>
+		</div><!--  end of gallery  --></td>
+		  </tr>
+        </table>
+
+    </div><!--  end of entry2  -->
+    <div id="entry3" class="entry-body" style="display:none">
+    
+         <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_weight</tpl><!-- 商品重量 -->:</td>
+            <td><input type="text" name="txt_goods_weight" id="txt_goods_weight" value="<tpl>$goods_array.goods_weight </tpl>" /></td>
+          </tr>
+            <td width="120"><tpl>$admin_goods_color</tpl><!-- 商品颜色 -->:</td>
+            <td><input type="text" name="txt_goods_color" id="txt_goods_color" value="<tpl>$goods_array.goods_color|escape:html </tpl>" />&nbsp;&nbsp;<tpl>$admin_help_goods_add_color</tpl><!-- 可以用|分割添加多个颜色 --></td>
+          </tr>
+            <td width="120"><tpl>$admin_goods_size</tpl><!-- 商品规格 -->:</td>
+            <td><input type="text" name="txt_goods_size" id="txt_goods_size" value="<tpl>$goods_array.goods_size|escape:html </tpl>" />&nbsp;&nbsp;<tpl>$admin_help_goods_add_size</tpl><!-- 可以用|分割添加多个规格 --></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_weight_unit</tpl><!-- 计量单位 -->:</td>
+            <td><input type="text" name="txt_weight_unit" id="txt_weight_unit" value="<tpl>$goods_array.goods_unit </tpl>" /></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_stock_alarm_num</tpl><!-- 库存警告数量 -->:</td>
+            <td><input type="text" name="txt_stock_alarm_num" id="txt_stock_alarm_num" size="5" value="<tpl>$goods_array.goods_alarm_num </tpl>" />
+            </td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_stock_alarm_text</tpl><!-- 库存警告内容 -->:</td>
+            <td><input type="text" name="txt_stock_alarm_text" id="txt_stock_alarm_text" value="<tpl>if $goods_array.goods_alarm_text!='0' and $goods_array.goods_alarm_text!=''</tpl><tpl>$goods_array.goods_alarm_text|escape:html</tpl><tpl>else</tpl><tpl>$admin_goods_stock_info</tpl><tpl>/if</tpl>" />
+            </td>
+          </tr>
+        </table>
+    </div><!--  end of entry2  -->
+    <div id="entry5" class="entry-body" style="display:none;">
+
+    </div><!--  end of entry5  -->
+    <div id="entry6" class="entry-body" style="display:none">
+        <table width="98%" border="0" cellpadding="0" cellspacing="0" id="optionTab" class="optionTab" style="margin:0 auto;">
+            <tr>
+                <td><tpl>$admin_goods_search</tpl><!-- 搜索 -->:
+                   <tpl>$search_sel_goods_class</tpl>
+                    <input type="text" name="goods_keywords" id="goods_keywords" />
+                    <input type="button" name="goods_sarch" id="goods_sarch" value="<tpl>$admin_goods_search</tpl>" class="btnInput" /><!-- 搜索 -->
+                </td>
+            </tr>
+        </table>
+         <div class="i-need-border">
+			<div id="search_result"></div>
+        </div><!--  end of i-need-border  -->
+    </div><!--  end of entry6  -->
+    <div id="entry7" class="entry-body" style="display:none;">
+        <table width="98%" border="0" cellpadding="0" cellspacing="0" class="optionTab" style="margin:0 auto;">
+            <tr>
+                <td><label><tpl>$admin_goods_article_title</tpl><!-- 文章标题 -->:
+            <input type="text" name="article_keywords" id="article_keywords" />
+                    <input type="button" name="article_search" id="article_search" value="<tpl>$admin_article_search</tpl>" class="btnInput" />
+                </label></td>
+            </tr>
+        </table>
+         <div class="i-need-border">
+            <div id="search_article"></div>
+        </div><!--  end of i-need-border  -->
+    </div><!--  end of entry7  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_click_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_goods_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+    </form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript" type="text/javascript">
+<tpl>if $more_image_num >0</tpl>
+imageupload(<tpl>$more_image_num+1</tpl>);
+<tpl>else</tpl>
+imageupload(4);
+<tpl>/if</tpl>
+</script>
+
+<script language="javascript">
+	function addOtherClass(conObj){
+		var Browser = new Object();
+
+		Browser.isMozilla = (typeof document.implementation != 'undefined') && (typeof document.implementation.createDocument != 'undefined') && (typeof HTMLDocument != 'undefined');
+		Browser.isIE = window.ActiveXObject ? true : false;
+		Browser.isFirefox = (navigator.userAgent.toLowerCase().indexOf("firefox") != - 1);
+		Browser.isSafari = (navigator.userAgent.toLowerCase().indexOf("safari") != - 1);
+		Browser.isOpera = (navigator.userAgent.toLowerCase().indexOf("opera") != - 1);
+
+		
+		var sel = document.createElement("SELECT");
+      	var selCat = document.forms['add_good'].elements['sel_goods_class'];
+      	for (i = 0; i < selCat.length; i++)
+	    {
+	          var opt = document.createElement("OPTION");
+	          opt.text = selCat.options[i].text;
+	          opt.value = selCat.options[i].value;
+	          if (Browser.isIE)
+	          {
+	              sel.add(opt);
+	          }
+	          else
+	          {
+	              sel.appendChild(opt);
+	          }
+	      }
+	      conObj.appendChild(sel);
+	      sel.name = "other_class[]";
+	}
+	
+	function del_image(goods_id){
+		$.post('admin_goods.php',{'action':'del_goods_pic','goods_id':goods_id},function(data) {
+			if(data = 1) {
+				$('#goods_pic').css('display', 'none');
+			}
+		});
+	
+	}
+</script>
+</body>
+</html>

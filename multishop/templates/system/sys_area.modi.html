@@ -1,0 +1,75 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langAreaManage </tpl> &gt;&gt; <tpl> $langEditArea </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form_add" name="form_add" method="post" action="area.manage.php" >
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="txtAreaId" id="txtAreaId" value="<tpl> $area_array.area_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langArea </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtAreaName" id="txtAreaName" type="text" maxlength="20" value="<tpl> $area_array.area_name </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langUpArea </tpl>:</th>
+									<td>
+									<select name="txtArea" id="txtArea">
+										<option value="0"><tpl> $langAreaDefault </tpl></option>
+										<tpl> section name=loop loop=$sel_area </tpl>
+										<option <tpl> if $sel_area[loop][0] eq $area_array.area_parent_id </tpl>selected="selected"<tpl> /if </tpl> value="<tpl> $sel_area[loop][0] </tpl>"><tpl> $sel_area[loop][2] </tpl></option>
+										<tpl> /section </tpl>
+									</select>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langAreaIntro </tpl>:</th>
+									<td>
+									<textarea name="txtAreaIntro" class="fct-input" id="txtAreaIntro"><tpl> $area_array.area_intro </tpl></textarea></td>
+								</tr>
+								<tr>
+									<th><tpl> $langAreaSort </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtAreaSort" id="txtAreaSort" type="text" maxlength="9" value="<tpl> $area_array.area_sort </tpl>" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txtAreaName: {required:true},
+			txtAreaSort: {required:true,number:true,min:0}
+		},
+		messages: {
+			txtAreaName: {required: "<tpl> $errEmptyAreaName </tpl>"},
+			txtAreaSort: {required:"<tpl> $errAreaSort </tpl>",number:"<tpl> $errAreaSortIsNum </tpl>",min:"<tpl> $errAreaSortIsNum </tpl>"}
+			
+		}
+	});
+});
+</script>
+</body>
+</html>

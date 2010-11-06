@@ -1,0 +1,104 @@
+<script>
+//提交表单，确定搜索路径
+function search_submit(){
+	if($('#search_type_nav').val() == 'product'){
+		$('#form_search_nav').attr('action','<tpl> $site_url</tpl>/shop_search.php');
+	 }else{
+	 	$('#form_search_nav').attr('action','<tpl> $site_url</tpl>/shop_list.php');
+	 }
+   	$('#form_search_nav').submit();
+}
+</script>
+	<!--header-->
+	<div id="header">
+		<!--上半部分-->
+		<div class="header_top">
+			<div class="top_menu">
+				<ul>
+					<tpl> if $smarty.session.shop_user_name=='' and $smarty.session.shop_user_id=='' </tpl>
+						<li><tpl>$hello1</tpl> </li>
+						<li>[<a href="<tpl> $Site_Url </tpl>/member/shop_user.php?action=login"><tpl> $login </tpl></a>]</li>
+						<li>[<a href="<tpl> $Site_Url </tpl>/member/shop_user.php"><tpl> $reg </tpl></a>]</li>
+					<tpl> else </tpl>
+						<li><tpl>$hello</tpl><tpl> $smarty.session.shop_user_name </tpl></li>
+						<li>[<a href="http://<tpl> $smarty.session.shop_domain </tpl><tpl> $domainname </tpl>"><tpl> $myshop </tpl></a>]</li>
+						<li>[<a href="<tpl> $Site_Url </tpl>/member/shop_center.php"><tpl> $user_center </tpl></a>]</li>
+						<li>[<a href="<tpl> $Site_Url </tpl>/member/shop_user.php?action=out"><tpl> $exit </tpl></a>]</li>
+					<tpl> /if </tpl>
+					<li class="help"><a target="_blank" href="http://www.shopnc.net"><tpl>$help</tpl><!--帮助--></a></li>
+					<li class="ropmenu_r"></li>
+				</ul>
+			</div>
+			<div class="logo"><a href="<tpl> $Site_Url </tpl>"><img src="<tpl>if $shop_logo_file != ''</tpl><tpl>$Site_Url </tpl>/<tpl>$shop_logo_file</tpl><tpl>else</tpl><tpl> $templates_subpath </tpl>/images/logo.gif<tpl>/if</tpl>" height="33" /></a></div>
+			<div class="clear"></div>
+		</div>
+		<!--end 上半部分-->
+		<!--导航及下半部分-->
+		<div class="header_main">
+			<div class="menu">
+				<!--导航-->
+				<ul class="menu_list1">
+					<li <tpl>if $smarty.get.shop_type=='' and $smarty.get.id=='' and $smarty.get.txt_class_top_id==''</tpl>class="menu_select"<tpl>/if</tpl>><a href="<tpl> $site_url </tpl>"><tpl> $home_name</tpl></a></li>
+					<li <tpl>if $smarty.get.shop_type=='shop'</tpl>class="menu_select"<tpl>/if</tpl>><a href="<tpl> $site_url </tpl>/shop_list.php?action=index&shop_type=shop"><tpl>$search_index_shop</tpl><!--店铺--></a></li>
+					<li <tpl>if $smarty.get.shop_type=='goods'</tpl>class="menu_select"<tpl>/if</tpl>><a href="<tpl> $site_url </tpl>/shop_search.php?action=search&shop_type=goods"><tpl>$search_index_goods</tpl><!--商品--></a></li>
+					<li class="menu_list1_r">
+						<ul>
+
+						<tpl> section name=i loop=$header_menu_array1 </tpl>
+							<li <tpl>if $smarty.get.txt_class_top_id==$header_menu_array1[i].id</tpl>class="menu_select"<tpl>elseif $smarty.section.i.rownum==1</tpl>class="menu_last"<tpl>/if</tpl>><a href="<tpl> $site_url</tpl>/shop_list.php?txt_class_top_id=<tpl> $header_menu_array1[i].id </tpl>"><tpl> $header_menu_array1[i].name</tpl></a></li>
+						<tpl> /section </tpl>
+
+						<tpl> section name=list loop=$header_menu_array2 </tpl>
+						<li <tpl>if $smarty.get.id==$header_menu_array2[list].cid</tpl>class="menu_select"<tpl>elseif  $smarty.section.list.rownum==1  and $header_menu_array1==null</tpl>class="menu_last"<tpl>/if</tpl>><a href="<tpl> if $header_menu_array2[list].urlstate=='0' </tpl><tpl>$Site_Url</tpl>/shop_article.php?action=article_list&id=<tpl>$header_menu_array2[list].cid</tpl><tpl>else</tpl><tpl>$header_menu_array2[list].url</tpl><tpl>/if</tpl>" ><tpl> $header_menu_array2[list].cname </tpl></a></li>
+						<tpl> /section </tpl>
+							<!--<li class="menu_last"><a href="#">时尚女人</a></li>-->
+						</ul>
+					</li>
+				</ul>
+				<!--end 导航-->
+				<!--热门搜索-->
+				<ul class="menu_list2">
+					<tpl>foreach from=$search_keywords item=keywords</tpl>
+					<li><a href="<tpl> $site_url </tpl>/shop_search.php?search_type=product&txt_keywords=<tpl>$keywords</tpl>"><tpl>$keywords</tpl></a></li>
+					<tpl>/foreach</tpl>
+				</ul>
+				<!--end 热门搜索-->
+				<!--search-->
+				<div class="search">
+					<div class="search_th">
+					<form name="form_search_nav" id="form_search_nav" action="" method="get">
+						<select name="search_type" id="search_type_nav">
+							<option value="product"><tpl>$search_goods</tpl><!--搜索商品--></option>
+							<option value="shop"><tpl>$search_shop</tpl><!--搜索店铺--></option>
+						</select>
+						<input type="text" value=""  name="txt_keywords" id="txt_keywords_nav" class="text"/>
+
+					<select name="txt_class_top_id" id="txt_class_top_id_nav">
+						<option selected="selected" value=""><tpl>$all_class</tpl><!--所有分类--></option>
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option value="<tpl> $node_array[i].sub_array[j].id </tpl>">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></option>
+						<tpl> /section </tpl>
+					<tpl> /section </tpl>	
+                    </select>				
+						<button class="" onclick="search_submit()" type="button"><tpl>$search</tpl><!--搜 索--></button>
+					</form>
+					</div>
+				</div>
+				<!--end search-->
+				<div class="hs_indexbut"><a href="<tpl> $site_url </tpl>/shop_search.php?action=search_adv">[<tpl> $search_adv </tpl>]</a></div>
+				<!--快捷按钮-->
+				<ul class="menu_list3">
+					<li class="cart"><a href="#"><span>购物车</span></a></li>
+					<li><a href="#">收藏夹</a></li>
+					<li class="order"><a href="#"><span>我的订单</span></a></li>
+					<li class="point"><a href="#">积分</a></li>
+				</ul>
+				<!--end 快捷按钮-->
+				<div class="clear"></div>
+			</div>
+		</div>
+		<!--end 导航及下半部分-->
+	</div>
+	<!--end header-->

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title>shopnc</title>
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("rightcon").style.height = (wh-140)+"px";
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+}
+</script>
+
+</head>
+<body id="home">
+<div id="content">
+  <h4 id="rightcon_h"><b><tpl>$admin_index_main_index</tpl><!-- 管理首页 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+  <h5>
+  <div class="floatRight">
+            <label>
+            <input type="button" name="addgood" onclick="location.href='admin_provider_goods.php?action=goods_page'" value="<tpl>$admin_index_main_goods_add</tpl>" class="btnInput" />
+            </label>
+          </div>
+          <tpl>$admin_index_main_thing</tpl><!-- 当前情况 -->
+		  </h5>
+  <div class="entry-body" id="p-list-div">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0"  id="pListTab" class="stripeMe">
+      <tr>
+        <td class="odd"><tpl>$admin_index_main_have</tpl><!-- 您现在有 --><a href="admin_goods.php?action=list"><tpl>if $goods_num == 0</tpl>0<tpl>else</tpl><tpl>$goods_num</tpl><tpl>/if</tpl><tpl>$admin_index_main_have1</tpl><!-- 个商品 --></a><tpl>$admin_index_main_includes</tpl><!-- ，包含于 --><a href="admin_goods_class.php?action=list"><tpl>$class_num</tpl><tpl>$admin_index_main_includes1</tpl><!-- 个分类 --></a>.
+          </td>
+      </tr>
+    </table>
+  </div>
+  </div>
+  <!--  end of entry-body  -->
+  <div class="rc_con">
+	  <h5>
+	  <span class="floatRight2"><a href="admin_provider_stat_products.php?action=index"><tpl>$admin_order_all_pay</tpl><!-- 查看详情及全部 --></a></span>
+          <tpl>$admin_provider_pay</tpl><!-- 最新5张订单 -->
+	  </h5>
+  <div class="tab-wrapper">
+    <table id="pListTab" width="100%" border="0" cellpadding="0" cellspacing="0" class="stripeMe">
+      <tr>
+	        <th><tpl>$admin_goods_list_bn</tpl><!-- 编号 --></th>
+            <th><span>
+              <tpl>$admin_goods_list_goodname</tpl>
+            <!-- 商品名称 -->
+            </span></th>
+            <th><tpl>$admin_goods_list_provider_price</tpl><!-- 供货价格 --></span></th>
+            <th><tpl>$admin_goods_list_all_price</tpl><!-- 总价 --></th>
+            <th><tpl>$admin_goods_list_pay</tpl><!-- 销售数量 --></th>
+          </tr>
+	  <tpl>section name=list loop=$order_array</tpl>
+      <tr>
+        <td><tpl>$order_array[list].goods_bn</tpl></td>
+        <td><tpl>$order_array[list].goods_name</tpl></td>
+        <td><tpl>$order_array[list].goods_pricedesc</tpl></td>
+        <td><tpl>$order_array[list].transport_price</tpl></td>
+        <td><tpl>$order_array[list].pay_count</tpl></td>
+      </tr>
+	  <tpl>/section</tpl>
+    </table>
+  </div>
+  </div>
+  <!--  end of tab-wrapper  -->
+  <!--  end of more-info  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

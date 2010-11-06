@@ -1,0 +1,100 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langRAddressManage </tpl> &gt;&gt; <tpl> $langRList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form id="form1" name="form1" action="receive.manage.php" method="post">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langRLocalityZone </tpl>:</th>
+								<td class="it-5" colspan="2">
+									<input type="hidden" name="receive_area_id" id="receive_area_id" />
+									<div id="adddiv"></div>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langRConsigneeName </tpl>:</th>
+								<td class="it-2"> 
+									<input class="fct-input" value="<tpl> $smarty.get.membername </tpl>" name="membername" id="membername" type="text" />
+								</td>
+								<td class="mk-2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="receive.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-2"><tpl> $langRAccounts </tpl></td>
+						<td class="es-4"><tpl> $langRAddress </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $receive_array[0].receive_id neq'' </tpl>
+						<tpl> section name=loop loop=$receive_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="receiveid[]" type="checkbox" value="<tpl> $receive_array[loop].receive_id </tpl>" /></td>
+						<td><tpl> $receive_array[loop].login_name </tpl></td>
+						<td>
+						<tpl> foreach item=area from=$receive_array[loop].area_info </tpl>
+							<tpl> $area.area_name </tpl>
+						<tpl> /foreach </tpl>
+						<tpl> $receive_array[loop].address </tpl></td>
+						<td>
+							<a href="receive.manage.php?action=modi&receiveid=<tpl> $receive_array[loop].receive_id </tpl>&memberid=<tpl> $receive_array[loop].member_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langCmodi </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $receive_array[0].receive_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $receive_array[0].receive_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langRDelete </tpl>" type="submit" /> 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'receive_area_id'
+				});
+});
+</script>
+</body>
+</html>

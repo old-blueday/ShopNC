@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_lang_add</tpl></title><!--  模块管理 - 添加语言  -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_language_name		: {required:true,maxLength:50},
+			txt_language_code		: {required:true,maxLength:10},
+			txt_language_directory	: {required:true,maxLength:20}
+		},
+		messages: {
+			txt_language_name		: {required: "<tpl>$admin_module_lang_add_name_null</tpl>",maxLength:"<tpl>$admin_module_lang_add_name_long</tpl>"},
+			txt_language_code		: {required: "<tpl>$admin_module_lang_add_code_null</tpl>",maxLength:"<tpl>$admin_module_lang_add_code_long</tpl>"},
+			txt_language_directory	: {required: "<tpl>$admin_module_lang_add_path_null</tpl>",maxLength:"<tpl>$admin_module_lang_add_path_long</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+  <form action="admin_module_language.php?action=language_area_save" method="post" enctype="multipart/form-data" name="form1" id="form1">
+  <input type="hidden" name="txt_language_id" value="<tpl>$language_array.language_id</tpl>" />
+  <input type="hidden" name="txt_old_image" value="<tpl>$language_array.language_image</tpl>" />
+    <h2><span class="alignRight"><a href="admin_module_language.php?action=language_area" target="_self">{<tpl>$admin_module_lang_list</tpl>}</a></span><!-- 语言列表 --><tpl>$admin_header_module_manage</tpl> >> <tpl>if $language_array.language_id!=''</tpl><tpl>$admin_module_lang_list_edit</tpl><tpl>else</tpl><tpl>$admin_module_lang_add</tpl><tpl>/if</tpl>
+    	
+	</h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_module_lang_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_module_lang_add_name</tpl>:</td><!-- 语言名称 -->
+				<td><input type="text" name="txt_language_name" id="txt_language_name" value="<tpl>$language_array.language_name|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_language_name" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_module_lang_add_code</tpl>:</td><!-- 语言代码 -->
+				<td><input type="text" name="txt_language_code" id="txt_language_code" value="<tpl>$language_array.language_code|escape:html</tpl>"  />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_language_code" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_module_lang_add_path</tpl>:</td><!-- 语言包路径 -->
+				<td><input name="txt_language_directory" id="txt_language_directory" type="text" value="<tpl>$language_array.language_directory|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_language_directory" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<!-- 图片名称 -->
+			  <td class="display_pic"><tpl>if $language_array.language_image != ''</tpl><img src="<tpl>$Site_Url</tpl>/<tpl>$language_array.language_image</tpl>" /><tpl>else</tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/no_pic.gif" /><tpl>/if</tpl></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="file" name="language_image" /></td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_module_lang_add_sort</tpl>:</td><!-- 排序 -->
+				<td><input name="txt_language_sort" type="text" size="5" value="<tpl>$language_array.language_sort</tpl>" /></td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_module_lang_add_state</tpl>:</td><!-- 状态 -->
+				<td><tpl>$language_state</tpl></td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_module_lang_submit</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_module_lang_reset</tpl>" class="btnInput" /><!-- 重置 -->
+    </div>
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

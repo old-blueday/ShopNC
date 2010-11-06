@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_article_manage </tpl></title><!-- 添加文章 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_article").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_title		: {required	:true},
+			txt_arc_class	: {required	:true}
+		},
+		messages: {
+			txt_title		: {required	: "<tpl>$shop_admin_article_add_name_is_not_null</tpl>"},
+			txt_arc_class	: {required	: "<tpl>$shop_admin_article_add_class_is_not_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<form action="admin_article.php?action=article_save" method="post" name="add_article" id="add_article">
+<input type="hidden" name="txt_aid" id="txt_aid" value="<tpl>$smarty.get.aid</tpl>">
+	<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_article.php?action=article_list" target="_self" class="btnInput"><tpl> $shop_admin_article_list </tpl><!-- 文章列表 --></a></span>
+	<tpl> $shop_admin_header_article_manage </tpl><!-- 文章管理 --> &gt;&gt; <tpl>if $smarty.get.aid!=''</tpl><tpl>$shop_admin_article_edit</tpl><tpl>else</tpl><tpl> $shop_admin_article_add </tpl><tpl>/if</tpl><!-- 添加文章 -->
+    	 </b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+				<h5><tpl>if $smarty.get.aid!=''</tpl><tpl>$shop_admin_article_edit</tpl><tpl>else</tpl><tpl> $shop_admin_article_add </tpl><tpl>/if</tpl><!-- 添加文章 --></h5>
+    <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl> $shop_admin_article_add_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="90%" border="0">
+        <tr>
+          <td><tpl> $shop_admin_article_add_name </tpl><!-- 名称 -->:</td>
+          <td><input class="TextBoxAt" type="text" name="txt_title" id="txt_title"  value="<tpl> $article_array.title|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_title" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_add_class_name </tpl><!-- 分类 -->:</td>
+          <td><tpl> $txt_arc_class </tpl>&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_arc_class" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_add_author </tpl><!-- 作者 -->:</td>
+          <td><input class="TextBoxAt" type="text" name="txt_author" id="txt_author"  value="<tpl>if $article_array.author !=''</tpl><tpl>$article_array.author|escape:html</tpl><tpl>else</tpl><tpl>$smarty.session.system_name|escape:html</tpl><tpl>/if</tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_add_view_order </tpl><!-- 显示顺序 -->:</td>
+          <td><input class="TextBoxAt" name="txt_asort" type="text" id="txt_asort" size="5"  value="<tpl> $article_array.asort </tpl>" /></td>
+        </tr>
+        <tr>
+          <td><tpl> $shop_admin_article_add_if_pub </tpl><!-- 是否发布 -->:</td>
+          <td><tpl> $txt_astate </tpl></td>
+        </tr>
+        <tr>
+        	<td><tpl> $shop_admin_article_add_if_recommend </tpl><!-- 是否推荐 -->:</td>
+        	<td><tpl> $txt_acommed </tpl></td>
+        </tr>
+        <tr>
+        	<td><tpl> $shop_admin_article_add_view_isindex </tpl><!-- 是否首页显示 -->:</td>
+        	<td><tpl> $txt_ashow </tpl></td>
+        </tr>		
+        <tr>
+        	<td><tpl> $shop_admin_article_add_keyword </tpl><!-- 关键字 -->:</td>
+        	<td><input class="TextBoxAt" type="text" name="txt_akeywords" id="txt_akeywords"  value="<tpl> $article_array.akeywords|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $shop_admin_article_add_description </tpl><!-- 描述 -->:</td>
+        	<td><input class="TextBoxAt" type="text" name="txt_ainfo" id="txt_ainfo" value="<tpl> $article_array.ainfo|escape:html</tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $shop_admin_article_add_content </tpl><!-- 内容 -->:</td>
+        	<td><tpl>$txt_fck</tpl></td>
+        </tr>
+		<tr>
+        	<td>&nbsp;</td>
+        	<td><input type="submit" name="button" id="button" value="<tpl> $shop_admin_article_add_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $shop_admin_article_add_reset </tpl>"  class="btnInput" /><!-- 重置 --></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+ 
+
+</div></form>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

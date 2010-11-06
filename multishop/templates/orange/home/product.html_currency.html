@@ -1,0 +1,18 @@
+<!-- 支持的货币 -->
+<dl class="money">
+  <dt><tpl>$langProductCurrency</tpl>：</dt>
+<tpl> foreach item=one from=$currency_array key=key </tpl>
+	<dd> 
+		<tpl> $exchange_remark[$key] </tpl>(<tpl> $key </tpl>) <tpl> $one </tpl>
+	</dd>
+<tpl> /foreach </tpl>
+</dl>
+<!-- 支付方式 -->
+<dl class="paymode">
+  <dt><tpl>$langProductPayment</tpl>：</<dt>
+<tpl> foreach item=one from=$payment_array key=key </tpl>
+	<dd> 
+		<tpl> $one.name </tpl>
+	</dd>
+<tpl> /foreach </tpl>
+</dl>

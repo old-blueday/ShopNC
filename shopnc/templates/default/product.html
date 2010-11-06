@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$product_array.goods_name</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$product_array.goods_keywords</tpl>" name="keywords">
+<meta content="<tpl>$product_array.goods_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.LoadImage.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/easytabs.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/mz-packed.js" ></script>
+<SCRIPT type="text/javascript" src="<tpl> $template_dir </tpl>/js/common.js"></SCRIPT>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){   
+	$("#thumbbox div").hide().filter(":first").show();
+	$("div#thumbbox .opts a").click(function () {
+		$("#thumbbox div").hide();
+		$("#thumbbox div").filter($(this).attr("href")).show();
+		$("#thumbbox .opts a").removeClass("selected");
+		$(this).addClass("selected");
+		return false;
+	}).filter(":first").click();
+
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	$(".thumb img").LoadImage(true,96,96,"<tpl> $template_dir </tpl>/images/loading.gif");
+	$(".thumb2 img").LoadImage(true,72,72,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+<SCRIPT type=text/javascript>
+$(document).ready(function(){
+	//hide message_body after the first one
+	$(".class_list .class_body:gt(all)").hide();
+	
+	//hide message li after the 5th
+	$(".class_list dl:gt(all)").hide();
+
+	
+	//toggle message_body
+	$(".class_head").click(function(){
+		$(this).next(".class_body").slideToggle(500)
+		return false;
+	});
+
+	//collapse all messages
+	$(".collpase_all_class").click(function(){
+		$(".class_body").slideUp(500)
+		return false;
+	});
+
+	//show all messages
+	$(".show_all_class").click(function(){
+		$(".class_body").slideDown(500)
+		return false;
+	});	
+});
+/* 等级分类跳转 */
+function ref_url(url) {
+	location.href=url;
+	return true;
+}
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="container" class="width-all" >
+  <!-- 左侧边拦:START -->
+  <div class="sidebar">
+    <!-- 用户登录:START -->
+    <tpl>include_php file ='includes/login_windows.php'</tpl><!-- 登录信息 -->
+    <!-- 用户登录:END -->
+    <!-- 商品分类:START -->
+    <div class="box" id="menu">
+      <div class="top">
+        <h3 class="title"><tpl>$product_class</tpl><!-- 商品分类 --></h3>
+      </div>
+      <div class="content" >
+        <div class="class_list" >
+		  <tpl>section name=list loop=$class_array</tpl>
+		  <tpl>if $class_array[list].class_name != ''</tpl>
+            <dl>
+              <dt class="class_head"><a href="product_class.php?classid=<tpl>$class_array[list].class_id</tpl>"  onclick="ref_url('product_class.php?classid=<tpl>$class_array[list].class_id</tpl>');"><tpl>$class_array[list].class_name</tpl></a></dt>
+			  <tpl>if $class_array[list].sub_class</tpl>
+              <dd class="class_body">
+			  	<tpl>section name=sub_list loop=$class_array[list].sub_class</tpl>
+                <li><a href="product_class.php?classid=<tpl>$class_array[list].sub_class[sub_list].0</tpl>"><tpl>$class_array[list].sub_class[sub_list].name</tpl></a></li>
+				<tpl>/section</tpl>
+              </dd>
+			  <tpl>/if</tpl>
+            </dl>
+			<tpl>/if</tpl>
+			<tpl>/section</tpl>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <!-- 商品分类:END -->
+    <!-- 品牌分类:START -->
+    <div class="box" id="brand">
+      <div class="top">
+        <h3 class="title"><tpl>$product_brand</tpl><!-- 商品品牌 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		<tpl>section name=list loop=$brand_array</tpl>
+          <li><a href="<tpl>if $brand_array[list].brand_image == ''</tpl>product_brand.php?brandid=<tpl>$brand_array[list].brand_id</tpl><tpl>else</tpl><tpl>$brand_array[list].brand_url</tpl><tpl>/if</tpl>"><tpl>$brand_array[list].brand_name</tpl></a></li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!-- 品牌分类:END -->
+    <!-- 热销商品:START -->
+    <div class="box" id="hotsale">
+      <div class="top">
+        <h3 class="title"><tpl>$product_hot</tpl><!-- 本类热销商品 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		  <tpl>section name=list loop=$hot_array</tpl>
+          <li><a href="product.php?id=<tpl>$hot_array[list].goods_id</tpl>" title="<tpl>$hot_array[list].goods_name</tpl>"><tpl>$hot_array[list].goods_name</tpl></a></li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!-- 热销商品:END -->
+    <!-- 浏览记录:START -->
+    <div class="box" id="browsed">
+      <div class="top">
+        <h3 class="title"><tpl>$product_view_log</tpl><!-- 最近浏览 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		<tpl>section name=list loop=$view_goods_array</tpl>
+          <li>
+            <p class="thumb2"><span><a href="product.php?id=<tpl>$view_goods_array[list].goods_id</tpl>" title="<tpl>$view_goods_array[list].goods_name</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$view_goods_array[list].goods_small_image</tpl>" /></a></span></p>
+            <p class="name" style="height:3px"><a href="product.php?id=<tpl>$view_goods_array[list].goods_id</tpl>">shopnc6.0</a></p>
+          </li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!-- 浏览记录:END -->
+  </div>
+  <!-- 左侧边拦:END -->
+  <!-- 右侧主体:START -->
+  <div class="main">
+    <div class="sitenav"><span>
+      <h4><tpl>$product_tx_now</tpl><!-- 当前位置 -->:<a href="<tpl> $Site_Url </tpl>"><tpl>$product_tx_home</tpl><!-- 首页 --></a> >><tpl>section name=list loop=$class_menu</tpl> <a href="product_class.php?classid=<tpl>$class_menu[list].class_id</tpl>"><tpl>$class_menu[list].class_name</tpl></a> >> <tpl>/section</tpl> <tpl>$product_array.goods_name</tpl></h4>
+      </span></div>
+    <div class="clear">&nbsp;</div>
+    <div class="fullbox">
+      <div class="top"></div>
+      <div class="content">
+        <!-- 商品信息:START -->
+		<form name="cart_form" id="cart_form" method="post" action="shopping.php" />
+		<input type="hidden" name="goods_id" id="goods_id" value="<tpl>$product_array.goods_id</tpl>" />
+        <div class="goodsintro">
+          <!-- 商品图片切换:START -->
+          <div id="goodspic" class="left">
+            <table width="256" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td class="preview" id="reviews" align="center" valign="middle">			
+				<tpl>if $product_array.goods_small_image!='' and $product_array.goods_small_image!='default.jpg'</tpl>
+				<a href="<tpl>$Site_Url</tpl>/<tpl>$product_array.goods_image</tpl>" class="MagicZoom" id="zoom1" title="<tpl>$product_array.goods_name</tpl>"><img src="<tpl>$Site_Url</tpl>/<tpl>$product_array.goods_small_image</tpl>"/></a><img class="MagicZoomLoading" src="<tpl> $template_dir </tpl>/images/ajax-loader.gif" alt="please wait"/> 
+				<tpl>/if</tpl>
+				</td>
+              </tr>
+            </table>
+            <div id="thumbbox">
+              <ul class="opts">
+			  <tpl>if $product_array.goods_small_image!='' and $product_array.goods_small_image!='default.jpg'</tpl>
+                <li><a href="<tpl>$Site_Url</tpl>/<tpl>$product_array.goods_image</tpl>" rel="zoom1" rev="<tpl>$Site_Url</tpl>/<tpl>$product_array.goods_small_image</tpl>" title="<tpl>$product_array.goods_name</tpl>"><img src="<tpl>$Site_Url</tpl>/<tpl>$product_array.goods_small_image</tpl>"/></a></li>
+				<tpl>/if</tpl>
+				<tpl>section name=list loop=$product_array.more_image</tpl>
+					<tpl>if $product_array.more_image[list].goods_image_small != ''</tpl>
+                <li><a href="<tpl>$Site_Url</tpl>/<tpl>$product_array.more_image[list].goods_image</tpl>" rel="zoom1" rev="<tpl>$Site_Url</tpl>/<tpl>$product_array.more_image[list].goods_image_small</tpl>" title="<tpl>$product_array.more_image[list].goods_image_title</tpl>"><img src="<tpl>$Site_Url</tpl>/<tpl>$product_array.more_image[list].goods_image_small</tpl>"/></a></li>
+					<tpl>/if</tpl>
+                <tpl>/section</tpl>
+              </ul>
+              <SCRIPT> resize('.opts ',40,40);</SCRIPT>
+            </div>
+          </div>
+          <!-- 商品图片切换:END -->
+          <div id="parameter" class="right">
+            <h1><tpl>$product_array.goods_name</tpl><!-- 商品名称 --></h1>
+            <ul>
+              <li><tpl>$product_good_num</tpl><!-- 商品编号 -->:<tpl>$product_array.goods_bn</tpl></li>
+              <li><tpl>$product_good_unit</tpl><!-- 计量单位 -->:<tpl>$product_array.goods_unit</tpl></li>
+              <tpl>if $product_array.goods_color != ''</tpl> <!-- 颜色判断 -->
+			  <li><tpl>$product_color</tpl><!-- 商品颜色 -->:<tpl>$color_select</tpl></li>
+			  <tpl>/if</tpl>
+			  <tpl>if $product_array.goods_size != ''</tpl> <!-- 规格判断 -->
+			  <li><tpl>$product_size</tpl><!-- 商品规格 -->:<tpl>$size_select</tpl></li>
+			  <tpl>/if</tpl>
+			  <li><tpl>$product_weight</tpl><!-- 商品重量 -->:<tpl>$product_array.goods_weight</tpl>&nbsp;<tpl>$product_weight_unit</tpl></li>
+              <li><tpl>$product_good_stock</tpl><!-- 商品库存 -->:<tpl>$product_array.goods_storage</tpl>&nbsp;<tpl>$product_array.goods_unit</tpl><tpl> if $product_array.goods_storage<=$product_array.goods_alarm_num</tpl>&nbsp;<font color="red"><tpl>$product_array.goods_alarm_text</tpl></font><tpl>/if</tpl></li>
+            </ul>
+            <ul>
+			  <tpl>section name=list loop=$goods_attr</tpl> <!-- 分类属性 -->
+			  <li><tpl>$goods_attr[list].title</tpl>:<tpl>$goods_attr[list].vaule</tpl></li>
+			  <tpl>/section</tpl>		  
+			  <tpl>section name=list loop=$goods_other_attr</tpl> <!-- 分类独有属性 -->
+			  <li><tpl>$goods_other_attr[list].attr_name</tpl>:<tpl>$goods_other_attr[list].attr_value</tpl></li>
+			  <tpl>/section</tpl>		  
+              <li><tpl>$product_price_dear</tpl><!-- 市场价 -->:<tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$product_array.goods_price*$currencys_set.currencies_rate</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></li>
+              <li><tpl>$product_price_cheap</tpl><!-- 网店售价 -->:<tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$product_array.goods_pricedesc*$currencys_set.currencies_rate</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></li>
+			  <li><tpl>$product_good_info</tpl><!-- 商品简介 -->:<tpl>$product_array.goods_description</tpl></li>
+              <li><tpl>$product_good_wanna_buy</tpl><!-- 我要购买 -->:<input name="goods_num" type="text" id="goods_num" size="5" value="1" />&nbsp;<tpl>$product_array.goods_unit</tpl><!-- 计量单位 --><div class="check-error">
+                <label style="display:none" for="goods_num" class="wrong" metaDone="true" generated="true"></label>
+              </div></li>
+            </ul>
+			<ul class="buttons"><li id="incate"><a href="#" onclick="cart_form_submit();"><tpl>$product_add_to_cart</tpl><!-- 添加到购物车 --></a></li>
+            <li id="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$product_array.goods_id</tpl>"><tpl>$product_add_to_fav</tpl><!-- 加入个人收藏 --></a></li>
+            </ul>
+          </div>
+        </div>
+		</form>
+        <!-- 商品信息:END -->
+        <div class="clear">&nbsp;</div>
+        <!-- 切换内容区域:START -->
+        <div id="switchbox">
+          <div class="titlebg">
+            <ul class="tab">
+              <li><a href="JavaScript: void(null);" onmousedown="easytabs('1', '1');" onfocus="easytabs('1', '1');" onclick="return false;"  title="<tpl>$product_good_detail</tpl>" id="tablink1">
+                <h4><tpl>$product_good_detail</tpl><!-- 商品详情 --></h4>
+                </a></li>
+              <!-- <li><a href="JavaScript: void(null);" onmousedown="easytabs('1', '2');" onfocus="easytabs('1', '2');" onclick="return false;"  title="<tpl>$product_good_other</tpl>" id="tablink2">
+                <h4><tpl>$product_good_other</tpl></h4> --><!-- 主要参数 -->
+                </a></li>
+              <li><a href="JavaScript: void(null);" onmousedown="easytabs('1', '2');" onfocus="easytabs('1', '2');" onclick="return false;"  title="<tpl>$product_article_more</tpl>" id="tablink2">
+                <h4><tpl>$product_article_more</tpl><!-- 相关文章 --></h4>
+                </a> </li>
+            </ul>
+           </div>
+          <div class="content">
+            <div id="tabcontent1" class="goodsinfo">
+              <tpl>$product_array.goods_body</tpl>
+            </div>
+			<div id="tabcontent2" class="goodsinfo">
+						<tpl>section name=list loop=$goods_link_article</tpl>
+                    	<li><a href="article.php?id=<tpl>$goods_link_article[list].article_id</tpl>"><tpl>$goods_link_article[list].article_title</tpl></a>&nbsp;&nbsp;(<tpl>$goods_link_article[list].article_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl>)</li>
+						<tpl>/section</tpl>
+            </div>
+          </div>
+        </div>
+        <!-- 切换内容区域:END -->
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="bottom">&nbsp;</div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <!-- 最新商品:END -->
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+    <div class="fullbox">
+      <div class="title">
+        <h4><tpl>$product_good_comment</tpl><!-- 商品评论 --></h4>
+        <span class="right"></span></div>
+      <div class="content" >
+        <ul id="goods_comment">
+		<tpl>section name=list loop=$comment_array</tpl>
+          <li>
+            <div class="comment">
+              <p class="state"><span class="user"><tpl>$comment_array[list].user_name</tpl></span><span class="time"><tpl>$comment_array[list].comment_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></span><tpl>$product_said</tpl>:</p>
+              <p class="content"><tpl>$comment_array[list].comment_body</tpl></p>
+            </div>
+			<tpl>if $comment_array[list].comment_repost_state == 1</tpl>
+            <div class="reply">
+              <p class="content"><tpl>$comment_array[list].comment_repost</tpl></p>
+              <p class="state"><tpl>$product_master_reply</tpl><!-- 管理员于 --><span class="time"><tpl>$comment_array[list].repost_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl></span><tpl>$product_master_reply1</tpl><!-- 回复了这条评论 --></p>
+            </div>
+			<tpl>/if</tpl>
+            <div class="clear">&nbsp;</div>
+          </li>
+		  <tpl>/section</tpl>
+        </ul>
+        <div class="clear">&nbsp;</div>
+        <div id="comment_pages"><span class="pages"><tpl>$show_page</tpl></span></div>
+        <div class="clear">&nbsp;</div>
+        <div id="comment_form">
+          <form action="product.php?action=add_comment" name="add_comment" id="add_comment" method="post">
+            <table width="100%" border="0" cellpadding="0" cellspacing="5">
+              <tr>
+                <td width="100%" align="center"><label>
+                  <textarea name="comment_body" cols="60" rows="4" id="comment_body"></textarea>
+                </label>
+				<div class="check-error"><label style="display:none" for="comment_body" class="wrong" metaDone="true" generated="true"></label></div>
+				<input type="hidden" name="login_user" id="login_user" value="<tpl>$smarty.session.userinfo.user_name</tpl>" />
+				<div class="check-error"><label style="display:none" for="login_user" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+              </tr>
+              <tr>
+				<td colspan="3" align="center">
+				<tpl>if $view_config.view_comment_validate=='1'</tpl>
+				<input name="txt_comment_code" type="text" style="width:50px;text-transform:uppercase;" />&nbsp;<img src="<tpl> $Site_Url </tpl>/classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='<tpl> $Site_Url </tpl>/classes/libraries/code.php?' + Math.random()" style="cursor: pointer" />
+				<tpl>/if</tpl>
+				<label><input type="hidden" name="goods_id" value="<tpl>$product_array.goods_id</tpl>"/>
+                  <input type="submit" id="comment_button" name="submit3" value="<tpl>$product_comment_submit</tpl>" />
+				</label>
+				<div class="check-error"><label style="display:none" for="txt_comment_code" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+              </tr>
+            </table>
+          </form>
+        </div><div class="clear">&nbsp;</div>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+    <!-- 相关商品:START -->
+    <div class="fullbox">
+      <div class="title">
+        <h4><tpl>$product_good_more</tpl><!-- 相关商品 --></h4>
+        <span class="right"></span></div>
+        <div class="content">
+      <div class="picmode">
+        <ul>
+		<tpl>section name=list loop=$goods_link_goods</tpl>
+          <li>
+            <p class="thumb"><span><a href="product.php?id=<tpl>$goods_link_goods[list].goods_id</tpl>" title="<tpl>$goods_link_goods[list].goods_name</tpl>"><img alt="<tpl>$goods_link_goods[list].goods_name</tpl>" src="<tpl>$Site_Url</tpl>/<tpl>$goods_link_goods[list].goods_small_image</tpl>" /></a></span></p>
+            <p class="name"><a href="product.php?id=<tpl>$goods_link_goods[list].goods_id</tpl>" title="<tpl>$goods_link_goods[list].goods_name</tpl>"><tpl>$goods_link_goods[list].goods_name</tpl></a></p>
+            <p class="prix_0"><tpl>$product_price_dear</tpl><!-- 市场价 -->:<span><tpl>$goods_link_goods[list].goods_price</tpl></span></p>
+            <p class="prix_1"><tpl>$product_price_cheap</tpl><!-- 网店价 -->:<span><tpl>$goods_link_goods[list].goods_pricedesc</tpl></span></p>
+            <!-- <p class="prix_2">会员价:<span><tpl>$currencys_set.currencies_symbol</tpl>180</span></p> -->
+            <p>
+            <div class="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$goods_link_goods[list].goods_id</tpl>"><span><tpl>$product_add_fav</tpl><!-- 收藏 --></span></a></div>
+            <div class="intocate"><a href="shopping.php?goods_id=<tpl>$goods_link_goods[list].goods_id</tpl>&goods_num=1"><span><tpl>$product_buy</tpl><!-- 购买 --></span></a></div>
+            </p>
+          </li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div><div class="clear">&nbsp;</div></div>
+      <div class="bottom"></div>
+    </div>
+    <!-- 相关商品:END -->
+  </div>
+  <!-- 右侧主体:END -->
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	/* 对商品评论内容进行判断 */
+	$('#add_comment').validate({
+		errorClass: "wrong",
+		rules: {
+			login_user			: {required:true},
+			comment_body		: {required:true}
+			<tpl>if $view_config.view_comment_validate=='1'</tpl>
+			,txt_comment_code	: {required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			login_user			: {required:"<tpl>$product_good_comment_login</tpl>"},
+			comment_body		: {required:"<tpl>$product_good_comment_null</tpl>"}
+			<tpl>if $view_config.view_comment_validate=='1'</tpl>
+			,txt_comment_code	: {required:"<tpl>$product_good_code_null</tpl>"}
+			<tpl>/if</tpl>		
+		}
+	});
+/* 购物数量验证 */
+	$("#cart_form").validate({
+		errorClass: "wrong",
+		rules: {
+			goods_num 			:	{required:true,number:true,minValue:1}
+		},
+		messages: {
+			goods_num 			:	{required: "<tpl>$product_good_buy_num_null</tpl>",number: "<tpl>$product_good_buy_no_num</tpl>",minValue: "<tpl>$product_good_buy_num_min</tpl>"}
+		}
+	});	
+});
+/* 表单提交 */
+function cart_form_submit() {
+	document.getElementById('goods_num').value=$('#goods_num').val();
+	$('#cart_form').submit();
+}
+//-->
+</script>
+<script>
+$(function(){
+	$(".nc_fck_image img").LoadImage(true,650,2000,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+</body>
+</html>

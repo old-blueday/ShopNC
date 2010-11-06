@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="css/layout.css" rel="stylesheet" type="text/css" />
+<link href="css/user_rate.css" rel="stylesheet" type="text/css" />
+<tpl>include file ='head.config.html'</tpl>
+</head>
+<body>
+<div id="container"> <tpl>include file ='header.html'</tpl> <div id="InfoSelectorTarget">
+<tpl>include file ='InfoSelectorTarget.html'</tpl></div>
+  <div id="RateSummary">
+    <h2>个人信息</h2>
+    <ul id="UserInfo">
+      <li><span>会员名：</span><a href="view_shop.php">珠海泛凌</a> </li>
+      <li><span>站 内 信：</span> <a href="#">发送信件</a> </li>
+      <li><span>地址：</span>广东   珠海 </li>
+    </ul>
+  </div>
+  <div id="RateStatistics">此处显示  id "RateStatistics" 的内容</div>
+  <tpl>assign  var='InfoSelectorTarget' value = $InfoSelectorTarget2</tpl><div id="InfoSelectorTarget">
+ <tpl>include file ='InfoSelectorTarget.html'</tpl></div>
+  <div id="DisplaySettings">所有评价
+    所有好评
+    所有中评
+    所有差评 </div>
+  <tpl>include file ='footer.html'</tpl> </div>
+</body>
+</html>

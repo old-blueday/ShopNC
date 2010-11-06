@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_title</tpl></title>
+<link href="../templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+var menu_start = 0;	
+	$(".left_sidbar").click(function(){
+		if(menu_start == 0) {
+			parent.document.getElementById('bodyFrame').cols="0,11,*";
+			menu_start = 1;
+			$(".lsid_cen").addClass("lsid_cen_on");
+			$(".lsid_cen").removeClass("lsid_cen");
+		} else {
+			parent.document.getElementById('bodyFrame').cols="146,11,*";
+			menu_start = 0;
+			$(".lsid_cen_on").addClass("lsid_cen");
+			$(".lsid_cen_on").removeClass("lsid_cen_on");
+		}
+		return true;
+	});
+});
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+//document.getElementById("my_menu").style.height = (wh-96)+"px";
+//document.getElementById("sidbar").style.height = (wh-82)+"px";
+//document.getElementById("my_menu").style.height = (wh-16)+"px";
+document.getElementById("sidbar").style.height = (wh)+"px";
+}
+</script>
+</head>
+
+<body>
+<div class="leftconsid">
+	<div id="sidbar" class="left_sidbar">
+		<div class="lsid_top"></div>
+				<div class="lsid_cen"></div>
+				<div class="lsid_bottom"></div>
+	</div>
+</div>
+</body>
+</html>

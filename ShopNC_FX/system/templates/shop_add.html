@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title>
+<tpl>$shop_admin_header_shop_manage</tpl>
+-
+<tpl>$shop_admin_shop_add</tpl>
+</title>
+<!-- 会员管理 - 添加会员 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript" src="../js/select_area_zh-cn.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_user").validate({
+		errorClass: "wrong",
+		rules: {
+			domainname		: {required	:true},
+			username		: {required	:true},
+			passwd			: {required	:true,minLength:6,maxLength:20},
+			mail			: {required	:true},
+			shopname		: {required	:true}
+		},
+		messages: {
+			domainname		: {required	: "<tpl>$shop_admin_shop_domain_is_not_null</tpl>"},
+			username		: {required	: "<tpl>$shop_admin_shop_username_is_not_null</tpl>"},
+			passwd			: {required	: "<tpl>$shop_admin_shop_passwd_is_not_null</tpl>",minLength: "<tpl>$shop_admin_shop_passwd_len_is_error</tpl>",maxLength: "<tpl>$shop_admin_shop_passwd_len_is_error</tpl>"},
+			mail			: {required	: "<tpl>$shop_admin_shop_mail_is_not_null</tpl>"},
+			shopname		: {required	: "<tpl>$shop_admin_shop_shopname_is_not_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body id="noulmenu">
+<form action="admin_shop.php?action=shop_save" method="post" name="add_user" id="add_user">
+	<input type="hidden" name="user_id" id="user_id" value="<tpl>$smarty.get.user_id</tpl>" />
+	<h4 id="rightcon_h"><b> <span class="alignRight"><a href="admin_shop.php?action=shop_list" target="_self" class="btnInput">
+		<tpl>$shop_admin_shop_list</tpl>
+		<!-- 网店表列 -->
+		</a></span>
+		<tpl>$shop_admin_header_shop_manage</tpl>
+		<!-- 网店管理 -->
+		&gt;&gt;
+		<tpl>if $smarty.get.user_id!=''</tpl>
+		<tpl>$shop_admin_shop_edit</tpl>
+		<tpl>else</tpl>
+		<tpl>$shop_admin_shop_add</tpl>
+		<tpl>/if</tpl>
+		<!-- 添加网店 -->
+		</b></h4>
+	<div id="rightcon">
+	<div class="rc_con">
+	<h5>
+		<tpl>if $smarty.get.user_id!=''</tpl>
+		<tpl>$shop_admin_shop_edit</tpl>
+		<tpl>else</tpl>
+		<tpl>$shop_admin_shop_add</tpl>
+		<tpl>/if</tpl>
+		<!-- 添加网店 -->
+	</h5>
+	<div class="textRight">
+		<input type="submit" name="button" id="button" value="<tpl>$shop_admin_shop_add_submit</tpl>" class="btnInput" />
+		<!-- 点此保存 -->
+	</div>
+	<div class="entry-body" id="entry1">
+		<table width="80%" border="0">
+			<tr>
+				<td width="80"><tpl> $shop_admin_shop_add_sec_domain </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="domainname" id="domainname" value="<tpl>$shop_info.domainname|escape:html</tpl>" 
+					<tpl>if $shop_info.domainname!=''</tpl>
+					readonly="readonly"
+					<tpl> /if </tpl>
+					size="10"  />
+					<tpl>$domainname</tpl>
+					&nbsp;<span class="red">*</span>
+					<div class="check-error">
+						<label style="display:none" for="domainname" class="wrong" metaDone="true" generated="true"></label>
+					</div></td>
+			</tr>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_login_name </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="username" id="username" 
+					<tpl>if $shop_info.username!=''</tpl>
+					readonly="readonly"
+					<tpl> /if</tpl>
+					value="<tpl>$shop_info.username </tpl>" />&nbsp;<span class="red">*</span>
+					<div class="check-error">
+						<label style="display:none" for="username" class="wrong" metaDone="true" generated="true"></label>
+					</div></td>
+			</tr>
+			<tpl>if $smarty.get.user_id==''</tpl>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_pwd </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="passwd" id="passwd" />
+					&nbsp;<span class="red">*</span>
+					<div class="check-error">
+						<label style="display:none" for="passwd" class="wrong" metaDone="true" generated="true"></label>
+					</div></td>
+			</tr>
+			<tpl>/if</tpl>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_email </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="mail" id="mail"  value="<tpl>$shop_info.mail</tpl>" />
+					&nbsp;<span class="red">*</span>
+					<div class="check-error">
+						<label style="display:none" for="mail" class="wrong" metaDone="true" generated="true"></label>
+					</div></td>
+			</tr>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_webname </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="shopname" id="shopname"  value="<tpl>$shop_info.shopname</tpl>" />
+					&nbsp;<span class="red">*</span>
+					<div class="check-error">
+						<label style="display:none" for="shopname" class="wrong" metaDone="true" generated="true"></label>
+					</div></td>
+			</tr>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_webtype </tpl>
+					:</td>
+				<td><select name="shoptype" id="shoptype">
+						<tpl> section name=i loop=$node_array </tpl>
+						<option 
+						<tpl>if $shop_info.shoptype==$node_array[i].id</tpl>
+						selected="selected"
+						<tpl>/if</tpl>
+						 value="
+						<tpl> $node_array[i].id </tpl>
+						">
+						<tpl> $node_array[i].name</tpl>
+						</option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option 
+						<tpl>if $shop_info.shoptype==$node_array[i].sub_array[j].id</tpl>
+						selected="selected"
+						<tpl>/if</tpl>
+						  value="
+						<tpl> $node_array[i].sub_array[j].id </tpl>
+						">&nbsp;&nbsp;|--
+						<tpl> $node_array[i].sub_array[j].name </tpl>
+						</option>
+						<tpl> /section </tpl>
+						<tpl> /section </tpl>
+					</select></td>
+			</tr>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_webstate </tpl>
+					:</td>
+				<td><tpl> $shop_state </tpl></td>
+			</tr>
+			<tr>
+				<td><tpl>$shop_admin_shop_add_commend</tpl>
+					<!-- 推荐类型 -->
+					:</td>
+				<td><tpl> $commend_type </tpl></td>
+			</tr>
+			<!--        <tr>
+          <td><tpl>$shop_admin_shop_add_msg</tpl>短信状态:</td>
+          <td><tpl> $message_state </tpl>
+          </td>
+        </tr>-->
+			<tr>
+				<td><tpl>$shop_admin_shop_add_show</tpl>
+					<!-- 显示范围 -->
+					:</td>
+				<td><tpl> $show_area </tpl></td>
+			</tr>
+			<tr>
+				<td><tpl>$shop_admin_shop_add_sort</tpl>
+					<!-- 显示顺序 -->
+					:</td>
+				<td><input class="TextBox" type="text" name="sort" id="sort" value="<tpl>$shop_info.sort</tpl>" size="10" /></td>
+			</tr>
+		</table>
+		<p id="notice"><strong>
+			<tpl>$shop_admin_shop_add_other</tpl>
+			<!-- 以下为选填内容 -->
+			</strong></p>
+		<table width="100%" border="0" style="background:#f5f5f5;">
+			<tr>
+				<td width="80"><tpl> $shop_admin_shop_add_realname </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="truename" id="truename"  value="<tpl>$shop_info.truename|escape:html</tpl>" /></td>
+				<td width="80"><tpl> $shop_admin_shop_add_sex </tpl>
+					:</td>
+				<td><tpl>$user_sex</tpl></td>
+			</tr>
+			<tr>
+				<td><tpl>$shop_admin_shop_add_area </tpl>
+					:</td>
+				<td><select name="txtProvince" id="txtProvince" onchange="javascript:iniCity(document.getElementById('txtProvince'),document.getElementById('txtCity'));">
+					</select>
+					&nbsp;
+					<!--省-->
+					<select name="txtCity" id="txtCity">
+					</select>
+					&nbsp;
+					<!--市--></td>
+				<td><tpl> $shop_admin_shop_add_phone </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="usercall" id="usercall"  value="<tpl>$shop_info.usercall|escape:html</tpl>" /></td>
+			</tr>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_address </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="address" id="address"  value="<tpl>$shop_info.address|escape:html</tpl>" /></td>
+				<td><tpl> $shop_admin_shop_add_qq </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="qq" id="qq"  value="<tpl>$shop_info.qq|escape:html</tpl>" /></td>
+			</tr>
+			<tr>
+				<td><tpl> $shop_admin_shop_add_post </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="zip" id="zip"  value="<tpl>$shop_info.zip|escape:html</tpl>" /></td>
+				<td><tpl> $shop_admin_shop_add_msn </tpl>
+					:</td>
+				<td><input class="TextBox" type="text" name="msn" id="msn"  value="<tpl>$shop_info.msn|escape:html</tpl>" /></td>
+			</tr>
+			<tr>
+				<td><tpl>$shop_admin_shop_add_info</tpl>
+					<!-- 网店描述 -->
+					:</td>
+				<td colspan="3"><label>
+						<textarea name="shopinfo" cols="36" rows="4"><tpl>$shop_info.shopinfo</tpl>
+</textarea>
+					</label></td>
+			</tr>
+		</table>
+	</div>
+	<!--  end of entry-body  -->
+	<div class="textLeft">
+		<input type="hidden" name="user_id" id="user_id" value="<tpl>$shop_info.userid</tpl>" />
+		<input type="submit" name="button" id="button" value="<tpl> $shop_admin_shop_add_save </tpl>" class="btnInput" />
+		<!-- 点此保存 -->
+		<input type="reset" name="button2" id="button2" value="<tpl>$shop_admin_shop_add_reset</tpl>"  class="btnInput" />
+		<!-- 重置 -->
+	</div>
+</form>
+</div>
+<tpl>include_php file ='footer.php'</tpl>
+<!-- 底部版权信息 -->
+</div>
+<script language="javascript">
+<!--
+selectprovince = "<tpl> $shop_info.province </tpl>";
+selectcity = "<tpl> $shop_info.city </tpl>";
+iniProvince(document.getElementById('txtProvince'));
+iniCity(document.getElementById('txtProvince'),document.getElementById('txtCity'));
+-->
+</script>
+</body>
+</html>

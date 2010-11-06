@@ -1,0 +1,34 @@
+		<div class="w_conright uc_conleft">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_user </tpl></strong>
+				</div>
+			</div>
+			<div class="con">
+				<div class="w_crcon">
+					<div class="div_h10px"></div>
+					<div  class="uc_leftcon">
+						<ul>
+							<li><a <tpl>if $smarty.get.action=='index'</tpl>class="uc_act"<tpl>/if</tpl> href="?action=index"><tpl> $home_index </tpl></a></li>
+							<li><a <tpl>if $smarty.get.action=='member_info'</tpl>class="uc_act"<tpl>/if</tpl> href="?action=member_info"><tpl> $home_user </tpl></a></li>
+							<li><a <tpl>if $smarty.get.action=='member_passwd'</tpl>class="uc_act"<tpl>/if</tpl> href="?action=member_passwd"><tpl> $home_pass </tpl></a></li>
+							<li><a <tpl>if $smarty.get.action=='shop_info'</tpl>class="uc_act"<tpl>/if</tpl> href="?action=shop_info"><tpl> $home_shops </tpl></a></li>
+							<li><a target="_blank" href="http://<tpl> $smarty.session.shop_domain </tpl><tpl> $domainname </tpl>"><tpl> $home_myshop </tpl></a></li>
+							<li><a target="_blank" href="http://<tpl> $smarty.session.shop_domain </tpl><tpl> $domainname </tpl>/admin"><tpl> $home_shopadmin </tpl></a></li>
+							<li><a href="shop_user.php?action=out"><tpl> $home_out </tpl></a></li>
+						  <!--<li><a href="?action=member_defrayal"><tpl> $home_defrayal </tpl></a></li>
+						  <li><a href="?action=member_defrayal_list"><tpl> $defrayal_list </tpl></a></li>
+						  <li><a href="?action=member_sentmes"><tpl> $home_pmes </tpl></a></li>
+						  <li><a href="?action=member_inmes"><tpl> $home_imes </tpl></a></li>-->	  							
+						</ul>					
+						<div class="uc_lico"></div>
+						<div class="clear"></div>
+					</div>
+					<div class="div_h10px"></div>
+				</div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+</div>						

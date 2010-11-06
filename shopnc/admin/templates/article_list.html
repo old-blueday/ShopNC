@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_article_list </tpl></title><!-- 文章列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+	function changeFun(value){
+		document.getElementById("select").value = value;
+	}
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_article.php?action=add_article" target="_self" class="btnInput"><tpl> $admin_article_add </tpl><!-- 添加文章 --></a></span>
+	<tpl> $admin_header_article_manage </tpl><!-- 文章管理 --> >> <tpl> $admin_article_list </tpl><!-- 文章列表 -->    
+    </b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+    <div class="entry-body" id="p-list-div">
+	<h5>
+	<div class="floatRight2">
+                	<form id="form2" name="form2" method="get" action="admin_article.php">
+						 <input type="hidden" name="action" id="action" value="article_list" />
+                          <tpl>$admin_article_title</tpl>:<input class="TextBoxAt2" type="text" name="article_keywords" id="article_keywords" value="<tpl>$smarty.get.article_keywords</tpl>" />
+                          <input type="submit" name="button" id="button" value="<tpl> $admin_article_list_submit </tpl>" class="btnInput" /><!-- 提交 -->
+                    </form>
+                </div>
+      <form id="form1" name="form1" method="post" action="admin_article.php?action=other_action">
+            	<input type="hidden" name="select" id="select" />
+              <select name="fun" id="fun" class="delBtnInput" onchange="changeFun(this.value)">
+            	<option value=""><tpl> $admin_article_list_select_oper </tpl><!-- 选择操作 --></option>
+            	<option value="open"><tpl> $admin_article_list_put </tpl><!-- 发布 --></option>
+            	<option value="close"><tpl> $admin_article_list_cancel_put </tpl><!-- 取消发布 --></option>
+            	<option value="commend"><tpl> $admin_article_list_commend </tpl><!-- 推荐 --></option>
+            	<option value="nocommend"><tpl> $admin_article_list_cancel_commend </tpl><!-- 取消推荐 --></option>
+            	<option value="del"><tpl> $admin_article_list_del </tpl><!-- 删除 --></option>
+            </select>
+              <input type="submit" value="<tpl> $admin_article_list_enter </tpl>" class="delBtnInput" /><!-- 确定 -->
+	</h5>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><label>
+            <input type="checkbox" name="all" id="all" />
+            </label></th>
+            <th><tpl> $admin_article_list_title </tpl><!-- 文章标题 --></th>
+            <th><tpl> $admin_article_list_aritcle_class </tpl><!-- 文章类别 --></th>
+            <th><tpl> $admin_article_list_article_writer </tpl><!-- 文章作者 --></th>
+            <th><tpl> $admin_article_list_commend </tpl><!-- 是否推荐 --></th>
+            <th><tpl> $admin_article_list_put </tpl><!-- 是否发布 --></th>
+            <th><tpl> $admin_article_list_sort </tpl><!-- 显示顺序 --></th>
+            <th><tpl> $admin_article_list_put_time</tpl><!-- 发布时间 --></th>
+            <th><tpl> $admin_article_list_oper </tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl> section name=list loop=$article </tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="aid[]" id="aid[]" value="<tpl> $article[list].article_id </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $article[list].article_title  </tpl></td>
+            <td><tpl> $article[list].article_class_name  </tpl></td>
+            <td><tpl> $article[list].article_author  </tpl><tpl>if $article[list].provider_id!=''</tpl>(<tpl>$admin_article_list_article_provider</tpl>)<tpl>/if</tpl></td>
+            <td>
+			<span id="commend_<tpl> $article[list].article_id</tpl>"><a onclick="nc_state_update('<tpl> $article[list].article_id</tpl>','article_commend','<tpl> $article[list].article_commend </tpl>','commend_<tpl> $article[list].article_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $article[list].article_commend </tpl>.gif" alt="<tpl>$admin_article_list_edit_state</tpl>" /></a></span></td>
+            <td>
+			<span id="state_<tpl> $article[list].article_id</tpl>"><a onclick="nc_state_update('<tpl> $article[list].article_id</tpl>','article_state','<tpl> $article[list].article_state </tpl>','state_<tpl> $article[list].article_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $article[list].article_state  </tpl>.gif" alt="<tpl>$admin_article_list_edit_state</tpl>" /></a></span></td>
+            <td><tpl> $article[list].article_sort  </tpl></td>
+            <td><tpl> $article[list].article_time|date_format:"%Y-%m-%d"  </tpl></td>
+            <td>
+            	<a href="admin_article.php?action=add_article&aid=<tpl>$article[list].article_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl> $admin_article_list_edit </tpl>" /><!-- 编辑 --></a> 
+                <a href="admin_article.php?action=del_article&aid=<tpl>$article[list].article_id</tpl>"  onclick="return confirm('<tpl>$admin_article_list_del_info</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl> $admin_article_list_del </tpl>" /><!-- 删除 --></a></td>
+          </tr>
+		  <tpl> /section </tpl>
+        </table>
+		<h5 class="h5_down">
+		<div class="pagebar"><tpl> $show_page </tpl></div>
+		<select name="fun" id="fun" class="delBtnInput" onchange="changeFun(this.value)">
+            	<option value=""><tpl> $admin_article_list_select_oper </tpl><!-- 选择操作 --></option>
+            	<option value="open"><tpl> $admin_article_list_put </tpl><!-- 发布 --></option>
+            	<option value="close"><tpl> $admin_article_list_cancel_put </tpl><!-- 取消发布 --></option>
+            	<option value="commend"><tpl> $admin_article_list_commend </tpl><!-- 推荐 --></option>
+            	<option value="nocommend"><tpl> $admin_article_list_cancel_commend </tpl><!-- 取消推荐 --></option>
+            	<option value="del"><tpl> $admin_article_list_del </tpl><!-- 删除 --></option>
+            </select>
+              <input type="submit" value="<tpl> $admin_article_list_enter </tpl>" class="delBtnInput" /><!-- 确定 -->
+              
+		</h5>
+      </form>
+    </div>
+	</div>
+    <!--  end of entry-body  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+<!--
+/* ajax修改状态 */
+function nc_state_update(article_id,ajax_type,old_state,id) {
+	$.get('admin_article.php',{'action':'article_ajax','ajax_type':ajax_type,'old_state':old_state,'article_id':article_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+//-->
+</script>
+</body>
+</html>

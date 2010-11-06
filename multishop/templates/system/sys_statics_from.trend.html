@@ -1,0 +1,113 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSParticularAnalyse </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_from.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="trend" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseFillInURL </tpl>:</th>
+								<td>
+									<input name="url1" id="url1" class="fct-input-2" type="text" value="<tpl> $url1 </tpl>" />+
+									<input name="url2" id="url2" class="fct-input-2" type="text" value="<tpl> $url2 </tpl>" />+
+									<input name="url3" id="url3" class="fct-input-2" type="text" value="<tpl> $url3 </tpl>" />+
+									<input name="url4" id="url4" class="fct-input-2" type="text" value="<tpl> $url4 </tpl>" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<select name="time">
+										<option value=""></option>
+										<option value="1" <tpl> if $time eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceWeek </tpl></option>
+										<option value="2" <tpl> if $time eq '2' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpWeek </tpl></option>
+										<option value="3" <tpl> if $time eq '3' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceMonth </tpl></option>
+										<option value="4" <tpl> if $time eq '4' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpMonth </tpl></option>
+										<option value="5" <tpl> if $time eq '5' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSLatelyThirtyDay </tpl></option>
+									</select>&nbsp;&nbsp;
+									<input class="bthl" value="<tpl> $langSysSBeginContrast </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="4">
+										<input type="radio" class="input_radio" id="type_one" onclick="location.href='statics_from.manage.php?action=list'"  /><label for="type_one"><tpl> $langSysSParticularFlux </tpl></label>
+										<input type="radio" class="input_radio" id="type_many" checked /><label for="type_many"><tpl> $langSysSParticularFluxDirection </tpl></label>
+									</td>
+								</tr>
+								<tr>
+								    <td colspan="4"><tpl> $langSysSNonceTimeSegment </tpl>:<tpl> $end_time </tpl> <tpl> $langSysSTo </tpl> <tpl> $start_time </tpl></td>
+								</tr>
+								<tr>
+								 	<th><tpl> $langSysSTimeSegment </tpl></th>
+								    <th><tpl> $langSysSParticularPage </tpl></th>
+									<th>PV</th>
+									<th><tpl> $langSysSPercent </tpl></th>
+								</tr>
+								<tr>
+									<td><tpl> $langSysSTotalize </tpl></td>
+								    <td>　
+										<tpl> if $url1 neq '' </tpl><div>URL.1 - <tpl> $url1 </tpl></div><tpl> /if </tpl>
+										<tpl> if $url2 neq '' </tpl><div>URL.2 - <tpl> $url2 </tpl></div><tpl> /if </tpl>
+										<tpl> if $url3 neq '' </tpl><div>URL.3 - <tpl> $url3 </tpl></div><tpl> /if </tpl>
+										<tpl> if $url4 neq '' </tpl><div>URL.4 - <tpl> $url4 </tpl></div><tpl> /if </tpl>
+									</td>
+									<td>　
+										<tpl> foreach from=$num_sum item=num </tpl>
+											<div><tpl> $num </tpl></div>
+										<tpl> /foreach </tpl>
+									</td>
+									<td>100%</td>
+								</tr>
+								<tpl> foreach from=$from_array item=one key=key </tpl>
+									<tr>
+										<td><tpl> $key </tpl></td>
+										<td>　
+											<tpl> if $url1 neq '' </tpl><div>URL.1</div><tpl> /if </tpl>
+											<tpl> if $url2 neq '' </tpl><div>URL.2</div><tpl> /if </tpl>
+											<tpl> if $url3 neq '' </tpl><div>URL.3</div><tpl> /if </tpl>
+											<tpl> if $url4 neq '' </tpl><div>URL.4</div><tpl> /if </tpl>
+										</td>
+										<td>
+										  	<tpl> foreach from=$one item=two </tpl>
+												<div><tpl> $two.pv </tpl></div>
+											<tpl> /foreach </tpl>
+										</td>
+										<td>　
+											<tpl> foreach from=$one item=two key=key </tpl>
+												<tpl> if $num_sum[$key] neq '0' </tpl>
+													<div><tpl> $two.pv/$num_sum[$key]*100|string_format:'%.2f' </tpl>%</div>
+												<tpl> else </tpl>
+													<div>0.00%</div>
+												<tpl> /if </tpl>
+											<tpl> /foreach </tpl>
+										</td>
+							  		</tr>
+								<tpl> /foreach </tpl>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

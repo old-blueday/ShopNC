@@ -1,0 +1,113 @@
+body { background: url(../images_new/body_bg.gif) repeat-x center top;}
+#search .details form div.formstyle span.searchBtn a:hover{ line-height: 1000px; background: url(../images_new/head_bg_purple.gif) no-repeat -640px -30px; width: 102px; height: 24px; float: left; overflow: hidden;}
+#nav { background: url(../images_new/head_bg_purple.gif) no-repeat 0px -300px; display: block; width: 950px; height: 35px;  clear: both; padding-top: 7px; margin-right: auto; margin-left: auto;}
+#nav ul.leftSide li a  { float: left; cursor: pointer;}
+#nav ul.leftSide li a:hover{text-decoration: none;background: url(../images_new/head_bg_purple.gif) no-repeat 0% -211px; padding-left:6px; }
+#nav ul.leftSide li a:hover span{text-decoration:none;background: url(../images_new/head_bg_purple.gif) no-repeat 100% -211px; height:24px; float: left; margin: 0px; padding: 5px 14px 3px 8px;color:#FFF;}
+#nav ul.leftSide li.current a , #nav ul li.current a:hover { background: url(../images_new/head_bg_purple.gif) no-repeat 0% -250px; padding-left:6px; cursor:pointer;}
+#nav ul.leftSide li.current a span , #nav ul li.current a:hover span  { font-size: 15px; line-height: 24px; color: #000; background: url(../images_new/head_bg_purple.gif) no-repeat 100% -250px; height: 24px; float: left; margin: 0px; padding: 5px 14px 6px 8px;}
+
+#main { width: 948px; margin-top: 8px; border: 1px solid #ECE1E8}
+.mainbox .leftLayout { width: 712px; float: left; border-right: 1px solid #ECE1E8}
+.mainbox .leftLayout .left{ width: 231px; height: 180px; border-right: 1px solid #ECE1E8}
+
+#swiftbanner { float: right; width: 480px; height: 180px; position: relative; overflow: hidden;}
+.slider{position:absolute;}
+.slider img{
+	width:480px;
+	height:180px;
+	display:block;
+	margin: 0px;
+	padding: 0px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+}
+.slider li {
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+	float: left;
+	height: 180px;
+	width: 480px;
+	border: 0px;
+}
+#swiftbanner .num{ position:absolute;right:5px;bottom:5px;}
+#swiftbanner .num li{ line-height:16px; color:#561C3D; background-color:#F3EEF1; text-align:center; width:16px; height:16px; float:left; margin:3px 1px; border:1px solid #561C3D; overflow:hidden; cursor:pointer;}
+#swiftbanner .num li.on{ font-size:16px; font-weight:bold; line-height:21px; color:#fff; background-color:#561C3D; width:21px; height:21px; margin:0 1px; border:0;}
+
+
+.sideStyle .title { background: url(../images_new/oneauction_bg.png) no-repeat center bottom; height: 40px; padding: 0px 8px 10px 8px;}
+.sideStyle .title h3 { font-size: 15px; display: block; height: 24px; float: left; padding: 0 0 0 22px; margin-top: 8px; background: url(../images_new/auction_bg.png) no-repeat -192px -52px;}
+.leftLayout .left ul {display: block; width: 90%; margin-right: auto; margin-left: auto;}
+.leftLayout .left ul li { background: url(../images_new/sign01.gif) no-repeat left center; height: 24px; padding-left: 8px; border-bottom: 1px dashed #E7E7E7; overflow: hidden;}
+
+
+.goodsListStyle { width: 100%; }
+.goodsListStyle .title { background: url(../images_new/oneauction_bg.png) repeat-x 0px 0px; height: 40px; border-bottom: 1px solid #ECE1E8;  padding:0px;}
+.goodsListStyle .title h3 { font-size: 16px; color: #FFF; background: url(../images_new/oneauction_bg.png) no-repeat 0px -40px; width: 128px; height: 24px; float: left; padding: 7px 0 7px 12px; margin: 1px 0; }
+.goodsListStyle ul.content { width: 710px; float: left;}
+.goodsListStyle ul.content li { width: 174px; float: left;}
+.goodsListStyle div.goodsPic  { width: 128px; height: 128px; margin: 8px auto; overflow: hidden;}
+.goodsListStyle dl { width: 128px; margin-right: auto; margin-left: auto;}
+.goodsListStyle dt.goodsName { font-weight: 600; line-height: 18px; text-align: center; width: 100%; height: 36px; overflow: hidden;}
+.goodsListStyle dd.basicPrice { color:#666666; line-height: 20px; margin-top: 5px;}
+.goodsListStyle dd.overTime { line-height: 20px; color: #039; text-align: center; margin-top: 5px; width:145px; height:25px; overflow:hidden; white-space:nowrap;}
+.goodsListStyle dd.maxPrice { line-height: 20px; color: #F60;width:130px; height:25px; overflow:hidden; white-space:nowrap;}
+
+
+
+
+.mainbox .rightLayout  { float: right;}
+.mainbox .rightLayout .right{ width: 235px; clear: both; border-top: 1px solid #ECE1E8}
+.drawers { width: 233px; margin-right: auto; margin-left: auto;}
+.drawer { background-color: transparent;}
+.drawer li { border-bottom: 1px solid #E7E7E7;}
+.drawer-handle { font-weight: normal; line-height:32px; color:#555; background-image: url(../images_new/sign_square.gif) no-repeat 4px center; text-indent:12px; width:100%; height:32px; border-bottom: 1px solid #e7e7e7; float: left; cursor:pointer; overflow: hidden; }
+
+.mainbox .rightLayout .sideAd { width: 100%; clear: both;}
+.mainbox .rightLayout .sideAd li img { width: 190px; padding: 5px;}
+
+
+.auctionBtn { width: 110px; height: 34px; margin: 8px auto;}
+.auctionBtn a { font-size: 14px; font-weight: 600; line-height: 34px; color: #555; text-indent: 38px; background: url(../images_new/oneauction_bg.png) no-repeat 0px -90px; display: block; width: 110px; height: 34px; overflow: hidden; }
+.auctionBtn a:hover { color: #FFF; text-decoration: none; background-position: -120px -90px;}
+#superAuction .goodsPic { width: 235px; height: 329px; display: block;}
+#superAuction .maxPrice { font-size: 14px; text-align: center;}
+#superAuction .maxPrice span { font-weight: 600; color: #F60; padding-right: 5px; padding-left: 5px;}
+#superAuction .maxPeople { line-height: 22px; text-align: center;}
+#superAuction .maxPeople span { font-weight: 600; color: #F60; padding-right: 5px; padding-left: 5px;}
+#superAuction .countdown{display: block; width: 210px; height: 60px; clear: both; padding: 8px 10px 0 10px; margin: 0px;}
+#superAuction .countdown h4 { line-height: 20px; color: #FFF; background: url(../images_new/countdown_bg.gif) no-repeat 0px 0px; text-align: center; width: 150px; height: 25px; margin-right: auto; margin-left: auto;}
+#superAuction .countdown #counter { font-size: 18px; line-height: 32px; color: #000; width: 210px; height: 32px; margin-right: auto; margin-left: auto; overflow: hidden;}
+#superAuction .btn { font-size: 14px; font-weight: 600; background: url(../images_new/oneauction_bg.png) no-repeat -120px -90px; width: 74px; height: 24px; padding: 5px 0 5px 36px; margin: 10px auto 0 60px;}
+#superAuction .btn a { color: #FFF; }
+#superAuction .btn a:hover { color: #FF0; }
+
+
+.allLayout { float: none; width: 100%;}
+.allBannerBox { width: 948px; border-top: 1px solid #ECE1E8}
+.allBannerBox img { margin: 2px; display: inline;}
+
+
+
+.goodsIntro {
+	float: left;
+	width: 100%;
+	height: 92px;
+	overflow: hidden;
+	background-image: url(../images_new/oneauction_bg.png);
+	background-repeat: repeat-x;
+	background-position: 0px -133px;
+}
+.goodsIntro .pic { background-color: #FFF; display: inline; width: 64px; height: 64px; float: left; padding: 2px; margin: 5px; border: 1px dotted #CCC;}
+.goodsIntro dl { width: 140px; float: right; padding-right: 8px;}
+.goodsIntro dl dt { font-size: 14px; line-height: 18px; font-weight: 600; color: #000; width: 100%; height: 36px; padding-top: 5px; overflow: hidden;}
+.goodsIntro dl dd { line-height: 20px; color: #555;}
+.goodsIntro dl dd.maxPrice { color: #F60; width:130px; height:25px; overflow:hidden; white-space:nowrap;}
+.goodsIntro dl dd.quantity { color: #360;width:130px; height:25px; overflow:hidden; white-space:nowrap; }
+
+#goodsAssort ul li { white-space: nowrap; float: left; padding-right: 5px; padding-left: 5px;}
+#goodsAssort tr td { width: 33%; vertical-align: top;}
+#goodsAssort h4 { font-size: 15px; line-height: 26px;}

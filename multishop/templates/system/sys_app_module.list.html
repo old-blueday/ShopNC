@@ -1,0 +1,66 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAppManage </tpl> &gt;&gt; <tpl> $langSysAppList </tpl></div>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysAppManageName </tpl></td>
+						<td class="es-2"><tpl> $langSysAppManageIsOrNotSetup </tpl></td>
+						<td class="es-2"><tpl> $langSysAppManageShow </tpl></td>
+						<td class="es-2"><tpl> $langSysAppManageSort </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $app_list[0].app_module_id neq '' </tpl>
+						<tpl> section name=loop loop=$app_list </tpl>
+					<tr class="es-td">
+						<td><tpl> $app_list[loop].app_module_name </tpl></td>
+						<td>
+							<tpl> if $app_list[loop].app_module_install eq '0' </tpl>
+								<tpl> $langSysAppManageNotSetup </tpl>
+							<tpl> else </tpl>
+								<tpl> $langSysAppManageIsSetup </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<tpl> if $app_list[loop].app_module_install eq '0' </tpl>
+								<tpl> $langSysAppManageNotSetup </tpl>
+							<tpl> else </tpl>
+								<tpl> if $app_list[loop].app_module_state eq '0' </tpl>
+									<tpl> $langSysAppManageShow </tpl>
+								<tpl> else </tpl>
+									<tpl> $langSysAppManageHide </tpl>
+								<tpl> /if </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td><tpl> $app_list[loop].app_module_sort </tpl></td>
+						<td>
+							<tpl> if $app_list[loop].app_module_install eq '0' </tpl>
+								<a href="../app/<tpl> $app_list[loop].app_module_sign </tpl>/system.php?action=setup"><tpl> $langSysAppManageSetup </tpl></a>
+							<tpl> else </tpl>
+								<a href="../app/<tpl> $app_list[loop].app_module_sign </tpl>/system.php?action=manage_modi"><tpl> $langSysAppManageSet </tpl></a>
+								<a href="../app/<tpl> $app_list[loop].app_module_sign </tpl>/system.php?action=unsetup"><tpl> $langSysAppManageUnSetup </tpl></a>
+								<a href="../app/<tpl> $app_list[loop].app_module_sign </tpl>/system.php?action=ajax_list"><tpl> $langSysManage </tpl></a>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $app_list[0].app_module_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

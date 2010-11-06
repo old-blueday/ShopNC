@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<title><tpl> $langCShopNCSystem </tpl>-<tpl> $SystemVersion </tpl></title>
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link href="<tpl> $site_url </tpl><tpl> $templates_subpath </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrap">
+	<div id="head">
+  <div class="top">
+    <h1 id="logo">ShopNC Multishop Administrator's Control Panel</h1>
+    <ul id="topmenu">
+      <li><a href="http://www.shopnc.net/forum/" target="_blank"><tpl> $langSysIFamiliarQuestion </tpl></a></li>
+      <li><a href="../COPYRIGHT.php" target="_blank"><tpl> $langSysIUseAgreement </tpl></a></li>
+      <li><a href="http://www.shopnc.net/company/contact.html" target="_blank"><tpl> $langSysIContactWe </tpl></a></li>
+      <li><a href="http://www.shopnc.net/product/multishop.html" target="_blank"><tpl> $langSysIAboutWebShopEdition </tpl></a></li>
+    </ul>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div class="content">
+    <div class="left">
+      <div class="intro">
+        <div class="pic"></div>
+        <div class="txt">¡¡<tpl> $langSysIndexMessageOne </tpl></div>
+      </div>
+      <div class="info"><tpl> $langSysIndexMessageTwo </tpl></div>
+    </div>
+    <div class="login">
+<form id="form11" name="form11" method="post" action="index.php">
+  	<input type="hidden" name="state" value="1" />
+	<input type="hidden" name="action" value="check_login" />
+        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td><span class="text"><tpl> $langSysIndexUserName </tpl></span></td>
+          </tr>
+          <tr>
+            <td><label><input name="sys_login_name" id="sys_login_name" type="text" size="30" /></label></td>
+          </tr>
+          <tr>
+            <td><span class="text"><tpl> $langSysIndexPassword </tpl>:</span></td>
+          </tr>
+          <tr>
+            <td><label><input name="sys_password" type="password" size="30"/></label></td>
+          </tr>
+          <tr>
+            <td><span class="text"><tpl> $langSysIndexCode </tpl>:</span></td>
+          </tr>
+          <tr>
+            <td><label><input name="code" type="text" id="code" size="8" maxlength="4"  style="width:80px"/>
+              </label>
+              <span class="codeimg"><img src="../classes/libraries/code.php" onclick="this.src='../classes/libraries/code.php?' + Math.random()" title="<tpl> $langSysIndexOnClickReplaceCode </tpl>" id="codeimage" name="codeimage"  style="cursor:hand; vertical-align:middle" /></span> </td>
+          </tr>
+          <tr>
+            <td align="center"><input name="form_submit" id="form_submit" type="submit" value="" class="btn" /></td>
+          </tr>
+        </table>
+</form>
+		<div class="tag" id="loading_tag" align="center"></div>		
+    </div>
+  </div><div class="clear">&nbsp;</div>
+  <div id="copyright">
+	Powered by <a href="http://www.shopnc.net" target="_blank">ShopNC</a> &copy; 2007-2010 <tpl> $langSysIWebShopCreateWant </tpl> Inc</div>
+</div>	
+</div>
+</body>
+<script>
+document.getElementById('sys_login_name').focus();
+</script>
+</html>

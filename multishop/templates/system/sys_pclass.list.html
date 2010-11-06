@@ -1,0 +1,137 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysPClass </tpl> &gt;&gt; <tpl> $langSysPClassManage </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='pclass.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysNewAddClass </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="pclass.manage.php" id="form1" name="form1" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"></td>
+						<td class="es-5"><tpl> $langSysPCSort </tpl></td>
+						<td class="es-4"><tpl> $langSysPClass </tpl></td>
+						<td class="es-2"><tpl> $langSysPCAttribute </tpl></td>
+						<td <tpl> if $ProductClassArray[0].pc_u_id neq 0 </tpl> class="es-3" <tpl> else </tpl> class="es-2" <tpl> /if </tpl> ><tpl> $langSysPClassCarryOperator </tpl></td>
+					</tr>
+					<tpl> if $ProductClassArray[0].pc_id neq '' </tpl>
+						<tpl> section name=loop loop=$ProductClassArray </tpl>
+						
+					<tr class="es-td">
+						<td id="check-1"><input type="checkbox" name="chboxPCId[]" value="<tpl> $ProductClassArray[loop].pc_id </tpl>" />
+						<input type="hidden" name="id[<tpl> $ProductClassArray[loop].pc_id </tpl>]" value="<tpl> $ProductClassArray[loop].pc_id </tpl>" />
+						</td>
+						<td><input class="fct-input-2" name="sort[<tpl> $ProductClassArray[loop].pc_id </tpl>]" type="text" value="<tpl> $ProductClassArray[loop].pc_sort </tpl>" size="5" maxlength="5" /></td>
+						<td>
+							<tpl> if $ProductClassArray[loop].is_highlight eq '1' </tpl>
+								<span style="color:#FF0000" id="highlight_span_<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $ProductClassArray[loop].pc_name </tpl></span>
+							<tpl> else </tpl>
+								<span id="highlight_span_<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $ProductClassArray[loop].pc_name </tpl></span>
+							<tpl> /if </tpl>
+							<tpl> if $ProductClassArray[loop].is_parent eq '1' </tpl>
+							<a href="pclass.manage.php?action=list&id=<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $langSysPCChild </tpl></a> 
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="attribute.manage.php?action=show&pcid=<tpl> $ProductClassArray[loop].pc_id </tpl>&pid=<tpl> $ProductClassArray[loop].pc_u_id </tpl>"><tpl> $langSysCView </tpl></a>
+						</td>
+						<td>
+							<a href="pclass.manage.php?action=modi&pcid=<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $langCedit </tpl></a>
+							|
+							<a href="product.manage.php?pcid=<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $langSysPCProductInfo </tpl></a>
+							<tpl> if $ProductClassArray[loop].pc_u_id neq 0 </tpl>
+							|
+								<tpl> if $ProductClassArray[loop].is_highlight neq 1 </tpl>
+									<a href="javascript:;" onclick="set_highlight('<tpl> $ProductClassArray[loop].pc_id </tpl>',$('#set_type_'+<tpl> $ProductClassArray[loop].pc_id </tpl>).val())"><span id="highlight_text_<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $langSysPClassSetBright </tpl></span></a>
+									<input type="hidden" name="set_type_<tpl> $ProductClassArray[loop].pc_id </tpl>" id="set_type_<tpl> $ProductClassArray[loop].pc_id </tpl>" value="1" />
+								<tpl> else </tpl>
+									<a href="javascript:;" onclick="set_highlight('<tpl> $ProductClassArray[loop].pc_id </tpl>',$('#set_type_'+<tpl> $ProductClassArray[loop].pc_id </tpl>).val())"><span id="highlight_text_<tpl> $ProductClassArray[loop].pc_id </tpl>"><tpl> $langSysPClassCancelBright </tpl></span></a>
+									<input type="hidden" name="set_type_<tpl> $ProductClassArray[loop].pc_id </tpl>" id="set_type_<tpl> $ProductClassArray[loop].pc_id </tpl>" value="0" />
+								<tpl> /if </tpl>
+							<tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $ProductClassArray[0].pc_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $ProductClassArray[0].pc_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<input class="bthl" name="" id="update_sort" value="<tpl> $langSysPClassSubmitSort </tpl>" type="button" />
+				<tpl> if $parent_id neq '' </tpl>
+				<input class="bthl" name="" value="<tpl> $langSysPCReturnParent </tpl>" type="button" onclick="location.href='pclass.manage.php?action=list&id=<tpl> $parent_id </tpl>'" />
+				<tpl> /if </tpl>
+				<select name="move_class_id" id="move_class">
+					<option value=""><tpl> $langSysCMoveTo </tpl></option>
+					<tpl> foreach from=$sel_class item=one </tpl>
+					<option value="<tpl> $one.id </tpl>"><tpl> $one.name </tpl></option>
+					<tpl> /foreach </tpl>
+				</select>	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form1').submit();
+	});
+	$('#update_sort').click(function(){
+		$('input[id=action]').val('sort');
+		document.getElementById('form1').submit();
+	});
+});
+function set_highlight(id,type){
+	$.ajax({
+		url: "pclass.manage.php",
+		data: "action=set_highlight&id="+id+"&type="+type,
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '1'){
+				if(type == '1'){//Set Highlight
+					$("#set_type_"+id).val(0);
+					$("#highlight_span_"+id).css('color','#FF0000');
+					$("#highlight_text_"+id).html('<tpl> $langSysPClassCancelBright </tpl>');
+				}else{//Cancel Highlight
+					$("#set_type_"+id).val(1);
+					$("#highlight_span_"+id).css('color','#666666');
+					$("#highlight_text_"+id).html('<tpl> $langSysPClassSetBright </tpl>');
+				}
+			}
+		},
+		error: function(){
+			alert('<tpl> $langSysPCSetHighLightErr </tpl>');return false;
+		}
+	});
+}
+</script>

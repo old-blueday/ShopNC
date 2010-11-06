@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>
+include file ='../../head.config_new.html'
+</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/index.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<Script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.js"></Script>
+<Script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/tabswitch.js"></Script>
+<Script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.searchTab.js"></script>
+<Script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.cookie.js"></script>
+<script language="javascript" >
+$(function(){
+     var len = $("#idNum > li").length;
+var index = 0;
+$("#idNum li").mouseover(function(){
+   index =   $("#idNum li").index(this);
+   showImg(index);
+}); 
+$('#idTransformView').hover(function(){
+     if(MyTime){
+     clearInterval(MyTime);
+     }
+},function(){
+     MyTime = setInterval(function(){
+       showImg(index)
+     index++;
+     if(index==len){index=0;}
+     } , 4000);
+});
+var MyTime = setInterval(function(){
+   showImg(index)
+   index++;
+   if(index==len){index=0;}
+} , 4000);
+})
+function showImg(i){
+   $("#idSlider").stop(true,false).animate({top : -180*i},800);
+   $("#idNum li")
+    .eq(i).addClass("on")
+    .siblings().removeClass("on");
+}
+function area_auction(index){
+	for(var i=1;i<=2;i++)
+	{
+		if( document.getElementById("auction"+i.toString()) != null )
+		{
+			document.getElementById("auction"+i.toString()).style.display = 'none';	
+		}
+	}
+	document.getElementById("auction"+index.toString()).style.display = 'block';
+}
+
+$(document).ready(function(){
+	
+	$().tab({array:['trademark','assort'],ev:'mousemove'});	
+	
+});
+
+
+</script>
+</head><body>
+<div id="wrapper">
+	<!--headerBegin-->
+	<tpl> include file="../header_new.html" </tpl>
+	<!--header Over-->
+	<div class="clear">&nbsp;</div>
+	<!--main-->
+	<div id="main">
+		<div id="layoutBox1">
+			<!--leftBox-->
+			<div class="left">
+				<!--auction-->
+				<div id="auction">
+					<div id="auction1">
+						<div class="tab_tit"> <span class="tabbg1" onmouseover=area_auction(1);>
+							<h2>
+								<tpl>$langIOneZone</tpl>
+							</h2>
+							</span> <span class="tabbg2" onmouseover=area_auction(2);>
+							<h2>
+								<tpl>$langAuction</tpl>
+							</h2>
+							</span> </div>
+						<ul class="content">
+							<tpl>if $countdown_product.0.p_code != ''</tpl>
+							<li>
+								<div class="pic"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl>$countdown_product.0.p_code</tpl>"><img src="<tpl> $site_url </tpl>/<tpl> $countdown_product.0.small_pic|default:'templates/orange/images/noimgs.gif'</tpl>" alt="<tpl> $countdown_product.0.p_name </tpl>"/></a></div>
+								<dl>
+									<dt><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl>$countdown_product.0.p_code</tpl>" title="<tpl>$countdown_product.0.p_name</tpl>">
+										<tpl>$countdown_product.0.p_name</tpl>
+										</a></dt>
+									<dd>
+										<tpl>$langIndexCountdownPrice</tpl>
+										<span>
+										<tpl>$countdown_product.0.p_price</tpl>
+										</span>
+										<tpl>$langIndexYuan</tpl>
+									</dd>
+									<dd class="btn"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl>$countdown_product.0.p_code</tpl>">
+										<tpl>$langIndexPriceBuy</tpl>
+										</a></dd>
+								</dl>
+							</li>
+							<tpl>/if</tpl>
+							<tpl>if $countdown_product.1.p_code != ''</tpl>
+							<li>
+								<div class="pic"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl>$countdown_product.1.p_code</tpl>"><img src="<tpl> $site_url </tpl>/<tpl> $countdown_product.1.small_pic|default:'templates/orange/images/noimgs.gif'</tpl>" alt="<tpl> $countdown_product.1.p_name </tpl>"/></a></div>
+								<dl>
+									<dt><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl>$countdown_product.1.p_code</tpl>" title="<tpl>$countdown_product.1.p_name</tpl>">
+										<tpl>$countdown_product.1.p_name</tpl>
+										</a></dt>
+									<dd>
+										<tpl>$langIndexCountdownPrice</tpl>
+										<span>
+										<tpl>$countdown_product.1.p_price</tpl>
+										</span>
+										<tpl>$langIndexYuan</tpl>
+									</dd>
+									<dd class="btn"><a href="<tpl> $site_url </tpl>/home/product_countdown.php?action=view&pid=<tpl>$countdown_product.1.p_code</tpl>">
+										<tpl>$langIndexPriceBuy</tpl>
+										</a></dd>
+								</dl>
+							</li>
+							<tpl>/if</tpl>
+						</ul>
+						<div class="clear">&nbsp;</div>
+					</div>
+					<div id="auction2" style="DISPLAY: none">
+						<div class="tab_tit"> <span class="tabbg3" onmouseover=area_auction(1);>
+							<h2>
+								<tpl>$langIOneZone</tpl>
+							</h2>
+							</span> <span class="tabbg4" onmouseover=area_auction(2);>
+							<h2>
+								<tpl>$langAuction</tpl>
+							</h2>
+							</span></div>
+						<ul class="content">
+							<tpl>if $auction_product.0.p_code != ''</tpl>
+							<li>
+								<div class="pic"><a href="<tpl> $site_url </tpl>/home/product_auction.php?action=view&p_code=<tpl>$auction_product.0.p_code</tpl>"><img src="<tpl> $site_url </tpl>/<tpl> $auction_product.0.small_pic|default:'templates/orange/images/noimgs.gif'</tpl>" alt="<tpl> $auction_product.0.p_name </tpl>"/></a></div>
+								<dl>
+									<dt><a href="<tpl> $site_url </tpl>/home/product_auction.php?action=view&p_code=<tpl>$auction_product.0.p_code</tpl>" title="<tpl>$auction_product.0.p_name</tpl>">
+										<tpl>$auction_product.0.p_name</tpl>
+										</a></dt>
+									<dd>
+										<tpl>$langIndexAuctionPrice</tpl>
+										<span>
+										<tpl>$auction_product.0.p_price</tpl>
+										</span>
+										<tpl>$langIndexYuan</tpl>
+									</dd>
+									<dd class="btn"><a href="<tpl> $site_url </tpl>/home/product_auction.php?action=view&p_code=<tpl>$auction_product.0.p_code</tpl>">
+										<tpl>$langIndexPriceBuy</tpl>
+										</a></dd>
+								</dl>
+							</li>
+							<tpl>/if</tpl>
+							<tpl>if $auction_product.1.p_code != ''</tpl>
+							<li>
+								<div class="pic"><a href="<tpl> $site_url </tpl>/home/product_auction.php?action=view&p_code=<tpl>$auction_product.1.p_code</tpl>"><img src="<tpl> $site_url </tpl>/<tpl> $auction_product.1.small_pic|default:'templates/orange/images/noimgs.gif'</tpl>" alt="<tpl> $auction_product.1.p_name </tpl>" /></a></div>
+								<dl>
+									<dt><a href="<tpl> $site_url </tpl>/home/product_auction.php?action=view&p_code=<tpl>$auction_product.1.p_code</tpl>" title="<tpl>$auction_product.1.p_name</tpl>">
+										<tpl>$auction_product.1.p_name</tpl>
+										</a></dt>
+									<dd>
+										<tpl>$langIndexAuctionPrice</tpl>
+										<span>
+										<tpl>$auction_product.1.p_price</tpl>
+										</span>
+										<tpl>$langIndexYuan</tpl>
+									</dd>
+									<dd class="btn"><a href="<tpl> $site_url </tpl>/home/product_auction.php?action=view&p_code=<tpl>$auction_product.1.p_code</tpl>">出价</a></dd>
+								</dl>
+							</li>
+							<tpl>/if</tpl>
+						</ul>
+						<div class="clear">&nbsp;</div>
+					</div>
+				</div>
+				<!--auction Over-->
+				<!--auctionHelp-->
+				<div id="auctionHelp" class="sideStyle01">
+					<div class="title">
+						<h3><a href="javascript:void(0)">
+							<tpl>$langCUseHelp</tpl>
+							</a></h3>
+						<span class="more"></span></div>
+					<ul class="listStyle01">
+					<tpl> foreach from=$help_array item=help_v </tpl>
+						<li><a href="<tpl> $site_url </tpl>/help/index.php?h_id=<tpl> $help_v.h_id </tpl>" class="blue"><tpl> $help_v.h_title </tpl></a></li>
+					<tpl> /foreach </tpl>
+					</ul>
+				</div>
+				<!--auctionHelp Over-->
+			</div>
+			<!--leftBox Over-->
+			<div class="middle">
+				<div class="scroll" id="idTransformView">
+					<ul class="slider" id="idSlider">
+						<module>adv_module_orange</module>
+					</ul>
+					<ul class="num" id="idNum">
+						<li>1</li>
+						<li>2</li>
+						<li>3</li>
+						<li>4</li>
+						<li>5</li>
+						<li>6</li>
+					</ul>
+				</div>
+				<div id="trademarkBox">
+					<div class="title">
+						<h3>
+							<tpl>$langIndexBrandZone</tpl>
+						</h3>
+						<span class="more"><a href="<tpl> $site_url </tpl>/home/trademark.php">
+						<tpl>$langIndexBrandAll</tpl>
+						</a></span></div>
+					<div id="trademark">
+						<dl class="list" id="t1">
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=阿迪达斯"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/01.gif" />阿迪达斯</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=HI-TEC"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/02.gif" />HI-TEC</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=Kappa"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/03.gif" />Kappa</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=鸿星尔克"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/04.gif" />鸿星尔克</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=361°"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/05.gif" />361°</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=安踏"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/06.gif" />安踏</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=骆驼"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/07.gif" />骆驼</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=匡威"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/08.gif" />匡威</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=特步"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/09.gif" />特步</a></dd>
+							<dd><a href="<tpl> $site_url </tpl>/home/product.php?action=list&brand_name=NIKE"><img src="<tpl> $template_dir </tpl>/home/images_new/trademark/a1/10.gif" />NIKE</a></dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+			<div class="right">
+				<div id="quickLink">
+					<ul>
+						<tpl> if $login_sign eq '1' </tpl>
+						<li class="b"><a href="<tpl> $site_url </tpl>/member/own_main.php">
+							<tpl>$langMyStore</tpl>
+							</a></li>
+						<tpl>else</tpl>
+						<li class="a"><a href="<tpl> $site_url </tpl>/home/member.php?action=login">
+							<tpl>$langCLogin</tpl>
+							</a></li>
+						<li class="a"><a href="<tpl> $site_url </tpl>/home/member.php?action=regist">
+							<tpl>$langCRegist</tpl>
+							</a></li>
+						<tpl>/if</tpl>
+						<li class="b"><a href="<tpl> $site_url </tpl>/member/own_shop.php?action=new">
+							<tpl>$langFreeStore</tpl>
+							</a></li>
+					</ul>
+					<div class="clear" style="height:11px;">&nbsp;</div>
+				</div>
+				<div id="" class="sideStyle01">
+					<div class="title"><span class="more"><a href="<tpl> $site_url </tpl>/home/news.php?action=list&cid=4">
+						<tpl>$langIMore</tpl>
+						</a></span>
+						<h3><a href="<tpl> $site_url </tpl>/home/news.php?action=list&cid=4">
+							<tpl>$langWebBulletin</tpl>
+							</a></h3>
+					</div>
+					<ul class="listStyle01">
+						<script src="<tpl> $site_url </tpl>/html/news_javascript/e4da3b7fbbce2345d7772b0674a318d5.js"></script>
+					</ul>
+				</div>
+				<div id="groupbuy" class="sideStyle01">
+					<div class="title"><span class="more"><a href="<tpl> $site_url </tpl>/home/shop_group.php">
+						<tpl>$langIndexGroupTopics</tpl>
+						</a></span>
+						<h3><a href="<tpl> $site_url </tpl>/home/shop_group.php" class="org" >
+							<tpl>$langIndexGroup</tpl>
+							</a></h3>
+					</div>
+					<dl>
+						<tpl>if $group_product.p_code != ''</tpl>
+						<dt class="goodsname"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl>$group_product.p_code</tpl>" target="_blank">
+							<tpl>$group_product.p_name</tpl>
+							</a></dt>
+						<dd class="goodspic"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl>$group_product.p_code</tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $group_product.small_pic|default:'templates/orange/images/noimgs.gif'</tpl>" alt="<tpl> $group_product.p_name </tpl>" width="96" height="96" /></a></dd>
+						<dd class="martPirce">
+							<tpl>$langIndexPrice</tpl>
+							<tpl>$group_product.p_price</tpl>
+							<tpl>$langIndexYuan</tpl>
+						</dd>
+						<dd class="groupPirce">
+							<tpl>$langIndexGroupPrice</tpl>
+							<tpl>$group_product.p_group_price</tpl>
+							<tpl>$langIndexYuan</tpl>
+						</dd>
+						<dd class="groupBtn"><a href="<tpl> $site_url </tpl>/home/product_group.php?action=view&p_code=<tpl>$group_product.p_code</tpl>" target="_blank">
+							<tpl>$langIndexGroupBuy</tpl>
+							</a></dd>
+						<dd class="groupPeople">
+							<tpl>$langIndexGroupNum</tpl>
+							<tpl>$group_product.num</tpl>
+							<tpl>$langIndexGroupNum1</tpl>
+						</dd>
+						<div class="clear">&nbsp;</div>
+						<tpl>/if</tpl>
+					</dl>
+				</div>
+			</div>
+			<div class="clear">&nbsp;</div>
+		</div>
+		<div id="LayoutBox03">
+			<ul>
+				<script src="<tpl> $site_url </tpl>/html/js/index_banner_one.js"></script>
+			</ul>
+		</div>
+		<div id="LayoutBox02">
+			<div class="left" id="assortBox">
+				<div class="more"><a href="<tpl> $site_url </tpl>/home/category.php">
+					<tpl>$langSeeAllSort</tpl>
+					</a></div>
+				<div id="assort">
+					<ul class="tab">
+						<li class="current" rel="t1"><a href="JavaScript:void(0);" class="title">
+							<tpl> $langWareSort </tpl>
+							</a></li>
+						<li rel="t2"><a href="javascript:void(0)">
+							<tpl> $langStoreSort </tpl>
+							</a></li>
+					</ul>
+					<dl id="t1">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" id="goodsAssort">
+							<module>pclass_module_class</module>
+						</table>
+					</dl>
+					<dl id="t2" style="display:none;">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0" id="goodsAssort">
+							<module>shopclass_module_class</module>
+						</table>
+					</dl>
+				</div>
+			</div>
+			<div class="right">
+				<div id="commendShop" class="sideStyle01">
+					<div class="title"><span class="more"><a href="<tpl> $site_url </tpl>/home/shop.php?recommended=0&search_name=shop">
+						<tpl>$langIndexStoreMore</tpl>
+						</a></span>
+						<h3>
+							<tpl>$langStarStore</tpl>
+						</h3>
+					</div>
+					<module>shop_module_startShop</module>
+				</div>
+				<div id="article" class="sideStyle01">
+					<div class="title"><span class="more"><a href="<tpl> $site_url </tpl>/home/news.php?action=list&cid=3">
+						<tpl>$langIndexArticleMore</tpl>
+						</a></span>
+						<h3><a href="<tpl> $site_url </tpl>/home/news.php?action=list&cid=3">
+							<tpl>$langIndexArticleW</tpl>
+							</a></h3>
+					</div>
+
+					<ul class="listStyle01">
+						<script src="<tpl> $site_url </tpl>/html/news_javascript/1679091c5a880faf6fb5e6087eb1b2dc.js"></script>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear">&nbsp;</div>
+		<div id="LayoutBox03">
+			<ul>
+				<script src="<tpl> $site_url </tpl>/html/js/index_banner_two.js"></script>
+			</ul>
+		</div>
+		<div id="hotsale" class="sideStyle01">
+			<div class="title"><span class="more"><a href="<tpl> $site_url </tpl>/home/product.php?searchtype=1&searchcate=0">
+				<tpl>$langIMore</tpl>
+				</a></span>
+				<h3>
+					<tpl>$langNewVouch</tpl>
+				</h3>
+			</div>
+			<module>product_module_newCommend</module>
+			<div class="clear">&nbsp;</div>
+		</div>
+	</div>
+	<tpl> include file='../../use_help.html' </tpl>
+	<!-- 友情链接 -->
+	<tpl> include file='../../../../html/link.html' </tpl>
+	<!-- 友情链接 -->
+	<div>
+		<tpl> include file ='../../../../html/footer.html' </tpl>
+	</div>
+</div>
+</body>
+</html>

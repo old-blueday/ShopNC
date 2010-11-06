@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_admin_header_tools_manage</tpl> - <tpl>$shop_admin_tools_db</tpl></title><!-- 工具管理 - 数据库管理 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="sql">
+<form id="form1" name="form1" method="post" action="admin_tool_db.php?action=db_dir_del">
+    <h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_tool_db.php?action=db_sql_back" target="_self" class="btnInput"><tpl>$shop_admin_tool_sql_backup</tpl><!-- 数据备份 --></a></span>
+	<tpl>$shop_admin_header_tools_manage</tpl><!-- 工具管理 --> &gt;&gt; <tpl>$shop_admin_tools_db</tpl><!-- 数据库管理 --> &gt;&gt; <tpl>$shop_admin_tool_sql_revert</tpl><!-- 数据还原 -->
+	</b></h4>
+<div id="rightcon">
+  
+	
+		<div class="red-notice">
+			<p><tpl>$shop_admin_tool_sql_revert_info</tpl><!-- 还原已备份的网店数据库，此操作会使用备份数据库的数据覆盖当前数据库所有数据。 --></p>
+		</div>
+		<div class="rc_con">
+				<h5><input type="submit" name="Submit3" value="<tpl>$shop_admin_tool_sql_revert_del</tpl>" class="delBtnInput" /><!-- 删除 --><!-- 数据还原 --></h5>
+		<div class="entry-body">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="stripeMe" id="all_sql">
+				<tr>
+					<th><input type="checkbox" name="all" id="all" value="checkbox" /></th>
+					<th><tpl>$shop_admin_tool_sql_revert_dir</tpl><!-- 数据库/表 --></th>
+					<th><tpl>$shop_admin_tool_sql_revert_time</tpl><!-- 备份时间 --></th>
+					<th><tpl>$shop_admin_tool_sql_revert_size</tpl><!-- 大小(KB) --></th>
+					<th><tpl>$shop_admin_tool_sql_revert_zip</tpl><!-- 压缩 --></th>
+					<th><tpl>$shop_admin_tool_sql_revert_oper</tpl><!-- 操作 --></th>
+				</tr>
+				<tpl> section name=list loop=$dir_array </tpl>
+				<tr>
+					<td><input type="checkbox" name="db_back[]" value="<tpl> $dir_array[list].dirname </tpl>" class="cb" /></td>
+					<td><a href="#nogo"><tpl> $dir_array[list].dirname </tpl></a></td>
+					<td><tpl> $dir_array[list].dirtime </tpl></td>
+					<td><tpl> $dir_array[list].dirsize </tpl></td>
+					<td><tpl> if $dir_array[list].dirzip=='' </tpl><tpl> $shop_admin_tool_sql_revert_null </tpl><tpl> else </tpl><a href="<tpl>$Site_Url</tpl><tpl> $dir_array[list].dirzip </tpl>"><tpl> $shop_admin_tool_sql_revert_down </tpl></a><tpl> /if </tpl></td>
+					<td>
+						<a href="admin_tool_db.php?action=db_revert_up&path=<tpl> $dir_array[list].dirname </tpl>" title="<tpl>$shop_admin_tool_sql_revert_sql</tpl>"><!-- 还原 --><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_revert.gif" /></a>
+						<a href="admin_tool_db.php?action=db_back_zip&path=<tpl> $dir_array[list].dirname </tpl>" title="<tpl>$shop_admin_tool_sql_revert_zip</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_zip.gif" /></a>
+						<a href="admin_tool_db.php?action=db_dir_del&db_back=<tpl> $dir_array[list].dirname </tpl>"  onclick="return confirm('<tpl>$shop_admin_tool_sql_revert_del_conf</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl> $shop_admin_tool_sql_revert_del </tpl>" /><!-- 删除 --></a>
+					</td>
+				</tr>
+				<tpl> /section </tpl>
+			</table>
+		<h5 class="h5_down"><input type="submit" name="Submit3" value="<tpl>$shop_admin_tool_sql_revert_del</tpl>" class="delBtnInput" /><!-- 删除 --></h5>
+    </div><!--  end of entry2  -->
+	<div class="clear"></div>
+</form>
+</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

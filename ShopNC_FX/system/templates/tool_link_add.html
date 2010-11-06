@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shop_admin_header_tools_manage</tpl> - <tpl>$shop_admin_shop_tool_link_add</tpl></title><!-- 工具管理 - 友情链接 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_url		: {required:true,url:true},
+			txt_webname	: {required:true}
+		},
+		messages: {
+			txt_url		: {required:"<tpl>$shop_admin_shop_tool_link_add_weburl_not_null</tpl>",url:"<tpl>$shop_admin_shop_tool_link_add_weburl_not_null</tpl>"},
+			txt_webname	: {required:"<tpl>$shop_admin_shop_tool_link_add_webname_not_null</tpl>"}
+		}
+	});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#show_pic").click(function(){
+		$("tr.display_logo").css("display","");
+	});
+	$("#show_tx").click(function(){
+		$("tr.display_logo").css("display","none");
+	});
+	<tpl>if $link_array.logo==''</tpl>
+		$("tr.display_logo").css("display","none");
+	<tpl>/if</tpl>
+});
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+<form action="admin_tool_link.php?action=link_save" method="post" enctype="multipart/form-data" name="form1" id="form1">
+  <input type="hidden" name="txt_fid" value="<tpl>$link_array.fid</tpl>" />
+  <input type="hidden" name="txt_old_pic" value="<tpl>$link_array.logo</tpl>" />
+    <h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_tool_link.php?action=link_list" target="_self" class="btnInput"><tpl>$shop_admin_tool_link_list</tpl><!-- 友情链接列表 --></a></span>
+	<tpl>$shop_admin_header_tools_manage</tpl><!-- 工具管理 --> &gt;&gt; <tpl>$shop_admin_shop_tool_link_add</tpl><!-- 添加友情链接 -->
+	</b></h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$shop_admin_shop_tool_link_add</tpl><!-- 添加友情链接 --></h5>
+    <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl>$shop_admin_shop_tool_link_add_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$shop_admin_shop_tool_link_add_weburl</tpl><!-- 网站地址 -->:</td>
+				<td width="260"><input class="TextBoxAt2" type="text" name="txt_url" id="txt_url" size="21" value="<tpl>$link_array.url</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_url" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+				<td width="100"><tpl>$shop_admin_shop_tool_link_add_webname</tpl><!-- 网站名称 -->:</td>
+				<td><input class="TextBoxAt2" type="text" name="txt_webname" size="21" id="txt_webname" value="<tpl>$link_array.webname|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="txt_webname" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$shop_admin_shop_tool_link_add_sort</tpl><!-- 排列顺序 -->:</td>
+				<td><input class="TextBoxAt2" type="text" size="5"  name="txt_sort" id="txt_sort" value="<tpl>$link_array.sort</tpl>" /></td>
+				<td><tpl>$shop_admin_shop_tool_link_add_webemail</tpl><!-- 站长邮箱 -->:</td>
+				<td><input class="TextBoxAt2" type="text"  name="txt_email" size="21" id="txt_email" value="<tpl>$link_array.email|escape:html</tpl>" /></td>
+			</tr>
+			<tr>
+				<td><tpl>$shop_admin_shop_tool_link_add_type</tpl><!-- 链接类型 -->:</td>
+				<td><input type="radio" name="show_type" value="1" id="show_pic" <tpl>if $link_array.logo!='' </tpl> checked="checked" <tpl>/if</tpl> />
+				  <tpl>$shop_admin_shop_tool_link_add_pic</tpl>
+			      <input type="radio" name="show_type" value="0" id="show_tx" <tpl>if $link_array.logo=='' </tpl> checked="checked" <tpl>/if</tpl> />
+			      <tpl>$shop_admin_shop_tool_link_add_text</tpl></td>
+				<td><tpl>$shop_admin_shop_tool_link_add_state</tpl><!-- 链接状态 -->:</td>
+				<td><tpl>$state_select</tpl></td>
+			</tr>
+			<tr class="display_logo">
+				<td><tpl>$shop_admin_shop_tool_link_add_upload</tpl><!-- 上传logo -->:</td>
+				<td><input type="file" name="txt_logo" class="fileInput" /></td>
+				<td><tpl>$shop_admin_shop_tool_link_add_weblogo</tpl><!-- 网站logo -->:</td>
+				<td><tpl>if $link_array.logo!=''</tpl><img src="<tpl>$Site_Url</tpl>/<tpl> $link_array.logo</tpl>" width="100" height="60" /><tpl> else </tpl><img src="<tpl>$Site_Url</tpl>/admin/templates/images/no_logo.gif" /><tpl>/if</tpl></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td colspan="3"><input type="submit" name="button" id="button" value="<tpl>$shop_admin_shop_tool_link_add_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$shop_admin_shop_tool_link_add_reset</tpl>" class="btnInput" /><!-- 重置 --></td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft">
+      
+    </div>
+	<div class="clear"></div>
+</form>
+</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

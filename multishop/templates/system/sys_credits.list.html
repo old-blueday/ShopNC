@@ -1,0 +1,78 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCreditsManage </tpl> &gt;&gt; <tpl> $langSysCreditsSet </tpl></div>
+				</div>
+			</div>
+			<form action="credits.manage.php?action=update" id="form1" name="form1" method="post">
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysCreditsItem </tpl></td>
+						<td class="es-2"><tpl> $langSysCreditsLogExp </tpl></td>
+						<td class="es-2"><tpl> $langSysCreditsLogPoints </tpl></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsRegistRemark </tpl>">
+						<td><tpl> $langSysCreditsRegist </tpl></td>
+						<td>
+							<input class="fct-input" name="extcredits_exp[regist]" type="text" maxlength="4" value="<tpl> $extcredits_exp.regist|default:'0' </tpl>" />
+						</td>
+						<td>
+							<input class="fct-input" name="extcredits_points[regist]" type="text" maxlength="4" value="<tpl> $extcredits_points.regist|default:'0' </tpl>" />
+						</td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsSuccProductPutRemark </tpl>">
+						<td><tpl> $langSysCreditsSuccProductPut </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[succ_product_put]" type="text" maxlength="4" value="<tpl> $extcredits_exp.succ_product_put|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[succ_product_put]" type="text" maxlength="4" value="<tpl> $extcredits_points.succ_product_put|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsSuccBuyRemark </tpl>">
+						<td><tpl> $langSysCreditsSuccBuy </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[succ_buy]" type="text" maxlength="4" value="<tpl> $extcredits_exp.succ_buy|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[succ_buy]" type="text" maxlength="4" value="<tpl> $extcredits_points.succ_buy|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsOpenShopRemark </tpl>">
+						<td><tpl> $langSysCreditsOpenShop </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[open_shop]" type="text" maxlength="4" value="<tpl> $extcredits_exp.open_shop|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[open_shop]" type="text" maxlength="4" value="<tpl> $extcredits_points.open_shop|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsMemberCertifyRemark </tpl>">
+						<td><tpl> $langSysCreditsMemberCertify </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[member_certify]" type="text" maxlength="4" value="<tpl> $extcredits_exp.member_certify|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[member_certify]" type="text" maxlength="4" value="<tpl> $extcredits_points.member_certify|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsShopEntityRemark </tpl>">
+						<td><tpl> $langSysCreditsShopEntity </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[shop_entity]" type="text" maxlength="4" value="<tpl> $extcredits_exp.shop_entity|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[shop_entity]" type="text" maxlength="4" value="<tpl> $extcredits_points.shop_entity|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsGoodScoreRemark </tpl>">
+						<td><tpl> $langSysCreditsGoodScore </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[good_score]" type="text" maxlength="4" value="<tpl> $extcredits_exp.good_score|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[good_score]" type="text" maxlength="4" value="<tpl> $extcredits_points.good_score|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsNormalScoreRemark </tpl>">
+						<td><tpl> $langSysCreditsNormalScore </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[normal_score]" type="text" maxlength="4" value="<tpl> $extcredits_exp.normal_score|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[normal_score]" type="text" maxlength="4" value="<tpl> $extcredits_points.normal_score|default:'0' </tpl>" /></td>
+					</tr>
+					<tr class="es-td" title="<tpl> $langSysCreditsBadScoreRemark </tpl>">
+						<td><tpl> $langSysCreditsBadScore </tpl></td>
+						<td><input class="fct-input" name="extcredits_exp[bad_score]" type="text" maxlength="4" value="<tpl> $extcredits_exp.bad_score|default:'0' </tpl>" /></td>
+						<td><input class="fct-input" name="extcredits_points[bad_score]" type="text" maxlength="4" value="<tpl> $extcredits_points.bad_score|default:'0' </tpl>" /></td>
+					</tr>
+				</table>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCreditsUpdate </tpl>" type="submit" />
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

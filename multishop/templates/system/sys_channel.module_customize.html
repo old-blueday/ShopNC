@@ -1,0 +1,108 @@
+<form action="javascript:;" id="form_module_costomize" name="form_module_costomize" method="post"  onsubmit="return submit_module();" class="zhezhao">
+<table border="0" cellpadding="0" cellspacing="0" class="fct-1">
+	<tr>
+	  <th><tpl> $langChannelModuleName </tpl>:</th>
+	  <td>
+	  	  <input type="text" name="module_new_name" id="module_new_name" class="fct-input" value="<tpl> $modi_array.module_new_name </tpl>" value="30" />
+	  </td>
+	</tr>
+	<tr>
+		<th><tpl> $langChannelModuleContent </tpl>:</th>
+		<td>
+			<textarea name="module_content" id="module_content" class="fct-input"><tpl> $modi_array.module_content </tpl></textarea>
+	  	</td>
+	</tr>
+	<tr>
+		<td colspan="2"></td>
+    </tr>
+</table>
+</form>
+<script>
+//edit module
+
+<tpl> if $modi_array|@count > 0 </tpl>
+jquery(document).ready(function() {
+	name = 'cursomize_module_content=';
+	offset = document.cookie.indexOf(name);
+	if(offset != -1){
+		offset += name.length;
+		end = document.cookie.indexOf(';',offset);
+		if(end != -1){
+			jquery('#module_content').val(unescape(document.cookie.substring(offset,end)));
+		}
+	}
+});
+<tpl> /if </tpl>
+
+function submit_module(){
+	
+	var module_new_name = "";
+	var str='';
+	var num = jquery("#add_module_sign_num").val();
+	var param_array = new Array();
+	
+	module_new_name = jquery("#module_new_name").val();
+	if (module_new_name == ''){
+		alert("<tpl> $langChannelPleaseModuleName </tpl>");
+		return false;
+	}
+
+	param_array[0] = "module_new_name:"+module_new_name;
+	
+	<tpl> if $modi_array.temp_name eq '' </tpl>
+	
+		var temp_name = "customize_module_" + Math.round(Math.random()*10000);
+		param_array[1] = "temp_name:" + temp_name;
+		
+	<tpl> else </tpl>
+	
+		var temp_name = "<tpl> $modi_array.temp_name </tpl>";
+		param_array[1] = "temp_name:<tpl> $modi_array.temp_name </tpl>";
+		
+	<tpl> /if </tpl>
+	
+	param_array[2] = "module_type:customize";
+	
+	//Be module_content write cookie
+	if(jquery("#module_content").val()){
+		var module_content = escape(jquery("#module_content").val());
+		document.cookie = "cursomize_module_content="+module_content;
+		var date = new Date();
+	    var ms = 1*3600*1000;
+	    date.setTime(date.getTime()+ms);
+	    document.cookie = "expires="+date.toGMTString();
+	}else{
+		alert('<tpl> $langChannelModuleContentNull </tpl>');
+		return false;
+	}
+	
+	for(i=0;i<param_array.length;i++){
+		if(i==param_array.length-1){
+			str += param_array[i];
+		}else{
+			str += param_array[i]+'|||';
+		}
+	}
+	
+	if(checkRepeatModuleName(module_new_name) == false){return false;}
+	
+	jquery("#add_module_sign").append("<tr><td>"+
+		"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\",\""+module_new_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+		"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+str+"'/>"+
+		"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}' title='<tpl> $langChannelDelThisModule </tpl>'><tpl> $langChannelDelThisModule </tpl></a>"+
+		"</td></tr>");
+	
+	jquery("#body_module").html("");
+	
+  	jquery("#add_module").attr("disabled","");
+	
+	set_module_style('no_disabled');
+	
+	jquery.unblockUI();
+	
+	jquery("#module_block").html('');
+	closeDiy('moduleadd');
+	closeDiy('moduleupdate');
+	return false;
+}
+</script>

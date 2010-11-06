@@ -1,0 +1,129 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCBasicSet </tpl> &gt;&gt; <tpl> $langBInfoSetup </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="baseinfo.manage.php?action=save" method="post" name="form1" id="form1">
+						<input type="hidden" name="genre" value="mail" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th></th>
+									<td>
+										<input type="radio" name="email_send_type" id="email_send_type_0" <tpl> if $setting_array_out.email_send_type eq '0' </tpl>checked="checked"<tpl> /if </tpl> value="0" onclick="type_show('0');" />
+										<label for="email_send_type_0"><tpl> $langBSystemMailTypeOne </tpl></label><br />
+										<input type="radio" name="email_send_type" id="email_send_type_1" <tpl> if $setting_array_out.email_send_type eq '1' </tpl>checked="checked"<tpl> /if </tpl> value="1" onclick="type_show('1');" />
+										<label for="email_send_type_1"><tpl> $langBSystemMailTypeTwo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBSMTPEmail </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $langBSMTPEmailRemark </tpl></span>
+									<input class="fct-input" value="<tpl> $setting_array_out.smtpemail </tpl>" name="txtsmtpemail" id="txtsmtpemail" type="text" /></td>
+								</tr>
+								<tbody id="type_1">
+								<tr>
+									<th><tpl> $langBSMTPServerName </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $langBSMTPServerNameRemark </tpl></span>
+									<input class="fct-input" value="<tpl> $setting_array_out.smtpserver </tpl>" name="txtsmtpserver" id="txtsmtpserver" type="text" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBSMTPEmailUserName </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $langBSMTPEmailUserNameRemark </tpl></span>
+									<input class="fct-input" value="<tpl> $setting_array_out.smtpuser </tpl>" name="txtsmtpuser" id="txtsmtpuser" type="text" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBSMTPEmailUserPass </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $langBSMTPEmailUserPassRemark </tpl></span>
+									<input class="fct-input" value="<tpl> $setting_array_out.smtppass </tpl>" name="txtsmtppass" id="txtsmtppass" type="password" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langBSMTPServerPort </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langBSMTPServerPortRemark </tpl></span>
+										<input class="fct-input" maxlength="5" value="<tpl> $setting_array_out.smtpprot </tpl>" name="txtsmtpport" id="txtsmtpport" type="text" />
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langBSubmit </tpl>" type="submit" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$("#form1").validate({
+	errorClass: "wrong",
+	rules: {
+		txtsmtpserver: {required:function(){
+			if(<tpl> $setting_array_out.email_send_type </tpl> == 1){
+				return true;
+			}else{
+				return false;
+			}
+		}},
+		txtsmtpemail: {required:true,email:true},
+		txtsmtpuser: {required:function(){
+			if(<tpl> $setting_array_out.email_send_type </tpl> == 1){
+				return true;
+			}else{
+				return false;
+			}
+		}},
+		txtsmtppass: {required:function(){
+			if(<tpl> $setting_array_out.email_send_type </tpl> == 1){
+				return true;
+			}else{
+				return false;
+			}
+		}},
+		txtsmtpport: {required:function(){
+			if(<tpl> $setting_array_out.email_send_type </tpl> == 1){
+				return true;
+			}else{
+				return false;
+			}
+		},number:function(){
+			if(<tpl> $setting_array_out.email_send_type </tpl> == 1){
+				return true;
+			}else{
+				return false;
+			}
+		}}
+	},
+	messages: {
+		txtsmtpserver: {required: "<tpl> $errBSMTPEmailServerIsEmpty </tpl>"},
+		txtsmtpemail: {required:"<tpl> $errBSMTPEmailIsEmpty </tpl>",email:"<tpl> $errBSMTPEmailIsWrong </tpl>"},
+		txtsmtpuser: {required: "<tpl> $errBSMTPEmailUserIsEmpty </tpl>"},
+		txtsitetitle: {required: "<tpl> $errBSMTPEmailPasswordIsEmpty </tpl>"},
+		txtsmtpport: {required: "<tpl> $errBSMTPEmailPassportIsEmpty </tpl>",number:"<tpl> $errBSMTPEmailPassportIsWrong </tpl>"}
+	}
+});
+$(document).ready(function(){
+	type_show('<tpl> $setting_array_out.email_send_type </tpl>');
+});
+function type_show(type){
+	$('#type_1').css('display','none');
+	$('#type_'+type).css('display','');
+}
+</script>
+</body>
+</html>

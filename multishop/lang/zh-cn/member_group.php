@@ -1,0 +1,14 @@
+<?php
+$lang['errMgNotInAnyGroup']="你不属于任何用户组，不能进行该操作";
+$lang['errMgDenyLogin']="你所在用户组不允许登录";
+$lang['errMgDenyBuy']="你所在用户组不允许购买商品";
+$lang['errMgDenySell']="你所在用户组不允许出售商品";
+$lang['errMgDenyOpenShop']="你所在用户组不允许开店";
+$lang['errMgDenyUseCredit']="你所在用户组不允许使用积分";
+$lang['errOutPutProductMemberIsEmpty']="会员不能为空";
+$lang['errOutPutShopCheck']="您的店铺正在审核中……";
+$lang['errOutPutProductNoShop']="只有拥有了店铺才允许发布，请先开店再发布商品";
+$lang['errOutPutProductNoCertify']="只有通过了个人的实名认证才允许发布，请先进行个人实名认证";
+$lang['errOutPutProductNoEntity']="店铺没有经过实体店铺认证不允许发布商品，请先进行实体店铺认证";
+$lang['errMgDenySellNum']="你出售的商品数量已经达到你所在用户组允许的出售数量，该用户组允许的出售数量为:";
+?>

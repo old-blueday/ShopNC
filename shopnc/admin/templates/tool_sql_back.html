@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_header_tools_manage </tpl> - <tpl> $admin_tool_sql_backup </tpl></title><!-- 工具管理 - 数据库管理 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			sql_size	: {required:true,minValue:10},
+			sql_prefix	: {required:true}
+		},
+		messages: {
+			sql_size	: {required:"<tpl>$admin_tool_sql_backup_size_null</tpl>",minValue:"<tpl>$admin_tool_sql_backup_size_min</tpl>"},
+			sql_prefix	: {required:"<tpl>$admin_tool_sql_backup_disc_null</tpl>"}
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="sql">
+  <form id="form1" name="form1" method="post" action="admin_tool_db.php?action=db_back_up">
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_tool_db.php?action=db_sql_revert" target="_self" class="btnInput"><tpl> $admin_tool_sql_revert </tpl><!-- 数据还原 --></a></span>
+	<tpl>$admin_header_tools_manage</tpl><!-- 工具管理 --> >> <tpl>$admin_tools_db</tpl><!-- 数据库管理 --> >> <tpl>$admin_tool_sql_backup</tpl><!-- 数据备份 -->
+	</b>
+    </h4>
+	
+<div id="rightcon">
+			<div class="rc_con">
+    <div class="entry-body">
+		
+		<h5><tpl>$admin_tool_sql_backup</tpl></h5>
+		<div class="red-notice" style="margin:5px auto;">
+			<p><tpl> $admin_tool_sql_backup_info </tpl><!-- 为了您的数据安全，建议您定期备份数据库。 --></p>
+		</div><!--  end of red-notice  -->
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl> $admin_tool_sql_backup_type </tpl><!-- 备份类型 -->:</td>
+				<td>  <input type="radio" name="sql_backup_type" value="nc" id="sql_backup_type" checked="checked" />
+<tpl> $admin_tool_sql_backup_nc </tpl><!-- 网店数据表 -->
+<input type="radio" name="sql_backup_type" value="all" id="sql_backup_type" />
+<tpl> $admin_tool_sql_backup_all </tpl><!-- 所有数据表 --></td>
+			</tr>
+			<tr>
+				<td><tpl> $admin_tool_sql_backup_size </tpl><!-- 分卷大小 -->:</td>
+				<td><input class="TextBox" type="text" name="sql_size" id="sql_size" value="1024" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="sql_size" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl> $admin_tool_sql_backup_disc </tpl><!-- 备份名称前缀 -->:</td>
+				<td><input class="TextBox" type="text" name="sql_prefix" value="shopnc_sql_file" />&nbsp;<span class="red">*</span>
+				<div class="check-error"><label style="display:none" for="sql_prefix" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" name="Submit4" value="<tpl> $admin_tool_sql_backup_submit </tpl>" class="btnInput" /><!-- 开始备份 --></td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+	<div class="clear"></div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

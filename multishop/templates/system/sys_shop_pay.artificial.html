@@ -1,0 +1,132 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopPayManage </tpl> &gt;&gt; <tpl> $langSysShopPayHandleManage </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="shop_pay.manage.php" method="post" id="form1" name="form1">
+						<input type="hidden" name="action" id="action" value="artificial_save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysShopPayMemberName </tpl>:</th>
+									<td><input class="fct-input" name="member_name" id="member_name" type="text" /></td>
+								</tr>
+							</table>
+							<div id="member_info"></div>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="button" id="search_member" value="<tpl> $langSysShopPayView </tpl>" class="bthl" />
+							<input type="submit" id="form_submit" value="<tpl> $langSysCSubmit </tpl>" class="bthl" style="display:none;" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			member_name: {required:true},
+			shop_time: {
+				required:function(){
+					if($('#sel_operate_0').attr('checked') == true){
+						<tpl> if $shop_pay_mode eq '1' </tpl>
+						true
+						<tpl> else </tpl>
+						false
+						<tpl> /if </tpl>
+					}else{
+						return false;
+					}
+				},
+				number:function(){
+					if($('#sel_operate_0').attr('checked') == true){
+						<tpl> if $shop_pay_mode eq '1' </tpl>
+						true
+						<tpl> else </tpl>
+						false
+						<tpl> /if </tpl>
+					}else{
+						return false;
+					}
+				}
+			},
+			product_number: {
+				required:function(){
+					if($('#sel_operate_0').attr('checked') == true){
+						<tpl> if $shop_pay_mode eq '1' </tpl>
+						true
+						<tpl> else </tpl>
+						false
+						<tpl> /if </tpl>
+					}else{
+						return false;
+					}
+				},
+				number:function(){
+					if($('#sel_operate_0').attr('checked') == true){
+						<tpl> if $shop_pay_mode eq '1' </tpl>
+						true
+						<tpl> else </tpl>
+						false
+						<tpl> /if </tpl>
+					}else{
+						return false;
+					}
+				}				
+			},
+			mode_id: {
+				required:function(){
+					if($('#sel_operate_1').attr('checked') == true){
+						return true
+					}else{
+						return false;
+					}
+				}
+			}
+		},
+		messages: {
+			member_name: {required:"<tpl> $errSysShopPayMemberNameIsEmpty </tpl>"},
+			shop_time: {required:"<tpl> $errSysShopPayModeShopTimeIsNotNumber </tpl>",number:"<tpl> $errSysShopPayModeShopTimeIsNotNumber </tpl>"},
+			product_number: {required:"<tpl> $errSysShopPayModeProductNumberIsNotNumber </tpl>",number:"<tpl> $errSysShopPayModeProductNumberIsNotNumber </tpl>"},
+			mode_id: {required:"<tpl> $errSysShopPayModeIsEmpty </tpl>"}
+		}
+	});
+	//Find Member Information
+	$("#search_member").click(function(){
+		if($('#member_name').val() != ''){
+			$.ajax({
+				url: "shop_pay.manage.php",
+				data: 'action=search_member&member_name='+escape($('#member_name').val()),
+				type:'post',
+				dataType:"html",
+				success: function(msg){
+					if(msg != ''){
+						$('#form_submit').css('display','');
+						$('#member_info').html(msg);
+					}else{
+						alert('<tpl> $errSysShopPayMemberIsNotHaving </tpl>');
+					}
+				}
+			});
+			return false;
+		}else{
+			alert('<tpl> $errSysShopPayMemberNameIsEmpty </tpl>');
+		}
+	});
+});
+</script>
+</body>
+</html>

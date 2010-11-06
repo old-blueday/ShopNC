@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tools_email</tpl></title><!-- 工具管理 - 邮件发送 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script language="javascript">
+$(document).ready(function(){
+	$("#tempalate_name").change(function(){
+		var tempalate_val 	=  $("select[@name='tempalate_name'] option[@selected]").val();
+		window.location.href="?action=view_mail_temp&temp_name="+tempalate_val;
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+<div id="content">
+  <form action="?action=save_email_temp" method="post" name="form1" id="form1">
+    <h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_system.php?action=email_site" target="_self" class="btnInput"><tpl>$admin_system_email</tpl><!-- 邮件设置 --></a></span>
+	<tpl>$admin_header_shop_manage</tpl><!-- 网店管理 --> >> <tpl>$admin_email_tempalte</tpl><!-- 邮件模板 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_email_tempalte</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_email_template_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_email_template_name</tpl><!-- 模板名称 -->:</td>
+				<td><tpl>$template_select</tpl></td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_email_template_body</tpl><!-- 内容 -->:</td>
+				<td><tpl>$txt_template_body</tpl></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+				<input type="hidden" name="mail_template_id" value="<tpl>$temp_array.mail_template_id</tpl>"  />
+      <input type="submit" name="button" id="button" value="<tpl>$admin_email_template_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+				</td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+	  
+    </div>
+	<div class="clear"></div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

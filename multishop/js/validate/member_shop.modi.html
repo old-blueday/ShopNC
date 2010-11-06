@@ -1,0 +1,32 @@
+<script src="<?php echo SITE_URL; ?>/js/addselect.js"></script>
+<script language="javascript">
+/*验证表单*/
+$(function(){
+	$("#modishop").validate({
+		event: "keyup",
+		errorClass: "wrong",
+		rules: {
+			txtShopName: {required:true,minlength:3,maxlength:30},
+			slcShopClass: {required:true},
+			txtSaleRange: {required:true},
+			area_id: {required:true}
+		},
+		messages: {
+			txtShopName: {required: "<?php echo $lang['langShopNameNotNull']; ?>",minlength:"<?php echo $lang['errShopName3']; ?>",maxlength:"<?php echo $lang['errShopName3']; ?>"},
+			slcShopClass: {required: "<?php echo $lang['langShopClassNotNull']; ?>"},
+			txtSaleRange: {required: "<?php echo $lang['errShopSaleRangeIsEmpty']; ?>"},
+			area_id: {required:"<?php echo $lang['langShopPleaseSelectLocus']; ?>"}
+		}
+	});
+});
+$().ready(function() {
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					type:'modi',
+					modi_id:'<?php echo $output['shop_info']['shop_area_id'];?>',
+					hiddenId:'area_id'
+				});
+});
+</script>

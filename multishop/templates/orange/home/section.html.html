@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="../../js/home/getsectionhtml.js"></script>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<body><tpl>include file ='header_new.html'</tpl>
+<div id="layout_page">
+<div id="leftbar">
+<div class="category_top" style="width:700px">
+<div class="goodsitem_top_news">
+   <div class="side_left"></div>
+        <div class="side_right"></div>
+		
+	<div class="title2" style="color:#fff; text-align:left; height:30px; line-height:30px">
+<h3>
+		<ul>
+		<li><tpl> $section_array.section_name </tpl></li>
+   </ul>
+   </h3>
+</div>
+</div>
+</div>
+<div id="news_main">
+	<ul>
+		<li><tpl> $section_array.section_content </tpl></li>
+		</ul>
+	</div>
+</div>
+<div class="rightbar" style="float:left; margin:0 0 0 10px">
+      <div class="title1">
+        <h3><tpl> $langNewsInfoList </tpl></h3>
+      </div>
+      <div class="content1">
+	  	<div class="gehang_color">
+		<ul class="goodsrecommend1">
+			<tpl> section name=loop loop=$link_array </tpl>
+				<li>
+					<a href="<tpl> if $link_array[loop].section_url neq '' </tpl><tpl> $link_array[loop].section_url </tpl><tpl> else </tpl><tpl>$url</tpl>/html/section/<tpl> $link_array[loop].section_id </tpl>.html<tpl> /if </tpl>" target="_blank"> <tpl> $link_array[loop].section_name </tpl></a> 
+				</li>
+			<tpl> /section </tpl>
+		</ul>
+		</div>
+      </div>
+    </div>
+</div>
+
+<tpl>include file ='../../../html/footer.html'</tpl> 
+
+</body>
+</html>	
+	

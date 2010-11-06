@@ -1,0 +1,38 @@
+<!-- 以下版权信息不能去除，否则程序无法运行 -->
+<title><tpl> $title_message </tpl><tpl> $HtmlTitle </tpl></title>
+<meta name="KEYWords" content="<tpl> $Meta_keyword </tpl><tpl> $keyword_message </tpl>" />
+<meta name="DEscription" content="<tpl> $Meta_desc </tpl>" />
+<meta name="author" content="Shopnc UI Team" />
+<meta name="Robots" content= "all" /> 
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<link href="<tpl> $site_url </tpl><tpl> $templatepath </tpl>/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.cookie.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/index.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.pngFix.js"></script>
+<script type=text/javascript>
+//IE6 PNG
+$(function(){$('#logo').pngFix();});
+//搜索编码
+function makeEscape(str){
+	var str=escape(str);
+	window.open('product.php?action=list&lang=zh&keyword='+str);
+}
+//statics
+//当前页面
+var url = window.location;
+//screen width
+var screen_width = window.screen.width;
+//screen height
+var screen_height = window.screen.height;
+
+//set request to server
+$.ajax({
+	url: "statics.php",
+	data: "user_ad="+escape(document.referrer)+"&filename2="+url+"&screen_width="+screen_width+"&screen_height="+screen_height,
+	type:'post',
+	dataType:"json"
+});
+</script>
+<!-- 以上版权信息不能去除，否则程序无法运行 -->

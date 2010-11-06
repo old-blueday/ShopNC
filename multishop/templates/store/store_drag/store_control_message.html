@@ -1,0 +1,26 @@
+<div class="blocktitle">
+	<em><a href="message.php?userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langStoreAllLeaveWord </tpl></a></em>
+	<h2><tpl> $langStoreStyleBlockMessage </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_6">
+		<ul>
+			<li style="border-bottom:#ccc 1px dashed" class="w-1 cl"><tpl> $langStoreContent </tpl></li>
+			<li style="border-bottom:#ccc 1px dashed" class="w-2 cl"><tpl> $langStoreZuoZhe </tpl></li>
+			<li style="border-bottom:#ccc 1px dashed" class="w-3 cl"><tpl> $langStoreTime </tpl></li>
+		</ul>
+		<tpl> section name=loop loop=$shop_message </tpl>
+		<ul>
+			<li class="w-1" style="text-align:left;"><tpl>$shop_message[loop].message_content </tpl></li>
+			<li class="w-2"><tpl>$shop_message[loop].member_name</tpl></li>
+			<li class="w-3"><tpl> $shop_message[loop].message_time </tpl></li>
+		</ul>
+		<ul>
+			<li style=" background-color:#F3F3F3; padding:2px 0px; margin-bottom:5px;border:#ddd 1px dashed; width:100%; text-align:left;"><font style="color:#006600;"><tpl> $langStoreShopkeeperRestore </tpl></font>:<tpl> $shop_message[loop].message_recontent </tpl></li>
+		</ul>
+		<tpl> /section </tpl>
+		<ul>
+			<li style=" text-align:right; width:100%;"><em><a href="message.php?action=new&userid=<tpl> $shop_info.member_id </tpl>"><tpl> $langSMessageSendLeaveWord </tpl></a></em></li>
+		</ul>
+	</div>
+</div>

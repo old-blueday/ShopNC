@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $search_adv </tpl> - <tpl> $shops_name </tpl></title>
+<meta http-equiv="keywords" content="<tpl> $shops_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $shops_description </tpl>" /> 
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script language="javascript" src="<tpl>$site_url</tpl>/js/select_area_zh-cn.js"></script>
+<script>
+function search_pannel(type){
+	if (type == 1){
+		$('#search_type1').css('display','');
+		$('#search_type2').css('display','none');
+	}else{
+		$('#search_type2').css('display','');
+		$('#search_type1').css('display','none');	
+	}
+}
+$(document).ready(function() { 
+	iniProvince(document.getElementById('txtProvince'));
+	iniProvince(document.getElementById('txtProvince2'));
+}); 
+</script>
+</head>
+<body>
+<div id="container">
+<tpl>include_php file ='shop_header.php'</tpl><!-- 头部信息header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft longer">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><tpl> $search_adv </tpl>
+				</div>
+			</div>
+			<div class="con">
+				<!-- 选择部分 -->
+				<table class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="60">&nbsp;</td>
+						<td width="156" align="center" class="hsearch_ch"><input type="radio" name="search_type" onclick="search_pannel(1)" checked="checked"/><tpl>$search_product</tpl></td>
+						<td width="140" align="center" class="hsearch_ch">
+						<input type="radio" name="search_type" onclick="search_pannel(2)"/><tpl>$search_shop</tpl>
+						</td>
+						<td width="60">&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="4"><img src="<tpl> $templates_subpath </tpl>/images/hsearch_line.gif" width="407" height="6" /></td>
+					</tr>
+				</table>
+				<!-- end 选择部分 -->
+				<!-- 搜索商品 -->
+				<form id="adv_search" method="get" action="<tpl> $Site_Url </tpl>/shop_search.php">
+            	<input type="hidden" name="action" value="search" />
+				<table id="search_type1" class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="110" align="right"><tpl> $keywords </tpl></td>
+							<td><input type="text" name="txt_keywords" id="txt_keywords" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $type </tpl></td>
+							<td><select name="txt_class_top_id" id="txt_class_top_id">
+							<option value=""><tpl>$search_select</tpl></option>
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option value="<tpl> $node_array[i].sub_array[j].id </tpl>">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></option>
+						<tpl> /section </tpl>
+					<tpl> /section </tpl>	
+                    </select></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $price_group </tpl></td>
+							<td><input type="text" name="txt_start_price" id="start_price" class="inputbg shortinput" /> <tpl> $to </tpl> <input type="text" name="txt_end_price" id="end_price" class="inputbg shortinput" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $goods_location </tpl></td>
+							<td>
+							<select name="txtProvince" id="txtProvince" >
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td><div class="seach_but" onclick="$('#adv_search').submit()"></div></td>
+						</tr>
+					</table>
+					</form>
+					<!-- end 搜索商品 -->
+					<!-- 搜索店铺 -->
+					<form id="adv_search2" method="get" action="<tpl> $Site_Url </tpl>/shop_list.php">					
+<table style="display:none" id="search_type2"  class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="110" align="right"><tpl> $keywords </tpl></td>
+							<td><input type="text" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $type </tpl></td>
+							<td><select name="txt_class_top_id">
+							<option value=""><tpl>$search_select</tpl></option>
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option value="<tpl> $node_array[i].sub_array[j].id </tpl>">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></option>
+						<tpl> /section </tpl>
+					<tpl> /section </tpl>	
+                    </select></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $goods_location </tpl></td>
+							<td><select name="txtProvince" id="txtProvince2" >
+							</select></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td><div class="seach_but" onclick="$('#adv_search2').submit()"></div></td>
+						</tr>
+					</table>
+					</form>
+					<!-- end 搜索店铺 -->
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+<tpl> include_php file='shop_footer.php' </tpl><!-- end of footer -->
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<div class="blockcontent">
+			<div class="toupiao">
+				<tpl> if $output.list[0].vote_id neq '' </tpl>
+					<tpl> foreach from=$output.list item=one </tpl>
+					<form action='<tpl> $site_url </tpl>/home/vote.php?action=vote' method='post' name='form_p_list' id='form_p_list' target='_blank'>
+					<input type='hidden' name='vote_id' value='<tpl> $one.vote_id </tpl>'  />
+					<input type='hidden' name='vote_refresh' value='<tpl> $one.vote_refresh </tpl>'  />
+					<input type='hidden' name='vote_member' value='<tpl> $one.vote_member </tpl>'  />
+					<input type='hidden' name='type' value='<tpl> $type </tpl>'  />
+					<ul>
+						<p><tpl> $one.vote_title </tpl></p>
+						<tpl> foreach from=$one.content key=key name = name item=two </tpl>
+							<li>
+							<tpl> if $one.vote_check eq '0' </tpl>
+								<input name='vote_check' id='vote_check' type='radio' value='<tpl> $key </tpl>'>
+							<tpl> else if $one.vote_check eq '1' </tpl>
+								<input name='vote_check[]' id='vote_check[]' type='checkbox' value='<tpl> $key </tpl>'>
+							<tpl> /if </tpl>
+							<label for="vote_check[]"><tpl> $two.option </tpl></label>
+							<input type='hidden' name='vote_option[]' value='<tpl> $two.option </tpl>' />
+							<input type='hidden' name='vote_num[]' value='<tpl> $two.num </tpl>' />
+							</li>
+						<tpl> /foreach </tpl>
+					</ul>
+					<div class="an-niu">
+					<input type='submit' value='<tpl> $langCsubmit </tpl>' />
+					<input type='button' value='<tpl> $langCview </tpl>' onClick="location.href='<tpl> $site_url </tpl>/home/vote.php?action=view&vote_id=<tpl> $one.vote_id </tpl>'" /></div>
+					</form>
+					<tpl> /foreach </tpl>
+				<tpl> /if </tpl>
+			</div>
+		</div>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

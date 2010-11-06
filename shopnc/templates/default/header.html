@@ -1,0 +1,47 @@
+<!-- 头部:START -->
+<div id="header">
+  <div id="headbox" class="width-all">
+    <h1 class="logo"><a href="<tpl> $Site_Url </tpl>" title="ShopNC6.0"><img src="<tpl>if $shop_logo_file!=''</tpl><tpl>$Site_Url</tpl>/<tpl>$shop_logo_file</tpl><tpl>else</tpl><tpl> $template_dir </tpl>/images/logo.gif<tpl>/if</tpl>" width="160" height="60" ></a></h1>
+    <div class="topside">
+      <form action="search.php" method="get" id="topsearch">
+        <input name="keywords" type="text" value="<tpl>$keywords</tpl>" onFocus="this.value=''" class="inputtext"/>
+        <input name="submit" type="submit" value="<tpl>$search</tpl>" class="inputbtn"/>
+        <span><a href="<tpl>$Site_Url</tpl>/search.php?action=height_search"><tpl>$advanced_search</tpl><!-- 高级搜索 --></a></span>
+      </form>
+      <div class="userinfo">
+        <div class="cateimg"></div>
+        <div class="text">
+		<tpl>if $smarty.session.userinfo.user_id == ""</tpl>
+          <p><tpl>$welcome_please</tpl><!-- 请您 -->
+		  	 [<a href="<tpl> $Site_Url </tpl>/member/user.php?action=login_page"><tpl>$header_lgoin</tpl><!-- 登录 --></a>]
+			 <tpl>$welcome_or</tpl><!-- 或 -->
+			 [<a href="<tpl> $Site_Url </tpl>/member/user.php?action=register"><tpl>$register</tpl><!-- 注册 --></a>]</p>
+		  <tpl>else</tpl>
+		  <p>
+		  <a href="<tpl>$Site_Url</tpl>/member/user_center.php"><tpl>$username</tpl></a>,
+          <a href="<tpl>$Site_Url</tpl>/member/user_center.php"><tpl>$user_center</tpl><!-- 会员中心 --></a>
+          <a href="<tpl>$Site_Url</tpl>/member/user.php?action=login_out&back_url=index"><tpl>$login_out</tpl><!-- 退出 --></a>
+		  </p>
+		  <tpl>/if</tpl>
+		  
+          <p><tpl>if $cart_count != ''</tpl><a href="<tpl> $Site_Url </tpl>/shopping.php"><tpl>/if</tpl><tpl>$header_cart</tpl><!-- 购物车 --><tpl>if $cart_count != ''</tpl><tpl>$cart_count</tpl><tpl>else</tpl>0<tpl>/if</tpl><tpl>$header_cart_count</tpl><tpl>if $cart_count != ''</tpl></a><tpl>/if</tpl></p>
+        </div>
+      </div>
+    </div>
+    <ul class="nav">
+      <li <tpl>if $show_menu=='index'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl>$Site_Url</tpl>"  title="<tpl>$header_index</tpl>"><span><tpl>$header_index</tpl></span><!-- 首页 --></a></li>
+      <li <tpl>if $show_menu=='subject'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl>$Site_Url</tpl>/product_subject.php"  title="<tpl>$header_subject</tpl>"><span><tpl>$header_subject</tpl></span><!-- 主题馆 --></a></li>
+      <li <tpl>if $show_menu=='brand'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl>$Site_Url</tpl>/product_brand.php?action=index"  title="<tpl>$header_brand</tpl>"><span><tpl>$header_brand</tpl></span><!-- 品牌展示 --></a></li>
+      <!--  商品分类导航  -->
+	  <tpl>section name=list loop=$header_product_class</tpl>
+	  <li <tpl>if $show_product_menu==$header_product_class[list].class_id</tpl>class="current"<tpl>/if</tpl>><a href="<tpl>if $header_product_class[list].class_url!=''</tpl><tpl>$header_product_class[list].class_url</tpl><tpl>else</tpl><tpl>$Site_Url</tpl>/product_class.php?classid=<tpl>$header_product_class[list].class_id</tpl><tpl>/if</tpl>" title="<tpl>$header_product_class[list].class_name</tpl>"><span><tpl>$header_product_class[list].class_name</tpl></span></a></li>
+	  <tpl>/section</tpl>
+	        <li <tpl>if $show_article_menu=='article'</tpl>class="current"<tpl>/if</tpl>><a href="<tpl>$Site_Url</tpl>/article_class.php"  title="<tpl>$header_article</tpl>"><span><tpl>$header_article</tpl></span><!-- 文章 --></a></li>
+	<!--  文章分类导航  -->
+	<tpl>section name=list loop=$header_article_class</tpl>
+		<li <tpl>if $show_article_menu==$header_article_class[list].article_class_id</tpl>class="current"<tpl>/if</tpl>><a href="<tpl>if $header_article_class[list].article_class_url!=''</tpl><tpl>$header_article_class[list].article_class_url</tpl><tpl>else</tpl><tpl>$Site_Url</tpl>/article_class.php?id=<tpl>$header_article_class[list].article_class_id</tpl><tpl>/if</tpl>"><span><tpl>$header_article_class[list].article_class_name</tpl></span></a></li>
+	<tpl>/section</tpl>	
+    </ul>
+  </div>
+</div>
+<!-- 头部:END -->

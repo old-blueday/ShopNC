@@ -1,0 +1,149 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMemManage </tpl> &gt;&gt; <tpl> $langSysMemModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="member.manage.php" method="post" id="form_modi">
+						<input type="hidden" name="action" value="modifysave" />
+						<input type="hidden" name="member_id" value="<tpl> $member_array.member_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysMemberName </tpl>:</th>
+									<td><tpl> $member_array.login_name </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMPassword </tpl>:</th>
+									<td>
+									<span class="dptn"><tpl> $langSysMPasswordRemark </tpl></span>
+									<input class="fct-input" name="txtPassword" id="txtPassword" type="text" maxlength="80" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMemtruename </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtTruename" id="txtTruename" type="text" maxlength="10" value="<tpl> $member_array.true_name </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMbirthday </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txtBirthday" id="txtBirthday" type="text" readonly="true" value="<tpl> $member_array.birthday </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMememail </tpl>:</th>
+									<td>
+										<input class="fct-input" type="text" name="txtemail" id="txtemail" value="<tpl> $member_array.email </tpl>" maxlength="100" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMgender </tpl>:</th>
+									<td><tpl> $gender </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMmobilephone </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtMobilephone" id="txtMobilephone" type="text" maxlength="15" value="<tpl> $member_array.mobilephone </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMphone </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtPhone" id="txtPhone" type="text" maxlength="15" value="<tpl> $member_array.phone </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMotherphone </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtOtherphone" id="txtOtherphone" type="text" maxlength="15" value="<tpl> $member_array.otherphone </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMzip </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtZip" id="txtZip" type="text" maxlength="15" value="<tpl> $member_array.zip </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMaddress </tpl>:</th>
+									<td>
+										<input type="hidden" name="area_id" id="area_id" value="<tpl> $member_array.area_id </tpl>" />
+										<div id="adddiv"></div>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMemDetailAddress </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txtAddress" id="txtAddress" type="text" maxlength="60" value="<tpl> $member_array.address </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th>QQ:</th>
+									<td>
+										<input class="fct-input" name="txtQQ" id="txtQQ" type="text" maxlength="15" value="<tpl> $member_array.QQ </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th>MSN:</th>
+									<td>
+										<input class="fct-input" name="txtMSN" id="txtMSN" type="text" maxlength="100" value="<tpl> $member_array.MSN </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th>SKYPE:</th>
+									<td>
+										<input class="fct-input" name="txtSKYPE" id="txtSKYPE" type="text" maxlength="32" value="<tpl> $member_array.SKYPE </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th>TAOBAO:</th>
+									<td>
+										<input class="fct-input" name="txtTAOBAO" id="txtTAOBAO" type="text" maxlength="100" value="<tpl> $member_array.TAOBAO </tpl>" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysMemSubmit </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysMemReturnList </tpl>" onclick='history.back();'/>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					type:'modi',
+					modi_id:'<tpl> $member_array.area_id </tpl>',
+					hiddenId:'area_id'
+				});
+
+	$("#form_modi").validate({
+		errorClass: "wrong",
+		rules: {
+			txtemail: {required:true,email:true},
+			txtPassword: {minlength:6,maxlength:16}
+		},
+		messages: {
+			txtemail: {required:"<tpl> $langSysMemberMailNotNull </tpl>",email:"<tpl> $langSysMemberMailFormatErr </tpl>"},
+			txtPassword: {minlength:"<tpl> $alertSysMEnterPassword </tpl>",maxlength:"<tpl> $alertSysMEnterPassword </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

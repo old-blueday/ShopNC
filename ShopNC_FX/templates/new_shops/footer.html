@@ -1,0 +1,63 @@
+
+		<div class="w_conbot">
+			<div class="w_cbleft">
+				<ul>
+					<li>
+						<span><a href="<tpl> $site_url </tpl>/shop_article.php?action=article&id=<tpl> $artclass_array.4.0.arc_class</tpl>"><tpl> $artclass_array.4.0.cname </tpl></a></span>
+						<tpl>foreach item = sub_class from = $artclass_array.4</tpl>
+							<a href="<tpl> $Site_Url </tpl>/shop_article.php?action=article_content&id=<tpl> $sub_class.aid </tpl>" target="_blank" title="<tpl> $sub_class.title </tpl>"><tpl> $sub_class.title </tpl></a>
+						<tpl>/foreach</tpl>
+					</li>
+					<li>
+						<span><a href="<tpl> $site_url </tpl>/shop_article.php?action=article&id=<tpl> $artclass_array.5.0.arc_class</tpl>"><tpl> $artclass_array.5.0.cname </tpl></a></span>
+						<tpl>foreach item = sub_class from = $artclass_array.5</tpl>
+							<a href="<tpl> $Site_Url </tpl>/shop_article.php?action=article_content&id=<tpl> $sub_class.aid </tpl>" target="_blank" title="<tpl> $sub_class.title </tpl>"><tpl> $sub_class.title </tpl></a>
+						<tpl>/foreach</tpl>
+					</li>
+					<li>
+						<span><a href="<tpl> $site_url </tpl>/shop_article.php?action=article&id=<tpl> $artclass_array.6.0.arc_class</tpl>"><tpl> $artclass_array.6.0.cname </tpl></a></span>
+						<tpl>foreach item = sub_class from = $artclass_array.6</tpl>
+							<a href="<tpl> $Site_Url </tpl>/shop_article.php?action=article_content&id=<tpl> $sub_class.aid </tpl>" target="_blank" title="<tpl> $sub_class.title </tpl>"><tpl> $sub_class.title </tpl></a>
+						<tpl>/foreach</tpl>
+					</li>											
+				</ul>
+			</div>
+			<div class="w_cbright">
+				<div class="search_th">
+					<form name="form_search_foot" id="form_search_foot" method="get" action="<tpl>$site_url</tpl>/shop_list.php">
+					<select name="txt_class_top_id" id="txt_class_top_id_bottom">	
+						<option selected="selected" value=""><tpl>$all_class</tpl><!--所有分类--></option>
+					<tpl> section name=i loop=$node_array </tpl>
+                        <option value="<tpl> $node_array[i].id </tpl>"><tpl> $node_array[i].name</tpl></option>
+						<tpl> section name=j loop=$node_array[i].sub_array  </tpl>
+						<option value="<tpl> $node_array[i].sub_array[j].id </tpl>">&nbsp;&nbsp;|--<tpl> $node_array[i].sub_array[j].name </tpl></option>
+						<tpl> /section </tpl>
+					<tpl> /section </tpl>	
+                    </select>
+					<input type="text" value=""  name="txt_keywords" id="txt_keywords_bottom" class="text"/>
+					<div class="seach_but" onClick="$('#form_search_foot').submit();"></div>
+					</form>
+				</div>
+				<div class="clear"></div>
+				<p>客服电话：022-00000000</p>
+				<p>客服热线不受理商品咨询！如需购买咨询，请直接联系出售该商品的商家。</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+	<!--footer-->
+	<div id="copyright">
+		<!--底部导航-->
+		<ul>
+  <tpl>section name=list loop=$info_array</tpl>
+  	<tpl> if $info_array[list].info_id neq 8 </tpl>
+    	<li><a href="<tpl>if $info_array[list].info_url==''</tpl><tpl> $Site_Url </tpl>/shop_info.php?info_id=<tpl>$info_array[list].info_id</tpl><tpl>else</tpl><tpl>$info_array[list].info_url</tpl><tpl>/if</tpl>"><tpl>$info_array[list].info_title</tpl></a></li>
+	<tpl> /if </tpl>
+	<tpl>/section</tpl>
+		</ul>
+		<!--end 底部导航-->
+		<div class="clear"></div>
+		    <p><tpl> $shop_copyright </tpl></p>
+			<p><tpl>$shop_ipc</tpl></p>
+	</div>
+	<!--end footer-->

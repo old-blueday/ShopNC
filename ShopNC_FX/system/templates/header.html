@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_title</tpl></title><!--  后台管理  -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$(".open_all").click(function(){
+		$(".menu_head").removeClass("active");
+		//$(this).css({'font-weight':'normal','color':'#5F7A77'});
+		//$(this).removeAttr('style');
+		$(".menu_con").hide(500);
+		return false;
+	});
+});
+/* 顶部导航切换方法 */
+function change_menu(num) {
+	var nav = document.getElementById("list_menu");
+	var links = nav.getElementsByTagName("li");
+	var other_menu_id = num-1;
+	for (var id = 1; id <= links.length; id++)
+	{
+		var menu="menu"+id;
+		if(id == num){
+			document.getElementById(menu).className="tm"+id+" active";
+			if(other_menu_id != 0) {
+				document.getElementById("menu"+other_menu_id).className="tm"+id+" menu_actleft";
+			}
+		}
+		else{
+			if(id == 9) {
+				document.getElementById(menu).className="menu_last";
+			} else {
+				document.getElementById(menu).className="tm"+id;
+			}
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="header">
+		<div class="header_top">
+			<div class="top_menu">
+				<ul>
+					<li class="tmenu_left"><tpl>$system_header_helo</tpl><tpl>$smarty.session.system_name</tpl></li>
+					<li><a href="index.php?action=main" target="main-frame"><tpl>$system_index_main_index</tpl><!-- 管理首页 --></a></li>
+					<li><a href="<tpl>$Site_Url</tpl>" target="_blank"><tpl>$system_header_view_shop</tpl><!-- 前台查看 --></a></li>
+					<li><a href="index.php?action=clear_cache" target="_parent"><tpl>$system_index_clear_cache</tpl><!-- 更新缓存 --></a></li>
+					<li><a href="http://www.shopnc.net/document/" target="_blank"><tpl>$system_nc_line_help</tpl><!-- 在线帮助 --></a></li>
+					<li><a href="login.php?action=login_out" target="_parent"><tpl>$system_header_exit</tpl><!-- 退出 --></a></li>
+				</ul>
+			</div>
+			<div class="logo"><a href="#"><img src="templates/images/logo.gif" width="152" height="30" /></a></div>
+			<div class="clear"></div>
+		</div>
+		<div class="menu" id="list_menu">
+			<ul>
+				<li class="tm1" id="menu1"><a onclick="javascript:change_menu(1)" href="?action=left&left_show=system" target="menu-frame"  ><tpl>$system_header_system_manage</tpl><!--系统设置--></a></li>
+				<li class="tm2" id="menu2"><a onclick="javascript:change_menu(2)" href="?action=left&left_show=shop" target="menu-frame"  ><tpl>$system_header_shop_manage</tpl><!--网店管理--></a></li>
+				<tpl>if $pay_receive_type eq 2</tpl>
+				<li class="tm3" id="menu3"><a onclick="javascript:change_menu(3)" href="?action=left&left_show=order" target="menu-frame"  ><tpl>$system_header_order_manage</tpl><!--  订单管理  --></a></li>
+				<li class="tm4" id="menu4"><a onclick="javascript:change_menu(4)" href="?action=left&left_show=product" target="menu-frame"  ><tpl>$system_header_goods_manage</tpl><!--商品管理--></a></li>
+				<tpl>/if</tpl>
+				<li class="tm<tpl>if $pay_receive_type neq 2</tpl>3<tpl>else</tpl>5<tpl>/if</tpl>" id="menu<tpl>if $pay_receive_type neq 2</tpl>3<tpl>else</tpl>5<tpl>/if</tpl>">
+				<a onclick="javascript:change_menu(<tpl>if $pay_receive_type neq 2</tpl>3<tpl>else</tpl>5<tpl>/if</tpl>)" href="?action=left&left_show=article" target="menu-frame"  ><tpl>$system_header_article_manage</tpl><!--文章管理--></a>
+				</li>
+				<li class="tm<tpl>if $pay_receive_type neq 2</tpl>4<tpl>else</tpl>6<tpl>/if</tpl>" id="menu<tpl>if $pay_receive_type neq 2</tpl>4<tpl>else</tpl>6<tpl>/if</tpl>">
+				<a onclick="javascript:change_menu(<tpl>if $pay_receive_type neq 2</tpl>4<tpl>else</tpl>6<tpl>/if</tpl>)" href="?action=left&left_show=tool" target="menu-frame"  ><tpl>$system_header_tools_manage</tpl><!--工具管理--></a>
+				</li>
+				<tpl>if $pay_receive_type eq 2</tpl>
+				<li class="tm7" id="menu7"><a onclick="javascript:change_menu(7)" href="?action=left&left_show=module" target="menu-frame"  ><tpl>$system_header_module_manage</tpl><!--  模块管理  --></a></li>
+				<tpl>/if</tpl>
+				<li class="tm<tpl>if $pay_receive_type neq 2</tpl>5<tpl>else</tpl>8<tpl>/if</tpl>" id="menu<tpl>if $pay_receive_type neq 2</tpl>5<tpl>else</tpl>8<tpl>/if</tpl>">
+				<a onclick="javascript:change_menu(<tpl>if $pay_receive_type neq 2</tpl>5<tpl>else</tpl>8<tpl>/if</tpl>)" href="?action=left&left_show=analysis" target="menu-frame"  ><tpl>$system_header_analysis_manage</tpl><!--统计管理--></a>
+				</li>
+				<li class="menu_last" id="menu<tpl>if $pay_receive_type neq 2</tpl>6<tpl>else</tpl>9<tpl>/if</tpl>"><a onclick="javascript:change_menu(<tpl>if $pay_receive_type neq 2</tpl>6<tpl>else</tpl>9<tpl>/if</tpl>)" href="?action=left" target="menu-frame" ><tpl>$system_header_all</tpl><!--全部功能--></a></li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

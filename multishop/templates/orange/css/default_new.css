@@ -1,0 +1,39 @@
+@charset "utf-8";
+
+a {color: #183138; text-decoration: none; }
+
+a:hover { color: #12A1C9; text-decoration: none;}
+
+body { background-color: #FFF; font-size: 12px; margin: 0; padding: 0; font-family: Tahoma, Arial; height: 100%; }
+
+iframe, dl, dt, dd, p, h2, h1, h5 { margin: 0; padding: 0; border: 0}
+
+h2 { font-size: 16px;}
+
+h1 {font-size: 24px;}
+
+h3 {font-size: 12px; font-weight: 600;	margin: 0}
+
+html {font-family: Tahoma, Arial; font-size: 12px; margin: 0; padding: 0; height: 100%}
+
+img {border: 0;}
+
+ul, li, ol { list-style-type: none; margin: 0; padding: 0}
+
+* { margin: 0; padding: 0;}
+
+/*  hide hack from Mac-IE5 \ */*  html #main {height: 1em;}
+
+/*  end hiding  */.clear { clear: both; float: none;}
+
+.left { float: left;}
+
+.right {float: right;}
+
+var { font-style: normal;}
+
+.display {display: block;}
+
+.none {display: none;}
+
+.barbtm { float: left; font-size: 1px; height: 8px; width: 100%; clear: both;}

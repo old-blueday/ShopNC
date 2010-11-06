@@ -1,0 +1,93 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSIPAnalyse </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_ip.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="trend" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseFillInIP </tpl>:</th>
+								<td><input name="ip" id="ip" class="fct-input" type="text" value="<tpl> $ip </tpl>" /></td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<select name="time">
+										<option value="1" <tpl> if $time eq '1' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceWeek </tpl></option>
+										<option value="2" <tpl> if $time eq '2' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpWeek </tpl></option>
+										<option value="3" <tpl> if $time eq '3' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSNonceMonth </tpl></option>
+										<option value="4" <tpl> if $time eq '4' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSUpMonth </tpl></option>
+										<option value="5" <tpl> if $time eq '5' || $time eq '' </tpl> selected <tpl> /if </tpl> ><tpl> $langSysSLatelyThirtyDay </tpl></option>
+									</select>&nbsp;&nbsp;
+									<input class="bthl" value="<tpl> $langSysSSubmit </tpl>" type="submit" />
+								</td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="3">
+										<input type="radio" class="input_radio" id="type_one" onclick="location.href='statics_ip.manage.php?action=list'" /><label for="type_one"><tpl> $langSysSIpFlux </tpl></label>
+										<input type="radio" class="input_radio" id="type_many" checked /><label for="type_many"><tpl> $langSysSIpFluxDirection </tpl></label>
+									</td>
+								</tr>
+								<tr>
+								    <td colspan="3"><tpl> $langSysSPeriodOfTime </tpl>:<tpl> $start_time </tpl> <tpl> $langSysSTo </tpl> <tpl> $end_time </tpl></td>
+								</tr>
+								<tr>
+									<td colspan="3"><tpl> $statics_flash </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysSTimeSegment </tpl></th>
+							        <th>PV</th>
+								    <th><tpl> $langSysSPercent </tpl></th>
+								</tr>
+								<tpl> foreach from=$ip_array item=one key=key </tpl>
+									<tr>
+										<td><tpl> $one.time </tpl></td>
+										<td><tpl> $one.num </tpl></td>
+										<td>
+											<tpl> if $ip_num neq '' && $ip_num neq '0' </tpl>
+												<tpl> $one.num/$ip_num*100|string_format:'%.2f' </tpl>%
+											<tpl> else </tpl>
+												0.00%
+											<tpl> /if </tpl>
+										</td>
+								  	</tr>
+        						<tpl> /foreach </tpl>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	$('#txt_time').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+</script>
+</body>
+</html>

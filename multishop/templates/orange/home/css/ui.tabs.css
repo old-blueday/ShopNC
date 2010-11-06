@@ -1,0 +1,87 @@
+@media projection, screen { 
+    .ui-tabs-hide {display: none;}
+}
+@media print {
+}
+.ui-tabs-nav {
+	list-style: none;
+	background: url(../images/best_tab_bg.gif) no-repeat 0 0;
+	width: 218px;
+	height: 32px;
+	padding-left: 3px;
+}
+.ui-tabs-nav:after { /*  clearing without presentational markup, IE gets extra treatment  */display: block;
+    clear: both;
+    content: " ";
+}
+.ui-tabs-nav li {
+	float: left;
+	margin-left: 4px;
+}
+
+.ui-tabs-nav a {
+	outline: 0;
+	background: url(../images/best_tab.gif) no-repeat left -50px;
+	height: 25px;
+	margin-top: 7px;
+	float: left;
+}
+
+.ui-tabs-nav  a span    {
+	background: url(../images/best_tab.gif) no-repeat right top;
+	padding:0 0 0 3px;
+	min-height: 18px;
+	padding-top: 0px;
+	padding-right: 6px;
+	line-height: 25px;
+	height: 25px;
+	display: inline;
+	float: left;
+	margin:0 0 0 3px;
+	font-weight: 600;
+}
+.ui-tabs-nav .ui-tabs-selected a, 
+.ui-tabs-nav a:hover, 
+.ui-tabs-nav a:focus, 
+.ui-tabs-nav a:active 
+{background-position: left -75px;}
+
+.ui-tabs-nav .ui-tabs-disabled a:hover,
+.ui-tabs-nav .ui-tabs-disabled a:focus,
+.ui-tabs-nav .ui-tabs-disabled a:active 
+{
+	background-position: left -50px;
+}
+
+.ui-tabs-nav .ui-tabs-selected a span, 
+.ui-tabs-nav a:hover span, 
+.ui-tabs-nav a:focus span, 
+.ui-tabs-nav a:active span {
+	background-position: right -25px;
+	color: #12A1C9;
+}
+.ui-tabs-nav .ui-tabs-disabled a:hover span,
+.ui-tabs-nav .ui-tabs-disabled a:focus span,
+.ui-tabs-nav .ui-tabs-disabled a:active span 
+{
+	background-position: left top;
+}
+
+
+.ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited, .ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited { /*  @ Opera, use pseudo classes otherwise it confuses cursor...  */cursor: text;
+}
+.ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
+.ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active { /*  @ Opera, we need to be explicit again here now...  */cursor: pointer;
+}
+.ui-tabs-disabled {
+    opacity: .4;
+    filter: alpha(opacity=40);
+}
+.ui-tabs-panel1 {
+	border-top: 1px solid #C9C6B4;
+	padding:0
+}
+.ui-tabs-loading em {
+padding:0;
+	background: url(../images/loading.gif) no-repeat 0 50%;
+}

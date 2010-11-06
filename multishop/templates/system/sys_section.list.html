@@ -1,0 +1,82 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysSecManage </tpl> &gt;&gt; <tpl> $langSysSecList </tpl></div>
+					<div class="gtlbar-right" onclick="location.href='section.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langSysSecNewAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="section.manage.php?action=footersave" id="form1" name="form1" method="post">
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-5"><tpl> $langSysSecHomeDis </tpl></td>
+						<td class="es-4"><tpl> $langSysSecName </tpl></td>
+						<td class="es-2"><tpl> $langSysSecJumpLink </tpl></td>
+						<td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $section_array[0].section_id neq '' </tpl>
+						<tpl> section name=loop loop=$section_array </tpl>
+					<tr class="es-td">
+						<td id="check-1">
+						<input <tpl> if $section_array[loop].is_show eq '1' </tpl>checked="checked"<tpl> /if </tpl> type="checkbox" name="section_id[]"  value="<tpl> $section_array[loop].section_id </tpl>" />
+						</td>
+						<td><tpl> $section_array[loop].section_name </tpl></td>
+						<td>
+							<tpl> if $section_array[loop].section_url neq '' </tpl><a href="javascript:;" style="cursor:pointer;" title="<tpl> $section_array[loop].section_url </tpl>"><tpl> $langCHave </tpl></a>
+							<tpl> else </tpl>
+								<tpl> $langCNot </tpl>
+							<tpl> /if </tpl>
+						</td>
+						<td>
+							<a href="section.manage.php?action=modi&id=<tpl> $section_array[loop].section_id </tpl>"><tpl> $langCmodi </tpl></a> | <a href="javascript:;" onclick="if(confirm('<tpl> $langSysSecDelConfirm </tpl>')){location.href='section.manage.php?action=del&id=<tpl> $section_array[loop].section_id </tpl>'}else{return false;};"><tpl> $langCdele </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $section_array[0].section_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form1');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form1');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form1');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $news_array[0].news_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysSecNewlyCreateShopFooter </tpl>" type="submit" /> 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form1").validate({
+		errorClass: "wrong",
+		rules: {
+			section_id: {requireChecked:true}
+		},
+		messages: {
+			section_id: {required:"<tpl> $langSysSecPleaseSelectDisInfo </tpl>"}
+		}
+	});
+});
+</script>
+</body>
+</html>

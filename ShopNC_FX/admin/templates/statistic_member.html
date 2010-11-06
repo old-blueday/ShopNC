@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_system_manage</tpl> - <tpl>$admin_stati_member</tpl></title><!-- 统计分析 - 会员统计 -->
+<link id="calCss" type="text/css" href="../js/calendar/blue/blue.css" rel="Stylesheet" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+</head>
+<script language="JavaScript" type="text/javascript" src="../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../js/calendar/Calendar.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/jquery/jquery.dimensions.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/jquery/jquery.accordion.js"></script>
+<body id="noulmenu">
+<div id="content">
+  <form action="admin_stat_member.php?action=index" method="post" id="form1">
+    <h2><tpl>$admin_header_system_manage</tpl> >> <tpl>$admin_stati_member</tpl><!-- 统计分析 >> 会员统计 --></h2>
+    <div class="entry-body" id="entry1">
+		<table border="0" class="st-table" cellpadding="0" cellspacing="1">
+			<tr>
+				<td class="textLeft"><tpl>$admin_stati_member_method</tpl><!-- 统计方式 -->:
+				  <tpl>$date_type</tpl>
+			    </td>
+			</tr>
+			<tr>
+				<td class="textLeft"><tpl>$admin_stati_member_date</tpl><!-- 选择日期 -->:
+				  <input type="text" name="start_date" id="start_date" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl> $start_date </tpl>" />
+			    <tpl>$admin_stati_member_fromto</tpl><!-- 至 -->
+			    <input type="text" name="end_date" id="end_date" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px; " readonly="readonly" value="<tpl> $end_date </tpl>" />
+				<tpl>$admin_stati_member_info</tpl><!-- 前为开始时间，后为结束时间，开始时间不能大于结束时间，并且时间间隔不能超过60天 -->
+				</td>
+			</tr>
+			<tr>
+				<td class="textLeft"><input type="submit" name="Submit" value="<tpl>$admin_stati_member_search</tpl>" class="btnInput" /></td><!-- 搜 索 -->
+			</tr>
+		</table>
+		<div class="st-display">
+			<tpl>$statics_flash</tpl>
+		</div>
+    </div><!--  end of entry1  -->
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+<script type="text/javascript" language="javascript">
+$(function(){
+   $("#start_date").datepicker();
+   $("#end_date").datepicker();
+})
+</script>
+</html>

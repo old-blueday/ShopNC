@@ -1,0 +1,27 @@
+<tpl> foreach from=$sale_score.median item=one </tpl>
+	<tpl> if $sale_score.level eq '0' </tpl>
+		<img title="<tpl> $sale_score.interval.one </tpl>－<tpl> $sale_score.interval.two </tpl><tpl>$langProductOnClickPoint</tpl>" src="../../../<tpl>$templatepath</tpl>/images/b_red_1.gif" alt="<tpl> $sale_score.interval.one </tpl>－<tpl> $sale_score.interval.two </tpl><tpl>$langProductOnClickPoint</tpl>">
+	<tpl> /if </tpl>
+	<tpl> if $sale_score.level eq '1' </tpl>
+		<img title="<tpl> $sale_score.interval.one </tpl>－<tpl> $sale_score.interval.two </tpl><tpl>$langProductOnClickPoint</tpl>" src="../../../<tpl>$templatepath</tpl>/images/b_red_2.gif" alt="<tpl> $sale_score.interval.one </tpl>－<tpl> $sale_score.interval.two </tpl><tpl>$langProductOnClickPoint</tpl>">
+	<tpl> /if </tpl>
+	<tpl> if $sale_score.level eq '2' </tpl>
+		<img title="<tpl> $sale_score.interval.one </tpl>－<tpl> $sale_score.interval.two </tpl><tpl>$langProductOnClickPoint</tpl>" src="../../../<tpl>$templatepath</tpl>/images/b_red_3.gif" alt="<tpl> $sale_score.interval.one </tpl>－<tpl> $sale_score.interval.two </tpl><tpl>$langProductOnClickPoint</tpl>">
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+
+<li > 
+<tpl> if $seller_info.TAOBAO neq '' </tpl>	
+	  <a target="_blank" href="http://amos1.taobao.com/msg.ww?v=2&uid=<tpl> $seller_info.TAOBAO </tpl>&site=cntaobao&s=2" ><img border="0" src="../../../<tpl>$templatepath</tpl>/home/images/wangwang.bmp" alt="<tpl>$langPOnClickMyMessage</tpl>" /></a>
+<tpl> /if </tpl> 
+<tpl> if $seller_info.QQ neq '' </tpl>	  
+	  <a href=tencent://message/?uin=<tpl> $seller_info.QQ </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC="../../../<tpl>$templatepath</tpl>/home/images/qq.bmp"alt="<tpl>$langPOnClickMyMessage</tpl>"></a>
+<tpl> /if </tpl> 
+<tpl> if $seller_info.SKYPE neq '' </tpl>
+	<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+	<a href="skype:<tpl> $seller_info.SKYPE </tpl>?call"><img src="../../../<tpl>$templatepath</tpl>/images/call_blue_transparent_34x34.png" style="border: none;" width="34" height="34" alt="Skype Me™!" /></a>
+<tpl> /if </tpl>
+<tpl> if $seller_info.MSN neq '' </tpl>
+	<A href="msnim:chat?contact=<tpl> $seller_info.MSN </tpl>"><FONT color=#8080ff></FONT><IMG src="../../../<tpl>$templatepath</tpl>/home/images/msn.gif" border="0"></A>
+<tpl> /if </tpl>
+</li>

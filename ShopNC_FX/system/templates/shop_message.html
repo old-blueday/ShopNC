@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$msg_title</tpl></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.STYLE1 {font-size: 18px}
+-->
+</style>
+<tpl>$html_body</tpl>
+</head>
+
+<body id="info_success">
+<div id="rightcon">
+			<div class="rc_con">
+				<h5><tpl>$msg_title</tpl></h5>
+    <div class="entry-body border_e8" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab">
+			<tr>
+				<td align="right"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/info_success.gif" /></td>
+			    <td width="847" class="textLeft STYLE1"><tpl>$msg_info</tpl></td>
+			</tr>
+			<tr>
+				<td width="128">&nbsp;</td>
+				<td class="textLeft"><tpl>$click_url</tpl></td>
+			</tr>
+		</table>
+	</div>
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

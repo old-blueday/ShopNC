@@ -1,0 +1,79 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSMember </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_member.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSClass </tpl>:</th>
+								<td colspan="3">
+									<input class="fct-input" readonly="true" value="<tpl> $condition.start_date </tpl>" name="start_date" id="s_date" type="text" />
+									<tpl> $langSysSTo </tpl>
+									<input class="fct-input" readonly="true" value="<tpl> $condition.end_date </tpl>" name="end_date" id="e_date" type="text" />
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"></th>
+								<td colspan="3"><tpl> $langSysSBeginTimeEndTime </tpl></td>
+							</tr>
+                            <tr>
+								<th class="wd"><tpl> $langSysSFashion </tpl>:</th>
+								<td class="it-1">
+									<select name="type">
+										<option value="" <tpl> if $condition.type eq '' </tpl> selected="selected" <tpl> /if </tpl>><tpl> $langSysSPleaseSelect </tpl></option>
+										<option value="y" <tpl> if $condition.type eq 'Y' </tpl> selected="selected" <tpl> /if </tpl>><tpl> $langSysSOnYear </tpl></option>
+										<option value="m" <tpl> if $condition.type eq 'm' </tpl> selected="selected" <tpl> /if </tpl>><tpl> $langSysSOnMonth </tpl></option>
+										<option value="d" <tpl> if $condition.type eq 'd' </tpl> selected="selected" <tpl> /if </tpl>><tpl> $langSysSOnDay </tpl></option>
+									</select>
+								</td>
+                                <td class="mk-2" colspan="2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td><tpl> $statics_flash </tpl></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	$('#s_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	$('#e_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+
+</script>
+</body>
+</html>

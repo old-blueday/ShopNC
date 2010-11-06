@@ -1,0 +1,1 @@
+<?php$currencies_set = array(					1=>array(						'currencies_id'=>'1',						'currencies_name'=>'人民币',						'currencies_code'=>'CNY',						'currencies_symbol'=>'￥',						'currencies_units'=>'元',						'currencies_rate'=>'1.0000',						'currencies_long'=>'2',						'language_id'=>'1',					));?>

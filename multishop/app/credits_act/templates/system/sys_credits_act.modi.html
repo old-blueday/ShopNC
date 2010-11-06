@@ -1,0 +1,129 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysAppManage </tpl> &gt;&gt; <tpl> $langCACreditsAction </tpl> &gt;&gt; <tpl> $langSysCAModi </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="../<tpl> $app_module.app_module_sign </tpl>/system.php" method="post" enctype="multipart/form-data" name="form_modi" id="form_modi">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="ca_id" id="ca_id" value="<tpl> $act_row.ca_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysCATitle </tpl>:</th>
+									<td><input type="text" class="fct-input" maxlength="100" name="ca_title" id="ca_title" value="<tpl> $act_row.ca_title </tpl>" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCAEndTime </tpl>:</th>
+									<td>
+										<input type="text" class="fct-input" name="ca_end_time" id="ca_end_time" value="<tpl> $act_row.ca_end_time </tpl>" readonly="readonly" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysCAContent </tpl>:</th>
+									<td>
+										<tpl>php</tpl>
+											include_once('../../classes/resource/editor/editor.class.php');
+											$editor=new editor('ca_content');
+											$editor->Value=$this->_tpl_vars['act_row']['ca_content'];
+											$editor->BasePath='../../classes/resource/editor';
+											$editor->Height=460;
+											$editor->Width=700;
+											$editor->AutoSave=false;
+											$editor->Create();
+										<tpl>/php</tpl>
+									</td>
+								</tr>
+								<tr>
+								  <th><tpl> $langSysCAGoods </tpl>:</th>
+									<td>
+										<table width="100%" border="0" cellpadding="0" cellspacing="0">
+											<tr>
+												<td class="es-1"><tpl> $langSysCADelShort </tpl></td>
+												<td><tpl> $langSysCAGoodsName </tpl></td>
+												<td><tpl> $langSysCAGoodsNum </tpl></td>
+												<td><tpl> $langSysCAGoodsCredits </tpl></td>
+												<td><tpl> $langSysCAGoodsPic </tpl></td>
+											</tr>
+											<tbody id="act_pro">
+												<tpl> section name=loop loop=$act_goods_list </tpl>
+												<input type="hidden" name="cag_id[]" id="cag_id[]" value="<tpl> $act_goods_list[loop].cag_id </tpl>" />
+												<tr>
+													<td><input type="checkbox" name="del_cag_id[]" value="<tpl> $act_goods_list[loop].cag_id </tpl>" /></td>
+													<td><input class="fct-input-4" type='text' size='20' maxlength='100'  name='product_name[]' value="<tpl> $act_goods_list[loop].cag_name </tpl>" /></td>
+													<td><input class="fct-input-2" type='text' size='10' maxlength='6' name='product_num[]' value="<tpl> $act_goods_list[loop].cag_num </tpl>" /></td>
+													<td><input class="fct-input-2" type='text' size='5' maxlength='6' name='product_credits[]' value="<tpl> $act_goods_list[loop].cag_credits </tpl>" /></td>
+													<td>
+														<a href="<tpl> $site_url </tpl>/<tpl> $act_goods_list[loop].cag_pic </tpl>" class="thickbox" target="_blank"><tpl> $langSysCAGoodsViewPic </tpl></a>
+														<a href="javascript:;" onclick="$('#goods_pic_<tpl> $smarty.section.loop.index </tpl>').toggle();"><tpl> $langSysCAGoodsChangePic </tpl></a>
+														<span style="display:none" id="goods_pic_<tpl> $smarty.section.loop.index </tpl>">
+														<input type='file' name='product_pic_<tpl> $smarty.section.loop.index </tpl>' />
+														</span>
+													</td>
+												</tr>
+												<tpl> /section </tpl>
+											</tbody>
+										</table>
+								    </td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="button" name="sel_all_checkbox" id="sel_all_checkbox" class="bthl" value="<tpl> $langSysCADelAll </tpl>" onclick="sel_negative_checkbox('form_modi');" /></span>
+							<input type="submit" class="bthl" value="<tpl> $langSysCASave </tpl>" />
+							<input type="button" name="add_button" id="add_button" class="bthl" value="<tpl> $langSysCAGoodsAdd </tpl>" />
+					 		<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='../<tpl> $app_module.app_module_sign </tpl>/system.php?action=ajax_list'" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	//时间
+	$('#ca_end_time').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	//增加一列
+	$('#add_button').click(function(e){
+		var num = $('#act_pro').children('tr').length;
+		$('#act_pro').append("<tr>" +
+		"<td></td>"+
+		"<td><input class='fct-input-4' type='text' size='20'  name='product_name[]' /></td>" +
+		"<td><input class='fct-input-2' type='text' size='10' name='product_num[]' /></td>" +
+		"<td><input class='fct-input-2' type='text' size='10' name='product_credits[]' /></td>" +
+		"<td><input type='file' name='product_pic_"+num+"' /></td>"
+		+"</tr>"
+		);
+	});
+	//对添加表单做的验证定义
+	$("#form_modi").validate({
+		errorClass: "wrong",
+		rules: {
+			ca_title:{required:true},
+			ca_end_time:{required:true}
+		},
+		messages: {
+			ca_title:{required:'<tpl> $errSysCATitleIsEmpty </tpl>'},
+			ca_end_time:{required:'<tpl> $errSysCAEntTimeIsEmpty </tpl>'}
+		}
+	});
+});
+</script>

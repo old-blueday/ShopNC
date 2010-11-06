@@ -1,0 +1,119 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langOtherAdvManage </tpl> &gt;&gt; <tpl> $langOtherModiAdv </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="advertisement.manage.php" id="form_add" name="form_add" enctype="multipart/form-data" method="post">
+						<input type="hidden" name="action" value="update" />
+						<input type="hidden" name="txt_id" value="<tpl> $adv_array.adv_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langOtherTransferCode </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_code" id="txt_code" type="text" maxlength="80" value="<tpl> $adv_array.adv_code </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherTitle </tpl>:</th>
+									<td>
+									<input class="fct-input" name="txt_title" id="txt_title" type="text" maxlength="80" value="<tpl> $adv_array.adv_title </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherAddType </tpl>:</th>
+									<td><tpl> $txt_type </tpl></td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherImage </tpl>:</th>
+									<td id="td_adv_pic">
+										<tpl> if $adv_array.adv_pic neq '' </tpl>
+											<img src="<tpl> $site_url </tpl>/<tpl> $adv_array.adv_pic </tpl>" width='100px;' heigth='100px;' border="0" />
+											<input class="bthl" type="button" id="delbutton" name="delbutton" value="<tpl> $langOtherAdvDel </tpl>" />
+										<tpl> else </tpl>
+											<input name="txt_pic" id="txt_pic" type="file" />
+										<tpl> /if </tpl>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherLink </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txt_url" id="txt_url" type="text" maxlength="200" value="<tpl> $adv_array.adv_url </tpl>" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherAdvBulk </tpl>(<tpl> $langOtherWidth </tpl>):</th>
+									<td>
+										<input class="fct-input" name="txt_width" id="txt_width" type="text" maxlength="10" value="<tpl> $adv_array.adv_width </tpl>" />px</td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherAdvBulk </tpl>(<tpl> $langOtherHigth </tpl>):</th>
+									<td>
+										<input class="fct-input" name="txt_heigth" id="txt_heigth" type="text" maxlength="10" value="<tpl> $adv_array.adv_heigth </tpl>" />px</td>
+								</tr>
+								<tr>
+									<th><tpl> $langCSort </tpl>:</th>
+									<td>
+										<input class="fct-input" name="txt_sort" id="txt_sort" type="text" value="<tpl> $adv_array.adv_sort </tpl>" maxlength="9" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langOtherEstate </tpl>:</th>
+									<td>
+										<input name="txt_state" class="input_radio" id="txt_state_0" type="radio" value="0" <tpl> if $adv_array.adv_state eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label for="txt_state_0"><tpl> $langCOpen </tpl></label>
+										<input name="txt_state" class="input_radio" id="txt_state_1" type="radio" value="1" <tpl> if $adv_array.adv_state eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label for="txt_state_1"><tpl> $langCClose </tpl></label>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_title: {required:true},
+			txt_url: {required:true,url:true},
+			txt_code: {required:true},
+			txt_width: {number:true},
+			txt_heigth: {number:true},
+			txt_sort: {required:true,number:true}
+		},
+		messages: {
+			txt_title: {required:"<tpl> $langOtherAdvTitleNotNull </tpl>"},
+			txt_url: {required:"<tpl> $langOtherAdvLinkNotNull </tpl>",url:"<tpl> $langOtherAdvUrlIsWrong </tpl>"},
+			txt_code: {required:"<tpl> $langOtherTransferCodeNotNull </tpl>"},
+			txt_width: {number:"<tpl> $langOtherAdvMustIsNum </tpl>"},
+			txt_heigth: {number:"<tpl> $langOtherAdvMustIsNum </tpl>"},
+			txt_sort: {required:"<tpl> $langOtherAdvMustIsNum </tpl>",number:"<tpl> $langOtherAdvMustIsNum </tpl>"}
+		}
+	});
+	
+	//Del image
+	$('#delbutton').click(function(){
+		$.ajax({
+			url: "advertisement.manage.php",
+			data: 'action=del_pic&id='+<tpl> $adv_array.adv_id </tpl>,
+			type:'post',
+			dataType:"json"
+		});
+		$('#td_adv_pic').html('<input name="txt_pic" id="txt_pic" type="file" />');
+	});
+});
+</script>
+</body>
+</html>

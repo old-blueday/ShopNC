@@ -1,0 +1,127 @@
+<div class="ft-left">
+	<div id="GuestBookTitle">
+		<div id="GBNewMessage" class="ft-line">
+			<tpl> $langStoreShopIntro </tpl>
+		</div>
+		
+		</div>
+	<div class="wd-i"><!-- 店铺与掌柜信息 -->
+<table width="100%" border="0" cellpadding="0">
+	<tr>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreShopkeeper </tpl>:
+			</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font">
+			<tpl> $shop_info.login_name </tpl> 
+							<tpl> if $shop_info.audit_state == '2' </tpl> 
+								<img src="<tpl> $template_dir </tpl>/images/renzheng_g.gif" border="0" title="<tpl> $langStoreAlreadyEntityShop </tpl>"/>
+			<tpl> /if </tpl></td>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreCreateTime </tpl>:</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font">
+			<tpl> $shop_info.regist_time </tpl>
+			</td>
+	</tr>
+	<tr>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreBuyCredit </tpl>:</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font"><a href="user_rate.php?userid=<tpl> $shop_info.member_id </tpl>">
+			<tpl> $shop_info.buy_score.score|default:'0' </tpl></a>
+							<tpl> if $shop_info.buy_score neq '0' </tpl>
+							<tpl> foreach from=$shop_info.buy_score.median item=one </tpl>
+								<tpl> if $shop_info.buy_score.level eq '0' </tpl>
+									<img title="<tpl> $shop_info.buy_score.interval.one </tpl>－<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>－<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.buy_score.level eq '1' </tpl>
+									<img title="<tpl> $shop_info.buy_score.interval.one </tpl>－<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>－<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.buy_score.level eq '2' </tpl>
+									<img title="<tpl> $shop_info.buy_score.interval.one </tpl>－<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $shop_info.buy_score.interval.one </tpl>－<tpl> $shop_info.buy_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+							<tpl> /foreach </tpl>
+			<tpl> /if </tpl></td>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreSaleCredit </tpl>:</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font">
+			
+			<a href="user_rate.php?userid=<tpl> $shop_info.member_id </tpl>">
+			<tpl> $shop_info.sale_score.score|default:'0' </tpl></a>
+							<tpl> if $shop_info.sale_score neq '0' </tpl>
+							<tpl> foreach from=$shop_info.sale_score.median item=one </tpl>
+								<tpl> if $shop_info.sale_score.level eq '0' </tpl>
+									<img title="<tpl> $shop_info.sale_score.interval.one </tpl>－<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_1.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>－<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.sale_score.level eq '1' </tpl>
+									<img title="<tpl> $shop_info.sale_score.interval.one </tpl>－<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_2.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>－<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+								<tpl> if $shop_info.sale_score.level eq '2' </tpl>
+									<img title="<tpl> $shop_info.sale_score.interval.one </tpl>－<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>" src="<tpl> $template_dir </tpl>/images/b_red_3.gif" alt="<tpl> $shop_info.sale_score.interval.one </tpl>－<tpl> $shop_info.sale_score.interval.two </tpl><tpl> $langStoreIntegralLook </tpl>">
+								<tpl> /if </tpl>
+							<tpl> /foreach </tpl>
+			<tpl> /if </tpl>
+			</td>
+	</tr>
+	<tr>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreBabyNum </tpl>:</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font">
+			<tpl> $shop_info.product_count|default:'0' </tpl></td>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreAffiliation </tpl>:</strong></td>
+		<td  width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font">
+				<a href="<tpl> $site_url </tpl>/member/own_message.php?action=add&username=<tpl> $shop_info.login_name </tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/images/zhannei.gif" alt="<tpl> $langStoreSendEpistle </tpl>"/></a>
+                
+				<tpl> if $shop_info.TAOBAO.0 neq '' </tpl>	
+				<tpl> foreach item=item key=key from=$shop_info.TAOBAO </tpl>
+					<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=2&uid=<tpl> $item </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=2&uid=<tpl> $item </tpl>&site=cntaobao&s=2" alt="<tpl> $langStoreOnClickMyInfo </tpl>" /></a>
+				<tpl> /foreach </tpl>
+				<tpl> /if </tpl> 
+                
+				<tpl> if $shop_info.QQ.0 neq '' </tpl>	  
+				<tpl> foreach item=item key=key from=$shop_info.QQ </tpl>
+					<a target=blank href=tencent://message/?uin=<tpl> $item </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $item </tpl>:4 alt="<tpl> $langStoreOnClickMyInfo </tpl>"></a>
+				<tpl> /foreach </tpl>
+				<tpl> /if </tpl> 
+				<tpl> if $shop_info.SKYPE.0 neq '' </tpl>
+				<tpl> foreach item=item key=key from=$shop_info.SKYPE </tpl>
+					<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+					<a href="skype:<tpl> $item </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="19" height="19" alt="Skype Me?!" /></a>
+				<tpl> /foreach </tpl>
+				<tpl> /if </tpl>
+                
+				<tpl> if $shop_info.MSN.0 neq '' </tpl>
+				<tpl> foreach item=item key=key from=$shop_info.MSN </tpl>
+					<A href="msnim:chat?contact=<tpl> $item </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0"></A>
+				<tpl> /foreach </tpl>
+				<tpl> /if </tpl>			
+			</td>
+	</tr>
+	<tr>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle">
+			<strong>
+			<tpl> $langStoreAddress </tpl>:</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font"><tpl> section name=loop loop=$shop_info.shop_area </tpl>
+								<tpl> $shop_info.shop_area[loop].area_name </tpl>
+			<tpl> /section </tpl></td>
+		<td class="bg-ys" width="100" height="25" align="right" valign="middle"><strong><tpl> $langShopIntroPhone </tpl>:</strong></td>
+		<td width="200" height="25" align="center" valign="middle" bgcolor="#FFFFFF" class="we-font"><tpl> $shop_array.mobilephone|default:$langCNot </tpl></td>
+	</tr>
+	<tr>
+		<td class="bg-ys" width="100" align="right" valign="middle">
+			<strong>
+			<tpl> $langShopIntro </tpl>:</strong></td>
+		<td colspan='3' style=" line-height:180%; padding:5px;" align="left" bgcolor="#FFFFFF" class="we-font">
+			<tpl> $shop_array.shop_intro </tpl>
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+
+

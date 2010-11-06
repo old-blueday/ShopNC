@@ -1,0 +1,171 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopManageAllShop </tpl> &gt;&gt; <tpl> $langSysShopList </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="shop.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysShopName </tpl>:</th>
+								<td class="it-2">
+									<input class="fct-input" value="<tpl> $condition.txtShopName </tpl>" name="txtShopName" id="txtShopName" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysShopClass </tpl>:</th>
+								<td class="it-2">
+									<select class="sele-2" name="slcShopClass" id="slcShopClass">
+                                        <tpl> foreach from=$sel_category item=one key=key </tpl>
+                                        <option value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                                        <tpl> /foreach </tpl>
+                                    </select>
+								</td>
+							</tr>
+                            <tpl> if $sys_group_info.sys_group_area_id eq "" </tpl>
+                            <tr>
+								<th class="wd"><tpl> $langSysShopAreaSeach </tpl>:</th>
+								<td class="it-5" colspan="3"> 
+									<input type="hidden" name="shop_area_id" id="shop_area_id" />
+									<div id="adddiv"></div>
+								</td>
+							</tr>
+                            <tpl> /if </tpl>
+							<tr>
+                            	<th class="wd"><tpl> $langSysShopBound </tpl>:</th>
+								<td class="it-2">
+									<input class="fct-input" value="<tpl> $condition.txtSaleRange </tpl>" name="txtSaleRange" id="txtSaleRange" type="text" />
+								</td>
+								<th class="wd"><tpl> $langSysShopAuditState </tpl>:</th>
+								<td class="it-2"> 
+									<select name="ischeck">
+                                        <option value=""><tpl> $langSysShopPleaseSelect </tpl></option>
+                                        <option value="0" <tpl> if $condition.ischeck eq '0' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysShopApply </tpl></option>
+                                        <option value="1" <tpl> if $condition.ischeck eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysShopPass </tpl></option>
+                                        <option value="2" <tpl> if $condition.ischeck eq '2' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysShopClose </tpl></option>
+                                    </select>
+								</td>
+							</tr>
+                            <tr>
+								<th class="wd"><tpl> $langSysShopEstate </tpl>:</th>
+								<td class="it-2"> 
+									<select name="if_del">
+                                        <option value="0"><tpl> $langSysShopStateZero </tpl></option>
+                                        <option value="1" <tpl> if $condition.if_del eq '1' </tpl>selected="selected"<tpl> /if </tpl>><tpl> $langSysShopDel </tpl></option>
+                                    </select>
+								</td>
+                                <td class="mk-2" colspan="2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+			</div>
+			<form action="shop.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+            <input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysShopSelect </tpl></td>
+						<td class="es-4"><tpl> $langSysName </tpl></td>
+						<td class="es-2"><tpl> $langSysShopHost </tpl></td>
+						<td class="es-2"><tpl> $langSysShopTime </tpl></td>
+						<td class="es-2"><tpl> $longSysShopGrade </tpl></td>
+						<td class="es-2"><tpl> $langSysShopEstate </tpl></td>
+						<td class="es-2"><tpl> $langSysShopAuditState </tpl></td>
+                        <td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $shop_array[0].shop_id neq'' </tpl>
+						<tpl> section name=loop loop=$shop_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="shop_id[]" type="checkbox" value="<tpl> $shop_array[loop].shop_id </tpl>"/></td>
+						<td><tpl> $shop_array[loop].shop_name </tpl></td>
+						<td><tpl> $shop_array[loop].login_name </tpl></td>
+						<td><tpl> $shop_array[loop].practice_time </tpl></td>
+						<td><tpl> $shop_array[loop].grade_name </tpl>[<tpl>if $shop_array[loop].grade_state == 1</tpl><font color="red"><tpl>$longSysShopGradeConfirmNo</tpl></font><tpl>else</tpl><font color="#009933"><tpl>$longSysShopGradeConfirmYes</tpl></font><tpl>/if</tpl>]</td>
+                        <td>
+                        <tpl> if $shop_array[loop].if_del eq '0' </tpl>
+                        	<tpl> $langSysShopStateZero </tpl>
+                         <tpl> else </tpl>
+                        	<font color="#FF0000"><tpl> $langSysShopDel </tpl></font>
+                        <tpl> /if </tpl>
+                        </td>
+						<td><tpl> $shop_array[loop].open_state </tpl></td>
+						<td><a href="shop.manage.php?action=modi&id=<tpl> $shop_array[loop].shop_id </tpl>&curpage=<tpl>$curpage</tpl>"><tpl> $langSysCEdit </tpl></a>
+                        |
+                        <tpl> if $shop_array[loop].if_del eq '0' </tpl>
+                            <tpl> if $shop_array[loop].ischeck eq '0' </tpl>
+                            <a href="shop.manage.php?action=update_check&id=<tpl> $shop_array[loop].shop_id </tpl>&check_state=1"><tpl> $langSysShopAuditing </tpl></a>
+                            <a href="shop.manage.php?action=update_check&id=<tpl> $shop_array[loop].shop_id </tpl>&check_state=2"><tpl> $langSysShopClose </tpl></a>
+                            <tpl> /if </tpl>
+                            <tpl> if $shop_array[loop].ischeck eq '1' </tpl>
+                            <a href="shop.manage.php?action=update_check&id=<tpl> $shop_array[loop].shop_id </tpl>&check_state=2"><tpl> $langSysShopClose </tpl></a>
+                            <tpl> /if </tpl>
+                            <tpl> if $shop_array[loop].ischeck eq '2' </tpl>
+                            <a href="shop.manage.php?action=update_check&id=<tpl> $shop_array[loop].shop_id </tpl>&check_state=1"><tpl> $langSysShopCheckOpen </tpl></a>
+                            <tpl> /if </tpl>
+                        <tpl> else </tpl>
+                        	<a href="shop.manage.php?action=regain&id=<tpl> $shop_array[loop].shop_id </tpl>"><tpl> $langSysShopStateRegain </tpl></a>
+                        <tpl> /if </tpl>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $shop_array[0].shop_id eq'' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+				<div class="fri">
+					<tpl> if $shop_array[0].shop_id neq'' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<tpl> if $condition.if_del neq '1' </tpl>
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />
+				<tpl> /if </tpl>
+				<select name="move_class_id" id="move_class">
+					<option value=""><tpl> $langSysCMoveTo </tpl></option>
+					<tpl> foreach from=$sel_category item=one key=key </tpl>
+                    <option value="<tpl> $key </tpl>"><tpl> $one </tpl></option>
+                    <tpl> /foreach </tpl>
+				</select>	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script>
+$(document).ready(function(){
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'shop_area_id'
+				});
+	
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$subject_array.subject_name</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.LoadImage.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".thumb img").LoadImage(true,120,120,"<tpl> $template_dir </tpl>/images/loading.gif");
+	$(".thumb2 img").LoadImage(true,72,72,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+</head>
+<body>
+<!--头部:START-->
+<tpl>include_php file ='header.php'</tpl>
+<!--头部:END-->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!--页面:START-->
+<div class="width-all">
+  <div class="sitenav_all"><span>
+    <h4><tpl>$subject_txt</tpl><!-- 当前位置 -->:<a href="product_subject.php"><tpl>$subject_title</tpl><!-- 商品主题馆 --></a> >> <tpl>$subject_array.subject_name</tpl></h4>
+    </span></div>
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<div id="container" class="width-all" >
+  <div class="outbox">
+    <div class="subjectbanner"><img src="<tpl>$Site_Url</tpl>/<tpl>$subject_array.subject_image</tpl>" width="875" height="180" alt="<tpl>$subject_array.subject_name</tpl>" /></div>
+  </div>
+    <div class="outbox">
+    <div class="submode">
+          <ul>
+		  <tpl>section name=list loop=$product_array</tpl>
+            <li>
+              <p class="thumb"><span><a href="product.php?id=<tpl>$product_array[list].goods_id</tpl>" title="<tpl>$product_array[list].goods_name</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$product_array[list].goods_small_image</tpl>" alt="<tpl>$product_array[list].goods_name</tpl>" /></a></span></p>
+              <p class="name"><a href="product.php?id=<tpl>$product_array[list].goods_id</tpl>" title="<tpl>$product_array[list].goods_name</tpl>"><tpl>$product_array[list].goods_name</tpl></a></p>
+              <p class="prix_0"><tpl>$subject_price</tpl><!-- 市场价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$product_array[list].goods_price*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></span></p>
+              <p class="prix_1"><tpl>$subject_pricedesc</tpl><!-- 本店售价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$product_array[list].goods_pricedesc*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></span></p>
+              <!--<p class="prix_2">会员价：<span><tpl>$currencys_set.currencies_symbol</tpl>180</span></p>-->
+              <p>
+              <div class="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$product_array[list].goods_id</tpl>"><span><tpl>$subject_fav</tpl><!-- 收藏 --></span></a></div>
+              <div class="intocate"><a href="shopping.php?goods_id=<tpl>$product_array[list].goods_id</tpl>&goods_num=1"><span><tpl>$subject_buy</tpl><!-- 购买 --></span></a></div>
+              </p>
+            </li>
+			 <tpl>/section</tpl>
+          </ul>
+        </div>
+  </div>
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<!--底部内容:START-->
+<tpl>include_php file ='footer.php'</tpl>
+<!--底部内容:END-->
+</body>
+</html>

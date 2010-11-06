@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl></title><!-- 商品管理-->
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/jquery/jquery.metadata.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/common.js"></script>
+<script type="text/javascript">
+var i=1;
+$(document).ready(function(){
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$("#tab1").click(function(){
+		$("#entry1").fadeIn(100);
+		$("#entry4").fadeIn(100);
+	});
+	$("#tab2").click(function(){
+		$("#entry2").fadeIn(100);
+	});
+	$("#tab3").click(function(){
+		$("#entry3").fadeIn(100);
+	});
+	$("#tab5").click(function(){
+		$("#entry5").fadeIn(100);
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+/* 商品多图显示与隐藏 */
+<tpl>if $more_image_num == 0</tpl>
+$('#gallery').css('display', 'none');
+<tpl>/if</tpl>
+	$("#more_img_js").click(function(){
+		if(this.checked){
+			$('#gallery').css('display', '');
+		} else {
+			$('#gallery').css('display', 'none');
+		}
+	});	
+});
+</script>
+<script language="javascript" type="text/javascript">
+
+var start_img_num = 1;
+function imageupload(num,imagenum_id_name) {
+var maxnum = 0;
+var uploadhtml = '';
+var imagefile	= document.getElementById('imagefile');
+var imagenum	= '';
+if(imagenum_id_name == 'imagenum') {
+	imagenum	= document.getElementById('imagenum');
+} else {
+	imagenum	= document.getElementById('imagenum1');
+}
+
+if(num == 0) {
+	maxnum = start_img_num + Number(imagenum.value);
+	} else {
+	maxnum = num;
+	}
+if(maxnum >40) maxnum = 40;
+if(start_img_num < <tpl>$more_image_num+1</tpl>) {
+	<tpl>section name=list loop=$more_image</tpl>
+	uploadhtml = "";
+	uploadhtml += "<li>";
+	uploadhtml += "<div><img src=\"<tpl>$Site_Url</tpl>/<tpl>$more_image[list].goods_image_small</tpl>\" width=\"120\" height=\"120\" id=\"im"+start_img_num+"\" name=\"im"+start_img_num+"\" /></div>";
+	uploadhtml += "<p><input type=\"hidden\" value=\"<tpl>$more_image[list].goods_image_small</tpl>\"  name=\"old_image_small"+start_img_num+"\" /></p>";
+	uploadhtml += "<p><input type=\"hidden\" value=\"<tpl>$more_image[list].goods_image</tpl>\"  name=\"old_image"+start_img_num+"\" /></p>";
+	uploadhtml += "<p><input type=\"hidden\" value=\"<tpl>$more_image[list].goods_image_id</tpl>\"  name=\"goods_image_id"+start_img_num+"\" /></p>";
+	uploadhtml += "</li>";
+	imagefile.innerHTML += uploadhtml;
+	start_img_num = start_img_num+1;
+	<tpl>/section</tpl>
+} else {
+for(start_img_num;start_img_num < maxnum;start_img_num++){
+	uploadhtml = "";
+	uploadhtml += "<li>";
+	uploadhtml += "<div><img src=\"<tpl>$Site_Url</tpl>/admin/templates/images/default.jpg\" width=\"120\" height=\"120\" id=\"im"+start_img_num+"\" name=\"im"+start_img_num+"\" /></div>";
+	uploadhtml += "</li>";
+	imagefile.innerHTML += uploadhtml;
+	}
+}
+}
+
+</script>
+</head>
+
+<body id="addGoods">
+<div id="content">
+
+    <h2>
+    	<span class="alignRight"><a href="admin_goods.php?action=list" target="_self">{<tpl>$admin_goods_list</tpl><!-- 商品列表 -->}</a></span>
+    	<tpl>$admin_header_goods_manage</tpl> >> <tpl>if $goods_array.goods_id!=''</tpl><tpl>$admin_goods_edit</tpl><tpl>else</tpl><tpl>$admin_goods_add</tpl><tpl>/if</tpl><!-- 商品管理 >> 新增商品 -->
+    </h2>
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_goods_basicinfo</tpl><!-- 基本信息 --></a></li>
+        <li id="tab2"><a href="#nogo"><tpl>$admin_goods_particular_depict</tpl><!-- 其他信息 --></a></li>
+        <li id="tab3"><a href="#nogo"><tpl>$admin_goods_otherinfo</tpl><!-- 详细描述 --></a></li>
+    </ul>
+    <div class="alignRight btnDiv">
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="187"><tpl>$admin_goods_name</tpl><!-- 商品名称 -->:</td>
+            <td width="177"><tpl>$goods_array.goods_name|escape:html</tpl>
+			</td>
+            <td width="580" rowspan="8" valign="top">
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_num</tpl><!-- 商品货号 -->:</td>
+            <td><tpl>$goods_array.goods_bn|escape:html</tpl>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_class</tpl><!-- 商品分类 -->:</td>
+            <td><tpl>$class_name|replace:'&nbsp;':''</tpl>
+			</td>
+          </tr>	  
+          <tr>
+            <td>供货价格<!-- 供货价格 -->:</td>
+            <td colspan="2"><tpl>$goods_array.goods_provider_price</tpl>
+			</td>
+          </tr>	  
+         <tr>
+            <td><tpl>$admin_goods_up_price</tpl><!-- 上调价格 -->:</td>
+            <td><tpl>$goods_array.goods_up_price</tpl>%
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_down_price</tpl><!-- 下调价格 -->:</td>
+            <td><tpl>$goods_array.goods_down_price</tpl>%
+			</td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_stock_num</tpl><!-- 库存数量 -->:</td>
+            <td><tpl>if $goods_array.goods_storage!=''</tpl><tpl>$goods_array.goods_storage</tpl><tpl>else</tpl>0<tpl>/if</tpl>
+            </td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_key_word_depict</tpl><!-- 关键字描述 -->:</td>
+            <td  colspan="2"><tpl>$goods_array.goods_keywords|escape:html</tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_simpleness_depict</tpl><!-- 简单描述 -->:</td>
+            <td  colspan="2"><tpl>$goods_array.goods_description</tpl></td>
+          </tr>
+      </table>
+    </div><!--  end of entry1  -->
+    <div id="entry2" class="entry-body" style="display:none">
+    <table width="100%" border="0">
+          <tr>
+            <td><tpl>$admin_goods_upload_picture</tpl><!-- 上传商品图 -->:</td>
+            <td>
+			<tpl>if $goods_array.goods_image !="" && $goods_array.goods_image !="default.jpg"</tpl>
+            <div class="thumbimg" id="goods_pic"><img src="<tpl>$Site_Url</tpl>/<tpl>$pic</tpl>" /></div>
+        	<tpl>/if</tpl>
+			</td>
+          </tr>
+          <tr>
+          	<td><tpl>$admin_goods_particular_depict</tpl><!-- 详细描述 --></td>
+            <td><tpl>$goods_array.goods_body</tpl>
+            </td>
+          </tr>
+		  <tr>
+		  	<td colspan="2"><div id="gallery">
+			<table width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<ul>
+						<div id="imagefile"></div>
+							<div class="clear"></div>
+						</ul>
+				  </td>
+				</tr>
+			</table>
+		</div><!--  end of gallery  --></td>
+		  </tr>
+        </table>
+
+    </div><!--  end of entry2  -->
+    <div id="entry3" class="entry-body" style="display:none">
+    
+         <table width="100%" border="0">
+          <tr>
+            <td width="120"><tpl>$admin_goods_weight</tpl><!-- 商品重量 -->:</td>
+            <td><tpl>$goods_array.goods_weight </tpl></td>
+          </tr>
+            <td width="120"><tpl>$admin_goods_color</tpl><!-- 商品颜色 -->:</td>
+            <td><tpl>$goods_array.goods_color|escape:html </tpl></td>
+          </tr>
+            <td width="120"><tpl>$admin_goods_size</tpl><!-- 商品规格 -->:</td>
+            <td><tpl>$goods_array.goods_size|escape:html </tpl></td>
+          </tr>
+          <tr>
+            <td><tpl>$admin_goods_weight_unit</tpl><!-- 计量单位 -->:</td>
+            <td><tpl>$goods_array.goods_unit </tpl></td>
+          </tr>
+        </table>
+    </div><!--  end of entry2  -->
+    <div id="entry5" class="entry-body" style="display:none;">
+
+    </div><!--  end of entry5  -->
+    <div class="textLeft btnDiv">
+
+    </div>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript" type="text/javascript">
+<tpl>if $more_image_num >0</tpl>
+imageupload(<tpl>$more_image_num+1</tpl>);
+<tpl>else</tpl>
+imageupload(4);
+<tpl>/if</tpl>
+</script>
+
+</body>
+</html>

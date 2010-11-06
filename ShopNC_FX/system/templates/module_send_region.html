@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_send_region</tpl><!-- 模块管理 - 配送区域 --></title>
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body>
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_module_send.php?action=add_send_area" target="_self" class="btnInput"><tpl>$admin_module_send_region_add</tpl></a></span> <!-- 添加配送区域 -->
+<tpl>$system_header_module_manage</tpl> &gt;&gt; <tpl>$admin_module_send_region</tpl><!-- 模块管理 >> 配送区域 -->
+    	</b></h4>
+<div id="rightcon">
+		<div class="rc_con">
+				<h5><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" /><span>:<tpl>$admin_module_pay_region_list_edit</tpl><!-- 编辑支付区域 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" /><span>:<tpl>$admin_module_pay_region_list_view</tpl><!-- 查看该区域所有支付 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif"/><span>:<tpl>$admin_module_pay_region_list_del</tpl><!-- 删除该区域 --></span>
+            </div></h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><tpl>$admin_module_send_region_name</tpl><!-- 区域名称 --></th>
+            <th><tpl>$admin_module_send_region_desc</tpl><!-- 配送区域简介 --></th>
+            <th><tpl>$admin_module_send_region_state</tpl><!-- 配送区域状态 --></th>
+            <th><tpl>$admin_module_send_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$send_area_array</tpl>
+          <tr>
+            <td><tpl>$send_area_array[list].send_area_name</tpl></td>
+            <td class="textLeft" width="40%"><tpl>$send_area_array[list].send_area_info</tpl></td>
+            <td>
+			<span id="state_<tpl> $send_area_array[list].send_area_id</tpl>"><a onclick="nc_state_update('<tpl> $send_area_array[list].send_area_id</tpl>','send_area_state','<tpl> $send_area_array[list].send_area_state </tpl>','state_<tpl> $send_area_array[list].send_area_id</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl>$send_area_array[list].send_area_state</tpl>.gif" alt="<tpl>$admin_module_send_region_edit_state</tpl>" /></a></span></td>
+            <td>
+             <a href="admin_module_send.php?action=add_send_area&send_area_id=<tpl>$send_area_array[list].send_area_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_module_send_region_edit</tpl>" /></a><!-- 编辑配送区域 -->
+             <a href="admin_module_send.php?action=send_type_list&send_area_id=<tpl>$send_area_array[list].send_area_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" title="<tpl>$admin_module_send_region_view</tpl>" /></a><!-- 查看该区域所有配送 -->
+             <a href="admin_module_send.php?action=del_send_area&send_area_id=<tpl>$send_area_array[list].send_area_id</tpl>" onclick="return confirm('<tpl>$admin_module_send_buy_del_conf</tpl>');"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_module_send_region_del</tpl>" /></a><!-- 删除该区域 -->
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+        </table>
+    	<div class="clear"></div>
+    </div><!--  end of p-list-div  -->
+	<h5 class="h5_down"><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" /><span>:<tpl>$admin_module_pay_region_list_edit</tpl><!-- 编辑支付区域 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_view.gif" /><span>:<tpl>$admin_module_pay_region_list_view</tpl><!-- 查看该区域所有支付 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif"/><span>:<tpl>$admin_module_pay_region_list_del</tpl><!-- 删除该区域 --></span>
+            </div></h5>
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script language="javascript">
+<!--
+/* ajax修改状态 */
+function nc_state_update(send_area_id,ajax_type,old_state,id) {
+	$.get('admin_module_send.php',{'action':'send_area_ajax','ajax_type':ajax_type,'old_state':old_state,'send_area_id':send_area_id,'css_id':id},function(data){
+		$("#"+id).html(data);
+	});
+}
+//-->
+</script>
+</body>
+</html>

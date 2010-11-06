@@ -1,0 +1,90 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langAreaManage </tpl> &gt;&gt; <tpl> $langAreaList </tpl></div>
+					<div class="gtlbar-right" onclick="if(confirm('<tpl> $langAreaInsertAllAreaRemark </tpl>')){location.href='area.manage.php?action=insert_standard_area'}else{return false;}">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langAreaInsertAllArea </tpl></b>
+					</div>
+					<div class="gtlbar-right" onclick="location.href='area.manage.php?action=add'">
+							<input class="apd" name="" type="button" />
+							<b><tpl> $langAreaAdd </tpl></b>
+					</div>
+				</div>
+			</div>
+			<form action="area.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langSureDelArea </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-6"><tpl> $langSysCDel </tpl></td>
+                        <td class="es-5"><tpl> $langAreaSort </tpl></td>
+						<td class="es-4"><tpl> $langArea </tpl></td>
+						<td class="es-6"><tpl> $langSysCOperate </tpl></td>
+					</tr>
+					<tpl> if $area_array[0].area_id neq '' </tpl>
+						<tpl> section name=loop loop=$area_array </tpl>
+					<tr class="es-td">
+						<td id="check-1"><input name="area_id[]" type="checkbox" value="<tpl> $area_array[loop].area_id </tpl>"/>
+						<input type="hidden" name="id[<tpl> $area_array[loop].area_id </tpl>]" value="<tpl> $area_array[loop].area_id </tpl>" />
+						</td>
+						<td><input class="fct-input-2" name="sort[<tpl> $area_array[loop].area_id </tpl>]" type="text" maxlength="9" value="<tpl> $area_array[loop].area_sort </tpl>" /></td>
+                        <td><tpl> $area_array[loop].area_name </tpl>
+                        <tpl> if $area_array[loop].is_parent eq '1' </tpl>
+                        <a href="area.manage.php?action=list&parent_id=<tpl> $area_array[loop].area_id </tpl>"><tpl> $langAreaChild </tpl></a>
+                        <tpl> /if </tpl>
+                        </td>
+						<td width="130">
+						<a href="area.manage.php?action=modi&id=<tpl> $area_array[loop].area_id </tpl>"><tpl> $langSysCEdit </tpl></a> | <a href="area.manage.php?action=add&id=<tpl> $area_array[loop].area_id </tpl>"><tpl> $langAreaAddNext </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $area_array[0].area_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fle">
+					<b><tpl> $langSysSel </tpl>:</b>
+					<a href="javascript:;" onclick="sel_all_checkbox('form_del');"><tpl> $langSysAll </tpl></a> - <a href="javascript:;" onclick="sel_negative_checkbox('form_del');"><tpl> $langSysSelNegative </tpl></a> - <a href="javascript:;" onclick="sel_none_checkbox('form_del');"><tpl> $langSysSelNone </tpl></a>
+				</div>
+			</div>
+			<div class="ibxbar">
+				<input class="bthl" name="" value="<tpl> $langSysCDel </tpl>" type="submit" />	 
+				<input class="bthl" name="" id="update_sort" value="<tpl> $langAreaSortSubmit </tpl>" type="button" />	
+				<tpl> if $parent_id > 0 </tpl>
+				<input class="bthl" name="" value="<tpl> $langSysCReturn </tpl>" type="button" onclick="location.href='area.manage.php?action=list&parent_id=<tpl> $parent_area.area_parent_id </tpl>'" />	
+				<tpl> /if </tpl>
+				<select name="move_class_id" id="move_class">
+					<option value=""><tpl> $langSysCMoveTo </tpl></option>
+					<tpl> foreach from=$sel_area item=one </tpl>
+					<option value="<tpl> $one[0] </tpl>"><tpl> $one[2] </tpl></option>
+					<tpl> /foreach </tpl>
+				</select>	 					
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$('#move_class').change(function(){
+		$('input[id=action]').val('merger');
+		document.getElementById('form_del').submit();
+	});
+	$('#update_sort').click(function(){
+		$('input[id=action]').val('sort');
+		document.getElementById('form_del').submit();
+	});
+});
+</script>
+</body>
+</html>

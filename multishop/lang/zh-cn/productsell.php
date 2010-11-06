@@ -1,0 +1,17 @@
+<?php
+$lang['langProductSSaleMerchandiseBind']="出售商品前请先绑定支付宝账号！";
+$lang['langProductSSetupFastnessPrice']="设定固定价格";
+$lang['langProductSBuyMayAtOnceBuy']="让买家可以立刻购买。";
+$lang['langProductSPriceIssue']="一口价发布";
+$lang['langProductSSetupLeastPrice']="设定最少数量和团购价格";
+$lang['langProductSBuyAdvanceGroupBuy']="让买家支付预订金后团体购买。";
+$lang['langProductSGroupIssue']="团购发布";
+$lang['langProductSNonceSelect']="您当前选择的是";
+$lang['langPNotPayMemberNotSale']="未付费会员不能发布商品，请您付费！";
+$lang['langPShowOverdue']="您的商品展示期限已到期，请您续费！";
+$lang['langPCanSaleNumberMax']="允许发布的商品数量已为最大值，不能继续发布商品，请您续费！";
+$lang['langPShowOverdueCannotOperator']="您的商品展示已过期，不能进行上架操作，请您续费！";
+$lang['langPNonceSale']="您当前只能发布上架";
+$lang['langPProductCannotOperator']="件商品，不能进行上架操作，请您续费！";
+$lang['langPProductMemberErrRestartLogin']="商品所属会员与本会员不符，请重新登陆";
+?>

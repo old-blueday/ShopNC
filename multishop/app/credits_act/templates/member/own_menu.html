@@ -1,0 +1,17 @@
+
+<ul class="member_left">
+<img src="<tpl> $site_url </tpl><tpl>$templatepath</tpl>/member/images/new_banner.gif" style=" padding-bottom:5px"/>
+  <tpl>foreach item = own_menu from = $frame_member_menu</tpl>	
+  <li id="<tpl>$own_menu.id</tpl>">
+<div style="height:5px;"><b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b>  </div>
+<p><i></i><img src="<tpl> $site_url </tpl><tpl>$templatepath</tpl>/member/images/new_member_image/new_ico1.gif" /><tpl>$own_menu.name</tpl><b></b></p>
+  <ul>
+      <tpl>foreach item = own_menu_baby from = $own_menu.baby</tpl>
+      <li><a href="<tpl>$own_menu_baby.url</tpl>" <tpl>if $own_menu_baby.target != ""</tpl>target="<tpl>$own_menu_baby.target</tpl>"<tpl>/if</tpl>><tpl>$own_menu_baby.name</tpl></a></li>
+      <tpl>/foreach</tpl>
+    </ul>
+	<div style="margin-top:-3px"><b class="b4"></b><b class="b3"></b><b class="b2"></b><b class="b1"></b></div>
+ </li>
+ 
+  <tpl>/foreach</tpl>
+</ul>

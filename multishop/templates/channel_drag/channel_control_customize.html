@@ -1,0 +1,15 @@
+<tpl> foreach from=$block_output_html item=output key=key </tpl>
+	<tpl> if $key eq $block_output </tpl>
+		<div class="blocktitle">
+			<em></em>
+			<h2><tpl> $output.module_new_name </tpl></h2>
+		</div>
+		<div class="blockcontent">
+			<div class="diy-shop">
+				<ul>
+					<li><tpl> $output.list </tpl></li>
+				</ul>
+			</div>
+		</div>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>

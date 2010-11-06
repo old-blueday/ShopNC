@@ -1,0 +1,49 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langComplaintManage </tpl> &gt;&gt; <tpl> $langComplaintSet </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="complaint.manage.php" method="post" name="form1" id="form1">
+							<input type="hidden" name="action" value="save_complaint_day" />
+							<div class="ctge-1-1">
+								<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+									<tr>
+										<th><tpl> $langComplaintDayNum </tpl>:</th>
+										<td>
+											<span class="dptn-1"><tpl> $langComplaintDayRemark </tpl></span>
+											<input class="fct-input" value="<tpl> $complaint_day|default:10 </tpl>" name="complaint_day" id="complaint_day" />&nbsp;<tpl> $langComplaintDay </tpl>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="bth-ct">
+								<div class="bth-pl">
+									<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$("#form1").validate({
+	errorClass: "wrong",
+	rules: {
+		complaint_day: {required:true,number:true,min:1}
+	},
+	messages: {
+		complaint_day: {required: "<tpl> $langComplaintDayPlease </tpl>",number: "<tpl> $langComplaintDayNumber </tpl>",min: "<tpl> $langComplaintDayNumber </tpl>"}
+	}
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<ul class="fatherul" >
+<tpl> foreach item = parent name = parentment from = $ProductCateArray </tpl>
+  <tpl> if $smarty.foreach.parentment.iteration<4 or ($smarty.foreach.parentment.iteration>12 and $smarty.foreach.parentment.iteration<25) or ($smarty.foreach.parentment.iteration>33 and $smarty.foreach.parentment.iteration<46) </tpl><tpl> assign var="fathercss" value="father" </tpl><tpl> else </tpl><tpl> assign var="fathercss" value="father2" </tpl><tpl> /if </tpl>
+  <li class="<tpl> $fathercss </tpl>" ><a href="product.php?action=textlist&amp;pcid=<tpl> $parent[0] </tpl>" ><tpl> $parent[2] </tpl></a>
+    <ul>
+      <tpl> foreach name = parentbaby item = baby from = $parent[6] </tpl>
+      <tpl>  if $smarty.foreach.parentbaby.iteration < 5  </tpl>
+      <li><a <tpl> if $baby[5] eq '1' </tpl>style="color:#FC9401"<tpl> /if </tpl> href="product.php?action=textlist&amp;pcid=<tpl> $baby[0] </tpl>"><tpl> $baby[2] </tpl></a> </li>
+      <tpl> /if </tpl>
+      <tpl> /foreach </tpl>
+    </ul>
+  </li>
+  <tpl> /foreach </tpl>
+</ul>

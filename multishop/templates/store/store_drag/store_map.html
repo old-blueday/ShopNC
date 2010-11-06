@@ -1,0 +1,26 @@
+<script language="javascript" src="http://api.51ditu.com/js/maps.js "></script>
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langStoreShopMap </tpl></h2>
+</div>
+<div class="blockcontent">
+<div class="shop-map">
+<div id="myMap" style=" width:480px; display:block;margin-bottom:80px; height:308px;"></div>
+</div>
+</div>
+<script language="javascript">
+	var maps = new LTMaps( "myMap" );
+	var icon = new LTIcon();
+	icon.setImageUrl('<tpl> $template_dir </tpl>/images/centerPoi.gif');
+	maps.centerAndZoom (new LTPoint(<tpl> $shop_map_array.positionY </tpl>,<tpl> $shop_map_array.positionX </tpl>),<tpl> $shop_map_array.positionZ </tpl> );
+	var marker1 = new LTMarker(new LTPoint(<tpl> $shop_map_array.positionY </tpl> ,<tpl> $shop_map_array.positionX </tpl>) ,icon );
+	var text = new LTMapText( marker1 );
+	text.setLabel( "<img src='../<tpl> $shop_map_array.shop_pic </tpl>' /> <br/> <tpl> $langShopMember </tpl>: <tpl> $shop_map_array.shop_name </tpl><br/> <tpl> $langShopCity </tpl>: <tpl> $shop_city </tpl>" );
+	text.setBackgroundColor( "#f2f2f2" );
+	maps.addOverLay( text );
+	maps.addOverLay( marker1 );
+	LTMarker.setInfoWinWidth( 120 );
+	LTMarker.setInfoWinHeight( 20 );
+	var control = new LTSmallMapControl();
+	maps.addControl( control );
+</script> 

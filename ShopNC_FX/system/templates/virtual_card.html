@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_add</tpl></title><!-- 商品管理 - 新增商品 -->
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="<tpl>$Site_Url</tpl>/js/calendar/blue/blue.css" rel="Stylesheet" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/calendar/Calendar.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript" src="<tpl> $Site_Url </tpl>/js/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+/* 对需要填写验证的信息，进行验证 */
+	$("#add_good").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_card_number		: {required:true,maxLength:30},
+			txt_end_time		: {required:true}
+		},
+		messages: {
+			txt_card_number		: {required: "<tpl>$admin_virtual_card_number_is_not_null</tpl>",maxLength:"<tpl>$admin_virtual_card_number_too_long</tpl>"},
+			txt_end_time		: {required: "<tpl>$admin_virtual_card_end_time_is_not_null</tpl>"}
+		}
+	});
+});	
+</script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="addGoods">
+ <form action="admin_virtual_card.php?action=save" method="post" name="add_good" id="add_good">
+		<tpl> if $smarty.get.goods_id neq '' </tpl>
+    		<input type="hidden" name="txt_goods_id" value="<tpl>$smarty.get.goods_id</tpl>"/>
+		<tpl> else </tpl>
+			<input type="hidden" name="txt_goods_id" value="<tpl>$virtual_card_array.goods_id</tpl>"/>
+		<tpl> /if </tpl>
+		<input type="hidden" name="txt_card_id" value="<tpl>$virtual_card_array.card_id</tpl>"/>
+	<h4 id="rightcon_h"><b>
+			<span class="alignRight"><a href="admin_virtual_card.php?action=list&goods_id=<tpl> $goods_array.goods_id </tpl>" target="_self" class="btnInput"><tpl>$admin_virtual_card_list_detail_goback</tpl><!-- 返回补货列表 --></a></span>
+    		<tpl>$system_header_goods_manage</tpl> &gt;&gt; <!-- 商品管理-->
+			<tpl>$admin_virtual_card_add_detail</tpl><!-- 补货 -->
+    </b></h4>
+<div id="rightcon">
+		<div class="rc_con">
+				<h5><tpl>$admin_virtual_card_add_detail</tpl><!-- 补货 --></h5>
+   <div class="textRight">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_click_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+        <table width="100%" border="0">
+          <tr>
+            <td width="187"><tpl>$admin_goods_name</tpl><!-- 商品名称 -->:</td>
+            <td ><input class="TextBoxAt" type="text" name="txt_goods_name" disabled="disabled" id="txt_goods_name" size="20" value="<tpl>$goods_array.goods_name|escape:html</tpl>" />
+			</td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_virtual_card_number </tpl><!-- 卡片序号 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_card_number" id="txt_card_number" size="20" value="<tpl>$virtual_card_array.card_number|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_card_number" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_virtual_card_password </tpl><!-- 卡片密码 -->:</td>
+            <td><input class="TextBoxAt" type="text" name="txt_password" id="txt_password" value="<tpl>$virtual_card_array.password|escape:html</tpl>" />
+			</td>
+          </tr>
+          <tr>
+            <td><tpl> $admin_virtual_card_end_time </tpl><!-- 截止使用日期 -->:</td>
+            <td>
+			<input class="TextBoxAt" type="text" name="txt_end_time" id="txt_end_time" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl> $virtual_card_array.end_time</tpl>" />
+			&nbsp;<span class="red">*</span>
+			<div class="check-error"><label style="display:none" for="txt_end_time" class="wrong" metaDone="true" generated="true"></label></div>
+			</td>
+          </tr>
+		  <tr>
+            <td>&nbsp;</td>
+            <td>
+			<input type="submit" name="button" id="button" value="<tpl>$admin_goods_click_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl>$admin_goods_reset</tpl>" class="btnInput" /><!-- 重置 -->
+			</td>
+          </tr>
+      </table>
+    </div><!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      
+    </div>
+    </form>
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>
+<script type="text/javascript" language="javascript">
+$(function(){
+   $("#txt_end_time").datepicker();
+  
+})
+</script>

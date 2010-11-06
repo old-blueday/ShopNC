@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$comment_top_title</tpl>-<tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$shop_keywords</tpl>" name="keywords">
+<meta content="<tpl>$shop_description</tpl>" name="description">
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/usercenter.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='../header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:6px;">&nbsp;</div>
+<!-- 用户中心:START -->
+<div id="usercenter" class="width-all">
+  <!-- 用户中心内容:START -->
+  <div class="sideright">
+    <div class="top"></div>
+    <div class="content" style="height:380px;">
+      <div class="title">
+        <h3 id="message"><tpl>$comment_me</tpl><!-- 我的留言 --></h3>
+      </div>
+      <div class="inside">
+        <div class="inside-tit"><tpl>$comment_title</tpl><!-- 我发表的商品留言 --></div>
+        <div class="message">
+		<tpl>section name=list loop=$comment_array</tpl>
+          <dl>
+            <dt><span class="control_btn" style="float:right;"><a href="<tpl> $Site_Url </tpl>/member/user_center.php?action=del_message&cid=<tpl>$comment_array[list].comment_id</tpl>" onclick="return confirm('<tpl>$comment_del_conf</tpl>');">
+              <h5 id="del"><tpl>$comment_del</tpl><!-- 删除 --></h5></a>
+              </span><h3><tpl>$comment_time</tpl><!-- 我在 --> <tpl>$comment_array[list].comment_time|date_format:"%Y-%m-%d %H:%M:%S"</tpl> <tpl>$comment_at</tpl><!-- 发表于 --> <a href="<tpl> $Site_Url </tpl>/product.php?id=<tpl>$comment_array[list].goods_id</tpl>" target="_blank"><tpl>$comment_array[list].goods_name</tpl></a></h3>
+            </dt>
+            <dd><tpl>$comment_array[list].comment_body</tpl></dd>
+          </dl>
+		<tpl>/section</tpl>
+        </div>
+        <div class="pages"><tpl>$show_page</tpl></div>
+      </div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <!-- 用户中心内容:END -->
+  <!-- 用户中心菜单:START -->
+  	<tpl>include file ='user_center_menu.html'</tpl>
+  <!-- 用户中心菜单:END -->
+  <div class="clear" style="height:6px;">&nbsp;</div>
+</div>
+<!-- 用户中心:END -->
+<!-- 底部内容:START -->
+<tpl>include_php file ='../footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

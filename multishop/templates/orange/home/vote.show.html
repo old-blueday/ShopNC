@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/member.regist.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/member.login.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/css.css" rel="stylesheet" type="text/css" />
+</head>
+<body><!-- 查看投票详情页面 -->
+<div id="ceng">
+ <tpl>include file ='../top.html'</tpl>
+<div id="ceng2">
+<div style="width:75%; float:left; background-color:#fafafa; padding:20px; border:1px solid #ccc">
+<tpl> if $vote_array[0].vote_id neq '' </tpl>
+	<tpl> if $type neq '1' </tpl>
+		<div style=" padding-top:8px; padding-left:10px;"><a href="vote.php?action=list" style="color:#fff"><tpl> $langCommonMore </tpl></a></div>
+	<tpl> /if </tpl>
+		<table width="100%" style="float:left;font-size:12px; font-family:'宋体';">
+		<tpl> foreach from=$vote_array item=one </tpl>
+		<tr>
+		<td colspan="2"><form action="vote.php" method="post" name="form_p_list" id="form_p_list" <tpl> if $type neq '1' </tpl>target="_blank"<tpl> /if </tpl> >
+		<input type="hidden" name="action" value="vote"  /></td>
+		</tr>
+		
+			<tr>
+				<td height="50" colspan="2" align="center" style="font-size:16px; border-bottom:1px solid #cccccc; font-weight:700">
+					<tpl> $one.vote_title </tpl>				</td>
+			</tr>
+			<tpl> foreach from=$one.content key=key name = name item=two </tpl>
+			<tr>
+				<td width="40%" height="30" align="center" bgcolor="#EAEAEA">
+					<tpl> if $one.vote_check eq '0' </tpl>
+						<input <tpl> if $smarty.foreach.name.iteration eq '1' </tpl>checked="checked"<tpl> /if </tpl> name="vote_check" type="radio" value="
+						<tpl> $key </tpl>">
+					<tpl> else if $one.vote_check eq '1' </tpl>
+						<input <tpl> if $smarty.foreach.name.iteration eq '1' </tpl>checked="checked"
+						<tpl> /if </tpl> name="vote_check[]" type="checkbox" value="<tpl> $key </tpl>">
+			  		<tpl> /if </tpl>		  	  </td>
+				<td width="60%" height="30" align="center" bgcolor="#F2F2F2"><tpl> $two.option </tpl>  (<tpl> $two.num </tpl>)
+				<input type="hidden" name="vote_option[]" value="<tpl> $two.option </tpl>" />
+			  <input type="hidden" name="vote_num[]" value="<tpl> $two.num </tpl>" /></td>
+			</tr>
+			<tpl> /foreach </tpl>
+			<tr>
+			
+			<td height="50" colspan="2" align="center">
+			<input type="hidden" name="vote_id" value="<tpl> $one.vote_id </tpl>"  />
+			<input type="hidden" name="vote_refresh" value="<tpl> $one.vote_refresh </tpl>"  />
+			<input type="hidden" name="vote_member" value="<tpl> $one.vote_member </tpl>"  />
+			<input type="hidden" name="type" value="<tpl> $type </tpl>"  />
+			<input type="submit" value="<tpl> $langCsubmit </tpl>" style=" background:url(<tpl> $template_dir </tpl>/system/images/anniu.gif) repeat-x; border:1px solid #ccc" />
+			<tpl> if $type neq '1' </tpl>
+			<input type="button" value="<tpl> $langCview </tpl>"  style=" background:url(<tpl> $template_dir </tpl>/system/images/anniu.gif) repeat-x; border:1px solid #ccc"  onClick="window.open('vote.php?action=view&vote_id=<tpl> $one.vote_id </tpl>')" />
+			<tpl> else </tpl>
+			<input type="button" value="<tpl> $langCview </tpl>"  style=" background:url(<tpl> $template_dir </tpl>/system/images/anniu.gif) repeat-x; border:1px solid #ccc"  onClick="location.href='vote.php?action=view&vote_id=<tpl> $one.vote_id </tpl>'" />
+			<tpl> /if </tpl>
+			
+			<tpl> if $type eq '1' </tpl>
+				<input type="button" value="<tpl> $langCClose </tpl>"  style=" background:url(<tpl> $template_dir </tpl>/system/images/anniu.gif) repeat-x; border:1px solid #ccc"  onClick="window.close();" />
+			<tpl> /if </tpl>			</td>
+		    </tr>
+			</form>
+		<tpl> /foreach </tpl>
+	  </table>
+<tpl> /if </tpl>
+<div style="clear:both"></div>
+</div>
+<div id="main2-right"><!-- 右侧相关信息 -->
+ <div id="reviewed_buyedproduct">
+	<tpl> include file ='product.reviewed.html' </tpl>
+	<tpl> include file ='product.bought.html' </tpl>
+</div>
+</div>
+<div style="clear:both"></div>
+</div>
+
+<tpl> include file ='../../../html/footer.html' </tpl> 
+<div style="clear:both"></div>
+</div>
+<div style="clear:both"></div>
+</div>

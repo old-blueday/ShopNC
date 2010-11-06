@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_module_manage</tpl> - <tpl>$admin_module_send_list</tpl></title><!-- 模块管理 - 配送列表 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="goodsList">
+<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_module_send.php?action=edit_send&send_id=<tpl>$smarty.get.send_id</tpl>" target="_self" class="btnInput"><tpl>$admin_module_add_buy_send_area</tpl></a></span><!-- 配送区域 -->
+<tpl>$system_header_module_manage</tpl> &gt;&gt; <tpl>$admin_module_buy_send</tpl><!-- 模块管理 >> 配送列表 -->
+    	 </b></h4>
+<div id="rightcon">
+		<div class="rc_con">
+				<h5><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" /><span>:<tpl>$admin_module_send_list_install</tpl><!-- 安装 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" /><span>:<tpl>$admin_module_send_list_edit</tpl><!-- 编辑 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif"/><span>:<tpl>$admin_module_send_list_uninstall</tpl><!-- 卸载 --></span>
+            </div></h5>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><tpl>$admin_module_send_list_name</tpl><!-- 配送名称 --></th>
+            <th width="40%"><tpl>$admin_module_buy_send_area</tpl><!-- 配送区域名称 --></th>
+            <th><tpl>$admin_module_send_list_sort</tpl><!-- 排序 --></th>
+            <th><tpl>$admin_module_send_list_oper</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$send_buy_area_array</tpl>
+          <tr>
+            <td><tpl>$send_buy_area_array[list].buy_area_name</tpl></td>
+            <td class="textLeft"><tpl>$send_buy_area_array[list].buy_area</tpl></td>
+            <td>1</td>
+            <td>
+				<a href="admin_module_send.php?action=edit_send&send_id=<tpl>$smarty.get.send_id</tpl>&buy_area_id=<tpl>$send_buy_area_array[list].buy_area_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" title="<tpl>$admin_module_send_list_edit</tpl>" /></a><!-- 设置区域 -->
+				<a href="admin_module_send.php?action=del_send&send_id=<tpl>$smarty.get.send_id</tpl>&buy_area_id=<tpl>$send_buy_area_array[list].buy_area_id</tpl>"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif" title="<tpl>$admin_module_send_list_uninstall</tpl>" /></a><!-- 卸载 -->
+			</td>
+          </tr>
+		  <tpl>/section</tpl>
+        </table>
+    </div><!--  end of p-list-div  -->
+	<h5 class="h5_down"><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_add.gif" /><span>:<tpl>$admin_module_send_list_install</tpl><!-- 安装 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_edit.gif" /><span>:<tpl>$admin_module_send_list_edit</tpl><!-- 编辑 --></span>
+             <img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_app_del.gif"/><span>:<tpl>$admin_module_send_list_uninstall</tpl><!-- 卸载 --></span>
+            </div></h5>
+	</div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+
+</body>
+</html>

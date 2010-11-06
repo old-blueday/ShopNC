@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$system_header_goods_manage</tpl> - <tpl>$system_goods_type</tpl></title><!-- 商品管理 - 商品类型 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+	<h4 id="rightcon_h"><b><span class="alignRight"><a href="admin_goods_attribute.php?action=type_add" target="_self" class="btnInput"><tpl>$admin_goods_type_add</tpl><!-- 添加商品类型 --></a></span>
+	<tpl>$system_header_goods_manage</tpl> &gt;&gt; <tpl>$admin_goods_type_list</tpl><!-- 商品管理 >> 商品类型列表 -->
+    </b></h4>
+<div id="rightcon">
+		<div class="rc_con">
+				<h5><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_page.gif" /><span>:<tpl>$admin_goods_attr_list</tpl><!--  转移商品  --></span>
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_edit.gif"/><span>:<tpl>$admin_goods_type_edit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_cancel.gif" /><span>:<tpl>$admin_goods_type_del</tpl><!--  删除  --></span>   
+			 </div>
+              <input type="submit" value="<tpl>$admin_goods_type_del</tpl>" class="delBtnInput" /><!-- 删除 --></h5>
+    <div class="entry-body" id="p-list-div">
+      <form id="form1" name="form1" method="post" action="admin_goods_attribute.php?action=type_del">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+          <tr>
+            <th><label>
+            <input type="checkbox" name="all" id="all" />
+            </label></th>
+            <th><tpl>$admin_goods_type_name</tpl><!-- 商品类型名称 --></th>
+            <!--<th><tpl>$admin_goods_type_attr_group</tpl>--><!-- 属性分组 --><!--</th>-->
+            <th><tpl>$admin_goods_type_attr_num</tpl><!-- 属性数 --></th>
+            <th><tpl>$admin_goods_type_state</tpl><!-- 状态 --></th>
+            <th><tpl>$admin_goods_type_operi</tpl><!-- 操作 --></th>
+          </tr>
+		  <tpl>section name=list loop=$goods_type</tpl>
+          <tr>
+            <td><label>
+              <input type="checkbox" name="type_id[]" id="type_id" value="<tpl>$goods_type[list].goods_type_id</tpl>" class="cb" />
+            </label></td>
+            <td><tpl>$goods_type[list].goods_type_name</tpl></td>
+            <!--<td>&nbsp;</td>-->
+            <td><tpl>$goods_type[list].attr_num</tpl></td>
+            <td><img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_<tpl>$goods_type[list].goods_type_state</tpl>.gif" /></td>
+            <td>
+            	<a href="admin_goods_attribute.php?action=list&type_id=<tpl>$goods_type[list].goods_type_id</tpl>" title="<tpl>$admin_goods_attr_list</tpl>" target="_self"><img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_page.gif" title="<tpl>$admin_goods_attr_list</tpl>" /><!-- 属性列表 --></a>&nbsp;&nbsp;
+            	<a href="admin_goods_attribute.php?action=type_add&id=<tpl>$goods_type[list].goods_type_id</tpl>"  target="_self"><img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_edit.gif" title="<tpl>$admin_goods_type_edit</tpl>" /><!-- 编辑 --></a> &nbsp;
+            <a href="admin_goods_attribute.php?action=type_del&type_id=<tpl>$goods_type[list].goods_type_id</tpl>" title="<tpl>$admin_goods_type_del</tpl>" onclick="return confirm('<tpl>$admin_goods_type_del_info</tpl>')" ><img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_cancel.gif" title="<tpl>$admin_goods_type_del</tpl>" /><!-- 删除 --></a>            </td>
+          </tr>
+		  <tpl>/section</tpl>
+          <tr>
+            <td colspan="6" class="searchbar">
+			<div class="alignRight">
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_page.gif" />:<tpl>$admin_goods_attr_list</tpl><!--  转移商品  -->
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_edit.gif"/>:<tpl>$admin_goods_type_edit</tpl><!--  编辑  -->
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_cancel.gif" />:<tpl>$admin_goods_type_del</tpl><!--  删除  -->   
+			 </div>
+              <input type="submit" value="<tpl>$admin_goods_type_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              </td>
+          </tr>
+        </table>
+      
+    </div>
+    <!--  end of entry-body  -->
+	<h5 class="h5_down"><div class="floatRight2">
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_page.gif" /><span>:<tpl>$admin_goods_attr_list</tpl><!--  转移商品  --></span>
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_edit.gif"/><span>:<tpl>$admin_goods_type_edit</tpl><!--  编辑  --></span>
+             <img src="<tpl>$Site_Url</tpl>/system/templates/images/icon_cancel.gif" /><span>:<tpl>$admin_goods_type_del</tpl><!--  删除  --></span>   
+			 </div>
+              <input type="submit" value="<tpl>$admin_goods_type_del</tpl>" class="delBtnInput" /><!-- 删除 --></h5></form>
+			  </div>
+<tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

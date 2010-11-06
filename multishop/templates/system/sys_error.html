@@ -1,0 +1,22 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<tpl> if  $smarty.get.backurl != "" </tpl>
+<META HTTP-EQUIV="REFRESH" CONTENT="2; URL=<tpl> $smarty.get.backurl </tpl>">
+<tpl> /if </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div class="report">
+				<div class="report-1">
+					<h3><tpl> $langSysErrorReportTitle </tpl></h3>
+					<ul>
+						<li class="poi"><tpl> $error_message </tpl></li>
+						<li><tpl> $langSysErrorReportContent </tpl><a href="<tpl>$smarty.get.backurl</tpl>"><tpl> $langSysErrorReportLocation </tpl></a></li>
+					</ul>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

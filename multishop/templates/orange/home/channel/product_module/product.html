@@ -1,0 +1,13 @@
+<tpl> section name=i loop=$product_array </tpl>
+	<li <tpl> if $smarty.section.i.rownum < 4 </tpl> class="best" <tpl> /if </tpl> >
+		<tpl> if $ifhtml eq '1' && $product_array[i].html_url neq '' </tpl>
+			<a target="_blank" href="<tpl> $site_url </tpl><tpl> $product_array[i].html_url </tpl>" title="<tpl>$product_array[i].p_name</tpl>">
+			<tpl>$product_array[i].p_short_name</tpl><!--<span class="up" ></span><span class="price"><font class="font1">￥</font><font class="font2"><tpl> $product_array[i].p_price_int </tpl></font>.<font class="font3"><tpl> $product_array[i].p_price_floot </tpl></font></span>-->
+			</a>
+		<tpl> else </tpl>
+			<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array[i].p_code</tpl>" title="<tpl>$product_array[i].p_name</tpl>">
+			<tpl>$product_array[i].p_short_name</tpl><!--<span class="up" ></span><span class="price"><font class="font1">￥</font><font class="font2"><tpl> $product_array[i].p_price_int </tpl></font>.<font class="font3"><tpl> $product_array[i].p_price_floot </tpl></font></span>-->
+			</a>
+		<tpl> /if </tpl>
+	</li>
+<tpl> /section </tpl>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl> $admin_article_class_add </tpl></title><!-- 添加文章分类 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 对需要填写验证的信息，进行验证 */
+	$("#add_article_calss").validate({
+		errorClass: "wrong",
+		rules: {
+			txt_article_class_name	: {required	:true}
+		},
+		messages: {
+			txt_article_class_name	: {required	: "<tpl>$admin_article_class_name_is_null</tpl>"}
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+<form action="admin_article_class.php?action=article_class_save" method="post" name="add_article_calss" id="add_article_calss">
+	<input type="hidden" name="article_class_id" id="aritcle_class_id" value="<tpl>$smarty.get.class_id</tpl>" />
+	<h2><span class="alignRight"><a href="admin_article_class.php?action=article_class_list" target="_self">{<tpl> $admin_article_class_list </tpl><!-- 文章分类列表 -->}</a></span><tpl> $admin_header_article_manage </tpl><!-- 文章管理 --> >> <tpl>if $smarty.get.class_id!=''</tpl><tpl>$admin_article_class_edit</tpl><tpl>else</tpl><tpl> $admin_article_class_add </tpl><tpl>/if</tpl><!-- 添加文章分类 -->
+    	    
+    </h2>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_article_class_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="90%" border="0">
+        <tr>
+          <td><tpl> $admin_article_class_name </tpl><!-- 分类名称 -->:          </td>
+          <td><input type="text" name="txt_article_class_name" id="txt_article_class_name" value="<tpl> $article_class_array.article_class_name|escape:html </tpl>" />&nbsp;<span class="red">*</span>
+		  <div class="check-error"><label style="display:none" for="txt_article_class_name" class="wrong" metaDone="true" generated="true"></label></div>
+		  </td>
+        </tr>
+        <tpl>if $smarty.get.class_id != 1</tpl>
+		<tr>
+          <td><tpl> $admin_article_class_top </tpl><!-- 父级目录 -->:</td>
+          <td><tpl> $txt_article_class </tpl>          </td>
+        </tr>
+		<tpl>/if</tpl>
+        <tr>
+          <td><tpl> $admin_article_class_put </tpl><!-- 发布 -->: </td>
+          <td><tpl> $txt_class_state </tpl></td>
+        </tr>
+        <tr>
+          <td><tpl> $admin_article_class_index </tpl><!-- 导航显示 -->:</td>
+          <td><tpl>$txt_index_menu</tpl></td>
+        </tr>
+       <!-- <tr>
+          <td><tpl> $admin_article_class_url </tpl> 外链 :          </td>
+          <td><input type="text" name="txt_article_class_url" id="txt_article_class_url" value="<tpl> $article_class_array.article_class_url </tpl>" /><div class="check-error"><label style="display:none" for="txt_article_class_url" class="wrong" metaDone="true" generated="true"></label></div></td>
+        </tr>-->
+        <tr>
+          <td><tpl> $admin_article_class_sort </tpl><!-- 排序 -->:          </td>
+          <td><input name="txt_article_class_sort" type="text" id="txt_article_class_sort" size="5" value="<tpl> $article_class_array.article_class_sort </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $admin_article_class_keyword </tpl><!-- 关键字 -->:</td>
+        	<td><input type="text" name="txt_article_class_keywords" id="txt_article_class_keywords" value="<tpl> $article_class_array.article_class_keywords|escape:html </tpl>" /></td>
+        </tr>
+        <tr>
+        	<td><tpl> $admin_article_class_description </tpl><!-- 描述 -->:</td>
+        	<td><textarea name="txt_article_class_description" id="txt_article_class_description" cols="45" rows="5"><tpl> $article_class_array.article_class_description </tpl></textarea></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl> $admin_article_class_save </tpl>" class="btnInput" /><!-- 点此保存 -->
+      <input type="reset" name="button2" id="button2" value="<tpl> $admin_article_class_reset </tpl>"  class="btnInput" /><!-- 重置 -->
+    </div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

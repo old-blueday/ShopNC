@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+	<members>
+		<member name="Common" file="common.class.php">
+			<description>通用方法</description>
+			<example>
+				<code>
+					<![CDATA[
+Common::remote_file_exists("http://www.baidu.com/rss");
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="CommonPage" file="commonpage.class.php">
+			<description>通用分页</description>
+			<example>
+				<code>
+					<![CDATA[
+$objpage	= new CommonPage();	
+$objpage->pagebarnum(12);
+$objpage->setPage(array('total'=>$arr['count']));
+$listRs   = $this->SelectLimit($listSql,$obj_page->pagebarnum,$obj_page->offset);
+$pagelist	= $objpage->show(1);
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="UniversalFeedCreator" file="feedcreator.class.php">
+			<description>生成RSS文件</description>
+			<example>
+				<code>
+					<![CDATA[
+$rss = new UniversalFeedCreator(); 
+$rss->useCached(); // use cached version if age<1 hour
+$rss->title = "PHP news"; 
+$rss->description = "daily news from the PHP scripting world"; 
+
+//optional
+$rss->descriptionTruncSize = 500;
+$rss->descriptionHtmlSyndicated = true;
+
+$rss->link = "http://www.dailyphp.net/news"; 
+$rss->syndicationURL = "http://www.dailyphp.net/".$_SERVER["PHP_SELF"]; 
+
+$image = new FeedImage(); 
+$image->title = "dailyphp.net logo"; 
+$image->url = "http://www.dailyphp.net/images/logo.gif"; 
+$image->link = "http://www.dailyphp.net"; 
+$image->description = "Feed provided by dailyphp.net. Click to visit."; 
+
+//optional
+$image->descriptionTruncSize = 500;
+$image->descriptionHtmlSyndicated = true;
+
+$rss->image = $image; 
+					]]>
+				</code>
+			</example>
+		</member>	
+		<member name="FileOperate" file="fileoperate.class.php">
+			<description>文件操作类</description>
+			<example>
+				<code>
+					<![CDATA[
+$file = new FileOperate(); 
+$file->CreateShow(array(array("1","2")),"exmaple.php");
+					]]>
+				</code>
+			</example>
+		</member>	
+		<member name="GDImage" file="gdimage.class.php">
+			<description>生成水印</description>
+			<example>
+				<code>
+					<![CDATA[
+$img = new GDImage();
+$img->wm_text = "www.discuz.com";
+$img->wm_text_font = "./STXINWEI.TTF";
+$img->create("./mouse.jpg");
+$img->wm_image_name="文件名";//水印图片
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="IniFileOperate" file="inifileoperate.class.php">
+			<description>ini文件操作类</description>
+			<example>
+				<code>
+					<![CDATA[
+$objini = new IniFileOperate("example.ini");
+$configinfosection = $objini->sections();
+foreach($configinfosection as $k=>$v){
+	$iniinfo[$v] = $objini->keys($v);
+}
+$objini = null;
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="UploadFile" file="uploadfile.class.php">
+			<description>上传图片，同时可生成缩略图，缩略图可以等比例缩小或按尺寸裁减</description>
+			<example>
+				<code>
+					<![CDATA[
+$upload=new UploadFile(); 
+print_r($upload->upfile('userfile',array('path'=>'路径','allow_type'=>array(允许上传的类型),'max_size'=>'最大的上传尺寸','overwrite'=>'是否覆盖同名文件','renamed'=>'是否重新命名','error_mode'=>'发生错误的处理方式','filename'=>'文件名称','ifresize'=>'是否产生所略图','resize_width'=>'缩略图的宽','resize_height'=>'缩略图的高','cut'=>'是否截图'))); 
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="xmlRead" file="xmlread.class.php">
+			<description>XML文件数据读取类(SAX 解析)，最好有 iconv() 函数支持，用于读取xml文件数据到一数组里,目前还不能对一些特殊的标记进行处理，可为同级兄弟结点指定索引(数组下标)</description>
+			<example>
+				<code>
+					<![CDATA[
+$node[1] = array(
+'node_name'=>'data',
+'target_type'=>0,
+'target_name'=>'name'
+);
+$node[2] = array(
+'node_name'=>'data',
+'target_type'=>1,
+'target_name'=>'value'
+);
+$hdc = new xmlRead('UTF-8',$node); //设置编码
+$hdc->var_use_iconv = 1;   //是否使用 iconv
+$hdc->xmlRead_node_config = "root";
+foreach($langarray as $v){
+	$hdc->xmlRead_parser_file("example.xml");
+	$value = $hdc->xmlRead_get_ret(); //得到数组
+	$value = $value['root']['data'];
+}
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="XML" file="xmlwrite.class.php">
+			<description>XML操作类</description>
+			<example>
+				<code>
+					<![CDATA[
+$XML=new XML();
+$Attribute['date']=date('Y-m-d');
+$Attribute['time']=date('H:i:s');
+$XML->CreateNode('DocumentROOT',$Attribute);
+$Att['author']='Lazy';
+$XML->AppendNode('Parent',$Att);
+$XML->AppendNode('Child',$Att,'this is text test node.',false);
+$XML->AppendNode('Child',$Att,'this is text test node.',false);
+$XML->AppendNode('Child',$Att,'this is text test node.',false);
+$XML->AppendNode('Child',$Att,'this is text test node.',false);
+$Att['Email']='o0lazy0o@gmail.com';
+$XML->AppendNode('ParentII',$Att);
+$XML->AppendNode('Child',null,'this is text test node.',false);
+$XML->AppendNode('Child',null,'this is text test node.',false);
+$XML->AppendNode('Child',null,'this is text test node.',false);
+$XML->AppendNode('Child',null,'this is text test node.',false);
+$XML->Save('example.xml');
+$XML->Display();
+
+
+显示结果：
+
+<?xml version="1.0" encoding="utf-8"?>
+<DocumentROOT date="2007-08-03" time="10:49:54">
+<Parent author="Lazy">
+<Child author="Lazy">this is text test node.</Child>
+<Child author="Lazy">this is text test node.</Child>
+<Child author="Lazy">this is text test node.</Child>
+<Child author="Lazy">this is text test node.</Child>
+</Parent>
+<ParentII author="Lazy" Email="o0lazy0o@gmail.com">
+<Child>this is text test node.</Child>
+<Child>this is text test node.</Child>
+<Child>this is text test node.</Child>
+<Child>this is text test node.</Child>
+</ParentII>
+</DocumentROOT>
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="xajax" file="xajax">
+			<description>AJAX类</description>
+			<example>
+				<code>
+					<![CDATA[
+<?php
+// helloworld.php demonstrates a very basic xajax implementation
+// using xajax version 0.1 beta4
+// http://xajax.sourceforge.net
+
+require ('../xajax.inc.php');
+
+function helloWorld($isCaps)
+{
+	if ($isCaps)
+		$text = "HELLO WORLD!";
+	else
+		$text = "Hello World!";
+		
+	$objResponse = new xajaxResponse();
+	$objResponse->addAssign("div1","innerHTML",$text);
+	
+	return $objResponse;
+}
+
+function setColor($sColor)
+{
+	$objResponse = new xajaxResponse();
+	$objResponse->addAssign("div1","style.color", $sColor);
+	
+	return $objResponse;
+}
+
+// Instantiate the xajax object.  No parameters defaults requestURI to this page, method to POST, and debug to off
+$xajax = new xajax(); 
+
+//$xajax->debugOn(); // Uncomment this line to turn debugging on
+
+// Specify the PHP functions to wrap. The JavaScript wrappers will be named xajax_functionname
+$xajax->registerFunction("helloWorld");
+$xajax->registerFunction("setColor");
+
+// Process any requests.  Because our requestURI is the same as our html page,
+// this must be called before any headers or HTML output have been sent
+$xajax->processRequests();
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>xajax example</title>
+	<?php $xajax->printJavascript('../'); // output the xajax javascript. This must be called between the head tags ?>
+</head>
+<body style="text-align:center;">
+	<div id="div1" name="div1">&#160;</div>
+	<br/>
+	
+	<button onclick="xajax_helloWorld(0)" >Click Me</button>
+	<button onclick="xajax_helloWorld(1)" >CLICK ME</button>
+	<select id="colorselect" name="colorselect" onchange="xajax_setColor(document.getElementById('colorselect').value);">
+		<option value="black" selected="selected">Black</option>
+		<option value="red">Red</option>
+		<option value="green">Green</option>
+		<option value="blue">Blue</option>
+	</select>
+	<script type="text/javascript">
+	xajax_helloWorld(0); // call the helloWorld function to populate the div on load
+	xajax_setColor(document.getElementById('colorselect').value); // call the setColor function on load
+	</script>
+</body>
+</html>
+
+更多用法见xajax/examples下的例子
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="String" file="string.class.php">
+			<description>字符串操作类</description>
+			<example>
+				<code>
+					<![CDATA[
+String::SplitStr("lalalhha中国");
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="CommonValidate" file="commonvalidate.class.php">
+			<description>验证类</description>
+			<example>
+				<code>
+					<![CDATA[
+$a = new CommonValidate();
+$a->setValidate("344d",true,"","不可以为空");
+$a->setValidate("fdsfsfd",true,"Email","请填写正确的EMAIL");
+echo $a->validate();
+					]]>
+				</code>
+			</example>
+		</member>
+		<member name="Exception" file="exception.class.php">
+			<description>异常处理类</description>
+			<example>
+				<code>
+					<![CDATA[
+throw( new Exception( "aa!" ));
+die();
+					]]>
+				</code>
+			</example>
+		</member>
+	</members>
+</doc>

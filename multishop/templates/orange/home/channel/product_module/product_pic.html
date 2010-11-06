@@ -1,0 +1,43 @@
+<ul >
+<tpl> foreach item=product_array name=i from=$product_array </tpl>
+	<li>
+		<tpl> if $ifhtml eq '1' && $product_array.html_url neq '' </tpl>
+				<p class="name_ind">
+					<a target="_blank" href="<tpl> $site_url </tpl><tpl> $product_array.html_url </tpl>" title="<tpl>$product_array.p_name</tpl>">
+					<table border="0" cellpadding="0" cellspacing="0">
+					<tr>
+					<td width="60" height="60" align="center" valign="middle">
+					<img src="<tpl> $site_url </tpl>/<tpl> $product_array.small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" alt="<tpl> $product_array.p_name </tpl>" <tpl> if $product_array.img_width > $product_array.img_heigth </tpl>
+												style="height:60px;"
+											<tpl> elseif $product_array.img_width < $product_array.img_heigth </tpl>
+												style="width:60px;"
+											<tpl> else </tpl>
+												style="width:60px;height:60px;"
+											<tpl> /if </tpl> />
+							</td>
+						</tr>
+					</table>
+		</a>
+</p>
+				<p>
+					<a target="_blank" href="<tpl> $site_url </tpl><tpl> $product_array.html_url </tpl>" title="<tpl>$product_array.p_name</tpl>"><tpl> $product_array.p_short_name </tpl></a>
+				</p>			
+		<tpl> else </tpl>
+				<p class="name_ind">
+					<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array.p_code</tpl>" title="<tpl>$product_array.p_name</tpl>">
+					<img src="<tpl> $site_url </tpl>/<tpl> $product_array.small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" alt="<tpl> $product_array.p_name </tpl>" <tpl> if $product_array.img_width > $product_array.img_heigth </tpl>
+												 style="height:60px;"
+											<tpl> elseif $product_array.img_width < $product_array.img_heigth </tpl>
+												style="width:60px;"
+											<tpl> else </tpl>
+												style="width:60px;height:60px;"
+											<tpl> /if </tpl> />
+					</a>
+				</p>
+				<p>
+					<a target="_blank" href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array.p_code</tpl>" title="<tpl>$product_array.p_name</tpl>"><tpl> $product_array.p_short_name </tpl></a>
+				</p>
+		<tpl> /if </tpl>
+	</li>
+<tpl> /foreach </tpl>
+</ul>

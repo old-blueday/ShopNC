@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_system_manage</tpl> - <tpl>$admin_stati_provider</tpl></title><!-- 统计分析 - 供应商统计 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.entry-body').css('margin-top', '20px');
+});
+</script>
+</head>
+
+<body>
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_stat_provider.php?action=index" target="_self">{<tpl>$admin_stati_provider</tpl><!-- 供应商统计 -->}</a></span><tpl>$admin_header_system_manage</tpl> >> <tpl>$admin_stati_provider</tpl><!-- 统计分析 >> 供应商统计 -->
+	
+	</h2>
+<tpl> if $show_type == 'provider_show' </tpl>    
+	<div class="entry-body" id="entry1">
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_provider_name</tpl><!-- 供应商 --></th>
+			<th><tpl>$admin_stati_provider_uploads</tpl><!-- 上传商品数量 --></th>
+			<th><tpl>$admin_stati_provider_hot_goods</tpl><!-- 其热卖商品 --></th>
+			<th><tpl>$admin_stati_provider_view_most</tpl><!-- 其浏览次数最多的商品 --></th>
+			<!-- <th><tpl>$admin_stati_provider_sales</tpl> --><!-- 销售的产品 --><!-- </th> -->
+		</tr>
+		<tpl>section name=list loop=$provider_array</tpl>
+		<tr>
+			<td><tpl>$provider_array[list].provider_pname</tpl></td>
+			<td><tpl>$provider_array[list].goods_count</tpl></td>
+			<td><a href="?action=hot&provider_id=<tpl>$provider_array[list].provider_id</tpl>"><tpl>$admin_stati_provider_view</tpl><!-- 查看 --></a></td>
+			<td><a href="?action=view&provider_id=<tpl>$provider_array[list].provider_id</tpl>"><tpl>$admin_stati_provider_view</tpl><!-- 查看 --></a></td>
+			<!-- <td><a href="?action=sales&provider_id=<tpl>$provider_array[list].provider_id</tpl>"><tpl>$admin_stati_provider_view</tpl> --><!-- 查看 --><!-- </a></td> -->
+		</tr>
+		<tpl>/section</tpl>
+      </table>
+    </div>
+<tpl>elseif $show_type == 'provider_hot' </tpl>
+    <!--  end of entry1  -->
+	<div class="entry-body" id="entry2">
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_products_name</tpl><!-- 商品名称 --></th>
+			<th><tpl>$admin_stati_products_sell_num</tpl><!-- 购买次数 --></th>
+			<th><tpl>$admin_stati_products_cate</tpl><!-- 所属分类 --></th>
+			<th><tpl>$admin_stati_provider_belongto</tpl><!-- 所属供应商 --></th>
+		</tr>
+		<tpl>section name=list loop=$goods_array</tpl>
+	  	<tr>
+			<td><tpl>$goods_array[list].goods_name</tpl></td>
+			<td><tpl>$goods_array[list].goods_click</tpl></td>
+			<td><tpl>$goods_array[list].class_name</tpl></td>
+			<td><a href="#nogo"><tpl>$provider_info.provider_name</tpl></a></td>
+		</tr>
+		<tpl>/section</tpl>
+	  </table>
+    </div><!--  end of entry2  -->
+<tpl>elseif $show_type == 'provider_sales' </tpl>
+	<div class="entry-body" id="entry3">
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_products_name</tpl><!-- 商品名称 --></th>
+			<th><tpl>$admin_stati_products_view_num</tpl><!-- 查看次数 --></th>
+			<th><tpl>$admin_stati_products_cate</tpl><!-- 所属分类 --></th>
+			<th><tpl>$admin_stati_provider_belongto</tpl><!-- 所属供应商 --></th>
+		</tr>
+	  	<tr>
+			<td>Diana F+</td>
+			<td>397</td>
+			<td>LOMO</td>
+			<td><a href="#nogo">供应商一</a></td>
+		</tr>
+	  </table>
+    </div><!--  end of entry3  -->
+	<div class="clear"></div>
+</div><!--  end of content  -->
+<tpl>elseif $show_type == 'provider_view' </tpl>
+	<div class="entry-body" id="entry4">
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_products_name</tpl><!-- 商品名称 --></th>
+			<th><tpl>$admin_stati_products_view_num</tpl><!-- 查看次数 --></th>
+			<th><tpl>$admin_stati_products_cate</tpl><!-- 所属分类 --></th>
+			<th><tpl>$admin_stati_provider_belongto</tpl><!-- 所属供应商 --></th>
+		</tr>
+		<tpl>section name=list loop=$goods_array</tpl>
+	  	<tr>
+			<td><tpl>$goods_array[list].goods_name</tpl></td>
+			<td><tpl>$goods_array[list].goods_click</tpl></td>
+			<td><tpl>$goods_array[list].class_name</tpl></td>
+			<td><a href="#nogo"><tpl>$provider_info.provider_name</tpl></a></td>
+		</tr>
+		<tpl>/section</tpl>
+	  </table>
+    </div><!--  end of entry3  -->
+	<div class="clear"></div>
+<tpl>/if</tpl>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

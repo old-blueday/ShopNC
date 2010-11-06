@@ -1,0 +1,78 @@
+
+	<div id="banner" class="banner" style="display:none;">
+		<div style="cursor: move;" class="title" id="title">
+			<a href="javascript:;" id="editTitle" class="editBlock"><tpl> $langStoreStyleEdit </tpl></a>
+			<h1 id="myblogname"> <tpl> $shop_info.shop_name </tpl><em></em></h1>
+			<p id="divMySign"><a href="javascript:;" onClick="javascript:setCopy('<tpl> $shop_info.url </tpl>');return false;"><tpl> $shop_info.url </tpl></a></p>
+		</div>
+	</div>
+	<div class="menubody">
+		<div id="menu" class="menu">
+			<a href="javascript:;" id="editMenu" class="editBlock"><tpl> $langStoreStyleEdit </tpl></a>
+			<ul>
+				<li><tpl> $langCIndex </tpl></li>
+				<tpl> section name=loop loop=$channel_list </tpl>
+					<li><tpl> $channel_list[loop].channel_name </tpl></li>
+				<tpl> /section </tpl>
+			</ul>
+		</div>
+	</div>
+	<tpl> foreach from=$control.allFrame item=control_content key=key </tpl>
+	<div id="<tpl> $key </tpl>" class="<tpl> if $key eq 'dcontent' </tpl><tpl> if $frame_length eq '3' </tpl>frame_2<tpl> else </tpl>frame_3<tpl> /if </tpl><tpl> else </tpl>frame_1<tpl> /if </tpl> wowoFrameTd">
+		<tpl> foreach from=$control_content item=block_content key=key_content </tpl>
+		<div style="cursor: move;" id="<tpl> $block_content </tpl>" class="block">
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $key_block eq $block_content </tpl>
+					<!-- assign -->
+					<tpl> assign var=block_output value=$block.temp_name </tpl>
+					<tpl> include file=$block.html </tpl>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		</div>
+		<tpl> /foreach </tpl>
+
+		<tpl> if $key eq 'dleft' </tpl>
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $block.show neq '1' </tpl>
+					<div style="cursor: move;display:none" id="<tpl> $key_block </tpl>" class="block">
+						<!-- assign -->
+						<tpl> assign var=block_output value=$block.temp_name </tpl>
+						<tpl> include file=$block.html </tpl>
+					</div>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		<tpl> /if </tpl>
+	</div>
+	<tpl> /foreach </tpl>
+	<div id="footer"></div>
+
+|||||||||||||||
+	<div class="floattitle" id="selectBlockHeader">
+		<div class="rcon"><a href="javascript:;" class="btnclose" title="<tpl> $langStoreStyleClose </tpl>" onClick="javascript:closeDiy('selectBlock');"><tpl> $langStoreStyleClose </tpl></a><a href="javascript:;" title="<tpl> $langStoreStyleHelp </tpl>">?<tpl> $langStoreStyleHelpDocument </tpl></a></div>
+		<h2><tpl> $langStoreStyleSelBlock </tpl></h2>
+	</div>
+	<div class="floatcontent">
+		<div class="floatmenu"></div>
+		<div class="floatmain">
+			<div class="floatbody">
+				<ul class="floatmodule">					
+					
+					<tpl> foreach from=$block_list item=block key=key </tpl>
+						<li><input id="set<tpl> $key </tpl>" onclick="javascript:diySetBlock(this, '<tpl> $key </tpl>');" 
+						<tpl> if $block.show eq '1' </tpl>
+							checked="checked" 
+						<tpl> /if </tpl>
+						type="checkbox"><tpl> $block.module_new_name </tpl></li>
+					<tpl> /foreach </tpl>
+				</ul>
+			</div>
+		</div>
+		<div class="floatfun">
+			<a href="javascript:;" class="oksubmit"><tpl> $langStoreStyleDetermine </tpl></a>
+		</div>
+	</div>
+	<script type="text/javascript">
+	<tpl> foreach from=$block_list key=key item=block </tpl>
+blockList['<tpl> $key </tpl>'] = '<tpl> $block.module_new_name </tpl>';
+<tpl> /foreach </tpl>
+	</script>

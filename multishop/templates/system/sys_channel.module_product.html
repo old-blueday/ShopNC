@@ -1,0 +1,228 @@
+<form action="javascript:;" id="form_module_product" name="form_module_product" method="post" onsubmit="return product_submit_module();" class="zhezhao">
+
+	<div class="shopnc-module">
+	<table style="border-left:#cad9eb 1px solid; border-top:#cad9eb 1px solid;"  border="0" cellpadding="0" cellspacing="0" class="fct-1">
+		<tr>
+			<th width="80"><tpl> $langChannelType </tpl>:</th>
+			<td width="240">
+				<select name="c1" id="c1" style="width: 105px">
+					<option value=""></option>
+					<tpl> foreach item = parent from = $ProductCateArray </tpl>
+					<option value="<tpl>$parent.id</tpl>||<tpl>$parent[5]</tpl>"><tpl>$parent.name</tpl></option>
+					<tpl> /foreach </tpl>
+				</select>
+				<select name="c2" id="c2" style="width: 105px"></select>
+				<select name="c3" id="c3" style="width: 105px"></select>
+				<select name="c4" id="c4" style="width: 105px"></select>
+				<input type="hidden" name="search_cate" id="search_cate" />
+			</td>
+		</tr>
+		<tr>
+			<th width="80"><tpl> $langChannelKeyWord </tpl>:</th>
+			<td width="240">
+				<input type="text" id="keyword" class="fct-input-2" name="keyword" />
+				&nbsp;&nbsp;
+				<input value="<tpl> $langChannelConditionSelect </tpl>" type="button" class="bthl" onclick="product_submit_search();"/>		
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border:none; padding:0px;">
+				<div id="pro_search_list">
+				
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="shopnc-module">
+    <table style=" border-left:#cad9eb 1px solid; border-top:#cad9eb 1px solid;"  border="0" cellpadding="0" cellspacing="0" class="fct-1">
+		<tr>
+			<th width="100"><tpl> $langChannelModuleName </tpl>:</th>
+			<td width="260">
+				<input type="text" name="module_new_name" id="module_new_name" class="fct-input-2" maxlength="40" value="<tpl> $modi_array.module_new_name </tpl>" />
+			</td>
+		</tr>
+		<tr>
+		  	<th width="80"><tpl> $langChannelTypeNameWordNum </tpl>:</th>
+			<td width="260">
+				<input type="text" name="name_num" class="fct-input-2" id="name_num" value="<tpl> $modi_array.name_num </tpl>" maxlength="2" />
+			</td>
+		</tr>
+		<tr>
+		  	<th width="80"><tpl> $langChannelHomeDisType </tpl>:</th>
+			<td width="250">
+				<input type="radio" name="show_type" id="type_0" value="0" <tpl> if $modi_array.show_type eq '0' || $modi_array.show_type eq '' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="type_0"><tpl> $langChannelWord </tpl></label>
+				<input type="radio" name="show_type" id="type_1" value="1" <tpl> if $modi_array.show_type eq '1' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="type_1"><tpl> $langChannelImage </tpl></label>
+				<input type="radio" name="show_type" id="type_2" value="2" <tpl> if $modi_array.show_type eq '2' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label for="type_2"><tpl> $langChannelPopProduct </tpl></label>
+				<input type="radio" name="show_type" id="type_3" value="3" <tpl> if $modi_array.show_type eq '3' </tpl> checked <tpl> /if </tpl> class="input_radio" /><label  for="type_3"><tpl> $langChannelCommendProduct </tpl></label>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding:0px; margin:0px; border:none;" colspan="2" >
+				<table style=" width:100%;" border="0" cellpadding="0" cellspacing="0" id="pro_list" class="fct-1">
+				<tr>
+					<td width="200" bgcolor="#EAEFF6">
+						<tpl> $langChannelMerchandiseName </tpl></td>
+				    <td width="120" bgcolor="#EAEFF6">
+				    	<tpl> $langCSort </tpl></td>
+				    <td width="50" bgcolor="#EAEFF6">
+				    	<tpl> $langCOperation </tpl></td>
+				</tr>
+				<tpl> if $modi_array.p_id[0].p_id neq "" </tpl>
+					<tpl> foreach from=$modi_array.p_id item=one key=key </tpl>
+					<tr>
+						<td width="200">
+							<tpl> $one.p_name </tpl>
+						</td>
+					    <td>
+						    <input type="text" size="4" name="p_sort[<tpl> $one.p_id </tpl>]" id="p_sort_<tpl> $one.p_id </tpl>" value="<tpl> $modi_array.sort_value[$key] </tpl>" class="fct-input-2" />
+						    <input type="hidden" name="p_id[<tpl> $one.p_id </tpl>]" id="p_id_<tpl> $one.p_id </tpl>" value="<tpl> $one.p_id </tpl>" />
+					    </td>
+						<td>
+							<a href="javascript:;" onclick="var row=jquery(this).parent().parent();row.fadeOut('normal', function(){row.remove();});" title="<tpl> $langCdele </tpl>">
+							<tpl> $langCdele </tpl></a>
+						</td>
+					</tr>
+					<tpl> /foreach </tpl>
+				<tpl> /if </tpl>
+			    </table>
+			</td>
+		</tr>
+		<tr>
+		    <td colspan="2"></td>
+        </tr>
+		
+	</table>
+</div>
+</form>
+<script>
+
+jquery(document).ready(function() {
+	<tpl> if $list_class_error != '' </tpl>
+	
+	alert(<tpl> $list_class_error </tpl>);
+	<tpl> /if </tpl>
+});
+
+function product_submit_module(){
+
+	var module_new_name = "";
+	var patrn_num=/^[0-9]{1,1000}$/;
+	var sort_value = "";
+	var param_array = new Array();
+	var name_num = "";
+	var p_str = "";
+	var sort_sign = true;
+	
+	jquery('#pro_list input[type="hidden"]').each(function(){
+		if(this.value != ""){
+			p_str += "p_id:"+this.value+"|||";
+			sort_value += "sort_value:"+jquery("#p_sort_"+this.value).val()+"|||";
+			if (!patrn_num.exec(jquery("#p_sort_"+this.value).val())){sort_sign=false;}
+		}
+	});
+
+	if(sort_sign == false){alert("<tpl> $langChannelCompositorNumIsNumber </tpl>");return false;}
+	
+	if(p_str == ""){alert("<tpl> $langChannelAddInfoNotNull </tpl>");return false;}
+	
+	module_new_name = jquery("#module_new_name").val();
+	if (module_new_name == ''){
+		alert("<tpl> $langChannelPleaseModuleName </tpl>");
+		return false;
+	}
+
+	name_num = jquery("#name_num").val();
+	if (!patrn_num.exec(name_num)){alert("<tpl> $langChannelMerchandiseNameLengthIsNum </tpl>");return false;}
+	
+	
+	param_array[0] = "module_new_name:" + module_new_name + "|||";
+	
+	<tpl> if $modi_array.temp_name eq '' </tpl>
+	
+		var temp_name = "product_module_" + Math.round(Math.random()*10000);
+		param_array[1] = "temp_name:" + temp_name + '|||';
+		
+	<tpl> else </tpl>
+	
+		var temp_name = "<tpl> $modi_array.temp_name </tpl>";
+		param_array[1] = "temp_name:<tpl> $modi_array.temp_name </tpl>|||";
+		
+	<tpl> /if </tpl>
+	
+	param_array[2] = "name_num:" + name_num + "|||";
+	param_array[3] = "module_type:product|||";
+	param_array[4] = p_str;
+	param_array[5] = sort_value;
+	param_array[6] = "show_type:" + jquery("input[name='show_type']:checked").val();
+	
+	var str = "";
+	for(i=0;i<param_array.length;i++){
+		str += param_array[i];
+	}
+	
+	if(checkRepeatModuleName(module_new_name) == false){return false;}
+
+	jquery("#add_module_sign").append("<tr><td>"+
+		"<input type='button' class='bthl' value='"+module_new_name+"' onclick='modi_module(\""+temp_name+"\",\""+module_new_name+"\");deleteRow(this);set_module_style(\"disabled\");' />&nbsp;&nbsp;"+
+		"<input type='hidden' name='"+temp_name+"' id='"+temp_name+"' value='"+str+"'/>"+
+		"<a href='javascript:;' onclick='if(jquery(\"#add_module\")[0].disabled != true){deleteProhibitionElements(\""+temp_name+"\");deleteRow(this);}else{alert(\"<tpl> $langModuleDelWrong </tpl>\");}'><tpl> $langChannelDelThisModule </tpl></a>"+
+		"</td></tr>");
+	
+	jquery("#body_module").html("");
+	
+  	jquery("#add_module").attr("disabled","");
+	
+	set_module_style('no_disabled');
+	
+	jquery.unblockUI();
+	
+	jquery("#module_block").html('');
+	closeDiy('moduleadd');
+	closeDiy('moduleupdate');
+	return false;
+}
+
+function tonext(whos) {
+		jquery(whos).change(
+			function(){
+				var valarray=jquery(this).val().split('||');	
+				jquery('#search_cate').val(valarray[0]);
+				if (valarray[1]=='1') {
+					jquery(this).next().attr('disabled','true').html('<option value="" selected="selected"><tpl> $langChannelDataToLoading </tpl></option>');
+					jquery.get('../member/own_productcate.php',{action:'list',id:valarray[0]},function(data){
+					DataArray = data.split("|||");var a='';for (var i = 0; i<DataArray.length-1; i++) {att=DataArray[i].split("||");id=att[0];cla=att[2];a+='<option value="'+id+'||'+cla+'">'+att[1]+((cla=='1')?' ->':'')+'</option>';};
+					jquery(whos).next().removeAttr('disabled').html('<option value="" selected="selected"></option>'+a).nextAll().html('');
+					tonext(jquery(whos).next());
+				})} else {jquery(whos).nextAll().html('').attr('disabled','true');
+				};
+		})
+};
+jquery().ready(function() {
+	tonext('#c1');
+});	
+
+function product_submit_search(){
+	
+	var search_keyword = escape(jquery("#keyword").val());
+	jquery.ajax({
+		url: "../system/channel.manage.php",
+		data: "action=product_search&search_cate="+jquery("#search_cate").val()+"&keyword="+search_keyword,
+		type: "get",
+		dataType: "html",
+		success: function(msg){
+			if(msg != ""){
+				ShowDiv = 'pro_search_list';
+				jquery("#pro_search_list").html(msg);
+			}else{
+				alert("<tpl> $langChannelThisTypeNotMerchandise </tpl>");
+			}
+		},
+		error: function(){
+			alert('<tpl> $langChannelModuleSearchProductErr </tpl>');
+		}
+	});
+	return false;
+}
+</script>

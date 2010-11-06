@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$search_result</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<meta content="<tpl>$class_info.class_keywords</tpl>" name="keywords">
+<meta content="<tpl>$class_info.class_description</tpl>" name="description">
+
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $template_dir </tpl>/js/jquery.LoadImage.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".thumb img").LoadImage(true,120,120,"<tpl> $template_dir </tpl>/images/loading.gif");
+	$(".thumb2 img").LoadImage(true,72,72,"<tpl> $template_dir </tpl>/images/loading.gif");
+});
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl><!-- 头部信息header -->
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<div id="container" class="width-all" >
+  <!-- 左侧边拦:START -->
+  <div class="sidebar">
+    <!-- 用户登录:START -->
+    <tpl>include_php file ='includes/login_windows.php'</tpl><!-- 登录信息 -->
+    <!-- 用户登录:END -->
+    <!-- 商品分类:START -->
+    <div class="box" id="menu">
+      <div class="top">
+        <h3 class="title"><tpl>$search_goods_category</tpl><!-- 商品分类 --></h3>
+      </div>
+      <div class="content" >
+        <div class="class_list" >
+          <dl>
+            <dd class="class_body">
+			<tpl>section name=list loop=$left_array</tpl>
+              <li><a href="product_class.php?classid=<tpl>$left_array[list].class_id</tpl>"><tpl>$left_array[list].class_name</tpl></a></li>
+			<tpl>/section</tpl>
+            </dd>
+          </dl>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+    <!-- 商品分类:END -->
+    <!-- 品牌分类:START -->
+    <div class="box" id="brand">
+      <div class="top">
+        <h3 class="title"><tpl>$search_goods_brand</tpl><!-- 商品品牌 --></h3>
+      </div>
+      <div class="content" >
+        <ul>
+		<tpl>section name=list loop=$brand_array</tpl>
+          <li><a href="<tpl>if $brand_array[list].brand_url == ''</tpl>product_brand.php?brandid=<tpl>$brand_array[list].brand_id</tpl><tpl>else</tpl><tpl>$brand_array[list].brand_url</tpl><tpl>/if</tpl>"><tpl>$brand_array[list].brand_name</tpl></a></li>
+		  <tpl>/section</tpl>
+        </ul>
+      </div>
+    </div>
+    <!-- 品牌分类:END -->
+  </div>
+  <!-- 左侧边拦:END -->
+  <!-- 右侧主体:START -->
+  <div class="main">
+    <div class="sitenav"><span>
+      <h4><tpl>$search_where_now</tpl><!-- 当前位置 -->:<a href="<tpl> $Site_Url </tpl>"><tpl>$search_home</tpl><!-- 首页 --></a> >> <tpl>$search_result</tpl><!-- 搜索结果 -->:<strong>(<tpl>$search_search</tpl><!-- 搜索 -->'<b><tpl>$smarty.get.keywords</tpl></b>'<tpl>$search_found</tpl><!-- 共找到 --><tpl>$search_count</tpl><tpl>$search_resule_num</tpl><!-- 个结果 -->)</strong>
+	  </h4>
+      </span></div>
+    <div class="clear"></div>
+    <!-- 最新商品:START -->
+    <div id="newgoods" class="fullbox">
+      <div class="top"> </div>
+      <div class="content">
+        <div class="control">
+          <div class="pages"><tpl>$product_class_page</tpl></div>
+          <div class="clear">&nbsp;</div>
+        </div>
+		<!-- start列表图示 -->
+		<tpl>if $smarty.get.list_type=='' or $smarty.get.list_type=='class_list'</tpl>
+        <div class="listmode">
+          <ul>
+		  <tpl>section name=list loop=$product_array</tpl>
+            <li>
+              <div class="thumb"><span><a href="product.php?id=<tpl>$product_array[list].goods_id</tpl>" title="<tpl>$product_array[list].goods_name</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$product_array[list].goods_small_image</tpl>" alt="<tpl>$product_array[list].goods_name</tpl>" /></a></span></div>
+              <dl class="goodsintro">
+                <dt class="name"><a href="product.php?id=<tpl>$product_array[list].goods_id</tpl>" title="<tpl>$product_array[list].goods_name</tpl>"><tpl>$product_array[list].goods_name</tpl></a><!-- 商品名称 --></dt>
+                <dd class="info">
+                  <p><tpl>$search_goods_storage</tpl><!-- 库存状况 -->:<tpl>if  $product_array[list].goods_storage>0</tpl><tpl>$search_goods_more</tpl><!-- 有货 --><tpl>else</tpl><font color="#FF0000"><tpl>$search_goods_less</tpl><!-- 缺货 --></font><tpl>/if</tpl></p>
+                  <p><tpl>$search_goods_show</tpl><!-- 浏览人次 -->:<tpl>$product_array[list].goods_click</tpl></p>
+				  <p><tpl>$search_goods_info</tpl><!-- 商品描述 -->:<tpl>$product_array[list].goods_description</tpl></p>
+                </dd>
+                <dd class="btns">
+                  <div class="favorite"><a href="<tpl>$Site_Url</tpl>/member/user_center.php?action=add_collection&goods_id=<tpl>$product_array[list].goods_id</tpl>"><span><tpl>$search_fav</tpl><!-- 收藏 --></span></a></div>
+                  <div class="intocate"><a href="shopping.php?goods_id=<tpl>$product_array[list].goods_id</tpl>&goods_num=1"><span><tpl>$search_buy</tpl><!-- 购买 --></span></a></div>
+                </dd>
+                <dd class="prix">
+                  <div class="prix_0"><tpl>$search_normal_price</tpl><!-- 市场价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$product_array[list].goods_price*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 -->&nbsp;</div>
+                  <div class="prix_1"><tpl>$search_our_price</tpl><!-- 网店价 -->:<span><tpl>$currencys_set.currencies_symbol</tpl><!-- 货币符号 --><tpl>$product_array[list].goods_pricedesc*$currencys_set.currencies_rate</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></div>
+                  <div class="clear">&nbsp;</div>
+                </dd>
+              </dl>
+            </li>
+		<tpl>/section</tpl>
+          </ul>
+        </div>
+		<tpl>/if</tpl>
+		<!-- end列表图示 -->
+		
+        <div class="pages" style="margin-top:10px; margin-bottom:10px; margin-right:10px;" ><tpl>$product_class_page</tpl></div>
+        <div class="clear"></div>
+      </div>
+      <div class="bottom">&nbsp;</div>
+    </div>
+    <!-- 最新商品:END -->
+    <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  </div>
+  <!-- 右侧主体:END -->
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+  <div class="clear" style="margin-top:5px;">&nbsp;</div>
+</div>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl><!-- 底部信息footer -->
+<!-- 底部内容:END -->
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$msg_title</tpl></title>
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body style="margin-top:40px">
+<div id="container">
+<tpl>php</tpl>
+include(BasePath.'/shop_header.php');
+<tpl>/php</tpl>
+<!-- 头部信息header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft longer">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+			</div>
+			<div class="con">
+				<div class="div_h10px"></div>
+					<!-- 搜索店铺 -->
+					
+					<table align="center" width="0" border="0" cellspacing="0" cellpadding="0">	
+						<tr>
+							<td><img src="<tpl> $templates_subpath </tpl>/images/error.gif" width="114" height="98" />
+							</td>
+							<td style="line-height:30px">
+								<tpl>$html_body</tpl>
+							</td>
+						</tr>
+					</table>
+				
+					<!-- end 搜索店铺 -->
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+<tpl>php</tpl>
+include(BasePath.'/shop_footer.php');
+<tpl>/php</tpl>
+</div>
+</body>
+</html>

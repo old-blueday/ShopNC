@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dtd XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/Dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css_new/buy.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery1.4/jquery.blockUI.js"></script>
+<tpl>include file ='../../../js/validate/product_fixprice.buy.html'</tpl>
+</head>
+<body>
+	<div id="wrapper" class="m"> 
+		<!--Header-->
+		<div>
+			<tpl> include file="header_new.html" </tpl>
+		</div>
+		<!--End Header-->
+		<div class="clear">&nbsp;</div>
+		<form name="mainform" id="mainform" method="post" action="product_fixprice.php?action=bid">
+			<!--Location Map-->
+			<div id="sitenav"><span><tpl> $langCIndex </tpl> > <tpl> $langWillBuy </tpl></span></div>
+			<!--End Location Map-->
+			<div class="clear"></div>
+			<div id="buyProcess">
+				<ul>
+					<li class="firstCurrent"><span class="01"><tpl> $langPBuyProcessOne </tpl></span></li>
+					<li><span><tpl> $langPBuyProcessTwo </tpl></span></li>
+					<li><span><tpl> $langPBuyProcessThree </tpl></span></li>
+					<li><span><tpl> $langPBuyProcessFour </tpl></span></li>
+					<li class="last"><span><tpl> $langPBuyProcessFive </tpl></span></li>
+				</ul>
+			</div>
+			<div id="main">
+				<div class="left">
+					<div class="leftsideBox">
+						<div class="title"><span id="goodsInfo"></span>
+							<h3><tpl> $langPAuctionBuyProductInfo </tpl></h3>
+						</div>
+						<div class="content">
+							<div id="goodsPic"><a href="product_fixprice.php?action=view&p_code=<tpl> $product_row.p_code </tpl>" target="_blank"><img id="product_img" src="<tpl> if $product_row.mid_pic neq '' </tpl><tpl> $site_url </tpl>/<tpl> $product_row.mid_pic </tpl><tpl> else </tpl><tpl> $template_dir </tpl>/images/noimgm.gif<tpl> /if </tpl>" width="192" height="192" /></a></div>
+							<dl>
+								<dt><tpl> $langPBabyName </tpl>:&nbsp;</dt>
+								<dd><a href="product_fixprice.php?action=view&p_code=<tpl> $product_row.p_code </tpl>" target="_blank"><tpl> $product_row.p_name </tpl></a></dd>
+							</dl>
+							<dl>
+								<dt><tpl> $langPHNoncePrice </tpl>:&nbsp;</dt>
+								<dd><tpl> $product_row.p_price </tpl> <tpl> $langCYuan </tpl></dd>
+							</dl>
+							<dl>
+								<dt><tpl> $langUserArea </tpl>:&nbsp;</dt>
+								<dd>
+									<tpl> section name=loop loop=$sel_area </tpl>
+										<var><tpl> $sel_area[loop].area_name </tpl></var>
+									<tpl> /section </tpl>
+								</dd>
+							</dl>
+							<dl>
+								<dt><tpl> $langPSale </tpl>:&nbsp;</dt>
+								<dd><tpl> $product_row.login_name </tpl></dd>
+							</dl>
+						</div>
+					</div>
+					<div class="leftsideBox">
+						<div class="title"><span id="payment"></span>
+							<h3><tpl> $langPPayment </tpl></h3>
+						</div>
+						<div class="content">
+							<tpl> foreach from=$payment_array item=one key=key </tpl>
+								<tpl> if $key eq 'predeposit' </tpl>
+									<input onclick="change_currency(this.value);" type="radio" name="txtPayment" id="radio_predeposit" <tpl> if $one.check eq '1' </tpl>checked="checked"<tpl> /if </tpl> value="<tpl> $key </tpl>" /><tpl> $one.name </tpl>
+									（<tpl> $langPAvailablePredeposit </tpl>：￥<span id="span_available_predeposit"><tpl> $member_array.available_predeposit </tpl></span><input type="button" name="blockUi" id="blockUi" value="<tpl> $langProductPredepositPay </tpl>" />）
+									<input type="hidden" name="available_predeposit" id="available_predeposit" value="<tpl> $member_array.available_predeposit </tpl>" />
+								<tpl> else </tpl>
+									<input onclick="change_currency(this.value);" type="radio" name="txtPayment" <tpl> if $one.check eq '1' </tpl>checked="checked"<tpl> /if </tpl> value="<tpl> $key </tpl>" /><tpl> $one.name </tpl>
+								<tpl> /if </tpl><br/>
+							<tpl> /foreach </tpl>
+							<div class="clear">&nbsp;</div>
+						</div>
+					</div>
+					<div class="leftsideBox">
+						<div class="title"><span id="currencyType"></span>
+							<h3><tpl> $langPPaymentCurrency </tpl></h3>
+						</div>
+						<div class="content">
+							<tpl> foreach from=$payment_array item=one key=key </tpl>
+								<span id="div_<tpl> $key </tpl>_currency">
+									<tpl> assign var='cur_checked_sign' value='' </tpl>
+									<tpl> foreach from=$currency_array item=two key=key2 </tpl>
+										<input type="radio" <tpl> if $cur_checked_sign eq '' </tpl>checked="checked"<tpl> /if </tpl> name="<tpl> $key </tpl>_currency" value="<tpl> $key2 </tpl>" /><tpl> $exchange_remark[$key2] </tpl>(<tpl> $key2 </tpl>):<tpl> $two </tpl><br/>
+										<tpl> assign var='cur_checked_sign' value=$key </tpl>
+										<tpl> if $key eq 'predeposit' </tpl>
+											<input type="hidden" name="predeposit_price" id="predeposit_price" value="<tpl> $predeposit_price </tpl>" />
+										<tpl> /if </tpl>
+									<tpl> /foreach </tpl>
+								</span>
+							<tpl> /foreach </tpl>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div class="rightSideBox">
+						<div class="title"><span><a href="../member/own_receive.php" target="_blank"><tpl> $langPmanageMeAddress </tpl></a></span>
+							<h3><tpl> $langPConfirmAddress </tpl></h3>
+						</div>
+						<div class="content">
+						<ul id="addlist">
+						<script language="javascript" type="text/javascript">
+							var noAddress = false;
+							<tpl> section name=i loop=$receive_array </tpl>
+								var add_<tpl> $receive_array[i].receive_code </tpl> = "<tpl> $receive_array[i].receive_code </tpl>";
+								<tpl> foreach from=$receive_array[i].sel_area item=one key=key </tpl>
+									var area_<tpl> $receive_array[i].receive_code </tpl>_<tpl> $key </tpl> = "<tpl> $one.area_name </tpl>";
+								<tpl> /foreach </tpl>
+								var postCode_<tpl> $receive_array[i].receive_code </tpl> = "<tpl> $receive_array[i].zip </tpl>";
+								var fullName_<tpl> $receive_array[i].receive_code </tpl> = "<tpl> $receive_array[i].receive_name </tpl>";
+								var phone_<tpl> $receive_array[i].receive_code </tpl> = "<tpl> $receive_array[i].phone </tpl>";
+								var mobile_<tpl> $receive_array[i].receive_code </tpl> = "<tpl> $receive_array[i].mobilephone </tpl>";
+								var addrDetail_<tpl> $receive_array[i].receive_code </tpl> = " <tpl> $receive_array[i].address </tpl> ";
+								var area_id_<tpl> $receive_array[i].receive_code </tpl> = "<tpl> $receive_array[i].receive_area_id </tpl>";
+							<tpl> /section </tpl>
+						</script>
+							<tpl> section name=i loop=$receive_array </tpl>
+								<tpl> foreach from=$receive_array[i].sel_area item=one key=key </tpl>
+									<input type="hidden" name="area_<tpl> $receive_array[i].receive_code </tpl>_<tpl> $key </tpl>" id="area_<tpl> $receive_array[i].receive_code </tpl>_<tpl> $key </tpl>" value="<tpl> $one.area_name </tpl>" />
+								<tpl> /foreach </tpl>
+							<tpl> /section </tpl>
+							<input type="hidden" name="checkaddr" id="checkaddr" value="<tpl> $receive_array[0].receive_code </tpl>" />
+							<ul id="receive_info" >
+								<tpl> section name=i loop=$receive_array </tpl>
+									<li>
+										<input type="radio" name="daddr" value="<tpl> $receive_array[i].receive_code </tpl>" onclick="putAddr('<tpl> $receive_array[i].receive_code </tpl>');" id="add<tpl> $receive_array[i].receive_code </tpl>"
+										<tpl> if $smarty.section.i.iteration == "1" </tpl> checked <tpl> /if </tpl> />
+										<label for="add<tpl> $receive_array[i].receive_code </tpl>">
+										<tpl> foreach from=$receive_array[i].sel_area item=one key=key </tpl><tpl> $one.area_name </tpl><tpl> /foreach </tpl><tpl> $receive_array[i].address </tpl> (<tpl> $langPConsignee </tpl>：<tpl> $receive_array[i].receive_name </tpl>)</label>
+										<!--use area_first_id to showEdit display=none for change postage-->
+										<input type="hidden" id="area_first_id_<tpl> $receive_array[i].receive_code </tpl>" value="<tpl> $receive_array[i].sel_area[0].area_id </tpl>" />
+									</li>
+								<tpl> /section </tpl>
+							</ul>
+							<input type="hidden" name="deliver_address_empty" value="1">
+							<input type="hidden" id="bid_receive_code" name="bid_receive_code">
+							<script language="javascript">
+								var IE5plus = navigator.userAgent.indexOf('MSIE 6') != -1 || navigator.userAgent.indexOf('MSIE 5') != -1;
+								function ie6fix() {
+									if (!IE5plus) return;
+									document.getElementById('_edit_address').style.display = '';
+									document.getElementById('_edit_address').style.display = 'none';
+								}
+								
+								function putAddr(id) {
+									var addr = eval('addrDetail_' + id);
+									var post = eval('postCode_' + id);
+									var name = eval('fullName_' + id);
+									var phone = eval('phone_' + id);
+									var mobile = eval('mobile_' + id);
+									var area_id = eval('area_id_' + id);
+									document.mainform['address'].value = addr;
+									document.mainform['zip'].value = post;
+									document.mainform['receive_name'].value = name;
+									document.mainform['phone'].value = phone;
+									document.mainform['mobilephone'].value = mobile;
+									document.getElementById('checkaddr').value=document.getElementById('add' + id).value;
+									document.mainform['area_id'].value = area_id;
+									document.getElementById('_edit_address').style.display = 'none';
+									document.getElementById('bid_receive_code').value = '';
+									
+									if(area_id != ''){//地区ID不能为空的时候
+										if(typeof($('#area_'+id+'_0').val()) != 'undefined'){
+											$('#c1 [text='+$('#area_'+id+'_0').val()+']').attr('selected','selected');
+											change_postage($('#area_first_id_'+id).val());
+										}
+										if(typeof($('#area_'+id+'_1').val()) != 'undefined'){
+											$("<option value='' selected='selected'>"+$('#area_'+id+'_1').val()+"</option>").appendTo("#c2");
+										}
+										if(typeof($('#area_'+id+'_2').val()) != 'undefined'){
+											$("<option value='' selected='selected'>"+$('#area_'+id+'_2').val()+"</option>").appendTo("#c3");
+										}
+										if(typeof($('#area_'+id+'_3').val()) != 'undefined'){
+											$("<option value='' selected='selected'>"+$('#area_'+id+'_3').val()+"</option>").appendTo("#c4");
+										}
+									}
+								
+									try {
+										if (!_show) ise6fix();
+									}catch (e) {
+										if (!_show) ie6fix();
+									}
+								}
+								var _show = false;
+								function showEdit(forceOpen) {
+									var obj = document.getElementById('_edit_address');
+									if (obj == null) {
+										return;
+									}
+									if (_show && !forceOpen) {
+										// change_postage
+										change_postage($('#area_first_id_'+$("input[@type=radio][name=daddr][@checked]").val()).val());
+										_show = false;
+									}else {
+										// change_postage
+										change_postage('default');
+										
+										obj.style.display = '';
+										document.getElementById('bid_receive_code').value = 'new';
+										document.getElementById('checkaddr').value = '';
+										//clean recive add form
+										document.mainform['address'].value = '';
+										document.mainform['zip'].value = '';
+										document.mainform['receive_name'].value = '';
+										document.mainform['phone'].value = '';
+										document.mainform['mobilephone'].value = '';
+										document.getElementById('checkaddr').value='';
+										document.mainform['area_id'].value = '';
+										$('#c1').attr('value','');
+										$('#c2').html('');
+										$('#c2').html('');
+										$('#c4').html('');
+									}
+								}
+								<tpl> if $receive_count < 5 </tpl>
+								if (!noAddress) {
+									document.write('<input type="radio" id="daddr" name="daddr" onclick="javascript:void showEdit();">&nbsp;<tpl> $langPUseElseAddress </tpl>&nbsp;&nbsp;&nbsp;&nbsp;');
+								}
+								<tpl> /if </tpl>
+								var hasError = false;
+							</script>
+						<li <tpl> if $receive_count >= 5 </tpl>style="display:none"<tpl> /if </tpl>>
+								<table id="_edit_address" style="display:none;" class="proinfo">
+									<tr>
+										<td colspan="2" align="2"><input type="hidden" name="area_id" id="area_id" /></td>
+									</tr>
+									<tr>
+										<td width="150" align="right" valign="top"><tpl> $langPTown </tpl>：</td>
+										<td align="left">
+										<div id="adddiv"></div>
+										<input type="hidden" name="receive_area_id" id="receive_area_id" />	
+										</td>
+									</tr>
+									<tr>
+										<td align="right" valign="top"><tpl> $langPRowAddress </tpl>：</td>
+										<td align="left" >
+											<input type="text" name="address" id="address" maxlength="80" style="width:400px;" />
+											<label style="display:block;" metaDone="true" generated="true" for="address"></label><br/>
+											<font color="#ff9900"><tpl> $errProductNotMake </tpl></font> <br />
+										</td>
+									</tr>
+									<tr>
+										<td align="right"><tpl> $langPPostalcode </tpl>：</td>
+										<td align="left" ><input type="text" name="zip" maxlength="8" id="zip" size="10" value=""><label style="display:block;" metaDone="true" generated="true" for="zip"></label></td>
+									</tr>
+									<tr>
+										<td align="right"><tpl> $langPConsigneeName </tpl>：</td>
+										<td align="left" ><input type="text" name="receive_name" maxlength="16" id="receive_name" size="12" value=""><label style="display:block;" metaDone="true" generated="true" for="receive_name"></label></td>
+									</tr>
+									<tr>
+										<td align="right"><tpl> $langPPhone </tpl>：</td>
+										<td align="left" ><input type="text" name="phone" id="phone" maxlength="25" size="20" value=""></td>
+									</tr>
+									<tr>
+										<td align="right"><tpl> $langPMobileTelephone </tpl>：</td>
+										<td align="left" ><input type="text" name="mobilephone" id="mobilephone" maxlength="12" size="20" value=""></td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td align="left" ><font color="#ff9900"><tpl> $langPExpressAffiliation </tpl></font></td>
+									</tr>
+								</table>
+							</li>
+						</ul>
+						</div>
+					</div>
+					<div class="rightSideBox">
+						<div class="title">
+						<h3><tpl> $langPConfirmBuyNum </tpl></h3>
+						</div>
+						<div class="content">
+							<input type=hidden name="p_name" value="<tpl> $product_row.p_name </tpl>">
+							<input type=hidden name="p_code" value="<tpl> $product_row.p_code </tpl>">
+							<input type=hidden name="p_pic" value="<tpl> $product_row.p_pic </tpl>">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th> <tpl> $langPBuyNum </tpl>：</th>
+									<td>
+										<input type="text" id="buy_num" name="buy_num" value="1" size="5" <tpl> if $postage_transfee neq '' </tpl>onkeyup="change_tffee();"<tpl> /if </tpl> />
+										<tpl> $langPMayBuy </tpl> <tpl> $product_row.p_storage </tpl> <tpl> $langPPiece </tpl> <label style="display:none" for="buy_num" class="wrong" metaDone="true" generated="true"></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langPCarryFashion </tpl>：</th>
+									<td>
+										<div id="postageDiv"></div>
+										<input type="hidden" id="shippingHidden" name="_fma.b._0.s" value="" />
+										<tpl> if $product_row.p_transfee_charge == '1' </tpl>
+										<tpl> if $postage_transfee neq '' </tpl>
+										<span id="ordinary_span"<tpl> if $postage_transfee.ordinary.base eq '' </tpl> style="display:none"<tpl> /if </tpl>>
+										<input type="radio" name="txtTfType" value="1" checked="checked" onclick="change_tffee();" /><tpl> $langPCommonlyPost </tpl>:<span id="span_ordinary"><tpl> $postage_transfee.ordinary.base </tpl></span><tpl> $langCYuan </tpl>(<tpl> $langPPostageEachUp </tpl><span id="span_ordinary_up"><tpl> $postage_transfee.ordinary.up </tpl></span><tpl> $langCYuan </tpl>)
+										<input type="hidden" id="postage_transfee_ordinary_base" value="<tpl> $postage_transfee.ordinary.base </tpl>" />
+										<input type="hidden" id="postage_transfee_ordinary_up" value="<tpl> $postage_transfee.ordinary.up </tpl>" />
+										<br />
+										</span>
+										<span id="fast_span"<tpl> if $postage_transfee.fast.base eq '' </tpl> style="display:none"<tpl> /if </tpl>>
+										<input type="radio" name="txtTfType" value="2" onclick="change_tffee();" /><tpl> $langPCelerityPost </tpl>:<span id="span_fast"><tpl> $postage_transfee.fast.base </tpl></span><tpl> $langCYuan </tpl>(<tpl> $langPPostageEachUp </tpl><span id="span_fast_up"><tpl> $postage_transfee.fast.up </tpl></span><tpl> $langCYuan </tpl>)
+										<input type="hidden" id="postage_transfee_fast_base" value="<tpl> $postage_transfee.fast.base </tpl>" />
+										<input type="hidden" id="postage_transfee_fast_up" value="<tpl> $postage_transfee.fast.up </tpl>" />
+										<br />
+										</span>
+										<span id="ems_span"<tpl> if $postage_transfee.ems.base eq '' </tpl> style="display:none"<tpl> /if </tpl>>
+										<input type="radio" name="txtTfType" value="3" onclick="change_tffee();" />
+										EMS:<span id="span_ems"><tpl> $postage_transfee.ems.base </tpl></span><tpl> $langCYuan </tpl>(<tpl> $langPPostageEachUp </tpl><span id="span_ems_up"><tpl> $postage_transfee.ems.up </tpl></span><tpl> $langCYuan </tpl>)
+										<input type="hidden" id="postage_transfee_ems_base" value="<tpl> $postage_transfee.ems.base </tpl>" />
+										<input type="hidden" id="postage_transfee_ems_up" value="<tpl> $postage_transfee.ems.up </tpl>" />
+										<br />
+										</span>
+										<tpl> else </tpl>
+										<input type="radio" name="txtTfType" value="1" checked="checked" onclick="document.getElementById('tf_fee').value='<tpl> $product_row.p_tf_py </tpl>';" /><tpl> $langPCommonlyPost </tpl>:<tpl> $product_row.p_tf_py </tpl><tpl> $langCYuan </tpl>
+										<input type="radio" name="txtTfType" value="2" onclick="document.getElementById('tf_fee').value='<tpl> $product_row.p_tf_kd </tpl>';" /><tpl> $langPCelerityPost </tpl>:<tpl> $product_row.p_tf_kd </tpl><tpl> $langCYuan </tpl>
+										<input type="radio" name="txtTfType" value="3" onclick="document.getElementById('tf_fee').value='<tpl> $product_row.p_tf_ems </tpl>';" />
+										EMS:<tpl> $product_row.p_tf_ems </tpl><tpl> $langCYuan </tpl><br/>
+										<font color="#ff9900"><tpl> $langPAmendCarriage </tpl></font>
+										<tpl> /if </tpl>
+										<input type="hidden" name="tf_fee" id="tf_fee" value="<tpl> if $postage_transfee neq '' </tpl><tpl> $postage_transfee.ordinary.base </tpl><tpl> else </tpl><tpl> $product_row.p_tf_py </tpl><tpl> /if </tpl>" />
+										<tpl> else </tpl> 
+										<tpl> $langSelaTranFee </tpl>
+										<tpl> /if </tpl> 
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="rightSideBox">
+						<div class="title">
+							<h3><tpl> $langPConfirmSubmitOrder </tpl></h3>
+						</div>
+						<div class="content">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<th><input type="checkbox" name="anonymous" id="anonymous" style="height:28px" value="1"/>
+									<label for="anonymous"></label></th>
+									<td><label for="select"><b><tpl> $langPIntimacyMyName </tpl></b><tpl> $langPSelectAnonymity </tpl></label></td>
+								</tr>
+								<tr>
+									<th><tpl> $langPCheckCode </tpl>：</th>
+									<td><input type="text" name="checkcode" id="checkcode" value="" size="5"/>
+									<img id="checkCodeImg" src="../classes/libraries/code.php" onclick="this.src='../classes/libraries/code.php?' + Math.random()"  align="absmiddle"><a href="javascript:;" onclick="document.getElementById('checkCodeImg').src='../classes/libraries/code.php?' + Math.random()"><tpl> $langPNotClarityInstead </tpl></a><br/>
+									<font color="#ff9900"><tpl> $langPImageNum </tpl></font></td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td><input type="submit" name="Submit" id="Submit" value="<tpl> $langPConfirmToBuy </tpl>" class="btn"/></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			</div> <div class="clear" style="height:8px;"></div>
+			</div>
+		</form>
+	</div>
+	<tpl> include file ='../../../html/footer.html' </tpl>
+	<div id="question" style="display:none; cursor: default; padding:10px"> 
+		<input type="button" id="yes" value="<tpl> $langProductPredepositPaySucc </tpl>" onclick="javascript:payOk();" style=" border:1px solid #CCCCCC;width:80px; margin:5px; background-image:url(../templates/system/images/anniu.gif)"/> 
+		<input type="button" id="no" value="<tpl> $langProductPredepositPayFail </tpl>" onclick="javascript:payFail();" style="border:1px solid #CCCCCC;width:90px; margin:5px; background-image:url(../templates/system/images/anniu.gif)"/>
+	</div>
+</body>
+</html>

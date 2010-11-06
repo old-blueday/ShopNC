@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_list</tpl></title><!-- 商品管理 - 商品列表 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/toolbox.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/main.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+</head>
+
+<body id="goodsList">
+<div id="content">
+    <h2><span class="alignRight"><a href="admin_virtual_card.php?action=add&goods_id=<tpl>$smarty.get.goods_id</tpl>" target="_self">{<tpl>$admin_virtual_card_add_detail</tpl><!-- 补货 -->}</a></span><tpl>$admin_header_goods_manage</tpl><!-- 商品管理 --> >> 
+		<tpl> $goods_array.goods_name </tpl><!-- 虚拟卡表列 -->
+    	
+    </h2>
+    <div class="entry-body" id="p-list-div">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+         <tr>
+          	<td colspan="12" class="searchbar">
+			 <div class="alignRight">
+              <form action="admin_virtual_card.php" method="get">
+			  <input type="hidden" name="action" value="list" />
+			  <input type="hidden" name="goods_id" value="<tpl> $smarty.get.goods_id </tpl>" />
+			  <select name="search_type" id="search_type">
+			  	<option value="like_card_number"><tpl> $admin_virtual_card_number </tpl></option>
+				<option value="like_order_serial"><tpl> $admin_virtual_card_order_serial </tpl></option>
+			  </select>
+			  <tpl> if $smarty.get.search_type neq ''</tpl>
+			  	<script>
+					document.getElementById('search_type').value = '<tpl> $smarty.get.search_type </tpl>';
+			 	 </script>
+			  <tpl> /if </tpl>
+                  <input type="text" name="search" id="search" value="<tpl> if $smarty.get.search != '' </tpl><tpl>$smarty.get.search</tpl><tpl> /if </tpl>" />
+                  <input type="submit" name="button" id="button" value="<tpl>$admin_goods_list_submit</tpl>" class="btnInput" /><!-- 提交 -->
+               </form>
+              </div>
+			</td>
+		</tr>
+
+            <form action="admin_virtual_card.php"  method="post" >
+            	<input type="hidden" name="action" value="del" />
+				<input type="hidden" name="goods_id" value="<tpl>$smarty.get.goods_id</tpl>" />
+          <tr>
+            <th><input type="checkbox" name="all" id="all" /></th>
+            <th><tpl> $admin_virtual_card_number </tpl></th>
+            <th><tpl> $admin_virtual_card_password </tpl></th>
+            <th><tpl> $admin_virtual_card_end_time </tpl></th>
+            <th><tpl> $admin_virtual_card_is_sel </tpl></th>
+            <th><tpl> $admin_virtual_card_order_serial </tpl></th>
+            <th><tpl> $admin_virtual_card_operate </tpl></th>
+          </tr>
+         <tpl> section name=i loop=$virtual_card_array </tpl>
+          <tr>
+            <td><label>
+            <input type="checkbox" name="card_id[]" id="card_id[]" value="<tpl> $virtual_card_array[i].card_id </tpl>" class="cb" />
+            </label></td>
+            <td><tpl> $virtual_card_array[i].card_number </tpl></td>
+            <td><tpl> $virtual_card_array[i].password </tpl></td>
+            <td><tpl> $virtual_card_array[i].end_time </tpl>
+			</td>
+            <td>
+				<img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_<tpl> $virtual_card_array[i].is_sell</tpl>.gif"/></td>
+            <td><tpl> $virtual_card_array[i].order_serial </tpl></td>
+            <td>
+			   <a href="<tpl>$Site_Url</tpl>/admin/admin_virtual_card.php?action=add&card_id=<tpl>$virtual_card_array[i].card_id</tpl>" ><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_edit.gif" title="<tpl>$admin_virtual_card_list_edit</tpl>" /><!-- 编辑 --></a>	
+                <a href="<tpl>$Site_Url</tpl>/admin/admin_virtual_card.php?action=del&card_id=<tpl> $virtual_card_array[i].card_id </tpl>&goods_id=<tpl>$smarty.get.goods_id</tpl>"  onclick="return confirm('<tpl>$admin_virtual_card_list_del_conf</tpl>')"><img src="<tpl>$Site_Url</tpl>/admin/templates/images/icon_cancel.gif" title="<tpl>$admin_virtual_card_list_del</tpl>" /><!-- 删除 --></a>	
+
+			</td>
+          </tr>
+          <tpl> /section </tpl>
+          <tr>
+          	<td colspan="12" class="searchbar">
+              <input type="submit" onclick="return confirm('<tpl>$admin_virtual_card_list_del_conf</tpl>')" value="<tpl>$admin_virtual_card_list_del</tpl>" class="delBtnInput" /><!-- 删除 -->
+              <div class="pagebar">
+                  <tpl>$show_page</tpl>
+              </div>
+            </td>
+          </tr>
+        </table>
+    </form>
+    </div><!--  end of p-list-div  -->
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

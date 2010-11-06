@@ -1,0 +1,41 @@
+<tpl> section name=i loop=$product_array </tpl>
+	<tpl> if $smarty.section.i.rownum < 6 </tpl>
+		<li class="top">
+			<tpl> if $ifhtml eq '1' && $product_array[i].html_url neq '' </tpl>
+					<span class="pics"><p><img 
+											<tpl> if $product_array[i].img_width > $product_array[i].img_heigth </tpl>
+												style="height:60px;"
+											<tpl> elseif $product_array[i].img_width < $product_array[i].img_heigth </tpl>
+												 style="width:60px;"
+											<tpl> else </tpl>
+												style="width:60px;height:60px;"
+											<tpl> /if </tpl>
+										src="<tpl> $site_url </tpl>/<tpl> $product_array[i].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" alt="<tpl> $product_array[i].p_name </tpl>" /></p></span>
+					<span class="name"><a href="<tpl> $site_url </tpl><tpl> $product_array[i].html_url </tpl>" title="<tpl>$product_array[i].p_name</tpl>" target="_blank"><tpl> $product_array[i].p_short_name </tpl></a></span>
+					<span class="price"><font class="font1">￥</font><font class="font2"><tpl> $product_array[i].p_price_int </tpl></font>.<font class="font3"><tpl> $product_array[i].p_price_floot </tpl></font></span>
+					<span class="buy"><a href="<tpl> $site_url </tpl><tpl> $product_array[i].html_url </tpl>" title="<tpl> $langChannelIWantBuy </tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/home/images/images_new/sign_buy.gif" alt="<tpl> $langChannelIWantBuy </tpl>"></a></span>
+			<tpl> else </tpl>
+					<span class="pics"><p><img
+											<tpl> if $product_array[i].img_width > $product_array[i].img_heigth </tpl>
+												style="height:60px;"
+											<tpl> elseif $product_array[i].img_width < $product_array[i].img_heigth </tpl>
+												 style="width:60px;"
+											<tpl> else </tpl>
+												style="width:60px;height:60px;"
+											<tpl> /if </tpl>
+										src="<tpl> $site_url </tpl>/<tpl> $product_array[i].small_pic|default:'templates/orange/images/noimgs.gif' </tpl>" alt="<tpl> $product_array[i].p_name </tpl>" /></p></span>
+					<span class="name"><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array[i].p_code</tpl>" title="<tpl>$product_array[i].p_name</tpl>" target="_blank"><tpl> $product_array[i].p_short_name </tpl></a></span>
+					<span class="price"><font class="font1">￥</font><font class="font2"><tpl> $product_array[i].p_price_int </tpl></font>.<font class="font3"><tpl> $product_array[i].p_price_floot </tpl></font></span>
+					<span class="buy"><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array[i].p_code</tpl>" title="<tpl>$product_array[i].p_name</tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/home/images/images_new/sign_buy.gif" alt="<tpl> $langChannelIWantBuy </tpl>"></a></span>
+			<tpl> /if </tpl>
+		</li>
+	<tpl> else </tpl>
+		<li>
+			<tpl> if $ifhtml eq '1' && $product_array[i].html_url neq '' </tpl>
+					<span class="name"><a href="<tpl> $site_url </tpl><tpl> $product_array[i].html_url </tpl>" title="<tpl>$product_array[i].p_name</tpl>" target="_blank"><tpl> $product_array[i].p_short_name </tpl></a></span>
+			<tpl> else </tpl>
+					<span class="name"><a href="<tpl> $site_url </tpl>/home/product.php?action=view&pid=<tpl>$product_array[i].p_code</tpl>" title="<tpl>$product_array[i].p_name</tpl>" target="_blank"><tpl> $product_array[i].p_short_name </tpl></a></span>
+			<tpl> /if </tpl>
+		</li>
+	<tpl> /if </tpl>
+<tpl> /section </tpl>

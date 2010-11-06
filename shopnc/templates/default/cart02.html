@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$shopping_cart1_name</tpl> - <tpl>$site_name</tpl> - Powered by ShopNC</title>
+<link href="<tpl> $template_dir </tpl>/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/headfoot.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("input").focus(function() {
+		$(this).addClass("curfocus")
+	});
+	$("input").blur(function() {
+		$(this).removeClass("curfocus")
+	});
+});
+
+
+$(document).ready(function(){
+	$('#editinvoice').hide();
+	
+	$("input[@name='shipping']").click(function(){
+		$("input[@name='shipping']").parents("tr").removeClass('mhover');
+		$(this).parents('tr').addClass('mhover');
+	});
+	
+	$("input[@name='paytype']").click(function(){
+		$("input[@name='paytype']").parents("tr").removeClass('mhover');
+		$(this).parents('tr').addClass('mhover');
+	});
+	
+	
+	$("input[@name='addr']").click(function(){
+		$("input[@name='addr']").parents("tr").removeClass('mhover');
+		$(this).parents('tr').addClass('mhover');
+	});
+	
+	$("input[@name='paytype']").click(function(){
+		$("input[@name='paytype']").parents("tr").removeClass('mhover');
+		$(this).parents('tr').addClass('mhover');
+	});
+	/* 发票部分的操作 */
+	$('input[@name="invoice"]').click(function(){
+		if(this.id == 'yesinvoice'){
+			$('#editinvoice').css('display', '');
+		}
+		else{
+			$('#editinvoice').hide();
+		}
+	});
+	/* 其他联系人部分的操作 */
+	$("input[@id='other_user_one']").click(function(){
+		$(".new_add").css("display","");
+		
+		/* 对其他人的隐藏表单进行赋值，使其可检查 */
+		$("#receiver_name,#receiver_email,#receiver_mobile,#receiver_call,#receiver_zip,#receiver_address,#other_check_error").attr("value",'');//情况内容 
+		
+		/* 清空配送方式，插入空内容 */
+		$("#ajax_send_type").empty();
+		$("#ajax_send_type").append("<tr><td width=\"30\">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>");
+		
+	});
+
+	/*
+	* 下拉菜单点击事件
+	* select_top_name	为点击菜单
+	* select_name		为子菜单
+	*/
+	var	area_change=function(select_top_name,select_name){
+	$('#'+select_top_name).change(function(){
+			var item_value	= $("select[@name="+select_top_name+"] option[@selected]").val();
+			var	option_top	= "<option value=\"0\" selected=\"selected\"><tpl>$shopping_select</tpl></option>";
+			
+			/* ajax传值 */
+			$.post('admin/admin_module_region.php',{'action':'ajax_area','area_id':item_value},function(data) {
+			/* 当选择为第一或是第二菜单的时候，情况第三，第四菜单 */
+			if(select_top_name == 'select0') {
+				/* 隐藏下面id的下拉菜单 */
+				$("#select2,#select3,#select1").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();	
+			} else if (select_top_name == 'select1') {
+				/* 隐藏下面id的下拉菜单 */
+				$("#select2,#select3").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+			} else if (select_top_name == 'select2') {
+				$("#select3").css("display","none");
+				/* 获取选中值 */
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+				var item_city	 = $("select[@name='select2'] option[@selected]").text();
+			} else if (select_top_name == 'select3') {
+				/* 获取选中值，此中缺少一个地区，也就是第四级地区（如果加入，对应其他地方也需要修改） */
+				var item_province= $("select[@name='select1'] option[@selected]").text();
+				var item_city	 = $("select[@name='select2'] option[@selected]").text();
+				var	item_country = $("select[@name='select0'] option[@selected]").text();
+				var item_county	 = $("select[@name='select3'] option[@selected]").text();
+			}
+			if(select_name != 0) {
+			/* 如果下级菜单有值，显示下级菜单内容 */
+				if(data != '') {
+					$("#"+select_name).css("display","");
+					$("#"+select_name).empty();
+					$("#"+select_name).append(option_top+data);
+					
+				}
+				$.post('admin/admin_module_send.php',{'action':'ajax_get_send','country':item_country,'province':item_province,'city':item_city,'county':item_county,'weigth':'<tpl>$goods_weight</tpl>','amount':'<tpl>$price_count</tpl>'},function(data){
+						
+				if(data != '') {
+						$("#ajax_send_type").empty();
+						$("#ajax_send_type").append(data);
+					}
+				});
+			}
+
+			});
+		});
+	};
+
+	/* 调用下拉点击函数 */
+	area_change('select0','select1');
+	area_change('select1','select2');
+	area_change('select2','select3');
+	area_change('select3','select4');
+	
+});
+/* 默认选择配送地区的情况下，显示得到匹配的配送方式 */
+function get_send_type(country,province,city,county) {
+
+	/* 隐藏其他联系人 */
+	$(".new_add").css("display","none");
+	
+	/* 清空配送选中标识 */
+	$("#send_check_error").attr('value','');
+	/* 对其他人的隐藏表单进行赋值，使其可检查 */
+	$("#receiver_email").attr('value','shopnc@shopnc.cn');
+	$("#receiver_mobile").attr('value','13666666666');
+	$("#receiver_call").attr('value','6666666');
+	$("#receiver_zip,#receiver_name,#receiver_address,#other_check_error").attr("value",'666666');//情况内容 
+		
+	$.post('admin/admin_module_send.php',{'action':'ajax_get_send','country':country,'province':province,'city':city,'county':county,'weigth':'<tpl>$goods_weight</tpl>','amount':'<tpl>$price_count</tpl>'},function(data){
+		if(data != '') {
+			$("#ajax_send_type").empty();
+			$("#ajax_send_type").append(data);
+		}
+	});
+}
+/* 配送方式选择，同时金额变换 */
+function selected_send_type(send_price) {
+		var pay_fee;
+		pay_fee		= $("#nc_pay_fee").val();
+		
+		if(send_price == '') send_price = '0';
+		$("#show_countprice").html(parseFloat(<tpl>$price_true_count</tpl>)+parseFloat(send_price)+parseFloat(pay_fee));
+		$("#show_sendprice").html(send_price);
+		$("#nc_send_price").val(parseFloat(send_price));
+		/* 对配送选中的判断 */
+		$("#send_check_error").attr("value",'1');//填充内容 
+		//document.getElementById('send_check_error').value=1;
+		$("#send_check_table").css("display","none");
+}
+
+/* 支付方式选择的同时对支付费用进行总价相加 */
+function select_pay_count(pay_fee) {
+	var send_price;
+		send_price			= $("#nc_send_price").val();
+
+	if(pay_fee == '') pay_fee = '0';
+
+		$("#show_countprice").html(parseFloat(<tpl>$price_true_count</tpl>)+parseFloat(pay_fee)+parseFloat(send_price));
+		$("#show_payfee").html(pay_fee);
+		$("#nc_pay_fee").val(parseFloat(pay_fee));	
+}
+</script>
+</head>
+<body>
+<!-- 头部:START -->
+<tpl>include_php file ='header.php'</tpl>
+<!-- 头部:END -->
+<div class="clear" style="margin-top:5px;">&nbsp;</div>
+<!-- 页面:START -->
+<form name="cart02" id="cart02" action="shopping.php?action=step_2" method="post" target="_self">
+<div id="formbox">
+  <div class="toppic" id="shopping_pic">&nbsp;</div>
+  <div class="top">&nbsp;</div>
+  <div class="content" >
+    <div class="title">
+      <h2><tpl>$shopping_cart1_name</tpl><!-- 我的购物车 --></h2>
+    </div>
+    <div id="cart">
+      <div class="inside"><span class="btns_left back_t"><a href="shopping.php"><tpl>$shopping_cart1_back</tpl><!-- 返回上一步 --></a></span><span class="btns_right front_t"><a href="#" onclick="to_submit();"><tpl>$shopping_cart1_step2</tpl><!-- 进入下一步 --></a></span>
+        <div class="clear">&nbsp;</div>
+        <div class="bills">
+          <div class="title">
+            <h3><tpl>$shopping_cart1_goods</tpl><!-- 已购买商品 --></h3>
+            <div class="clear">&nbsp;</div>
+          </div>
+          <div class="item">
+            <table width="100%" border="0" cellspacing="2" cellpadding="2">
+              <tr>
+                <td width="10%">&nbsp;</td>
+                <td width="20%" align="left"><strong><tpl>$shopping_cart1_goods_name</tpl><!-- 商品名称 --></strong></td>
+                <td width="10%" align="center"><strong><tpl>$shopping_cart1_goods_price</tpl><!-- 本产品单价 --></strong></td>
+				<td width="15%" align="center"><tpl>$shopping_cart_goods_color</tpl>/<tpl>$shopping_cart_goods_size</tpl><!-- 颜色/规格 --></td>
+                <td width="10%" align="center"><strong><tpl>$shopping_cart1_goods_num</tpl><!-- 数量 --></strong></td>
+                <td align="center"><strong><tpl>$shopping_cart1_goods_count_price</tpl><!-- 本产品合计 --></strong></td>
+              </tr>
+            </table>
+          </div>
+          <ul>
+            <li>
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+				<tpl>section name=list loop=$cart_goods</tpl>
+                  <tr>
+                    <td width="10%" height="80" align="center"><a href="product.php?id=<tpl>$cart_goods[list].goods_id</tpl>"><img src="<tpl> $Site_Url </tpl>/<tpl>$cart_goods[list].goods_small_image</tpl>" alt="" width="60" height="60" /></a></td>
+                    <td width="20%" align="left"><a href="product.php?id=<tpl>$cart_goods[list].goods_id</tpl>"><tpl>$cart_goods[list].goods_name</tpl></a></td>
+                    <td width="10%" align="center"><tpl>$currencys_set.currencies_symbol</tpl><tpl>$cart_goods[list].goods_pricedesc</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+					<td width="15%" align="center"><tpl>$cart_goods[list].color</tpl>/<tpl>$cart_goods[list].size</tpl></td>
+                    <td width="10%" align="center"><tpl>$cart_goods[list].goods_num</tpl></td>
+                    <td align="center"><tpl>$currencys_set.currencies_symbol</tpl><tpl>math equation="x*y" x=$cart_goods[list].goods_pricedesc y=$cart_goods[list].goods_num format="%.2f"</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+				  <tpl>/section</tpl>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+        </div>
+        <dl>
+          <dt><tpl>$shopping_cart1_price</tpl><!-- 商品总额 -->:</dt>
+          <dd><tpl>$currencys_set.currencies_symbol</tpl><tpl>$price_count</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></dd>
+        </dl>
+        <div class="clear">&nbsp;</div>
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart1_receiver_info</tpl><!-- 收货人信息 --></strong></h3>
+          </div>
+          <ul>
+		  <tpl>section name=list loop=$address_array</tpl>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" class="table" >
+                <tbody>
+                  <tr>
+                    <td width="5%" rowspan="2" align="center"><label>
+                      <input type="radio" name="other_id" id="other_user_info" value="<tpl>$address_array[list].other_id</tpl>" <tpl>if $address_array[list].other_flag == 'yes'</tpl> checked="checked"<tpl>/if</tpl> onclick="get_send_type('<tpl>$address_array[list].other_country</tpl>','<tpl>$address_array[list].other_province</tpl>','<tpl>$address_array[list].other_city</tpl>','<tpl>$address_array[list].other_county</tpl>');" />
+                      </label></td>
+                    <th width="12%"><tpl>$shopping_cart1_receiver_name</tpl><!-- 姓名 -->:</th>
+                    <td width="10%"><tpl>$address_array[list].other_true_name</tpl></td>
+                    <th width="12%"><tpl>$shopping_cart1_receiver_phone</tpl><!-- 联络电话 -->:</th>
+                    <td width="13%"><tpl>$address_array[list].other_phone</tpl></td>
+                    <th width="10%"><tpl>$shopping_cart1_receiver_mobile</tpl><!-- 手机 -->:</th>
+                    <td width="16%"><tpl>$address_array[list].other_mobilephone</tpl></td>
+                    <th width="12%"><tpl>$shopping_cart1_receiver_zip</tpl><!-- 邮政编码 -->:</th>
+                    <td width="10%"><tpl>$address_array[list].other_zip</tpl></td>
+                  </tr>
+                  <tr>
+                    <th><tpl>$shopping_cart1_receiver_address</tpl><!-- 收货地址 -->:</th>
+                    <td colspan="7" align="left"><tpl>$address_array[list].other_country</tpl><tpl>$address_array[list].other_province</tpl><tpl>$address_array[list].other_city</tpl><tpl>$address_array[list].other_county</tpl><tpl>$address_array[list].other_address</tpl></td>
+					<tpl>if $address_array[list].other_flag == 'yes'</tpl>
+					<script type="text/javascript">
+					get_send_type('<tpl>$address_array[list].other_country</tpl>','<tpl>$address_array[list].other_province</tpl>','<tpl>$address_array[list].other_city</tpl>','<tpl>$address_array[list].other_county</tpl>');
+					</script>
+					<tpl>/if</tpl>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+			<tpl>/section</tpl>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="5%" rowspan="5" align="center" valign="top"><label>
+                      <input type="radio" name="other_id" id="other_user_one" value="0" />
+                      </label></td>
+                    <td colspan="4" align="left"><strong><tpl>$shopping_cart1_other_receiver</tpl></strong></td>
+                  </tr>
+                  <tr class="new_add" style="display:none">
+                    <td align="left"><tpl>$shopping_cart1_receiver_name</tpl><!-- 收货人姓名 -->:</td>
+                    <td align="left"><input type="text" class="textinput2" name="receiver_name" id="receiver_name" value="666666" style="width:150px;"/>
+					<div class="check-error">
+                		<label style="display:none" for="receiver_name" class="wrong" metaDone="true" generated="true"></label>
+              		</div>
+					</td>
+                    <td align="left"><tpl>$shopping_cart1_receiver_email</tpl><!-- 电子信箱 -->:</td>
+                    <td align="left"><input type="text" class="textinput2" name="receiver_email" id="receiver_email" value="shopnc@shopnc.cn" style="width:150px;"/>
+					<div class="check-error">
+                		<label style="display:none" for="receiver_email" class="wrong" metaDone="true" generated="true"></label>
+              		</div>
+					</td>
+                  </tr>
+                  <tr class="new_add" style="display:none">
+                    <td align="left"><tpl>$shopping_cart1_receiver_mobile</tpl><!-- 联络手机 -->:</td>
+                    <td align="left"><input type="text" class="textinput2" name="receiver_mobile" id="receiver_mobile" value="13666666666" style="width:150px;"/>
+					<div class="check-error">
+                		<label style="display:none" for="receiver_mobile" class="wrong" metaDone="true" generated="true"></label>
+              		</div>
+					</td>
+                    <td align="left"><tpl>$shopping_cart1_receiver_phone</tpl><!-- 联络电话 -->:</td>
+                    <td align="left"><input type="text" class="textinput2" name="receiver_call" id="receiver_call" value="6666666" style="width:150px;"/>
+					<div class="check-error">
+                		<label style="display:none" for="receiver_call" class="wrong" metaDone="true" generated="true"></label>
+              		</div>
+					</td>
+                  </tr>
+                  <tr class="new_add" style="display:none">
+                    <td align="left"><tpl>$shopping_cart1_receiver_zip</tpl><!-- 邮政编码 -->:</td>
+                    <td align="left"><input type="text" class="textinput2" name="receiver_zip" id="receiver_zip" value="666666" style="width:150px;"/>
+					<div class="check-error">
+                		<label style="display:none" for="receiver_zip" class="wrong" metaDone="true" generated="true"></label>
+              		</div>
+					</td>
+                    <td align="left">&nbsp;</td>
+                    <td align="left">&nbsp;</td>
+                  </tr>
+                  <tr class="new_add" style="display:none">
+                    <td align="left"><tpl>$shopping_cart1_receiver_address</tpl><!-- 收货人地址 -->:</td>
+                    <td colspan="3" align="left">
+					<select name="select0" id="select0">
+						  <option value="0" selected="selected"><tpl>$shopping_select</tpl><!-- 请选择... --></option>
+						  <tpl>section name=list loop=$top_region</tpl>
+							<option value="<tpl>$top_region[list].area_id</tpl>"><tpl>$top_region[list].area_name</tpl></option>
+							<tpl>/section</tpl>
+						  </select>
+				    <select name="select1" id="select1" style="display:none">
+						  </select>
+					<select name="select2" id="select2" style="display:none">
+						  </select> 
+					<select name="select3" id="select3" style="display:none">
+						  </select> 
+		          <input name="receiver_address" id="receiver_address" type="text" value="666666" size="40" />
+					<div class="check-error">
+                		<label style="display:none" for="receiver_address" class="wrong" metaDone="true" generated="true"></label>
+              		</div>
+				  </td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart1_send_select</tpl><!-- 选择配送方式 --></strong>(<tpl>$shopping_cart1_send_info</tpl><!-- 选择后配送费用会自动添加到消费总金额中 -->)</h3>
+          </div>
+          <ul>
+            <li class="list">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0" id="ajax_send_type" class="cart-tab">
+				<tr>
+				  <td width="30">&nbsp;</td>
+				  <td>&nbsp;</td>
+				  <td>&nbsp;</td>
+				  <td>&nbsp;</td>
+				</tr>
+				</table>
+				<table id="send_check_table">
+				<tr><td>
+				<input type="hidden" name="send_check_error" id="send_check_error" value="" />
+				<div class="check-error">
+                <label style="display:none" for="send_check_error" class="wrong" metaDone="true" generated="true"></label>
+              </div></td></tr>
+				</table>
+            </li>
+          </ul>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart1_pay_select</tpl><!-- 选择支付方式 --></strong></h3>
+          </div>
+          <ul>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+				<tpl>section name=list loop=$pay_type</tpl>
+                  <tr>
+                    <td width="5%" align="center"><input type="radio" name="pay_id" id="pay_id" value="<tpl>$pay_type[list].pay_id</tpl>" onclick="select_pay_count('<tpl>$pay_type[list].pay_fee</tpl>');" <tpl>if $pay_type[list].pay_selected=='1'</tpl>checked="checked"<tpl>/if</tpl> /></td>
+                    <td><strong><tpl>$pay_type[list].pay_name</tpl></strong>&nbsp;&nbsp;(<tpl>$shopping_cart1_pay_money</tpl>:<tpl>$pay_type[list].pay_fee</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 -->)
+					<tpl>if $pay_type[list].pay_selected=='1'</tpl>
+					<input type="hidden" name="select_pay_fee" id="select_pay_fee" value="<tpl>$pay_type[list].pay_fee</tpl>" />
+					<tpl>/if</tpl>
+					</td>
+                  </tr>
+				  <tpl>/section</tpl>
+				  <tr>
+				  <td colspan="2">
+				  <div class="check-error">
+                <label style="display:none" for="pay_id" class="wrong" metaDone="true" generated="true"></label>
+              </div>
+				  </td>
+				  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart1_other</tpl><!-- 其他 --></strong></h3>
+          </div>
+          <ul>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_invoice</tpl><!-- 是否开具发票 -->
+                      <!-- 是否开具发票 -->
+                      :</label></td>
+				  <td><input type="radio" name="invoice" value="1" id="yesinvoice" />
+			      <tpl>$shopping_cart1_invoice_yes</tpl><!-- 是 -->
+			        <input type="radio" name="invoice" value="0" checked="checked" />
+		          <tpl>$shopping_cart1_invoice_no</tpl><!-- 否 --></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+				<tr id="editinvoice">
+				  <td width="100" align="right"><tpl>$shopping_cart1_invoice_top</tpl><!-- 发票抬头 -->:</td>
+				  <td><input type="text" name="invoice_top" /></td>
+				</tr>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_remarks</tpl><!-- 备注 -->:</label></td>
+                    <td><textarea name="textarea" cols="50" rows="5"></textarea></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <div class="bills">
+          <div class="title">
+            <h3><strong><tpl>$shopping_cart1_price_count</tpl><!-- 费用总计 --></strong></h3>
+          </div>
+          <ul>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_price</tpl><!-- 商品金额 -->:</label></td>
+                    <td><tpl>$currencys_set.currencies_symbol</tpl><tpl>$price_count</tpl><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_send_price</tpl><!-- 配送金额 -->:</label></td>
+                    <td><tpl>$currencys_set.currencies_symbol</tpl><span id="show_sendprice">0</span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_pay_money</tpl><!-- 支付手续费 -->:</label></td>
+                    <td><tpl>$currencys_set.currencies_symbol</tpl><span id="show_payfee">0</span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_send_discount</tpl><!-- 优惠 -->:</label></td>
+                    <td><tpl>if $smarty.session.userinfo.user_grade_discount!=''</tpl><tpl>$smarty.session.userinfo.user_grade_discount</tpl><tpl>$shopping_cart1_send_discount1</tpl><tpl>else</tpl><span id="show_sendprice">0</span><tpl>/if</tpl></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+            <li class="list">
+              <table width="100%" border="0" cellpadding="2" cellspacing="2" >
+                <tbody>
+                  <tr>
+                    <td width="100" align="right"><label><tpl>$shopping_cart1_all_price</tpl><!-- 应付总额 -->:</label></td>
+                    <td><tpl>$currencys_set.currencies_symbol</tpl><span id="show_countprice"><tpl>$price_true_count</tpl></span><tpl>$currencys_set.currencies_units</tpl><!-- 货币单位 --></td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <div class="clear">&nbsp;</div>
+        </div>
+        <span class="btns_left back_b"><a href="shopping.php"><tpl>$shopping_cart1_back</tpl><!-- 返回上一步 --></a></span><span class="btns_right front_b"><a href="#" onclick="cart_form_submit();"><tpl>$shopping_cart1_step2</tpl><!-- 进入下一步 --></a></span></div>
+      <div class="clear">&nbsp;</div>
+    </div>
+  </div>
+  <div class="clear" style="height:6px;">&nbsp;</div>
+  <div class="bottom">&nbsp;</div>
+</div>
+<input type="hidden" name="nc_send_price" id="nc_send_price" value="0" />
+<input type="hidden" name="nc_pay_fee" id="nc_pay_fee" value="0" />
+</form>
+<!-- 底部内容:START -->
+<tpl>include_php file ='footer.php'</tpl>
+<!-- 底部内容:END -->
+<script language="javascript">
+<!--
+$(document).ready(function(){
+/* 购物数量验证 */
+	$("#cart02").validate({
+		errorClass: "wrong",
+		rules: {
+			pay_id 				:	{required:true},
+			send_check_error 	:	{required:true},
+			receiver_name 		:	{required:true,minLength:2,maxLength:30},
+			receiver_email 		:	{required:true,email:true,maxLength:30},
+			receiver_mobile 	:	{required:true,Mobile:true},
+			receiver_call 		:	{required:true,Phone:true},
+			receiver_zip 		:	{required:true,ZIP:true},
+			receiver_address 	:	{required:true,minLength:6,maxLength:50}
+		},
+		messages: {
+			pay_id 				:	{required:"<tpl>$shopping_cart1_pay_please</tpl>"},
+			send_check_error 	:	{required:"<tpl>$shopping_cart1_send_please</tpl>"},
+			receiver_name 		:	{required:"<tpl>$shopping_user_name_null</tpl>",minLength:"<tpl>$shopping_user_string_min</tpl>",maxLength:"<tpl>$shopping_user_string_max</tpl>"},
+			receiver_email 		:	{required:"<tpl>$shopping_user_email_null</tpl>",email:"<tpl>$shopping_user_email_error</tpl>",maxLength:"<tpl>$shopping_user_string_max</tpl>"},
+			receiver_mobile 	:	{required:"<tpl>$shopping_user_mobile_null</tpl>",Mobile:"<tpl>$shopping_user_mobile_error</tpl>"},
+			receiver_call 		:	{required:"<tpl>$shopping_user_call_null</tpl>",Phone:"<tpl>$shopping_user_call_error</tpl>"},
+			receiver_zip 		:	{required:"<tpl>$shopping_user_zip_null</tpl>",ZIP:"<tpl>$shopping_user_zip_error</tpl>"},
+			receiver_address 	:	{required:"<tpl>$shopping_user_address_null</tpl>",minLength:"<tpl>$shopping_user_address_min</tpl>",maxLength:"<tpl>$shopping_user_address_max</tpl>"}
+		}
+	});
+});
+/* 表单提交 */
+function cart_form_submit() {
+	
+	$('#cart02').submit();
+}
+/* 支付方默认选中的情况下相加 */
+function default_select_pay_count() {
+	var send_price;
+	var	defaut_pay_fee;
+		send_price			= $("#nc_send_price").val();
+		defaut_pay_fee		= $("#select_pay_fee").val();
+
+	if(defaut_pay_fee == '') defaut_pay_fee = '0';
+
+		$("#show_countprice").html(parseFloat(<tpl>$price_true_count</tpl>)+parseFloat(defaut_pay_fee)+parseFloat(send_price));
+		$("#show_payfee").html(defaut_pay_fee);
+		$("#nc_pay_fee").val(parseFloat(defaut_pay_fee));	
+}
+default_select_pay_count();
+//-->
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="wrapper" class="m">
+  <!-- Header -->
+  <tpl>include file ='header_new.html'</tpl>
+  <!-- End Header -->
+  <!-- Main -->
+  <div class="clear">&nbsp;</div>
+  <!-- 页面布局 -->
+  <div id="shoplist_layout">
+    <!-- 页面左侧 -->
+    <div class="page_left">
+      <div class="sl_leftbar">
+        <div class="title1">
+          <h3><tpl> $langShopFilter </tpl></h3>
+        </div>
+        <div class="content1">
+          <div id="shopfilter">
+            <form action="shop.php" method="get" name="form_s_list" id="form_s_list">
+            	<input type="hidden" value="list" name="action">
+              <p><span><tpl> $langShopName </tpl>：</span>
+                <input class="textinput" id="keyword" accessKey="s" size="16" name="keyword" style="width:110px;">
+              </p>
+              <p><span><tpl> $langShoploginName </tpl>：</span>
+                <input class="textinput" id="seler_name" size="16" name="txtMaster" style="width:110px;">
+              </p>
+              <p><span><tpl> $langShopSaleRange </tpl>：</span>
+                <input name="txtSaleRange" class="textinput" size="16" style="width:110px;" />
+              </p>
+              <p><span><tpl> $langShopArea </tpl>：</span>
+                <select style=" width:120px" onchange="$('#shop_area_id').val(this.value);">
+					<tpl> if $sel_area.area_id neq '' </tpl>
+					<option value="<tpl> $sel_area.area_id </tpl>"><tpl> $sel_area.area_name </tpl></option>
+					<tpl> /if </tpl>
+					<option value=""><tpl> $langCAll </tpl></option>
+					<tpl> section name=loop loop=$area_array </tpl>
+						<option value="<tpl> $area_array[loop].area_id </tpl>"><tpl> $area_array[loop].area_name </tpl></option>
+					<tpl> /section </tpl>
+				  </select>
+				<input type="hidden" name="shop_area_id" id="shop_area_id" />
+              </p>
+              <p>
+                <input class="imgbtn" type="submit" name="button" id="button" value="<tpl> $langShopSubmitSearch </tpl>" />
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="sl_leftbar">
+        <div class="title2">
+          <h3><tpl> $langShopClass </tpl></h3>
+        </div>
+        <div class="content2">
+          <ul id="shopsort">
+          <tpl> foreach item=one name=name from=$shop_category_array </tpl>
+          	<tpl> if $smarty.foreach.name.iteration < 20 </tpl>
+            <li <tpl> if $smarty.foreach.name.iteration%2 eq 1 </tpl> class="style1" <tpl> /if </tpl> >
+              <dl>
+                <dt><a href="<tpl> $site_url </tpl>/home/shop.php?action=list&keyword=&slcShopClass=<tpl> $one.class_id </tpl>"><tpl> $one.class_name </tpl></a></dt>
+                <tpl> if $one.child neq '' </tpl>
+	            <tpl> foreach item=two from=$one.child </tpl>
+	              <dd><a href="<tpl> $site_url </tpl>/home/shop.php?action=list&keyword=&slcShopClass=<tpl> $two.class_id </tpl>"><tpl> $two.class_name </tpl></a></dd>
+	            <tpl> /foreach </tpl>
+              <tpl> /if </tpl>
+              </dl>
+            </li>
+            <tpl> /if </tpl>
+          <tpl> /foreach </tpl>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- END页面左侧 -->
+    <!-- 页面右侧 -->
+    <div class="page_right">
+      <div class="shoplist_declarator">
+	  	<tpl> $langShopSearch </tpl> 
+		<b style="color: #F93;">
+			<tpl> if $select_class_info.class_id eq 0 || $select_class_info.class_id eq '' </tpl> 
+				<tpl> $langShopAll </tpl>
+				</b> <tpl> $langShopFind </tpl> <b><tpl> $shop_count|default:0 </tpl></b> <tpl> $langShopJiaShop </tpl>
+			<tpl> else </tpl> 
+				<tpl> $select_class_info.class_name </tpl></b> <tpl> $langShopFind </tpl> <b><tpl> $shop_array|@count </tpl></b> <tpl> $langShopJiaShop </tpl>
+			<tpl> /if </tpl>
+      </div>
+      <div class="pagehead">
+        <tpl> $page_list </tpl>
+      </div>
+      <div id="shoplist">
+        <div class="box">
+          <ul class="title">
+            <li class="shoplogo"><tpl> $langShopLogo </tpl></li>
+            <li class="shopname"><tpl> $langShopName </tpl></li>
+            <li class="quantity"><tpl> $langShopStorage </tpl></li>
+            <li class="shopkeeper"><tpl> $langShopHost </tpl></li>
+            <li class="credit"><tpl> $langShopCredit </tpl></li>
+            <li class="authent"><tpl> $langShopAttestation </tpl></li>
+            <li class="locus">
+              <select style=" width:70px" onchange="$('#shop_area_id').val(this.value);form_s_list.submit()">
+			  	<tpl> if $sel_area.area_id neq '' </tpl>
+					<option value="<tpl> $sel_area.area_id </tpl>"><tpl> $sel_area.area_name </tpl></option>
+				<tpl> /if </tpl>
+			  	<option value=""><tpl> $langCAll </tpl></option>
+				<tpl> section name=loop loop=$area_array </tpl>
+					<option value="<tpl> $area_array[loop].area_id </tpl>"><tpl> $area_array[loop].area_name </tpl></option>
+				<tpl> /section </tpl>
+			  </select>
+            </li>
+          </ul>
+          <tpl> section name=i loop=$shop_array </tpl>
+          <ul class="content">
+            <li class="shoplogo"><span>
+            	<tpl> if $ifsubdomain eq '1' </tpl><!-- 开启2级域名 -->
+					<a href="http://<tpl> $config_domain_prefix </tpl><tpl> $shop_array[i].shop_domain </tpl><tpl> $config_domain_name </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $shop_array[i].shop_pic|default:'templates/orange/home/images/images_new/storepic_default.gif' </tpl>" width="60" height="60" /></a>
+				<tpl> else </tpl>
+					<a href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $shop_array[i].member_id </tpl>" target="_blank"><img src="<tpl> $site_url </tpl>/<tpl> $shop_array[i].shop_pic|default:'templates/orange/home/images/images_new/storepic_default.gif' </tpl>" width="60" height="60" /></a>
+				<tpl> /if </tpl>
+            </span></li>
+            <li class="shopname">
+              <p>
+              	<tpl> if $ifsubdomain eq '1' </tpl><!-- 开启2级域名 -->
+              		<a href="http://<tpl> $config_domain_prefix </tpl><tpl> $shop_array[i].shop_domain </tpl><tpl> $config_domain_name </tpl>" target="_blank"><b><tpl> $shop_array[i].shop_name </tpl></b></a>
+              	<tpl> else </tpl>
+					<a href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $shop_array[i].member_id </tpl>" target="_blank"><b><tpl> $shop_array[i].shop_name </tpl></b></a>
+              	<tpl> /if </tpl>
+              </p>
+              <p><span><tpl> $shop_array[i].sale_range </tpl></span></p>
+              <p><span class="toshop">
+              	<tpl> if $ifsubdomain eq '1' </tpl><!-- 开启2级域名 -->
+					<a href="http://<tpl> $config_domain_prefix </tpl><tpl> $shop_array[i].shop_domain </tpl><tpl> $config_domain_name </tpl>" target="_blank"><tpl> $langShopToShop </tpl></a>
+				<tpl> else </tpl>
+					<a href="<tpl> $site_url </tpl>/store/index.php?userid=<tpl> $shop_array[i].member_id </tpl>" target="_blank"><tpl> $langShopToShop </tpl></a>
+				<tpl> /if </tpl>
+		  		</span>
+		  		<span class="collection"><a href="javascript:;" onclick="product_collection('<tpl> $shop_array[i].member_id </tpl>');"><tpl> $langShopAddCollection </tpl></a></span>
+		  	  </p>
+            </li>
+            <li class="quantity margintop"><tpl> $shop_array[i].sell_product_count </tpl><tpl> $langShopPiece </tpl></li>
+            <li class="shopkeeper margintop"><tpl> $shop_array[i].login_name </tpl></li>
+            <li class="credit margintop"><tpl> $shop_array[i].sale_score </tpl></li>
+            <li class="authent margintop">
+				<tpl> if $shop_array[i].audit_state eq 2 </tpl>
+					<img src="<tpl> $template_dir </tpl>/home/images/images_new/renzheng_g.gif"  title='<tpl> $langShopAlreadyAuthSale </tpl>' />
+				<tpl> /if </tpl>
+				<tpl> if $shop_array[i].personal_certify eq 2 </tpl>
+					<img src="<tpl> $template_dir </tpl>/home/images/images_new/renzhen-g.gif"  title='<tpl> $langShopPersonalCertify </tpl>' />
+				<tpl> /if </tpl>
+			</li>
+            <li class="locus margintop"><tpl> $shop_array[i].area_name </tpl></li>
+          </ul>
+          <tpl> /section </tpl>
+        </div>
+      </div>
+      <div class="pagehead">
+        <tpl> $page_list </tpl>
+      </div>
+    </div>
+  </div>
+  <div class="clear" style="height:24px;"></div>
+</div>
+<tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>
+<script>
+//商品收藏
+function product_collection(shop_id){
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/member/own_collection.php",
+		data: "action=new&genre=store&collection="+shop_id,
+		success: function (data) {
+			if (data == '-1') {
+				alert("<tpl> $langSListLoginOperator </tpl>");
+			}
+			if (data == '0') {
+				alert("<tpl> $langSListSelfNotCollectionSelf </tpl>");
+			}
+			if (data == '1') {
+				alert("<tpl> $langSListCollectionSucceed </tpl>");
+			}
+			if (data == '2') {
+				alert("<tpl> $langSListCollection </tpl>");
+			}
+		}
+	});
+}
+</script>

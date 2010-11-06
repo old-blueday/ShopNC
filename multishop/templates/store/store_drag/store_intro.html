@@ -1,0 +1,82 @@
+<div class="blocktitle">
+	<em></em>
+	<h2><tpl> $langShopIntro </tpl></h2>
+</div>
+<div class="blockcontent">
+	<div class="shop_jieshao_1">
+		
+			<div class="ji-ben-2"><tpl> $shop_array.shop_intro </tpl></div>
+			<div class="ji-ben-1"><tpl> $shop_info.login_name </tpl></div>
+			<div class="ji-ben"><tpl> $langSIntroBasic </tpl></div>
+			
+            <table class="jiben_table" border="0" cellpadding="0" cellspacing="2">
+			  <tr>
+			    <td class="jiben_table_title"><tpl> $langSIntroWebShop </tpl>:</td>
+			    <td class="jiben_table_info"><tpl> $shop_array.shop_name </tpl></td>
+			    <td class="jiben_table_title"><tpl> $langSIntroBaby </tpl>:</td>
+			    <td class="jiben_table_info"><a href="<tpl> $site_url </tpl>/home/product.php?action=textlist&member=<tpl> $shop_info.member_id </tpl>" target="_blank"><tpl> $langSIntroSaleBaby </tpl></a></td>
+			  </tr>
+			  <tr>
+			    <td class="jiben_table_title"><tpl> $langSIntroEntityShop </tpl>:</td>
+			    <td class="jiben_table_info">
+			    	<tpl> if $shop_info.audit_state == '2' </tpl>
+			    		<img src="<tpl> $template_dir </tpl>/images/renzheng_g.gif" border="0" title="<tpl> $langSPassShopAttestation </tpl>" />
+			    	<tpl> else </tpl>
+			    		<tpl> $langStorePersonalNoPass </tpl>
+			    	<tpl> /if </tpl>
+			    </td>
+			    <td class="jiben_table_title"><tpl> $langStorePersonalCertify </tpl>:</td>
+			    <td class="jiben_table_info">
+			    	<tpl> if $shop_info.personal_certify == '2' </tpl>
+			    		<img src="<tpl> $template_dir </tpl>/images/renzhen-g.gif" border="0" title="<tpl> $langStorePersonalCertify </tpl>"/>
+			    	<tpl> else </tpl>
+			    		<tpl> $langStorePersonalNoPass </tpl>
+			    	<tpl> /if </tpl>
+			    </td>
+			  </tr>
+			  <tr>
+			    <td class="jiben_table_title"><tpl> $langSIntroRegTime </tpl>: </td>
+			    <td class="jiben_table_info"><tpl> $shop_info.regist_time </tpl></td>
+			    <td class="jiben_table_title" width="120" align="right"><tpl> $langSIntroAffiliation </tpl>:  </td>
+			    <td class="jiben_table_info" width="170" align="center"><a href="<tpl>$site_url</tpl>/member/own_message.php?action=add&username=<tpl> $shop_info.sms_username </tpl>" target="_blank"><img src="<tpl> $template_dir </tpl>/images/zhannei.gif" alt="<tpl> $langSIntroSendCorrespondence </tpl>"/></a></td>
+			  </tr>
+			  <tr>
+			    <td class="jiben_table_title"><tpl> $langSIntroPlace </tpl>：</td>
+			    <td class="jiben_table_info">
+					<tpl> section name=loop loop=$sel_area </tpl>
+						<tpl> $sel_area[loop].area_name </tpl>
+					<tpl> /section </tpl>  
+			    </td>
+			    <td class="jiben_table_title"><tpl> $langShopIntroPhone </tpl>:</td>
+			    <td class="jiben_table_info"><tpl> $shop_array.mobilephone|default:$langCNot </tpl></td>			    
+			  </tr> 
+			  <tr>
+			    <td class="jiben_table_title"><tpl> $langStoreAffiliation </tpl>：</td>
+			    <td class="jiben_table_info" colspan="3" style="text-align:left;">
+					<tpl> if $shop_info.TAOBAO.0 neq '' </tpl>	 
+						<tpl> foreach item=item key=key from=$shop_info.TAOBAO </tpl>
+							<a target="_blank" href="http://amos1.taobao.com/msg.ww?v=2&uid=<tpl> $item </tpl>&site=cntaobao&s=2" ><img border="0" src="http://amos1.taobao.com/online.ww?v=2&uid=<tpl> $item </tpl>&site=cntaobao&s=2" alt="<tpl> $langStoreOnClickMyInfo </tpl>" align="absmiddle" /></a>
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl> 			
+					<tpl> if $shop_info.QQ.0 neq '' </tpl>	  
+						<tpl> foreach item=item key=key from=$shop_info.QQ </tpl>
+							<a target=blank href=tencent://message/?uin=<tpl> $item </tpl>&Site=<tpl> $site_url </tpl>&Menu=yes><img border="0" SRC=http://wpa.qq.com/pa?p=1:<tpl> $item </tpl>:4 alt="<tpl> $langStoreOnClickMyInfo </tpl>" align="absmiddle" /></a>
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl> 
+					<tpl> if $shop_info.SKYPE.0 neq '' </tpl>  
+						<tpl> foreach item=item key=key from=$shop_info.SKYPE </tpl>
+							<script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+							<a href="skype:<tpl> $item </tpl>?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="19" height="19" alt="Skype Me?!" align="absmiddle" /></a>
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl> 	
+					<tpl> if $shop_info.MSN.0 neq '' </tpl>
+						<tpl> foreach item=item key=key from=$shop_info.MSN </tpl>
+							<A href="msnim:chat?contact=<tpl> $item </tpl>"><IMG src="http://img8.cn.msn.com/images/msfp_008.gif" width="19" height="19" border="0" align="absmiddle" /></A>
+						<tpl> /foreach </tpl>
+					<tpl> /if </tpl> 
+			    </td>
+			  </tr> 			   
+			</table>
+	</div>
+	
+</div>

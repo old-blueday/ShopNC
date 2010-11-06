@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<title><tpl>$admin_header_system_manage</tpl> - <tpl>$admin_stati_visit</tpl></title><!-- 统计分析 - 访问统计 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<link id="calCss" type="text/css" href="<tpl>$Site_Url</tpl>/js/calendar/blue/blue.css" rel="Stylesheet" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/calendar/Calendar.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.entry-body').css('margin-top', '10px');
+	$('.tabs li').click(function(){
+		$('.tabs li').removeClass('select');
+		$(this).addClass('select');
+		$('.entry-body').hide();
+	});
+	$('#tab1').click(function(){
+		$('#entry1').fadeIn(200);
+	});
+	$('#tab2').click(function(){
+		$('#entry2').fadeIn(200);
+	});
+	$('#tab4').click(function(){
+		$('#entry4').fadeIn(200);
+	});
+	$('#tab7').click(function(){
+		$('#entry7').fadeIn(200);
+	});
+	$('#tab8').click(function(){
+		$('#entry8').fadeIn(200);
+	});
+	
+	$('#aduo').click(function(){
+		$('#dan').hide();
+		$('#duo').show();
+	});
+	$('#adan').click(function(){
+		$('#duo').hide();
+		$('#dan').show();
+	});
+	$('#azhi').click(function(){
+		$('#ge').hide();
+		$('#zhi').show();
+	});
+	$('#age').click(function(){
+		$('#zhi').hide();
+		$('#ge').show();
+	});
+	$('#ac02').click(function(){
+		$('#come01').hide();
+		$('#come02').show();
+	});
+	$('#ac01').click(function(){
+		$('#come02').hide();
+		$('#come01').show();
+	});
+	$('.as').click(function(){
+		$('.system').hide();
+	});
+	$('#as01').click(function(){
+		$('#system01').show();
+	});
+	
+	<tpl>if $smarty.post.select_date2 != ''</tpl>
+		$('.entry-body').hide();
+		$('#entry4').fadeIn(200);
+		$('#tab4').addClass('select');
+		$('#tab1').removeClass('select');
+	<tpl>/if</tpl>
+	<tpl>if $smarty.post.select_date1 != ''</tpl>
+		$('.entry-body').hide();
+		$('#entry7').fadeIn(200);
+		$('#tab7').addClass('select');
+		$('#tab1').removeClass('select');
+	<tpl>/if</tpl>
+	<tpl>if $smarty.post.select_date3 != ''</tpl>
+		$('.entry-body').hide();
+		$('#entry8').fadeIn(200);
+		$('#tab8').addClass('select');
+		$('#tab1').removeClass('select');
+	<tpl>/if</tpl>
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body>
+  <form id="form1" name="form1" method="post" action="?action=index">
+    <h4 id="rightcon_h"><b><tpl>$admin_header_system_manage</tpl> >> <tpl>$admin_stati_visit</tpl><!-- 统计分析 >> 访问统计 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+    <ul class="tabs">
+        <li id="tab1" class="select"><a href="#nogo"><tpl>$admin_stati_visit_general_report</tpl><!-- 综合报告 --></a></li>
+        <li id="tab2"><a href="#nogo"><tpl>$admin_stati_visit_recent_visitor</tpl><!-- 最近访客 --></a></li>
+        <li id="tab4"><a href="#nogo"><tpl>$admin_stati_visit_ip_from</tpl><!-- IP来源分析 --></a></li>
+        <li id="tab7"><a href="#nogo"><tpl>$admin_stati_visit_where_from</tpl><!-- 详细来源分析 --></a></li>
+        <li id="tab8"><a href="#nogo"><tpl>$admin_stati_visti_view_page</tpl><!-- 被访页面分析 --></a></li>
+    </ul>
+    <div class="entry-body" id="entry1">
+	  <div class="gray-notice">
+		<tpl>$admin_stati_visit_general_info</tpl><!-- ( 提示:请慎用此功能，此功能将清除之前所有访问记录。) -->
+	  	<input type="button" onclick="location.href='?action=clear'" value="<tpl>$admin_stati_visit_general_reset</tpl>" class="btnInput" /><!-- 重新统计 -->
+	  </div>
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+        <tr>
+          <th><tpl>$admin_stati_visit_general_start</tpl><!-- 开始统计日期 --></th>
+          <td colspan="2" class="textLeft"><tpl>$start_time</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_stati_visit_general_totalday</tpl><!-- 总统计天数 --></th>
+          <td colspan="2" class="textLeft"><tpl>$day_num</tpl></td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <th><tpl>$admin_stati_visit_pv</tpl><!-- PV --></th>
+          <th><tpl>$admin_stati_visit_ip</tpl><!-- IP --></th>
+        </tr>
+        <tr>
+          <th><tpl>$admin_stati_visit_today</tpl><!-- 今天 --></th>
+          <td><tpl>$now_pv_num</tpl></td>
+          <td><tpl>$now_ip_num</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_stati_visit_general_total</tpl><!-- 总量 --></th>
+          <td><tpl>$pv_num</tpl></td>
+          <td><tpl>$ip_num</tpl></td>
+        </tr>
+        <tr>
+          <th><tpl>$admin_stati_visit_general_most</tpl><!-- 最高记录 --></th>
+          <td><tpl>$max_pv.pv</tpl></td>
+          <td><tpl>$max_ip.ip</tpl></td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <td><tpl>$admin_stati_visit_general_hapen</tpl><!-- 发生在 -->:<tpl>$max_pv.day|date_format:"%Y-%m-%d"</tpl></td>
+          <td><tpl>$admin_stati_visit_general_hapen</tpl><!-- 发生在 -->:<tpl>$max_ip.day|date_format:"%Y-%m-%d"</tpl></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry1  -->
+	<div class="entry-body" id="entry2" style="display:none;">
+      <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+	  	<tr>
+			<th><tpl>$admin_stati_visit_recent_time</tpl><!-- 时间 --></th>
+			<th><tpl>$admin_stati_visit_recent_ip</tpl><!-- IP地址 --></th>
+			<th><tpl>$admin_stati_visit_recent_from_url</tpl><!-- 来源网址 --></th>
+			<th><tpl>$admin_stati_visit_recent_view</tpl><!-- 访问网址 --></th>
+			<th><tpl>$admin_stati_visit_from_system</tpl><!-- 操作系统 --></th>
+		</tr>
+		<tpl>section name=list loop=$visit_array max=200</tpl>
+		<tpl>if $visit_array[list].ip!=''</tpl>
+	  	<tr>
+			<td><tpl>$visit_array[list].visit_time|date_format:"%Y-%m-%d %H:%M:%M"</tpl></td>
+			<td><tpl>$visit_array[list].ip</tpl></td>
+			<td><a href="" title="<tpl>$visit_array[list].source_url</tpl>"><tpl>$visit_array[list].source_url|truncate:30</tpl></a></td>
+			<td><a href="" title="<tpl>$visit_array[list].visit_url</tpl>"><tpl>$visit_array[list].visit_url|truncate:30</tpl></a></td>
+			<td><tpl>$visit_array[list].visit_system </tpl></td>
+		</tr>
+		<tpl>/if</tpl>
+	  	<tpl>/section</tpl>
+	  </table>
+    </div><!--  end of entry2  -->
+	<div class="entry-body" id="entry4" style="display:none;">
+		<div id="ge">
+			<div class="gray-notice">
+			<p><tpl>$admin_stati_visit_period_choice</tpl><!-- 选择时间段 -->:
+			 <input type="text" name="select_date2" id="select_date2" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl> $start_date </tpl>" />
+			  <input type="submit" name="Submit" value="<tpl>$admin_stati_visit_submit</tpl>" class="btnInput" /><!-- 提 交 -->
+			</p>
+			</div><!--  end of gray-notice  -->
+			<p class="st-title"><tpl>$admin_stati_visit_now</tpl><!-- 当前时段 -->:<tpl>if $smarty.post.select_date2!=''</tpl><tpl>$smarty.post.select_date2</tpl><tpl>else</tpl><tpl>$admin_stati_all_time</tpl><tpl>/if</tpl><!-- 所有时间 --></p>
+		  <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+			<tr>
+				<th><tpl>$admin_stati_visit_ip</tpl><!-- IP --></th>
+				<th><tpl>$admin_stati_visit_pv</tpl><!-- PV --></th>
+				<th><tpl>$amdin_stati_visit_percent</tpl><!-- 百分比 --></th>
+			</tr>
+			<tpl>section name=list loop=$ip_from</tpl>
+			<tr>
+				<td><tpl>$ip_from[list].ip</tpl></td>
+				<td><tpl>$ip_from[list].count</tpl></td>
+				<td><tpl>math equation="(x/y)*100" x=$ip_from[list].count y=$pv_num format="%.0f"</tpl>%</td>
+			</tr>
+			<tpl>/section</tpl>
+		  </table>
+	  </div><!--  end of ge  -->
+	</div>
+	<div class="entry-body" id="entry7" style="display:none;">
+		<div id="come01">
+			<div class="gray-notice">
+			<p><tpl>$admin_stati_visit_period_choice</tpl><!-- 选择时间段 -->:
+			 <input type="text" name="select_date1" id="select_date1" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl> $smarty.post.select_date1 </tpl>" />
+			  <input type="submit" name="Submit" value="<tpl>$admin_stati_visit_submit</tpl>" class="btnInput" /><!-- 提 交 -->
+			</p>
+			</div><!--  end of gray-notice  -->
+			<p class="st-title"><tpl>$admin_stati_visit_now</tpl><!-- 当前时间 -->:<tpl>if $smarty.post.select_date1!=''</tpl><tpl>$smarty.post.select_date1</tpl><tpl>else</tpl><tpl>$admin_stati_all_time</tpl><tpl>/if</tpl><!-- 所有时间 --></p>
+		  <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+			<tr>
+				<th><tpl>$admin_stati_visit_where_page</tpl><!-- 来源页面 --></th>
+				<th><tpl>$admin_stati_visit_pv</tpl><!-- PV --></th>
+				<th><tpl>$amdin_stati_visit_percent</tpl><!-- 百分比 --></th>
+			</tr>
+			<tpl>if $smarty.post.select_date1==''</tpl>
+			<tr>
+				<td><tpl>$admin_stati_visit_total</tpl><!-- 总计 --></td>
+				<td><tpl>$pv_num</tpl></td>
+				<td>100.00%</td>
+			</tr>
+			<tpl>/if</tpl>
+			<tpl>section name=list loop=$url_from</tpl>
+			<tr>
+				<td><a href="<tpl>$url_from[list].source_url</tpl>" title="<tpl>$url_from[list].source_url</tpl>"><tpl>$url_from[list].source_url|truncate:60</tpl></a></td>
+				<td><tpl>$url_from[list].url_from_count</tpl></td>
+				<td><tpl>math equation="(x/y)*100" x=$url_from[list].url_from_count y=$pv_num format="%.2f"</tpl>%</td>
+			</tr>
+			<tpl>/section</tpl>
+		  </table>
+	  </div><!--  end of come01  -->
+	</div><!--  end of entry7  -->
+	<div class="entry-body" id="entry8" style="display:none;">
+		<div id="system01">
+			<div class="gray-notice">
+			<p><tpl>$admin_stati_visit_now</tpl><!-- 选择时间段 -->:
+			 <input type="text" name="select_date3" id="select_date3" style="border:solid 1px #79a7d4;cursor:pointer; width:100px; background:url(../js/calendar/blue/cal_btn.gif) no-repeat right; height:18px; padding-right:19px;" readonly="readonly" value="<tpl> $smarty.post.select_date3 </tpl>" />
+			  <input type="submit" name="Submit5" value="<tpl>$admin_stati_visit_submit</tpl>" class="btnInput" /><!-- 提 交 -->
+			</p>
+			</div><!--  end of gray-notice  -->
+			<p class="st-title"><tpl>$admin_stati_visit_now</tpl><!-- 当前时间 -->:<tpl>if $smarty.post.select_date3!=''</tpl><tpl>$smarty.post.select_date3</tpl><tpl>else</tpl><tpl>$admin_stati_all_time</tpl><tpl>/if</tpl><!-- 所有时间 --></p>
+		  <table border="0" class="st-table" cellpadding="0" cellspacing="1">
+			<tr>
+				<th><tpl>$admin_stati_visit_view_title</tpl><!-- 被访页面 --></th>
+				<th><tpl>$admin_stati_visit_pv</tpl><!-- PV --></th>
+				<th><tpl>$amdin_stati_visit_percent</tpl><!-- 百分比 --></th>
+			</tr>
+			<tpl>if $smarty.post.select_date3==''</tpl>
+			<tr>
+				<td><tpl>$admin_stati_visit_total</tpl><!-- 总计 --></td>
+				<td><tpl>$pv_num</tpl></td>
+				<td>100.00%</td>
+			</tr>
+			<tpl>/if</tpl>
+			<tpl>section name=list loop=$show_page</tpl>
+			<tr>
+				<td><a href="<tpl>$show_page[list].visit_url</tpl>" title="<tpl>$show_page[list].visit_url</tpl>"><tpl>$show_page[list].visit_url|truncate:60</tpl></a></td>
+				<td><tpl>$show_page[list].show_page_count</tpl></td>
+				<td><tpl>math equation="(x/y)*100" x=$show_page[list].show_page_count y=$pv_num format="%.2f"</tpl>%</td>
+			</tr>
+			<tpl>/section</tpl>
+		  </table>
+	  </div><!--  end of system01  -->
+	</div><!--  end of entry8  -->
+	<div class="clear"></div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+<script type="text/javascript" language="javascript">
+$(function(){
+   $("#select_date1").datepicker();
+   $("#select_date2").datepicker();
+   $("#select_date3").datepicker();
+  
+})
+</script>
+</body>
+</html>

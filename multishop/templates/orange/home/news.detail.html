@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body><tpl>include file ='header_new.html'</tpl>
+<div id="layout_page">
+<div id="leftbar">	      <div class="goodsitem_top_news">
+       
+	<div id="daohang_0">
+        <div class="side_right_new">
+		</div><ul><li><tpl> $langNewsYourLocation </tpl>  <a href="<tpl> $site_url </tpl>" target="_blank"><tpl> $langCIndex </tpl></a> > <a href="<tpl> $site_url </tpl>/home/news.php?action=list"><tpl> $langNewsIndexName </tpl></a> > <a href="<tpl> $site_url </tpl>/home/news.php?action=list&cid=<tpl> $news_array.news_c_id </tpl>"><tpl> $news_array.news_c_name </tpl></a> > <tpl> $langNewsText </tpl>
+   </li></ul>
+</div>
+</div>
+<div id="news_main">
+<ul>
+<li class="biaoti_0"><tpl> $news_array.news_title </tpl></li>
+<li class="biaoti_3"><span><tpl>$langNewsFromSource</tpl>:<tpl>$site_name</tpl></span>&nbsp;&nbsp;&nbsp;<span><tpl>$langNewsPuttedTime</tpl>:<tpl>$message_date</tpl></span></li>
+<li class="biaoti_4"></li>
+<li class="biaoti_1"><tpl> $news_array.news_content </tpl></li>
+</ul>
+<div style="clear:both"></div>
+</div>
+</div>
+<div class="rightbar" style="float:left; margin:0 0 0 10px">
+      <div class="title1">
+        <h3><tpl> $langNewsInfoList </tpl></h3>
+      </div>
+      <div class="content1">
+	  	<div  class="gehang_color">
+		<ul>
+			<tpl> section name=i loop=$news_list </tpl>
+				<li <tpl> if $smarty.section.i.rownum%2 eq 1 </tpl> id="sigle_news" <tpl> /if </tpl>
+				    <tpl> if $news_list[i].news_id eq $news_array.news_id </tpl> class="change_bg_color" <tpl> /if </tpl>
+				>
+					<a href="<tpl> $news_list[i].url </tpl>" title="<tpl> $news_list[i].news_title </tpl>" <tpl> if $news_list[i].news_jump_url neq '' </tpl>target="_blank"<tpl> /if </tpl>><tpl> $news_list[i].news_title </tpl></a>
+				</li>
+			<tpl> /section </tpl>
+		</ul>
+		</div>
+      </div>
+    </div>
+  <div class="clear" style="height:24px;"></div>
+</div>
+</body><tpl> include file ='../../../html/footer.html' </tpl> 
+</html>

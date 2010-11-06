@@ -1,0 +1,95 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMgManage </tpl> &gt;&gt; <tpl> $langSysMgSet </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="member_group.manage.php" id="form_add" name="form_add" method="post">
+						<input type="hidden" name="action" value="set_save" />
+						<input type="hidden" name="mg_id" id="mg_id" value="<tpl> $group_array.mg_id </tpl>" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langSysMgName </tpl>:</th>
+									<td>
+										<input class="fct-input" name="mg_name" id="mg_name" value="<tpl> $group_array.mg_name </tpl>" type="text" maxlength="30" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMgIfLogin </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysMgIfLoginRemark </tpl></span>
+										<input type="radio" class="input_radio" name="mg_iflogin" id="mg_iflogin_y" value="1" <tpl> if $group_array.mg_iflogin eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_iflogin_y"><tpl> $langSysMgYes </tpl></label>
+										<input type="radio" class="input_radio" name="mg_iflogin" id="mg_iflogin_n" value="0" <tpl> if $group_array.mg_iflogin eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_iflogin_n"><tpl> $langSysMgNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMgIfBuy </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysMgIfBuyRemark </tpl></span>
+										<input type="radio" class="input_radio" name="mg_ifbuy" id="mg_ifbuy_y" value="1" <tpl> if $group_array.mg_ifbuy eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifbuy_y"><tpl> $langSysMgYes </tpl></label>
+										<input type="radio" class="input_radio" name="mg_ifbuy" id="mg_ifbuy_n" value="0" <tpl> if $group_array.mg_ifbuy eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifbuy_n"><tpl> $langSysMgNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMgIfSell </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysMgIfSellRemark </tpl></span>
+										<input type="radio" class="input_radio" name="mg_ifsell" id="mg_ifsell_y" value="1" <tpl> if $group_array.mg_ifsell eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifsell_y"><tpl> $langSysMgYes </tpl></label>
+										<input type="radio" class="input_radio" name="mg_ifsell" id="mg_ifsell_n" value="0" <tpl> if $group_array.mg_ifsell eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifsell_n"><tpl> $langSysMgNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMgIfOpenShop </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysMgIfOpenShopRemark </tpl></span>
+										<input type="radio" class="input_radio" name="mg_ifopen_shop" id="mg_ifopen_shop_y" value="1" <tpl> if $group_array.mg_ifopen_shop eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifopen_shop_y"><tpl> $langSysMgYes </tpl></label>
+										<input type="radio" class="input_radio" name="mg_ifopen_shop" id="mg_ifopen_shop_n" value="0" <tpl> if $group_array.mg_ifopen_shop eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifopen_shop_n"><tpl> $langSysMgNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langSysMgIfUseCredit </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langSysMgIfUseCreditRemark </tpl></span>
+										<input type="radio" class="input_radio" name="mg_ifuse_credit" id="mg_ifuse_credit_y" value="1" <tpl> if $group_array.mg_ifuse_credit eq '1' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifuse_credit_y"><tpl> $langSysMgYes </tpl></label>
+										<input type="radio" class="input_radio" name="mg_ifuse_credit" id="mg_ifuse_credit_n" value="0" <tpl> if $group_array.mg_ifuse_credit eq '0' </tpl>checked="checked"<tpl> /if </tpl> /><label for="mg_ifuse_credit_n"><tpl> $langSysMgNo </tpl></label>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+						<input type="hidden" name="mg_sell_num" id="mg_sell_num" value="0" />
+							<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+							<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick='history.back();'/>
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			mg_name: {required: true},
+			mg_sell_num: {required: true,number: true,min:0}
+		},
+		messages: {
+			mg_name: {required: "<tpl> $errSysMgNameIsEmpty </tpl>"},
+			mg_sell_num: {required: "<tpl> $errSysMgSellNumIsEmpty </tpl>",number: "<tpl> $errSysMgSellNumIsNotNumber </tpl>",min:"<tpl> $errSysMgSellNumIsNotNumber </tpl>"}
+		}
+	});
+})
+</script>
+</body>
+</html>

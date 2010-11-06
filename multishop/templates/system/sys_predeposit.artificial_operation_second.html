@@ -1,0 +1,49 @@
+<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+<tpl> if $member_array.member_id neq '' </tpl>
+<input type="hidden" name="member_id" id="member_id" value="<tpl> $member_array.member_id </tpl>" />
+<tr>
+	<th><tpl> $langPreDetailChangeType </tpl>:</th>
+	<td>
+		<select name="predeposit_type" id="predeposit_type">
+			<option value="4"><tpl> $langPreDetailTypeFour </tpl></option>
+			<option value="5"><tpl> $langPreDetailTypeFive </tpl></option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<th><tpl> $langPreMemberChangeReason </tpl>:</th>
+	<td>
+		<textarea name="txt_system_remark" id="txt_system_remark" cols="36" rows="6"></textarea>
+	</td>
+</tr>
+<tr>
+	<th><tpl> $langPreMemberAvailable </tpl>:</th>
+	<td>
+		<select name="available_type" id="available_type">
+			<option value="0" selected="selected"><tpl> $langPreUp </tpl></option>
+			<option value="1"><tpl> $langPreDown </tpl></option>
+		</select>
+		<input type="text" name="txt_available_amount" id="txt_available_amount" class="fct-input"  value="0" />
+		<tpl> $langPrePredepositNow </tpl><tpl> $member_array.available_predeposit </tpl>
+		<input type="hidden" name="available_amount" id="available_amount" value="<tpl> $member_array.available_predeposit </tpl>" />
+	</td>
+</tr>
+<tr>
+	<th><tpl> $langPreMemberFreeze </tpl>:</th>
+	<td>
+		<select name="freeze_type" id="freeze_type">
+			<option value="0" selected="selected"><tpl> $langPreUp </tpl></option>
+			<option value="1"><tpl> $langPreDown </tpl></option>
+		</select>
+		<input type="text" name="txt_freeze_amount" id="txt_freeze_amount" value="0" class="fct-input"  />
+		<tpl> $langPrePredepositNow </tpl><tpl> $member_array.freeze_predeposit </tpl>
+		<input type="hidden" name="freeze_amount" id="freeze_amount" value="<tpl> $member_array.freeze_predeposit </tpl>" />
+	</td>
+</tr>
+<tpl> else </tpl>
+<tr>
+	<th></th>
+	<td><tpl> $langPreVoidMemberName </tpl></td>
+</tr>
+<tpl> /if </tpl>
+</table>

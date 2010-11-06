@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$system_header_analysis_manage</tpl> - <tpl>$system_statis_shop_sell</tpl></title><!-- 统计分析 - 网店销售排行 -->
+<link href="templates/css/styles.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/admin/templates/global.js"></script>
+<script type="text/javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	//获取浏览器高度
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	//获取浏览器宽度
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("rightcon").style.height = (wh-60)+"px";
+//右半部rightcon的高度
+}
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+
+<tpl> if $smarty.get.txt_order_time neq ''</tpl>
+	document.getElementById('txt_order_time').value="<tpl>$smarty.get.txt_order_time</tpl>";
+<tpl>/if</tpl>
+}}); 
+
+</script>
+</head>
+<body id="goodsList">
+  <h4 id="rightcon_h"><b>
+    <tpl>$system_header_order_manage</tpl>
+    <!-- 统计分析 -->
+    &gt;&gt;
+    <tpl>$system_order_month_pay_list</tpl>
+    <!-- 利润结算 -->
+  </b></h4>
+<div id="rightcon">
+		<div class="rc_con">
+				<h5><div class="floatRight">
+              <form action="admin_order.php" method="get">
+			  <input type="hidden" value="month_pay" name="action" />
+				<tpl> $txt_order_time </tpl>
+                  <tpl>$system_order_month_pay_shop_name</tpl><input class="TextBoxAt2" type="text" name="txt_shop_name" id="txt_shop_name" value="" />
+                  <input type="submit" name="button" id="button" value="<tpl>$system_order_month_pay_search</tpl>" class="btnInput" /><!-- 提交 -->
+               </form>
+			  
+              </div><tpl>$order_month</tpl><tpl>$system_order_month_pay_list</tpl>
+			  </h5>
+  <div class="entry-body" id="p-list-div">
+  
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="pListTab" class="stripeMe">
+      <tr>
+        <th class="textLeft"><tpl>$system_order_month_pay_shop_name</tpl>
+          <!-- 店铺名称 --></th>
+        <th><tpl>$system_order_month_pay_shop_user</tpl>
+          <!-- 店主 --></th>
+        <th><tpl>$system_order_month_pay_sell_count</tpl>
+          <!-- 销售数量 --></th>
+		<th><tpl>$system_order_month_pay_sub_sell_count</tpl>
+			<!--子店销售额--></th>		  
+<tpl>if $shop_model eq 2</tpl>
+		<th><tpl>$system_order_month_pay_main_sell_count</tpl>
+			<!--主店销售额--></th>	  
+        <th><tpl>$system_order_month_pay_cha_count</tpl>
+          <!-- 利润发红 --></th>
+		  <th><tpl>$system_order_month_pay_state</tpl></th> 
+<tpl>/if</tpl>		  
+        <th><tpl>$system_order_month_pay_view</tpl>
+          <!-- 查看 --></th>	
+ 	        
+	  </tr>
+      <tpl> section name=list loop=$shop_array </tpl>
+      <tr>
+        <td class="textLeft"><tpl>$shop_array[list].shopname</tpl></td>
+        <td><tpl>$shop_array[list].username</tpl></td>
+        <td><tpl>$shop_array[list].sell_count|default:0</tpl></td>
+        <td><tpl>$shop_array[list].sub_total_sell|default:0</tpl></td>
+<tpl>if $shop_model eq 2</tpl>
+		<td><tpl>$shop_array[list].main_total_sell|default:0</tpl></td>
+        <td><tpl>$shop_array[list].sub_total_sell-$shop_array[list].main_total_sell</tpl></td>
+		<td>
+		<tpl> if $shop_array[list].pay_state eq 0</tpl>
+			<tpl>$system_order_month_pay_no</tpl> <a href="admin_order.php?action=month_pay_state&shop_id=<tpl> $shop_array[list].userid</tpl>&pay_id=<tpl> $shop_array[list].pay_id</tpl>"><u><tpl>$system_order_month_pay_payed</tpl></u></a>
+		<tpl> /if</tpl>	
+		<tpl> if $shop_array[list].pay_state eq 1</tpl>
+			<tpl>$system_order_month_pay_payedcontent</tpl>
+		<tpl> /if</tpl>
+		<tpl> if $shop_array[list].pay_state eq 2</tpl>
+			<tpl>$system_order_month_pay_trade_ok</tpl> 
+		<tpl> /if</tpl>		
+		</td>
+<tpl>/if</tpl>			
+		<td><a href="admin_statistics.php?action=order_detail_list&shop_id=<tpl>$shop_array[list].userid</tpl>&create_time=<tpl>$order_month</tpl>"><tpl>$system_order_month_pay_view</tpl></a></td>
+	  </tr>
+      <tpl> /section </tpl>
+    </table>
+  </div>
+  <!--  end of p-list-div  -->
+  <h5 class="h5_down"><div class="pagebar">
+         	<tpl>$page_list</tpl>
+          </div></h5>
+  </div>
+ <tpl>include_php file ='footer.php'</tpl><!-- 底部版权信息 -->
+</div>
+<!--  end of content  -->
+</body>
+</html>

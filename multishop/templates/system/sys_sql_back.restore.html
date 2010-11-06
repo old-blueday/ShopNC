@@ -1,0 +1,54 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysSQLManage </tpl> &gt;&gt; <tpl> $langSysSQLRevertDatabase </tpl></div>
+				</div>
+			</div>
+			<form action="news.manage.php" id="form_del" name="form_del" method="post" onsubmit="return confirm_alert('<tpl> $langCConfirmDelete </tpl>');">
+			<input type="hidden" name="action" id="action" value="del" />
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-7"><tpl> $langSysSQLBackFileName </tpl></td>
+						<td class="es-2"><tpl> $langSysSQLBackSize </tpl></td>
+						<td class="es-4"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $file_array[0].name neq '' </tpl>
+						<tpl> section name=loop loop=$file_array </tpl>
+					<tr class="es-td">
+						<td><tpl> $file_array[loop].name </tpl></td>
+						<td><tpl> $file_array[loop].size </tpl></td>
+						<td>
+							<input name="" type="button" class="bthl" onclick="restor('?action=restore_two&filename=<tpl> $file_array[loop].name </tpl>');" value="<tpl> $langSysSQLRevert </tpl>" />
+							<input name="" type="button" class="bthl" value="<tpl> $langSysSQLDownLoad </tpl>" onclick="location.href='sqlback.manage.php?action=make_zip&zip_name=<tpl> $file_array[loop].zip_name </tpl>';" />
+							<input name="" type="button" class="bthl" onclick="location.href='sqlback.manage.php?action=del&filename=<tpl> $file_array[loop].name </tpl>';" value="<tpl> $langSysSQLDelete </tpl>" />
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $file_array[0].name eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			</form>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+function restor(url){
+	if(confirm('<tpl> $langSysSQLConfirmRevert </tpl>')){
+		location.href=url;
+	}else{
+		return false;
+	}	
+}
+</script>
+</body>
+</html>

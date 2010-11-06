@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_tools_manage</tpl> - <tpl>$admin_tools_flink</tpl></title><!-- 工具管理 - 友情链接 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#form1').validate({
+		errorClass: "wrong",
+		rules: {
+			txt_info_title	: {required	:true},
+			txt_info_url	: {url		:true}
+		},
+		messages: {
+			txt_info_title	: {required	:"<tpl>$admin_system_info_title_null</tpl>"},
+			txt_info_url	: {url		:"<tpl>$admin_system_info_url_error</tpl>"}
+		}
+	});
+});
+//-->
+</script>
+<script language="javascript">
+<!-- 
+function action_order_change(str) {
+	$("#action_type").val(str); 
+	$("#form_order").submit(); 
+}
+ -->
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+<body id="noulmenu">
+  <form action="admin_system.php?action=system_info_save" method="post" name="form1" id="form1">
+  <input type="hidden" name="txt_info_id" value="<tpl>$info_array.info_id</tpl>" />
+<h4 id="rightcon_h"><b>
+<span class="alignRight"><a href="admin_system.php?action=system_info" target="_self"  class="btnInput"><tpl>$admin_system_info_list</tpl><!-- 友情链接列表 --></a></span>
+	<tpl>$admin_header_shop_manage</tpl> >> <tpl>$admin_system_info_name</tpl><!-- 网店管理 >> 系统信息 -->
+</b></h4>
+<div id="rightcon">
+	<div class="rc_con">
+		<h5><tpl>$admin_system_info_name</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_info_edit_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+
+    <div class="entry-body">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="100"><tpl>$admin_system_info_edit_title</tpl><!-- 信息标题 -->:</td>
+				<td><input class="TextBox" type="text" name="txt_info_title" id="txt_info_title" value="<tpl>$info_array.info_title|escape:html</tpl>" />&nbsp;<span class="red">*</span>
+			  <div class="check-error"><label style="display:none" for="txt_info_title" class="wrong" metaDone="true" generated="true"></label></div>
+				</td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_system_info_edit_url</tpl><!-- 外联地址 -->:</td>
+				<td><input class="TextBox" type="text"  name="txt_info_url" id="txt_info_url" value="<tpl>$info_array.info_url</tpl>" /><div class="check-error"><label style="display:none" for="txt_info_url" class="wrong" metaDone="true" generated="true"></label></div></td>
+			</tr>
+			<tr>
+				<td><tpl>$admin_system_info_edit_body</tpl><!-- 链接状态 -->:</td>
+				<td><tpl>$txt_fck</tpl></td>
+			</tr>
+		</table>
+    </div><!--  end of entry-body  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_system_info_edit_save</tpl>" class="btnInput" /><!-- 点此保存 -->
+    </div>
+	</div>
+	<div class="clear"></div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

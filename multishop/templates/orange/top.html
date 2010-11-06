@@ -1,0 +1,177 @@
+<!--  判断是否载入top css 频道有自己的top css  -->
+<tpl> if $channel_sign eq '' </tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/header.css" rel="stylesheet" type="text/css" />
+<tpl> /if </tpl>
+<!-- Header -->
+<div id="top" class="m">
+  <!-- TopPart -->
+  <div id="toppart">
+    <!-- LOGO -->
+    <div id="logo">
+    <a href="<tpl> $site_url </tpl>">
+    	<img src='<tpl> $Site_LOGO|default:"$template_dir/home/images/logo_2008.gif" </tpl>' alt="<tpl> $langCCommendShopNC </tpl>" />
+    </a>
+    </div>
+	<!-- TopBar -->
+	<div id="quick_link_html"></div>
+	<!-- End TopBar -->
+  </div>
+  <!-- End TopPart -->
+  <!-- NavPart -->
+  <div id="navpart">
+    <div class="sideleft">&nbsp;</div>
+    <div class="sideright">&nbsp;</div>
+    <!-- NavMenu -->
+    <div id="navmenubar">
+	<!-- 
+      <div id="hot">&nbsp;</div>
+	   -->
+      <div class="sideleft">&nbsp;</div>
+      <ul class="navmenu">
+      	<tpl>php</tpl>if (DISCUZ_X === true) { <tpl>/php</tpl><li class="index-home"><a href="<tpl> $Zh_Site_Url </tpl>"><tpl> $langMenIndex </tpl></a></li><tpl>php</tpl>}<tpl>/php</tpl>
+		<li <tpl> if $search_header_sign eq '1' </tpl> class="current" <tpl> /if </tpl>><a href="<tpl> $site_url </tpl>" target="_top" title="<tpl> $langCIndex </tpl>"><tpl> $langCIndex </tpl></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/trademark.php"><span><tpl> $langCBrandSpace </tpl></span></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/shop_group.php"><span><tpl> $langCCamel </tpl></span></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/countdown.php"><span><tpl> $langCYiyuanPai </tpl></span></a></li>
+		<li><a href="<tpl> $site_url </tpl>/home/auction.php"><span><tpl> $langCAuctionJingPai </tpl></span></a></li>
+		<tpl> section name=i loop=$channel_all </tpl> 
+			<li <tpl> if $channel_all[i].channel_name eq $channel_sign </tpl> class="current" <tpl> /if </tpl> >
+				<tpl> if $channel_all[i].channel_type eq '0' </tpl>
+					<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_all[i].channel_id </tpl>"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+				<tpl> elseif $channel_all[i].channel_type eq '3' </tpl>
+					<!-- 频道页静态开关 -->
+					<tpl> if $config_channel_html eq '1' </tpl>				
+						<a href="<tpl> $site_url </tpl>/html/<tpl> $channel_all[i].channel_sign </tpl>/"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+					<tpl> else </tpl>
+						<a href="<tpl> $site_url </tpl>/home/channel.php?id=<tpl> $channel_all[i].channel_id </tpl>"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+					<tpl> /if </tpl>
+				<tpl> else </tpl>
+					<a href="<tpl> $channel_all[i].channel_url </tpl>" target="_blank"><span><tpl> $channel_all[i].channel_name </tpl></span></a>
+				<tpl> /if </tpl>
+			</li>
+		<tpl> /section </tpl>
+      </ul>
+	  <div class="sideright">&nbsp;</div>
+    </div>
+    <!-- End NavMenu -->
+    <!-- NavPart Left -->
+    <div class="left">
+      <!-- NavSearch -->
+      <div id="navsearchbar">
+        <div class="side_left"></div>
+        <div class="side_right"></div>
+        <div id="navsearchform">
+          <form id="form_search_nav" name="form_search_nav" action="" method="get" onsubmit="search_submit();">
+			<!-- 商品橱窗推荐标识  -->
+			<input type="hidden" name="recommended" id="recommended" value="0" />
+            <label class="clip_selectname">
+            <select id="search_name" onchange="changeurl(this.value)" name="search_name" class="selectname">
+              <option value="product" selected="selected"><tpl> $langCSearchBaby </tpl></option>
+              <option value="shop"><tpl> $langCSearchShop </tpl></option>
+            </select>
+            </label>
+            <input name="keyword" id="rr" class="inputtext" />
+            <label class="clip_selectcate">
+            <select id="span_search_cate" name="searchcate" class="selectcate">
+              <option value='0'><tpl> $langCAllSort </tpl></option>
+			  <tpl> section name=loop loop=$search_cate </tpl>
+				  <tpl> if $smarty.section.loop.rownum < 10 or ($smarty.section.loop.rownum > 20 and $smarty.section.loop.rownum < 30) or ($smarty.section.loop.rownum > 40 and $smarty.section.loop.rownum < 50) </tpl>
+				  	<tpl> assign var="fathercss" value="" </tpl>
+				  <tpl> else </tpl>
+				  	<tpl> assign var="fathercss" value="style='background-color:#CCCCCC'" </tpl>
+				  <tpl> /if </tpl>
+				<option <tpl> $fathercss </tpl> value='<tpl> $search_cate[loop][0] </tpl>'><tpl> $search_cate[loop][2] </tpl></option>
+			  <tpl> /section </tpl>
+            </select>
+            </label>
+            <input type="button" onclick="search_submit();" name="search_button" id="search_button" class="inputbutton" value="<tpl> $langCSearch </tpl>" />
+            <span><a href="<tpl> $site_url </tpl>/home/product.php?action=search">[<tpl> $langCAllSearch </tpl>]</a></span>
+          </form>
+        </div>
+        <div class="clear">&nbsp;</div>
+      </div>
+      <!-- End NavSearch -->
+      <!-- Hotkeyword -->
+      <div id="navkeywords">
+        <h3><tpl> $langCPopSearch </tpl> : </h3>
+		      <tpl> section name=i loop=$search_keyword_array </tpl>
+					<a href="<tpl> if $search_keyword_array[i].keyword_url neq '' </tpl><tpl> $search_keyword_array[i].keyword_url </tpl><tpl> else </tpl>../home/product.php?action=list&keyword=<tpl> $search_keyword_array[i].keyword_name </tpl><tpl> /if </tpl>" target="_blank"><tpl> $search_keyword_array[i].keyword_name </tpl></a>
+				<tpl> /section </tpl>
+      </div>
+      <!-- End Hotkeyword -->
+    </div>
+    <!-- End NavPart Left -->
+    <!-- NavPart Right -->
+    <div class="right">
+      <!-- ScrollPic -->
+      <div id="navscrollpic">
+        <div id="BtnLeft" class="btnleft">&nbsp;</div>
+        <div id="BtnRight" class="btnright">&nbsp;</div>
+        <div id="scrollDiv" class="scrolldiv">
+        	<ul>
+            	<script src="<tpl> $site_url </tpl>/html/js/top_adv.js"></script>
+            </ul>
+        </div>
+      </div>
+	  <script type="text/javascript">
+			$(document).ready(function(){
+				$("#scrollDiv").Scroll1({line:1,speed:80,timer:5000,left:"BtnLeft",right:"BtnRight"});
+			});
+	</script>
+      <!-- End ScrollPic -->
+    </div>
+    <!-- End NavPart Right -->
+    <div class="clear">&nbsp;</div>
+  </div>
+  <!-- End NavPart -->
+</div>
+<!-- END Header -->
+<script language="javascript">
+//取语言包cookie
+var lang_type = $.cookie("<tpl> $cookie_pre </tpl>commonlangType");
+$("#sel_language").attr("value",lang_type);
+
+//多语言选择
+function changeLang(langTypeValue){
+	$.cookie("<tpl> $cookie_pre </tpl>commonlangType", langTypeValue);
+	window.location.reload();
+}
+</script>
+<script>
+//取会员导航快速链接
+function get_quickL_links(){
+	$.ajax({
+		url: "<tpl> $site_url </tpl>/home/index.php",
+		data: 'action=getQuickLinks&ajax=1',
+		type:'get',
+		dataType:"html",
+		success: function(html){
+			$('#quick_link_html').html(html);
+		}
+	});
+}
+get_quickL_links();
+</script>
+<script language="javascript">
+//切换搜索类别目录
+function changeurl(str){
+	$.ajax({
+		url: '<tpl> $site_url </tpl>/home/index.php',
+		data: 'action=aj_get_clas&search_type='+str,
+		success: function (data) {
+					$('#span_search_cate').html(data);
+		}
+	});
+}
+//提交表单，确定搜索路径
+function search_submit(){
+	if($('#search_name').val() == 'product'){
+		$('#form_search_nav').attr('action','<tpl> $site_url </tpl>/home/product.php');
+	 }else if ($('#search_name').val() == 'shop'){
+		$('#form_search_nav').attr('action','<tpl> $site_url </tpl>/home/shop.php');
+	 }else{
+	 	return false;
+	 }
+    $('#form_search_nav').submit(); 
+}
+</script>

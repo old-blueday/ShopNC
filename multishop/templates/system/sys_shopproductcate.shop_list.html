@@ -1,0 +1,70 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysShopMerchandiseClass </tpl> &gt;&gt; <tpl> $langSysShopProCateShopList </tpl></div>
+				</div>
+				<!--<div class="ibxbar2">
+					<div class="on-700">
+						<form action="shoplink.manage.php" method="get" name="form_search" id="form_search">
+						<input type="hidden" name="action" value="list" />
+						<table width="100%" border="0" cellpadding="0">
+                            <tr>
+								<th class="wd"><tpl> $langSysLinkShopName </tpl>:</th>
+								<td class="it-2">
+									<input class="fct-input" value="<tpl> $condition.search_shop_name </tpl>" name="search_shop_name" id="search_shop_name" type="text" />
+								</td>
+                                <td class="mk-2" colspan="2"><input class="bthl" name="" value="<tpl> $langSysSearch </tpl>" type="submit" /></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>-->
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysproductShop </tpl></td>
+						<td class="es-2"><tpl> $langSysShopProCateNumber </tpl></td>
+                        <td class="es-2"><tpl> $langCOperation </tpl></td>
+                        <td class="es-2"><tpl> $langCOperation </tpl></td>
+					</tr>
+					<tpl> if $shop_array[0].shop_id neq '' </tpl>
+						<tpl> section name=loop loop=$shop_array </tpl>
+					<tr class="es-td">
+						<td><tpl> $shop_array[loop].shop_name </tpl></td>
+						<td><tpl> $shop_array[loop].count </tpl></td>
+                        <td>
+                        	<a href="shop.manage.php?action=modi&id=<tpl> $shop_array[loop].shop_id </tpl>"><tpl> $langSysShopProCateViewShop </tpl></a>
+						</td>
+						<td>
+                        	<a href="shopproductcate.manage.php?action=category_list&shop_id=<tpl> $shop_array[loop].shop_id </tpl>"><tpl> $langSysShopProCateListCate </tpl></a>
+						</td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $shop_array[0].shop_id eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+			<div class="ibxbot">
+				<div class="fri">
+					<tpl> if $shop_array[0].shop_id neq '' </tpl>
+					<tpl> $page_list </tpl>
+					<tpl> /if </tpl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

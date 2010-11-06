@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<meta http-equiv="keywords" content="<tpl> $shops_keywords </tpl>" />
+<meta http-equiv="description" content="<tpl> $shops_description </tpl>" /> 
+<title><tpl> $home_user </tpl><tpl> $home_pass </tpl>-<tpl> $shops_name </tpl></title>
+<link href="<tpl> $templates_subpath </tpl>/css/styles.css" rel="stylesheet" type="text/css">
+<script language="javascript" src="<tpl> $site_url </tpl>/js/select_area_zh-cn.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+</head>
+<body>
+<div id="container">
+<tpl> include_php file='../shop_header.php' </tpl><!-- end of header -->
+	<!--content-->
+	<div id="content">
+		<div class="w_conleft uc_right">
+			<div class="w_cl_title">
+				<div class="w_cl_tright"></div>
+				<div class="w_tithead">
+				<strong><tpl> $home_location </tpl>： </strong><a href="<tpl> $Site_Url </tpl>"><tpl> $shops_name </tpl></a><a href="?action=index"><tpl> $home_member </tpl></a><tpl> $home_user </tpl>
+				</div>
+			</div>
+			<div class="con">
+				<h1><tpl> $home_user </tpl></h1>
+				<form action="?action=member_info_save" method="post" name="member_form" id="member_form">
+					<table class="s_selclass h_search" width="0" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td width="166" align="right"><tpl> $home_truename </tpl><!--真实姓名-->：</td>
+							<td width="254"><input type="text"  name="truename" value="<tpl> $member_info.truename </tpl>" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_usersex </tpl><!--性别-->：</td>
+							<td class="hsearch_ch"><tpl> $sex_select </tpl></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_userarea </tpl><!--地区-->：</td>
+							<td class="uc_adde"><select name="txtProvince" id="txtProvince" onchange="javascript:iniCity(document.getElementById('txtProvince'),document.getElementById('txtCity'));">
+				  </select>&nbsp;<tpl> $home_province </tpl><!--省-->
+					  <select name="txtCity" id="txtCity">
+			</select>&nbsp;<tpl> $home_city </tpl><!--市--></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_address </tpl><!--详细地址-->：</td>
+							<td><input type="text" name="address" id="address" value="<tpl> $member_info.address </tpl>" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_call </tpl><!--联系电话-->：</td>
+							<td><input name="call" type="text" id="call" value="<tpl> $member_info.usercall </tpl>" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_email </tpl><!--E-MAIL-->：</td>
+							<td><input name="mail" type="text" id="mail"  value="<tpl> $member_info.mail </tpl>" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_qq </tpl><!--QQ-->：</td>
+							<td><input name="qq" type="text" id="qq"  value="<tpl> $member_info.qq </tpl>" class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td align="right"><tpl> $home_msn </tpl><!--MSN-->：</td>
+							<td><input name="msn" type="text" id="msn"  value="<tpl> $member_info.msn </tpl>"  class="inputbg" /></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td><div class="reg_but" onclick="$('#member_form').submit()"></div></td>
+						</tr>
+					</table>
+				<div class="clear"></div>
+			</div>
+			<div class="w_cl_foot">
+				<div class="w_cl_fright"></div>
+			</div>
+		</div>
+		
+		<tpl>include file ='member_left.html'</tpl>
+		
+		<div class="clear"></div>
+	</div>
+	<!--end content-->
+<tpl> include_php file='../shop_footer.php' </tpl><!-- end of footer -->
+</div>
+</body>
+</html>
+<script language="javascript">
+<!--
+selectprovince = "<tpl> $member_info.province </tpl>";
+selectcity = "<tpl> $member_info.city </tpl>";
+iniProvince(document.getElementById('txtProvince'));
+iniCity(document.getElementById('txtProvince'),document.getElementById('txtCity'));
+-->
+</script>

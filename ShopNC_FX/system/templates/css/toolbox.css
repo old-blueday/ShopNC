@@ -1,0 +1,40 @@
+/*
+Style Name: Toolbox
+Author: CY
+Email: cyishere@gmail.com
+Description: useful layout tool
+*/
+* {
+	margin:0;
+	padding:0;
+}
+.alignLeft {
+	float:left;
+}
+.alignCenter {
+	margin:0 auto;
+}
+.alignRight {
+	float:right;
+}
+.textLeft {
+	text-align:left;
+}
+.textCenter {
+	text-align:center;
+}
+.textRight {
+	text-align:right;
+}
+.clear {
+	clear:both;
+}
+a img {
+	border:none;
+}
+a {
+	text-decoration:none;
+}
+li {
+	list-style:none;
+}

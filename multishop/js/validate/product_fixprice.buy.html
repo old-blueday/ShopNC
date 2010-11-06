@@ -1,0 +1,368 @@
+<script src="<tpl> $site_url </tpl>/js/addselect.js"></script>
+<script language="javascript">
+$(document).ready(function(){
+	<tpl> if $receive_count == 0 </tpl>
+		$('#daddr').attr('checked','checked');
+		$('#_edit_address').css('display','');
+		$('#bid_receive_code').val('new');
+	<tpl> /if </tpl>
+	//选择商品所在地
+	$('#adddiv').addSelect({
+					ajaxUrl:'../home/tohtml.php',
+					ajaxAction:'get_area',
+					hiddenId:'receive_area_id'
+				});
+	$('#adddiv').ajaxStop(function(){
+					$("#adddiv").children('select:first').bind('change',function(){var tmp=this.value.split('||');if(typeof(tmp[0]) != 'undefined'){change_postage(tmp[0]);}});
+				});
+	$("#mainform").validate({
+		errorClass: "wrong",
+		rules: {
+			buy_num:{required:true,number:true,min:1,max:<tpl> $product_row.p_storage </tpl>},
+			receive_area_id:{required:receiveChecked},
+			address:{required:receiveChecked},
+			zip:{required:receiveChecked,number:true},
+			receive_name:{required:receiveChecked},
+			phone:{required:receiveCheckedTwoSelOne,number:true},
+			mobilephone:{required:receiveCheckedTwoSelOne,number:true},
+			checkcode:{required:true},
+			bid_count:{required:true,number:true,min:1,max:<tpl> $product_row.p_storage </tpl>},
+			bid_max_price:{required:true,min:<tpl> $product_row.p_cur_price </tpl>,max:99999999}
+		},
+		messages: {
+			buy_num:{required:"<tpl> $errBuyNum </tpl>",number:"<tpl> $errBuyNum </tpl>",min:"<tpl> $langPBuyNumWrongMin </tpl>",max:"<tpl> $langPBuyNumWrongMax </tpl><tpl> $product_row.p_storage </tpl>"},
+			receive_area_id:{required:"<tpl> $errPReceiveAreaIsEmpty </tpl>"},
+			address:{required:"<tpl> $langPReceiveAddressIsEmpty </tpl>"},
+			zip:{required:"<tpl> $langPReceiveZipIsEmpty </tpl>",number:"<tpl> $langPReceiveZipIsNumber </tpl>"},
+			receive_name:{required:"<tpl> $langPReceiveNameIsEmpty </tpl>"},
+			phone:{required:"<tpl> $langPContactInputOne </tpl>",number:"<tpl> $langPPhoneNameIsNumber </tpl>"},
+			mobilephone:{required:"<tpl> $langPContactInputOne </tpl>",number:"<tpl> $langPMobileTelephoneIsNumber </tpl>"},
+			checkcode:{required:"<tpl> $alertCodeErr </tpl>"},
+			bid_count:{required:"<tpl> $errBuyNum </tpl>",number:"<tpl> $errBuyNum </tpl>",min:"<tpl> $langPBuyNumWrongMin </tpl>",max:"<tpl> $langPBuyNumWrongMax </tpl><tpl> $product_row.p_storage </tpl>"},
+			bid_max_price:{required:"<tpl> $errPAuctionBidPriceIsEmpty </tpl>",min:"<tpl> $errPAuctionBidPriceLowestIsWrong </tpl><tpl> $product_row.p_cur_price </tpl>",max:"<tpl> $errPAuctionBidPriceHeightestIsWrong </tpl>99999999"}
+		},
+		submitHandler: function() {
+			//整理运费
+			change_tffee();
+
+			var  myForm=document.forms['mainform'];
+			var predeposit_price = parseFloat(<tpl> $product_row.p_price </tpl>)*parseInt($('#buy_num').val())+parseFloat($('#tf_fee').val());
+			//如果选择预付款支付，则验证预付款金额是否可以支付
+			if($('#radio_predeposit').attr('checked') == true){
+				if(predeposit_price > parseFloat($('#available_predeposit').val())){
+					alert('<tpl> $errPPredepositLessRemark </tpl>');
+					return false;
+				}
+			}
+			//检查购买数量
+			if($('#buy_num').val() > 0 ){
+				if(parseInt($('#buy_num').val()) > parseInt(<tpl> $product_row.p_storage </tpl>)){
+					alert('<tpl> $alertProductBuyBabyNum </tpl>');return false;
+				}else{
+					document.getElementById('Submit').disabled = true;
+					$.ajax({
+						url: "product_fixprice.php",
+						data: "action=check_code&checkcode="+$('#checkcode').val()+"&random_number="+Math.random(),
+						success: function(data){
+							if(data=='1'){
+								myForm.action='product_fixprice.php?action=bid';
+								myForm.method='POST';
+								myForm.submit();
+							}else{
+								alert('<tpl>$alertCodeErr</tpl>');
+								document.getElementById('Submit').disabled = false;
+								return false;
+							}
+						}
+					});
+				}
+			}else{
+				alert('<tpl> $alertProductBuyBabyNum </tpl>');return false;
+			}
+		}
+	});
+	$('table.bb tr td input').focus(function() { $(this).parent().next().find('label').addClass('label_focus') }).blur(function() { $(this).parent().next().find('label').removeClass('label_focus');});
+	//遮罩效果
+	var question = $('#question');
+	$("#blockUi").click(function(){
+		window.open('../member/own_predeposit.php?action=pay');
+		$.blockUI(
+			{ message:$('#question').html()},
+			{ width: '275px' }
+		);
+	});
+	function formChecked(){
+		if($('#bid_receive_code').val() == '' && $('#checkaddr').val() == ''){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function receiveChecked(){
+		if($('#bid_receive_code').val() == 'new'){
+			return true;
+		}else{
+			return false;	
+		}
+	}
+	function receiveCheckedTwoSelOne(){
+		var sign = receiveChecked();
+		if(sign == true){
+			if($.trim($('#phone').val()) == '' && $.trim($('#mobilephone').val()) == ''){
+				return true;
+			}else{
+				return false;	
+			}
+		}else{
+			return false;	
+		}
+	}
+	//选中支付方式中第一个方式，来显示货币种类
+	<tpl> foreach from=$payment_array item=one key=key </tpl>
+		<tpl> if $one.check eq '1' </tpl>change_currency('<tpl> $key </tpl>');<tpl> /if </tpl>
+	<tpl> /foreach </tpl>
+	//add_new checked
+	if($('#add_new').attr('checked') == true){
+		$('#add_new').parent().next('table').css('display','block');
+	}else {
+		$('#add_new').parent().next('table').css('display','none');
+	}
+})
+function payOk() {
+	ajaxGetPredeposit();
+	closeBlock();
+}
+//跳转到帮助页面
+function payFail() {
+	window.open('http://www.shopnc.net/forum/');
+	closeBlock();
+}
+function closeBlock() {
+	$.unblockUI();
+}
+//取会员可用资金
+function ajaxGetPredeposit(){
+	$.ajax({
+		url: "../member/own_predeposit.php",
+		data: 'action=ajax_get_predeposit',
+		type:'post',
+		dataType:"json",
+		success: function(msg){
+			if(msg.type == '1'){//成功
+				$('#available_predeposit').val(msg.message);
+				$('#span_available_predeposit').html(msg.message);
+			}
+			/*else{//失败
+				alert('失败');
+			}*/
+		}
+	});
+	return false;
+}
+function change_currency(str){
+	$("#mainform input[type=radio]").each(function(){
+		if(this.name.indexOf('_currency')){
+			$("#div_"+this.value+"_currency").css('display','none');
+		}
+	});
+	$("#div_"+str+"_currency").css('display','');
+}
+function change_tffee(){
+<tpl> if $product_row.p_transfee_charge == "1" </tpl>	
+	//get transfee money
+	$('input[name=txtTfType]').each(function(){
+		if($(this).attr('checked') == true){
+			//checked
+			switch($(this).val()){
+				case '1':
+					base_money = $('#postage_transfee_ordinary_base').val();
+					up_money = $('#postage_transfee_ordinary_up').val();
+				break;
+				case '2':
+					base_money = $('#postage_transfee_fast_base').val();
+					up_money = $('#postage_transfee_fast_up').val();
+				break;
+				case '3':
+					base_money = $('#postage_transfee_ems_base').val();
+					up_money = $('#postage_transfee_ems_up').val();
+				break;
+			}
+		}
+	});
+	num = (parseInt($('#buy_num').val())-1)*parseFloat(up_money)+parseFloat(base_money);
+	$('#tf_fee').val(num);
+<tpl> /if </tpl>
+}
+//
+function change_postage(area_id){
+	var default_sign = false;
+	var default_value = '';
+	//change postage money, tmp is key
+	for(var tmp_key in ordinaryArray){
+		var tmp_value = ordinaryArray[tmp_key];
+		if(tmp_value == 'default'){
+			default_value = tmp_key;
+		}
+		var tmp_array = tmp_value.split(',');
+		var result = $.inArray(area_id,tmp_array);
+		if(result >= 0){//exsits
+			default_sign = true;
+			//set html
+			$('#span_ordinary').html(tmp_key);
+			//set hidden
+			$('#postage_transfee_ordinary_base').val(tmp_key);
+			//hidden up 
+			for(tmp_up in ordinaryUpArray){
+				if(tmp_value == ordinaryUpArray[tmp_up]){
+					//set html
+					$('#span_ordinary_up').html(tmp_up);
+					//set hidden
+					$('#postage_transfee_ordinary_up').val(tmp_up);
+				}
+			}
+		}
+	}
+	if(default_sign == false && default_value != ''){
+		//set html
+		$('#span_ordinary').html(default_value);
+		//set hidden
+		$('#postage_transfee_ordinary_base').val(default_value);
+		for(tmp_up in ordinaryUpArray){
+			if('default' == ordinaryUpArray[tmp_up]){
+				//set html
+				$('#span_ordinary_up').html(tmp_up);
+				//set hidden
+				$('#postage_transfee_ordinary_up').val(tmp_up);
+			}
+		}
+		default_value = '';
+	}else{
+		default_sign = false;
+	}
+	for(var tmp_key in fastArray){
+		var tmp_value = fastArray[tmp_key];
+		if(tmp_value == 'default'){
+			default_value = tmp_key;
+		}
+		var tmp_array = tmp_value.split(',');
+		var result = $.inArray(area_id,tmp_array);
+		if(result >= 0){//exsits
+			default_sign = true;
+			//set html
+			$('#span_fast').html(tmp_key);
+			//set hidden
+			$('#postage_transfee_fast_base').val(tmp_key);
+			//hidden up 
+			for(tmp_up in fastUpArray){
+				if(tmp_value == fastUpArray[tmp_up]){
+					//set html
+					$('#span_fast_up').html(tmp_up);
+					//set hidden
+					$('#postage_transfee_fast_up').val(tmp_up);
+				}
+			}
+		}
+	}
+	
+	if(default_sign == false && default_value != ''){
+		//set html
+		$('#span_fast').html(default_value);
+		//set hidden
+		$('#postage_transfee_fast_base').val(default_value);
+		for(tmp_up in fastUpArray){
+			if('default' == fastUpArray[tmp_up]){
+				//set html
+				$('#span_fast_up').html(tmp_up);
+				//set hidden
+				$('#postage_transfee_fast_up').val(tmp_up);
+			}
+		}
+		default_value = '';
+	}else{
+		default_sign = false;
+	}
+	for(var tmp_key in emsArray){
+		var tmp_value = emsArray[tmp_key];
+		if(tmp_value == 'default'){
+			default_value = tmp_key;
+		}
+		var tmp_array = tmp_value.split(',');
+		var result = $.inArray(area_id,tmp_array);
+		if(result >= 0){//exsits
+			default_sign = true;
+			//set html
+			$('#span_ems').html(tmp_key);
+			//set hidden
+			$('#postage_transfee_ems_base').val(tmp_key);
+			//hidden up 
+			for(tmp_up in emsUpArray){
+				if(tmp_value == emsUpArray[tmp_up]){
+					//set html
+					$('#span_ems_up').html(tmp_up);
+					//set hidden
+					$('#postage_transfee_ems_up').val(tmp_up);
+				}
+			}
+		}
+	}
+	if(default_sign == false && default_value != ''){
+		$('#fast_span').css('display','block');
+		//set html
+		$('#span_ems').html(default_value);
+		//set hidden
+		$('#postage_transfee_ems_base').val(default_value);
+		for(tmp_up in emsUpArray){
+			if('default' == emsUpArray[tmp_up]){
+				//set html
+				$('#span_ems_up').html(tmp_up);
+				//set hidden
+				$('#postage_transfee_ems_up').val(tmp_up);
+			}
+		}
+		default_value = '';
+	}else{
+		default_sign = false;
+	}
+	//repeat postage
+	change_tffee();
+}
+var ordinaryArray = new Array();
+var ordinaryUpArray = new Array();
+<tpl> foreach item=one from=$use_postage_content.postage_ordinary </tpl>
+	<tpl> if $one[0] neq '' </tpl>
+		ordinaryArray[<tpl> $one[1] </tpl>] = "<tpl> $one[0] </tpl>";
+		ordinaryUpArray[<tpl> $one[2] </tpl>] = "<tpl> $one[0] </tpl>";
+	<tpl> else </tpl>
+		<tpl> if $one.default neq '' </tpl>
+			ordinaryArray[<tpl> $one.default </tpl>] = 'default';
+			ordinaryUpArray[<tpl> $one.default_up </tpl>] = 'default';
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+var fastArray = new Array();
+var fastUpArray = new Array();
+<tpl> foreach item=one from=$use_postage_content.postage_fast </tpl>
+	<tpl> if $one[0] neq '' </tpl>
+		fastArray[<tpl> $one[1] </tpl>] = "<tpl> $one[0] </tpl>";
+		fastUpArray[<tpl> $one[2] </tpl>] = "<tpl> $one[0] </tpl>";
+	<tpl> else </tpl>
+		<tpl> if $one.default neq '' </tpl>
+			fastArray[<tpl> $one.default </tpl>] = 'default';
+			fastUpArray[<tpl> $one.default_up </tpl>] = 'default';
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+var emsArray = new Array();
+var emsUpArray = new Array();
+<tpl> foreach item=one from=$use_postage_content.postage_ems </tpl>
+	<tpl> if $one[0] neq '' </tpl>
+		emsArray[<tpl> $one[1] </tpl>] = "<tpl> $one[0] </tpl>";
+		emsUpArray[<tpl> $one[2] </tpl>] = "<tpl> $one[0] </tpl>";
+	<tpl> else </tpl>
+		<tpl> if $one.default neq '' </tpl>
+			emsArray[<tpl> $one.default </tpl>] = 'default';
+			emsUpArray[<tpl> $one.default_up </tpl>] = 'default';
+		<tpl> /if </tpl>
+	<tpl> /if </tpl>
+<tpl> /foreach </tpl>
+</script>

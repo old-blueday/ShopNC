@@ -1,0 +1,75 @@
+#searchbox {background-color: #FFF; width: 740px;  position: relative; float:left; margin: 20px auto; padding-left:100px; padding-bottom: 24px;}
+	#searchpicitem { background: url(../images/searchpicitem.gif) no-repeat; bottom: 1px; height: 116px; position: absolute; right: 48px; width: 147px; z-index: 999;}
+	#searchpicshop { background: url(../images/searchpicshop.gif) no-repeat; bottom: 1px; height: 116px; position: absolute; right: 48px; width: 147px; z-index: 999; }
+
+#searchtab { background: url(../images/searchnavbg.gif) no-repeat bottom; display: inline; float: left; height: 31px; margin-left: 30px; margin-top: 40px; padding-left: 50px; width: 630px; }
+	#searchtab li { float: left; font-size: 12px; font-weight: bold; line-height: 25px; margin-right: 8px; margin-top: 6px; }
+		#searchtab li a { background: url(../images/buttons_06.gif) no-repeat left 0px; float: left; height: 25px; }
+			#searchtab li a:hover {	background: url(../images/buttons_06.gif) no-repeat left -50px;	text-decoration: none;}
+		#searchtab li span { float: right; }
+			#searchtab li a span { background: url(../images/buttons_06.gif) no-repeat right -25px; cursor: pointer; float: left; height: 25px; margin-left: 3px; padding-left: 10px; padding-right: 13px; white-space: nowrap; }
+				#searchtab li a:hover span { background-position: right -75px; }
+		#searchtab .current { float: left; font-size: 15px; line-height: 31px; margin-top: 0px; }
+			#searchtab .current a , #searchtab .current a:hover { background: url(../images/buttons_06.gif) no-repeat left -100px; float: left; height: 31px; }
+			#searchtab .current a span , #searchtab .current a:hover span { background: url(../images/buttons_06.gif) no-repeat right -131px; color: #000; cursor: pointer; float: left; height: 31px; padding-left: 15px; padding-right: 20px; }
+
+
+.searchcontent { display: inline; float: left; margin-left: 30px; padding-bottom: 30px; width: 680px; }
+	.searchcontent .seperator { border-top: dotted 1px #CCC; float: left; font-size: 1px; height: 10px; line-height: 10px; margin: 5px 0;padding: 0px; width: 90%; }
+	.form_advance { display: block; float: left; padding-bottom: 10px; padding-top: 10px; width: 100%; }
+	.form_advance .submitbox { height: 32px; margin-top: 5px; float: left; width: 300px; margin-left: 180px; display: inline;}
+		.form_advance li { background-color: #FFF; clear: left; float: left; height: 28px; padding-bottom: 4px; padding-top: 4px; width: 100%; }
+		.form_advance .submitbox img { display: inline; margin-left: 5px; margin-right: 5px; }
+		.form_advance .submitbox . moreurl { float: left; line-height: 30px; }
+		#moreoptions { display: none; }
+
+
+.searchforminput {
+	width:175px;
+	height:16px;
+	line-height:16px;
+	border: solid 1px;
+	border-color: #B4B4B4 #E8E8E8 #E8E8E8 #B4B4B4;
+	float: left;
+	padding: 3px 5px;
+	margin-right: 6px;
+}
+.searchformleft { color: #000; display: block; float: left; height: 22px; line-height: 22px; text-align: right; width: 150px; }
+.searchformright { float: left; height: 22px; padding-left: 5px; width: 525px; }
+.searchformright span { float: left; line-height: 28px; margin-right: 6px; }
+
+.showmode { display: block; float: left; height: 24px; line-height: 24px; margin-top: 7px; }
+
+.showmode .current a { background: url(../images/buttons_02.gif) left 0 }
+
+.showmode .current a span { background: url(../images/buttons_02.gif) right -24px; color: #000; }
+
+.showmode .style .current a { background: url(../images/buttons_02.gif) left -48px; }
+
+.showmode .style .current a span { background: url(../images/buttons_02.gif) right -72px; color: #FFF; }
+
+.showmode .style li a img { filter: Alpha(Opacity=50); float: left; height: 16px; padding:4px 4px 4px 0px; width: 16px; }
+
+.showmode .style li a span { background: url(../images/buttons_02.gif) no-repeat right -24px; color: #4BBAD9; cursor: pointer; display: block; float: left; padding-left: 3px; padding-right: 7px; }
+
+.showmode .style li a, .goodsbrowsed_but a { background: url(../images/buttons_02.gif) no-repeat left 0; float: left; height: 24px; padding-left: 4px; }
+
+.showmode .style li a:hover span { background-position: right -72px; color: #FFF; }
+
+.showmode .style li a:hover, .goodsitem_content .compare a:hover { background-position: left -48px; }
+
+.showmode li { float: left; margin-right: 1px; }
+
+.showmode li a { background: url(../images/buttons_02.gif) no-repeat left -96px ; float: left; height: 24px; padding-left: 4px; }
+
+.showmode li a img { filter: Alpha(Opacity=50); float: left; height: 16px; margin: 0; padding:4px 4px 4px 0 ; width: 16px; }
+
+.showmode li a span { background: url(../images/buttons_02.gif) no-repeat left -96px; color: #4BBAD9; cursor: pointer; display: block; float: left; padding-left: 3px; padding-right: 7px; width: auto; }
+
+.showmode li a:hover { background-position: left 0}
+
+.showmode li a:hover img, .showmode .current a img, .showmode .style li a:hover img, .showmode .style .current a img { filter: Alpha(Opacity=100); }
+
+.showmode li a:hover span { background-position: right -24px; color: #000; }
+
+.showmode ul { display: inline-block; float: left; margin: 0; padding-left: 0px; padding-right: 12px; white-space: nowrap; }

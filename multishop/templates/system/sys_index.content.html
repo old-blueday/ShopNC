@@ -1,0 +1,129 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+		<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysCIndex </tpl> &gt;&gt; <tpl> $langSysSiteInfo </tpl></div>
+				</div>
+			</div>
+			<div class="sys-in">
+				<div id="check_update" class="sys-vn"></div>
+				<div class="sys-in-1">
+					<div class="sys-in-left">
+						<h3><tpl> $langSysWebInfo </tpl></h3>
+						<ul>
+							<li>
+								<a href="statics.manage.php?action=list">
+									<tpl> $langSysIAccessNum </tpl> <b><tpl> $shop_info.visit_ip|default:'0' </tpl></b> <tpl> $langSysIHumanNum </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="statics.manage.php?action=list">
+									<tpl> $langSysITotalAccessNum </tpl> <b><tpl> $shop_info.visit_num|default:'0' </tpl></b> <tpl> $langSysIDegree </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="member.manage.php?action=list">
+									<tpl> $langSysIRegMember </tpl> <b><tpl> $shop_info.member_num </tpl></b> <tpl> $langSysIHuman </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="shop.manage.php?action=list">
+									<tpl> $langSysIRegShop </tpl> <b><tpl> $shop_info.shop_num </tpl></b> <tpl> $langSysIHome </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="product.manage.php?action=list">
+									<tpl> $langSysIAllMerchandise </tpl> <b><tpl> $shop_info.product_num </tpl></b> <tpl> $langSysIPiece </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="product.manage.php?action=list">
+									<tpl> $langSysIUpMerchandise </tpl> <b><tpl> $shop_info.product_selling </tpl></b> <tpl> $langSysIPiece </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="order.manage.php?action=list">
+									<tpl> $langSysIAllBuy </tpl> <b><tpl> $shop_info.trade_num </tpl></b> <tpl> $langSysIBI </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="order.manage.php?action=list&search_sp_state=3">
+									<tpl> $langSysIBuyOK </tpl> <b><tpl> $shop_info.trade_succ </tpl></b> <tpl> $langSysIBI </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="order.manage.php?action=list">
+									<tpl> $langSysIBuying </tpl> <b><tpl> $shop_info.trade_doing </tpl></b> <tpl> $langSysIBI </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="complaint.manage.php?action=complaint">
+									<tpl> $langSysINotManageComplaint </tpl> <b><tpl> $shop_info.complaint_num </tpl></b> <tpl> $langSysIPiece </tpl>
+								</a>
+							</li>
+							<li>
+								<a href="complaint.manage.php?action=report">
+									<tpl> $langSysINotManageLaw </tpl> <b><tpl> $shop_info.report_num </tpl></b> <tpl> $langSysIPiece </tpl>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="sys-in-right">
+						<h3><tpl> $langSysISystemInfo </tpl></h3>
+						<ul>
+							<li><span class="inon"><tpl> $langSysIManyUserSystemEdition </tpl>:</span> <span><b><tpl> $sys_info.version </tpl> [ <a href="http://www.shopnc.net/download/index.html" target="_blank"><tpl> $langSysILookNewEdition </tpl></a> ]</b></span> </li>
+							<li><span class="inon"><tpl> $langSysIOperatorSystemPHPEdition </tpl>:</span> <span><b><tpl> $sys_info.os </tpl> / PHP <tpl> $sys_info.php_version </tpl></b></span></li>
+							<li><span class="inon">MySQL <tpl> $langSysIEdition </tpl>:</span> <span><b><tpl> $sys_info.db_version </tpl></b></span></li>
+							<li><span class="inon"><tpl> $langSysIUpdataApprobate </tpl>:</span> <span><b><tpl> $sys_info.upload </tpl></b></span></li>
+							<li><span class="inon"><tpl> $langSysINonceDatabaseSize </tpl>:</span> <span><b><tpl> $sys_info.db_size </tpl></b></span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="about">
+					<h3>ShopNC Develop Team</h3>
+					<ul>
+						<li>
+							<span class="inon"><tpl> $langSysICopyright </tpl>:</span> 
+							<span><b><a href="http://www.shopnc.net" target="_blank"><tpl> $langSysICo </tpl> (ShopNC Inc.,Ltd.)</a></b></span>
+						</li>
+						<li>
+							<span class="inon"><tpl> $langSysIMachinate </tpl>:</span> 
+							<span><b><a href="http://www.shopnc.net" target="_blank"><tpl> $langSysIBigCabbage </tpl> Tyler Wu</a></b></span>
+						</li>
+						<li>
+						<span class="inon"><tpl> $langSysIEmpolder </tpl>:</span> 
+						<span>
+							<b>
+								<a href="http://www.shopnc.net" target="_blank">MengNan Zhao,</a>
+								<a href="http://www.shopnc.net" target="_blank">Jie Hua,</a>
+								<a href="http://www.shopnc.net" target="_blank">Wei Li,</a>
+								<a href="http://www.shopnc.net" target="_blank">YingChen Zhang,</a>
+								<a href="http://www.shopnc.net" target="_blank">Rui Xi,</a> 
+								<a href="http://www.shopnc.net" target="_blank">DeBin Wang,</a> 
+								<a href="http://www.shopnc.net" target="_blank">Bin 'Bingo' Zhou</a>
+							</b>
+						</span>
+						</li>
+						<li>
+							<span class="inon"><tpl> $langSysIInterfaceDesign </tpl>:</span> 
+							<span>
+								<b>
+									<a href="http://www.shopnc.net" target="_blank">Jinyan 'Hulihutu' Han,</a>
+									<a href="http://www.shopnc.net" target="_blank">Ying Yue</a>
+								</b>
+							</span>
+						</li>
+						<li><span class="inon"><tpl> $langSysICoWeb </tpl>:</span> <span><b><a href="http://www.shopnc.net" target="_blank">http://www.shopnc.net</a></b></span> </li>
+						<li><span class="inon"><tpl> $langSysIProductWeb </tpl>:</span> <span><b><a href="http://www.shopnc.net" target="_blank">http://www.shopnc.net</a></b></span> </li>
+						<li><span class="inon"><tpl> $langSysIProductBBS </tpl>:</span> <span><b><a href="http://www.shopnc.net/forum/" target="_blank">http://www.shopnc.net/forum/</a></b></span> </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>

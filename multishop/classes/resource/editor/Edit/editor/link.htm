@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+		<title></title>
+		<style type="text/css">
+			body, td, span, div, input, select {
+				font-size: 12px;
+				font-family: "宋体", "Courier New", Courier, monospace;
+				margin: 0px;
+			}
+			.input {
+				border: 1px solid #7E9DB9;
+				width: 280px;
+				margin-left: 4px;
+				height: 18px;
+			}
+		</style>
+		<script language="JavaScript">
+		<!--
+		window.isIE = (navigator.appName == "Microsoft Internet Explorer");
+		if(window.isIE) {
+			if(navigator.userAgent.indexOf("Opera")>-1) window.isIE = null;
+		}
+		else {
+			if(navigator.userAgent.indexOf("Gecko")==-1) window.isIE = null;
+		}
+		function $(sID) {
+			return document.getElementById(sID);
+		}
+		function adjustDialog(){
+			var w = $("tabDialogSize").offsetWidth + 6;
+			var h = $("tabDialogSize").offsetHeight + 25;
+			window.dialogLeft = (screen.availWidth - w) / 2;
+			window.dialogTop = (screen.availHeight - h) / 2;
+		}
+		function resteText() {
+			var editor = window.dialogArguments.EDiaryEditor;
+			var frameWindow = editor.iframe.contentWindow;
+			var selection = frameWindow.document.selection; 
+			if (selection != null) {
+				rng = selection.createRange();
+			}
+			$("linktext").value = rng.text ? rng.text : "";
+		}
+		window.onload = init;
+		function init() {
+			adjustDialog();
+			resteText();
+			$("linkpath").select();
+		}
+		function chk_link () {
+			if($("linktext").value==""){
+				alert("请输入链接文字！");
+				$("linktext").focus();
+				return false;
+			}
+			var editor = window.dialogArguments.EDiaryEditor;
+			var oRTE = editor.iframe.contentWindow;
+			if(window.isIE) {
+				try{
+					var html = "<a href='" + $("linkpath").value + "' target='_blank'>" + $("linktext").value + "</a>";
+					oRTE.focus();
+					var oRng = oRTE.document.selection.createRange();
+					oRng.pasteHTML(html);
+					oRng.collapse(false);
+					oRng.select();
+				}catch(e){}
+			}
+			else {
+				editor.runCMD('insertHTML', html);
+			}
+			window.close();
+		}
+		//-->
+		</script>
+	</head>
+	<body>
+	<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" id="tabDialogSize">
+    <tr>
+      <td height="24" bgcolor="#DDE7EE" style="padding-left: 10px;">插入链接</td>
+    </tr>
+    <tr>
+      <td align="center"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td width="70" height="28" align="right" valign="bottom">链接地址:</td>
+          <td align="left" valign="bottom"><input type="text" class="input" id="linkpath"></td>
+        </tr>
+        <tr>
+          <td height="28" align="right" valign="bottom">链接文字:</td>
+          <td align="left" valign="bottom"><input type="text" class="input" id="linktext"></td>
+        </tr>
+        
+      </table></td>
+    </tr>
+    
+    <tr>
+      <td height="40" align="center" style="padding-bottom: 10px;"><a href="#" onClick="chk_link()"><img border="0" src="../images/dilog_bt_ok.gif" alt="确定" style="margin-right: 10px;"/></a><a href="#" onClick="window.close();"><img border="0" src="../images/dilog_bt_cancel.gif" alt="取消"/></a></td>
+    </tr><tr><td bgcolor="#DDE7EE" height="5"></td>
+    </tr>
+	</table>
+	</body>
+</html>

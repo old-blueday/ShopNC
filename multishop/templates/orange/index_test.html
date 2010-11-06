@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<tpl> include file ='head.config.html' </tpl>
+<link href="<tpl> $template_dir </tpl>/home/css/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/main.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/comm.css">
+<link type="text/css" rel="stylesheet" href="<tpl> $template_dir </tpl>/css/template.css">
+<Script type="text/javascript" src="<tpl> $site_url </tpl>/js/tabswitch.js"></Script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/common.js"></script>
+<script language="JavaScript" type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.scroll2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	$("#scrollnewbargain").Scroll({line:3,optHeight:38,speed:500,timer2:3000,up:"ButUp",down:"ButDown"});
+	});
+</script>
+<script language="javascript">
+//判断首页是否静态
+<tpl> if $config_index_html eq '1'  </tpl>
+//生成多语言信息，判断JS跳转,必须放这里
+var lang_type = readCookie('<tpl> $cookie_pre </tpl>commonlangType');
+arr = new Array();
+<tpl> section name=loop loop=$sel_language </tpl>
+	arr[<tpl> $smarty.section.loop.rownum </tpl>] = '<tpl> $sel_language[loop].language_path </tpl>';
+	<tpl> if $sel_language[loop].language_state eq '1' </tpl>//默认语言
+		arr[0] = '<tpl> $sel_language[loop].language_path </tpl>';
+	<tpl> /if </tpl>
+<tpl> /section </tpl>
+var url = window.location.href;//当前路径
+var domain_name = '<tpl> $site_url </tpl>';//当前域名
+if(lang_type!=null){
+
+	if(lang_type != arr[0]){
+		new_html = domain_name+'/'+'index_'+lang_type+'.html';
+		if(url != new_html){
+			location.href='index_'+lang_type+'.html';
+		}
+	}else{
+		new_html = domain_name+'/'+'index.html';
+		if(url != new_html){
+			location.href='index.html';
+		}
+	}
+}
+<tpl> /if </tpl>
+</script>
+<style type="text/css">
+<tpl> $block_css </tpl>
+#wrap{margin:5px auto 0 !important;}
+#wraptwo{margin:5px auto 0 !important;}
+</style>
+</head>
+<body>
+<div id="wrapper" class="m">
+  <!-- Header -->
+ <tpl> include file ='top.html' </tpl>
+  <!-- End Header -->
+  <!-- Main -->
+  <div class="clear">&nbsp;</div>
+  <div id="wrap">
+	<tpl> foreach from=$control.allFrame item=control_content key=key </tpl>
+	<div id="<tpl> $key </tpl>" class="<tpl> if $key eq 'dcontent' </tpl><tpl> if $frame_length eq '3' </tpl>frame_2<tpl> else </tpl>frame_3<tpl> /if </tpl><tpl> else </tpl>frame_1<tpl> /if </tpl> wowoFrameTd">
+		<tpl> foreach from=$control_content item=block_content key=key_content </tpl>
+		<div id="<tpl> $block_content </tpl>" class="block">
+			<tpl> foreach from=$block_list item=block key=key_block </tpl>
+				<tpl> if $key_block eq $block_content </tpl>
+					<!-- assign -->
+					<tpl> assign var=block_output value=$block.temp_name </tpl>
+					<tpl> include file=$block.html </tpl>
+				<tpl> /if </tpl>
+			<tpl> /foreach </tpl>
+		</div>
+		<tpl> /foreach </tpl>
+	</div>
+	<tpl> /foreach </tpl>
+  </div>
+  <!--  End Main  -->
+</div>
+ <tpl> include file ='../../html/footer.html' </tpl>
+</body>
+</html>

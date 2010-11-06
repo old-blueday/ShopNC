@@ -1,0 +1,72 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysMenuPaymentDownAccount </tpl> &gt;&gt; <tpl> $langBAddDownAccounts </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="payment_offline.manage.php" method="post" id="form_add" name="form_add">
+						<input type="hidden" name="action" value="save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langBBankIco </tpl>:</th>
+									<td>
+										<span class="dptn"><tpl> $langBLinkDir </tpl></span>
+										<input name="txtlineico" type="text" id="txtlineico" class="fct-input" maxlength="255" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBBank </tpl>:</th>
+									<td>
+										<input name="txtbank" type="text" id="txtbank" class="fct-input" maxlength="30" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBAccounts </tpl>:</th>
+									<td>
+										<input name="txtbankaccounts" type="text" id="txtbankaccounts" class="fct-input" maxlength="30" />
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langBConsignee </tpl>:</th>
+									<td>
+										<input name="txtConsignee" type="text" id="txtConsignee" class="fct-input" maxlength="18" />
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysCSubmit </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='payment_offline.manage.php?action=list'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$('#form_add').validate({
+	errorClass: "wrong",
+	rules: {
+		txtbank: {required:true},
+		txtbankaccounts: {required:true,number:true},
+		txtConsignee: {required:true}
+	},
+	messages: {
+		txtbank: {required: "<tpl> $langBBankNameNotNull </tpl>"},
+		txtbankaccounts: {required: "<tpl> $langBAccountsNotNull </tpl>", number: "<tpl> $langBAccountsErr </tpl>"},
+		txtConsignee: {required:"<tpl> $errBConsigneeIsEmpty </tpl>"}
+	}
+});
+</script>

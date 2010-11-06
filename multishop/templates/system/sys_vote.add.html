@@ -1,0 +1,85 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langVoteInvestigateManage </tpl> &gt;&gt; <tpl> $langVoteAdd </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form id="form_add" name="form_add" method="post" action="vote.manage.php">
+						<input type="hidden" name="action" value="save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langVoteLTitle </tpl>:</th>
+									<td><input name="txttitle" type="text" id="txttitle" class="fct-input" size="50" /></td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteOption </tpl>:</th>
+									<td>
+										<span class="dptn"><br /><tpl> $langVoteLFillInOneOption </tpl><br /><tpl> $langVoteLRepeatOptionNoteOnce </tpl><br /><tpl> $langVoteLMostFillInTenOption </tpl><br /><tpl> $langVoteLForbidIncludeChar </tpl></span>
+										<textarea name="txtcontent" cols="56" rows="5" id="txtcontent" class="fct-input-5"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteLIfRepeat </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtrefresh" id="txtrefresh_1" value="1" /><label for="txtrefresh_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtrefresh" id="txtrefresh_0" value="0" checked="checked" /><label for="txtrefresh_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteLIfMemberCan </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtmember" id="txtmember_1" value="1" /><label for="txtmember_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtmember" id="txtmember_0" value="0" checked="checked" /><label for="txtmember_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteLIfManySelect </tpl>:</th>
+									<td>
+										<input type="radio" class="input_radio" name="txtcheck" id="txtcheck_1" value="1" /><label for="txtcheck_1"><tpl> $langCYes </tpl></label>
+										<input type="radio" class="input_radio" name="txtcheck" id="txtcheck_0" value="0" checked="checked" /><label for="txtcheck_0"><tpl> $langCNo </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<th><tpl> $langVoteDisGradation </tpl>:</th>
+									<td><input type="text" name="txtsort" id="txtsort" maxlength="9" class="fct-input" value="0" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="bth-ct">
+							<div class="bth-pl">
+								<input class="bthl" value="<tpl> $langSysCSave </tpl>" type="submit" />
+								<input type="button" class="bthl" value="<tpl> $langSysCReturn </tpl>" onclick="location.href='vote.manage.php?action=list'" />
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	$("#form_add").validate({
+		errorClass: "wrong",
+		rules: {
+			txttitle: {required:true},
+			txtcontent: {required:true},
+			txtsort: {required:true, number:true, min:0}
+		},
+		messages: {
+			txttitle: {required:"<tpl> $langVoteLTopicNotNull </tpl>"},
+			txtcontent: {required:"<tpl> $langVoteLOptionNotNull </tpl>"},
+			txtsort: {required: "<tpl> $langVoteSortErr </tpl>", number: "<tpl> $langVoteSortErrNumber </tpl>", min:"<tpl> $langVoteSortErrZero </tpl>"}
+		}
+	});
+})
+</script>

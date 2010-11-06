@@ -1,0 +1,66 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langPreManage </tpl> &gt;&gt; <tpl> $langPreArtificial </tpl></div>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<form action="predeposit.manage.php" method="post" id="form1" name="form1">
+						<input type="hidden" name="action" id="action" value="artificial_operation_save" />
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<th><tpl> $langPreSearchMemberName </tpl>:</th>
+									<td><input class="fct-input" name="member_name" id="member_name" type="text" /></td>
+								</tr>
+							</table>
+							<div id="member_info"></div>
+						</div>
+						<div class="bth-ct">
+						<div class="bth-pl">
+							<input type="button" id="search_member" value="<tpl> $langPreSearch </tpl>" class="bthl" />
+							<input type="submit" id="form_submit" value="<tpl> $langSysCSubmit </tpl>" class="bthl" style="display:none;" />
+						</div>
+					</div>
+					</form>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script>
+$(document).ready(function(){
+	//Find Member Information
+	$("#search_member").click(function(){
+		if($('#member_name').val() != ''){
+			$.ajax({
+				url: "predeposit.manage.php",
+				data: 'action=search_member&member_name='+escape($('#member_name').val()),
+				type:'post',
+				dataType:"html",
+				success: function(msg){
+					if(msg != ''){
+						$('#form_submit').css('display','');
+						$('#member_info').html(msg);
+					}else{
+						alert('<tpl> $langPreIdIsVoid </tpl>');
+					}
+				},
+				error:function(){
+					alert('<tpl> $langPreIdIsVoid </tpl>');
+				}
+			});
+			return false;
+		}else{
+			alert('<tpl> $langPreMemberNameIsEmpty </tpl>');
+		}
+	});
+});
+</script>
+</body>
+</html>

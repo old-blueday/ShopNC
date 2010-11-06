@@ -1,0 +1,189 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<link href="<tpl> $site_url </tpl>/js/jquery/ui.theme.css" rel="stylesheet" type="text/css" />
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSTimeAnalyse </tpl></div>
+				</div>
+				<div class="ibxbar2">
+					<div class="on-700">
+						<form action="statics_time.manage.php" method="get" name="form_search" id="form_search" onsubmit="return check_time()">
+						<input type="hidden" name="action" value="contrast" />
+						<table width="100%" border="0" cellpadding="0">
+							<tr>
+								<th class="wd"><tpl> $langSysSPleaseSelectTime </tpl>:</th>
+								<td>
+									<input class="fct-input" readonly="true" value="<tpl> $time_0 </tpl>" name="time[0]" id="time_one" />
+								</td>
+								<th class="wd"><tpl> $langSysSPleaseSelectType </tpl>:</th>
+								<td>
+									<input name="type" <tpl> if $type eq 'pv' </tpl> checked <tpl> /if </tpl> type="radio" value="pv" id="type_pv" class="input_radio" /><label for="type_pv">PV</label>
+									<input name="type" <tpl> if $type eq 'ip' </tpl> checked <tpl> /if </tpl> type="radio" value="ip" id="type_ip" class="input_radio" /><label for="type_ip">IP</label>
+								</td>
+							</tr>
+							<tr>
+								<th class="wd"><tpl> $langSysSContrast </tpl>:</th>
+								<td>
+									<input type="checkbox" name="time[1]" value="1" id="time_1" class="input_radio" <tpl> if $time_1 neq '' </tpl> checked <tpl> /if </tpl> /><label for="time_1"><tpl> $langSysSFormerOneDay </tpl></label>
+									<input type="checkbox" name="time[2]" value="2" id="time_2" class="input_radio" <tpl> if $time_2 neq '' </tpl> checked <tpl> /if </tpl> /><label for="time_2"><tpl> $langSysSFormerOneWeekSamenessTime </tpl></label>
+								</td>
+								<th class="wd"><tpl> $langSysStaticsDesignatedContrastTime </tpl>:</th>
+								<td><input class="fct-input" readonly="true" value="<tpl> $time_3 </tpl>" name="time[3]" id="time_two" /></td>
+							</tr>
+							<tr>
+								<td colspan="4"><div align="center"><input type="submit" class="bthl" value="<tpl> $langSysSSubmit </tpl>" /></div></td>
+							</tr>
+						</table>
+						</form>
+					</div>
+				</div>
+				<div class="sh-hi-1" id="search_toggle">
+					<span></span>
+				</div>
+				<div class="ctge">
+					<div class="ctge-1">
+						<div class="ctge-1-1">
+							<table cellSpacing="0" cellPadding="0" class="fct" border="0">
+								<tr>
+									<td colspan="5">
+										<input type="radio" class="input_radio" id="type_one" onclick="location.href='statics_time.manage.php?action=list'" /><label for="type_many" /><label for="type_one"><tpl> $langSysSOneDayFluxContrast </tpl></label>
+										<input type="radio" class="input_radio" id="type_many" checked /><tpl> $langSysSManyDayFluxContrast </tpl></label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="5"><tpl> $langSysSPeriodOfTimeContrast </tpl>:
+	    								<tpl> $time_0 </tpl><tpl> if $time_1 neq '' </tpl> VS <tpl> $langSysSFormerOneDay </tpl> <tpl> /if </tpl>
+										<tpl> if $time_2 neq '' </tpl> VS <tpl> $langSysSFormerOneWeekSamenessTime </tpl> <tpl> /if </tpl>
+										<tpl> if $time_3 neq '' </tpl> VS <tpl> $time_3 </tpl> <tpl> /if </tpl>
+									</td>
+								</tr>
+								<tpl> if $type eq 'pv' </tpl>
+							    <tr>
+							    	<th><tpl> $langSysSTimeSegment </tpl></th>
+							        <th>PV[<tpl> $time_0 </tpl>]</th>
+									<tpl> if $time_1 neq '' </tpl>
+							      	<th>PV[<tpl> $langSysSFormerOneDay </tpl>]</th>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_2 neq '' </tpl>
+							      	<th>PV[<tpl> $langSysSFormerOneWeekSamenessTime </tpl>]</th>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_3 neq '' </tpl>
+							      	<th>PV[<tpl> $time_3 </tpl>]</th>
+								  	<tpl> /if </tpl>
+							    </tr>
+							    <tr>
+							     	<td><tpl> $langSysSTotalize </tpl></td>
+							      	<td><tpl> $sum_one.pv_sum|default:'0' </tpl></td>
+									<tpl> if $time_1 neq '' </tpl>
+							     	<td><tpl> $sum_two.pv_sum|default:'0' </tpl></td>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_2 neq '' </tpl>
+							    	<td><tpl> $sum_thre.pv_sum|default:'0' </tpl></td>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_3 neq '' </tpl>
+							     	<td><tpl> $sum_four.pv_sum|default:'0' </tpl></td>
+								  	<tpl> /if </tpl>
+							    </tr>
+							    <tpl> /if </tpl>
+							    <tpl> if $type eq 'ip' </tpl>
+							    <tr>
+							    	<td><tpl> $langSysSTimeSegment </tpl></td>
+							      	<td>IP[<tpl> $time_0 </tpl>]</td>
+								  	<tpl> if $time_1 neq '' </tpl>
+							      	<td>IP[<tpl> $langSysSFormerOneDay </tpl>]</td>
+								  	<tpl> /if </tpl>
+							      	<tpl> if $time_2 neq '' </tpl>
+							      	<td>IP[<tpl> $langSysSFormerOneWeekSamenessTime </tpl>]</td>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_3 neq '' </tpl>
+							      	<td>IP[<tpl> $time_3 </tpl>]</td>
+								  	<tpl> /if </tpl>
+							   	</tr>
+							   	<tr>
+							   		<td><tpl> $langSysSTotalize </tpl></td>
+							     	<td><tpl> $sum_one.ip_sum|default:'0' </tpl></td>
+									<tpl> if $time_1 neq '' </tpl>
+							     	<td><tpl> $sum_two.ip_sum|default:'0' </tpl></td>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_2 neq '' </tpl>
+							     	<td><tpl> $sum_thre.ip_sum|default:'0' </tpl></td>
+								  	<tpl> /if </tpl>
+								  	<tpl> if $time_3 neq '' </tpl>
+							     	<td><tpl> $sum_four.ip_sum|default:'0' </tpl></td>
+								  	<tpl> /if </tpl>
+							   </tr>
+							   <tpl> /if </tpl>
+								<tpl> section name=i loop=$array_one </tpl>
+									<tr>
+										<td><tpl> $smarty.section.i.rownum-1 </tpl>:00 - <tpl> $smarty.section.i.rownum </tpl>:00</td>
+										<td><tpl> $array_one[i].$type|default:'0' </tpl></td>
+										<tpl> if $time_1 neq '' </tpl>
+									    <td><tpl> $array_two[i].$type|default:'0' </tpl></td>
+										<tpl> /if </tpl>
+										<tpl> if $time_2 neq '' </tpl>
+									    <td><tpl> $array_three[i].$type|default:'0' </tpl></td>
+										<tpl> /if </tpl>
+										<tpl> if $time_3 neq '' </tpl>
+									    <td><tpl> $array_four[i].$type|default:'0' </tpl></td>
+										<tpl> /if </tpl>
+									</tr>
+								<tpl> /section </tpl>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+<script src="<tpl> $site_url </tpl>/js/jquery/ui.datepicker.js"></script>
+<script>
+$(document).ready(function(){
+	$('#time_one').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+	$('#time_two').datepicker({
+		dateFormat:'yy-mm-dd',
+		changeMonth: true,
+		changeYear: true
+	});
+});
+//Two days to determine the difference in time,
+//time format: xxxx-(x)x-(x)x
+//time1:start Time  time2:end time
+function check_date(time1,time2){
+	line1 = time1.split('-');
+	line2 = time2.split('-');
+	line1[1] = line1[1]-1;
+	line2[1] = line2[1]-1;
+	var date1 = new Date();
+	date1.setFullYear(line1[0],line1[1],line1[2]);
+	var date2 = new Date();
+	date2.setFullYear(line2[0],line2[1],line2[2]);
+	
+	line = Date.parse(date2)/1000 - Date.parse(date1)/1000;
+	daynum = line/24/60/60;
+	return daynum;
+}
+//Verification Time
+function check_time(){
+	if($('#time_two').val() != ''){
+		num = check_date($("#time_one").val(),$("#time_two").val());
+		num = Math.abs(num)	;
+		if(num>60){
+			alert("<tpl> $langSysSTwoTimeExceed </tpl>");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	return true;
+}
+</script>
+</body>
+</html>

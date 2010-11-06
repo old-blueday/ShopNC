@@ -1,0 +1,22 @@
+<!-- 底部内容:START -->
+<div id="foot">
+  <ul id="quicklink">
+  <!-- 底部链接信息 -->
+  <tpl>section name=list loop=$info_array</tpl>
+    <li><a href="<tpl>if $info_array[list].info_url==''</tpl><tpl> $Site_Url </tpl>/shopnc_info.php?info_id=<tpl>$info_array[list].info_id</tpl><tpl>else</tpl><tpl>$info_array[list].info_url</tpl><tpl>/if</tpl>"><tpl>$info_array[list].info_title</tpl></a></li>
+	<tpl>/section</tpl>
+  </ul>
+  <div id="copyright">
+  <tpl>foreach from=$qq_array item=qq_num</tpl>
+  <a href='http://wpa.qq.com/msgrd?V=1&Uin=<tpl>$qq_num</tpl>&Site=<tpl>$Site_Url</tpl>&Menu=yes' target='_blank'><img alt=<tpl>$qq_num</tpl> src='http://wpa.qq.com/pa?p=1:<tpl>$qq_num</tpl>:4' border='0'/></a>
+  <tpl>/foreach</tpl>
+  <tpl>foreach from=$msn_array item=msn_num</tpl>
+  <a href='msnim:chat?contact=<tpl>$msn_num</tpl>' title='<tpl>$msn_num</tpl>' target='_blank'><img src='<tpl> $template_dir </tpl>/images/msn.gif' border='0'/></a>
+  <tpl>/foreach</tpl>
+  <tpl>if $shop_msn!='' or $shop_qq!=''</tpl>
+  <br />
+  <tpl>/if</tpl>
+  <tpl>$shop_copyright</tpl>
+  <br /><tpl>$shop_ipc</tpl></div>
+</div>
+<!-- 底部内容:END -->

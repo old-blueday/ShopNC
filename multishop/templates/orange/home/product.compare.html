@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl> $NCharset </tpl>" />
+<tpl>include file ='../head.config_new.html'</tpl>
+<link href="<tpl> $template_dir </tpl>/home/css_new/default.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/main.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/list.css" rel="stylesheet" type="text/css" />
+<link href="<tpl> $template_dir </tpl>/home/css/login_regist.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!-- 
+.mm {
+	background:#FFF;
+	float:left;white-space:nowrap;
+	display:inline;
+	border-top-width:1px;
+	border-right-width:1px;
+
+	border-top-style:solid;
+	border-right-style:solid;
+	border-top-color:#FAD17F;
+	border-right-color:#FAD17F;
+
+	width:180px;
+	margin:0px;
+	overflow:hidden
+}
+.nn {
+	background:#FEF8E9;
+	float:left;
+	border-top-width:1px;
+	border-top-style:solid;
+	border-top-color:#FAD17F;
+	width:100px;
+	margin:0px;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #FAD17F;
+	text-align: right;
+
+}
+.mm li {
+	border-bottom: 1px solid #FAD17F;
+	padding: 5px;
+	float: left;
+	width: 100%;
+	text-align:center
+}
+.nn li {
+	border-bottom: 1px solid #FAD17F;
+	border-right: 1px solid #FAD17F;
+	padding: 5px;
+background-image: url(<tpl> $template_dir </tpl>/home/images/line3.gif);
+background-repeat: repeat-x;
+background-x-position: left;
+background-y-position: top;
+	text-align: center;
+}
+#Buynowbottom span {
+	display: none;
+}
+
+.mm,.nn{
+list-style-type:none;
+background-image:none;
+padding:0px;
+text-align:left}
+#Buynowbottom {
+	height: 36px;
+	width: 126px;
+	display: block;
+	background-image: url(../<tpl>$templatepath</tpl>/home/images/button_buys.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	margin:0 auto;
+}
+.compare_pic {
+	height: 90px;
+	float:left;
+	width:89px
+	
+}
+.compare_name {
+	height:20px;	float:left;
+	width:89px
+	
+}
+.compare_name1{
+ height:20px;	float:left;
+	width:89px
+	}
+.compare_name2{
+ height:20px;	float:left;
+	width:89px
+	}
+.compare_Buynow {
+height:36px;	float:left;
+	width:89px;
+	
+line-height:36px;
+	padding-top: 2px;
+	padding-right: 5px;
+	padding-bottom: 0;
+	padding-left: 5px;
+	text-align: center;
+}
+ -->
+</style>
+<script type="text/javascript">
+    	function doBid(id) {
+    		var form = document.getElementById('bidForm_' + id);
+     		if (form) {
+         	 	try {
+          			form.submit();
+          		}catch (e) {
+          		}
+     		}
+        }
+    	</script>
+</head>
+ <tpl> include file ='header_new.html' </tpl>
+<div id="wrapper" class="m"> 
+  <div id="sitenav"><span><a href="<tpl> $site_url </tpl>">
+  <tpl> $langCIndex </tpl></a> > <tpl> $langPBalance </tpl></span></div>
+  <div class="homeform"><!-- 登陆页面整体内容 -->
+  <div id="loginleft"><!-- 左侧登录框 -->
+    <div id="form_regist" style="float:left; overflow-x:auto; width:950px; margin:10px auto;">
+
+<div id="compare_nei" style="width:<tpl> $product_number*190+100 </tpl>px">
+    <ul class="nn">
+      <li class="compare_name">&nbsp;</li>
+      <li class="compare_pic" ><tpl> $langPImage </tpl></li>
+      <li class="compare_name1"><tpl> $langPName </tpl></li>
+      <li class="compare_Buynow"><tpl> $langPDidBuy </tpl></li>
+      <li class="compare_name"><tpl> $langResidualTime </tpl></li>
+      <li class="compare_name"><tpl> $langPBoss </tpl></li>
+      <li class="compare_name"><tpl> $langPPrice </tpl></li>
+      <li class="compare_name2"><tpl> $langTranFee </tpl></li>
+      <li class="compare_name"><tpl> $langSeat </tpl></li>
+      <li class="compare_name"><tpl> $langPDegree </tpl></li>
+    </ul>
+    <tpl> section name=i loop=$product_compare </tpl>
+    <ul class="mm" style="float:left">
+      <li class="compare_name"><a href="product.php?action=compare_remove&pid=<tpl> $product_compare[i].p_code </tpl>"><tpl> $langPDelete </tpl></a></li>
+      <li class="compare_pic">
+	  	<tpl> if $ifhtml eq '1' && $product_compare[i].html_url neq '' </tpl>
+		<a target="_blank" href="<tpl> $product_compare[i].html_url </tpl>">
+		<tpl> else </tpl>
+		<a href="product.php?action=view&pid=<tpl> $product_compare[i].p_code </tpl>" target="_blank">
+		<tpl> /if </tpl>
+	  <img border="0" src="../<tpl> $product_compare[i].p_pic|default:'templates/orange/images/noimgs.gif' </tpl>" height="70" /></a></li>
+      <li class="compare_name1">
+	  	<tpl> if $ifhtml eq '1' && $product_compare[i].html_url neq '' </tpl>
+		<a target="_blank" href="<tpl> $product_compare[i].html_url </tpl>">
+		<tpl> else </tpl>
+		<a href="product.php?action=view&pid=<tpl> $product_compare[i].p_code </tpl>" target="_blank">
+		<tpl> /if </tpl>
+	  <tpl> $product_compare[i].p_name </tpl></a></li>
+      <li class="compare_Buynow"><a id="Buynowbottom" href="javascript:doBid('<tpl> $product_compare[i].p_code </tpl>');"><span><tpl> $langPAtOnceBuy </tpl></span></a></li>
+      <li class="compare_name"><tpl> $product_compare[i].left_days </tpl><tpl> $langPday </tpl><tpl> $product_compare[i].left_hours </tpl><tpl> $langPhour </tpl><tpl> $product_compare[i].left_minutes </tpl><tpl> $langPminute </tpl></li>
+      <li class="compare_name"><tpl> $product_compare[i].shopmaster </tpl></li>
+      <li class="compare_name"><tpl> $product_compare[i].p_price </tpl></li>
+      <li class="compare_name2"><tpl> if $product_compare[i].p_transfee_charge == "1" </tpl><tpl>$langPCommonlyPost</tpl>：<tpl> $product_compare[i].p_tf_py </tpl><br />
+        <tpl> $langPCelerityPost </tpl>：<tpl> $product_compare[i].p_tf_kd </tpl><br />
+        EMS：<tpl> $product_compare[i].p_tf_ems </tpl><tpl> else </tpl><tpl> $langPCarriageSaleBear </tpl><tpl> /if </tpl></li>
+      <li class="compare_name">
+		<tpl> foreach from=$product_compare[i].sel_area item=one  </tpl>
+			<tpl> $one.area_name </tpl>
+		<tpl> /foreach </tpl>
+	  </li>
+      <li class="compare_name"><tpl> $product_compare[i].product_type </tpl></li>
+      <form name="bidForm_<tpl> $product_compare[i].p_code </tpl>" id="bidForm_<tpl> $product_compare[i].p_code </tpl>" action="product_buy.php?action=buy" method="post">
+        <input type="hidden" name="item_id" value="<tpl> $product_compare[i].p_code </tpl>" />
+        <input type="hidden" name="auction_type" value="<tpl> $product_compare[i].p_sell_type </tpl>" />
+        <input type="hidden" name="title" value="<tpl> $product_compare[i].p_name </tpl>" />
+        <input type="hidden" name="seller_id" value="<tpl> $product_compare[i].member_id </tpl>" />
+        <input type="hidden" name="seller_nickname" value="<tpl> $product_compare[i].shopmaster </tpl>" />
+        <tpl> if $product_compare[i].p_transfee_charge == "1" </tpl>
+        <input type="hidden" name="who_pay_ship" value="1" />
+        <input type="hidden" name="tf_py" value="<tpl> $product_compare[i].p_tf_py </tpl>" />
+        <input type="hidden" name="tf_kd" value="<tpl> $product_compare[i].p_tf_kd </tpl>" />
+        <input type="hidden" name="tf_ems" value="<tpl> $product_compare[i].p_tf_ems </tpl>" />
+        <tpl> else </tpl>
+        <input type="hidden" name="who_pay_ship" value="<tpl> $langPCarriageSaleBear </tpl>" />
+        <tpl> /if </tpl>
+        <input type="hidden" name="current_price" value="<tpl> $product_compare[i].p_price </tpl>" />
+        <tpl> if $product_row.p_sell_type == "1" </tpl>
+        <input type="hidden" name="buy_now" value="<tpl> $product_compare[i].p_price </tpl>" />
+        <tpl> /if </tpl> <tpl> if $product_row.p_sell_type == "2" </tpl>
+        <input type="hidden" name="buy_now" value="<tpl> $product_compare[i].p_group_price </tpl>" />
+        <tpl> /if </tpl>
+        <input type="hidden" name="count" value="<tpl> $product_compare[i].p_storage </tpl>" />
+        <input type="hidden" name="photo_url" value="<tpl> $product_compare[i].p_pic </tpl>" />
+        <input type="hidden" name="region" value="<tpl> $product_compare[i].p_province </tpl><tpl> $product_compare[i].p_city </tpl>" />
+      </form>
+    </ul>
+    <tpl> /section </tpl>
+    <div style=" border-top:none;display:block; float:left">
+      	<ul class="nn" style="border-top:none">
+			<tpl> foreach from=$product_attribute_compare item=one key=key </tpl>
+      			<li class="compare_name"><tpl> $key </tpl></li>
+			<tpl> /foreach </tpl>
+			<li class="compare_name"></li>
+      	</ul>
+		<tpl> section name=loop loop=$product_compare </tpl>
+			<ul class="mm" style="border-top:none">
+        		<tpl> foreach from=$product_attribute_compare item=one key=key </tpl>
+					<li class="compare_name"><tpl> $product_compare[loop][$key] </tpl></li>
+				<tpl> /foreach </tpl>
+				<li class="compare_name"><a href="product.php?action=compare_remove&pid=<tpl> $product_compare[loop].p_code </tpl>"><tpl> $langPDelete </tpl></a></li>
+        	</ul>
+		<tpl> /section </tpl>
+      </div>
+</div>
+
+<div style="clear:both"></div>
+</div>
+    </div>
+  </div>
+</div><tpl> include file ='../../../html/footer.html' </tpl>
+</body>
+</html>

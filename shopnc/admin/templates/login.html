@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/login.css" />
+<title><tpl>$admin_manage</tpl> - <tpl>$admin_login</tpl></title>
+<style type="text/css">
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	font-family: "微软雅黑", Verdana, Arial;
+	font-size:12px;
+	color: #333333;
+	background-color: #edefe4;
+	min-width:700px;
+	width:expression( documentElement.clientWidth < 700 ? (documentElement.clientWidth == 0 ? (body.clientWidth < 700 ? "700" : "auto") : "700px") : "auto" );
+}
+a,a:link,a:visited,a:active {
+	hide-focus: expression(this.hideFocus=true);
+	outline: none;
+	text-decoration: none;
+	color: #9badb8;
+}
+a:hover  {
+	text-decoration: none;
+	color: #364B63;
+}
+img { border: 0px; }
+li {
+    hide-focus: expression(this.hideFocus=true);
+	outline: none;
+	text-align: left;
+}
+form {
+	margin: 0px;
+}
+
+.clear {
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+	height: 0px;
+	width: 0px;
+	font-size: 0px;
+	line-height: 0px;
+}
+h1, h2, h3, h4, h5, p, ul, li {
+	margin: 0px;
+	padding: 0px;
+}
+h1 {
+	font-size: 24px;
+}
+h2 {
+	font-size: 18px;
+}
+h3 {
+	font-size: 16px;
+}
+h4 {
+	font-size: 14px;
+}
+h5 {
+	font-size: 12px;
+}
+
+
+
+#container {
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	overflow: visible;
+}
+.topdiv {
+	width: 100%;
+	background-color: #FFFFFF;
+}
+.logo {
+	width: 240px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	padding-bottom:3px;
+}
+.logintext {
+	padding-top: 10px;
+}
+
+.logintext h2 {
+	font-size: 16px;
+	margin: 0px;
+}
+.logintext p {
+	color: #555555;
+	margin: 0px;
+}
+.logintext p.red{ color:#F00;}
+
+#login {
+	background: url(templates/images/loginbg.gif) repeat-x left top;
+	height: 77px;
+	position:relative;
+	
+}
+.right_but{
+	bottom:15px;
+	position:absolute;
+	right:0;
+	color:#777777;
+}
+.right_but a { 
+	margin: 0 3px 0 8px;;
+}
+#login table {
+	color: #555555;
+	margin-right: auto;
+	margin-left: auto;
+}
+#login  td input {
+	border:0;
+	margin-left: 5px;
+	height: 12px;
+	font-size: 12px;
+	line-height: 12px;
+	background:none;
+}
+.inputbg {
+
+	background-image: url(templates/images/input1.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+.inputbg2 {
+	background-image: url(templates/images/input2.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 1px;
+	width: 97px;
+	height: 31px;
+}
+.inputbg3 {
+	background-image: url(templates/images/input3.gif);
+	background-repeat: no-repeat;
+	height: 31px;
+	width: 68px;
+	background-position: 0px 1px;
+}
+#login td.loginbt input.btnInput{
+	background: url(templates/images/loginbt.gif) no-repeat 0px -1px;
+	width: 66px;
+	height: 31px;
+	border: none;
+	padding:0;
+	margin:1px 0 0 5px;
+	cursor:pointer;
+}
+.code {
+	background-image:url(templates/images/code.gif);
+	background-position:5px 1px;
+	background-repeat:no-repeat;
+	height:24px;
+	padding-left:9px;
+	padding-top:7px;
+	width:62px;
+}
+
+#loginbutton {
+	height: 16px;
+	width: 50px;
+	margin-right: auto;
+	margin-left: auto;
+	color: #333333;
+	cursor: pointer;
+	line-height: 14px;
+	*line-height: 18px !important;
+	*line-height: 18px;
+}
+
+.copyright {
+	font-size: 9px;
+	padding-top: 5px;
+	text-align: center;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.copyright a {
+	text-decoration: underline;
+}
+</style>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="<tpl> $site_url </tpl>/js/jquery/jquery.validate.js"></script>
+<script language="javascript">
+<!--
+$(document).ready(function(){
+	$('#login-form').validate({
+		errorClass: "wrong",
+		rules: {
+			admin_user		: {required:true},
+			admin_passwd	: {required:true}
+			<tpl>if $view_config.view_admin_login_validate=='1'</tpl>
+			,admin_code		: {required:true}
+			<tpl>/if</tpl>
+		},
+		messages: {
+			admin_user		: {required:"<tpl>$admin_user_name_null</tpl>"},
+			admin_passwd	: {required:"<tpl>$admin_user_pw_null</tpl>"}
+			<tpl>if $view_config.view_admin_login_validate=='1'</tpl>
+			,admin_code		: {required:"<tpl>$admin_user_code_null</tpl>"}
+			<tpl>/if</tpl>		
+		}
+	});
+});
+//-->
+</script>
+<script language="javascript">
+function windowHeight() {
+    var de = document.documentElement;
+    return self.innerHeight||(de && de.clientHeight)||document.body.clientHeight;
+	
+}
+function windowWidth() {
+    var di = document.documentElement;
+    return self.innerWidth||(di && di.clientWidth)||document.body.clientWidth;
+	
+}
+window.onload=window.onresize=function(){
+var wh=windowHeight();
+var ww=windowWidth();
+document.getElementById("container").style.height = wh+"px";
+document.getElementById("topheight").style.height = (wh/4)+"px";
+
+}
+</script>
+</head>
+
+<body>
+<div id="container">
+	<div id="topheight" style="background-color:#FFFFFF;"></div>
+		<div class="topdiv">
+			<div class="logo"> <a href="<tpl>$Site_Url</tpl>"><img src="templates/images/logo.gif" alt="ShopNC" /></a>
+				<div class="logintext">
+					<h2>
+						<tpl>$admin_login</tpl></h2>
+					<p style=""><tpl>$admin_login_info</tpl></p>
+					<p class="red" style="display:none;"><tpl>$admin_login_error</tpl></p>
+					<p class="red" style="display:none;"><tpl>$admin_login_check_error</tpl></p>
+					<form id="login-form" name="login-form" method="post" action="login.php?action=login">
+					<p style=""><label>
+            <input type="radio" name="admin_type" value="1" class="checkBtn" checked="checked" /><tpl>$admin_user</tpl>
+          </label>
+		  <label>
+            <input type="radio" name="admin_type" value="3" class="checkBtn" /><tpl>$admin_provider</tpl>
+          </label></p>
+				</div>
+			</div>
+		</div>
+		<div id="login" class="login">
+			<div class="right_but">
+				<a href="login.php?action=forget_passwd"><tpl>$admin_forget_passwd</tpl></a>
+				<a href="../"><tpl>$admin_back</tpl></a>
+			</div>
+			<tpl>$seride_form</tpl>
+			<table border="0" cellspacing="0" cellpadding="0">
+					  <tr>
+					   <td height="32" align="right"><tpl>$admin_login_name</tpl></td>
+							<td colspan="3" align="left" class="inputbg" style="width:211px;"><input type="text" name="admin_user" id="admin_user" style="width:206px; margin-top:2px;" /></td>
+							<td align="center" class="loginbt"><!--<div onclick="" id="loginbutton"></div>-->
+								<input type="submit" name="Submit" value="" class="btnInput" /></td>
+					  </tr>
+					  <tr>
+						<td height="30" align="right"><tpl>$admin_passwd</tpl></td>
+							<td align="left" class="inputbg2"><input type="password" name="admin_passwd" id="admin_passwd" style="width:88px;margin-top:2px;" /></td> 
+							<tpl>if $view_config.view_admin_login_validate=='1'</tpl>
+							<td width="50" align="right"><tpl>$admin_code</tpl></td>
+							<td align="left" class="inputbg3"><input type="text" name="admin_code" style="text-transform:uppercase;width:58px;margin-top:2px;" id="admin_code" /></td>
+							<td align="left" valign="middle"><div class="code"><img src="../classes/libraries/code.php" name="codeimage" border="0" id="codeimage" style="vertical-align:middle;cursor:pointer;" title="<tpl>$langMClickReplacingCode</tpl>" onclick="this.src='<tpl> $Site_Url </tpl>/classes/libraries/code.php?' + Math.random()" /></div></td><tpl>/if</tpl>
+							<td colspan="3"></td>
+					  </tr>
+					</table>
+		</div>
+		</form>
+<div class="copyright"> Copyright &copy; 2007-2010 <a href="http://www.shopnc.net">SHOPNC.NET</a> | V6.0</div>
+</div>
+</body>
+</html>

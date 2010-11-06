@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=<tpl>$nc_charset</tpl>" />
+<title><tpl>$admin_header_goods_manage</tpl> - <tpl>$admin_goods_pic_manage</tpl></title><!-- 商品管理 - 图片管理 -->
+<link type="text/css" rel="stylesheet" href="<tpl>$Site_Url</tpl>/admin/templates/css/styles.css" />
+<script type="text/javascript" src="<tpl>$Site_Url</tpl>/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#class_all").click(function(){
+		if(this.checked){
+			$('#txt_class_top_id').attr('disabled', 'disabled');
+			$('#txt_class_top_id').css('background', '#F1F2F3');
+		} else {
+			$('#txt_class_top_id').removeAttr('disabled');
+			$('#txt_class_top_id').css('background', '#FFFFFF');
+		}
+	});
+});
+</script>
+<script type="text/javascript">
+
+$(document).ready( 
+function(){if($.browser.msie){ 
+$("input[@type='text'], input[@type='password'], textarea").focus(function() {$(this).css({"color":"#333333","border-color":"#5794BF #C5DAED #C5DAED #5794BF"});}) 
+//IE里input获得焦点的focus
+$("input[@type='text'], input[@type='password'], textarea").blur(function() {$(this).css({"color":"#999999","border-color":"#ABADB3 #E9E9E9 #DEDEDE #bbbbbb"});}) 
+//失去焦点的focus变化
+}}); 
+</script>
+</head>
+
+<body id="noulmenu">
+  <form action="?action=image_reset" method="post" name="pic_manage" id="pic_manage">
+<h4 id="rightcon_h"><b><tpl>$admin_header_goods_manage</tpl> >> <tpl>$admin_goods_pic_manage</tpl><!-- 商品管理 >> 图片管理 --></b>
+    </h4>
+<div id="rightcon">
+			<div class="rc_con">
+			<h5><tpl>$admin_goods_pic_manage</tpl></h5>
+    <div class="textRight btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_run</tpl>" class="btnInput" /><!-- 开始执行 -->
+    </div>
+    <div class="entry-body" id="entry1">
+      <table width="100%" border="0">
+        <tr>
+          <td colspan="2"><tpl>$admin_goods_pic_cate_name</tpl><!-- 商品分类名称 -->:
+            <label>
+            <tpl>$txt_class_top_id</tpl></label>&nbsp;&nbsp;<input type="checkbox" name="class_all" id="class_all" value="1" /><tpl>$admin_goods_pic_cate_all</tpl><!-- 全部分类 --></td>
+        </tr>
+        <tr>
+          <td width="20%"><label for="reset_thumb">
+            <input type="checkbox" name="reset_thumb" value="1" id="reset_thumb" class="checkBtn" /><tpl>$admin_goods_pic_thumb</tpl><!-- 重新生成缩略图 -->
+          </label></td>
+          <td width="80%"><tpl>$admin_goods_pic_thumb_width</tpl><!-- 缩微图宽 -->:
+          <input class="TextBoxAt2" name="img_width" type="text" value="<tpl>$image_width</tpl>" size="3" />
+          &nbsp;&nbsp;<tpl>$admin_goods_pic_thumb_height</tpl><!-- 缩微图高 -->:
+          <input class="TextBoxAt2"  name="img_height" type="text" value="<tpl>$image_height</tpl>" size="3" /></td>
+        </tr>
+        <tr>
+          <td><label for="reset_watermark">
+            <input type="checkbox" name="reset_watermark" value="1" id="reset_watermark" class="checkBtn" /><tpl>$admin_goods_pic_watermark</tpl><!-- 重新添加水印 -->
+          </label></td>
+          <td><a href="admin_system.php?action=system_image"><tpl>$admin_goods_pic_watermark_set</tpl><!-- 水印图片设置 -->>></a></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="red"><tpl>$admin_goods_pic_alert</tpl><!-- 注:图片批量处理允许您重新生成商品的缩略图以及重新添加水印。该处理过程可能会比较慢，请您耐心等候。 --></td>
+        </tr>
+      </table>
+    </div>
+    <!--  end of entry1  -->
+    <div class="textLeft btnDiv">
+      <input type="submit" name="button" id="button" value="<tpl>$admin_goods_run</tpl>" class="btnInput" /><!-- 开始执行 -->
+    </div>
+	</div>
+</form>
+<tpl>include_php file ='admin_footer.php'</tpl><!-- 底部版权信息 -->
+</div><!--  end of content  -->
+</body>
+</html>

@@ -1,0 +1,42 @@
+<tpl> include file='sys_config.head.html' </tpl>
+<div id="doc3">
+	<div id="yui-main">
+		<div class="yui-g">
+ 			<div id="divinbox">
+				<div class="gtlbar">
+					<div class="gtlbar-left"><tpl> $langSysStatics </tpl> &gt;&gt; <tpl> $langSysSLatelyCaller </tpl></div>
+				</div>
+			</div>
+			<div class="fixbgwhite">
+				<table class="es" id="bianse">
+					<tr class="es-tr">
+						<td class="es-4"><tpl> $langSysSTime </tpl></td>
+						<td class="es-4"><tpl> $langSysSIPAddress </tpl></td>
+						<td class="es-4"><tpl> $langSysSSourceWebAddress </tpl></td>
+						<td class="es-4"><tpl> $langSysSAccessWebAddress </tpl></td>
+						<td class="es-4"><tpl> $langSysSSourceArea </tpl></td>
+					</tr>
+					<tpl> if $visit[0][1] neq '' </tpl>
+						<tpl> section name=loop loop=$visit </tpl>
+					<tr class="es-td">
+						<td id="check-1"><tpl> $time </tpl> <tpl> $visit[loop][0] </tpl></td>
+						<td><tpl> $visit[loop][1] </tpl></td>
+						<td><a title="<tpl> $visit[loop][3] </tpl>" href="<tpl> $visit[loop][3] </tpl>" target='_blank'><tpl> $visit[loop][3]|truncate:'30' </tpl></a></td>
+						<td><a title="<tpl> $visit[loop][2] </tpl>" href="<tpl> $visit[loop][2] </tpl>" target='_blank'><tpl> $visit[loop][2]|truncate:'30' </tpl></a></td>
+						<td><tpl> $visit[loop][4] </tpl></td>
+					</tr>
+						<tpl> /section </tpl>
+					<tpl> /if </tpl>
+				</table>
+			</div>
+			<tpl> if $visit[0][1] eq '' </tpl>
+				<div class="msk-wi">
+					<div class="msk"><tpl> $langSysCNoThing </tpl></div>
+				</div>
+			<tpl> /if </tpl>
+		</div>
+	</div>
+</div>
+<tpl> include file='sys_config.js.html' </tpl>
+</body>
+</html>
